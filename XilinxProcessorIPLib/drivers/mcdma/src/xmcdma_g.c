@@ -10,6 +10,7 @@
 * @file xmcdma_g.c
 * @addtogroup mcdma Overview
 * @{
+* @brief Provides the MCDMA configuration table for the system.
 *
 * Provide a template for user to define their own hardware settings.
 *

@@ -5,6 +5,7 @@
 ******************************************************************************/
 
 #ifndef XMCDMA_H_
+/** @brief Include guard for the MCDMA driver header. */
 #define XMCDMA_H_
 
 /*****************************************************************************/
@@ -13,6 +14,7 @@
 * @file xmcdma.h
 * @addtogroup mcdma Overview
 * @{
+* @brief Defines the driver API for the AXI MultiChannel DMA (MCDMA) core.
 *
 * AXI MultiChannel Direct Memory Access (AXI MDMA) IP provides high-bandwidth
 * Direct memory access between the AXI4 memory mapped and AXI4-Stream
@@ -28,7 +30,7 @@
 *
 * <b>Initialization & Configuration</b>
 *
-* The device driver enables higher layer software (e.g., an application) to
+* The device driver enables higher layer software (for example, an application) to
 * communicate to the AXI MCDMA IP core.
 *
 * XMcDma_CfgInitialize() API is used to initialize the MCDMA core.
@@ -141,18 +143,18 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define XMCDMA_LOOP_COUNT		1000000
-#define XMCDMA_NUM_APP_WORDS		5
-#define XMCDMA_MAX_CHAN_PER_DEVICE	32
-#define XMCDMA_CHAN_IDLE		0
-#define XMCDMA_CHAN_PAUSE		1
-#define XMCDMA_CHAN_BUSY		2
-#define XMCDMA_BD_MINIMUM_ALIGNMENT	0x40
-#define XMCDMA_AXCACHE			0xB
+#define XMCDMA_LOOP_COUNT		1000000	/**< Default poll loop iteration limit. */
+#define XMCDMA_NUM_APP_WORDS		5	/**< Number of application words in a buffer descriptor. */
+#define XMCDMA_MAX_CHAN_PER_DEVICE	32	/**< Maximum number of channels per MCDMA device. */
+#define XMCDMA_CHAN_IDLE		0	/**< Channel idle state value. */
+#define XMCDMA_CHAN_PAUSE		1	/**< Channel paused state value. */
+#define XMCDMA_CHAN_BUSY		2	/**< Channel busy state value. */
+#define XMCDMA_BD_MINIMUM_ALIGNMENT	0x40	/**< Minimum buffer descriptor alignment in bytes. */
+#define XMCDMA_AXCACHE			0xB	/**< Default AXI cache attribute value. */
 
 /* Direction flags */
-#define XMCDMA_DEV_TO_MEM		0
-#define XMCDMA_MEM_TO_DEV		1
+#define XMCDMA_DEV_TO_MEM		0	/**< Transfer direction from device to memory. */
+#define XMCDMA_MEM_TO_DEV		1	/**< Transfer direction from memory to device. */
 
 /**************************** Type Definitions *******************************/
 
@@ -160,20 +162,20 @@ extern "C" {
  * @brief MCDMA instance-level interrupt handler types.
  */
 typedef enum {
-	XMCDMA_TX_HANDLER_DONE,     /**< For Done Handler */
-	XMCDMA_TX_HANDLER_ERROR,    /**< For Error Handler */
-	XMCDMA_HANDLER_DONE,     /**< For Done Handler */
-	XMCDMA_HANDLER_ERROR,    /**< For Error Handler */
-	XMCDMA_HANDLER_PKTDROP,    /**< For Error Handler */
+	XMCDMA_TX_HANDLER_DONE,     /**< For Done Handler. */
+	XMCDMA_TX_HANDLER_ERROR,    /**< For Error Handler. */
+	XMCDMA_HANDLER_DONE,     /**< For Done Handler. */
+	XMCDMA_HANDLER_ERROR,    /**< For Error Handler. */
+	XMCDMA_HANDLER_PKTDROP,    /**< For Error Handler. */
 } XMcdma_Handler;
 
 /**
  * @brief MCDMA per-channel interrupt handler types.
  */
 typedef enum {
-	XMCDMA_CHAN_HANDLER_DONE,     /**< For Done Handler */
-	XMCDMA_CHAN_HANDLER_ERROR,    /**< For Error Handler */
-	XMCDMA_CHAN_HANDLER_PKTDROP,    /**< For Error Handler */
+	XMCDMA_CHAN_HANDLER_DONE,     /**< For Done Handler. */
+	XMCDMA_CHAN_HANDLER_ERROR,    /**< For Error Handler. */
+	XMCDMA_CHAN_HANDLER_PKTDROP,    /**< For Error Handler. */
 } XMcdma_ChanHandler;
 
 typedef void (*XMcdma_DoneHandler) (void *CallBackRef, u32 Chan_Id);
@@ -187,89 +189,88 @@ typedef void (*XMcdma_ChanDoneHandler) (void *CallBackRef);
 typedef void (*XMcdma_ChanErrorHandler) (void *CallBackRef, u32 ErrorMask);
 typedef void (*XMcdma_ChanPktDropHandler) (void *CallBackRef);
 
+/**
+ * @brief Queue scheduler types for MCDMA channels.
+ */
 typedef enum {
-	XMCDMA_FIXED_PRIORITY,
-	XMCDMA_WRR,
-	XMCDMA_WRR_PRIORITY,
+	XMCDMA_FIXED_PRIORITY, /**< Fixed-priority channel scheduling. */
+	XMCDMA_WRR, /**< Weighted round-robin channel scheduling. */
+	XMCDMA_WRR_PRIORITY, /**< Weighted round-robin with priority scheduling. */
 } XMcdma_QScheduler;
 
+/**
+ * @brief Per-channel control and BD ring state for MCDMA.
+ */
 typedef struct {
-	UINTPTR ChanBase;
-	u32 Chan_id;		/* Channel Number */
-	u32 MaxTransferLen;	/* Maximum transfer length */
-	u32 len;		/* Total size of bd's length in channel */
-	u32 IsRxChan;
-	u32 ext_addr;
-	u32 Has_Txdre;
-	u32 Has_Rxdre;
-	u32 TxDataWidth;
-	u32 RxDataWidth;
-	u32 HasStsCntrlStrm;
-	int HasRxLength;
-	volatile int ChanState;
-
-	UINTPTR FirstBdAddr;
-	UINTPTR LastBdAddr;
-	UINTPTR Separation;
-
-	XMcdma_Bd *BdHead;
-	XMcdma_Bd *BdTail;
-	XMcdma_Bd *BdRestart;
-
-	u32 BdCnt;
-	u32 BdPendingCnt;
-	u32 BdSubmitCnt;
-	u32 BdDoneCnt;
-	u32 Length;
-
-	XMcdma_QScheduler Schedulertype;
-
-	XMcdma_ChanDoneHandler DoneHandler;  /**< Call back for transfer
-	                                          *  done interrupt */
-	void *DoneRef;                  /**< To be passed to the done
-	                                     * interrupt callback */
-
-	XMcdma_ChanErrorHandler ErrorHandler;/**< Call back for error
-	                                          *  interrupt */
-	void *ErrorRef;                 /**< To be passed to the error
-	                                     * interrupt callback */
-	XMcdma_ChanPktDropHandler PktdropHandler;
-	void *PktDropRef;
+	UINTPTR ChanBase; /**< Base address of the channel registers. */
+	u32 Chan_id; /**< Channel number. */
+	u32 MaxTransferLen; /**< Maximum transfer length for the channel. */
+	u32 len; /**< Total size of BD lengths in the channel. */
+	u32 IsRxChan; /**< Non-zero when the channel is a receive channel. */
+	u32 ext_addr; /**< Non-zero when extended (64-bit) addressing is used. */
+	u32 Has_Txdre; /**< Non-zero when the transmit DRE is present. */
+	u32 Has_Rxdre; /**< Non-zero when the receive DRE is present. */
+	u32 TxDataWidth; /**< Transmit data width in bits. */
+	u32 RxDataWidth; /**< Receive data width in bits. */
+	u32 HasStsCntrlStrm; /**< Non-zero when status/control stream is present. */
+	int HasRxLength; /**< Non-zero when receive length reporting is present. */
+	volatile int ChanState; /**< Current channel state (idle, pause, or busy). */
+	UINTPTR FirstBdAddr; /**< First BD address in the channel ring. */
+	UINTPTR LastBdAddr; /**< Last BD address in the channel ring. */
+	UINTPTR Separation; /**< Byte separation between consecutive BDs. */
+	XMcdma_Bd *BdHead; /**< Pointer to the head BD in the ring. */
+	XMcdma_Bd *BdTail; /**< Pointer to the tail BD in the ring. */
+	XMcdma_Bd *BdRestart; /**< Pointer to the BD used to restart the channel. */
+	u32 BdCnt; /**< Total number of BDs in the channel ring. */
+	u32 BdPendingCnt; /**< Number of BDs pending hardware submission. */
+	u32 BdSubmitCnt; /**< Number of BDs submitted to hardware. */
+	u32 BdDoneCnt; /**< Number of completed BDs. */
+	u32 Length; /**< Total length of the BD ring in bytes. */
+	XMcdma_QScheduler Schedulertype; /**< Queue scheduler type for the channel. */
+	XMcdma_ChanDoneHandler DoneHandler; /**< Callback for transfer done interrupt. */
+	void *DoneRef; /**< Reference passed to the done interrupt callback. */
+	XMcdma_ChanErrorHandler ErrorHandler; /**< Callback for error interrupt. */
+	void *ErrorRef; /**< Reference passed to the error interrupt callback. */
+	XMcdma_ChanPktDropHandler PktdropHandler; /**< Callback for packet drop interrupt. */
+	void *PktDropRef; /**< Reference passed to the packet drop callback. */
 } XMcdma_ChanCtrl;
 
 typedef struct {
 #ifndef SDT
-	u32 DeviceId;	/**< Unique ID  of device */
+	u32 DeviceId;	/**< Unique ID  of device. */
 #else
-	char *Name;	/**< Unique name of the device */
+	char *Name;	/**< Unique name of the device. */
 #endif
-	UINTPTR BaseAddress;	/**< Base address of the MCDMA device */
-	int AddrWidth;		/**< Address width in bits (32 or 64) */
-	int Has_SingleIntr;	/**< Single interrupt mode flag */
-	int HasMM2S;		/**< Has Memory to Stream channels */
-	int HasMM2SDRE;		/**< Has MM2S Data Realignment Engine */
-	int TxNumChannels;	/**< Number of transmit (MM2S) channels */
-	int HasS2MM;		/**< Has Stream to Memory channels */
-	int HasS2MMDRE;		/**< Has S2MM Data Realignment Engine */
-	int RxNumChannels;	/**< Number of receive (S2MM) channels */
-	int MM2SDataWidth;	/**< MM2S data width in bits */
-	int S2MMDataWidth;	/**< S2MM data bus width in bits */
-	u32 MaxTransferlen;	/**< Maximum transfer length per transaction */
-	int HasStsCntrlStrm;	/**< Status/Control stream interface present */
-	int HasRxLength;	/**< Receive length reporting capability */
-	u8 IsTxCacheCoherent; /**< Describes whether Cache Coherent or not */
-	u8 IsRxCacheCoherent; /**< Describes whether Cache Coherent or not */
+	UINTPTR BaseAddress;	/**< Base address of the MCDMA device. */
+	int AddrWidth;		/**< Address width in bits (32 or 64). */
+	int Has_SingleIntr;	/**< Single interrupt mode flag. */
+	int HasMM2S;		/**< Has Memory to Stream channels. */
+	int HasMM2SDRE;		/**< Has MM2S Data Realignment Engine. */
+	int TxNumChannels;	/**< Number of transmit (MM2S) channels. */
+	int HasS2MM;		/**< Has Stream to Memory channels. */
+	int HasS2MMDRE;		/**< Has S2MM Data Realignment Engine. */
+	int RxNumChannels;	/**< Number of receive (S2MM) channels. */
+	int MM2SDataWidth;	/**< MM2S data width in bits. */
+	int S2MMDataWidth;	/**< S2MM data bus width in bits. */
+	u32 MaxTransferlen;	/**< Maximum transfer length per transaction. */
+	int HasStsCntrlStrm;	/**< Status/Control stream interface present. */
+	int HasRxLength;	/**< Receive length reporting capability. */
+	u8 IsTxCacheCoherent; /**< Describes whether Cache Coherent or not. */
+	u8 IsRxCacheCoherent; /**< Describes whether Cache Coherent or not. */
 #ifdef SDT
-	u16 IntrId[32]; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 IntrId[32]; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. */
 #endif
 } XMcdma_Config;
 
+/**
+ * @brief Driver instance data for an MCDMA device.
+ */
 typedef struct {
-	u32 IsReady;
-	XMcdma_Config   Config;
-	XMcdma_ChanCtrl Tx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE];
-	XMcdma_ChanCtrl Rx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE];
+	u32 IsReady; /**< Non-zero when the driver instance is initialized. */
+	XMcdma_Config   Config; /**< Copy of the device configuration. */
+	XMcdma_ChanCtrl Tx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE]; /**< Transmit channel control array. */
+	XMcdma_ChanCtrl Rx_Chan[XMCDMA_MAX_CHAN_PER_DEVICE]; /**< Receive channel control array. */
 	XMcdma_TxDoneHandler TxDoneHandler;  /**< Call back for transfer
 	                                          *  done interrupt */
 	void *TxDoneRef;                  /**< To be passed to the done
@@ -298,7 +299,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Disable Particular Channel in the MCDMA Core.
+* @brief Disable Particular Channel in the MCDMA Core.
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
 * @param[in]	ChanId is the channel to disable.
@@ -313,7 +314,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Get Channel number that last Serviced.
+* @brief Get Channel number that last Serviced.
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
 *
@@ -327,14 +328,13 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Checks whether the DMA channel is idle or not
+* @brief Checks whether the DMA channel is idle or not
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
 *
 * @return
 *		- TRUE if MCDMA is idle
 *		- FALSE if MCDMA is not idle
-*
 *
 *****************************************************************************/
 #define XMcdma_isidle(Chan) \
@@ -343,13 +343,11 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * Enables interrupts specified by the Mask in specified
+ * @brief Enables interrupts specified by the Mask in specified
  * direction, Interrupts that are not in the mask are not affected.
  *
  * @param[in]	Chan is the MCDMA Channel to be worked on.
  * @param[in]	Mask is the mask for the interrupts to be enabled
- *
- *
  *
  *****************************************************************************/
 #define XMcdma_IntrEnable(Chan, Mask) 	\
@@ -361,13 +359,11 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * Disables interrupts specified by the Mask. Interrupts that
+ * @brief Disables interrupts specified by the Mask. Interrupts that
  * are not in the mask are not affected.
  *
  * @param[in]	Chan is the MCDMA Channel to be worked on.
  * @param[in]	Mask is the mask for the interrupts to be disabled
- *
- *
  *
  *****************************************************************************/
 #define XMcdma_IntrDisable(Chan, Mask) 	\
@@ -379,7 +375,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Gets global Packet drop Count
+* @brief Gets global Packet drop Count
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
 *
@@ -393,7 +389,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Gets the TX Channel Pointer
+* @brief Gets the TX Channel Pointer
 *
 * @param[in]	InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
@@ -411,7 +407,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Gets the RX Channel Pointer
+* @brief Gets the RX Channel Pointer
 *
 * @param[in]	InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
@@ -429,7 +425,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Gets the Channel BD Chain Current BD
+* @brief Gets the Channel BD Chain Current BD
 *
 * @param[in]	Chan is the MCDMA Channel to Operate on.
 *
@@ -442,7 +438,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Returns the buffer descriptor count processed by the h/w.
+* @brief Returns the buffer descriptor count processed by the h/w.
 *
 * @param[in]	Chan is the MCDMA Channel to Operate on.
 *
@@ -455,12 +451,11 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * Returns asserted channel interrupts.
+ * @brief Returns asserted channel interrupts.
  *
  * @param[in]	Chan is the MCDMA Channel to Operate on.
  *
  * @return	The bit mask for the interrupts asserted.
- *
  *
  *****************************************************************************/
 #define XMcdma_ChanGetIrq(Chan)				\
@@ -468,12 +463,10 @@ typedef struct {
 					 XMCDMA_SR_OFFSET)) & XMCDMA_IRQ_ALL_MASK)
 /*****************************************************************************/
 /**
- * Acknowledges the specified channel interrupts that are specified in Mask
+ * @brief Acknowledges the specified channel interrupts that are specified in Mask
  *
  * @param[in]	Chan is the MCDMA Channel to Operate on.
  * @param[in]	Mask is the mask for the interrupts to be acknowledge
- *
- *
  *
  *****************************************************************************/
 #define XMcdma_ChanAckIrq(Chan, Mask)		\
@@ -483,7 +476,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Get Packet drop Count for the particular Channel
+* @brief Get Packet drop Count for the particular Channel
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
 * @param[in]	ChanId is the Channel number to be worked on.
@@ -500,12 +493,10 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * Sets the ARCACHE field with the user specified value
+ * @brief Sets the ARCACHE field with the user specified value
  *
  * @param[in]	InstancePtr is the driver instance we are working on
  * @param[in]	Value is the ARCACHE value to be written.
- *
- *
  *
  *****************************************************************************/
 #define XMcdma_SetARCache(InstancePtr, Value)			     \
@@ -515,12 +506,10 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * Sets the AWCACHE field with the user specified value
+ * @brief Sets the AWCACHE field with the user specified value
  *
  * @param[in]	InstancePtr is the driver instance we are working on
  * @param[in]	Value is the AWCACHE value to be written.
- *
- *
  *
  *****************************************************************************/
 #define XMcdma_SetAWCache(InstancePtr, Value)			     \
@@ -530,7 +519,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * Get Egress Channel Observer contents
+ * @brief Get Egress Channel Observer contents
  *
  * @param[in]	InstancePtr is the driver instance we are working on.
  * @param[in]	ObsId is the Egress Channel observer number to be worked on.
@@ -547,7 +536,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * Get Ingress Channel Observer contents
+ * @brief Get Ingress Channel Observer contents
  *
  * @param[in]	InstancePtr is the driver instance we are working on.
  * @param[in]	ObsId is the Ingress Channel observer number to be worked on.
@@ -562,6 +551,11 @@ typedef struct {
 	XMcdma_ReadReg(InstancePtr->Config.BaseAddress, (((ObsId - 1) * XMCDMA_NXTOBS_OFFSET) + \
 			XMCDMA_RX_OFFSET + XMCDMA_CHOBS1_OFFSET))
 
+/**
+ * @brief Computes a contiguous bit mask for the maximum transfer length field.
+ *
+ * @param[in] h is the high bit index of the field.
+ */
 #if defined (__aarch64__) || defined (__arch64__)
 #define MAX_TRANSFER_LEN(h) \
 	(((~0UL) << (0)) & (~0UL >> (64 - 1 - (h))))
@@ -570,6 +564,12 @@ typedef struct {
 	(((~0UL) << (0)) & (~0UL >> (32 - 1 - (h))))
 #endif
 
+/**
+ * @brief Computes a contiguous bit mask between high and low bit indices.
+ *
+ * @param[in] h is the high bit index of the field.
+ * @param[in] l is the low bit index of the field.
+ */
 #if defined (__aarch64__) || defined (__arch64__)
 #define WRR_MASK(h, l) \
 	(((~0UL) << (l)) & (~0UL >> (64 - 1 - (h))))
@@ -581,9 +581,39 @@ typedef struct {
 
 /************************ Prototypes of functions **************************/
 #ifndef SDT
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by device ID.
+ *
+ * @param[in] DeviceId contains the unique ID of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         device ID, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XMcdma_Config *XMcdma_LookupConfig(u16 DeviceId);
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] Baseaddr is the base address of the device to look up.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         base address, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XMcdma_Config *XMcdma_LookupConfigBaseAddr(UINTPTR Baseaddr);
 #else
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] BaseAddress contains the base address of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         base address, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XMcdma_Config *XMcdma_LookupConfig(UINTPTR BaseAddress);
 #endif
 s32 XMcDma_CfgInitialize(XMcdma *InstancePtr, XMcdma_Config *CfgPtr);
@@ -636,5 +666,5 @@ s32 XMcdma_ChanSetCallBack(XMcdma_ChanCtrl *Chan, XMcdma_ChanHandler HandlerType
 
 #endif
 
-/** @} */
 #endif /* XMCDMA_H_ */
+/** @} */

@@ -5,6 +5,7 @@
 ******************************************************************************/
 
 #ifndef XMCDMA_BD_H_
+/** @brief Include guard for the MCDMA buffer descriptor header. */
 #define XMCDMA_BD_H_
 
 /*****************************************************************************/
@@ -13,6 +14,7 @@
 * @file xmcdma_bd.h
 * @addtogroup mcdma Overview
 * @{
+* @brief Defines buffer descriptor macros and helpers for MCDMA.
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
@@ -28,6 +30,9 @@ extern "C" {
 
 #include "xil_types.h"
 
+/**
+ * @brief Buffer descriptor storage as an array of 32-bit words.
+ */
 typedef u32 XMcdma_Bd[16];
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -36,13 +41,36 @@ typedef u32 XMcdma_Bd[16];
  * Define methods to flush and invalidate cache for BDs should they be
  * located in cached memory.
  *****************************************************************************/
+/**
+ * @brief Declares cache flush and invalidate helpers for BDs in cached memory.
+ */
 #ifdef __aarch64__
-#define XMCDMA_CACHE_FLUSH(BdPtr)
-#define XMCDMA_CACHE_INVALIDATE(BdPtr)
+/**
+ * @brief Flushes the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
+#define XMCDMA_CACHE_FLUSH(BdPtr) /**< No-op cache flush on AArch64. */
+/**
+ * @brief Invalidates the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
+#define XMCDMA_CACHE_INVALIDATE(BdPtr) /**< No-op cache invalidate on AArch64. */
 #else
+/**
+ * @brief Flushes the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XMCDMA_CACHE_FLUSH(BdPtr) \
 	Xil_DCacheFlushRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)
 
+/**
+ * @brief Invalidates the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XMCDMA_CACHE_INVALIDATE(BdPtr) \
 	Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)
 #endif
@@ -51,7 +79,7 @@ typedef u32 XMcdma_Bd[16];
 /*****************************************************************************/
 /**
 *
-* Read the given Buffer Descriptor word.
+* @brief Read the given Buffer Descriptor word.
 *
 * @param[in]	BaseAddress is the base address of the BD to read
 * @param[in]	Offset is the word offset to be read
@@ -69,7 +97,7 @@ typedef u32 XMcdma_Bd[16];
 /*****************************************************************************/
 /**
 *
-* Read the given Buffer Descriptor word.
+* @brief Read the given Buffer Descriptor word.
 *
 * @param[in]	BaseAddress is the base address of the BD to read
 * @param[in]	Offset is the word offset to be read
@@ -87,12 +115,11 @@ typedef u32 XMcdma_Bd[16];
 /*****************************************************************************/
 /**
 *
-* Write the given Buffer Descriptor word.
+* @brief Write the given Buffer Descriptor word.
 *
 * @param[in]	BaseAddress is the base address of the BD to write
 * @param[in]	Offset is the word offset to be written
 * @param[in]	Data is the 32-bit value to write to the field
-*
 *
 * @note
 * 		C-style signature:
@@ -105,12 +132,11 @@ typedef u32 XMcdma_Bd[16];
 /*****************************************************************************/
 /**
 *
-* Write the given Buffer Descriptor double word.
+* @brief Write the given Buffer Descriptor double word.
 *
 * @param[in]	BaseAddress is the base address of the BD to write
 * @param[in]	Offset is the word offset to be written
 * @param[in]	Data is the 64-bit value to write to the field
-*
 *
 * @note
 * 		C-style signature:
@@ -122,7 +148,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Retrieve the status of a Ingress(S2MM) BD
+ * @brief Retrieve the status of a Ingress(S2MM) BD
  *
  * @param[in]	BdPtr is the BD to operate on
  *
@@ -139,7 +165,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Check whether a Ingress(S2MM) BD has completed in hardware.
+ * @brief Check whether a Ingress(S2MM) BD has completed in hardware.
  * This BD has been submitted to hardware. The application can use this function
  * To poll for the Completion of the BD.
  *
@@ -163,14 +189,13 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Get the actual transfer length of a Ingress (S2MM)BD.
+ * @brief Get the actual transfer length of a Ingress (S2MM)BD.
  * The BD has completed in hw.
  *
  * May not work if the BD is in cached memory.
  *
  * @param[in]	BdPtr is the BD to check on
  * @param[in]	LengthMask is the Maximum Transfer Length.
- *
  *
  * @note
  *		C-style signature:
@@ -183,7 +208,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Retrieve the status of a Egress(MM2S) BD
+ * @brief Retrieve the status of a Egress(MM2S) BD
  *
  * @param[in]	BdPtr is the BD to operate on
  *
@@ -200,7 +225,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Check whether a Egress(MM2S) BD has completed in hardware.
+ * @brief Check whether a Egress(MM2S) BD has completed in hardware.
  * This BD has been submitted to hardware. The application can use this function
  * To poll for the Completion of the BD.
  *
@@ -224,14 +249,13 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Get the actual transfer length of a Egress(MM2S) BD.
+ * @brief Get the actual transfer length of a Egress(MM2S) BD.
  * The BD has completed in hw.
  *
  * May not work if the BD is in cached memory.
  *
  * @param[in]	BdPtr is the BD to check on
  * @param[in]	LengthMask is the Maximum Transfer Length.
- *
  *
  * @note
  *		C-style signature:
@@ -244,7 +268,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Gets the control bits of a BD.
+ * @brief Gets the control bits of a BD.
  *
  * @param[in]	BdPtr is the BD to operate on
  *
@@ -261,7 +285,7 @@ typedef u32 XMcdma_Bd[16];
 
 /****************************************************************************/
 /**
-* Return the next BD in the Chain.
+* @brief Return the next BD in the Chain.
 *
 * @param[in]	Chan is the Channel BD Chain to operate on.
 * @param[in]	BdPtr is the current BD.
@@ -280,7 +304,7 @@ typedef u32 XMcdma_Bd[16];
 
 /****************************************************************************/
 /**
-* Return the previous BD in the Chain.
+* @brief Return the previous BD in the Chain.
 *
 * @param[in]	Chan is the MCDMA channel to operate on.
 * @param[in]	BdPtr is the current BD.
@@ -299,7 +323,7 @@ typedef u32 XMcdma_Bd[16];
 
 /****************************************************************************/
 /**
-* Check whether a DMA is started, meaning the channel is not halted.
+* @brief Check whether a DMA is started, meaning the channel is not halted.
 *
 * @param[in]	Chan is the channel instance to operate on.
 *
@@ -318,7 +342,7 @@ typedef u32 XMcdma_Bd[16];
 
 /****************************************************************************/
 /**
-* Check whether a DMA channel is started, meaning the channel is not halted.
+* @brief Check whether a DMA channel is started, meaning the channel is not halted.
 *
 * @param[in]	Chan is the channel instance to operate on.
 * @param[in]	Chan_id is the channel number to operate on.
@@ -339,7 +363,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Set the Tid and Tuser fields of a BD with the user provided values.
+ * @brief Set the Tid and Tuser fields of a BD with the user provided values.
  *
  * @param[in]	BdPtr is the BD to operate on.
  * @param[in]	Tid is Tid value to be written in the Bd field.
@@ -356,7 +380,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Retrieve the side band status of a BD
+ * @brief Retrieve the side band status of a BD
  *
  * @param[in]	BdPtr is the BD to operate on
  *
@@ -373,7 +397,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Clears the BD Contents.
+ * @brief Clears the BD Contents.
  *
  * @param[in]	BdPtr is the BD to operate on
  *
@@ -388,12 +412,11 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Set the Sw ID field of the given BD. The ID is an arbitrary piece of data the
+ * @brief Set the Sw ID field of the given BD. The ID is an arbitrary piece of data the
  * application can associate with a specific BD.
  *
  * @param[in]	BdPtr is the BD to operate on
  * @param[in]	Id is a 32-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -406,7 +429,7 @@ typedef u32 XMcdma_Bd[16];
 
 /*****************************************************************************/
 /**
- * Retrieve the Sw ID field of the given BD previously set with
+ * @brief Retrieve the Sw ID field of the given BD previously set with
  * XMcdma_BdSetSwId.
  *
  * @param[in]	BdPtr is the BD to operate on

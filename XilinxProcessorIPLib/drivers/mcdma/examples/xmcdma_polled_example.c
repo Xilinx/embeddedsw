@@ -10,6 +10,7 @@
  * @file xmcdma_polled_example.c
  * @addtogroup mcdma Overview
  * @{
+ * @brief Demonstrates MCDMA packet transfers in polling mode.
  *
  * Demonstrates how to use the MCDMA driver on the Xilinx AXI
  * MCDMA core (AXI MCDMA) to transfer packets in polling mode.
@@ -110,35 +111,35 @@
 #ifdef XPAR_MEM0_BASEADDRESS
 #define DDR_BASE_ADDR		XPAR_MEM0_BASEADDRESS
 #endif
-#define MCDMA_BASE_ADDR		XPAR_XMCDMA_0_BASEADDR
+#define MCDMA_BASE_ADDR		XPAR_XMCDMA_0_BASEADDR /**< Base address of the MCDMA device. */
 #endif
 
 #ifndef DDR_BASE_ADDR
 #warning CHECK FOR THE VALID DDR ADDRESS IN XPARAMETERS.H, \
 DEFAULT SET TO 0x01000000
-#define MEM_BASE_ADDR		0x01000000
+#define MEM_BASE_ADDR		0x01000000 /**< Base address for DMA buffers and BD space. */
 #else
-#define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x10000000)
+#define MEM_BASE_ADDR		(DDR_BASE_ADDR + 0x10000000) /**< Base address for DMA buffers and BD space. */
 #endif
 
-#define TX_BD_SPACE_BASE	(MEM_BASE_ADDR)
-#define RX_BD_SPACE_BASE	(MEM_BASE_ADDR + 0x10000000)
-#define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x20000000)
-#define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x50000000)
+#define TX_BD_SPACE_BASE	(MEM_BASE_ADDR) /**< Base address of the transmit BD space. */
+#define RX_BD_SPACE_BASE	(MEM_BASE_ADDR + 0x10000000) /**< Base address of the receive BD space. */
+#define TX_BUFFER_BASE		(MEM_BASE_ADDR + 0x20000000) /**< Base address of the transmit buffer. */
+#define RX_BUFFER_BASE		(MEM_BASE_ADDR + 0x50000000) /**< Base address of the receive buffer. */
 
-#define NUMBER_OF_BDS_PER_PKT		10
-#define NUMBER_OF_PKTS_TO_TRANSFER 	100
+#define NUMBER_OF_BDS_PER_PKT		10 /**< Number of buffer descriptors per packet. */
+#define NUMBER_OF_PKTS_TO_TRANSFER 	100 /**< Number of packets to transfer in the test. */
 #define NUMBER_OF_BDS_TO_TRANSFER	(NUMBER_OF_PKTS_TO_TRANSFER * \
-		NUMBER_OF_BDS_PER_PKT)
+		NUMBER_OF_BDS_PER_PKT) /**< Total buffer descriptors to transfer. */
 
-#define MAX_PKT_LEN		1024
-#define BLOCK_SIZE_2MB 0x200000U
+#define MAX_PKT_LEN		1024 /**< Maximum packet length in bytes. */
+#define BLOCK_SIZE_2MB 0x200000U /**< Two-megabyte block size for TLB attributes. */
 
-#define NUM_MAX_CHANNELS	16
+#define NUM_MAX_CHANNELS	16 /**< Maximum number of channels for pattern arrays. */
 
-#define TEST_START_VALUE	0xC
+#define TEST_START_VALUE	0xC /**< Starting value used to fill and verify test data. */
 
-#define POLL_TIMEOUT_COUNTER    1000000U
+#define POLL_TIMEOUT_COUNTER    1000000U /**< Maximum poll iterations before a transfer times out. */
 
 int TxPattern[NUM_MAX_CHANNELS + 1];
 int RxPattern[NUM_MAX_CHANNELS + 1];
@@ -175,12 +176,12 @@ int num_channels;
 
 
 /* Calculate buffer and BD space sizes - using maximum possible channels (16)*/
-#define MAX_CHANNELS		16
+#define MAX_CHANNELS		16 /**< Maximum number of MCDMA channels. */
 
-#define TX_BUFFER_SIZE		(NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN * MAX_CHANNELS )
-#define RX_BUFFER_SIZE		(NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN * MAX_CHANNELS )
-#define TX_BD_SPACE_SIZE	(NUMBER_OF_BDS_TO_TRANSFER * sizeof(XMcdma_Bd) * MAX_CHANNELS )
-#define RX_BD_SPACE_SIZE	(NUMBER_OF_BDS_TO_TRANSFER * sizeof(XMcdma_Bd) * MAX_CHANNELS )
+#define TX_BUFFER_SIZE		(NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN * MAX_CHANNELS ) /**< Transmit buffer size in bytes. */
+#define RX_BUFFER_SIZE		(NUMBER_OF_BDS_TO_TRANSFER * MAX_PKT_LEN * MAX_CHANNELS ) /**< Receive buffer size in bytes. */
+#define TX_BD_SPACE_SIZE	(NUMBER_OF_BDS_TO_TRANSFER * sizeof(XMcdma_Bd) * MAX_CHANNELS ) /**< Transmit BD space size in bytes. */
+#define RX_BD_SPACE_SIZE	(NUMBER_OF_BDS_TO_TRANSFER * sizeof(XMcdma_Bd) * MAX_CHANNELS ) /**< Receive BD space size in bytes. */
 
 static u8 TxBuffer[TX_BUFFER_SIZE] __attribute__ ((aligned(64)));
 static u8 RxBuffer[RX_BUFFER_SIZE] __attribute__ ((aligned(64)));
@@ -204,18 +205,13 @@ UINTPTR *Packet;
 
 /*****************************************************************************/
 /**
+* @brief Runs the MCDMA polled-mode example entry point.
 *
-* Main function
-*
-* Main entry point of the MCDMA DMA core test. It sets up
-* DMA engine to be ready to receive and send packets, then a packet is
-* transmitted and will be verified after it is received via the DMA.
-*
+* Sets up the DMA engine to send and receive packets, then verifies the data.
 *
 * @return
-*		- XST_SUCCESS if test passes
-*		- XST_FAILURE if test fails.
-*
+*		- XST_SUCCESS if the test passes.
+*		- XST_FAILURE if the test fails.
 *
 ******************************************************************************/
 int main(void)
@@ -323,14 +319,11 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Sets up the RX channel of the DMA engine for packet reception.
 *
-* Sets up the RX channel of the DMA engine to be ready for packet
-* reception
+* @param[in]	McDmaInstPtr is a pointer to the AXI MCDMA engine instance.
 *
-* @param[in]	McDmaInstPtr is the pointer to the instance of the AXI MCDMA engine.
-*
-* @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
-*
+* @return	XST_SUCCESS if the setup succeeds, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 static int RxSetup(XMcdma *McDmaInstPtr)
@@ -406,14 +399,11 @@ static int RxSetup(XMcdma *McDmaInstPtr)
 
 /*****************************************************************************/
 /**
+* @brief Sets up the TX channel of the DMA engine for packet transmission.
 *
-* Sets up the TX channel of a DMA engine to be ready for packet
-* transmission
+* @param[in]	McDmaInstPtr is a pointer to the AXI MCDMA engine instance.
 *
-* @param[in]	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
-*
-* @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
-*
+* @return	XST_SUCCESS if the setup succeeds, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 static int TxSetup(XMcdma *McDmaInstPtr)
@@ -473,17 +463,16 @@ static int TxSetup(XMcdma *McDmaInstPtr)
 }
 
 /*****************************************************************************/
-/*
+/**
+* @brief Checks the data buffer after the DMA transfer finishes.
 *
-* Checks the data buffer after the DMA transfer is finished.
-*
-* @param[in]	RxPacket is the pointer to Rx packet.
-* @param[in]	ByteCount is the length of Rx packet.
+* @param[in]	RxPacket is the pointer to the receive packet.
+* @param[in]	ByteCount is the length of the receive packet.
 * @param[in]	ChanId is the MCDMA channel ID to operate on.
 *
-* @return	- XST_SUCCESS if validation is successful
-*		- XST_FAILURE if validation is failure.
-*
+* @return
+*		- XST_SUCCESS if validation succeeds.
+*		- XST_FAILURE if validation fails.
 *
 ******************************************************************************/
 static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
@@ -511,16 +500,14 @@ static int CheckData(u8 *RxPacket, int ByteCount, u32 ChanId)
 
 /*****************************************************************************/
 /**
+* @brief Waits until the DMA transaction finishes, then checks data.
 *
-* Waits until the DMA transaction is finished, checks data,
-* and cleans up.
+* @param[in]	McDmaInstPtr is a pointer to the AXI MCDMA engine instance.
+* @param[in]	Chan_id is the MCDMA channel ID to operate on.
 *
-* @param[in]	McDmaInstPtr is the instance pointer to the AXI MCDMA engine.
-* @param[in]	Chan_id is the MCDMA channel ID to be worked on.
-*
-* @return	- XST_SUCCESS if DMA transfer is successful and data is correct,
-*		- XST_FAILURE if fails.
-*
+* @return
+*		- XST_SUCCESS if the DMA transfer succeeds and data is correct.
+*		- XST_FAILURE if the transfer or data check fails.
 *
 ******************************************************************************/
 static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
@@ -573,7 +560,17 @@ static int CheckDmaResult(XMcdma *McDmaInstPtr, u32 Chan_id)
 	return XST_SUCCESS;
 }
 
-
+/*****************************************************************************/
+/**
+* @brief Polls completed MCDMA channels and verifies received data.
+*
+* @param[in]	McDmaInstPtr is a pointer to the MCDMA driver instance.
+*
+* @return
+*		- XST_SUCCESS if all polled channels succeed.
+*		- XST_FAILURE if any channel fails data verification.
+*
+******************************************************************************/
 static int Mcdma_Poll(XMcdma *McDmaInstPtr)
 {
 	u16 Chan_id = 1;
@@ -595,6 +592,17 @@ static int Mcdma_Poll(XMcdma *McDmaInstPtr)
 }
 
 
+/*****************************************************************************/
+/**
+* @brief Fills transmit buffers and submits packets to the MCDMA engine.
+*
+* @param[in]	McDmaInstPtr is a pointer to the MCDMA driver instance.
+*
+* @return
+*		- XST_SUCCESS if the DMA accepts all packets.
+*		- XST_FAILURE if an error occurs.
+*
+******************************************************************************/
 static int SendPacket(XMcdma *McDmaInstPtr)
 {
 	XMcdma_ChanCtrl *Tx_Chan = NULL;

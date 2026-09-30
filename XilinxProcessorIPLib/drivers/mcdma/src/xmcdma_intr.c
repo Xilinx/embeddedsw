@@ -10,6 +10,7 @@
 * @file xmcdma_intr.c
 * @addtogroup mcdma Overview
 * @{
+* @brief Implements interrupt handling functions for the MCDMA driver.
 *
 * This file contains the implementation of the interrupt handling functions for
 * MCDMA driver.
@@ -92,7 +93,7 @@ static u32 XMcdma_GetValidChanMask(int NumChannels)
 /*****************************************************************************/
 /**
 *
-* Handles per-channel MCDMA interrupts for the MCDMA core.
+* @brief Handles per-channel MCDMA interrupts for the MCDMA core.
 *
 * This handler reads the pending interrupt from Status register, determines the
 * source of the interrupts and calls the respective callbacks for the
@@ -143,7 +144,7 @@ void XMcdma_ChanIntrHandler(void *Instance)
 /*****************************************************************************/
 /**
 *
-* This routine installs an asynchronous callback function for the given
+* @brief This routine installs an asynchronous callback function for the given
 * HandlerType.
 *
 * <pre>
@@ -209,7 +210,7 @@ s32 XMcdma_ChanSetCallBack(XMcdma_ChanCtrl *Chan, XMcdma_ChanHandler HandlerType
 /*****************************************************************************/
 /**
 *
-* Handles S2MM (RX) MCDMA interrupts for the MCDMA core.
+* @brief Handles S2MM (RX) MCDMA interrupts for the MCDMA core.
 *
 * This handler reads the pending interrupt from Status register, determines the
 * source of the interrupts and calls the respective callbacks for the
@@ -294,7 +295,7 @@ out:
 /*****************************************************************************/
 /**
 *
-* Handles MM2S MCDMA interrupts for the MCDMA core.
+* @brief Handles MM2S MCDMA interrupts for the MCDMA core.
 *
 * This handler reads the pending interrupt from Status register, determines the
 * source of the interrupts and calls the respective callbacks for the
@@ -375,7 +376,7 @@ out:
 /*****************************************************************************/
 /**
 *
-* This routine installs an asynchronous callback function for the given
+* @brief This routine installs an asynchronous callback function for the given
 * HandlerType.
 *
 * <pre>

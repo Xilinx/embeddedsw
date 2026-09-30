@@ -10,6 +10,7 @@
 * @file xmcdma_sinit.c
 * @addtogroup mcdma Overview
 * @{
+* @brief Implements static initialization helpers for the MCDMA driver.
 *
 * This file contains static initialization methods for Xilinx MCDMA core.
 *
@@ -51,19 +52,9 @@
 #ifndef SDT
 /*****************************************************************************/
 /**
-*
-* Looks up the device configuration based on the unique device ID.
-* A table contains the configuration info for each device in the system.
-*
-* @param[in]	DeviceId contains the unique ID of the device
-*
-* @return
-* Pointer to the matching configuration table entry, or NULL if no match exists.
-*
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
-*
-******************************************************************************/
+ * @brief Looks up device configuration by device ID.
+ *
+ *****************************************************************************/
 XMcdma_Config *XMcdma_LookupConfig(u16 DeviceId)
 {
 	extern XMcdma_Config XMcdma_ConfigTable[XPAR_XMCDMA_NUM_INSTANCES];
@@ -84,16 +75,9 @@ XMcdma_Config *XMcdma_LookupConfig(u16 DeviceId)
 #else
 /*****************************************************************************/
 /**
-*
-* Looks up the device configuration based on the base address.
-* A table contains the configuration info for each device in the system.
-*
-* @param[in]	BaseAddress contains the base address of the device
-*
-* @return
-* Pointer to the matching configuration table entry, or NULL if no match exists.
-*
-******************************************************************************/
+ * @brief Looks up device configuration by base address.
+ *
+ *****************************************************************************/
 XMcdma_Config *XMcdma_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XMcdma_Config XMcdma_ConfigTable[];
@@ -116,18 +100,9 @@ XMcdma_Config *XMcdma_LookupConfig(UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
-*
-* XMcdma_LookupConfigBaseAddr returns a reference to an XMcdma_Config structure
-* based on base address. The return value will refer to an entry in the device
-* configuration table defined in the xmcdma_g.c file.
-*
-* @param[in]	Baseaddr is the base address of the device to lookup for
-*
-* @return	CfgPtr is a reference to a config record in the configuration
-*		table (in xmcdma_g.c) corresponding to Baseaddr, or
-*		NULL if no match is found.
-*
-******************************************************************************/
+ * @brief Looks up device configuration by base address.
+ *
+ *****************************************************************************/
 XMcdma_Config *XMcdma_LookupConfigBaseAddr(UINTPTR Baseaddr)
 {
 	extern XMcdma_Config XMcdma_ConfigTable[XPAR_XMCDMA_NUM_INSTANCES];

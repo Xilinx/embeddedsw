@@ -10,9 +10,10 @@
 * @file xmcdma_bd.c
 * @addtogroup mcdma Overview
 * @{
+* @brief Implements scatter/gather buffer descriptor handling for MCDMA.
 *
 * This file implements all the Scatter/Gather handling for the MCDMA Core,
-* please see xmcdma.h for more details.
+*
 *
 * MODIFICATION HISTORY:
 *
@@ -30,21 +31,17 @@
 #include "xmcdma_bd.h"
 
 
-/******************************************************************************
- * Move the BdPtr argument ahead an arbitrary number of BDs wrapping around
- * to the beginning of the ring if needed.
+/**
+ * @brief Advances a BD pointer by a number of descriptors with ring wrap.
  *
- * We know if a wraparound should occur if the new BdPtr is greater than
- * the high address in the ring OR if the new BdPtr crosses the 0xFFFFFFFF
- * to 0 boundary.
+ * Wraparound occurs when the new BD pointer is greater than the high address
+ * in the ring or when the pointer crosses the 0xFFFFFFFF to 0 boundary.
  *
- * @param[in]	Chan is the mcdma chan BdPtr appears in
- * @param[in]	BdPtr on input is the starting BD position and on output is the
- *		final BD position
- * @param[in]	NumBd is the number of BD spaces to increment
- *
- * @returns	None
- *****************************************************************************/
+ * @param[in] Chan is the MCDMA channel that contains BdPtr.
+ * @param[in,out] BdPtr is the starting BD position on entry and the updated BD
+ *        position on return.
+ * @param[in] NumBd is the number of BD spaces to advance.
+ */
 #define XMCDMA_CHAN_SEEKAHEAD(Chan, BdPtr, NumBd)                       \
 	{                                                                   \
 		UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                        \
@@ -61,13 +58,12 @@
 
 /*****************************************************************************/
 /**
-* Update Current Descriptor for the MCDMA Channel
+* @brief Update Current Descriptor for the MCDMA Channel
 *
 * @param[in]	Chan is the Channel instance to be worked on.
 *
 * @return
 *		- XST_SUCCESS upon success
-*
 *
 *****************************************************************************/
 int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan)
@@ -97,7 +93,7 @@ int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan)
 
 /*****************************************************************************/
 /**
-* Update Tail Desc for the Channel
+* @brief Update Tail Desc for the Channel
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
 *
@@ -105,7 +101,6 @@ int XMcdma_UpdateChanCDesc(XMcdma_ChanCtrl *Chan)
 *		- XST_SUCCESS upon success
 *		- XST_DMA_ERROR if no valid BD available to put into current
 *		BD register
-*
 *
 *****************************************************************************/
 int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
@@ -160,7 +155,7 @@ int XMcdma_UpdateChanTDesc(XMcdma_ChanCtrl *Chan)
 
 /*****************************************************************************/
 /**
-* Using a memory segment allocated by the caller, creates and
+* @brief Using a memory segment allocated by the caller, creates and
 * setup the BD Chain for the MCDMA Channel.
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
@@ -252,7 +247,7 @@ u32 XMcDma_ChanBdCreate(XMcdma_ChanCtrl *Chan, UINTPTR Addr, u32 Count)
 
 /*****************************************************************************/
 /**
-* Populates the BD chain with the required buffer address and
+* @brief Populates the BD chain with the required buffer address and
 * length fields.
 *
 * User can submit multiple buffers/buffer descriptors by calling this function
@@ -322,7 +317,7 @@ u32 XMcDma_ChanSubmit(XMcdma_ChanCtrl *Chan, UINTPTR BufAddr, u32 len)
 
 /*****************************************************************************/
 /**
-* Populates the BD chain with the required buffer address, length
+* @brief Populates the BD chain with the required buffer address, length
 * APP(user application), TUSER and TID fields.
 *
 * User can submit multiple buffers/buffer descriptors by calling this function
@@ -409,7 +404,7 @@ u32 XMcDma_Chan_Sideband_Submit(XMcdma_ChanCtrl *ChanPtr, UINTPTR BufAddr,
 
 /*****************************************************************************/
 /**
-* Starts hardware by programming current and tail descriptors by programming the Current and Tail
+* @brief Starts hardware by programming current and tail descriptors by programming the Current and Tail
 * Descriptors and enabling the particular channel.
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
@@ -445,7 +440,7 @@ u32 XMcDma_ChanToHw(XMcdma_ChanCtrl *Chan)
 
 /*****************************************************************************/
 /**
-* Returns a set of BD(s) that have been processed by hardware. The returned
+* @brief Returns a set of BD(s) that have been processed by hardware. The returned
 * BDs may be examined by the application to determine the outcome of the DMA
 * transactions. Once the BDs have been examined, the application must call
 * XMcdma_BdChainFree() in the same order which they were retrieved here.
@@ -538,7 +533,7 @@ int XMcdma_BdChainFromHW(XMcdma_ChanCtrl *Chan, u32 BdLimit, XMcdma_Bd **BdSetPt
 
 /*****************************************************************************/
 /**
- * Frees a set of BDs that had been previously retrieved with
+ * @brief Frees a set of BDs that had been previously retrieved with
  * XMcdma_BdChainFromHW().
  *
  * @param[in]	Chan is the MCDMA Channel to be worked on.
@@ -582,7 +577,7 @@ int XMcdma_BdChainFree(XMcdma_ChanCtrl *Chan, int BdCount, XMcdma_Bd *BdSetPtr)
 
 /*****************************************************************************/
 /**
-* Set the Buffer descriptor buffer address field.
+* @brief Set the Buffer descriptor buffer address field.
 *
 * @param[in]	BdPtr is the BD to operate on
 * @param[in]	Addr is the address to set
@@ -622,12 +617,10 @@ u32 XMcdma_BdSetBufAddr(XMcdma_Bd *BdPtr, UINTPTR Addr)
 
 /*****************************************************************************/
 /**
- * Set the control bits for a BD.
+ * @brief Set the control bits for a BD.
  *
  * @param[in]	BdPtr is the BD to operate on.
  * @param[in]	Data is the bit value to set
- *
- *
  *
  *****************************************************************************/
 void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data)
@@ -645,7 +638,7 @@ void XMcDma_BdSetCtrl(XMcdma_Bd *BdPtr, u32 Data)
 
 /*****************************************************************************/
 /**
- * Set the APP word at the specified APP word offset for a BD.
+ * @brief Set the APP word at the specified APP word offset for a BD.
  *
  * @param[in]	BdPtr is the BD to operate on
  * @param[in]	Offset is the offset inside the APP word, it is valid from
@@ -683,7 +676,7 @@ int XMcDma_BdSetAppWord(XMcdma_Bd *BdPtr, int Offset, u32 Word)
 
 /*****************************************************************************/
 /**
- * Get the APP word at the specified APP word offset for a BD.
+ * @brief Get the APP word at the specified APP word offset for a BD.
  *
  * @param[in]	BdPtr is the BD to operate on.
  * @param[in]	Offset is the offset inside the APP word, it is valid from
@@ -721,7 +714,7 @@ u32 XMcDma_BdGetAppWord(XMcdma_Bd *BdPtr, int Offset, int *Valid)
 
 /*****************************************************************************/
 /**
-* Set interrupt coalescing parameters for a particular channel.
+* @brief Set interrupt coalescing parameters for a particular channel.
 *
 * @param[in]	Chan is the MCDMA Channel to be worked on.
 * @param[in]	IrqCoalesce is the Irq Threshold value valid ranges are 1 to 255
@@ -765,11 +758,9 @@ u32 XMcdma_SetChanCoalesceDelay(XMcdma_ChanCtrl *Chan, u32 IrqCoalesce, u32 IrqD
 
 /*****************************************************************************/
 /**
-* Dump the fields of a BD.
+* @brief Dump the fields of a BD.
 *
 * @param[in]	BdPtr is the BD to operate on.
-*
-*
 *
 *****************************************************************************/
 void XMcDma_DumpBd(XMcdma_Bd *BdPtr)
