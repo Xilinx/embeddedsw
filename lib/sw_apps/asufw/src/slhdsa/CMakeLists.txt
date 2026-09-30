@@ -12,3 +12,6 @@ collect(PROJECT_LIB_HEADERS xslhdsa_core.h)
 
 collect(PROJECT_LIB_SOURCES xslhdsa_hash.c)
 collect(PROJECT_LIB_HEADERS xslhdsa_hash.h)
+
+collect(PROJECT_LIB_SOURCES xslhdsa_yield.c)
+collect(PROJECT_LIB_HEADERS xslhdsa_yield.h)

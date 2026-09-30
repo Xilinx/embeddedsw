@@ -47,6 +47,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
+*       kk   09/23/26 Added XASU_SLHDSA_MAX_SIG_SIZE
 *
 * </pre>
 *
@@ -77,12 +78,13 @@ extern "C" {
 #define XASU_SLHDSA_SIGN_CMD_ID       	(0U)	/**< Sign message with SLH-DSA secret key */
 #define XASU_SLHDSA_SIGN_VERIFY_CMD_ID	(1U)	/**< Verify SLH-DSA signature */
 #define XASU_SLHDSA_KAT_CMD_ID        	(2U)	/**< Run SLH-DSA operation KAT */
-#define XASU_SLHDSA_MAX_CMDS          	(3U)	/**< Maximum commands supported by SLH-DSA module */
+#define XASU_SLHDSA_MAX_CMDS          	(3U)	/**< Maximum SLH-DSA commands */
 /** @} */
 
-/** Maximum key sizes across supported parameter sets (256s). */
+/** Maximum key and signature sizes across supported parameter sets (256s). */
 #define XASU_SLHDSA_MAX_PK_SIZE	(64U)	/**< Maximum public key size in bytes */
 #define XASU_SLHDSA_MAX_SK_SIZE	(128U)	/**< Maximum secret key size in bytes */
+#define XASU_SLHDSA_MAX_SIG_SIZE	(29792U)	/**< Maximum signature size in bytes */
 
 /** FIPS 205 security parameter n (hash width in bytes) for 128s / 256s sets. */
 #define XASU_SLHDSA_128S_N	(16U)	/**< Hash width n for 128s parameter sets */
@@ -151,47 +153,51 @@ extern "C" {
 
 /** This structure represents an SLH-DSA secret key object. */
 typedef struct {
-	u64 SkAddr;	/**< DMA address of the secret key buffer */
-	u32 SkId;	/**< Key identifier from key management (reserved for future use) */
-	u8 Reserved[4];	/**< Reserved to pad the structure to 16 bytes */
+	u64 SkAddr;	/**< Address of the secret key data */
+	u32 SkId;	/**< Reserved for future key management support; ignored */
+	u32 SkLen;	/**< Length of the secret key in bytes */
 } XAsu_SlhdsaSkObject;
 
 /** This structure represents an SLH-DSA public key object. */
 typedef struct {
-	u64 PubKeyAddr;	/**< DMA address of the public key buffer */
-	u32 PubKeyId;	/**< Key identifier from key management (reserved for future use) */
-	u32 PubKeyLen;	/**< Length of the public key in bytes (0 or expected size for ParamSet) */
+	u64 PubKeyAddr;	/**< Address of the public key data */
+	u32 PubKeyId;	/**< Reserved for future key management support; ignored */
+	u32 PubKeyLen;	/**< Length of the public key in bytes */
 } XAsu_SlhdsaPkObject;
 
-/** This structure contains SLH-DSA sign parameters sent over IPI. */
+/** This structure contains SLH-DSA sign parameters. */
 typedef struct {
 	XAsu_SlhdsaSkObject SkObj;	/**< Secret key object */
-	u64 MsgAddr;			/**< DMA address of the message to sign */
-	u64 SignatureAddr;		/**< DMA address for signature output */
-	u64 CtxAddr;			/**< DMA address of context bytes when CtxLen is 0..255 */
+	u64 MsgAddr;			/**< Address of the message to be signed */
+	u64 SignatureAddr;		/**< Address of the signature */
+	u64 CtxAddr;			/**< Address of the context string (0 if unused) */
 	u32 MsgLen;			/**< Length of the message in bytes */
-	u32 SignatureLen;		/**< Expected signature length (must match ParamSet) */
-	u32 CtxLen;			/**< FIPS context length 0..255 */
-	u8 ParamSet;			/**< Parameter set selector (XASU_SLHDSA_PARAM_*) */
-	u8 PreHashMode;			/**< XASU_SLHDSA_MSG_PURE or XASU_SLHDSA_MSG_PREHASH */
-	u8 HashId;			/**< Pre-hash function ID (SHA256 for 128s,
-					  *  SHA512 for 256s) */
-	u8 SignMode;			/**< XASU_SLHDSA_SIGN_MODE_HEDGED or DETERMINISTIC */
+	u32 SignatureLen;		/**< Length of the signature in bytes */
+	u32 CtxLen;			/**< Length of the context string in bytes (0..255) */
+	u8 ParamSet;			/**< Parameter set (XASU_SLHDSA_PARAM_*) */
+	u8 PreHashMode;			/**< Pure or pre-hash mode (XASU_SLHDSA_MSG_PURE /
+					  *  XASU_SLHDSA_MSG_PREHASH) */
+	u8 HashId;			/**< Pre-hash function ID (XASU_SLHDSA_HASHID_SHA256 /
+					  *  XASU_SLHDSA_HASHID_SHA512) */
+	u8 SignMode;			/**< Hedged or deterministic (XASU_SLHDSA_SIGN_MODE_HEDGED /
+					  *  XASU_SLHDSA_SIGN_MODE_DETERMINISTIC) */
 } XAsu_SlhdsaSignParams;
 
-/** This structure contains SLH-DSA signature verification parameters sent over IPI. */
+/** This structure contains SLH-DSA signature verification parameters. */
 typedef struct {
 	XAsu_SlhdsaPkObject PkObj;	/**< Public key object */
-	u64 MsgAddr;			/**< DMA address of the message to verify */
-	u64 SignatureAddr;		/**< DMA address of the signature */
-	u64 CtxAddr;			/**< DMA address of context bytes when CtxLen is 0..255 */
+	u64 MsgAddr;			/**< Address of the message to be verified */
+	u64 SignatureAddr;		/**< Address of the signature */
+	u64 CtxAddr;			/**< Address of the context string (0 if unused) */
 	u32 MsgLen;			/**< Length of the message in bytes */
-	u32 SignatureLen;		/**< Signature length (must match ParamSet) */
-	u32 CtxLen;			/**< Must match CtxLen used during signing */
-	u8 ParamSet;			/**< Parameter set selector (XASU_SLHDSA_PARAM_*) */
-	u8 PreHashMode;			/**< Must match PreHashMode used during signing */
-	u8 HashId;			/**< Must match HashId used during signing */
-	u8 Reserved;			/**< Reserved to pad the structure to 56 bytes */
+	u32 SignatureLen;		/**< Length of the signature in bytes */
+	u32 CtxLen;			/**< Length of the context string in bytes (0..255) */
+	u8 ParamSet;			/**< Parameter set (XASU_SLHDSA_PARAM_*) */
+	u8 PreHashMode;			/**< Pure or pre-hash mode (XASU_SLHDSA_MSG_PURE /
+					  *  XASU_SLHDSA_MSG_PREHASH) */
+	u8 HashId;			/**< Pre-hash function ID (XASU_SLHDSA_HASHID_SHA256 /
+					  *  XASU_SLHDSA_HASHID_SHA512) */
+	u8 Reserved;			/**< Reserved for alignment */
 } XAsu_SlhdsaSignVerifyParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

@@ -12,7 +12,7 @@
 * firmware.
 *
 * Declares the instance and parameter-set types shared by every SLH-DSA source file,
-* along with the instance management, keep-alive, pre-hash, key generation, signature
+* along with the instance management, cooperative yield, pre-hash, key generation, signature
 * generation and signature verification interfaces.
 *
 * <pre>
@@ -21,6 +21,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
+*       kk   09/18/26 Size a yield slice by leaves built rather than by elapsed time
+*       kk   09/23/26 Run a pairwise consistency test on every generated key pair
 *
 * </pre>
 *
@@ -40,18 +42,14 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xslhdsa_addr.h"
+#include "xslhdsa_yield.h"
 #include "xasu_slhdsainfo.h"
 #include "xasufw_dma.h"
+#include "xasufw_memory.h"
 #include "xsha.h"
 
 #ifdef XASU_SLHDSA_ENABLE
 /************************************ Constant Definitions ***************************************/
-/** Keep-alive counter update period (us). */
-#define XSLHDSA_KEEPALIVE_INTERVAL_US	(200000U)
-/** Upper bound (us) on one key-generation or signing operation. */
-#define XSLHDSA_KEEPALIVE_MAX_OP_US	(120000000U)
-
-#define XSLHDSA_MAX_N	(32U)	/**< Max n (bytes) across the supported parameter sets. */
 #define XSLHDSA_PK_N_FIELDS	(2U)	/**< PK fields: PK.seed || PK.root. */
 #define XSLHDSA_PK_SEED_FIELD	(0U)	/**< PK.seed field index. */
 #define XSLHDSA_PK_ROOT_FIELD	(1U)	/**< PK.root field index. */
@@ -60,22 +58,42 @@ extern "C" {
 #define XSLHDSA_SK_PRF_FIELD	(1U)	/**< SK.prf field index. */
 #define XSLHDSA_SK_PKSEED_FIELD	(2U)	/**< PK.seed field index within SK. */
 #define XSLHDSA_SK_PKROOT_FIELD	(3U)	/**< PK.root field index within SK. */
+
+/*
+ * SLH-DSA's scratch region, carved out of the shared crypto pool.
+ *
+ * The ASU is a 32-bit core while clients pass 64-bit DDR addresses that it cannot dereference, so
+ * the key is copied into the scratch and the hashes run on it there. Messages are not buffered:
+ * they stream from the client address through the hardware SHA engines. The only thing staged
+ * here is the key, SK.seed || SK.prf || PK.seed || PK.root (or that trailing half for a
+ * public-key load), sized for SK at the widest supported n so one region serves both loads.
+ *
+ * The staged key stays here for the whole sign or key generation, including across a yield. Every
+ * command that uses this pool holds XASUFW_OVERLAY for its whole duration, and so do these two, so
+ * no other user of the pool runs between slices. The key is copied in once, on the first slice,
+ * from the caller address.
+ */
+#define XSLHDSA_SCRATCH_ADDR		(XASUFW_CRYPTO_ALGO_DATA_BLOCK)
+
+/** Staged key region: the SK field count at the widest supported n. */
+#define XSLHDSA_SCRATCH_LEN		(XSLHDSA_SK_N_FIELDS * XSLHDSA_MAX_N)
+
+/** Signature scratch: largest supported signature (SHAKE/SHA2-256s). */
+#define XSLHDSA_SIG_SCRATCH_BYTES	(XASU_SLHDSA_MAX_SIG_SIZE)
+
+/**
+ * Start of the pool above the scratch, on an 8-byte boundary so that the DMA transfers and the
+ * backend operate on a naturally-aligned base. It bounds the staged key region against the pool
+ * reserved in lscript.ld. The remainder of that pool stays free for a caller that needs a buffer
+ * of its own while the scratch is busy; the PWCT signature uses overlay data instead.
+ */
+#define XSLHDSA_SCRATCH_END		(XSLHDSA_SCRATCH_ADDR + \
+					((((XSLHDSA_SCRATCH_LEN) + 7U) / 8U) * 8U))
+
 #define XSLHDSA_WOTS_LG_W		(4U)	/**< FIPS 205 lg(w) for supported sets. */
 #define XSLHDSA_WOTS_LEN2_FAST_N_MIN	(9U)	/**< Min n for len_2 = 3 fast path. */
 #define XSLHDSA_WOTS_LEN2_FAST_N_MAX	(136U)	/**< Max n for len_2 = 3 fast path. */
 #define XSLHDSA_WOTS_LEN2_FAST	(3U)	/**< FIPS 205 len_2 fast-path value. */
-#define XSLHDSA_MAX_XMSS_HEIGHT	(9U)	/**< Max XMSS subtree height h' (FIPS 205 Table 2). */
-/**
- * XMSS treehash stack depth. Full-tree walks pass SubHeight == h', so the array must
- * hold h' entries (indices 0..h'-1) plus one spare.
- */
-#define XSLHDSA_XMSS_STACK_DEPTH (XSLHDSA_MAX_XMSS_HEIGHT + 1U)
-#define XSLHDSA_MAX_FORS_HEIGHT	(14U)	/**< Max FORS tree height a (FIPS 205 Table 2). */
-/**
- * FORS treehash stack depth. Auth-path walks pass SubHeight in 0..a-1, so depth == max a
- * already provides one spare past the largest SubHeight.
- */
-#define XSLHDSA_FORS_STACK_DEPTH	(XSLHDSA_MAX_FORS_HEIGHT)
 /** WOTS+/XMSS/FORS scratch bytes (SHAKE-256s worst case). */
 #define XSLHDSA_WORK_MEM_BYTES	(2144U)
 /** H_msg digest buffer size in bytes (worst case m=47). */
@@ -85,16 +103,6 @@ extern "C" {
 #define XSLHDSA_WOTS_WEIGHT_WORDS	(67U)
 
 /************************************** Type Definitions *****************************************/
-/** Keep-alive state for one long-running SLH-DSA operation. */
-typedef struct {
-	u64 OpStart;	/**< PIT snapshot taken when the operation started. */
-	u64 LastUpdate;	/**< PIT snapshot of the most recent keep-alive counter update. */
-	u8 Active;	/**< Non-zero while a key-generation or signing operation is in progress. */
-	u8 Reserved[7];	/**< Reserved to pad the structure to 24 bytes */
-} XSlhDsa_KeepAliveCtx;
-
-struct XSlhDsa_Instance;
-
 /** Supported SLH-DSA parameter set identifiers (FIPS 205 Table 2). */
 typedef enum {
 	XSLHDSA_PARAM_SET_SHAKE_256S = 0, /**< SLH-DSA-SHAKE-256s parameter set. */
@@ -127,6 +135,8 @@ typedef struct {
 	u32 fors_count; /**< FIPS k: number of FORS trees. */
 	u32 wots_win_bits; /**< FIPS lg_w: Winternitz parameter in bits. */
 	u32 m; /**< FIPS m: message digest length in bytes. */
+	u32 yield_xmss_leaves; /**< XMSS leaves built per cooperative yield slice. */
+	u32 yield_fors_leaves; /**< FORS leaves built per cooperative yield slice. */
 } XSlhDsa_Param;
 /**
  * ASUFW SLH-DSA runtime context.
@@ -134,8 +144,8 @@ typedef struct {
  * Unlike reference slh_var_t, this structure binds external DMA buffers, firmware
  * scratch memory, and optional SHA/DMA engine handles for hardware-accelerated paths.
  */
-typedef struct XSlhDsa_Instance {
-	XSlhDsa_KeepAliveCtx KeepAlive; /**< Keep-alive state for long ops. */
+struct _XSlhDsa_Instance {
+	XSlhDsa_YieldCtx Yield; /**< Cooperative yield/resume state for long ops. */
 	u64 MsgAddr; /**< DMA address of the message buffer. */
 	u64 SigAddr; /**< DMA address of the signature buffer. */
 	u64 PkAddr; /**< DMA address of the external public-key buffer. */
@@ -155,44 +165,25 @@ typedef struct XSlhDsa_Instance {
 	u32 MsgLocalLen; /**< Length of MsgLocalPtr (32 or 64 for pre-hash). */
 	u32 CtxPrefixLen; /**< Context prefix length in WorkMem (pure or pre-hash). */
 
-	u8 PkSeed[XSLHDSA_MAX_N]; /**< Public-key seed (n bytes). */
-	u8 PkRoot[XSLHDSA_MAX_N]; /**< Public-key root (n bytes). */
-	u8 SkSeed[XSLHDSA_MAX_N]; /**< Secret-key seed (n bytes). */
-	u8 SkPrf[XSLHDSA_MAX_N]; /**< Secret-key PRF key (n bytes). */
+	const u8 *PkSeed; /**< Public-key seed (n bytes), NULL when unstaged. */
+	const u8 *PkRoot; /**< Public-key root (n bytes), NULL when unstaged. */
+	const u8 *SkSeed; /**< Secret-key seed (n bytes), NULL when unstaged. */
+	const u8 *SkPrf; /**< Secret-key PRF key (n bytes), NULL when unstaged. */
+	u8 *KeyScratch; /**< Staged key region, XSLHDSA_SCRATCH_LEN bytes of shared pool. */
 	u8 PreHashMode; /**< XASU_SLHDSA_MSG_PURE or XASU_SLHDSA_MSG_PREHASH. */
 	u8 HashId; /**< Pre-hash function identifier (SHA256 for 128s, SHA512 for 256s). */
-	u8 Reserved[6]; /**< Reserved to pad the structure to 272 bytes. */
-} XSlhDsa_Instance;
-
-/**
- * This structure contains SLH-DSA key pair generation parameters. It stays inside the firmware:
- * the key manager fills it in while servicing XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID, whose own client
- * parameters are XAsu_SlhdsaKeyGenParams. The two key addresses state where the pair is to be
- * transferred, which is the client buffers today and can become a firmware scratch region once the
- * key vault holds SLH-DSA keys, without changing this interface. The two lengths are resolved from
- * the parameter set by the caller, so the core does not resolve them a second time.
- */
-typedef struct {
-	u64 PubKeyAddr;		/**< Address of the output public key */
-	u64 PrivKeyAddr;	/**< Address of the output secret key */
-	u32 PubKeyLen;		/**< Length of the public key buffer in bytes */
-	u32 PrivKeyLen;		/**< Length of the secret key buffer in bytes */
-	u8  ParamSet;		/**< Parameter set (XASU_SLHDSA_PARAM_*) */
-	u8  Reserved[3];	/**< Reserved for alignment */
-} XSlhDsa_KeyGenParams;
+	u8 Reserved[2]; /**< Reserved for alignment */
+};
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XSLHDSA_BIT_MASK(i) ((1U << (i)) - 1U)	/**< Mask of i low bits: (2^i - 1). */
 
 /************************************ Function Prototypes ****************************************/
-void XSlhDsa_KeepAliveBegin(struct XSlhDsa_Instance *InstPtr);
-void XSlhDsa_KeepAliveEnd(struct XSlhDsa_Instance *InstPtr);
-s32 XSlhDsa_KeepAlivePoll(struct XSlhDsa_Instance *InstPtr);
-
 u32 XSlhDsa_WotsMsgChainCount(const XSlhDsa_Param *ParamPtr);
 u32 XSlhDsa_WotsCsChainCount(const XSlhDsa_Param *ParamPtr);
 u32 XSlhDsa_WotsChainCount(const XSlhDsa_Param *ParamPtr);
 u32 XSlhDsa_SignatureBytes(const XSlhDsa_Param *ParamPtr);
+
 XSlhDsa_Instance *XSlhDsa_GetInstance(void);
 s32 XSlhDsa_BindParam(XSlhDsa_Instance *InstPtr, XSlhDsa_ParamSet ParamSet);
 s32 XSlhDsa_LookupParamSet(XSlhDsa_ParamSet ParamSet,
@@ -206,6 +197,7 @@ void XSlhDsa_SetSig(XSlhDsa_Instance *InstPtr, const u8 *Sig,
 void XSlhDsa_SetPkAddr(XSlhDsa_Instance *InstPtr, const u8 *Pk);
 void XSlhDsa_SetMsgMode(XSlhDsa_Instance *InstPtr, u8 PreHashMode, u8 HashId);
 s32 XSlhDsa_ClearSensitiveState(XSlhDsa_Instance *InstPtr);
+s32 XSlhDsa_ZeroizeSigScratch(void);
 
 const u8 *XSlhDsa_PreHashGetOid(u8 HashId);
 s32 XSlhDsa_PreHashBuildPrefix(XSlhDsa_Instance *InstPtr, const u8 *Ctx, u32 CtxLen);
@@ -213,21 +205,14 @@ s32 XSlhDsa_PreparePreHashMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgL
 				   const u8 *Ctx, u32 CtxLen);
 
 s32 XSlhDsa_KeyGenInternal(XSlhDsa_Instance *InstPtr, const u8 *SkSeed,
-			       const u8 *SkPrf, const u8 *PkSeed, u8 *Sk, u8 *Pk);
-
+			       const u8 *SkPrf, const u8 *PkSeed);
 s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 		      const u8 *Ctx, u32 CtxLen, const u8 *Sk, const u8 *OptRand,
 		      u8 *Sig, u32 SigLen);
-
 s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr);
 s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 			const u8 *Sig, u32 SigLen, const u8 *Ctx, u32 CtxLen, const u8 *Pk);
 
-/*
- * Request-level entry points called by the ASUFW SLH-DSA command handler. Each one validates the
- * client parameters, binds the instance to the requested parameter set, draws the randomness the
- * operation needs and resolves the request buffers before running the *Internal algorithm above.
- */
 s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
 			const XSlhDsa_KeyGenParams *ParamsPtr);
 s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *ParamsPtr);

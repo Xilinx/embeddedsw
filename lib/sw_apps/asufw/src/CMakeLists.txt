@@ -214,6 +214,7 @@ set(ASUFW_OVERLAY_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa.c
 	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa_core.c
 	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa_hash.c
+	${CMAKE_CURRENT_SOURCE_DIR}/slhdsa/xslhdsa_yield.c
 	${CMAKE_CURRENT_SOURCE_DIR}/keymanager/xkeymanager_aekv.c
 	${CMAKE_CURRENT_SOURCE_DIR}/keymanager/xkeymanager_chunk.c
 	${CMAKE_CURRENT_SOURCE_DIR}/keymanager/xkeymanager_crypto.c

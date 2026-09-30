@@ -294,17 +294,14 @@ typedef struct {
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerPqcKeyGenParams;
 
-/**
- * This structure contains info for the SLH-DSA key pair generation parameters, sent over IPI with
- * XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID. The FIPS 205 seeds are always drawn from the TRNG, so a
- * caller cannot supply one and no seed travels here. The key vault does not hold SLH-DSA keys yet,
- * so the pair is returned to the caller buffers named below.
- */
+/** This structure contains info for the SLH-DSA key pair generation parameters. */
 typedef struct {
-	u64 SkOutAddr;	/**< DMA address for secret key output (size per ParamSet) */
-	u64 PkOutAddr;	/**< DMA address for public key output (size per ParamSet) */
-	u8 ParamSet;	/**< Parameter set selector (XASU_SLHDSA_PARAM_*) */
-	u8 Reserved[7];	/**< Reserved to pad the structure to 24 bytes */
+	u64 SkOutAddr;	/**< Address of the secret key output buffer. */
+	u64 PkOutAddr;	/**< Address of the public key output buffer. */
+	u32 SkOutLen;	/**< Length of the secret key output buffer in bytes. */
+	u32 PkOutLen;	/**< Length of the public key output buffer in bytes. */
+	u8 ParamSet;	/**< Parameter set selector (XASU_SLHDSA_PARAM_*). */
+	u8 Reserved[7];	/**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_SlhdsaKeyGenParams;
 
 /** This structure contains info for different sub vault capacities. */

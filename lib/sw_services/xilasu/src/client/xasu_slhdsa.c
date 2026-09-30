@@ -172,8 +172,7 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function sends a command to ASUFW to run the SLH-DSA Known Answer Test, which
- *		signs and then verifies a fixed vector on ASUFW. Key generation is not part of it:
- *		it carries its own pairwise consistency test instead.
+ *		verifies one ACVP SLH-DSA-SHAKE-128s signature (pure mode, empty context).
  *
  * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
  *				input parameters.

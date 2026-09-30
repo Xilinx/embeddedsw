@@ -723,8 +723,9 @@ END:
  *					client input parameters.
  * @param	KeyGenParamsPtr		Pointer to XAsu_SlhdsaKeyGenParams structure which holds
  *					the key generation parameters. ParamSet selects the key
- *					sizes and the hash family, and SkOutAddr and PkOutAddr name
- *					the buffers that receive the pair.
+ *					sizes and the hash family, SkOutAddr and PkOutAddr name
+ *					the buffers that receive the pair, and SkOutLen and
+ *					PkOutLen must equal those sizes.
  *
  * @return
  *		- XST_SUCCESS, if IPI request to ASU is sent successfully.

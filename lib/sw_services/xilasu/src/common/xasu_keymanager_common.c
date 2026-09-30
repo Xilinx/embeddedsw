@@ -534,6 +534,22 @@ s32 XAsu_KmValidateSlhdsaKeyGenParams(const XAsu_SlhdsaKeyGenParams *KeyGenParam
 	 */
 	Status = XAsu_KmGetSlhdsaKeyLengths(KeyGenParamsPtr->ParamSet, PubKeyLenPtr,
 					PrivKeyLenPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	/**
+	 * Both declared output lengths must equal the key sizes of the requested parameter set.
+	 * A client declaring any other length has not sized its buffers to the keys ASUFW is
+	 * about to write.
+	 */
+	if ((KeyGenParamsPtr->SkOutLen != *PrivKeyLenPtr) ||
+	    (KeyGenParamsPtr->PkOutLen != *PubKeyLenPtr)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;

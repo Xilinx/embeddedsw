@@ -17,16 +17,13 @@
 * - XMSS (Algorithms 8 to 10): the Merkle tree over WOTS+ public keys.
 * - Hypertree (Algorithms 11 to 13): the d-layer XMSS chain ending at PK.root.
 *
-* Call hierarchy:
-*   Up:   xslhdsa.c
-*   Down: xslhdsa_hash.c
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
+*       kk   09/18/26 Pass the yield unit to the slice checkpoints
 *
 * </pre>
 *
@@ -177,8 +174,8 @@ void XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut)
 * @return
 *		- XASUFW_SUCCESS, if FORS signature emission succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the keep-alive poll exceeds the maximum
-*		  operation time.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
+*		  resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
@@ -187,7 +184,12 @@ void XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut)
 s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 {
 	s32 Status = XASUFW_FAILURE;
+	s32 YieldStatus = XASUFW_FAILURE;
+	u32 TreeStart = 0U;
+	u32 LevelStart = 0U;
+	u8 ResumedTree = 0U;
 	const XSlhDsa_Param *ParamPtr;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u32 HashWidth;
 	u32 TreeIdx;
 	u32 Pos;
@@ -203,12 +205,23 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 
 	ParamPtr = &InstPtr->Param;
 	HashWidth = ParamPtr->n;
+	YieldPtr = &InstPtr->Yield;
+
+	if ((YieldPtr->Fors.EmitResume != 0U) && (YieldPtr->Fors.EmitSigBase == Dst)) {
+		TreeStart = YieldPtr->Fors.EmitTreeIdx;
+		LevelStart = YieldPtr->Fors.EmitLevelIdx;
+		Dst = YieldPtr->Fors.EmitDst;
+		ResumedTree = 1U;
+	} else {
+		YieldPtr->Fors.EmitResume = 0U;
+		YieldPtr->Fors.TreeResume = 0U;
+		YieldPtr->Fors.EmitSigBase = Dst;
+	}
 
 	/**
 	 * - Step 2: indices <- base_2b(md, a, k)
 	 *
-	 * Split the leading k * a digest bits into k indices of a bits; index i names the one
-	 * leaf of FORS tree i whose secret this signature reveals.
+	 * Recompute on every slice so the indices do not depend on WotsWeights surviving a yield.
 	 */
 	XSlhDsa_Base2b(Md, ParamPtr->fors_height, ParamPtr->fors_count,
 			    InstPtr->WotsWeights);
@@ -219,25 +232,35 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 	 * The signature is k blocks of (1 + a) * n bytes: a revealed leaf secret followed by
 	 * that tree's a authentication nodes.
 	 */
-	for (TreeIdx = 0U; TreeIdx < ParamPtr->fors_count; TreeIdx++) {
+	for (TreeIdx = TreeStart; TreeIdx < ParamPtr->fors_count; TreeIdx++) {
 		Pos = InstPtr->WotsWeights[TreeIdx];
 
-		/** - ADRS: index = i * 2^a + indices[i]; FORS leaves share one flat space. */
-		XSlhDsa_AddrSetIndex(InstPtr->Addr, (TreeIdx << ParamPtr->fors_height) + Pos);
-		/**
-		 * - Step 4: SIG_FORS <- SIG_FORS || fors_skGen(SK.seed, PK.seed, ADRS,
-		 *   i * 2^a + indices[i])
-		 *
-		 * Emit the leaf secret itself; F is skipped so the verifier can apply it.
-		 */
-		Status = XSlhDsa_ForsLeafHash(InstPtr, 0U, Dst);
-		if (Status != XASUFW_SUCCESS) {
-			goto END;
+		if (TreeIdx != TreeStart) {
+			LevelStart = 0U;
 		}
-		Dst += HashWidth;
+
+		if ((TreeIdx != TreeStart) || (ResumedTree == 0U)) {
+			/**
+			 * - ADRS: index = i * 2^a + indices[i]; FORS leaves share one
+			 *   flat space.
+			 */
+			XSlhDsa_AddrSetIndex(InstPtr->Addr,
+					    (TreeIdx << ParamPtr->fors_height) + Pos);
+			/**
+			 * - Step 4: SIG_FORS <- SIG_FORS || fors_skGen(SK.seed, PK.seed, ADRS,
+			 *   i * 2^a + indices[i])
+			 *
+			 * Emit the leaf secret itself; F is skipped so the verifier can apply it.
+			 */
+			Status = XSlhDsa_ForsLeafHash(InstPtr, 0U, Dst);
+			if (Status != XASUFW_SUCCESS) {
+				goto END;
+			}
+			Dst += HashWidth;
+		}
 
 		/** - Step 5: for j from 0 to a - 1 do */
-		for (LevelIdx = 0U; LevelIdx < ParamPtr->fors_height; LevelIdx++) {
+		for (LevelIdx = LevelStart; LevelIdx < ParamPtr->fors_height; LevelIdx++) {
 			/**
 			 * - Step 6: s <- floor(indices[i] / 2^j) XOR 1
 			 *
@@ -247,9 +270,18 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 			SibBase = (TreeIdx << (ParamPtr->fors_height - LevelIdx)) +
 				((Pos >> LevelIdx) ^ 1U);
 
-			/** - Poll keep-alive per sibling walk; its cost doubles with LevelIdx. */
-			Status = XSlhDsa_KeepAlivePoll(InstPtr);
-			if (Status != XASUFW_SUCCESS) {
+			YieldStatus = XSlhDsa_YieldPoll(InstPtr,
+							XSLHDSA_YIELD_UNIT_FORS_LEAF);
+			if (YieldStatus == XASUFW_CMD_IN_PROGRESS) {
+				YieldPtr->Fors.EmitResume = 1U;
+				YieldPtr->Fors.EmitTreeIdx = TreeIdx;
+				YieldPtr->Fors.EmitLevelIdx = LevelIdx;
+				YieldPtr->Fors.EmitDst = Dst;
+				Status = YieldStatus;
+				goto END;
+			}
+			if (YieldStatus != XASUFW_SUCCESS) {
+				Status = YieldStatus;
 				goto END;
 			}
 
@@ -258,6 +290,13 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 			 *   ADRS)
 			 */
 			Status = XSlhDsa_ForsSubtreeRoot(InstPtr, SibBase, LevelIdx, Dst);
+			if (Status == XASUFW_CMD_IN_PROGRESS) {
+				YieldPtr->Fors.EmitResume = 1U;
+				YieldPtr->Fors.EmitTreeIdx = TreeIdx;
+				YieldPtr->Fors.EmitLevelIdx = LevelIdx;
+				YieldPtr->Fors.EmitDst = Dst;
+				goto END;
+			}
 			if (Status != XASUFW_SUCCESS) {
 				goto END;
 			}
@@ -265,6 +304,7 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 		}
 	}
 
+	YieldPtr->Fors.EmitResume = 0U;
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -297,8 +337,8 @@ s32 XSlhDsa_ForsPkFromSig(XSlhDsa_Instance *InstPtr, const u8 *SignFors,
 {
 	s32 Status = XASUFW_FAILURE;
 	const XSlhDsa_Param *ParamPtr;
-	u8 *NodePtr;
 	const u8 *SignPtr;
+	u8 *NodePtr;
 	u32 HashWidth;
 	u32 TreeIdx;
 	u32 NodeIdx;
@@ -600,10 +640,11 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if subtree root computation succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL or SubHeight
-*		  exceeds the stack depth.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the keep-alive poll exceeds the maximum
-*		  operation time.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL, SubHeight exceeds
+*		  the stack depth, or a restored checkpoint does not match the walk it resumes.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
+*		  resume.
+*		- XASUFW_SLHDSA_COPY_FAILED, if restoring or saving the treehash node stack fails.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
@@ -613,13 +654,15 @@ s32 XSlhDsa_XmssSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 FirstLeaf,
 				 u32 SubHeight, u8 *Root)
 {
 	s32 Status = XASUFW_FAILURE;
+	s32 YieldStatus = XASUFW_FAILURE;
+	s32 StackDepth = -1;
 	const XSlhDsa_Param *ParamPtr;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u8 NodeStack[XSLHDSA_XMSS_STACK_DEPTH][XSLHDSA_MAX_N];
 	u8 *ChainScratch;
 	u32 LeafIdx;
 	u32 LeafSeq;
 	u32 LeafCount;
-	s32 StackDepth = -1;
 
 	/** Validate input pointers, including the WOTS+ chain scratch buffer. */
 	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) ||
@@ -635,18 +678,62 @@ s32 XSlhDsa_XmssSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 FirstLeaf,
 	}
 
 	ParamPtr = &InstPtr->Param;
+	YieldPtr = &InstPtr->Yield;
 	ChainScratch = InstPtr->WorkMem;
 	/** The sub-tree spans the 2^SubHeight consecutive leaves starting at FirstLeaf. */
 	LeafCount = (1U << SubHeight);
-	LeafIdx = FirstLeaf;
 
-	for (LeafSeq = 0U; LeafSeq < LeafCount; LeafSeq++) {
+	if ((YieldPtr->Xmss.Resume != 0U) && (YieldPtr->Xmss.FirstLeaf == FirstLeaf) &&
+			(YieldPtr->Xmss.SubHeight == SubHeight) &&
+			(YieldPtr->Xmss.RootOut == Root)) {
+		LeafSeq = YieldPtr->Xmss.LeafSeq;
+		LeafIdx = YieldPtr->Xmss.LeafIdx;
+		StackDepth = YieldPtr->Xmss.StackDepth;
 		/**
-		 * - Advance the RTCA keep-alive counter once per leaf; a leaf costs len WOTS+
-		 *   chains, the largest step this walk takes.
+		 * The merge pops from NodeStack at the restored depth, so a depth that does
+		 * not match the restored position would step off either end of the array.
 		 */
-		Status = XSlhDsa_KeepAlivePoll(InstPtr);
+		if ((StackDepth < -1) || (StackDepth > (s32)SubHeight) ||
+				(LeafSeq >= LeafCount)) {
+			Status = XASUFW_SLHDSA_INVALID_PARAM;
+			goto END;
+		}
+		Status = Xil_SMemCpy(NodeStack, sizeof(NodeStack), YieldPtr->Xmss.NodeStack,
+				     sizeof(YieldPtr->Xmss.NodeStack),
+				     sizeof(YieldPtr->Xmss.NodeStack));
 		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_SLHDSA_COPY_FAILED;
+			goto END;
+		}
+	} else {
+		LeafSeq = 0U;
+		LeafIdx = FirstLeaf;
+		StackDepth = -1;
+		YieldPtr->Xmss.Resume = 0U;
+	}
+
+	for (; LeafSeq < LeafCount; LeafSeq++) {
+		YieldStatus = XSlhDsa_YieldPollLeaf(InstPtr, XSLHDSA_YIELD_UNIT_XMSS_LEAF);
+		if (YieldStatus == XASUFW_CMD_IN_PROGRESS) {
+			Status = Xil_SMemCpy(YieldPtr->Xmss.NodeStack,
+					     sizeof(YieldPtr->Xmss.NodeStack), NodeStack,
+					     sizeof(NodeStack), sizeof(NodeStack));
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_SLHDSA_COPY_FAILED;
+				goto END;
+			}
+			YieldPtr->Xmss.Resume = 1U;
+			YieldPtr->Xmss.FirstLeaf = FirstLeaf;
+			YieldPtr->Xmss.SubHeight = SubHeight;
+			YieldPtr->Xmss.RootOut = Root;
+			YieldPtr->Xmss.LeafSeq = LeafSeq;
+			YieldPtr->Xmss.LeafIdx = LeafIdx;
+			YieldPtr->Xmss.StackDepth = StackDepth;
+			Status = YieldStatus;
+			goto END;
+		}
+		if (YieldStatus != XASUFW_SUCCESS) {
+			Status = YieldStatus;
 			goto END;
 		}
 
@@ -659,6 +746,7 @@ s32 XSlhDsa_XmssSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 FirstLeaf,
 		LeafIdx++;
 	}
 
+	YieldPtr->Xmss.Resume = 0U;
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -676,8 +764,8 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if XMSS signature emission succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the keep-alive poll exceeds the maximum
-*		  operation time.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
+*		  resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_ZEROIZE_MEMSET_FAIL,
 *		  XASUFW_SLHDSA_COPY_FAILED, XASUFW_SHA_START_FAILED,
@@ -688,7 +776,9 @@ s32 XSlhDsa_XmssEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 			     u32 IdxLeaf, u8 *LayerSign)
 {
 	s32 Status = XASUFW_FAILURE;
+	u8 ResumeAuthPath = 0U;
 	const XSlhDsa_Param *ParamPtr;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u32 WotsOctets;
 	u8 *AuthPathPtr;
 
@@ -700,6 +790,7 @@ s32 XSlhDsa_XmssEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 	}
 
 	ParamPtr = &InstPtr->Param;
+	YieldPtr = &InstPtr->Yield;
 	/**
 	 * - Step 8: SIG_XMSS <- sig || AUTH
 	 *
@@ -708,23 +799,47 @@ s32 XSlhDsa_XmssEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 	WotsOctets = XSlhDsa_WotsChainCount(ParamPtr) * ParamPtr->n;
 	AuthPathPtr = LayerSign + WotsOctets;
 
-	/**
-	 * - Step 5: ADRS.setTypeAndClear(WOTS_HASH)
-	 * - Step 6: ADRS.setKeyPairAddress(idx)
-	 * - Step 7: sig <- wots_sign(M, SK.seed, PK.seed, ADRS)
-	 */
-	Status = XSlhDsa_XmssWriteWotsSignature(InstPtr, Msg, IdxLeaf, LayerSign);
+	if ((YieldPtr->Xmss.EmitResume != 0U) &&
+	    (YieldPtr->Xmss.EmitLayerSign == LayerSign) &&
+	    (YieldPtr->Xmss.EmitIdxLeaf == IdxLeaf) &&
+	    (YieldPtr->Xmss.EmitWotsDone != 0U)) {
+		ResumeAuthPath = 1U;
+	}
+
+	if (ResumeAuthPath == 0U) {
+		/**
+		 * A fresh emit must not inherit a checkpoint from an abandoned walk: the
+		 * treehash tag is only a leaf range, so a stale one can match another subtree.
+		 */
+		YieldPtr->Xmss.AuthPathResume = 0U;
+		YieldPtr->Xmss.Resume = 0U;
+		/**
+		 * - Step 5: ADRS.setTypeAndClear(WOTS_HASH)
+		 * - Step 6: ADRS.setKeyPairAddress(idx)
+		 * - Step 7: sig <- wots_sign(M, SK.seed, PK.seed, ADRS)
+		 */
+		Status = XSlhDsa_XmssWriteWotsSignature(InstPtr, Msg, IdxLeaf, LayerSign);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+
+		YieldPtr->Xmss.EmitLayerSign = LayerSign;
+		YieldPtr->Xmss.EmitIdxLeaf = IdxLeaf;
+		YieldPtr->Xmss.EmitWotsDone = 1U;
+	}
+
+	Status = XSlhDsa_XmssWriteAuthPathNodes(InstPtr, IdxLeaf, ParamPtr, AuthPathPtr);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		YieldPtr->Xmss.EmitResume = 1U;
+		goto END;
+	}
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
-	/**
-	 * - Step 1 to 4: for j from 0 to h' - 1, k <- floor(idx / 2^j) XOR 1 and
-	 *   AUTH[j] <- xmss_node(SK.seed, k, j, PK.seed, ADRS)
-	 *
-	 * Append the h' sibling roots that authenticate that leaf against the root.
-	 */
-	Status = XSlhDsa_XmssWriteAuthPathNodes(InstPtr, IdxLeaf, ParamPtr, AuthPathPtr);
+	YieldPtr->Xmss.EmitResume = 0U;
+	YieldPtr->Xmss.EmitWotsDone = 0U;
+	YieldPtr->Xmss.AuthPathResume = 0U;
 
 END:
 	return Status;
@@ -831,8 +946,8 @@ void XSlhDsa_HtParseDigest(const XSlhDsa_Param *ParamPtr, const u8 *Digest,
 * @return
 *		- XASUFW_SUCCESS, if hypertree signing succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the keep-alive poll exceeds the maximum
-*		  operation time.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
+*		  resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
@@ -843,7 +958,9 @@ s32 XSlhDsa_HtEmitSig(XSlhDsa_Instance *InstPtr,
 			   u8 *SigHt)
 {
 	s32 Status = XASUFW_FAILURE;
+	u8 SkipBottom = 0U;
 	const XSlhDsa_Param *ParamPtr;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u64 IdxTree;
 	u32 IdxLeaf;
 
@@ -855,21 +972,36 @@ s32 XSlhDsa_HtEmitSig(XSlhDsa_Instance *InstPtr,
 	}
 
 	ParamPtr = &InstPtr->Param;
+	YieldPtr = &InstPtr->Yield;
 	/** Local copies: the layer loop shifts the tree index and rewrites the leaf slot. */
 	IdxTree = HtIndices->IdxTree;
 	IdxLeaf = (u32)HtIndices->IdxLeaf;
 
-	/**
-	 * - Step 1: ADRS <- toByte(0, 32)
-	 * - Step 2: ADRS.setTreeAddress(idxtree)
-	 * - Step 3: SIG_tmp <- xmss_sign(M, SK.seed, idxleaf, PK.seed, ADRS)
-	 * - Step 4: SIG_HT <- SIG_tmp
-	 *
-	 * Layer 0 signs the FORS public key that the caller staged in LayerMsg.
-	 */
-	Status = XSlhDsa_HtEmitBottomLayer(InstPtr, LayerMsg, IdxTree, IdxLeaf, SigHt);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
+	if ((YieldPtr->Ht.Resume != 0U) && (YieldPtr->Ht.SigBase == SigHt)) {
+		SkipBottom = 1U;
+		IdxTree = YieldPtr->Ht.IdxTree;
+		IdxLeaf = YieldPtr->Ht.IdxLeaf;
+	}
+
+	if (SkipBottom == 0U) {
+		/**
+		 * - Step 1: ADRS <- toByte(0, 32)
+		 * - Step 2: ADRS.setTreeAddress(idxtree)
+		 * - Step 3: SIG_tmp <- xmss_sign(M, SK.seed, idxleaf, PK.seed, ADRS)
+		 * - Step 4: SIG_HT <- SIG_tmp
+		 *
+		 * Layer 0 signs the FORS public key that the caller staged in LayerMsg.
+		 */
+		if ((YieldPtr->Xmss.EmitResume != 0U) && (YieldPtr->Xmss.EmitLayerSign == SigHt)) {
+			Status = XSlhDsa_XmssEmitSig(InstPtr, LayerMsg, YieldPtr->Xmss.EmitIdxLeaf,
+						     SigHt);
+		} else {
+			Status = XSlhDsa_HtEmitBottomLayer(InstPtr, LayerMsg, IdxTree, IdxLeaf,
+							    SigHt);
+		}
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/**
@@ -911,10 +1043,10 @@ s32 XSlhDsa_HtVerify(XSlhDsa_Instance *InstPtr, const u8 *Msg, const u8 *SignHt,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_Param *ParamPtr;
+	const u8 *SignCursor;
 	u8 *NodePtr;
 	u64 IdxTree;
 	u64 IdxLeaf;
-	const u8 *SignCursor;
 
 	/** Validate input pointers, including the n-byte node scratch on the instance. */
 	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) ||
@@ -1036,9 +1168,11 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if subtree root computation succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if SubHeight or stack depth is invalid.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the keep-alive poll exceeds the maximum
-*		  operation time.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if SubHeight or stack depth is invalid, or a
+*		  restored checkpoint does not match the walk it resumes.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
+*		  resume.
+*		- XASUFW_SLHDSA_COPY_FAILED, if restoring or saving the treehash node stack fails.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
@@ -1048,13 +1182,15 @@ static s32 XSlhDsa_ForsSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 BaseLeaf,
 					u32 SubHeight, u8 *Root)
 {
 	s32 Status = XASUFW_FAILURE;
+	s32 YieldStatus = XASUFW_FAILURE;
+	s32 StackDepth = -1;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u8 NodeStack[XSLHDSA_FORS_STACK_DEPTH][XSLHDSA_MAX_N];
 	u8 *NodeSlot;
 	u32 LeafIdx;
 	u32 Seq;
 	u32 SeqCount;
 	u32 MergeLevel;
-	s32 StackDepth = -1;
 
 	/** A walk of height SubHeight keeps that many nodes pending, so it must fit the stack. */
 	if (SubHeight >= XSLHDSA_FORS_STACK_DEPTH) {
@@ -1062,16 +1198,60 @@ static s32 XSlhDsa_ForsSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 BaseLeaf,
 		goto END;
 	}
 
+	YieldPtr = &InstPtr->Yield;
 	/** BaseLeaf is a level-SubHeight node, so shifting up gives its first leaf. */
 	SeqCount = (1U << SubHeight);
-	LeafIdx = BaseLeaf << SubHeight;
 
-	for (Seq = 0U; Seq < SeqCount; Seq++) {
+	if ((YieldPtr->Fors.TreeResume != 0U) && (YieldPtr->Fors.TreeBaseLeaf == BaseLeaf) &&
+			(YieldPtr->Fors.TreeSubHeight == SubHeight)) {
+		Seq = YieldPtr->Fors.TreeSeq;
+		LeafIdx = YieldPtr->Fors.TreeLeafIdx;
+		StackDepth = YieldPtr->Fors.TreeStackDepth;
+		/**
+		 * The merge pops from NodeStack at the restored depth, so a depth that does
+		 * not match the restored position would step off either end of the array.
+		 */
+		if ((StackDepth < -1) || (StackDepth > (s32)SubHeight) || (Seq >= SeqCount)) {
+			Status = XASUFW_SLHDSA_INVALID_PARAM;
+			goto END;
+		}
+		Status = Xil_SMemCpy(NodeStack, sizeof(NodeStack), YieldPtr->Fors.TreeNodeStack,
+				     sizeof(YieldPtr->Fors.TreeNodeStack),
+				     sizeof(YieldPtr->Fors.TreeNodeStack));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_SLHDSA_COPY_FAILED;
+			goto END;
+		}
+	} else {
+		Seq = 0U;
+		LeafIdx = BaseLeaf << SubHeight;
+		StackDepth = -1;
+		YieldPtr->Fors.TreeResume = 0U;
+	}
+
+	for (; Seq < SeqCount; Seq++) {
 		MergeLevel = 0U;
 
-		/** - Advance the RTCA keep-alive counter once per leaf of the sub-tree walk. */
-		Status = XSlhDsa_KeepAlivePoll(InstPtr);
-		if (Status != XASUFW_SUCCESS) {
+		YieldStatus = XSlhDsa_YieldPollLeaf(InstPtr, XSLHDSA_YIELD_UNIT_FORS_LEAF);
+		if (YieldStatus == XASUFW_CMD_IN_PROGRESS) {
+			Status = Xil_SMemCpy(YieldPtr->Fors.TreeNodeStack,
+					     sizeof(YieldPtr->Fors.TreeNodeStack), NodeStack,
+					     sizeof(NodeStack), sizeof(NodeStack));
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_SLHDSA_COPY_FAILED;
+				goto END;
+			}
+			YieldPtr->Fors.TreeResume = 1U;
+			YieldPtr->Fors.TreeBaseLeaf = BaseLeaf;
+			YieldPtr->Fors.TreeSubHeight = SubHeight;
+			YieldPtr->Fors.TreeSeq = Seq;
+			YieldPtr->Fors.TreeLeafIdx = LeafIdx;
+			YieldPtr->Fors.TreeStackDepth = StackDepth;
+			Status = YieldStatus;
+			goto END;
+		}
+		if (YieldStatus != XASUFW_SUCCESS) {
+			Status = YieldStatus;
 			goto END;
 		}
 
@@ -1117,6 +1297,7 @@ static s32 XSlhDsa_ForsSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 BaseLeaf,
 		LeafIdx++;
 	}
 
+	YieldPtr->Fors.TreeResume = 0U;
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -1664,8 +1845,8 @@ static s32 XSlhDsa_XmssWriteWotsSignature(XSlhDsa_Instance *InstPtr,
 *
 * @return
 *		- XASUFW_SUCCESS, if auth path generation succeeds.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the keep-alive poll exceeds the maximum
-*		  operation time.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
+*		  resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
@@ -1676,12 +1857,26 @@ static s32 XSlhDsa_XmssWriteAuthPathNodes(XSlhDsa_Instance *InstPtr, u32 IdxLeaf
 					       u8 *AuthPathOut)
 {
 	s32 Status = XASUFW_FAILURE;
+	s32 YieldStatus = XASUFW_FAILURE;
 	u32 HashWidth = ParamPtr->n;
+	u32 LevelStart = 0U;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u32 LevelIdx;
 	u32 SibLeafBase;
 
+	YieldPtr = &InstPtr->Yield;
+	if ((YieldPtr->Xmss.AuthPathResume != 0U) && (YieldPtr->Xmss.AuthPathIdxLeaf == IdxLeaf) &&
+			(YieldPtr->Xmss.AuthPathSigBase == AuthPathOut)) {
+		LevelStart = YieldPtr->Xmss.AuthPathLevelIdx;
+		AuthPathOut = YieldPtr->Xmss.AuthPathOut;
+	} else {
+		YieldPtr->Xmss.AuthPathResume = 0U;
+		YieldPtr->Xmss.Resume = 0U;
+		YieldPtr->Xmss.AuthPathSigBase = AuthPathOut;
+	}
+
 	/** - Step 1: for j from 0 to h' - 1 do */
-	for (LevelIdx = 0U; LevelIdx < ParamPtr->xmss_height; LevelIdx++) {
+	for (LevelIdx = LevelStart; LevelIdx < ParamPtr->xmss_height; LevelIdx++) {
 		/**
 		 * - Step 2: k <- floor(idx / 2^j) XOR 1
 		 *
@@ -1690,20 +1885,36 @@ static s32 XSlhDsa_XmssWriteAuthPathNodes(XSlhDsa_Instance *InstPtr, u32 IdxLeaf
 		 */
 		SibLeafBase = ((IdxLeaf >> LevelIdx) ^ 1U) << LevelIdx;
 
-		/** Poll keep-alive per level; cost doubles per level, so top levels dominate. */
-		Status = XSlhDsa_KeepAlivePoll(InstPtr);
-		if (Status != XASUFW_SUCCESS) {
+		YieldStatus = XSlhDsa_YieldPoll(InstPtr, XSLHDSA_YIELD_UNIT_XMSS_LEAF);
+		if (YieldStatus == XASUFW_CMD_IN_PROGRESS) {
+			YieldPtr->Xmss.AuthPathResume = 1U;
+			YieldPtr->Xmss.AuthPathIdxLeaf = IdxLeaf;
+			YieldPtr->Xmss.AuthPathLevelIdx = LevelIdx;
+			YieldPtr->Xmss.AuthPathOut = AuthPathOut;
+			Status = YieldStatus;
+			goto END;
+		}
+		if (YieldStatus != XASUFW_SUCCESS) {
+			Status = YieldStatus;
 			goto END;
 		}
 
 		/** - Step 3: AUTH[j] <- xmss_node(SK.seed, k, j, PK.seed, ADRS) */
 		Status = XSlhDsa_XmssSubtreeRoot(InstPtr, SibLeafBase, LevelIdx, AuthPathOut);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			YieldPtr->Xmss.AuthPathResume = 1U;
+			YieldPtr->Xmss.AuthPathIdxLeaf = IdxLeaf;
+			YieldPtr->Xmss.AuthPathLevelIdx = LevelIdx;
+			YieldPtr->Xmss.AuthPathOut = AuthPathOut;
+			goto END;
+		}
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 		AuthPathOut += HashWidth;
 	}
 
+	YieldPtr->Xmss.AuthPathResume = 0U;
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -1988,8 +2199,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if upper-layer signing succeeds.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the keep-alive poll exceeds the maximum
-*		  operation time.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
+*		  resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
@@ -2000,17 +2211,56 @@ static s32 XSlhDsa_HtEmitUpperLayers(XSlhDsa_Instance *InstPtr,
 					  u64 *IdxTree, u32 *IdxLeaf, u8 *LayerSigOut)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 LevelIdx;
+	s32 YieldStatus = XASUFW_FAILURE;
+	u32 LevelStart = 1U;
 	u32 LayerBytes = XSlhDsa_HtLayerSigBytes(ParamPtr);
+	u8 *LayerSigBase = LayerSigOut;
+	XSlhDsa_YieldCtx *YieldPtr;
+	u32 LevelIdx;
+
+	YieldPtr = &InstPtr->Yield;
+	if ((YieldPtr->Ht.Resume != 0U) && (YieldPtr->Ht.SigBase == LayerSigBase)) {
+		LevelStart = YieldPtr->Ht.LevelIdx;
+		LayerSigOut = YieldPtr->Ht.LayerSigOut;
+		*IdxTree = YieldPtr->Ht.IdxTree;
+		*IdxLeaf = YieldPtr->Ht.IdxLeaf;
+	} else {
+		YieldPtr->Ht.SigBase = LayerSigBase;
+	}
 
 	/** - Step 6: for j from 1 to d - 1 do */
-	for (LevelIdx = 1U; LevelIdx < ParamPtr->d; LevelIdx++) {
-		/**
-		 * Poll keep-alive once per hypertree layer: a layer costs a full XMSS sign
-		 * including the auth path leaf builds.
-		 */
-		Status = XSlhDsa_KeepAlivePoll(InstPtr);
-		if (Status != XASUFW_SUCCESS) {
+	for (LevelIdx = LevelStart; LevelIdx < ParamPtr->d; LevelIdx++) {
+		if (YieldPtr->Ht.EmitPending != 0U) {
+			YieldPtr->Ht.EmitPending = 0U;
+			Status = XSlhDsa_XmssEmitSig(InstPtr, LayerMsg, *IdxLeaf, LayerSigOut);
+			if (Status == XASUFW_CMD_IN_PROGRESS) {
+				YieldPtr->Ht.Resume = 1U;
+				YieldPtr->Ht.EmitPending = 1U;
+				YieldPtr->Ht.LevelIdx = LevelIdx;
+				YieldPtr->Ht.IdxTree = *IdxTree;
+				YieldPtr->Ht.IdxLeaf = *IdxLeaf;
+				YieldPtr->Ht.LayerSigOut = LayerSigOut;
+				goto END;
+			}
+			if (Status != XASUFW_SUCCESS) {
+				goto END;
+			}
+			continue;
+		}
+
+		YieldStatus = XSlhDsa_YieldPoll(InstPtr, XSLHDSA_YIELD_UNIT_XMSS_LEAF);
+		if (YieldStatus == XASUFW_CMD_IN_PROGRESS) {
+			YieldPtr->Ht.Resume = 1U;
+			YieldPtr->Ht.EmitPending = 0U;
+			YieldPtr->Ht.LevelIdx = LevelIdx;
+			YieldPtr->Ht.IdxTree = *IdxTree;
+			YieldPtr->Ht.IdxLeaf = *IdxLeaf;
+			YieldPtr->Ht.LayerSigOut = LayerSigOut;
+			Status = YieldStatus;
+			goto END;
+		}
+		if (YieldStatus != XASUFW_SUCCESS) {
+			Status = YieldStatus;
 			goto END;
 		}
 
@@ -2048,11 +2298,22 @@ static s32 XSlhDsa_HtEmitUpperLayers(XSlhDsa_Instance *InstPtr,
 
 		/** - Step 11: SIG_tmp <- xmss_sign(root, SK.seed, idxleaf, PK.seed, ADRS) */
 		Status = XSlhDsa_XmssEmitSig(InstPtr, LayerMsg, *IdxLeaf, LayerSigOut);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			YieldPtr->Ht.Resume = 1U;
+			YieldPtr->Ht.EmitPending = 1U;
+			YieldPtr->Ht.LevelIdx = LevelIdx;
+			YieldPtr->Ht.IdxTree = *IdxTree;
+			YieldPtr->Ht.IdxLeaf = *IdxLeaf;
+			YieldPtr->Ht.LayerSigOut = LayerSigOut;
+			goto END;
+		}
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
 	}
 
+	YieldPtr->Ht.Resume = 0U;
+	YieldPtr->Ht.EmitPending = 0U;
 	Status = XASUFW_SUCCESS;
 
 END:

@@ -31,6 +31,7 @@
  *                     internal exportable vault behind which the user vaults now start, and
  *                     added the resident export and import sequencers that phase the key vault
  *                     and RSA-ECC overlay images and hold the header signing and verification
+ *       kk   09/23/26 Document the SLH-DSA pairwise consistency test on key generation
  *
  * </pre>
  *
@@ -2154,39 +2155,44 @@ END:
 #ifdef XASU_SLHDSA_ENABLE
 /*************************************************************************************************/
 /**
- * @brief	Generate an SLH-DSA key pair and export it to the caller buffers.
+ * @brief	Generate an SLH-DSA key pair and export it via DMA.
  *
  * @param	DmaPtr			Pointer to the XAsufw_Dma instance.
  * @param	ShaPtr			Pointer to the SHA instance the requested parameter set runs
  *					on, which is SHA3 for the SHAKE sets and SHA2 otherwise.
  * @param	KeyGenParamsPtr		Pointer to XAsu_SlhdsaKeyGenParams. ParamSet selects the
- *					key sizes and the hash family, and SkOutAddr and PkOutAddr
- *					name the buffers that receive the pair.
+ *					key sizes and the hash family, SkOutAddr and PkOutAddr
+ *					name the buffers that receive the pair, and SkOutLen and
+ *					PkOutLen must equal those sizes.
  *
  * @return
- * 	- XASUFW_SUCCESS, when the key pair is generated and transferred to the caller buffers.
+ * 	- XASUFW_SUCCESS, when the key is generated and transferred.
  * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if any input pointer is NULL or the key generation
  * 	  parameters do not meet the contract the client validates them against.
+ * 	- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and key generation or the
+ * 	  pairwise consistency test sign will resume.
+ * 	- XASUFW_SLHDSA_PWCT_SIGN_GEN_FAIL or XASUFW_SLHDSA_PWCT_SIGN_VER_FAIL, if the pairwise
+ * 	  consistency test fails, as returned by XSlhDsa_KeyGen.
  * 	- Error code received from XSlhDsa_KeyGen in case of key pair generation failure, which
  * 	  already carries the failing keygen stage and its underlying cause.
- *
- * @note
- *	The key vault does not hold SLH-DSA keys yet, so no key identifier is produced.
  *
  *************************************************************************************************/
 s32 XKeyManager_GenerateSlhdsaKeyPair(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
 			const XAsu_SlhdsaKeyGenParams *KeyGenParamsPtr)
 {
-	/**
-	 * Capture the start time of the SLH-DSA key pair generation operation, if performance
-	 * measurement is enabled.
-	 */
-	XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
-
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XSlhDsa_Instance *SlhInst = XSlhDsa_GetInstance();
 	XSlhDsa_KeyGenParams KeyGenParams;
 	u32 PubKeyLen = 0U;
 	u32 PvtKeyLen = 0U;
+
+	/**
+	 * Capture the start time of the SLH-DSA key pair generation operation, if performance
+	 * measurement is enabled. Skip on a resumed yield slice so the timer is not restarted.
+	 */
+	if ((SlhInst != NULL) && (SlhInst->Yield.Keygen.Stage == XSLHDSA_KEYGEN_STAGE_NONE)) {
+		XASUFW_MEASURE_PERF_START(XASU_MODULE_KEYMANAGER_ID);
+	}
 
 	/** Validate the input parameters. */
 	if ((DmaPtr == NULL) || (ShaPtr == NULL) || (KeyGenParamsPtr == NULL)) {
@@ -2205,9 +2211,7 @@ s32 XKeyManager_GenerateSlhdsaKeyPair(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
 	}
 
 	/**
-	 * The core transfers the fresh pair to the two addresses named here, which are the client
-	 * buffers because the key vault does not hold SLH-DSA keys yet. Once it does, only these
-	 * two addresses move to a firmware scratch region the vault update reads the pair from.
+	 * The core transfers the fresh pair to the two addresses named here.
 	 */
 	KeyGenParams.PubKeyAddr = KeyGenParamsPtr->PkOutAddr;
 	KeyGenParams.PrivKeyAddr = KeyGenParamsPtr->SkOutAddr;
@@ -2217,9 +2221,9 @@ s32 XKeyManager_GenerateSlhdsaKeyPair(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/**
-	 * Generate the key pair. XSlhDsa_KeyGen draws the three FIPS 205 seeds from the TRNG and
-	 * transfers both keys to the caller buffers, clearing the sensitive state it holds on
-	 * every exit path.
+	 * Generate the key pair. XSlhDsa_KeyGen draws the three FIPS 205 seeds from the TRNG
+	 * and runs the pairwise consistency test on the fresh pair before reporting success,
+	 * so an inconsistent pair is never exported.
 	 *
 	 * The status is returned unchanged: the keygen stage already tags its own failures, and
 	 * only three error fields are available, so re-tagging here would overwrite the stage

@@ -62,6 +62,7 @@
  *       vm   09/15/26 Added error codes for the UDE key fetch failures, for key vault export
  *                     and import, for random byte rejection sampling retry exhaustion and for
  *                     ASU internal exportable vault creation failure
+ *       kk   09/23/26 Added error codes for SLH-DSA pairwise consistency test
  *
  * </pre>
  *
@@ -899,14 +900,15 @@ enum {
 	XASUFW_SLHDSA_SIGN_VERIFY_FAILED, /**< 0x26AU - SLH-DSA signature verification failed */
 	XASUFW_SLHDSA_KAT_FAILED, /**< 0x26BU - SLH-DSA KAT failed */
 	XASUFW_SLHDSA_OPERATION_TIMEOUT, /**< 0x26CU - SLH-DSA key generation or signing exceeded
-						the keep-alive run-time cap */
+						the cooperative yield slice cap */
 	XASUFW_SLHDSA_COPY_FAILED, /**< 0x26DU - Error when an SLH-DSA buffer copy fails, covering
 						the sign or verify parameters read out of the
 						request buffer, the generated key fields written
 						to the secret or public key, key field loads into
 						the instance, the pre-hash prefix, the WOTS chain
-						seed, the truncated digest, MGF1 output and the
-						H_msg and PRF_msg seed blocks */
+						seed, the truncated digest, MGF1 output, the
+						H_msg and PRF_msg seed blocks and yield treehash
+						node stacks */
 	XASUFW_SLHDSA_KEY_OUT_DMA_FAILED, /**< 0x26EU - Error when the generated SLH-DSA secret or
 						public key cannot be written to the client output
 						buffer */
@@ -1038,6 +1040,12 @@ enum {
 						chunk fails. */
 	XASUFW_ECIES_CMAC_KDF_FAILURE = 0x2ADU, /**< 0x2ADU - Error when ECIES CMAC-KDF
 							operation fails. */
+	XASUFW_SLHDSA_PWCT_SIGN_GEN_FAIL, /**< 0x2AEU - Sign generation failure in SLH-DSA PWCT */
+	XASUFW_SLHDSA_PWCT_SIGN_VER_FAIL, /**< 0x2AFU - Sign verification failure in SLH-DSA PWCT */
+	XASUFW_SLHDSA_SIGN_OUT_DMA_FAILED, /**< 0x2B0U - Error when the generated SLH-DSA signature
+						cannot be written to the client output buffer */
+	XASUFW_SLHDSA_SIG_IN_DMA_FAILED, /**< 0x2B1U - Error when the SLH-DSA signature to verify
+						cannot be read into the signature scratch */
 
 	/* Additional status success codes */
 	XASUFW_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate

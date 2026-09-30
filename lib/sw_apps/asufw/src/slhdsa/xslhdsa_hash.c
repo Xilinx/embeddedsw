@@ -17,10 +17,6 @@
 * - The SHA2 instantiation, including MGF1 and the compressed 22-byte ADRS^c form.
 * - The SHAKE instantiation, which absorbs the full 32-byte ADRS.
 *
-* Call hierarchy:
-*   Up:   xslhdsa.c, xslhdsa_core.c
-*   Down: XSha driver and DMA
-*
 * <pre>
 * MODIFICATION HISTORY:
 *

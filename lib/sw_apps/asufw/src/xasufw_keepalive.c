@@ -16,7 +16,6 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------------------------
  * 1.0   vm   07/14/2026 Initial release
- *       kk   07/10/26 Added XAsufw_KeepAliveKick() function
  *
  * </pre>
  *
@@ -78,24 +77,6 @@ END:
 /**
  * @brief	This function increments the ASUFW keep-alive counter.
  *
- * @note	PLM samples the counter every 200 ms and reports ASUFW as not alive after three
- *		consecutive samples with no change. Long-running operations which block the task
- *		scheduler for longer than that must call this function periodically.
- *
- *************************************************************************************************/
-void XAsufw_KeepAliveKick(void)
-{
-	u32 Counter;
-
-	Counter = XAsufw_ReadReg(XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR);
-	Counter++;
-	XAsufw_WriteReg(XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR, Counter);
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function increments the ASUFW keep-alive counter.
- *
  * @param	Arg	Unused.
  *
  * @return
@@ -104,10 +85,14 @@ void XAsufw_KeepAliveKick(void)
  *************************************************************************************************/
 static s32 XAsufw_KeepAliveTaskHandler(void *Arg)
 {
+	u32 Counter;
+
 	(void)Arg;
 
 	/** Increment the keep-alive counter. */
-	XAsufw_KeepAliveKick();
+	Counter = XAsufw_ReadReg(XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR);
+	Counter++;
+	XAsufw_WriteReg(XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR, Counter);
 
 	return XASUFW_SUCCESS;
 }

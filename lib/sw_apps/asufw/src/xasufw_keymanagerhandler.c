@@ -23,6 +23,9 @@
  *       vm   09/15/26 Added key vault export and import command handlers that call the resident
  *                     sequencers, kept the ASU internal vault restored by an in-place update and
  *                     added creation of the ASU internal exportable vault at initialization
+ *       kk   09/29/26 Added a pairwise consistency test on SLH-DSA key generation, reused the
+ *                     first-slice SHA engine and keygen request on yield resume and reported the
+ *                     yield slice cap as an operation timeout
  *
  * </pre>
  *
@@ -53,6 +56,7 @@
 #include "xsha_hw.h"
 #include "xasufw_slhdsahandler.h"
 #include "xasu_slhdsa_common.h"
+#include "xslhdsa.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -243,9 +247,11 @@ s32 XAsufw_KeyManagerInit(void)
 		XASUFW_DMA_RESOURCE_MASK,
 #ifdef XASU_SLHDSA_ENABLE
 		/*
-		 * Key generation draws the three FIPS 205 seeds from the TRNG and runs on SHA2 or
-		 * SHA3 depending on the requested parameter set, so the engine is reserved through
-		 * a mask that is resolved from the request rather than named here.
+		 * Key generation draws the three FIPS 205 seeds from the TRNG, runs the pairwise
+		 * consistency test (deterministic empty-message sign and verify) on the same SHA
+		 * engine, and runs on SHA2 or SHA3 depending on the requested parameter set, so
+		 * the engine is reserved through a mask that is resolved from the request rather
+		 * than named here.
 		 */
 		[XASU_KM_GEN_SLHDSA_KEY_PAIR_CMD_ID] = XASUFW_KEYMANAGER_RESOURCE_MASK |
 		XASUFW_DMA_RESOURCE_MASK | XASUFW_SLHDSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK |
@@ -513,11 +519,17 @@ static s32 XAsufw_KeyManagerResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId
 		XAsufw_AllocateResource(XASUFW_SLHDSA, XASUFW_KEYMANAGER, ReqId);
 		XAsufw_AllocateResource(ShaResource, XASUFW_KEYMANAGER, ReqId);
 		XAsufw_AllocateResource(XASUFW_OVERLAY, XASUFW_KEYMANAGER, ReqId);
+		if (ShaResource == XASUFW_SHA3) {
+			XAsufw_KeyManagerModule.ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+		} else {
+			XAsufw_KeyManagerModule.ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+		}
 
 		/** Activate SLH-DSA overlay. */
 		Status = XOverlay_Activate(XOVERLAY_ALGO_SLHDSA, XAsufw_KeyManagerModule.AsuDmaPtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OVERLAY_ACTIVATE_FAIL);
+			XAsufw_KeyManagerModule.ShaPtr = NULL;
 			if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status,
 					XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
@@ -1060,81 +1072,142 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if SLH-DSA key pair generation operation is successful.
  * 	- XASUFW_INVALID_PARAM, if the request length is invalid.
+ * 	- XASUFW_MEM_COPY_FAIL, if copying the key generation parameters out of the request
+ *    buffer fails.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
- * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the requested parameter set is unsupported.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the SLH-DSA instance is unavailable or the requested
+ *    parameter set is unsupported.
  * 	- XASUFW_MEM_REGN_ACCESS_DENIED, if a client key output buffer lies outside the memory
  *    regions the requesting subsystem is permitted to access.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
+ * 	- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and key generation or the
+ *    pairwise consistency test sign will resume.
+ * 	- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the yield slice count exceeds
+ *    XSLHDSA_MAX_YIELD_SLICES.
+ * 	- XASUFW_TASK_INVALID_HANDLER, if the yielded command cannot be re-queued.
+ * 	- Buffer-clear failure status via XAsufw_UpdateBufStatus, if zeroizing the staged key
+ *    region or the checkpoints cached across yield slices fails.
  * 	- XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR, if key pair generation fails, combined with the
  *    underlying callee status via XAsufw_UpdateErrorStatus.
- *
- * @note
- *	Parameter structure: XAsu_SlhdsaKeyGenParams. The generated pair is returned to the
- *	caller through SkOutAddr and PkOutAddr; the key vault does not yet hold SLH-DSA keys.
- *	Key generation runs to completion without returning to the task scheduler and takes
- *	seconds, during which the key manager resource stays owned by this request.
  *
  *************************************************************************************************/
 static s32 XAsufw_KeyManagerSlhdsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAsu_SlhdsaKeyGenParams *Cmd = (const XAsu_SlhdsaKeyGenParams *)ReqBuf->Arg;
-	XSha *ShaPtr = NULL;
+	s32 ResumeStatus = XASUFW_FAILURE;
+	XAsu_SlhdsaKeyGenParams *CmdPtr;
+	XSlhDsa_Instance *InstPtr = XSlhDsa_GetInstance();
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	u32 PubKeyLen = 0U;
 	u32 PvtKeyLen = 0U;
+	u8 IsResume = 0U;
 
-	/** Verify command length. */
-	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_SlhdsaKeyGenParams);
-
-	/** Get subsystem ID from IPI mask. */
-	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XASUFW_INVALID_SUBSYSTEM_ID;
-		goto END;
-	}
-
-	/**
-	 * Validate the client provided key output buffers. The checks use the same size helpers
-	 * the key generation DMA transfers use, so a client cannot have a shorter region accepted
-	 * than the amount of key material it receives. A zero length also rejects an unsupported
-	 * parameter set before any buffer is examined.
-	 */
-	PubKeyLen = XAsu_SlhdsaGetPkSize(Cmd->ParamSet);
-	PvtKeyLen = XAsu_SlhdsaGetSkSize(Cmd->ParamSet);
-	if ((PubKeyLen == 0U) || (PvtKeyLen == 0U)) {
+	/** Validate the SLH-DSA instance, which holds the yield session state and the snapshot. */
+	if (InstPtr == NULL) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
 
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->SkOutAddr, PvtKeyLen);
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->PkOutAddr, PubKeyLen);
+	/** Key generation parameters are held on the instance so they survive across slices. */
+	CmdPtr = &InstPtr->Yield.Keygen.Params;
 
 	/**
-	 * Select the hash engine of the parameter set: SHAKE sets run on SHA3 and SHA2 sets on
-	 * SHA2. Unsupported sets are already rejected above, so the SHA2 branch can be the
-	 * default.
+	 * An active session carrying this ReqId means the scheduler re-entered the handler after
+	 * a yield, so the request was validated and copied on the first slice. Cap the slice
+	 * count, as a key generation that never converges would otherwise hold the key manager
+	 * resource for good.
 	 */
-	if ((Cmd->ParamSet == (u8)XASU_SLHDSA_PARAM_SHAKE_256S) ||
-	    (Cmd->ParamSet == (u8)XASU_SLHDSA_PARAM_SHAKE_128S)) {
-		ShaPtr = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
-	} else {
-		ShaPtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	if ((InstPtr->Yield.Session.Active != 0U) &&
+			(InstPtr->Yield.Session.ReqId == ReqId)) {
+		IsResume = 1U;
+		InstPtr->Yield.Session.Slices++;
+		if (InstPtr->Yield.Session.Slices > XSLHDSA_MAX_YIELD_SLICES) {
+			Status = XASUFW_SLHDSA_OPERATION_TIMEOUT;
+			goto END;
+		}
 	}
 
+	/** Validate and snapshot the request on the first slice only. */
+	if (IsResume == 0U) {
+		/** Verify command length. */
+		XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_SlhdsaKeyGenParams);
+
+		/**
+		 * Copy key generation parameters once so resumed slices retain the buffer
+		 * bindings validated during the initial slice.
+		 */
+		Status = Xil_SMemCpy(CmdPtr, sizeof(*CmdPtr), ReqBuf->Arg,
+				     sizeof(*CmdPtr), sizeof(*CmdPtr));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+
+		/** Get subsystem ID from IPI mask. */
+		SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+		if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+			Status = XASUFW_INVALID_SUBSYSTEM_ID;
+			goto END;
+		}
+
+		/**
+		 * Validate the key output buffers using the sizes required by the key generation
+		 * DMA transfers. A zero size also rejects an unsupported parameter set before
+		 * either memory region is validated. SkOutLen and PkOutLen must match the
+		 * resolved sizes.
+		 */
+		PubKeyLen = XAsu_SlhdsaGetPkSize(CmdPtr->ParamSet);
+		PvtKeyLen = XAsu_SlhdsaGetSkSize(CmdPtr->ParamSet);
+		if ((PubKeyLen == 0U) || (PvtKeyLen == 0U) ||
+		    (CmdPtr->SkOutLen != PvtKeyLen) || (CmdPtr->PkOutLen != PubKeyLen)) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
+
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, CmdPtr->SkOutAddr, PvtKeyLen);
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, CmdPtr->PkOutAddr, PubKeyLen);
+	}
+
+	/**
+	 * Start the time slice this call is allowed to run for. The first call for a ReqId also
+	 * clears the checkpoints another command may have left behind.
+	 */
+	XSlhDsa_YieldSessionBegin(InstPtr, ReqId);
+
 	/** Perform SLH-DSA key pair generation operation. */
-	Status = XKeyManager_GenerateSlhdsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, ShaPtr, Cmd);
+	Status = XKeyManager_GenerateSlhdsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr,
+						  XAsufw_KeyManagerModule.ShaPtr, CmdPtr);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		/**
+		 * Resources stay held while the command is in progress, so a reschedule that did
+		 * not happen would strand them for good. Report the failure instead, which makes
+		 * this a terminating exit and frees them below.
+		 */
+		ResumeStatus = XSlhDsa_YieldScheduleResume(InstPtr, ReqBuf, ReqId);
+		if (ResumeStatus != XASUFW_SUCCESS) {
+			Status = ResumeStatus;
+		}
+		goto END;
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
 	}
 
 END:
-	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Ending the session also zeroizes the staged key and the cached checkpoints. */
+		if (InstPtr != NULL) {
+			Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_YieldSessionEnd(InstPtr));
+		}
+		/** Release resources. */
+		if (XAsufw_ReleaseResource(XASUFW_KEYMANAGER, ReqId) != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+		}
+		XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
+		XAsufw_KeyManagerModule.ShaPtr = NULL;
 	}
-	XAsufw_KeyManagerModule.AsuDmaPtr = NULL;
 
 	return Status;
 }

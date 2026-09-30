@@ -11,22 +11,19 @@
 * This file contains the SLH-DSA instance management and top-level operation
 * implementation for ASUFW firmware.
 *
-* Covers the instance state and parameter-set binding, the RTCA keep-alive window, the
-* HashSLH-DSA pre-hash message preparation, and the key generation, signature generation
-* and signature verification entry points.
+* Covers the instance state and parameter-set binding, cooperative yield for long-running
+* key generation and signing, the HashSLH-DSA pre-hash message preparation, and the key
+* generation, signature generation and signature verification entry points.
 *
 * Requests arrive through XSlhDsa_KeyGen, XSlhDsa_Sign and XSlhDsa_Verify, which validate the
 * client parameters, bind the instance to the requested parameter set, draw the randomness the
 * operation needs from the TRNG and resolve the request buffers, then run the FIPS 205 algorithm
-* through the corresponding XSlhDsa_*Internal function.
+* through the corresponding XSlhDsa_*Internal function. Key generation then signs an empty
+* message with the new secret key and verifies it with the new public key before the pair is
+* exported (FIPS 140-3 IG 10.3.A pairwise consistency test).
 *
 * Implements FIPS 205 Algorithms 18 and 21 (slh_keygen), 19, 22 and 23 (slh_sign and
 * hash_slh_sign), and 20, 24 and 25 (slh_verify and hash_slh_verify).
-*
-* Call hierarchy:
-*   Up:   ASUFW SLH-DSA command handler
-*   Down: xslhdsa_core.c (FORS, WOTS+, XMSS and hypertree), xslhdsa_hash.c, xtrng.c (seeds and
-*         add_rand), xasufw_dma.c (key-pair output transfers)
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -34,6 +31,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
+*       kk   09/18/26 Size a yield slice by leaves built rather than by elapsed time
+*       kk   09/23/26 Run a pairwise consistency test on every generated key pair
+*       kk   09/29/26 Staged sign and verify signatures in the signature scratch and reused the
+*                     caller's keygen parameters on every slice
 *
 * </pre>
 *
@@ -47,8 +48,6 @@
 #include "xasufw_status.h"
 #include "xasufw_perf.h"
 #include "xasufw_util.h"
-#include "xasufw_init.h"
-#include "xasufw_keepalive.h"
 #include "xasufw_dma.h"
 #include "xfih.h"
 #include "xtrng.h"
@@ -60,6 +59,22 @@
 
 #ifdef XASU_SLHDSA_ENABLE
 /************************************ Constant Definitions ***************************************/
+/*
+ * The staged key region is bound to the pool reserved in lscript.ld, so widening it past what the
+ * pool holds fails the build rather than silently running into the auxiliary buffer above it. It is
+ * also bound to the largest key the client interface admits, so a parameter set whose SK the region
+ * cannot hold fails the build rather than being rejected at run time as an oversized copy.
+ */
+_Static_assert((XSLHDSA_SCRATCH_END - XASUFW_CRYPTO_ALGO_DATA_BLOCK) <=
+	       XASUFW_CRYPTO_SHARED_POOL_SIZE,
+	       "SLH-DSA scratch region overruns the shared crypto pool reserved in lscript.ld");
+_Static_assert(XSLHDSA_SCRATCH_LEN >= XASU_SLHDSA_MAX_SK_SIZE,
+	       "SLH-DSA staged key region cannot hold the largest secret key in xasu_slhdsainfo.h");
+_Static_assert(XASU_SLHDSA_SHAKE_256S_SIG_SIZE == XASU_SLHDSA_SHA2_256S_SIG_SIZE,
+	       "Signature scratch must cover both 256s parameter sets");
+_Static_assert(XSLHDSA_SIG_SCRATCH_BYTES >= XASU_SLHDSA_SHAKE_256S_SIG_SIZE,
+	       "Signature scratch cannot hold the largest SLH-DSA signature");
+
 /** DER OID for SHA-256, id-sha256 (FIPS 205 Algorithm 23, step 10): 2.16.840.1.101.3.4.2.1. */
 static const u8 XSlhDsa_PreHashOidSha256[XASU_SLHDSA_PREHASH_OID_LEN] = {
 	0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U, 0x01U
@@ -75,16 +90,14 @@ static const u8 XSlhDsa_PreHashOidSha512[XASU_SLHDSA_PREHASH_OID_LEN] = {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-static s32 XSlhDsa_CopyKeyField(void *Dst, u32 DstSize, const u8 *Src, u32 Len);
-
+static void XSlhDsa_PublishStagedSkViews(XSlhDsa_Instance *InstPtr, u32 HashWidth);
 static s32 XSlhDsa_KeyWriteSkPrefix(const u8 *SkSeed, const u8 *SkPrf,
 					  const u8 *PkSeed, u32 HashWidth, u8 *SkOut);
-static s32 XSlhDsa_KeyWritePkSeed(const u8 *PkSeed, u32 HashWidth, u8 *PkOut);
+static s32 XSlhDsa_KeyDrawSkPrefix(XSlhDsa_Instance *InstPtr, u32 HashWidth);
 static s32 XSlhDsa_KeyBuildTopXmssRoot(XSlhDsa_Instance *InstPtr,
 					    const XSlhDsa_Param *ParamPtr, u8 *RootOut);
 static s32 XSlhDsa_KeyCommitHypertreeRoot(XSlhDsa_Instance *InstPtr,
-					       const u8 *Root, u32 HashWidth, u8 *SkOut,
-					       u8 *PkOut);
+					       const u8 *Root, u32 HashWidth);
 
 static s32 XSlhDsa_SignDigestBody(XSlhDsa_Instance *InstPtr, const u8 *Digest,
 				       u8 *SigBody);
@@ -92,10 +105,19 @@ static s32 XSlhDsa_SignDigestBody(XSlhDsa_Instance *InstPtr, const u8 *Digest,
 static s32 XSlhDsa_ParamSetFromAsu(u8 ParamSet, XSlhDsa_ParamSet *TypePtr);
 static s32 XSlhDsa_PrepareInstance(XSlhDsa_Instance *InstPtr, u8 ParamSet, XAsufw_Dma *DmaPtr,
 					XSha *ShaPtr);
-static s32 XSlhDsa_ZeroizeKeyBuffers(u8 *Sk, u32 SkSize, u8 *Pk, u32 PkSize, u8 *SkSeed,
-					u8 *SkPrf, u8 *PkSeed, u32 SeedLen);
+static s32 XSlhDsa_Pwct(XSlhDsa_Instance *InstPtr);
 
 /************************************ Variable Definitions ***************************************/
+/**
+ * Signature scratch in overlay data, sized for the largest supported signature. Signing and the
+ * pairwise consistency test build the signature here, and verification reads the client signature
+ * from here.
+ */
+static u8 XSlhDsa_SigScratch[XSLHDSA_SIG_SCRATCH_BYTES] __attribute__((aligned(4)));
+
+/** Non-NULL empty-message pointer; SignInternal rejects a NULL Msg even at MsgLen 0. */
+static const u8 XSlhDsa_PwctEmptyMsg[1U] = { 0U };
+
 /**
 * FIPS 205 Table 2 parameter sets indexed by XSlhDsa_ParamSet.
 *
@@ -104,6 +126,10 @@ static s32 XSlhDsa_ZeroizeKeyBuffers(u8 *Sk, u32 SkSize, u8 *Pk, u32 PkSize, u8 
 * and copied into the instance by XSlhDsa_BindParam(). The reserved row is not a
 * FIPS set; LookupParamSet primes the output to it until a supported identifier is
 * confirmed.
+*
+* The two yield budgets are not FIPS constants. They set how many XMSS or FORS leaves a
+* cooperative yield slice builds before the command parks, and are sized from the measured
+* leaf cost of each set so a slice stays near 10 ms and well inside the keep-alive interval.
 */
 static const XSlhDsa_Param XSlhDsa_ParamLookup[XSLHDSA_PARAM_SET_MAX + 1U] = {
 	/* Dummy row: unused hash family and zero sizes, not a FIPS 205 parameter set. */
@@ -117,6 +143,8 @@ static const XSlhDsa_Param XSlhDsa_ParamLookup[XSLHDSA_PARAM_SET_MAX + 1U] = {
 		.fors_count = 0U,
 		.wots_win_bits = 0U,
 		.m = 0U,
+		.yield_xmss_leaves = 0U,
+		.yield_fors_leaves = 0U,
 	},
 	/* SLH-DSA-SHAKE-256s: n=32, h=64, d=8, h'=8, a=14, k=22, lg_w=4, m=47 */
 	[XSLHDSA_PARAM_SET_SHAKE_256S] = {
@@ -129,6 +157,8 @@ static const XSlhDsa_Param XSlhDsa_ParamLookup[XSLHDSA_PARAM_SET_MAX + 1U] = {
 		.fors_count = 22,
 		.wots_win_bits = 4,
 		.m = 47,
+		.yield_xmss_leaves = 1U,
+		.yield_fors_leaves = 300U,
 	},
 	/* SLH-DSA-SHA2-128s: n=16, h=63, d=7, h'=9, a=12, k=14, lg_w=4, m=30 */
 	[XSLHDSA_PARAM_SET_SHA2_128S] = {
@@ -141,6 +171,8 @@ static const XSlhDsa_Param XSlhDsa_ParamLookup[XSLHDSA_PARAM_SET_MAX + 1U] = {
 		.fors_count = 14,
 		.wots_win_bits = 4,
 		.m = 30,
+		.yield_xmss_leaves = 1U,
+		.yield_fors_leaves = 200U,
 	},
 	/* SLH-DSA-SHA2-256s: n=32, h=64, d=8, h'=8, a=14, k=22, lg_w=4, m=47 */
 	[XSLHDSA_PARAM_SET_SHA2_256S] = {
@@ -153,6 +185,8 @@ static const XSlhDsa_Param XSlhDsa_ParamLookup[XSLHDSA_PARAM_SET_MAX + 1U] = {
 		.fors_count = 22,
 		.wots_win_bits = 4,
 		.m = 47,
+		.yield_xmss_leaves = 1U,
+		.yield_fors_leaves = 200U,
 	},
 	/* SLH-DSA-SHAKE-128s: n=16, h=63, d=7, h'=9, a=12, k=14, lg_w=4, m=30 */
 	[XSLHDSA_PARAM_SET_SHAKE_128S] = {
@@ -165,6 +199,8 @@ static const XSlhDsa_Param XSlhDsa_ParamLookup[XSLHDSA_PARAM_SET_MAX + 1U] = {
 		.fors_count = 14,
 		.wots_win_bits = 4,
 		.m = 30,
+		.yield_xmss_leaves = 2U,
+		.yield_fors_leaves = 300U,
 	},
 };
 
@@ -377,11 +413,11 @@ u32 XSlhDsa_SignatureBytes(const XSlhDsa_Param *ParamPtr)
 *		- NULL, if the default parameter set could not be bound.
 *
 * @note
-*	The instance, key material fields (SkSeed/SkPrf), and scratch buffers are allocated
-*	statically on first call rather than on the stack. WorkMem alone is
-*	XSLHDSA_WORK_MEM_BYTES and call paths also place large XMSS/FORS node stacks on the
-*	stack, which together exceed the ASUFW stack budget. A stack-backed instance would
-*	overflow.
+*	The instance and its scratch buffers are allocated statically on first call rather than on
+*	the stack. WorkMem alone is XSLHDSA_WORK_MEM_BYTES and call paths also place large
+*	XMSS/FORS node stacks on the stack, which together exceed the ASUFW stack budget. A
+*	stack-backed instance would overflow. Key material is the exception: it is staged in the
+*	shared crypto pool that KeyScratch points at, not in these static buffers.
 *
 *************************************************************************************************/
 XSlhDsa_Instance *XSlhDsa_GetInstance(void)
@@ -408,6 +444,14 @@ XSlhDsa_Instance *XSlhDsa_GetInstance(void)
 		SlhDsaInst.MsgDigest = MsgDigest;
 		SlhDsaInst.NodeBuf = NodeBuf;
 		SlhDsaInst.WotsWeights = WotsWeights;
+		/*
+		 * The staged key region is not owned here the way the buffers above are: the pool
+		 * it points into belongs to whichever command holds XASUFW_OVERLAY, so only its
+		 * address is fixed for the lifetime of the firmware. Its contents are the current
+		 * command's, which is why the key views stay NULL until a load stages one and
+		 * XSlhDsa_ClearSensitiveState() wipes it before the command releases the overlay.
+		 */
+		SlhDsaInst.KeyScratch = (u8 *)(UINTPTR)XSLHDSA_SCRATCH_ADDR;
 		/* Default to SLH-DSA-SHAKE-256s until a request binds the set it asked for. */
 		if (XSlhDsa_BindParam(&SlhDsaInst, XSLHDSA_PARAM_SET_SHAKE_256S) !=
 				XASUFW_SUCCESS)
@@ -465,8 +509,9 @@ s32 XSlhDsa_BindParam(XSlhDsa_Instance *InstPtr, XSlhDsa_ParamSet ParamSet)
 
 	/**
 	 * Copy the row by value so the instance owns its view of the supplied constants
-	 * (n, h, d, h', a, k, lg_w, m) and the lookup table stays immutable. Derived quantities
-	 * (len_1, len_2, len, signature size) are recomputed on demand, not cached here.
+	 * (n, h, d, h', a, k, lg_w, m) and the cooperative yield leaf budgets, and the lookup
+	 * table stays immutable. Derived quantities (len_1, len_2, len, signature size) are
+	 * recomputed on demand, not cached here.
 	 */
 	InstPtr->Param = *ParamPtr;
 
@@ -580,37 +625,49 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if the public key is loaded.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr or Pk is NULL.
-*		- XASUFW_SLHDSA_COPY_FAILED, if a field copy fails.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr, its staged key region or Pk is NULL.
+*		- XASUFW_SLHDSA_COPY_FAILED, if staging the key fails.
 *
 * @note
-*	Copies PkSeed and PkRoot into instance storage.
+*	Stages PK in the shared crypto pool and points PkSeed and PkRoot at it. SkSeed and SkPrf are
+*	left NULL, since verification reads neither and must not see a secret key an earlier command
+*	staged.
 *
 *************************************************************************************************/
 s32 XSlhDsa_LoadPk(XSlhDsa_Instance *InstPtr, const u8 *Pk)
 {
 	s32 Status = XASUFW_FAILURE;
+	u8 *KeyPtr;
 	u32 HashWidth;
 
 	/** Validate input pointers. */
-	if ((InstPtr == NULL) || (Pk == NULL)) {
+	if ((InstPtr == NULL) || (InstPtr->KeyScratch == NULL) || (Pk == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Field width is n, so XSlhDsa_BindParam() must have run before this call. */
 	HashWidth = InstPtr->Param.n;
+	KeyPtr = InstPtr->KeyScratch;
 
-	/** Copy PK.seed from the first n-byte field. */
-	Status = XSlhDsa_CopyKeyField(InstPtr->PkSeed, sizeof(InstPtr->PkSeed), Pk, HashWidth);
+	/** Clear key pointers before copying the public key into scratch. */
+	InstPtr->PkSeed = NULL;
+	InstPtr->PkRoot = NULL;
+	InstPtr->SkSeed = NULL;
+	InstPtr->SkPrf = NULL;
+
+	/** Copy PK.seed || PK.root into the scratch region. */
+	Status = Xil_SMemCpy(KeyPtr, XSLHDSA_SCRATCH_LEN, Pk,
+				     XSLHDSA_PK_N_FIELDS * HashWidth,
+				     XSLHDSA_PK_N_FIELDS * HashWidth);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SLHDSA_COPY_FAILED;
 		goto END;
 	}
 
-	/** Copy PK.root from the second n-byte field. */
-	Status = XSlhDsa_CopyKeyField(InstPtr->PkRoot, sizeof(InstPtr->PkRoot),
-					   Pk + (XSLHDSA_PK_ROOT_FIELD * HashWidth),
-					   HashWidth);
+	/** Publish the public-key views onto the stable firmware-owned key image. */
+	InstPtr->PkSeed = &KeyPtr[XSLHDSA_PK_SEED_FIELD * HashWidth];
+	InstPtr->PkRoot = &KeyPtr[XSLHDSA_PK_ROOT_FIELD * HashWidth];
 
 END:
 	return Status;
@@ -624,65 +681,65 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if the secret key is loaded.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr or Sk is NULL.
-*		- XASUFW_SLHDSA_COPY_FAILED, if a field copy fails.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr, its staged key region or Sk is NULL.
+*		- XASUFW_SLHDSA_COPY_FAILED, if staging the key fails.
 *
 * @note
-*	Copies SkSeed, SkPrf, PkSeed, and PkRoot into instance storage. Callers must check the
-*	return status before using instance key material.
+*	Stages SK in the shared crypto pool and points SkSeed, SkPrf, PkSeed and PkRoot at its four
+*	fields. A failed stage leaves all four NULL rather than pointing at the previous key.
 *
 *************************************************************************************************/
 s32 XSlhDsa_LoadSk(XSlhDsa_Instance *InstPtr, const u8 *Sk)
 {
 	s32 Status = XASUFW_FAILURE;
+	u8 *KeyPtr;
 	u32 HashWidth;
 
 	/** Validate input pointers. */
-	if ((InstPtr == NULL) || (Sk == NULL)) {
+	if ((InstPtr == NULL) || (InstPtr->KeyScratch == NULL) || (Sk == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	/**
 	 * The private key is four consecutive n-byte fields, so XSlhDsa_BindParam() must have run
-	 * before this call. Loading stops at the first failed copy, leaving the instance with
-	 * partial key material that the caller must not use.
+	 * before this call.
 	 */
 	HashWidth = InstPtr->Param.n;
+	KeyPtr = InstPtr->KeyScratch;
 
-	/** - Copy SK.seed, the secret seed used to derive all WOTS+ and FORS private values. */
-	Status = XSlhDsa_CopyKeyField(InstPtr->SkSeed, sizeof(InstPtr->SkSeed), Sk, HashWidth);
+	/**
+	 * Drop the views up front, so a failed stage below leaves none of them pointing into a
+	 * region that holds a mix of this key and the last one.
+	 */
+	InstPtr->SkSeed = NULL;
+	InstPtr->SkPrf = NULL;
+	InstPtr->PkSeed = NULL;
+	InstPtr->PkRoot = NULL;
+
+	/**
+	 * Take the firmware's own copy of SK.seed || SK.prf || PK.seed || PK.root. The four fields
+	 * are n wide and consecutive in the caller buffer and in the staged copy alike, so one copy
+	 * stages all of them. XSLHDSA_SCRATCH_LEN bounds the write, so a parameter set whose
+	 * key does not fit the region is rejected instead of running past it.
+	 */
+	Status = Xil_SMemCpy(KeyPtr, XSLHDSA_SCRATCH_LEN, Sk,
+				     XSLHDSA_SK_N_FIELDS * HashWidth,
+				     XSLHDSA_SK_N_FIELDS * HashWidth);
 	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SLHDSA_COPY_FAILED;
 		goto END;
 	}
 
-	/** - Copy SK.prf, the key used to derive the message randomizer R. */
-	Status = XSlhDsa_CopyKeyField(InstPtr->SkPrf, sizeof(InstPtr->SkPrf),
-					   Sk + (XSLHDSA_SK_PRF_FIELD * HashWidth),
-					   HashWidth);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
-
-	/** - Copy the PK.seed half of the embedded public key. */
-	Status = XSlhDsa_CopyKeyField(InstPtr->PkSeed, sizeof(InstPtr->PkSeed),
-					   Sk + (XSLHDSA_SK_PKSEED_FIELD * HashWidth),
-					   HashWidth);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
-
-	/** - Copy the PK.root half of the embedded public key. */
-	Status = XSlhDsa_CopyKeyField(InstPtr->PkRoot, sizeof(InstPtr->PkRoot),
-					   Sk + (XSLHDSA_SK_PKROOT_FIELD * HashWidth),
-					   HashWidth);
+	/** Publish the views onto the staged key now that it holds the caller's key in full. */
+	XSlhDsa_PublishStagedSkViews(InstPtr, HashWidth);
 
 END:
 	return Status;
 }
 /*************************************************************************************************/
 /**
-* @brief	This function clears sensitive key material and scratch buffers in the instance.
+* @brief	This function clears the staged key material and the instance scratch buffers.
 *
 * @param	InstPtr	Pointer to the SLH-DSA instance.
 *
@@ -708,23 +765,28 @@ s32 XSlhDsa_ClearSensitiveState(XSlhDsa_Instance *InstPtr)
 	}
 
 	/**
-	 * Zeroize the SK.seed, SK.prf, PK.seed and PK.root fields. Clears are folded into Status
-	 * rather than aborting on the first failure, so the remaining secrets are still wiped and
-	 * the failure is still reported. Each field is cleared to its full width, not n bytes, so
-	 * residue from a wider parameter set bound earlier cannot survive.
+	 * Zeroize the staged SK.seed, SK.prf, PK.seed and PK.root, then drop the views onto them so
+	 * nothing reads the region after the wipe. This is also what hands the shared pool back to
+	 * the next command, so it has to happen before the overlay is released. The whole region is
+	 * cleared rather than the 4n bytes the bound parameter set staged, so residue from a wider
+	 * set staged earlier cannot survive; the NULL guard covers an instance never wired by
+	 * XSlhDsa_GetInstance(). Clears are folded into Status rather than aborting on the first
+	 * failure, so the remaining secrets are still wiped and the failure is still reported.
 	 */
-	Status = XAsufw_UpdateBufStatus(Status,
-			Xil_SecureZeroize(InstPtr->SkSeed, sizeof(InstPtr->SkSeed)));
-	Status = XAsufw_UpdateBufStatus(Status,
-			Xil_SecureZeroize(InstPtr->SkPrf, sizeof(InstPtr->SkPrf)));
-	Status = XAsufw_UpdateBufStatus(Status,
-			Xil_SecureZeroize(InstPtr->PkSeed, sizeof(InstPtr->PkSeed)));
-	Status = XAsufw_UpdateBufStatus(Status,
-			Xil_SecureZeroize(InstPtr->PkRoot, sizeof(InstPtr->PkRoot)));
+	if (InstPtr->KeyScratch != NULL) {
+		Status = XAsufw_UpdateBufStatus(Status,
+				Xil_SecureZeroize(InstPtr->KeyScratch,
+						    XSLHDSA_SCRATCH_LEN));
+	}
+
+	InstPtr->SkSeed = NULL;
+	InstPtr->SkPrf = NULL;
+	InstPtr->PkSeed = NULL;
+	InstPtr->PkRoot = NULL;
 
 	/**
 	 * Zeroize the scratch buffers, which hold WOTS+ and FORS private values and message
-	 * digest material derived from SK.seed and are therefore as sensitive as the key fields.
+	 * digest material derived from SK.seed and are therefore as sensitive as the staged key.
 	 * The singleton shares them across commands, so each is cleared to its declared size;
 	 * the NULL guards cover an instance never wired by XSlhDsa_GetInstance().
 	 */
@@ -775,99 +837,26 @@ END:
 
 /*************************************************************************************************/
 /**
-* @brief	This function starts keep-alive tracking for a long-running SLH-DSA operation.
-*
-* @param	InstPtr	Pointer to SLH-DSA instance.
-*
-*************************************************************************************************/
-void XSlhDsa_KeepAliveBegin(XSlhDsa_Instance *InstPtr)
-{
-	u64 Now;
-
-	/** Validate input pointer. */
-	if (InstPtr == NULL) {
-		goto END;
-	}
-
-	/** Arm tracking; seed the run-time bound and update interval from one PIT snapshot. */
-	Now = XAsufw_GetTimerValue();
-	InstPtr->KeepAlive.Active = 1U;
-	InstPtr->KeepAlive.OpStart = Now;
-	InstPtr->KeepAlive.LastUpdate = Now;
-
-END:
-	return;
-}
-
-/*************************************************************************************************/
-/**
-* @brief	This function ends keep-alive tracking for a long-running SLH-DSA operation.
-*
-* @param	InstPtr	Pointer to SLH-DSA instance.
-*
-*************************************************************************************************/
-void XSlhDsa_KeepAliveEnd(XSlhDsa_Instance *InstPtr)
-{
-	/** Disarm tracking and drop stale snapshots; the periodic task owns the counter again. */
-	if (InstPtr != NULL) {
-		InstPtr->KeepAlive.Active = 0U;
-		InstPtr->KeepAlive.OpStart = 0U;
-		InstPtr->KeepAlive.LastUpdate = 0U;
-	}
-}
-
-/*************************************************************************************************/
-/**
-* @brief	This function advances the keep-alive counter when the update interval has elapsed
-*		and enforces the upper bound on operation run time.
-*
-* @param	InstPtr	Pointer to SLH-DSA instance.
+* @brief	This function zeroizes the signature scratch.
 *
 * @return
-*		- XASUFW_SUCCESS when the caller may continue.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT when the operation exceeded
-*		  XSLHDSA_KEEPALIVE_MAX_OP_US.
+*		- XASUFW_SUCCESS if the buffer is cleared.
+*		- A buffer-clear failure status from Xil_SecureZeroize otherwise.
 *
 * @note
-*	The run-time bound stops a stalled crypto loop from advancing the keep-alive counter
-*	indefinitely, which would report ASUFW as alive while it makes no progress.
+*	Call only from a terminating key-generation path. The pairwise consistency test signs
+*	under a key the client has not received yet, so its signature is wiped with the rest of
+*	the key-generation state. A client signature left in the scratch is public and needs no
+*	wipe.
 *
 *************************************************************************************************/
-s32 XSlhDsa_KeepAlivePoll(XSlhDsa_Instance *InstPtr)
+s32 XSlhDsa_ZeroizeSigScratch(void)
 {
-	s32 Status = XASUFW_SUCCESS;
-	u64 Now;
+	s32 Status = XASUFW_FAILURE;
 
-	/** Validate input pointer; polls on an unarmed instance succeed without doing work. */
-	if ((InstPtr == NULL) || (InstPtr->KeepAlive.Active == 0U)) {
-		goto END;
-	}
+	/** Wipe the scratch so the PWCT signature does not outlive the key-generation command. */
+	Status = Xil_SecureZeroize(XSlhDsa_SigScratch, sizeof(XSlhDsa_SigScratch));
 
-	/** Sample the PIT once; it counts down, so the older (larger) sample is passed first. */
-	Now = XAsufw_GetTimerValue();
-
-	/**
-	 * Treat an operation past the run-time bound as stalled and remap the status to
-	 * XASUFW_SLHDSA_OPERATION_TIMEOUT so the caller aborts instead of claiming liveness.
-	 */
-	if (XAsufw_GetElapsedTimeUs(InstPtr->KeepAlive.OpStart, Now) >=
-			XSLHDSA_KEEPALIVE_MAX_OP_US) {
-		Status = XASUFW_SLHDSA_OPERATION_TIMEOUT;
-		goto END;
-	}
-
-	/**
-	 * Advance the RTCA counter once per interval and re-arm. Key generation and signing hold
-	 * the scheduler for seconds, so without this the periodic keep-alive task never runs and
-	 * PLM declares ASUFW dead after three unchanged samples.
-	 */
-	if (XAsufw_GetElapsedTimeUs(InstPtr->KeepAlive.LastUpdate, Now) >=
-			XSLHDSA_KEEPALIVE_INTERVAL_US) {
-		XAsufw_KeepAliveKick();
-		InstPtr->KeepAlive.LastUpdate = Now;
-	}
-
-END:
 	return Status;
 }
 
@@ -1078,116 +1067,132 @@ END:
 *		(FIPS 205 Algorithm 18: slh_keygen_internal).
 *
 * @param	InstPtr	Pointer to SLH-DSA instance bound to a parameter set.
-* @param	SkSeed	Secret seed (n bytes).
-* @param	SkPrf	PRF secret (n bytes).
-* @param	PkSeed	Public seed (n bytes).
-* @param	Sk	Output secret key buffer (4n bytes).
-* @param	Pk	Output public key buffer (2n bytes).
+* @param	SkSeed	Secret seed (n bytes), or NULL to draw all three seeds from the TRNG.
+* @param	SkPrf	PRF secret (n bytes), NULL only when SkSeed is NULL.
+* @param	PkSeed	Public seed (n bytes), NULL only when SkSeed is NULL.
 *
 * @return
 *		- XASUFW_SUCCESS, if key pair generation succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr, its ADRS buffer, Sk, Pk, SkSeed, SkPrf
-*		  or PkSeed is NULL.
-*		- XASUFW_SLHDSA_COPY_FAILED, if writing a generated key field to the secret or
-*		  public key fails, or if loading SK into the instance fails.
-*		- XASUFW_SLHDSA_KEYGEN_FAILED, if the top XMSS tree root build fails, combined
-*		  with the underlying callee status via XAsufw_UpdateErrorStatus.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr, its ADRS buffer or its staged key region
+*		  is NULL, or if SkSeed, SkPrf and PkSeed are not either all supplied or all NULL.
+*		- XASUFW_SLHDSA_COPY_FAILED, if writing a generated field of the key pair fails.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and key
+*		  generation will resume.
+*		- XASUFW_SLHDSA_KEYGEN_FAILED, if seed generation from the TRNG or the top XMSS
+*		  tree root build fails, combined with the underlying callee status via
+*		  XAsufw_UpdateErrorStatus.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_ZEROIZE_MEMSET_FAIL,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
 *
 * @note
-*	Caller must supply SkSeed, SkPrf, and PkSeed from a TRNG or approved entropy source.
-*	InstPtr must already be bound to the target parameter set.
+*	Caller-supplied seeds must come from a TRNG or approved entropy source, and are copied
+*	into the staged key. Passing all three as NULL draws them here instead, which needs the
+*	TRNG resource and leaves the secret prefix with no second copy. InstPtr must already be
+*	bound to the target parameter set. The key pair is built in the staged key region of the
+*	instance, where SK is the 4n-byte image and PK is its trailing 2n bytes, so the caller
+*	reads both from there once this returns XASUFW_SUCCESS.
 *
 *************************************************************************************************/
 s32 XSlhDsa_KeyGenInternal(XSlhDsa_Instance *InstPtr, const u8 *SkSeed,
-				 const u8 *SkPrf, const u8 *PkSeed, u8 *Sk, u8 *Pk)
+				 const u8 *SkPrf, const u8 *PkSeed)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_Param *ParamPtr;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u32 HashWidth;
-	u8 RootBuf[XSLHDSA_MAX_N];
-
-	/** Capture key-generation perf start when measurement is enabled. */
-	XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
 
 	/** Validate input pointers; ADRS is required by the top XMSS root build below. */
-	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) || (Sk == NULL) || (Pk == NULL) ||
-			(SkSeed == NULL) || (SkPrf == NULL) || (PkSeed == NULL)) {
+	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) || (InstPtr->KeyScratch == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 
 	/**
-	 * Key generation runs to completion without returning to the task scheduler, so the
-	 * RTCA keep-alive counter is advanced from the XMSS treehash loop instead.
+	 * SkSeed selects the seed source, so the three seeds arrive together or not at all. A
+	 * partial set would either stage a key whose fields come from two different sources, or
+	 * silently draw fresh seeds over the ones the caller did supply.
 	 */
-	XSlhDsa_KeepAliveBegin(InstPtr);
+	if (((SkSeed != NULL) && ((SkPrf == NULL) || (PkSeed == NULL))) ||
+			((SkSeed == NULL) && ((SkPrf != NULL) || (PkSeed != NULL)))) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
 
+	YieldPtr = &InstPtr->Yield;
 	/** The bound parameter set fixes the hash width n, which sizes every SK and PK field. */
 	ParamPtr = &InstPtr->Param;
 	HashWidth = ParamPtr->n;
 
-	/**
-	 * - Step 4 (SK layout): SK <- (SK.seed, SK.prf, PK.seed, PK.root)
-	 *
-	 * SK.root stays zeroed until the root is committed below.
-	 */
-	Status = XSlhDsa_KeyWriteSkPrefix(SkSeed, SkPrf, PkSeed, HashWidth, Sk);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
+	if (YieldPtr->Keygen.Stage == XSLHDSA_KEYGEN_STAGE_NONE) {
+		/** Capture key-generation perf start when measurement is enabled. */
+		XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
 
-	/**
-	 * - Step 4 (PK layout): PK <- (PK.seed, PK.root)
-	 *
-	 * PK.root is pending until the top XMSS root is built.
-	 */
-	Status = XSlhDsa_KeyWritePkSeed(PkSeed, HashWidth, Pk);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
+		/**
+		 * - Step 4 (SK layout): SK <- (SK.seed, SK.prf, PK.seed, PK.root)
+		 * - Step 4 (PK layout): PK <- (PK.seed, PK.root)
+		 *
+		 * PK is the trailing 2n bytes of SK, so staging the secret key lays out both.
+		 * Caller-supplied seeds are copied in, otherwise they are drawn straight into the
+		 * fields they occupy. PK.root stays zeroed until the root is committed below.
+		 */
+		if (SkSeed != NULL) {
+			Status = XSlhDsa_KeyWriteSkPrefix(SkSeed, SkPrf, PkSeed, HashWidth,
+							  InstPtr->KeyScratch);
+		} else {
+			Status = XSlhDsa_KeyDrawSkPrefix(InstPtr, HashWidth);
+		}
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
 
-	/**
-	 * Load the partial SK onto the instance; the root build derives every WOTS+ secret from
-	 * SK.seed, so this must precede the xmss_node call.
-	 */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSlhDsa_LoadSk(InstPtr, Sk);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
+		/**
+		 * Name the staged fields on the instance; the root build derives every
+		 * WOTS+ secret from SK.seed, so this must precede the xmss_node call.
+		 */
+		XSlhDsa_PublishStagedSkViews(InstPtr, HashWidth);
+
+		YieldPtr->Keygen.Stage = XSLHDSA_KEYGEN_STAGE_PREFIX_DONE;
 	}
 
 	/**
 	 * - Step 1: ADRS <- toByte(0, 32)
 	 * - Step 2: ADRS.setLayerAddress(d - 1)
 	 * - Step 3: PK.root <- xmss_node(SK.seed, 0, h', PK.seed, ADRS)
+	 *
+	 * The root lives on Yield so it survives a cooperative yield unwind.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSlhDsa_KeyBuildTopXmssRoot(InstPtr, ParamPtr, RootBuf);
+	Status = XSlhDsa_KeyBuildTopXmssRoot(InstPtr, ParamPtr, YieldPtr->Keygen.Root);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		goto END;
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KEYGEN_FAILED);
 		goto END;
 	}
 
-	/** - Step 4: commit the same root into both SK.root and PK.root. */
+	/** - Step 4: commit the root into the PK.root field of the staged secret key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSlhDsa_KeyCommitHypertreeRoot(InstPtr, RootBuf, HashWidth, Sk, Pk);
+	Status = XSlhDsa_KeyCommitHypertreeRoot(InstPtr, YieldPtr->Keygen.Root, HashWidth);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
+	YieldPtr->Keygen.Stage = XSLHDSA_KEYGEN_STAGE_NONE;
 	Status = XASUFW_SUCCESS;
 
 END:
-	/** Close the keep-alive window on both the success and the failure paths. */
-	XSlhDsa_KeepAliveEnd(InstPtr);
-	/** Capture key-generation perf stop when measurement is enabled. */
-	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_SLHDSA_ID);
-	/** Zeroize the local root buffer and merge the clear result into the returned status. */
-	Status = XAsufw_UpdateBufStatus(Status,
-			Xil_SecureZeroize(RootBuf, sizeof(RootBuf)));
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Capture key-generation perf stop when measurement is enabled. */
+		XASUFW_MEASURE_PERF_STOP(XASU_MODULE_SLHDSA_ID);
+		if (InstPtr != NULL) {
+			/** Zeroize the yield root buffer and merge the clear result into Status. */
+			Status = XAsufw_UpdateBufStatus(Status,
+					Xil_SecureZeroize(InstPtr->Yield.Keygen.Root,
+							  sizeof(InstPtr->Yield.Keygen.Root)));
+		}
+	}
 	return Status;
 }
 
@@ -1206,7 +1211,7 @@ END:
 * @param	Sk	Secret key buffer.
 * @param	OptRand	Optional additional randomness (add_rand); NULL for deterministic mode
 *			(PK.seed used as opt_rand per FIPS 205 Algorithm 19, step 2).
-* @param	Sig	Output signature buffer.
+* @param	Sig	Output signature buffer; must be a local buffer.
 * @param	SigLen	Length of the signature output buffer in bytes; must equal
 *			XSlhDsa_SignatureBytes() for the bound parameter set.
 *
@@ -1221,6 +1226,8 @@ END:
 *		  combined with the underlying callee status via XAsufw_UpdateErrorStatus.
 *		- XASUFW_SLHDSA_HASH_MSG_FAILED, if H_msg fails, combined with the underlying
 *		  callee status via XAsufw_UpdateErrorStatus.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and signing
+*		  will resume.
 *		- XASUFW_SLHDSA_FORS_FAILED or XASUFW_SLHDSA_HT_FAILED, if the FORS or
 *		  hypertree stage fails, combined with the underlying callee status via
 *		  XAsufw_UpdateErrorStatus.
@@ -1244,11 +1251,9 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const u8 *EntropyPtr;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u32 HashWidth;
 	u32 PrefixLen;
-
-	/** Capture signing perf start when measurement is enabled. */
-	XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
 
 	/**
 	 * Validate input parameters. SigLen must be the exact signature size of the bound set so
@@ -1267,82 +1272,97 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 		goto END;
 	}
 
-	/**
-	 * Signing runs to completion without returning to the task scheduler, so the RTCA
-	 * keep-alive counter is advanced from the FORS and hypertree loops instead.
-	 */
-	XSlhDsa_KeepAliveBegin(InstPtr);
+	YieldPtr = &InstPtr->Yield;
 
-	/** Split the caller secret key into SK.seed, SK.prf, PK.seed and PK.root. */
-	Status = XSlhDsa_LoadSk(InstPtr, Sk);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
+	if (YieldPtr->Sign.Stage == XSLHDSA_SIGN_STAGE_NONE) {
+		/** Capture signing perf start when measurement is enabled. */
+		XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
 
-	/**
-	 * - Step 2: opt_rand <- addrnd, substituting opt_rand <- PK.seed for the
-	 *   deterministic variant.
-	 *
-	 * Bind the message and signature buffers, then pick the PRF_msg randomness.
-	 */
-	XSlhDsa_SetMsg(InstPtr, Msg, MsgLen);
-	XSlhDsa_SetSig(InstPtr, Sig, SigLen);
-	EntropyPtr = (OptRand != NULL) ? OptRand : InstPtr->PkSeed;
-
-	if (InstPtr->PreHashMode == XASU_SLHDSA_MSG_PREHASH) {
-		/** HashSLH-DSA: 0x01 || ctx_len || ctx || OID over the client-supplied PH(M). */
-		Status = XSlhDsa_PreparePreHashMsg(InstPtr, Msg, MsgLen, Ctx, CtxLen);
+		/** Stage the caller secret key. */
+		if (Sk == InstPtr->KeyScratch) {
+			XSlhDsa_PublishStagedSkViews(InstPtr, InstPtr->Param.n);
+			Status = XASUFW_SUCCESS;
+		} else {
+			Status = XSlhDsa_LoadSk(InstPtr, Sk);
+		}
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
-	} else {
+
 		/**
-		 * - slh_sign Step 8: M' <- toByte(0, 1) || toByte(|ctx|, 1) || ctx || M
+		 * - Step 2: opt_rand <- addrnd, substituting opt_rand <- PK.seed for the
+		 *   deterministic variant.
 		 *
-		 * The domain separator and context length are staged in WorkMem.
+		 * Bind the message and signature buffers, then pick the PRF_msg randomness.
 		 */
-		InstPtr->WorkMem[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
-		InstPtr->WorkMem[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
-		if (CtxLen > 0U) {
-			/** - Append the context string after the two-octet header. */
-			Status = Xil_SMemCpy(
-					InstPtr->WorkMem + XASU_SLHDSA_PREFIX_CTX_OFFSET,
-					XSLHDSA_WORK_MEM_BYTES -
-					XASU_SLHDSA_PREFIX_HDR_LEN, Ctx, CtxLen, CtxLen);
+		XSlhDsa_SetMsg(InstPtr, Msg, MsgLen);
+		XSlhDsa_SetSig(InstPtr, Sig, SigLen);
+		EntropyPtr = (OptRand != NULL) ? OptRand : InstPtr->PkSeed;
+
+		if (InstPtr->PreHashMode == XASU_SLHDSA_MSG_PREHASH) {
+			/**
+			 * HashSLH-DSA: 0x01 || ctx_len || ctx || OID over the
+			 * client-supplied PH(M).
+			 */
+			Status = XSlhDsa_PreparePreHashMsg(InstPtr, Msg, MsgLen, Ctx, CtxLen);
 			if (Status != XASUFW_SUCCESS) {
 				goto END;
 			}
+		} else {
+			/**
+			 * - slh_sign Step 8: M' <- toByte(0, 1) || toByte(|ctx|, 1) || ctx || M
+			 *
+			 * The domain separator and context length are staged in WorkMem.
+			 */
+			InstPtr->WorkMem[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
+			InstPtr->WorkMem[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
+			if (CtxLen > 0U) {
+				/** - Append the context string after the two-octet header. */
+				Status = Xil_SMemCpy(
+						InstPtr->WorkMem + XASU_SLHDSA_PREFIX_CTX_OFFSET,
+						XSLHDSA_WORK_MEM_BYTES -
+						XASU_SLHDSA_PREFIX_HDR_LEN, Ctx, CtxLen, CtxLen);
+				if (Status != XASUFW_SUCCESS) {
+					goto END;
+				}
+			}
+			/**
+			 * - Record how many WorkMem bytes the hash paths must stream before the
+			 *   message.
+			 */
+			InstPtr->CtxPrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN + CtxLen;
 		}
+
 		/**
-		 * - Record how many WorkMem bytes the hash paths must stream before the
-		 *   message.
+		 * - Step 3: R <- PRF_msg(SK.prf, opt_rand, M)
+		 * - Step 4: SIG <- R
+		 *
+		 * R is written straight into the head of the signature buffer.
 		 */
-		InstPtr->CtxPrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN + CtxLen;
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XSlhDsa_HashPrfMsg(InstPtr, EntropyPtr, Msg, MsgLen, Ctx, CtxLen, Sig);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_PRF_MSG_FAILED);
+			goto END;
+		}
+
+		YieldPtr->Sign.Stage = XSLHDSA_SIGN_STAGE_PRF_DONE;
 	}
 
-	/**
-	 * - Step 3: R <- PRF_msg(SK.prf, opt_rand, M)
-	 * - Step 4: SIG <- R
-	 *
-	 * R is written straight into the head of the signature buffer.
-	 */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSlhDsa_HashPrfMsg(InstPtr, EntropyPtr, Msg, MsgLen, Ctx, CtxLen, Sig);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_PRF_MSG_FAILED);
-		goto END;
-	}
+	if (YieldPtr->Sign.Stage == XSLHDSA_SIGN_STAGE_PRF_DONE) {
+		/**
+		 * - Step 5: digest <- H_msg(R, PK.seed, PK.root, M)
+		 *
+		 * R is read back from the signature.
+		 */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XSlhDsa_HashMsg(InstPtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_HASH_MSG_FAILED);
+			goto END;
+		}
 
-	/**
-	 * - Step 5: digest <- H_msg(R, PK.seed, PK.root, M)
-	 *
-	 * R is read back from the signature.
-	 */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XSlhDsa_HashMsg(InstPtr);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_HASH_MSG_FAILED);
-		goto END;
+		YieldPtr->Sign.Stage = XSLHDSA_SIGN_STAGE_HMSG_DONE;
 	}
 
 	/**
@@ -1359,13 +1379,14 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 		goto END;
 	}
 
+	YieldPtr->Sign.Stage = XSLHDSA_SIGN_STAGE_NONE;
 	Status = XASUFW_SUCCESS;
 
 END:
-	/** Close the keep-alive window on both the success and the failure paths. */
-	XSlhDsa_KeepAliveEnd(InstPtr);
-	/** Capture signing perf stop when measurement is enabled. */
-	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_SLHDSA_ID);
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Capture signing perf stop when measurement is enabled. */
+		XASUFW_MEASURE_PERF_STOP(XASU_MODULE_SLHDSA_ID);
+	}
 	return Status;
 }
 
@@ -1405,9 +1426,9 @@ s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_Param *ParamPtr;
-	XSlhDsa_HtIndices HtIndices;
 	const u8 *SignForsPtr;
 	const u8 *SignHtPtr;
+	XSlhDsa_HtIndices HtIndices;
 	u32 HashWidth;
 	u32 ForsSignOffset;
 	u32 HtSignOffset;
@@ -1653,31 +1674,39 @@ END:
 * @param	DmaPtr	Pointer to the DMA instance allocated for the request.
 * @param	ShaPtr	Pointer to the SHA instance matching the requested parameter set.
 * @param	ParamsPtr	Pointer to XSlhDsa_KeyGenParams, which the key manager fills in
-*				from the client request. ParamSet selects the key sizes and the
-*				hash family, and the two key addresses name the buffers that
-*				receive the pair.
+*				from the request snapshot on the instance. ParamSet selects the
+*				key sizes and the hash family, and the two key addresses name
+*				the buffers that receive the pair. The same values are passed on
+*				every slice.
 *
 * @return
 *		- XASUFW_SUCCESS, if key generation completes successfully.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if any input pointer is NULL, the singleton instance
 *		  is unavailable, an output address is zero, the parameter set is unsupported or an
-*		  output buffer is shorter than the key it receives.
+*		  output buffer does not match the key size.
 *		- XASUFW_SLHDSA_KEYGEN_FAILED, if seed generation from the TRNG or the top XMSS tree
 *		  root build fails, combined with the underlying callee status via
 *		  XAsufw_UpdateErrorStatus.
-*		- XASUFW_SLHDSA_KEY_OUT_DMA_FAILED, if the secret or public key transfer to the
-*		  caller fails.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if key generation exceeds the keep-alive
-*		  run-time cap, combined with the stage that timed out via XAsufw_UpdateErrorStatus.
+*		- XASUFW_SLHDSA_PWCT_SIGN_GEN_FAIL, if the pairwise consistency test cannot produce
+*		  a signature over the empty message with the new secret key.
+*		- XASUFW_SLHDSA_PWCT_SIGN_VER_FAIL, if that signature does not verify under the new
+*		  public key, or if the redundant verified indicator does not confirm success.
+*		- XASUFW_SLHDSA_KEY_OUT_DMA_FAILED, if the secret or public key DMA transfer fails.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and key
+*		  generation or the pairwise consistency test sign will resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_ZEROIZE_MEMSET_FAIL,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
 *
 * @note
 *	The three FIPS 205 seeds are drawn from the TRNG, so the caller must hold the TRNG
-*	resource. The key pair is built into local buffers and only then transferred to
-*	PrivKeyAddr and PubKeyAddr, so a failure never leaves partial key material with the
-*	caller. Key generation runs to completion without returning to the task scheduler.
+*	resource. They land directly in the staged key region, which holds the finished pair until
+*	it is transferred to PrivKeyAddr and PubKeyAddr, so a failure never leaves partial key
+*	material with the caller. After the pair is built, a FIPS 140-3 IG 10.3.A pairwise
+*	consistency test signs an empty message with the new secret key and verifies it with the
+*	new public key; the pair is transferred only if that test passes. Long parameter sets yield
+*	cooperatively and return XASUFW_CMD_IN_PROGRESS until the top XMSS root and the PWCT
+*	signature are complete.
 *
 *************************************************************************************************/
 s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XSlhDsa_KeyGenParams *ParamsPtr)
@@ -1685,11 +1714,6 @@ s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XSlhDsa_KeyGenParams 
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XSlhDsa_Instance *InstPtr = XSlhDsa_GetInstance();
-	u8 Sk[XASU_SLHDSA_MAX_SK_SIZE];
-	u8 Pk[XASU_SLHDSA_MAX_PK_SIZE];
-	u8 SkSeed[XSLHDSA_MAX_N];
-	u8 SkPrf[XSLHDSA_MAX_N];
-	u8 PkSeed[XSLHDSA_MAX_N];
 	u32 ExpPubKeyLen;
 	u32 ExpPrivKeyLen;
 	u32 N;
@@ -1701,15 +1725,11 @@ s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XSlhDsa_KeyGenParams 
 		goto END;
 	}
 
-	/**
-	 * Confirm the output buffers hold the key sizes of the requested parameter set. The caller
-	 * resolves both lengths, so this is a cross-check rather than an input, and a zero
-	 * expected size rejects an unsupported parameter set before any state is bound.
-	 */
+	/** Confirm the output buffers hold the key sizes of the requested parameter set. */
 	ExpPubKeyLen = XAsu_SlhdsaGetPkSize(ParamsPtr->ParamSet);
 	ExpPrivKeyLen = XAsu_SlhdsaGetSkSize(ParamsPtr->ParamSet);
 	if ((ExpPubKeyLen == 0U) || (ExpPrivKeyLen == 0U) ||
-	    (ParamsPtr->PubKeyLen < ExpPubKeyLen) || (ParamsPtr->PrivKeyLen < ExpPrivKeyLen)) {
+	    (ParamsPtr->PubKeyLen != ExpPubKeyLen) || (ParamsPtr->PrivKeyLen != ExpPrivKeyLen)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -1724,57 +1744,62 @@ s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XSlhDsa_KeyGenParams 
 	N = InstPtr->Param.n;
 
 	/**
-	 * Generate the three n-byte seeds required by FIPS 205 key generation. XFIH_CALL
-	 * detects a skipped TRNG call instead of leaving a seed buffer uninitialized.
-	 */
-	/** - Generate SK.seed, the seed for all secret WOTS+ and FORS key material. */
-	XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status, SkSeed, N);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KEYGEN_FAILED);
-		goto END;
-	}
-
-	/** - Generate SK.prf, the secret PRF key used to randomize signatures. */
-	XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status, SkPrf, N);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KEYGEN_FAILED);
-		goto END;
-	}
-
-	/** - Generate PK.seed, the public seed that domain-separates the hash functions. */
-	XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status, PkSeed, N);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KEYGEN_FAILED);
-		goto END;
-	}
-
-	/**
-	 * Generate the key pair from the three seeds, computing the top-layer XMSS root
-	 * (FIPS 205 Algorithm 18: slh_keygen_internal). This is the long-running step and it
-	 * advances the RTCA keep-alive counter internally.
+	 * Draw the three FIPS 205 seeds and generate the key pair from them, computing the
+	 * top-layer XMSS root (FIPS 205 Algorithm 18: slh_keygen_internal). NULL seeds place the
+	 * TRNG output straight into the staged key, so the secret prefix has no second copy to
+	 * survive a yield or to clear afterwards. This is the long-running step. Skip it when
+	 * resuming a PWCT sign so the hypertree is not rebuilt.
 	 *
 	 * The status is returned unchanged: the key generation stage already tags its own
 	 * failures, and only three error fields are available, so re-tagging here would
 	 * overwrite the stage that identifies where the failure happened.
 	 */
-	XFIH_CALL(XSlhDsa_KeyGenInternal, FihVar, Status, InstPtr, SkSeed, SkPrf, PkSeed, Sk, Pk);
+	if (InstPtr->Yield.Keygen.Stage != XSLHDSA_KEYGEN_STAGE_PWCT_SIGN) {
+		XFIH_CALL(XSlhDsa_KeyGenInternal, FihVar, Status, InstPtr, NULL, NULL, NULL);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+
+		/**
+		 * Mark the pair complete and drop the KeyGen tree checkpoints before the PWCT
+		 * sign reuses the same XMSS/FORS/hypertree resume slots.
+		 */
+		InstPtr->Yield.Keygen.Stage = XSLHDSA_KEYGEN_STAGE_PWCT_SIGN;
+		InstPtr->Yield.Sign.Stage = XSLHDSA_SIGN_STAGE_NONE;
+		InstPtr->Yield.Xmss.Resume = 0U;
+		InstPtr->Yield.Xmss.EmitResume = 0U;
+		InstPtr->Yield.Xmss.AuthPathResume = 0U;
+		InstPtr->Yield.Xmss.EmitWotsDone = 0U;
+		InstPtr->Yield.Fors.TreeResume = 0U;
+		InstPtr->Yield.Fors.EmitResume = 0U;
+		InstPtr->Yield.Ht.Resume = 0U;
+		InstPtr->Yield.Ht.EmitPending = 0U;
+	}
+
+	/**
+	 * Sign an empty message with the new secret key and verify it with the new public key
+	 * before the pair is exported, so an inconsistent pair is never handed to the client.
+	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XSlhDsa_Pwct(InstPtr);
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
-	/** Transfer the secret key to the caller output buffer. */
+	/** Transfer the staged secret key to the caller output buffer. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Sk, ParamsPtr->PrivKeyAddr,
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)InstPtr->KeyScratch, ParamsPtr->PrivKeyAddr,
 			       ExpPrivKeyLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SLHDSA_KEY_OUT_DMA_FAILED;
 		goto END;
 	}
 
-	/** Transfer the public key to the caller output buffer. */
+	/** Transfer the public key, which is the trailing 2n bytes of the staged secret key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)Pk, ParamsPtr->PubKeyAddr,
-			       ExpPubKeyLen, 0U);
+	Status = XAsufw_DmaXfr(DmaPtr,
+			       (u64)(UINTPTR)&InstPtr->KeyScratch[XSLHDSA_SK_PKSEED_FIELD * N],
+			       ParamsPtr->PubKeyAddr, ExpPubKeyLen, 0U);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SLHDSA_KEY_OUT_DMA_FAILED;
 		goto END;
@@ -1783,22 +1808,6 @@ s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XSlhDsa_KeyGenParams 
 	Status = XASUFW_SUCCESS;
 
 END:
-	/**
-	 * Clear the secret state on the shared instance. XAsufw_UpdateBufStatus keeps any
-	 * existing error while still reporting a clear failure, so zeroization failures are
-	 * never masked by a successful operation.
-	 */
-	Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_ClearSensitiveState(InstPtr));
-
-	/**
-	 * Zeroize the local key and seed buffers on every exit path, including early failures
-	 * where they were never written.
-	 */
-	Status = XAsufw_UpdateBufStatus(Status,
-			XSlhDsa_ZeroizeKeyBuffers(Sk, XASU_SLHDSA_MAX_SK_SIZE, Pk,
-					XASU_SLHDSA_MAX_PK_SIZE, SkSeed, SkPrf, PkSeed,
-					XSLHDSA_MAX_N));
-
 	return Status;
 }
 /*************************************************************************************************/
@@ -1812,25 +1821,31 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if signing completes successfully.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if any input pointer is NULL, the singleton instance
-*		  is unavailable or the sign parameters are invalid.
+*		  is unavailable, the sign parameters are invalid or the requested signature does
+*		  not fit the signature scratch.
 *		- XASUFW_SLHDSA_SIGN_FAILED, if add_rand generation from the TRNG fails, combined
 *		  with the underlying callee status via XAsufw_UpdateErrorStatus.
+*		- XASUFW_SLHDSA_SIGN_OUT_DMA_FAILED, if the finished signature cannot be written to
+*		  the client output buffer.
 *		- XASUFW_SLHDSA_PRF_MSG_FAILED, XASUFW_SLHDSA_HASH_MSG_FAILED,
 *		  XASUFW_SLHDSA_FORS_FAILED or XASUFW_SLHDSA_HT_FAILED, identifying the
 *		  signing stage that failed, combined with the underlying callee status via
 *		  XAsufw_UpdateErrorStatus.
-*		- XASUFW_SLHDSA_OPERATION_TIMEOUT, if signing exceeds the keep-alive run-time cap,
-*		  combined with the stage that timed out via XAsufw_UpdateErrorStatus.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and signing
+*		  will resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or
 *		  XASUFW_SHA_FINISH_FAILED).
 *
 * @note
-*	The message, secret key, signature and context buffers are used in place, as they
-*	already reside in memory visible to both client and ASUFW. SignMode selects FIPS hedged
+*	The message, secret key and context buffers are read in place, as they already reside in
+*	memory visible to both client and ASUFW. The signature is built in the signature scratch and
+*	written to the client buffer only once it is complete. SignMode selects FIPS hedged
 *	signing, which draws a fresh add_rand from the TRNG and so needs the TRNG resource, or
-*	deterministic signing. Signing runs to completion without returning to the task
-*	scheduler and takes between 1.9 s and 33 s depending on the parameter set.
+*	deterministic signing. Hedged signing draws add_rand only on the first slice, but the
+*	TRNG remains allocated until the command finishes, so other TRNG users stay blocked
+*	for the full operation. Long parameter sets yield cooperatively and return
+*	XASUFW_CMD_IN_PROGRESS until FORS and hypertree signing complete.
 *
 *************************************************************************************************/
 s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *ParamsPtr)
@@ -1839,12 +1854,12 @@ s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *
 	CREATE_VOLATILE(SignStatus, XASUFW_FAILURE);
 	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	XSlhDsa_Instance *InstPtr = XSlhDsa_GetInstance();
+	const u8 *OptRandPtr = NULL;
 	const u8 *MsgPtr;
 	const u8 *SkPtr;
 	const u8 *CtxPtr;
-	const u8 *OptRandPtr = NULL;
+	XSlhDsa_YieldCtx *YieldPtr;
 	u8 *SigPtr;
-	u8 AddRand[XSLHDSA_MAX_N] = {0U};
 
 	/** Validate input pointers. */
 	if ((DmaPtr == NULL) || (ShaPtr == NULL) || (ParamsPtr == NULL) || (InstPtr == NULL)) {
@@ -1852,9 +1867,11 @@ s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *
 		goto END;
 	}
 
+	YieldPtr = &InstPtr->Yield;
+
 	/**
-	 * Validate the sign parameters. This bounds MsgLen and confirms SignatureLen matches
-	 * the parameter set, so the algorithm code needs no further length checks.
+	 * Validate the sign parameters. This bounds MsgLen and confirms SignatureLen and SkLen
+	 * match the parameter set, so the algorithm code needs no further length checks.
 	 */
 	if (XAsu_SlhdsaValidateSignParams(ParamsPtr) != XST_SUCCESS) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
@@ -1867,30 +1884,42 @@ s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *
 		goto END;
 	}
 
+	/** Bound the signature to the scratch it is built in before anything is written there. */
+	if (ParamsPtr->SignatureLen > (u32)sizeof(XSlhDsa_SigScratch)) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
 	/**
-	 * Select pure or pre-hash signing, and resolve the message, secret key, signature and
-	 * context addresses. CtxAddr is zero only when CtxLen is zero, so CtxPtr is NULL
-	 * exactly for the FIPS empty context (prefix 0x00 || 0x00).
+	 * Select pure or pre-hash signing, and resolve the message, secret key and context
+	 * addresses. CtxAddr is zero only when CtxLen is zero, so CtxPtr is NULL exactly for
+	 * the FIPS empty context (prefix 0x00 || 0x00). The signature is built in the signature
+	 * scratch and copied out once it is complete.
 	 */
 	XSlhDsa_SetMsgMode(InstPtr, ParamsPtr->PreHashMode, ParamsPtr->HashId);
 	MsgPtr = (const u8 *)(UINTPTR)ParamsPtr->MsgAddr;
 	SkPtr = (const u8 *)(UINTPTR)ParamsPtr->SkObj.SkAddr;
-	SigPtr = (u8 *)(UINTPTR)ParamsPtr->SignatureAddr;
+	SigPtr = XSlhDsa_SigScratch;
 	CtxPtr = (const u8 *)(UINTPTR)ParamsPtr->CtxAddr;
 
 	/**
 	 * Deterministic signing derives the randomizer from SK.prf alone. Hedged signing, the
-	 * FIPS recommended default, draws a fresh n-byte add_rand from TRNG per signature.
+	 * FIPS recommended default, draws a fresh n-byte add_rand from TRNG per signature. The
+	 * randomizer lives on Yield so it is reused across cooperative yield slices.
 	 */
 	if (ParamsPtr->SignMode == XASU_SLHDSA_SIGN_MODE_DETERMINISTIC) {
 		OptRandPtr = NULL;
 	} else {
-		XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status, AddRand, InstPtr->Param.n);
-		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_SIGN_FAILED);
-			goto END;
+		if (YieldPtr->Sign.Stage == XSLHDSA_SIGN_STAGE_NONE) {
+			XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status, YieldPtr->Sign.AddRand,
+				  InstPtr->Param.n);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status,
+								  XASUFW_SLHDSA_SIGN_FAILED);
+				goto END;
+			}
 		}
-		OptRandPtr = AddRand;
+		OptRandPtr = YieldPtr->Sign.AddRand;
 	}
 
 	/**
@@ -1910,18 +1939,18 @@ s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *
 		goto END;
 	}
 
+	/** Transfer the finished signature to the caller output buffer. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)XSlhDsa_SigScratch,
+			       ParamsPtr->SignatureAddr, ParamsPtr->SignatureLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SLHDSA_SIGN_OUT_DMA_FAILED;
+		goto END;
+	}
+
 	Status = XASUFW_SUCCESS;
 
 END:
-	/** Clear the secret key material cached on the shared SLH-DSA instance. */
-	Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_ClearSensitiveState(InstPtr));
-
-	/**
-	 * Zeroize the AddRand buffer. Reusing this randomizer across two messages would leak
-	 * FORS key material, so it must not survive the command on any exit path.
-	 */
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(AddRand, sizeof(AddRand)));
-
 	return Status;
 }
 /*************************************************************************************************/
@@ -1935,7 +1964,10 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if signature verification succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if any input pointer is NULL, the singleton instance
-*		  is unavailable or the verify parameters are invalid.
+*		  is unavailable, the verify parameters are invalid or the supplied signature does
+*		  not fit the signature scratch.
+*		- XASUFW_SLHDSA_SIG_IN_DMA_FAILED, if the client signature cannot be copied into
+*		  the signature scratch.
 *		- XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, if the signature does not verify against the
 *		  public key.
 *		- XASUFW_SLHDSA_SIGN_VERIFY_FAILED, if the redundant verified indicator does not
@@ -1950,8 +1982,10 @@ END:
 *
 * @note
 *	PreHashMode, HashId and CtxLen must repeat the values used at signing time, or the
-*	recomputed digest will not match. The message, public key, signature and context buffers
-*	are used in place, as they already reside in memory visible to both client and ASUFW.
+*	recomputed digest will not match. The message and context buffers are read in place, as
+*	they already reside in memory visible to both client and ASUFW. The public key is staged
+*	by XSlhDsa_LoadPk and the signature is copied into the signature scratch, so both are read
+*	from local buffers.
 *
 *************************************************************************************************/
 s32 XSlhDsa_Verify(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignVerifyParams *ParamsPtr)
@@ -1983,6 +2017,21 @@ s32 XSlhDsa_Verify(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignVerify
 		goto END;
 	}
 
+	/** Bound the signature to the scratch it is copied into before the transfer runs. */
+	if (ParamsPtr->SignatureLen > (u32)sizeof(XSlhDsa_SigScratch)) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Copy the client signature into the signature scratch before verification reads it. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XAsufw_DmaXfr(DmaPtr, ParamsPtr->SignatureAddr,
+			       (u64)(UINTPTR)XSlhDsa_SigScratch, ParamsPtr->SignatureLen, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_SLHDSA_SIG_IN_DMA_FAILED;
+		goto END;
+	}
+
 	/**
 	 * Select the message mode and resolve the message, public key, signature and context
 	 * addresses. CtxAddr is zero only when CtxLen is zero, so CtxPtr is NULL exactly for
@@ -1991,7 +2040,7 @@ s32 XSlhDsa_Verify(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignVerify
 	XSlhDsa_SetMsgMode(InstPtr, ParamsPtr->PreHashMode, ParamsPtr->HashId);
 	MsgPtr = (const u8 *)(UINTPTR)ParamsPtr->MsgAddr;
 	PkPtr = (const u8 *)(UINTPTR)ParamsPtr->PkObj.PubKeyAddr;
-	SigPtr = (const u8 *)(UINTPTR)ParamsPtr->SignatureAddr;
+	SigPtr = XSlhDsa_SigScratch;
 	CtxPtr = (const u8 *)(UINTPTR)ParamsPtr->CtxAddr;
 
 	/**
@@ -2036,40 +2085,39 @@ END:
 }
 /*************************************************************************************************/
 /**
-* @brief	Copy a key field into instance storage.
+* @brief	Point the instance key views at the four fields of the staged key.
 *
-* @param	Dst	Destination instance field.
-* @param	DstSize	Size of the destination field in bytes.
-* @param	Src	Source buffer.
-* @param	Len	Number of bytes to copy (hash width n).
+* @param	InstPtr	Pointer to SLH-DSA instance with a staged key region.
+* @param	HashWidth	Hash width n in bytes.
 *
-* @return
-*		- XASUFW_SUCCESS, if the copy succeeds.
-*		- XASUFW_SLHDSA_COPY_FAILED, if the copy fails.
+* @note
+*	The caller must have staged a complete SK.seed || SK.prf || PK.seed || PK.root image, or
+*	be about to fill the remaining fields in place, because the views alias the region rather
+*	than copying from it.
 *
 *************************************************************************************************/
-static s32 XSlhDsa_CopyKeyField(void *Dst, u32 DstSize, const u8 *Src, u32 Len)
+static void XSlhDsa_PublishStagedSkViews(XSlhDsa_Instance *InstPtr, u32 HashWidth)
 {
-	s32 Status = XASUFW_FAILURE;
+	u8 *KeyPtr = InstPtr->KeyScratch;
 
 	/**
-	 * DstSize bounds the write, so a Len wider than the destination field is rejected instead
-	 * of overflowing instance storage. Any failure is remapped to
-	 * XASUFW_SLHDSA_COPY_FAILED.
+	 * Name the four fields of the staged key:
+	 *
+	 * - SK.seed, the secret seed every WOTS+ and FORS private value is derived from.
+	 * - SK.prf, the key the message randomizer R is derived from.
+	 * - PK.seed and PK.root, the embedded public key.
 	 */
-	Status = Xil_SMemCpy(Dst, DstSize, Src, Len, Len);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SLHDSA_COPY_FAILED;
-	}
-
-	return Status;
+	InstPtr->SkSeed = &KeyPtr[XSLHDSA_SK_SEED_FIELD * HashWidth];
+	InstPtr->SkPrf = &KeyPtr[XSLHDSA_SK_PRF_FIELD * HashWidth];
+	InstPtr->PkSeed = &KeyPtr[XSLHDSA_SK_PKSEED_FIELD * HashWidth];
+	InstPtr->PkRoot = &KeyPtr[XSLHDSA_SK_PKROOT_FIELD * HashWidth];
 }
 /*************************************************************************************************/
 /**
 * @brief	Write the secret-key prefix from caller-supplied seeds
 *		(FIPS 205 Algorithm 18: slh_keygen_internal, SK layout of step 4).
 *
-* Populates SK.seed, SK.prf, and PK.seed fields; clears the SK.root slot pending root build.
+* Populates SK.seed, SK.prf, and PK.seed fields; clears the PK.root slot pending root build.
 *
 * @param	SkSeed	Secret seed (n bytes).
 * @param	SkPrf	PRF secret (n bytes).
@@ -2119,10 +2167,7 @@ static s32 XSlhDsa_KeyWriteSkPrefix(const u8 *SkSeed, const u8 *SkPrf,
 		goto END;
 	}
 
-	/**
-	 * Clear the trailing SK.root field so no stale caller data can pass for a valid root
-	 * while the top XMSS root is still being built.
-	 */
+	/** Clear PK.root until the top XMSS root has been generated and committed. */
 	Status = Xil_SMemSet(SkOut + (XSLHDSA_SK_PKROOT_FIELD * HashWidth),
 				     HashWidth, 0U, HashWidth);
 	if (Status != XASUFW_SUCCESS) {
@@ -2137,27 +2182,66 @@ END:
 }
 /*************************************************************************************************/
 /**
-* @brief	Write the public-key seed field
-*		(FIPS 205 Algorithm 18: slh_keygen_internal, PK layout of step 4).
+* @brief	Draw the secret-key prefix from the TRNG
+*		(FIPS 205 Algorithm 21: slh_keygen, steps 1 to 3).
 *
-* @param	PkSeed	Public seed (n bytes).
+* Fills the SK.seed, SK.prf and PK.seed fields of the staged key in place and clears the PK.root
+* slot pending root build.
+*
+* @param	InstPtr	Pointer to SLH-DSA instance with a staged key region.
 * @param	HashWidth	Hash width n in bytes.
-* @param	PkOut	Output public key buffer (2n bytes).
 *
 * @return
-*		- XASUFW_SUCCESS, if the public-key seed is written.
-*		- XASUFW_SLHDSA_COPY_FAILED, if the seed copy fails.
+*		- XASUFW_SUCCESS, if all three seeds are drawn.
+*		- XASUFW_SLHDSA_KEYGEN_FAILED, if a TRNG draw fails, combined with the underlying
+*		  callee status via XAsufw_UpdateErrorStatus.
+*		- XASUFW_ZEROIZE_MEMSET_FAIL, if the PK.root clear fails.
+*
+* @note
+*	The caller must hold the TRNG resource. Drawing into the staged key leaves the secret
+*	prefix with no second copy to clear, so a failed draw is covered by the same staged key
+*	clear as a completed one.
 *
 *************************************************************************************************/
-static s32 XSlhDsa_KeyWritePkSeed(const u8 *PkSeed, u32 HashWidth, u8 *PkOut)
+static s32 XSlhDsa_KeyDrawSkPrefix(XSlhDsa_Instance *InstPtr, u32 HashWidth)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	u8 *KeyPtr = InstPtr->KeyScratch;
 
-	/** PK.seed is the first n bytes of the 2n-byte public key; PK.root follows it. */
-	Status = Xil_SMemCpy(PkOut, XSLHDSA_PK_N_FIELDS * HashWidth, PkSeed,
-				     HashWidth, HashWidth);
+	/**
+	 * Generate the three n-byte seeds required by FIPS 205 key generation. XFIH_CALL detects
+	 * a skipped TRNG call instead of leaving a field holding whatever preceded it.
+	 */
+	/** - Generate SK.seed, the seed for all secret WOTS+ and FORS key material. */
+	XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status,
+		  &KeyPtr[XSLHDSA_SK_SEED_FIELD * HashWidth], HashWidth);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SLHDSA_COPY_FAILED;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KEYGEN_FAILED);
+		goto END;
+	}
+
+	/** - Generate SK.prf, the secret PRF key used to randomize signatures. */
+	XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status,
+		  &KeyPtr[XSLHDSA_SK_PRF_FIELD * HashWidth], HashWidth);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KEYGEN_FAILED);
+		goto END;
+	}
+
+	/** - Generate PK.seed, the public seed that domain-separates the hash functions. */
+	XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status,
+		  &KeyPtr[XSLHDSA_SK_PKSEED_FIELD * HashWidth], HashWidth);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_KEYGEN_FAILED);
+		goto END;
+	}
+
+	/** Clear PK.root until the top XMSS root has been generated and committed. */
+	Status = Xil_SMemSet(&KeyPtr[XSLHDSA_SK_PKROOT_FIELD * HashWidth], HashWidth, 0U,
+			     HashWidth);
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 
@@ -2171,7 +2255,7 @@ END:
 * @brief	Compute the top hypertree XMSS root at layer (d - 1)
 *		(FIPS 205 Algorithm 18: slh_keygen_internal, steps 1 to 3).
 *
-* Builds the full XMSS tree at the top hypertree layer; the root becomes PK.root / SK.root.
+* Builds the full XMSS tree at the top hypertree layer; the root becomes PK.root.
 *
 * @param	InstPtr	Pointer to SLH-DSA instance with partial SK loaded.
 * @param	ParamPtr	Active parameter set.
@@ -2218,46 +2302,32 @@ END:
 }
 /*************************************************************************************************/
 /**
-* @brief	Store the hypertree root into SK.root and PK.root and refresh instance state
+* @brief	Store the hypertree root into the staged key
 *		(FIPS 205 Algorithm 18: slh_keygen_internal, step 4).
 *
-* @param	InstPtr	Pointer to SLH-DSA instance.
+* @param	InstPtr	Pointer to SLH-DSA instance with the secret-key prefix staged.
 * @param	Root	Hypertree root (n bytes).
 * @param	HashWidth	Hash width n in bytes.
-* @param	SkOut	Secret key buffer (4n bytes).
-* @param	PkOut	Public key buffer (2n bytes).
 *
 * @return
-*		- XASUFW_SUCCESS, if the root is committed and the instance SK is reloaded.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr is NULL when reloading SK.
-*		- XASUFW_SLHDSA_COPY_FAILED, if the SK.root or PK.root copy
-*		  fails.
+*		- XASUFW_SUCCESS, if the root is committed.
+*		- XASUFW_SLHDSA_COPY_FAILED, if the root copy fails.
 *
 *************************************************************************************************/
 static s32 XSlhDsa_KeyCommitHypertreeRoot(XSlhDsa_Instance *InstPtr,
-					       const u8 *Root, u32 HashWidth, u8 *SkOut,
-					       u8 *PkOut)
+					       const u8 *Root, u32 HashWidth)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Fill the SK.root slot that the secret-key prefix write left zeroed. */
-	Status = Xil_SMemCpy(SkOut + (XSLHDSA_SK_PKROOT_FIELD * HashWidth),
+	/** Fill the PK.root slot that the secret-key prefix write left zeroed. */
+	Status = Xil_SMemCpy(&InstPtr->KeyScratch[XSLHDSA_SK_PKROOT_FIELD * HashWidth],
 				     HashWidth, Root, HashWidth, HashWidth);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_SLHDSA_COPY_FAILED;
 		goto END;
 	}
 
-	/** The same root is PK.root, the value verification compares its hypertree walk against. */
-	Status = Xil_SMemCpy(PkOut + (XSLHDSA_PK_ROOT_FIELD * HashWidth), HashWidth,
-				     Root, HashWidth, HashWidth);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SLHDSA_COPY_FAILED;
-		goto END;
-	}
-
-	/** Reload SK so the instance carries PK.root, which was zero at the earlier load. */
-	Status = XSlhDsa_LoadSk(InstPtr, SkOut);
+	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
@@ -2268,7 +2338,7 @@ END:
 *		(FIPS 205 Algorithms 16 + 12 within slh_sign_internal).
 *
 * Parses hypertree indices from the H_msg digest, emits the FORS signature, reconstructs
-* Pk_FORS into a scratch buffer, then signs through the hypertree.
+* Pk_FORS into the yield-session layer-message buffer, then signs through the hypertree.
 *
 * @param	InstPtr	Pointer to SLH-DSA instance.
 * @param	Digest	H_msg digest to sign (m bytes).
@@ -2276,6 +2346,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if digest signing succeeds.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and digest
+*		  signing will resume.
 *		- XASUFW_SLHDSA_FORS_FAILED, if FORS signature emission or the Pk_FORS
 *		  reconstruction fails, combined with the underlying callee status via
 *		  XAsufw_UpdateErrorStatus.
@@ -2294,14 +2366,16 @@ static s32 XSlhDsa_SignDigestBody(XSlhDsa_Instance *InstPtr, const u8 *Digest,
 				       u8 *SigBody)
 {
 	s32 Status = XASUFW_FAILURE;
+	u8 SkipFors = 0U;
 	const XSlhDsa_Param *ParamPtr;
+	XSlhDsa_YieldCtx *YieldPtr;
 	XSlhDsa_HtIndices HtIndices;
-	u8 ForsPkBuf[XSLHDSA_MAX_N] = {0U};
 	u32 ForsBytes;
 	u8 *SigHt;
 
 	/** SIG_FORS spans k * (1 + a) * n bytes, so SIG_HT starts at that offset in the body. */
 	ParamPtr = &InstPtr->Param;
+	YieldPtr = &InstPtr->Yield;
 	ForsBytes = ParamPtr->fors_count * (1U + ParamPtr->fors_height) * ParamPtr->n;
 	SigHt = SigBody + ForsBytes;
 
@@ -2312,60 +2386,77 @@ static s32 XSlhDsa_SignDigestBody(XSlhDsa_Instance *InstPtr, const u8 *Digest,
 	 */
 	XSlhDsa_HtParseDigest(ParamPtr, Digest, &HtIndices);
 
-	/** - Step 1: ADRS <- toByte(0, 32) */
-	Status = Xil_SMemSet(InstPtr->Addr, sizeof(*InstPtr->Addr), 0U, sizeof(*InstPtr->Addr));
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
-		goto END;
+	if ((YieldPtr->Ht.Resume != 0U) && (YieldPtr->Ht.SigBase == SigHt)) {
+		SkipFors = 1U;
+	} else if ((YieldPtr->Xmss.EmitResume != 0U) && (YieldPtr->Xmss.EmitLayerSign == SigHt)) {
+		SkipFors = 1U;
 	}
 
-	/**
-	 * - Step 11: ADRS.setTreeAddress(idxtree)
-	 * - Step 12: ADRS.setTypeAndClear(FORS_TREE)
-	 * - Step 13: ADRS.setKeyPairAddress(idxleaf)
-	 */
-	XSlhDsa_AddrSetTree(InstPtr->Addr, HtIndices.IdxTree);
-	XSlhDsa_AddrSetTypeClearTail(InstPtr->Addr, XSLHDSA_ADRS_FORS_TREE);
-	XSlhDsa_AddrSetKeyPair(InstPtr->Addr, (u32)HtIndices.IdxLeaf);
+	if (SkipFors == 0U) {
+		/** - Step 1: ADRS <- toByte(0, 32) */
+		Status = Xil_SMemSet(InstPtr->Addr, sizeof(*InstPtr->Addr), 0U,
+				     sizeof(*InstPtr->Addr));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+			goto END;
+		}
 
-	/**
-	 * - Step 14: SIG_FORS <- fors_sign(md, SK.seed, PK.seed, ADRS)
-	 *
-	 * Emits the k FORS secrets and authentication paths into SIG_FORS.
-	 */
-	Status = XSlhDsa_ForsEmitSig(InstPtr, Digest, SigBody);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_FORS_FAILED);
-		goto END;
-	}
+		/**
+		 * - Step 11: ADRS.setTreeAddress(idxtree)
+		 * - Step 12: ADRS.setTypeAndClear(FORS_TREE)
+		 * - Step 13: ADRS.setKeyPairAddress(idxleaf)
+		 */
+		XSlhDsa_AddrSetTree(InstPtr->Addr, HtIndices.IdxTree);
+		XSlhDsa_AddrSetTypeClearTail(InstPtr->Addr, XSLHDSA_ADRS_FORS_TREE);
+		XSlhDsa_AddrSetKeyPair(InstPtr->Addr, (u32)HtIndices.IdxLeaf);
 
-	/** Re-init ADRS to the steps 11 to 13 state that fors_pkFromSig expects. */
-	Status = Xil_SMemSet(InstPtr->Addr, sizeof(*InstPtr->Addr), 0U, sizeof(*InstPtr->Addr));
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
-		goto END;
-	}
+		/**
+		 * - Step 14: SIG_FORS <- fors_sign(md, SK.seed, PK.seed, ADRS)
+		 *
+		 * Emits the k FORS secrets and authentication paths into SIG_FORS.
+		 */
+		Status = XSlhDsa_ForsEmitSig(InstPtr, Digest, SigBody);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			goto END;
+		}
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_FORS_FAILED);
+			goto END;
+		}
 
-	XSlhDsa_AddrSetTree(InstPtr->Addr, HtIndices.IdxTree);
-	XSlhDsa_AddrSetTypeClearTail(InstPtr->Addr, XSLHDSA_ADRS_FORS_TREE);
-	XSlhDsa_AddrSetKeyPair(InstPtr->Addr, (u32)HtIndices.IdxLeaf);
+		/** Re-init ADRS to the steps 11 to 13 state that fors_pkFromSig expects. */
+		Status = Xil_SMemSet(InstPtr->Addr, sizeof(*InstPtr->Addr), 0U,
+				     sizeof(*InstPtr->Addr));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+			goto END;
+		}
 
-	/**
-	 * - Step 16: PK_FORS <- fors_pkFromSig(SIG_FORS, md, PK.seed, ADRS)
-	 *
-	 * Recomputing Pk_FORS from the emitted signature makes the hypertree sign exactly what
-	 * a verifier will reconstruct.
-	 */
-	Status = XSlhDsa_ForsPkFromSig(InstPtr, SigBody, Digest, ForsPkBuf);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_FORS_FAILED);
-		goto END;
+		XSlhDsa_AddrSetTree(InstPtr->Addr, HtIndices.IdxTree);
+		XSlhDsa_AddrSetTypeClearTail(InstPtr->Addr, XSLHDSA_ADRS_FORS_TREE);
+		XSlhDsa_AddrSetKeyPair(InstPtr->Addr, (u32)HtIndices.IdxLeaf);
+
+		/**
+		 * - Step 16: PK_FORS <- fors_pkFromSig(SIG_FORS, md, PK.seed, ADRS)
+		 *
+		 * Recomputing Pk_FORS from the emitted signature makes the hypertree sign exactly
+		 * what a verifier will reconstruct. The result is stored on Yield so it survives
+		 * a cooperative yield unwind.
+		 */
+		Status = XSlhDsa_ForsPkFromSig(InstPtr, SigBody, Digest, YieldPtr->Ht.LayerMsg);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_FORS_FAILED);
+			goto END;
+		}
 	}
 
 	/**
 	 * - Step 17: SIG_HT <- ht_sign(PK_FORS, SK.seed, PK.seed, idxtree, idxleaf)
 	 */
-	Status = XSlhDsa_HtEmitSig(InstPtr, &HtIndices, ForsPkBuf, SigHt);
+	Status = XSlhDsa_HtEmitSig(InstPtr, &HtIndices, YieldPtr->Ht.LayerMsg, SigHt);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		goto END;
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_HT_FAILED);
 	}
@@ -2448,6 +2539,121 @@ END:
 }
 /*************************************************************************************************/
 /**
+* @brief	Run the FIPS 140-3 IG 10.3.A pairwise consistency test on a freshly generated
+*		SLH-DSA key pair: sign a fixed empty message with the new secret key and verify
+*		that signature with the new public key. Unlike the KAT, which validates the
+*		algorithm against a fixed vector, this validates the specific pair about to be
+*		handed to the client.
+*
+* @param	InstPtr	Pointer to the SLH-DSA instance holding the staged key pair.
+*
+* @return
+*		- XASUFW_SUCCESS, if the signature verifies under the generated public key.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr, its staged key or work memory is NULL,
+*		  or the bound parameter set signature size does not fit the PWCT scratch.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the PWCT sign
+*		  will resume.
+*		- XASUFW_SLHDSA_PWCT_SIGN_GEN_FAIL, if the test signature cannot be produced,
+*		  combined with the underlying callee status via XAsufw_UpdateErrorStatus.
+*		- XASUFW_SLHDSA_PWCT_SIGN_VER_FAIL, if the test signature does not verify, or if
+*		  the redundant verified indicator does not confirm success, combined with the
+*		  underlying callee status via XAsufw_UpdateErrorStatus.
+*
+* @note
+*	Pure SLH-DSA, empty context, empty message, deterministic add_rand (PK.seed). The test
+*	needs no extra TRNG entropy, and key generation has already drawn the three FIPS seeds.
+*	Verification does not call XSlhDsa_LoadPk, which would overwrite SK.seed and SK.prf in
+*	the staged key before the pair is exported.
+*
+*************************************************************************************************/
+static s32 XSlhDsa_Pwct(XSlhDsa_Instance *InstPtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	CREATE_VOLATILE(SignStatus, XASUFW_FAILURE);
+	CREATE_VOLATILE(VerifyStatus, XASUFW_FAILURE);
+	XFih_Var FihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	const u8 *PkPtr;
+	u32 SigLen;
+	u32 HashWidth;
+
+	/** Validate the instance and the staged key the test signs with. */
+	if ((InstPtr == NULL) || (InstPtr->KeyScratch == NULL) || (InstPtr->WorkMem == NULL)) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Bound the test signature to the overlay scratch. A zero size is an unbound instance;
+	 * a size past the scratch would write past .overlay_slhdsa_data.
+	 */
+	SigLen = XSlhDsa_SignatureBytes(&InstPtr->Param);
+	if ((SigLen == 0U) || (SigLen > (u32)sizeof(XSlhDsa_SigScratch))) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	HashWidth = InstPtr->Param.n;
+	PkPtr = &InstPtr->KeyScratch[XSLHDSA_SK_PKSEED_FIELD * HashWidth];
+
+	/** Pure SLH-DSA, empty context, empty message, deterministic add_rand. */
+	XSlhDsa_SetMsgMode(InstPtr, XASU_SLHDSA_MSG_PURE, 0U);
+
+	ASSIGN_VOLATILE(SignStatus, XASUFW_FAILURE);
+	XFIH_CALL(XSlhDsa_SignInternal, FihVar, SignStatus, InstPtr, XSlhDsa_PwctEmptyMsg,
+		  0U, NULL, 0U, InstPtr->KeyScratch, NULL, XSlhDsa_SigScratch, SigLen);
+	if (SignStatus == XASUFW_CMD_IN_PROGRESS) {
+		Status = SignStatus;
+		goto END;
+	}
+	if (SignStatus != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(SignStatus, XASUFW_SLHDSA_PWCT_SIGN_GEN_FAIL);
+		goto END;
+	}
+
+	/**
+	 * Verify against the PK half of the staged SK. LoadPk would copy PK onto the start of
+	 * KeyScratch and overwrite SK.seed and SK.prf before the pair is exported.
+	 */
+	XSlhDsa_SetPkAddr(InstPtr, PkPtr);
+	XSlhDsa_SetMsg(InstPtr, XSlhDsa_PwctEmptyMsg, 0U);
+	XSlhDsa_SetSig(InstPtr, XSlhDsa_SigScratch, SigLen);
+
+	/** Stage the FIPS empty-context prefix 0x00 || 0x00 in WorkMem. */
+	InstPtr->WorkMem[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
+	InstPtr->WorkMem[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = 0U;
+	InstPtr->CtxPrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN;
+
+	ReturnStatus = XASUFW_FAILURE;
+	ASSIGN_VOLATILE(VerifyStatus, XASUFW_FAILURE);
+	XFIH_CALL(XSlhDsa_VerifyCore, FihVar, VerifyStatus, InstPtr);
+	if (VerifyStatus != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(VerifyStatus, XASUFW_SLHDSA_PWCT_SIGN_VER_FAIL);
+		goto END;
+	}
+
+	/**
+	 * Confirm the redundant indicator as well as the returned status, so that a single
+	 * glitched status value cannot force a pairwise consistency pass.
+	 */
+	if (ReturnStatus != XASUFW_SLHDSA_SIGNATURE_VERIFIED) {
+		Status = XASUFW_SLHDSA_PWCT_SIGN_VER_FAIL;
+		goto END;
+	}
+
+	/**
+	 * The verified indicator was checked above. The command layer copies ReturnStatus into
+	 * the keygen response, so clear it before this test returns.
+	 */
+	ReturnStatus = XASUFW_FAILURE;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
 * @brief	Prepare the singleton SLH-DSA instance for one request.
 *
 * @param	InstPtr	Pointer to the SLH-DSA instance.
@@ -2493,41 +2699,6 @@ static s32 XSlhDsa_PrepareInstance(XSlhDsa_Instance *InstPtr, u8 ParamSet, XAsuf
 	Status = XASUFW_SUCCESS;
 
 END:
-	return Status;
-}
-/*************************************************************************************************/
-/**
-* @brief	Zeroize the local key-generation buffers.
-*
-* @param	Sk	Secret key buffer.
-* @param	SkSize	Secret key size in bytes.
-* @param	Pk	Public key buffer.
-* @param	PkSize	Public key size in bytes.
-* @param	SkSeed	Secret seed buffer.
-* @param	SkPrf	PRF seed buffer.
-* @param	PkSeed	Public seed buffer.
-* @param	SeedLen	Seed length in bytes.
-*
-* @return
-*		- XASUFW_SUCCESS, if all clears succeed.
-*		- Combined buffer-clear failure status via XAsufw_UpdateBufStatus otherwise.
-*
-*************************************************************************************************/
-static s32 XSlhDsa_ZeroizeKeyBuffers(u8 *Sk, u32 SkSize, u8 *Pk, u32 PkSize, u8 *SkSeed,
-					u8 *SkPrf, u8 *PkSeed, u32 SeedLen)
-{
-	s32 Status = XASUFW_SUCCESS;
-
-	/**
-	 * Zeroize every buffer unconditionally and accumulate the results, so one failing
-	 * clear neither skips the remaining buffers nor goes unreported.
-	 */
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(Sk, SkSize));
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(Pk, PkSize));
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(SkSeed, SeedLen));
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(SkPrf, SeedLen));
-	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(PkSeed, SeedLen));
-
 	return Status;
 }
 #endif /* XASU_SLHDSA_ENABLE */

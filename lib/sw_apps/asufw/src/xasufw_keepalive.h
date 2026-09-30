@@ -16,7 +16,6 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------------------------
  * 1.0   vm   07/14/2026 Initial release
- *       kk   07/10/26 Added XAsufw_KeepAliveKick() prototype
  * </pre>
  *
  *************************************************************************************************/
@@ -36,7 +35,6 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_KeepAliveInit(void);
-void XAsufw_KeepAliveKick(void);
 
 #ifdef __cplusplus
 }

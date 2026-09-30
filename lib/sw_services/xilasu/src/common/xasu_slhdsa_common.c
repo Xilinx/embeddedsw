@@ -282,17 +282,15 @@ END:
 * @return
 *		- XST_SUCCESS, if validation succeeds.
 *		- XST_INVALID_PARAM, if any field is invalid (NULL pointer, zero addresses,
-*		  invalid ParamSet, CtxLen/CtxAddr mismatch, MsgLen exceeds DMA limit, or
-*		  SignatureLen does not match the expected size for ParamSet).
-*
-* @note
-*		MsgLen must not exceed XASU_ASU_DMA_MAX_TRANSFER_LENGTH.
+*		  invalid ParamSet, CtxLen/CtxAddr mismatch, MsgLen exceeds DMA limit,
+*		  SignatureLen mismatch, or SkLen not equal to the ParamSet secret-key size).
 *
 *************************************************************************************************/
 s32 XAsu_SlhdsaValidateSignParams(const XAsu_SlhdsaSignParams *ParamsPtr)
 {
 	s32 Status = (s32)XST_FAILURE;
 	u32 SigSize;
+	u32 SkSize;
 
 	/** Validate input pointer. */
 	if (ParamsPtr == NULL) {
@@ -341,6 +339,16 @@ s32 XAsu_SlhdsaValidateSignParams(const XAsu_SlhdsaSignParams *ParamsPtr)
 	}
 
 	/**
+	 * The secret key is a fixed length per parameter set, so SkLen must match exactly. A
+	 * caller declaring any other length has not supplied the whole key.
+	 */
+	SkSize = XAsu_SlhdsaGetSkSize(ParamsPtr->ParamSet);
+	if (ParamsPtr->SkObj.SkLen != SkSize) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
 	 * SLH-DSA signatures are a fixed length per parameter set, so SignatureLen must match
 	 * exactly. This is what guarantees the output buffer is large enough to be written.
 	 */
@@ -382,11 +390,7 @@ END:
 *		- XST_SUCCESS, if validation succeeds.
 *		- XST_INVALID_PARAM, if any field is invalid (NULL pointer, zero addresses,
 *		  invalid ParamSet, CtxLen/CtxAddr mismatch, MsgLen exceeds DMA limit,
-*		  SignatureLen mismatch, or PubKeyLen mismatch when non-zero).
-*
-* @note
-*		MsgLen must not exceed XASU_ASU_DMA_MAX_TRANSFER_LENGTH. When PubKeyLen is
-*		non-zero it must equal XAsu_SlhdsaGetPkSize(ParamSet).
+*		  SignatureLen mismatch, or PubKeyLen not equal to the ParamSet public key size).
 *
 *************************************************************************************************/
 s32 XAsu_SlhdsaValidateSignVerifyParams(const XAsu_SlhdsaSignVerifyParams *ParamsPtr)
@@ -446,11 +450,11 @@ s32 XAsu_SlhdsaValidateSignVerifyParams(const XAsu_SlhdsaSignVerifyParams *Param
 	}
 
 	/**
-	 * PubKeyLen is optional: zero means the caller did not declare a length. When it is
-	 * declared it must equal the parameter set public key size.
+	 * The public key is a fixed length per parameter set, so PubKeyLen must match exactly.
+	 * Verification always reads the whole key, so a shorter declared length would leave part
+	 * of it unvalidated.
 	 */
-	if ((ParamsPtr->PkObj.PubKeyLen != 0U) &&
-	    (ParamsPtr->PkObj.PubKeyLen != XAsu_SlhdsaGetPkSize(ParamsPtr->ParamSet))) {
+	if (ParamsPtr->PkObj.PubKeyLen != XAsu_SlhdsaGetPkSize(ParamsPtr->ParamSet)) {
 		Status = (s32)XST_INVALID_PARAM;
 		goto END;
 	}

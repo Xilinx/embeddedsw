@@ -55,6 +55,20 @@ extern "C" {
 #define XSLHDSA_ADDR_W_INDEX	(7U)	/**< Word index of the tree node / hash slot index. */
 #define XSLHDSA_SHA2_ADDR_FIELD_BYTES	(22U)	/**< SHA2 compact ADRS bytes for F/H/T. */
 
+#define XSLHDSA_MAX_N	(32U)	/**< Max n (bytes) across the supported parameter sets. */
+#define XSLHDSA_MAX_XMSS_HEIGHT	(9U)	/**< Max XMSS subtree height h' (FIPS 205 Table 2). */
+/**
+ * XMSS treehash stack depth. Full-tree walks pass SubHeight == h', so the array must
+ * hold h' entries (indices 0..h'-1) plus one spare.
+ */
+#define XSLHDSA_XMSS_STACK_DEPTH	(XSLHDSA_MAX_XMSS_HEIGHT + 1U)
+#define XSLHDSA_MAX_FORS_HEIGHT	(14U)	/**< Max FORS tree height a (FIPS 205 Table 2). */
+/**
+ * FORS treehash stack depth. Auth-path walks pass SubHeight in 0..a-1, so depth == max a
+ * already provides one spare past the largest SubHeight.
+ */
+#define XSLHDSA_FORS_STACK_DEPTH	(XSLHDSA_MAX_FORS_HEIGHT)
+
 /************************************** Type Definitions *****************************************/
 /** FIPS 205 ADRS type field values (word 4 domain separation). */
 typedef enum {
