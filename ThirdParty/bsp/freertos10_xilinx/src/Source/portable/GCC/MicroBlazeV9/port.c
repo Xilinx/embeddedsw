@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -271,6 +271,15 @@ BaseType_t xPortStartScheduler( void )
 	extern void ( vPortStartFirstTask )( void );
 	extern UINTPTR _stack[];
 
+	/* Reuse the stack from main() as the stack for interrupts/exceptions.
+	This must be initialized before setting up the tick interrupt because the
+	SDT interrupt setup enables CPU interrupts before it returns. */
+	pulISRStack = ( UINTPTR * ) _stack;
+
+	/* Ensure there is enough space for the functions called from the interrupt
+	service routines to write back into the stack frame of the caller. */
+	pulISRStack -= 2;
+
 	/* Setup the hardware to generate the tick.  Interrupts are disabled when
 	this function is called.
 
@@ -281,13 +290,6 @@ BaseType_t xPortStartScheduler( void )
 	vApplicationSetupTimerInterrupt() is provided in the official demo
 	application that accompanies this port. */
 	vApplicationSetupTimerInterrupt();
-
-	/* Reuse the stack from main() as the stack for the interrupts/exceptions. */
-	pulISRStack = ( UINTPTR * ) _stack;
-
-	/* Ensure there is enough space for the functions called from the interrupt
-	service routines to write back into the stack frame of the caller. */
-	pulISRStack -= 2;
 
 	/* Restore the context of the first task that is going to run.  From here
 	on, the created tasks will be executing. */

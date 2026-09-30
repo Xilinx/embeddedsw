@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2012 - 2022 Xilinx, Inc. All rights reserved.
- * Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -53,6 +53,7 @@
 #endif
 #else
 #include "xiltimer.h"
+#include "xil_exception.h"
 #include "xinterrupt_wrap.h"
 #endif
 
@@ -311,6 +312,12 @@ void vApplicationSetupTimerInterrupt( void )
 	/* Limit the configTICK_RATE_HZ to 1000 if user configured greater than 1000 */
 	uint32_t Tick_Rate = (configTICK_RATE_HZ > 1000) ? 1000 : configTICK_RATE_HZ;
 
+	/* Install the interrupt handler before arming the timer. The SDT interrupt
+	setup enables CPU interrupts, so the timer interrupt must remain disabled
+	until the handler installation is complete. */
+	XTimer_SetHandler(vPortTickISR, 0, XINTERRUPT_DEFAULT_PRIORITY);
+	Xil_ExceptionDisable();
+
 	/*
 	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
 	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
@@ -327,7 +334,6 @@ void vApplicationSetupTimerInterrupt( void )
          */
 	XTimer_SetInterval(XTIMER_DELAY_MSEC/Tick_Rate);
 #endif
-	XTimer_SetHandler(vPortTickISR, 0, XINTERRUPT_DEFAULT_PRIORITY);
 }
 #endif
 

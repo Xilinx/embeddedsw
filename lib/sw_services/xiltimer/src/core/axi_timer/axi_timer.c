@@ -22,6 +22,9 @@
  *  	 adk   07/02/22 Updated the IntrHandler as per XTimer_SetHandler() API.
  *  1.1	 adk   08/08/22 Added doxygen tags.
  *  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
+ *  2.5  vmt   09/24/26 Initialize the AXI tick timer from SetIntrHandler
+ *                      when IsReady is not set so the handler can be
+ *                      installed before the tick interval is programmed.
  *</pre>
  *
  *@note
@@ -156,12 +159,10 @@ static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay)
 {
 	XTmrCtr *AxiTimerInstPtr = &InstancePtr->AxiTimer_TickInst;
 	u32 Tlr;
-	static u32 IsTickTimerStarted = FALSE;
 
-	if (FALSE == IsTickTimerStarted) {
+	if (AxiTimerInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
 		XAxiTimer_Init(InstancePtr, XTickTimer_Instance,
 				&InstancePtr->AxiTimer_TickInst);
-		IsTickTimerStarted = TRUE;
 	}
 
 	Tlr = Delay * (AxiTimerInstPtr->Config.SysClockFreqHz /
@@ -197,6 +198,12 @@ static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay)
 static void XAxiTimer_SetIntrHandler(XTimer *InstancePtr, u8 Priority)
 {
 	XTmrCtr *AxiTimerInstPtr = &InstancePtr->AxiTimer_TickInst;
+
+	/* The handler can be installed before the interval is configured. Ensure
+	the timer instance and its interrupt configuration are initialized first. */
+	if (AxiTimerInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
+		XAxiTimer_Init(InstancePtr, XTickTimer_Instance, AxiTimerInstPtr);
+	}
 
 	XTmrCtr_SetHandler(AxiTimerInstPtr, XAxiTimer_CallbackHandler,
 			   InstancePtr);
