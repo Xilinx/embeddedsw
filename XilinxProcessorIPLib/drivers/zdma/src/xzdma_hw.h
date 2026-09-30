@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 #ifndef XZDMA_HW_H_
+/** @brief Include guard for the ZDMA hardware header. */
 #define XZDMA_HW_H_
 
 /*****************************************************************************/
@@ -13,6 +14,7 @@
 * @addtogroup zdma Overview
 * @{
 *
+* @brief Defines register offsets and low-level access for ZDMA.
 * Defines identifiers and register-level driver functions (or
 * macros) that can be used to access the Xilinx ZDMA core.
 *
@@ -324,7 +326,7 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* This macro reads the given register.
+* @brief This macro reads the given register.
 *
 * @param[in] BaseAddress is the Xilinx base address of the ZDMA core.
 * @param[in] RegOffset is the register offset of the register.
@@ -341,12 +343,11 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* This macro writes the value into the given register.
+* @brief This macro writes the value into the given register.
 *
 * @param[in] BaseAddress is the Xilinx base address of the ZDMA core.
 * @param[in] RegOffset is the register offset of the register.
 * @param[in] Data is the 32-bit value to write to the register.
-*
 *
 * @note		C-style signature:
 *		void XZDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)

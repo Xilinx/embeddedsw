@@ -10,8 +10,7 @@
 * @addtogroup zdma Overview
 * @{
 *
-* Implements the interface functions for the ZDMA driver. Refer to xzdma.h
-* for more detailed information.
+* @brief Implements the interface functions for the ZDMA driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -70,7 +69,7 @@ static void XZDma_GetConfigurations(XZDma *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* This function initializes an ZDMA core. This function must be called
+* @brief This function initializes an ZDMA core. This function must be called
 * prior to using an ZDMA core. Initialization of an ZDMA includes setting
 * up the instance data and ensuring the hardware is in a quiescent state and
 * resets all the hardware configurations.
@@ -88,7 +87,6 @@ static void XZDma_GetConfigurations(XZDma *InstancePtr);
 *
 * @return
 *		- XST_SUCCESS if initialization was successful.
-*
 *
 ******************************************************************************/
 s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
@@ -156,7 +154,7 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 /*****************************************************************************/
 /**
 *
-* This function sets the pointer type and mode in which ZDMA needs to transfer
+* @brief This function sets the pointer type and mode in which ZDMA needs to transfer
 * the data.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
@@ -235,7 +233,7 @@ End:
 /*****************************************************************************/
 /**
 *
-* This function sets the descriptor type and descriptor pointer's start address
+* @brief This function sets the descriptor type and descriptor pointer's start address
 * of both source and destination based on the memory allocated by user and also
 * calculates no of descriptors(BDs) can be created in the allocated memory.
 *
@@ -300,7 +298,7 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 /*****************************************************************************/
 /**
 *
-* This function sets the data attributes and control configurations of a
+* @brief This function sets the data attributes and control configurations of a
 * ZDMA core based on the inputs provided.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
@@ -429,7 +427,7 @@ s32 XZDma_SetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 /*****************************************************************************/
 /**
 *
-* This function gets the data attributes and control configurations of a
+* @brief This function gets the data attributes and control configurations of a
 * ZDMA core.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
@@ -455,8 +453,6 @@ s32 XZDma_SetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 *		- SrcQos - Configurable QoS bits for AXI Data read
 *		- DstCache - AXI cache bits for Data write
 *		- DstQos - Configurable QoS bits for AXI Data write
-*
-*
 *
 ******************************************************************************/
 void XZDma_GetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
@@ -484,7 +480,7 @@ void XZDma_GetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 /*****************************************************************************/
 /**
 *
-* This function sets the descriptor attributes based on the inputs provided
+* @brief This function sets the descriptor attributes based on the inputs provided
 * in the structure.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
@@ -502,7 +498,6 @@ void XZDma_GetChDataConfig(XZDma *InstancePtr, XZDma_DataConfig *Configure)
 * @return
 *		- XST_FAILURE  If ZDMA core is not in Idle state and
 * 		- XST_SUCCESS If Configurations are made successfully
-*
 *
 ******************************************************************************/
 s32 XZDma_SetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure)
@@ -544,7 +539,7 @@ s32 XZDma_SetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure)
 /*****************************************************************************/
 /**
 *
-* This function gets the descriptor attributes of the channel.
+* @brief This function gets the descriptor attributes of the channel.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
 * @param[in] Configure is a pointer to the XZDma_ChDscrConfig structure
@@ -557,8 +552,6 @@ s32 XZDma_SetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure)
 *				(both on SRC and DST Side)
 *		- AXQos      - QoS bit used for DSCR fetch
 *				(both on SRC and DST Side)
-*
-*
 *
 ******************************************************************************/
 void XZDma_GetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure)
@@ -577,7 +570,7 @@ void XZDma_GetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure)
 /*****************************************************************************/
 /**
 *
-* This function preloads the buffers which will be used in write only mode.
+* @brief This function preloads the buffers which will be used in write only mode.
 * In write only mode the data in the provided buffer will be written in
 * destination address for specified size.
 *
@@ -586,7 +579,6 @@ void XZDma_GetChDscrConfig(XZDma *InstancePtr, XZDma_DscrConfig *Configure)
 *		i.e. pointer to 32-bit array of size 2/4
 *		 - Array of Size 2 for ADMA
 *		 - Array of Size 4 for GDMA
-*
 *
 * @note		Valid only in simple mode.
 * 		Prior to call this function ZDMA instance should be set in
@@ -633,11 +625,10 @@ void XZDma_WOData(XZDma *InstancePtr, u32 *Buffer)
 /*****************************************************************************/
 /**
 *
-* This function resume the paused state of ZDMA core and starts the transfer
+* @brief This function resume the paused state of ZDMA core and starts the transfer
 * from where it has paused.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
-*
 *
 * @note		Valid only for scatter gather mode.
 *
@@ -662,10 +653,9 @@ void XZDma_Resume(XZDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function resets the ZDMA core.
+* @brief This function resets the ZDMA core.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
-*
 *
 * @note		This function resets all the configurations made previously.
 *		Disables all the interrupts and clears interrupt status.
@@ -721,7 +711,7 @@ void XZDma_Reset(XZDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function returns the state of ZDMA core.
+* @brief This function returns the state of ZDMA core.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
 *
@@ -760,7 +750,7 @@ XZDmaState XZDma_ChannelState(XZDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets all the required fields for initiating data transfer. Data
+* @brief This function sets all the required fields for initiating data transfer. Data
 * transfer elements needs to be passed through structure pointer.
 * Data transfer can be done in any of the three modes (simple, Linear or Linked
 * List) based on the selected mode but before calling this API make sure that
@@ -837,15 +827,13 @@ s32 XZDma_Start(XZDma *InstancePtr, XZDma_Transfer *Data, u32 Num)
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* @brief This static function sets all the required fields for initiating data
 * transfer in simple mode.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
 * @param[in] Data is a pointer to an array of XZDma_Transfer structure
 *		which has all the configuration fields for initiating data
 *		transfer.
-*
-*
 *
 ******************************************************************************/
 static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
@@ -896,7 +884,7 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 /*****************************************************************************/
 /**
 *
-* This function sets all the required fields for initiating data
+* @brief This function sets all the required fields for initiating data
 * transfer in scatter gather mode.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
@@ -904,8 +892,6 @@ static void XZDma_SimpleMode(XZDma *InstancePtr, XZDma_Transfer *Data)
 *		which has all the configuration fields for initiating data
 *		transfer.
 * @param[in] Num specifies number of array elements of Data pointer.
-*
-*
 *
 ******************************************************************************/
 void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
@@ -981,7 +967,7 @@ void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* @brief This static function sets all the required fields for initiating data
 * transfer in Linear descriptor type.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
@@ -995,8 +981,6 @@ void XZDma_ScatterGather(XZDma *InstancePtr, XZDma_Transfer *Data,
 *		one or not.
 *		- XZDMA_TRUE - If descriptor is last
 *		- XZDMA_FALSE - If descriptor is not last
-*
-*
 *
 ******************************************************************************/
 static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
@@ -1037,15 +1021,13 @@ static void XZDma_LinearMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* @brief This static function sets all the required fields for initiating data
 * transfer in Linear descriptor type.
 *
 * @param[in] DscrPtr is a pointer to source/destination descriptor.
 * @param[in] Addr is a 64-bit variable which denotes the address of data.
 * @param[in] Size specifies the amount of the data to be transferred.
 * @param[in] CtrlValue contains all the control fields of descriptor.
-*
-*
 *
 ******************************************************************************/
 static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
@@ -1066,7 +1048,7 @@ static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* @brief This static function sets all the required fields for initiating data
 * transfer in Linked list descriptor type.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
@@ -1080,8 +1062,6 @@ static void XZDma_ConfigLinear(XZDma_LiDscr *DscrPtr, u64 Addr, u32 Size,
 *		one or not.
 *		- TRUE - If descriptor is last
 *		- FALSE - If descriptor is not last
-*
-*
 *
 ******************************************************************************/
 static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
@@ -1137,7 +1117,7 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 /*****************************************************************************/
 /**
 *
-* This static function sets all the required fields for initiating data
+* @brief This static function sets all the required fields for initiating data
 * transfer in Linked list descriptor type.
 *
 * @param[in] DscrPtr is a pointer to source/destination descriptor.
@@ -1145,8 +1125,6 @@ static void XZDma_LinkedListMode(XZDma *InstancePtr, XZDma_Transfer *Data,
 * @param[in] Size specifies the amount of the data to be transferred.
 * @param[in] CtrlValue contains all the control fields of descriptor.
 * @param[in] NextDscrAddr is the address of next descriptor.
-*
-*
 *
 ******************************************************************************/
 static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
@@ -1167,11 +1145,10 @@ static void XZDma_ConfigLinkedList(XZDma_LlDscr *DscrPtr, u64 Addr, u32 Size,
 
 /*****************************************************************************/
 /**
-* This function enables all the interrupts which user intended to
+* @brief This function enables all the interrupts which user intended to
 * enable and enables the ZDMA channel for initiating data transfer.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
-*
 *
 ******************************************************************************/
 
@@ -1189,11 +1166,9 @@ void XZDma_Enable(XZDma *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This static function gets all the reset configurations of ZDMA.
+* @brief This static function gets all the reset configurations of ZDMA.
 *
 * @param[in] InstancePtr is a pointer to the XZDma instance.
-*
-*
 *
 ******************************************************************************/
 static void XZDma_GetConfigurations(XZDma *InstancePtr)
@@ -1220,7 +1195,7 @@ static void XZDma_GetConfigurations(XZDma *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This routine is a stub for the asynchronous callbacks. The stub is here in
+* @brief This routine is a stub for the asynchronous callbacks. The stub is here in
 * case the upper layer forgot to set the handlers. On initialization, All
 * handlers are set to this callback. It is considered an error for this
 * handler to be invoked.
@@ -1231,8 +1206,6 @@ static void XZDma_GetConfigurations(XZDma *InstancePtr)
 * @param[in] Mask is the type of the interrupts to enable. Use OR'ing of
 *		XZDMA_IXR_DMA_*_MASK constants defined in xzdma_hw.h to create
 *		this parameter value.
-*
-*
 *
 ******************************************************************************/
 static void StubCallBack(void *CallBackRef, u32 Mask)
@@ -1246,15 +1219,13 @@ static void StubCallBack(void *CallBackRef, u32 Mask)
 /*****************************************************************************/
 /**
 *
-* This routine is a stub for the DMA done callback. The stub is here in
+* @brief This routine is a stub for the DMA done callback. The stub is here in
 * case the upper layer forgot to set the handlers. On initialization, Done
 * handler are set to this callback.
 *
 * @param[in] CallBackRef is a callback reference passed in by the upper
 *		layer when setting the callback functions, and passed back to
 *		the upper layer when the callback is invoked.
-*
-*
 *
 ******************************************************************************/
 static void StubDoneCallBack(void *CallBackRef)
@@ -1266,7 +1237,7 @@ static void StubDoneCallBack(void *CallBackRef)
 
 /*****************************************************************************/
 /**
- * Stops the ZDMA engine and releases power management resources if supported.
+ * @brief Stops the ZDMA engine and releases power management resources if supported.
  *
  * This function asserts the validity of the input instance pointer. If power
  * management (XPM_SUPPORT) is enabled, it releases the power management node

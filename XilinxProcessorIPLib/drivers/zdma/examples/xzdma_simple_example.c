@@ -11,6 +11,7 @@
 * @addtogroup zdma Overview
 * @{
 *
+* @brief Demonstrates simple ZDMA data transfer in normal mode.
 * Demonstrates simple data transfer using the XZDma driver in normal mode
 * on a ZDMA device for 1MB data transfer.
 *
@@ -88,15 +89,15 @@
 #endif
 
 #ifndef TESTAPP_GEN
-#define SIZE		1000000 /**< Size of the data to be transferred */
+#define SIZE		1000000 /**< Size of the data to be transferred. */
 #else
-#define SIZE		1000 /**< Size of the data to be transferred */
+#define SIZE		1000 /**< Size of the data to be transferred. */
 #endif
 
 #define TESTVALUE	0x1230 /**< For writing into source buffer */
 
-#define POLL_TIMEOUT_COUNTER		1000000U
-#define NUM_OF_EVENTS			1
+#define POLL_TIMEOUT_COUNTER		1000000U /**< Maximum poll iterations while waiting for a DMA event. */
+#define NUM_OF_EVENTS			1 /**< Number of events to wait for in Xil_WaitForEventSet. */
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -144,12 +145,11 @@ static volatile u32 ErrorStatus = 0;			/**< Error Status flag*/
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Main function to call the example.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 int main(void)
@@ -177,7 +177,7 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a test of the data transfer in simple mode of normal mode
+* @brief This function does a test of the data transfer in simple mode of normal mode
 * on the ZDMA driver.
 *
 * @if SDT
@@ -196,7 +196,6 @@ int main(void)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 #ifndef SDT
@@ -379,7 +378,7 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 #ifndef SDT
 /*****************************************************************************/
 /**
-* This function sets up the interrupt system so interrupts can occur for the
+* @brief This function sets up the interrupt system so interrupts can occur for the
 * ZDMA. This function is application-specific. The user should modify this
 * function to fit the application.
 *
@@ -393,7 +392,6 @@ int XZDma_SimpleExample(XZDma *ZdmaInstPtr, UINTPTR BaseAddress)
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if failed
-*
 *
 ****************************************************************************/
 int SetupInterruptSystem(INTC *IntcInstancePtr,
@@ -502,12 +500,10 @@ int SetupInterruptSystem(INTC *IntcInstancePtr,
 
 /*****************************************************************************/
 /**
-* This static function handles ZDMA Done interrupts.
+* @brief This static function handles ZDMA Done interrupts.
 *
 * @param[in] CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
-*
-*
 *
 ******************************************************************************/
 static void DoneHandler(void *CallBackRef)
@@ -518,13 +514,11 @@ static void DoneHandler(void *CallBackRef)
 }
 /*****************************************************************************/
 /**
-* This static function handles ZDMA error interrupts.
+* @brief This static function handles ZDMA error interrupts.
 *
 * @param[in] CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
 * @param[in] Mask specifies the interrupt error mask.
-*
-*
 *
 ******************************************************************************/
 static void ErrorHandler(void *CallBackRef, u32 Mask)

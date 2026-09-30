@@ -11,6 +11,7 @@
 * @addtogroup zdma Overview
 * @{
 *
+* @brief Demonstrates the ZDMA self-test example.
 * Demonstrates ZDMA self-test using the XZDma driver.
 *
 * <pre>
@@ -59,12 +60,11 @@ XZDma ZDma;		/**<Instance of the ZDMA Device */
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Main function to call the example.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 int main(void)
@@ -90,7 +90,7 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the ZDMA driver.
+* @brief This function does a minimal test on the ZDMA driver.
 *
 * @if SDT
 * @param[in] BaseAddress contains the base address of the ZDMA device
@@ -102,7 +102,6 @@ int main(void)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 #ifndef SDT

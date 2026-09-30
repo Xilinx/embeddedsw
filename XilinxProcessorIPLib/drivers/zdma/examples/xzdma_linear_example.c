@@ -11,6 +11,7 @@
 * @addtogroup zdma Overview
 * @{
 *
+* @brief Demonstrates ZDMA data transfer in linear mode.
 * Demonstrates data transfer using the XZDma driver in linear mode on the
 * ZDMA device.
 *
@@ -95,8 +96,8 @@ static void ErrorHandler(void *CallBackRef, u32 Mask);
 #define DESCRIPTOR1_DATA_SIZE	1024 /**< Descriptor 1 data in bytes */
 #define DESCRIPTOR2_DATA_SIZE	64   /**< Descriptor 2 data in bytes */
 
-#define POLL_TIMEOUT_COUNTER    1000000U
-#define NUM_OF_EVENTS		1
+#define POLL_TIMEOUT_COUNTER    1000000U /**< Maximum poll iterations while waiting for a DMA event. */
+#define NUM_OF_EVENTS		1 /**< Number of events to wait for in Xil_WaitForEventSet. */
 /**************************** Type Definitions *******************************/
 
 
@@ -131,12 +132,11 @@ u32 AlloMem[256] __attribute__ ((aligned (64)));
 /*****************************************************************************/
 /**
 *
-* Main function to call the example.
+* @brief Main function to call the example.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
 *
 ******************************************************************************/
 int main(void)
@@ -161,7 +161,7 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a test of the data transfer in linear mode on the ZDMA
+* @brief This function does a test of the data transfer in linear mode on the ZDMA
 * driver.
 *
 * @if SDT
@@ -174,8 +174,6 @@ int main(void)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
-*
-*
 *
 ******************************************************************************/
 #ifndef SDT
@@ -375,7 +373,7 @@ int XZDma_LinearExample(UINTPTR BaseAddress)
 #ifndef SDT
 /*****************************************************************************/
 /**
-* This function sets up the interrupt system so interrupts can occur for the
+* @brief This function sets up the interrupt system so interrupts can occur for the
 * ZDMA. This function is application-specific. The user should modify this
 * function to fit the application.
 *
@@ -389,7 +387,6 @@ int XZDma_LinearExample(UINTPTR BaseAddress)
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if failed
-*
 *
 ****************************************************************************/
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
@@ -453,12 +450,10 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 /*****************************************************************************/
 /**
-* This static function handles ZDMA Done interrupts.
+* @brief This static function handles ZDMA Done interrupts.
 *
 * @param[in] CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
-*
-*
 *
 ******************************************************************************/
 static void DoneHandler(void *CallBackRef)
@@ -468,13 +463,11 @@ static void DoneHandler(void *CallBackRef)
 
 /*****************************************************************************/
 /**
-* This static function handles ZDMA pause interrupts.
+* @brief This static function handles ZDMA pause interrupts.
 *
 * @param[in] CallBackRef is the callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
 * @param[in] Mask specifies the interrupt error mask.
-*
-*
 *
 ******************************************************************************/
 static void ErrorHandler(void *CallBackRef, u32 Mask)

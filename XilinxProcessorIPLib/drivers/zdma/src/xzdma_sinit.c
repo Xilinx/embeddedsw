@@ -11,6 +11,7 @@
 * @addtogroup zdma Overview
 * @{
 *
+* @brief Implements static initialization helpers for the ZDMA driver.
 * Provides static initialization methods for the ZDMA core.
 *
 * <pre>
@@ -46,27 +47,12 @@
 
 /************************** Function Definitions *****************************/
 
+#ifndef SDT
 /*****************************************************************************/
 /**
-*
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* A table contains the configuration info for each device in the system.
-*
-* @if SDT
-* @param[in] BaseAddress contains the base address of the device
-* @else
-* @param[in] DeviceId contains the unique ID of the device
-* @endif
-*
-* @return
-* 		A pointer to the configuration table entry corresponding to the given
-*		device ID/BaseAddress, or NULL if no match is found.
-*
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
-*
-******************************************************************************/
-#ifndef SDT
+ * @brief Looks up device configuration by device ID.
+ *
+ *****************************************************************************/
 XZDma_Config *XZDma_LookupConfig(u16 DeviceId)
 {
 	extern XZDma_Config XZDma_ConfigTable[XPAR_XZDMA_NUM_INSTANCES];
@@ -85,6 +71,11 @@ XZDma_Config *XZDma_LookupConfig(u16 DeviceId)
 	return (XZDma_Config *)CfgPtr;
 }
 #else
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ *****************************************************************************/
 XZDma_Config *XZDma_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XZDma_Config XZDma_ConfigTable[];

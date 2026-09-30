@@ -11,6 +11,7 @@
 * @addtogroup zdma Overview
 * @{
 *
+* @brief Implements the self-test function for the ZDMA core.
 * Implements the self-test function for the ZDMA core.
 *
 * <pre>
@@ -47,14 +48,13 @@
 /*****************************************************************************/
 /**
 *
-* Runs a diagnostic self-test for the ZDMA driver instance.
+* @brief Runs a diagnostic self-test for the ZDMA driver instance.
 *
 * @param[in] InstancePtr is a pointer to XZDma instance.
 *
 * @return
 *		- XST_SUCCESS if the test is successful.
 *		- XST_FAILURE if the test is failed.
-*
 *
 ******************************************************************************/
 s32 XZDma_SelfTest(XZDma *InstancePtr)

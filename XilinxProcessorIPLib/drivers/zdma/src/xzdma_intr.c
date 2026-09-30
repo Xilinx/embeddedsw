@@ -11,8 +11,9 @@
 * @addtogroup zdma Overview
 * @{
 *
+* @brief Implements interrupt-related functions for the ZDMA driver.
 * Implements interrupt-related functions for the ZDMA core.
-* Please see xzdma.h for more details of the driver.
+*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -48,7 +49,7 @@
 /*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the ZDMA core.
+* @brief This function is the interrupt handler for the ZDMA core.
 *
 * This handler reads the pending interrupt from Status register, determines the
 * source of the interrupts and calls the respective callbacks for the
@@ -61,7 +62,6 @@
 * XZDma_SetCallBack() during initialization phase. .
 *
 * @param[in] Instance is a pointer to the XZDma instance to be worked on.
-*
 *
 * @note		To generate interrupt required interrupts should be enabled.
 *
@@ -111,7 +111,7 @@ void XZDma_IntrHandler(void *Instance)
 /*****************************************************************************/
 /**
 *
-* This routine installs an asynchronous callback function for the given
+* @brief This routine installs an asynchronous callback function for the given
 * HandlerType.
 *
 * <pre>
