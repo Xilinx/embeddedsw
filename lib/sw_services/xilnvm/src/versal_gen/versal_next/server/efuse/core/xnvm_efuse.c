@@ -48,6 +48,7 @@
 * 3.8   vss  08/20/2026 Redesigned efuse programming flow.
 *       vss  08/22/2026 Inlined DME revoke programming in XNvm_EfuseWriteDmeRevoke.
 *       mb   09/13/2026 Clear ISR RD_DONE after row read wait to avoid stale row data.
+*       rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 * </pre>
 *
 * @note
@@ -82,9 +83,6 @@
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_MAX_FIPS_MODE		(0xFFU)
 			/**< Max value of FIPS mode */
-
-/** - Number of bits in one byte (efuse bit indexing). */
-#define XNVM_EFUSE_BITS_IN_A_BYTE		(8U)
 
 /**************************** Type Definitions *******************************/
 
@@ -653,7 +651,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 		Status = XNvm_EfusePgmAndVerifyBit(Revoke->Page, Entry->Row,
 				Entry->Col[SubBit], XNVM_EFUSE_PROGRAM_VERIFY);
 		if (Status != XST_SUCCESS) {
-			Status = (Status | (Field->ErrWrite +
+			Status = (int)((u32)Status | (Field->ErrWrite +
 				(RevokeIndex << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
 			break;
 		}

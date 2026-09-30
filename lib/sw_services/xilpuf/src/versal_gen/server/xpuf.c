@@ -61,6 +61,7 @@
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.4   ng   04/30/2024 Fixed doxygen comments
 * 2.8   tbk  07/02/2026 Added return-time redundancy guard in XPuf_Registration
+*       rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *       ks   08/19/2026 Validate PufOperation in XPuf_Registration
 *
 * </pre>
@@ -1061,6 +1062,8 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				DIndex++;
 			}
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wduplicated-branches"
 			for (SubIndex = 0U; SubIndex < 3U; SubIndex++) {
 				if (SubIndex == 2U) {
 					PufData->EfuseSynData[DIndex] =
@@ -1077,6 +1080,7 @@ int XPuf_GenerateFuseFormat(XPuf_Data *PufData)
 				SIndex++;
 				DIndex++;
 			}
+#pragma GCC diagnostic pop
 			SIndex++;
 		}
 	}

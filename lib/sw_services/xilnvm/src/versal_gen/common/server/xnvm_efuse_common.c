@@ -31,6 +31,7 @@
 * 3.7   mb   03/26/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze
 *       obs  03/26/2026 Replaced XSysMonPsv driver APIs with direct register
 *                       access via XPlmi_SysMon helpers
+* 3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -349,34 +350,34 @@ void XNvm_EfuseInitTimers(void)
 
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
-	Tpgm = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TPGM_DIV);
+	Tpgm = (u32)XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TPGM_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TPGM_REG_OFFSET, Tpgm);
 
 	/* TRD = ceiling(217ns/REF_CLK_PERIOD) */
-	Trd = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TRD_DIV);
+	Trd = (u32)XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TRD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRD_REG_OFFSET, Trd);
 
 	/* TRDM = ceiling(500ns/REF_CLK_PERIOD)*/
-	Trdm = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TRMD_DIV);
+	Trdm = (u32)XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TRMD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRDM_REG_OFFSET, Trdm);
 
 	/* TSU_H_PS = ceiling(208ns/REF_CLK_PERIOD) */
-	Tsu_h_ps = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_PS_DIV);
+	Tsu_h_ps = (u32)XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_PS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_REG_OFFSET,
 				Tsu_h_ps);
 
 	/* TSU_H_PS_CS = ceiling(143ns/REF_CLK_PERIOD) */
-	Tsu_h_ps_cs = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_PS_CS_DIV);
+	Tsu_h_ps_cs = (u32)XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_PS_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_CS_REG_OFFSET,
 				Tsu_h_ps_cs);
 
 	/* TSU_H_CS = ceiling(184ns/REF_CLK_PERIOD) */
-	Tsu_h_cs = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_CS_DIV);
+	Tsu_h_cs = (u32)XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_CS_REG_OFFSET,
 				Tsu_h_cs);
@@ -796,8 +797,8 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 		 */
 		Voltage = XNvm_SysMon_RawToVoltage(RawVoltage);
 		IntegralPart = (int)Voltage;
-		FractionalPart = (Voltage - IntegralPart) *
-					XNVM_EFUSE_FRACTION_MUL_VALUE;
+		FractionalPart = (int)((Voltage - (float)IntegralPart) *
+					(float)XNVM_EFUSE_FRACTION_MUL_VALUE);
 		XNvm_Printf(XNVM_DEBUG_GENERAL,"Voltage = %d.%06dV \r\n",
 				IntegralPart, FractionalPart);
 		/**
@@ -822,8 +823,8 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 	}
 
 	IntegralPart = (int)Temparature;
-	FractionalPart = (Temparature - IntegralPart) *
-				XNVM_EFUSE_FRACTION_MUL_VALUE;
+	FractionalPart = (int)((Temparature - (float)IntegralPart) *
+				(float)XNVM_EFUSE_FRACTION_MUL_VALUE);
 
 	/**
 	 *  - Convert IntegralPart and FractionalPart to absolute values.

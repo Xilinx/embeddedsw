@@ -34,6 +34,7 @@
 *       rpu  03/11/26 Validate input parameters
 * 1.8   dmi  09/09/26 Validate public key offset and remaining buffer size in
 *                     key wrap attestation handler
+*       rap  09/22/26 Fixed warnings caused due to new compiler flags added in makefile
 * </pre>
 *
 * @note
@@ -66,8 +67,10 @@
 
 /************************** Constant Definitions *****************************/
 
+#ifdef PLM_OCP_KEY_WRAP
 #define XOCP_KEY_WRAP_ATTEST_PAYLOAD_ADDRESS    (0xF2008000U) /**< Attestation payload address to store keywrap buffer */
 #define XOCP_KEY_WRAP_MAX_BUF_SIZE				(4096U) /**< Keywrap maximum buffer size */
+#endif /* PLM_OCP_KEY_WRAP */
 
 /************************** Function Prototypes *****************************/
 #ifdef PLM_HW_PCR

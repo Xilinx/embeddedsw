@@ -674,7 +674,7 @@ static int XNvm_EfuseOpsValidateCacheEmptyField(const XNvm_EfuseFieldDesc *Field
 		Status = XNvm_EfuseValidatePpkHashWriteReq(PpkType);
 	} else {
 		Status = XNvm_EfuseOpsValidateCacheEmptyBands(Field,
-				XNvm_EfuseOpsGetCacheEmptyErr((u32)FieldId));
+				(u32)XNvm_EfuseOpsGetCacheEmptyErr((u32)FieldId));
 	}
 
 	return Status;
@@ -863,9 +863,9 @@ static int XNvm_EfuseOpsGetCacheEmptyErr(u32 FieldId)
 
 	if ((FieldId >= (u32)XNVM_EFUSE_FIELD_PPK0_HASH) &&
 			(FieldId <= (u32)XNVM_EFUSE_FIELD_PPK_HASH_MAX)) {
-		Status = (u32)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
+		Status = (int)((u32)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
 			((FieldId - (u32)XNVM_EFUSE_FIELD_PPK0_HASH) <<
-			XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
+			XNVM_EFUSE_ERROR_NIBBLE_SHIFT));
 	} else if (FieldId == (u32)XNVM_EFUSE_FIELD_IV_BLACK) {
 		Status = (u32)XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD;
 	}
@@ -918,7 +918,7 @@ static int XNvm_EfuseOpsPostProgram(XNvm_EfuseFieldId FieldId, const void *Data)
 
 	Status = XNvm_EfuseOpsCacheOperations();
 	if (Status != XST_SUCCESS) {
-		Status = (Status | Desc->ErrWrite);
+		Status = (int)((u32)Status | Desc->ErrWrite);
 		goto END;
 	}
 
@@ -931,7 +931,7 @@ static int XNvm_EfuseOpsPostProgram(XNvm_EfuseFieldId FieldId, const void *Data)
 	Status = XNvm_EfuseCheckAesKeyCrc(Desc->CrcRegOffset, Desc->CrcDoneMask,
 			Desc->CrcPassMask, Crc);
 	if (Status != XST_SUCCESS) {
-		Status = (Status | Desc->ErrWrite);
+		Status = (int)((u32)Status | Desc->ErrWrite);
 	}
 
 END:

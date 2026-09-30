@@ -359,9 +359,9 @@ RET:
 		ClearStatus = XPlmi_MemSet((u64)(UINTPTR)&RomDmeInput, 0U, sizeof(XOcp_Dme) /
 			XOCP_WORD_LEN);
 		if (ClearStatus != XST_SUCCESS) {
-			Status = Status | XLOADER_SEC_BUF_CLEAR_ERR;
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 		} else {
-			Status = Status | XLOADER_SEC_BUF_CLEAR_SUCCESS;
+			Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_SUCCESS);
 		}
 	}
 

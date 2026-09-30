@@ -22,6 +22,7 @@
 * 2.2   kpt  08/14/2023 Renamed XPuf_IsRegistrationEnabled to XPuf_IsRegistrationDisabled
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.4   ng   04/30/2024 Fixed doxygen comments
+* 2.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -44,8 +45,10 @@
  * @cond xpuf_internal
  * @{
  */
+#if (defined(versal) && !defined(VERSAL_NET))
 #define XPUF_SHUT_GLB_VAR_FLTR_ENABLED_SHIFT	(31)
 		/**< Shift for Global Variation Filter bit in shutter value */
+#endif
 
 /***************************** Type Definitions *******************************/
 

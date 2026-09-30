@@ -34,6 +34,7 @@
 *      nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 *      tvp  04/27/2026 Block XNvm_EfuseReadDmeMode for versal_2ve_2vm
 * 3.8  tus  08/20/26 Added optional IPI response argument to XNvm_ProcessMailbox
+*      rap  09/22/26 Fixed warnings caused due to new compiler flags added in makefile
 * </pre>
 *
 * @note
@@ -67,8 +68,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK		(0x00ffffffU)
 						/**< PUF ECC/AUX Mask */
+#ifndef VERSAL_2VE_2VM
 #define XNVM_SHIFT_1_BIT					(1U)
 						/**< Shift value for 1 bit shift */
+#endif
 
 /*****************************************************************************/
 /**
@@ -100,7 +103,7 @@ static inline u8 XNvm_EfuseCache_GetFipsVersion(const u32 RegVal)
 static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
 static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
 static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
-static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh);
+static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u16 RegCount, u32 AddrLow, u32 AddrHigh);
 #ifndef XNVM_ACCESS_PUF_USER_DATA
 #if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 static void XNvm_EfuseCreateWritePufCmd(XNvm_PufWriteCdo* PufWrCdo, u32 AddrLow, u32 AddrHigh);
@@ -337,7 +340,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	 */
 	Ivs = (XNvm_EfuseIvs *)(UINTPTR)IvAddr;
 
-	Xil_DCacheFlushRange((UINTPTR)Ivs, TotalSize);
+	Xil_DCacheFlushRange((INTPTR)Ivs, TotalSize);
 
 	/**
 	 *  - Send XNvm_EfuseWriteIv CDO over IPI to the PLM.
@@ -451,7 +454,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 
 	Uds = (XNvm_Uds *)(UINTPTR)UdsAddr;
 
-	Xil_DCacheFlushRange((UINTPTR)Uds, sizeof(XNvm_Uds));
+	Xil_DCacheFlushRange((INTPTR)Uds, sizeof(XNvm_Uds));
 
 	UdsWriteCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_UDS);
 	UdsWriteCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
@@ -529,7 +532,7 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 
 	DmeKey = (XNvm_DmeKey *)(UINTPTR)DmeKeyAddr;
 
-	Xil_DCacheFlushRange((UINTPTR)DmeKey, sizeof(XNvm_DmeKey));
+	Xil_DCacheFlushRange((INTPTR)DmeKey, sizeof(XNvm_DmeKey));
 
 	DmeKeyWriteCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_DME_KEY);
 	DmeKeyWriteCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
@@ -958,8 +961,8 @@ int XNvm_EfuseWriteBootModeDis(XNvm_ClientInstance *InstancePtr, u32 BootModeDis
 	}
 
 	BootModeDisCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE);
-	BootModeDisCdo->Pload.EnvDisFlag = EnvDisFlag;
-	BootModeDisCdo->Pload.BootModeDisVal = BootModeDisBits;
+	BootModeDisCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
+	BootModeDisCdo->Pload.BootModeDisVal = (u16)BootModeDisBits;
 
 	/**
 	 *  - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE CDO command.
@@ -1020,7 +1023,7 @@ int XNvm_EfuseWriteSecMisc1Bits(XNvm_ClientInstance *InstancePtr, u32 SecMisc1Bi
 	}
 
 	SecMisc1BitsCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_MISC1_CTRL_BITS);
-	SecMisc1BitsCdo->Pload.EnvDisFlag = EnvDisFlag;
+	SecMisc1BitsCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 	SecMisc1BitsCdo->Pload.Misc1CtrlBitsVal = SecMisc1Bits;
 
 	/**
@@ -1081,7 +1084,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, u32 BootEnv
 	}
 
 	BootEnvCtrlBitsCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL_BITS);
-	BootEnvCtrlBitsCdo->Pload.EnvDisFlag = EnvDisFlag;
+	BootEnvCtrlBitsCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 	BootEnvCtrlBitsCdo->Pload.BootEnvCtrlVal = BootEnvCtrlBits;
 
 	/**
@@ -1202,7 +1205,7 @@ int XNvm_EfuseWriteGlitchConfigBits(XNvm_ClientInstance *InstancePtr, u32 Glitch
 	}
 
 	GlitchConfigCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_GLITCH_CONFIG);
-	GlitchConfigCdo->Pload.EnvDisFlag = EnvDisFlag;
+	GlitchConfigCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 	GlitchConfigCdo->Pload.GlitchConfigVal = GlitchCfgBits;
 
 	/**
@@ -1260,7 +1263,7 @@ int XNvm_EfuseWritePlmUpdate(XNvm_ClientInstance *InstancePtr, const u32 EnvDisF
 	}
 
 	DisPlmUpdateCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE);
-	DisPlmUpdateCdo->Pload.EnvDisFlag = EnvDisFlag;
+	DisPlmUpdateCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 
 	/**
 	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE CDO command.
@@ -1317,7 +1320,7 @@ int XNvm_EfuseWriteDecOnly(XNvm_ClientInstance *InstancePtr, const u32 EnvDisFla
 	}
 
 	DecOnlyCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_DEC_ONLY);
-	DecOnlyCdo->Pload.EnvDisFlag = EnvDisFlag;
+	DecOnlyCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 
 	/**
 	 *  - Send XNvm_EfuseWriteSecCtrl CDO over IPI to the PLM.
@@ -1376,7 +1379,7 @@ int XNvm_EfuseWriteFipsInfo(XNvm_ClientInstance *InstancePtr, const u16 FipsMode
 	}
 
 	FipsInfoCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_FIPS_INFO);
-	FipsInfoCdo->Pload.EnvDisFlag = EnvDisFlag;
+	FipsInfoCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 	FipsInfoCdo->Pload.FipsMode = FipsMode;
 	FipsInfoCdo->Pload.FipsVersion = FipsVersion;
 
@@ -1441,7 +1444,7 @@ int XNvm_EfuseWriteRevocationId(XNvm_ClientInstance *InstancePtr, const u32 Revo
 	}
 
 	RevokeIdCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID);
-	RevokeIdCdo->Pload.EnvDisFlag = EnvDisFlag;
+	RevokeIdCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 	RevokeIdCdo->Pload.RevokeIdNum = RevokeIdNum;
 
 	/**
@@ -1505,7 +1508,7 @@ int XNvm_EfuseWriteOffChipRevocationId(XNvm_ClientInstance *InstancePtr, const u
 	}
 
 	OffChipIdCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_WRITE_OFFCHIP_REVOKE_ID);
-	OffChipIdCdo->Pload.EnvDisFlag = EnvDisFlag;
+	OffChipIdCdo->Pload.EnvDisFlag = (u16)EnvDisFlag;
 	OffChipIdCdo->Pload.OffChipIdNum = OffChipRevokeIdNum;
 
 	/**
@@ -1679,7 +1682,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 
 	EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 
-	Xil_DCacheFlushRange((UINTPTR)EfusePuf, sizeof(XNvm_EfusePufHdAddr));
+	Xil_DCacheFlushRange((INTPTR)EfusePuf, sizeof(XNvm_EfusePufHdAddr));
 
 	XNVM_GET_HADDR(EfusePuf, HighAddr);
 	LowAddr = (u32)(UINTPTR)EfusePuf;
@@ -1752,10 +1755,10 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 
 	EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 
-	Xil_DCacheInvalidateRange((UINTPTR)ReadPufHd, (XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN));
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadChash, XNVM_WORD_LEN);
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadAux, XNVM_WORD_LEN);
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadRoSwap, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)ReadPufHd, (XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN));
+	Xil_DCacheInvalidateRange((INTPTR)&ReadChash, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadAux, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadRoSwap, XNVM_WORD_LEN);
 
 	/**
 	 * - Read Puf helper data.
@@ -1771,7 +1774,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)ReadPufHd, (XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN));
+	Xil_DCacheInvalidateRange((INTPTR)ReadPufHd, (XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN));
 
 	/**
 	 * - Read Puf Chash.
@@ -1788,7 +1791,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadChash, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadChash, XNVM_WORD_LEN);
 
 	/**
 	 * - Read Puf Aux data.
@@ -1805,7 +1808,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadAux, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadAux, XNVM_WORD_LEN);
 
 	/**
 	 * - Read RO Swap.
@@ -1827,7 +1830,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadRoSwap, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadRoSwap, XNVM_WORD_LEN);
 
 	Status = XST_FAILURE;
 	Status = Xil_SMemCpy(EfusePuf->EfuseSynData, XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS, ReadPufHd,
@@ -1964,7 +1967,7 @@ int XNvm_EfuseReadRevocationId(XNvm_ClientInstance *InstancePtr, const u64 Revok
 	StartOffset = XNVM_EFUSE_CACHE_REVOCATION_ID_0_OFFSET + (RevokeIdNum * XNVM_WORD_LEN);
 	HighAddr = (u32)(RevokeIdAddr >> XNVM_ADDR_HIGH_SHIFT);
 	LowAddr = (u32)RevokeIdAddr;
-	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, LowAddr,
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, (u16)StartOffset, 1U, LowAddr,
 		HighAddr);
 
 	/**
@@ -2013,8 +2016,8 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	}
 
 	UserFuseData = (XNvm_EfuseUserDataAddr *)(UINTPTR)UserFuseAddr;
-	StartOffset = XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET +
-			(UserFuseData->StartUserFuseNum * XNVM_WORD_LEN);
+	StartOffset = (u16)(XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET +
+			(UserFuseData->StartUserFuseNum * XNVM_WORD_LEN));
 
 #ifndef VERSAL_2VE_2VM
 	Status = XNvm_IsDmeModeEn();
@@ -2025,8 +2028,8 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 
 	XNVM_GET_HADDR(UserFuseData->UserFuseDataAddr, HighAddr);
 	LowAddr = (u32)(UINTPTR)UserFuseData->UserFuseDataAddr;
-	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, UserFuseData->NumOfUserFuses, LowAddr,
-		HighAddr);
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset,
+			(u16)UserFuseData->NumOfUserFuses, LowAddr, HighAddr);
 	/**
 	 * - Send XNvm_EfuseReadUserFuses CDO over IPI request to the PLM.
 	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
@@ -2075,7 +2078,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 
 	MiscCtrlBitsData = (XNvm_EfuseMiscCtrlBits *)(UINTPTR)MiscCtrlBits;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
@@ -2094,7 +2097,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	MiscCtrlBitsData->GlitchDetHaltBootEn =
 		(u8)((ReadReg &
@@ -2176,7 +2179,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 
 	SecCtrlBitsData = (XNvm_EfuseSecCtrlBits *)(UINTPTR)SecCtrlBits;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
@@ -2195,7 +2198,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	SecCtrlBitsData->AesDis =
 		(u8)(ReadReg &
@@ -2312,7 +2315,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 
 	SecMisc1BitsData = (XNvm_EfuseSecMisc1Bits *)(UINTPTR)SecMisc1Bits;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
@@ -2331,7 +2334,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	SecMisc1BitsData->LpdMbistEn =
 		(u8)((ReadReg &
@@ -2393,7 +2396,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 
 	BootEnvCtrlBitsData = (XNvm_EfuseBootEnvCtrlBits *)(UINTPTR)BootEnvCtrlBits;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
@@ -2412,7 +2415,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	BootEnvCtrlBitsData->SysmonTempEn =
 		(u8)((ReadReg &
@@ -2482,7 +2485,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 
 	RomRsvdBitsData = (XNvm_EfuseRomRsvdBits *)(UINTPTR)RomRsvdBits;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
@@ -2501,7 +2504,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadReg, XNVM_WORD_LEN);
 
 	RomRsvdBitsData->PlmUpdate =
 		(u8)((ReadReg &
@@ -2563,8 +2566,8 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 
 	FipsInfoBitsData = (XNvm_EfuseFipsInfoBits *)(UINTPTR)FipsInfoBits;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadIpDisable0Reg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadIpDisable0Reg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadDmeFipsReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadDmeFipsReg;
@@ -2583,7 +2586,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadIpDisable0Reg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadIpDisable0Reg;
@@ -2603,7 +2606,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadIpDisable0Reg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadIpDisable0Reg, XNVM_WORD_LEN);
 
 	FipsInfoBitsData->FipsMode = (u8)((ReadDmeFipsReg &
 		XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK) >>
@@ -2651,8 +2654,8 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 
 	PufSecCtrlBitsData = (XNvm_EfusePufSecCtrlBits *)(UINTPTR)PufSecCtrlBits;
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadEccCtrlReg, XNVM_WORD_LEN);
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadSecurityCtrlReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadEccCtrlReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadSecurityCtrlReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadSecurityCtrlReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadSecurityCtrlReg;
@@ -2666,7 +2669,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadSecurityCtrlReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadSecurityCtrlReg, XNVM_WORD_LEN);
 
 	XNVM_GET_HADDR(&ReadEccCtrlReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadEccCtrlReg;
@@ -2686,7 +2689,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&ReadEccCtrlReg, XNVM_WORD_LEN);
+	Xil_DCacheInvalidateRange((INTPTR)&ReadEccCtrlReg, XNVM_WORD_LEN);
 
 	PufSecCtrlBitsData->PufRegenDis =
 		(u8)((ReadEccCtrlReg &
@@ -2756,11 +2759,11 @@ int XNvm_EfuseReadOffchipRevokeId(XNvm_ClientInstance *InstancePtr, const u64 Of
 		goto END;
 	}
 
-	StartOffset = XNVM_EFUSE_CACHE_OFFCHIP_REVOKE_0_OFFSET + (OffChipIdNum * XNVM_WORD_LEN);
+	StartOffset = XNVM_EFUSE_CACHE_OFFCHIP_REVOKE_0_OFFSET + ((u32)OffChipIdNum * XNVM_WORD_LEN);
 
 	HighAddr = (u32)(OffChipIdAddr >> XNVM_ADDR_HIGH_SHIFT);
 	LowAddr = (u32)OffChipIdAddr;
-	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, StartOffset, 1U, LowAddr, HighAddr);
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, (u16)StartOffset, 1U, LowAddr, HighAddr);
 
 	/**
 	 * - Send EfuseReadOffchipRevokeId CDO over IPI request to the PLM.
@@ -2817,6 +2820,8 @@ int XNvm_EfuseReadPpkHash(XNvm_ClientInstance *InstancePtr, const u64 PpkHashAdd
 		case XNVM_EFUSE_PPK2:
 			StartOffset = XNVM_EFUSE_CACHE_PPK0_HASH_2_OFFSET;
 			break;
+		case XNVM_EFUSE_PPK3:
+		case XNVM_EFUSE_PPK4:
 		default:
 			Status = (int)XST_INVALID_PARAM;
 			break;
@@ -3140,7 +3145,7 @@ static void XNvm_EfuseCreateWriteIvCmd(XNvm_IvWriteCdo* IvWrCdo, XNvm_IvType IvT
  * @param	AddrHigh	Higher Address of the output buffer
  *
  ******************************************************************************/
-static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u8 RegCount, u32 AddrLow, u32 AddrHigh)
+static void XNvm_EfuseCreateReadEfuseCacheCmd(XNvm_RdCacheCdo* RdCacheCdo, u16 StartOffset, u16 RegCount, u32 AddrLow, u32 AddrHigh)
 {
 	RdCacheCdo->CdoHdr = Header(0U, (u32)XNVM_API_ID_EFUSE_READ_CACHE);
 	RdCacheCdo->Pload.StartOffset = StartOffset;

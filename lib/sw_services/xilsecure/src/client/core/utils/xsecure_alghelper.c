@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------------------------------
 * 5.7   tbk     02/05/26 Initial Release
+* 5.8   rap     09/22/26 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -71,7 +72,7 @@ int XSecure_GetAlgInfo(Xil_CryptoAlgInfo *AlgInfo, u32 CryptoAlg)
 	}
 
 	/* Initialize mailbox */
-	Status = XMailbox_Initialize(&MailboxInst, 0U);
+	Status = (int)XMailbox_Initialize(&MailboxInst, 0U);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

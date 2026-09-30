@@ -27,6 +27,7 @@
 * 3.6  obs   08/26/2025 Added support for Verifying Address Range
 * 3.7  mb    01/13/2026 Added support for AES key CRC check
 *      nik   01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+* 3.8  rap   09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -53,7 +54,6 @@
 #include "xnvm_validate.h"
 
 /************************** Constant Definitions *****************************/
-#define XNVM_EFUSE_LOWER_DOUBLE_BYTE_MASK 	(0x0000FFFFU)	/**< Mask for lower double byte */
 #define XNVM_EFUSE_CACHE_BASEADDR		(0xF1250000U)	/**< Base address for eFUSE cache access */
 #define XNVM_EFUSE_CACHE_END_OFFSET		(0x00000BFCU)	/**< Inclusive last valid eFUSE cache word offset */
 

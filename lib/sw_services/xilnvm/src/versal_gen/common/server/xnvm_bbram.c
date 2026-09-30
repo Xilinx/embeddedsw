@@ -38,6 +38,7 @@
 *       har  04/10/2025 Modified to read user data from XNVM_BBRAM_8_MEM_REG for versal_2ve_2vm
 * 3.8   mkr  07/20/2026 Removed XNVM_CL_MAX_COUNT_VAL definition and added in common to make it
                         available for both client and server.
+* 3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -57,9 +58,6 @@
 #include "xnvm_defs.h"
 
 /*************************** Constant Definitions *****************************/
-
-#define REVERSE_POLYNOMIAL			(0x82F63B78U)
-						/**< Polynomial used for CRC calculation */
 
 #ifdef VERSAL_2VE_2VM
 #define XNVM_CL_ENABLE_SHIFT			(30U)

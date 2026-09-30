@@ -18,6 +18,7 @@
 * ----- ---- --------   -------------------------------------------------------
 * 3.0   kal  07/12/2022 Initial release
 * 3.1   skg  10/23/2022 Added In body comments for APIs
+* 3.8   rap  09/25/2026 Validate CDO AES key length before the u16 cast
 *
 * </pre>
 *
@@ -114,16 +115,30 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the programming is successful
+ * 		- XNVM_BBRAM_ERROR_AES_INVALID_KEY_SIZE - If the key length is not
+ * 			XNVM_256_BITS_AES_KEY_LEN_IN_BYTES
  * 		- XST_FAILURE - If there is a failure
  *
  ******************************************************************************/
 static int XNvm_BbramWriteKeyFromCdoPload(u32 *Pload)
 {
 	volatile int Status = XST_FAILURE;
-	u32 KeySize = Pload[0U] * XNVM_WORD_LEN;
+	u32 KeySize;
 
-	Status = XNvm_BbramWriteAesKey((u8 *)&Pload[1U], KeySize);
+	/**
+	 * - Accept only a 256-bit AES key. Checking the word count before the
+	 *   multiply rejects lengths whose u32 product would wrap and then
+	 *   truncate to 32 through the u16 cast.
+	 */
+	if (Pload[0U] != XNVM_AES_KEY_SIZE_IN_WORDS) {
+		Status = (int)XNVM_BBRAM_ERROR_AES_INVALID_KEY_SIZE;
+		goto END;
+	}
 
+	KeySize = Pload[0U] * XNVM_WORD_LEN;
+	Status = XNvm_BbramWriteAesKey((u8 *)&Pload[1U], (u16)KeySize);
+
+END:
 	return Status;
 }
 

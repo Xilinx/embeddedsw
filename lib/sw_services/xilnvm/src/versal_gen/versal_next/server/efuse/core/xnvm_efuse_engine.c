@@ -19,6 +19,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- --------   -------------------------------------------------------
 * 3.8   vss  08/20/2026 Initial release
+*       rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -47,8 +48,6 @@
 #include "xnvm_defs.h"
 
 /************************** Constant Definitions *****************************/
-/** - Number of bits in one byte (efuse bit indexing). */
-#define XNVM_EFUSE_BITS_IN_A_BYTE		(8U)
 
 /************************** Function Prototypes *****************************/
 static int XNvm_EfuseEngineProgramFieldBands(const XNvm_EfuseFieldDesc *Field,
@@ -176,7 +175,7 @@ int XNvm_EfuseEngineWriteField(const XNvm_EfuseDevice *Dev,
 	if ((Dev->Ops != NULL) && (Dev->Ops->PostProgram != NULL)) {
 		Status = Dev->Ops->PostProgram(FieldId, Data);
 		if (Status != XST_SUCCESS) {
-			Status = (Status | Field->ErrWrite);
+			Status = (int)((u32)Status | Field->ErrWrite);
 		}
 	}
 
@@ -253,7 +252,7 @@ int XNvm_EfuseEnginePrgmProtectionBits(const XNvm_EfuseDevice *Dev)
 				Entry->ProtRow, Entry->ProtCol0,
 				XNVM_EFUSE_PROGRAM_VERIFY);
 		if (Status != XST_SUCCESS) {
-			Status = (Status | Entry->ErrProt0);
+			Status = (int)((u32)Status | Entry->ErrProt0);
 			goto END;
 		}
 
@@ -263,7 +262,7 @@ int XNvm_EfuseEnginePrgmProtectionBits(const XNvm_EfuseDevice *Dev)
 					Entry->ProtRow, Entry->ProtCol1,
 					XNVM_EFUSE_PROGRAM_VERIFY);
 			if (Status != XST_SUCCESS) {
-				Status = (Status | Entry->ErrProt1);
+				Status = (int)((u32)Status | Entry->ErrProt1);
 				goto END;
 			}
 		}
@@ -585,7 +584,7 @@ static int XNvm_EfuseEngineProgramFieldBands(const XNvm_EfuseFieldDesc *Field,
 				if (Bands[BandIdx].ErrWrite != XIL_UNSIGNED_ZERO) {
 					WriteErr = Bands[BandIdx].ErrWrite;
 				}
-				Status = (Status | WriteErr);
+				Status = (int)((u32)Status | WriteErr);
 			}
 			goto END;
 		}

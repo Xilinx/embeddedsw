@@ -28,6 +28,7 @@
 * 3.5   hj   05/10/2025 Remove zero IV check in dec_only fuse programming
 * 3.6   vss  08/08/2025 Added required OCP support for versal_2ve_2vm.
 * 3.7   nik  01/29/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+* 3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -69,7 +70,9 @@ static int XNvm_EfuseValidateIV(const u32 *Iv, u32 IvOffset);
 static const XNvm_EfuseAesKeyValidateDesc *XNvm_EfuseGetAesKeyDesc(XNvm_AesKeyType KeyType);
 
 /************************** Constant Definitions *****************************/
+#ifndef VERSAL_2VE_2VM
 #define XNVM_EFUSE_CACHE_DME_FIPS_DME_MODE_MASK			(0x0000000FU) /**< DME mode mask*/
+#endif
 
 /** AES-class key validation table. */
 static const XNvm_EfuseAesKeyValidateDesc XNvm_EfuseAesKeyValidateTbl[] = {
@@ -351,8 +354,8 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	Status = XNvm_EfuseCheckZeros(PpkOffset,
 			XNVM_EFUSE_PPK_HASH_NUM_OF_CACHE_ROWS);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
-			(PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
+		Status = (int)((u32)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
+			(PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT));
 		goto END;
 	}
 
@@ -377,13 +380,13 @@ int XNvm_EfuseValidatePpkHashWriteReq(XNvm_PpkType PpkType)
 	Status = XNvm_EfuseCheckZeros(UserFuseOffset,
                         XNVM_EFUSE_PPK_HASH_USER_FUSE_NUM_OF_CACHE_ROWS);
         if (Status != XST_SUCCESS) {
-                Status = (int)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
-                        (PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT);
+                Status = (int)((u32)XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD +
+                        (PpkType << XNVM_EFUSE_ERROR_NIBBLE_SHIFT));
                 goto END;
         }
 #endif
 	if ((SecCtrlBits & WrLkMask) != 0U) {
-		Status = (XNVM_EFUSE_ERR_FUSE_PROTECTED |
+		Status = (int)(XNVM_EFUSE_ERR_FUSE_PROTECTED |
 			(XNVM_EFUSE_ERR_WRITE_PPK0_HASH +
 			(PpkType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
 	}
@@ -455,9 +458,9 @@ int XNvm_EfuseValidateIvWriteReq(XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 	 */
 	Status = XNvm_EfuseValidateIV(EfuseIv->Iv, IvOffset);
 	if (Status != XST_SUCCESS) {
-		Status = (Status |
+		Status = (int)((u32)Status |
 			(XNVM_EFUSE_ERR_WRITE_META_HEADER_IV_RANGE +
-			(IvType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
+			((u32)IvType << XNVM_EFUSE_ERROR_BYTE_SHIFT)));
 	}
 
 END:
@@ -521,7 +524,7 @@ END:
 int XNvm_EfuseCheckZeros(u32 CacheOffset, u32 Count)
 {
 	volatile int Status = XST_FAILURE;
-	int IsrStatus = XST_FAILURE;
+	u32 IsrStatus = XST_FAILURE;
 	u32 EndOffset = CacheOffset + (Count * XNVM_WORD_LEN);
 	volatile u32 Offset = CacheOffset;
 	u32 CacheData = 0U;
@@ -687,7 +690,7 @@ int XNvm_EfuseValidateFipsInfo(u32 FipsMode, u32 FipsVersion)
 
 	RdFipsVer_0 = (RdFipsVersion & XNVM_EFUSE_FIPS_VERSION_0_MASK) >>
 			XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_SHIFT;
-	RdFipsVer_2_1 = ((RdFipsVersion & XNVM_EFUSE_FIPS_VERSION_2_1_MASK) >>
+	RdFipsVer_2_1 = (u8)((RdFipsVersion & XNVM_EFUSE_FIPS_VERSION_2_1_MASK) >>
 			XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_SHIFT);
 	RdFipsVersion = (RdFipsVer_2_1 | RdFipsVer_0);
 

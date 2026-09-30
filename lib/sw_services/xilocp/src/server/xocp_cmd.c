@@ -30,6 +30,7 @@
 *       tvp  05/15/25 XOcp_ShutdownHandler is not applicable for Versal_2vp
 * 1.7   rmv  01/30/26 Refactor xilocp library
 * 1.8   tus  08/07/26 Added the library version command with capability bits
+*       rap  09/22/26 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -99,6 +100,7 @@
 			/**< Capabilities[0]: aggregate of enabled XilOcp features */
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef PLM_OCP_NATIVE_KEY_MGMT
 #define XOCP_CERT_USERIN_FIELD_MASK			(0x00FF0000U)
 			/**< Mask for Field in Payload of Get Certificate User Cfg CDO command*/
 #define XOCP_CERT_USERIN_FIELD_SHIFT			(16U)
@@ -114,6 +116,7 @@
 		 * Payload -> Subsystem ID (1 word) + Personalization string(12 words) + KeyIdx*/
 #define XOCP_DEV_AK_INPUT_KEYIDX_MASK				(0x3U)
 			/**< Mask for KeyIdx in Payload of DevAkInput CDO command */
+#endif /* PLM_OCP_NATIVE_KEY_MGMT */
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/

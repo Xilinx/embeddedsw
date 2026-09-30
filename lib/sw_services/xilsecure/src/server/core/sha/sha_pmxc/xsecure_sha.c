@@ -32,7 +32,7 @@
 * 5.8   tvp  07/17/26 Add SHAKE256 XOF feature support
 *       tbk  09/15/26 Reset SHA after Start fails post-release; restore
 *                     INITIALIZED
-*
+*       rap  09/22/26 Fixed warnings caused due to new compiler flags added in makefile
 * </pre>
 *
 * @note
@@ -56,7 +56,6 @@
 #define XSECURE_SHA3_START_NIST_PADDING_MASK	(0x06U)	/**< NIST start padding mask */
 #define XSECURE_SHAKE_START_NIST_PADDING_MASK	(0x1FU)	/**< NIST start padding mask */
 #define XSECURE_SHA3_END_NIST_PADDING_MASK	(0x80U)	/**< NIST end padding mask  */
-#define XSECURE_MAX_PADDING_LENGTH		(144U)	/**< Maximum padding length for SHA */
 #define XSECURE_SHA2_256_LENGTH_FIELD_SIZE	(8U)	/**< SHA2-256 length field size */
 #define XSECURE_SHA2_384_512_LENGTH_FIELD_SIZE	(16U)	/**< SHA2 384 and 512 length field size */
 #define XSECURE_SHA_PADDING_BYTE		(1U)	/**< Padding byte for SHA */
@@ -745,6 +744,12 @@ static int XSecure_TransferNistPad(XSecure_Sha* const InstancePtr)
 			LengthFieldSize = XSECURE_SHA2_384_512_LENGTH_FIELD_SIZE;
 			break;
 
+		case XSECURE_SHA3_256:
+		case XSECURE_SHA3_384:
+		case XSECURE_SHA3_512:
+		case XSECURE_SHAKE_256:
+		case XSECURE_SHAKE_256_SLH_DSA_CHAIN:
+		case XSECURE_SHA_INVALID_MODE:
 		default:
 			LengthFieldSize = 0U;
 			break;

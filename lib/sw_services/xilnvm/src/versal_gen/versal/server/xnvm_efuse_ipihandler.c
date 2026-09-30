@@ -39,6 +39,8 @@
 *       obs  03/26/2026 Replaced XSysMonPsv casts with XNvm_SysmonPsv
 * 3.8	rpu  08/17/2026 Fixed user fuse write to use XNvm_EfuseUserDataAddr
 *       rpu  08/26/2026 Added parameter validation for user fuse IPI write
+*       rap  09/22/2026 Added RowCount overflow check in XNvm_EfuseRead
+*
 * </pre>
 *
 ******************************************************************************/
@@ -1309,12 +1311,19 @@ int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 S
 {
 	int Status = XST_FAILURE;
 	u64 ReadDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
+	u32 RowCount = (u32)(Size / XNVM_EFUSE_WORD_LEN);
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReadDataAddr, Size, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
 
+	/* RowCount is passed as u8; reject requests that would overflow it */
+	if (RowCount > 0xFFU) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
 	/*< Offset indicates lower nibble of the eFuse cache row offset */
 	Status = XNvm_EfuseReadCacheRange(Offset / XNVM_EFUSE_WORD_LEN,
-					  Size / XNVM_EFUSE_WORD_LEN, (u32 *)(UINTPTR)ReadDataAddr);
+					  (u8)RowCount, (u32 *)(UINTPTR)ReadDataAddr);
 
 END:
 	return Status;

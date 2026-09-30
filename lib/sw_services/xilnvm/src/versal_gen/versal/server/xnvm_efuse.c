@@ -103,6 +103,7 @@
 * 3.7   mb   01/10/2026 Removed extra lines in XNvm_EfusePgmAndVerifyRows function
 *       obs  03/26/2026 Replaced XSysMonPsv types with XNvm_SysmonPsv
 *       mb   04/23/2026 Remove unused macros and variables
+* 3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 *
 * </pre>
 *
@@ -134,17 +135,11 @@
 				/**< PPK hash number of eFuse rows */
 #define XNVM_EFUSE_WORD_LEN			(4U) /**< eFuse word length */
 #define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU) /**< Default secure value for 32 bit */
-#define XNVM_EFUSE_SYSMON_VCCPMC_AMUX_CTRL	(0x0bU)	/**< Sysmon VCCPMC Amux ctrl value */
-#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW1	(0x00U) /**< Sysmon VCCPMC Abus sw1 value */
-#define XNVM_EFUSE_SYSMON_VCCPMC_ABUS_SW0	(0x02U) /**< Sysmon VCCPMC Abus sw0 value*/
-#define XNVM_EFUSE_SYSMON_VCCPMC_MODE		(0x00U) /**< Sysmon VCCPMC mode value */
-#define XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS	(0x20U) /**< Sysmon number of measurement registers */
-#define XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG	(32U)   /**< Sysmon number of supplies per flag */
-#define XNVM_EFUSE_SYSMONPSV_TIMEOUT		(100000U) /**< Sysmon Psv timeout value */
-#define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U) /**< Fraction multiplier value */
 #define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE		(0x400U)  /**< Number of cache addresses per page */
 #define XNVM_EFUSE_PPK_3_PPK_4_ENABLE       (0x00030000U) /**< PPK3 and PPK4 enable bits mask*/
+#ifdef XNVM_EN_ADD_PPKS
 #define XNVM_EFUSE_NUM_OF_PPKS			(3U)      /**< Total number of PPKS */
+#endif
 /** @} */
 
 /***************************** Type Definitions *******************************/

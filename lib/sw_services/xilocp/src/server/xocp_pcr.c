@@ -650,7 +650,7 @@ int XOcp_ExtendSwPcr(u32 PcrNum, u32 MeasurementIdx, u64 DataAddr, u32 DataSize,
 			XOCP_PCR_HASH_SIZE_IN_BYTES, "Datablob Hash:", DEBUG_INFO);
 
 	SwPcr->Data[DigestIdxInLog].IsReqExtended = TRUE;
-	SwPcr->CountPerPcr[PcrNum] += 1U ;
+	SwPcr->CountPerPcr[PcrNum] = (u8)(SwPcr->CountPerPcr[PcrNum] + 1U);
 
 	/** - Send PCR log update notification to the subscriber. */
 	if (XPlmi_IsLoadBootPdiDone() == TRUE) {
@@ -1029,7 +1029,7 @@ static int XOcp_ClearDigestData(u32 PcrNum, u32 DigestIdx)
 		goto END;
 	}
 
-	SwPcr->CountPerPcr[PcrNum] -= 1U;
+	SwPcr->CountPerPcr[PcrNum] = (u8)(SwPcr->CountPerPcr[PcrNum] - 1U);
 
 	Status = XST_SUCCESS;
 END:
@@ -1992,12 +1992,12 @@ static void XOcp_PrintData(const u8 *Data, u32 Size, char *Str, u32 LogLevel)
 	u32 Index;
 
 	if (((LogLevel) & XPlmiDbgCurrentTypes) != 0U) {
-		XPlmi_Printf_WoTS(LogLevel,"%s START:\n\r", Str);
+		XPlmi_Printf_WoTS((u16)LogLevel,"%s START:\n\r", Str);
 		for (Index = 0U; Index < Size; Index++) {
-			XPlmi_Printf_WoTS(LogLevel,"%02x", Data[Index]);
+			XPlmi_Printf_WoTS((u16)LogLevel,"%02x", Data[Index]);
 		}
-		XPlmi_Printf_WoTS(LogLevel,"\r\n");
-		XPlmi_Printf_WoTS(LogLevel,"%s END\n\r", Str);
+		XPlmi_Printf_WoTS((u16)LogLevel,"\r\n");
+		XPlmi_Printf_WoTS((u16)LogLevel,"%s END\n\r", Str);
 	}
 }
 

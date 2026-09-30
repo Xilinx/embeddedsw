@@ -124,6 +124,7 @@
 *       tbk  09/15/2026 Skip AES reset on KekDecrypt param/state errors and
 *                       bound DstKeySrc before AesKeyLookupTbl access
 *       rap  09/20/2026  Updated input parameter validations
+*       rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
 * </pre>
 *
 ******************************************************************************/
@@ -155,6 +156,20 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/*
+ * The length parameter of Xil_DCacheInvalidateRange() is declared as INTPTR on
+ * the 64-bit ARMv8 (A-series) BSP and as u32 on the 32-bit (Cortex-R5/A9) BSP.
+ * Cast the length to the type expected by the target processor to avoid
+ * implicit conversion warnings on both the A-series and R-series builds.
+ */
+#if (!defined(VERSAL_PLM) && !defined(__MICROBLAZE__) && !defined(__riscv))
+#if defined(__aarch64__)
+#define XSECURE_CACHE_RANGE_LEN(Len)	((INTPTR)(Len))	/**< Cache range length cast for 64-bit BSP */
+#else
+#define XSECURE_CACHE_RANGE_LEN(Len)	((u32)(Len))	/**< Cache range length cast for 32-bit BSP */
+#endif
+#endif
+
 /************************** Function Prototypes ******************************/
 
 static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr);
@@ -2144,9 +2159,9 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 		AesDmaCfg->DestChannelCfg = (u8)TRUE;
 		AesDmaCfg->SrcChannelCfg = (u8)FALSE;
 
-#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)) && !(defined(__RISCV__)))
-		/** - Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 and RISCV processors */
-		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+#if (!defined(VERSAL_PLM) && !defined(__MICROBLAZE__) && !defined(__riscv))
+		/** - Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 processors */
+		Xil_DCacheInvalidateRange((INTPTR)InstancePtr->GcmTag, XSECURE_CACHE_RANGE_LEN(XSECURE_SECURE_GCM_TAG_SIZE));
 #endif
 		Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
 			XSECURE_SECURE_GCM_TAG_SIZE);
@@ -2154,8 +2169,8 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 			goto END;
 		}
 
-#if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)) && !(defined(__RISCV__)))
-		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
+#if (!defined(VERSAL_PLM) && !defined(__MICROBLAZE__) && !defined(__riscv))
+		Xil_DCacheInvalidateRange((INTPTR)InstancePtr->GcmTag, XSECURE_CACHE_RANGE_LEN(XSECURE_SECURE_GCM_TAG_SIZE));
 #endif
 		/** - Wait for AES Operation completion. */
 		Status = XSecure_AesWaitForDone(InstancePtr);

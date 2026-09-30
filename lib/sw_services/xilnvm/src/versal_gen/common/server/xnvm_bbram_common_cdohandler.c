@@ -172,7 +172,7 @@ static int XNvm_BbramKeyWrite(u32 SubsystemId, u32 Size, u32 KeyAddrLow, u32 Key
 	}
 
 	Status = XST_FAILURE;
-	Status = XNvm_BbramWriteAesKey(Key, Size);
+	Status = XNvm_BbramWriteAesKey(Key, (u16)Size);
 
 END:
 	ClearStatus = XNvm_ZeroizeAndVerify((u8 *)Key, Size);
