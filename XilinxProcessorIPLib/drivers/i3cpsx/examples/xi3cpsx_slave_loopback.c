@@ -5,6 +5,7 @@
 /*****************************************************************************/
 /**
 * @file xi3cpsx_slave_loopback.c
+* @brief Shows I3C slave polled-mode loopback.
 *
 * This file contains a reference loopback example demonstrating the use of
 * the Xilinx I3C controller operating in slave mode as part of a
@@ -25,8 +26,6 @@
 * This application is intended to run in a bare-metal environment
 * and does not rely on any operating system services.
 *
-* @note
-*
 * This is a reference example intended for functional validation.
 * The data payload size must be less than or equal to the I3C FIFO size.
 *
@@ -41,6 +40,7 @@
 *                     hard coded values.
 * 1.7   vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/26 Fixed codespell issues
+* 1.8   tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -58,12 +58,14 @@
 #endif
 
 #ifndef SDT
+/** I3C slave instance identifier from xparameters.h. */
 #define I3C_SLAVE_ID		XPAR_XI3CPSX_0_DEVICE_ID
 #else
+/** I3C slave instance identifier from xparameters.h. */
 #define I3C_SLAVE_ID		XPAR_XI3CPSX_0_BASEADDR
 #endif
-#define LEN 128
-#define I3C_SLAVE_STATIC_ADDR	0x5d
+#define LEN 128	/**< Loopback payload length in bytes. */
+#define I3C_SLAVE_STATIC_ADDR	0x5d	/**< I3C slave static address. */
 
 u8 RxData[LEN];
 u8 TxDataTest[LEN];
@@ -82,12 +84,13 @@ int I3cPsxSlaveLoopbackExample(UINTPTR BaseAddress);
 /******************************************************************************/
 /**
 *
+* @brief Runs the I3C slave loopback example.
+*
 * Main function to call the polled example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -113,9 +116,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Runs a slave loopback test on the I3c device and driver.
+*
 * This function does a slave loopback test on the I3c device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XI3cPsx driver.
+* design example. The purpose of this function is to illustrate how to use the
+* XI3cPsx driver.
 *
 * This function sends data and expects to receive the same data through the I3C
 * slave loopback. It expects the controllers to be in loopback.
@@ -123,16 +128,17 @@ int main(void)
 * This function uses slave driver mode of the I3C.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the I3cPsx Device and is the
-*		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
+* @param[in] DeviceId Device ID of the I3CPSX device, from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 *******************************************************************************/
 #ifndef SDT

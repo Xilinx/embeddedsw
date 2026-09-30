@@ -8,10 +8,8 @@
 /**
 *
 * @file xi3cpsx_master.c
-* @addtogroup Overview
-* @{
 *
-* Handles master mode transfers.
+* @brief Implements I3C master transfer APIs.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -21,9 +19,15 @@
 * 1.01  sd  12/14/22 Fix warnings
 * 1.3 	sd   1/30/24  Moved prints under DEBUG flag.
 * 1.8   vn  07/30/26 Fix Doxygen warnings
+* 1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3cpsx_api I3CPSX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -56,11 +60,25 @@ typedef char XI3cPsx_DynaAddrListSizeCheck[
 
 #define XI3CPSX_IBI_DATA_SEGMENT_DWORDS 31U	/**< IBI data segment size in Dwords */
 
-/** The response a target left stuck by an earlier overflow produces. */
+/**
+ * @brief Checks for the error that a target stuck after an overflow produces.
+ *
+ * @note
+ * C-style signature
+ *	u32 XI3CPSX_TARGET_STUCK(u32 Err)
+ */
 #define XI3CPSX_TARGET_STUCK(Err)	((Err) == XI3CPSX_EVENT_ADDRESS_NACK)
 
-/** Tests a command word for a private transfer or a directed CCC, excluding
- * address assignment and broadcast CCCs, which do not address one target. */
+/**
+ * @brief Tests a command word for a private transfer or a directed CCC.
+ *
+ * Address assignment and broadcast CCCs are excluded because they do not
+ * address one target.
+ *
+ * @note
+ * C-style signature
+ *	u32 XI3CPSX_TARGETED_CMD(u32 Cmd)
+ */
 #define XI3CPSX_TARGETED_CMD(Cmd)					\
 	((((Cmd) & 0x7U) != COMMAND_PORT_ADDR_ASSGN_CMD) &&		\
 	 ((((Cmd) & COMMAND_PORT_CP) == 0U) ||				\
@@ -78,7 +96,7 @@ static u32 XI3cPsx_IsHotJoinRejected(XI3cPsx *InstancePtr);
 
 /************************* Variable Definitions *****************************/
 /**
- * Dynamic addresses available for I3C devices.
+ * @brief Lists the dynamic addresses available for I3C devices.
  */
 const u32 XI3C_DynaAddrList[XI3CPSX_MAX_DAT_ENTRIES] = {
 	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12
@@ -86,18 +104,15 @@ const u32 XI3C_DynaAddrList[XI3CPSX_MAX_DAT_ENTRIES] = {
 
 /*****************************************************************************/
 /**
-* @brief
-* Clears an error a target latched during an earlier transfer.
+* @brief Clears an error a target latched during an earlier transfer.
 *
 * The target's CCC_DEVICE_STATUS is read only, and OVERFLOW_ERR is cleared
 * only when the controller reads that register with a GETSTATUS CCC. Until
 * the read happens the target will not acknowledge its dynamic address, and
 * nothing the target's own software can do will help.
 *
-* @param        InstancePtr is a pointer to the XI3cPsx instance.
-* @param        DatIndex is the device address table index of the target.
-*
-* @return       None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] DatIndex Device address table index of the target.
 *
 ******************************************************************************/
 static void XI3cPsx_ClearTargetError(XI3cPsx *InstancePtr, u8 DatIndex)
@@ -160,8 +175,7 @@ static void XI3cPsx_ClearTargetError(XI3cPsx *InstancePtr, u8 DatIndex)
 
 /*****************************************************************************/
 /**
-* @brief
-* Frees a target that has stopped acknowledging.
+* @brief Frees a target that has stopped acknowledging.
 *
 * The master is unhalted and its FIFOs cleared before the CCC goes out. The
 * error response halts the master too, so an untouched master never sends the
@@ -169,9 +183,7 @@ static void XI3cPsx_ClearTargetError(XI3cPsx *InstancePtr, u8 DatIndex)
 * alone leaves an untransmitted word behind that misaligns the next transfer.
 * The failing target is the one named by the last command written.
 *
-* @param        InstancePtr is a pointer to the XI3cPsx instance.
-*
-* @return       None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 ******************************************************************************/
 static void XI3cPsx_FreeTarget(XI3cPsx *InstancePtr)
@@ -182,18 +194,15 @@ static void XI3cPsx_FreeTarget(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sends dynamic Address Assignment for available devices.
+* @brief Sends dynamic Address Assignment for available devices.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	Addr is an array of dynamic addresses.
-* @param	Devices is the number of slave devices present.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Addr An array of dynamic addresses.
+* @param[in] Devices The number of slave devices present.
 *
 * @return
-*               - XST_SUCCESS if everything went well.
-*               - XST_FAILURE if any error.
-*
-* @note         None.
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ****************************************************************************/
 static s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, const u32 *Addr, u32 Devices)
@@ -232,22 +241,23 @@ static s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, const u32 *Addr, u32 Dev
 
 /*****************************************************************************/
 /**
-* @brief
-* Initializes the I3c bus by configuring the device address table,
-* resets and assigns the dynamic address to the slave devices.
+* @brief Initializes the I3C bus.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* It configures the device address table, then resets and assigns the dynamic
+* address to the slave devices.
+*
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if any error.
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note		SCL timing must be programmed before calling this function.
-*		Call XI3cPsx_SetSClk() or XI3cPsx_SetSClkRate() first so that
-*		the RSTDAA and ENTDAA bus transactions issued here run at the
-*		intended clock rate.  XI3cPsx_CfgInitialize() handles this
-*		sequence automatically; callers invoking XI3cPsx_BusInit()
-*		directly are responsible for calling XI3cPsx_SetSClk() first.
+* @note SCL timing must be programmed before calling this function. Call
+*       XI3cPsx_SetSClk() or XI3cPsx_SetSClkRate() first so that the RSTDAA and
+*       ENTDAA bus transactions issued here run at the intended clock rate.
+*       XI3cPsx_CfgInitialize() handles this sequence automatically; callers
+*       invoking XI3cPsx_BusInit() directly are responsible for calling
+*       XI3cPsx_SetSClk() first.
 *
 ****************************************************************************/
 s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
@@ -347,21 +357,20 @@ void XI3cPsx_PrintDCT(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates an interrupt-driven send in master mode.
+* @brief Initiates an interrupt-driven send in master mode.
 *
 * It tries to send the first FIFO-full of data, then lets the interrupt
 * handler to handle the rest of the data if there is any.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Cmds is the instance of XI3cPsx_Cmd.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] MsgPtr Pointer to the send buffer.
+* @param[in] ByteCount The number of bytes to be sent.
+* @param[in] Cmds The instance of XI3cPsx_Cmd.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
+*        - XST_SUCCESS if everything went well.
 *
-* @note		This send routine is for interrupt-driven transfer only.
+* @note This send routine is for interrupt-driven transfer only.
 *
  ****************************************************************************/
 s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
@@ -415,22 +424,21 @@ s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates an interrupt-driven receive in master mode.
+* @brief Initiates an interrupt-driven receive in master mode.
 *
 * It sets the transfer size register so the slave can send data to us.
 * The rest of the work is managed by interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
-* @param	Cmds is a pointer to the XI3cPsx_Cmd instance.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[out] MsgPtr Pointer to the receive buffer.
+* @param[in] ByteCount The number of bytes to be received.
+* @param[in] Cmds Pointer to the XI3cPsx_Cmd instance.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if any error.
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note		This receive routine is for interrupt-driven transfer only.
+* @note This receive routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
 
@@ -467,25 +475,24 @@ s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a polled mode send in master mode.
+* @brief Initiates a polled mode send in master mode.
 *
 * It sends data to the FIFO and waits for the slave to pick them up.
-* If master fails to send data due arbitration lost, will stop transfer
+* If master fails to send data due arbitration lost, stops the transfer
 * and with arbitration lost status
 * If slave fails to remove data from FIFO, the send fails with
 * time out.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Cmds is a pointer to the XI3cPsx_Cmd instance.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] MsgPtr Pointer to the send buffer.
+* @param[in] ByteCount The number of bytes to be sent.
+* @param[in] Cmds Pointer to the XI3cPsx_Cmd instance.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
+*        - XST_SUCCESS if everything went well.
 *
-* @note		This send routine is for polled mode transfer only.
-* 		All the FIFO operations are in terms of words.
+* @note This send routine is for polled mode transfer only. All the FIFO
+*       operations are in terms of words.
 *
 ****************************************************************************/
 s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
@@ -592,25 +599,24 @@ RetrySend:
 
 /*****************************************************************************/
 /**
-* @brief
-* This function initiates a polled mode receive in master mode.
+* @brief Initiates a polled mode receive in master mode.
 *
 * It repeatedly sets the transfer size register so the slave can
 * send data to us. It polls the data register for data to come in.
-* If master fails to read data due arbitration lost, will return
+* If master fails to read data due arbitration lost, returns
 * with arbitration lost status.
 * If slave fails to send us data, it fails with time out.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
-* @param	Cmds is a pointer to the XI3cPsx_Cmd instance.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[out] MsgPtr Pointer to the receive buffer.
+* @param[in] ByteCount The number of bytes to be received.
+* @param[in] Cmds Pointer to the XI3cPsx_Cmd instance.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if any error.
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note		This receive routine is for polled mode transfer only.
+* @note This receive routine is for polled mode transfer only.
 *
 ****************************************************************************/
 s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
@@ -731,19 +737,17 @@ RetryRecv:
 /*****************************************************************************/
 /**
 *
-* @brief
-* This function sets the status handler, which the driver calls when it
-* encounters conditions that should be reported to the higher layer software.
-* The handler executes in an interrupt context, so the amount of processing
-* should be minimized
+* @brief Sets the status handler for the driver.
 *
-* @param        InstancePtr is a pointer to the XI3c instance.
-* @param        CallBackRef is the callback reference passed to the handler.
-* @param        FunctionPtr is the pointer to the callback function.
+* The driver calls the handler when it encounters conditions that should be
+* reported to the higher layer software. The handler executes in an interrupt
+* context, so the amount of processing should be minimized.
 *
-* @note
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] CallBackRef The callback reference passed to the handler.
+* @param[in] FunctionPtr Pointer to the callback function.
 *
-* The handler is called within interrupt context, so it should finish its
+* @note The handler is called within interrupt context, so it should finish its
 * work quickly.
 *
 ******************************************************************************/
@@ -760,8 +764,9 @@ void XI3cPsx_SetStatusHandler(XI3cPsx *InstancePtr, void *CallBackRef,
 
 /*****************************************************************************/
 /**
-* The interrupt handler for the master mode. It does the protocol handling for
-* the interrupt-driven transfers.
+* @brief Handles interrupts in master mode.
+*
+* It does the protocol handling for the interrupt-driven transfers.
 *
 * If the Master is receiving data then the data is read from the FIFO and
 * the Master has to request for more data (if there is more data to
@@ -769,9 +774,7 @@ void XI3cPsx_SetStatusHandler(XI3cPsx *InstancePtr, void *CallBackRef,
 * is signalled to the upper layer by calling the callback handler.
 * It is an error if the amount of received data is more than expected.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-*
-* @note 	None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 ****************************************************************************/
 void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
@@ -901,17 +904,18 @@ void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sets the IBI (SIR) handler, which the driver calls from
-* interrupt context when an In-Band Interrupt is received from a target.
+* @brief Sets the IBI (SIR) handler.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	CallBackRef is the upper-layer callback reference, passed back
-*		to the handler when it is invoked.
-* @param	FunctionPtr is the pointer to the IBI callback function.
+* The driver calls the handler from interrupt context when an In-Band Interrupt
+* is received from a target.
 *
-* @note		The handler runs in interrupt context and must copy the payload
-*		out immediately; the payload buffer is reused on the next IBI.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] CallBackRef The upper-layer callback reference, passed back to
+*            the handler when it is invoked.
+* @param[in] FunctionPtr Pointer to the IBI callback function.
+*
+* @note The handler runs in interrupt context and must copy the payload out
+*       immediately; the payload buffer is reused on the next IBI.
 *
 ******************************************************************************/
 void XI3cPsx_SetIbiHandler(XI3cPsx *InstancePtr, void *CallBackRef,
@@ -927,20 +931,17 @@ void XI3cPsx_SetIbiHandler(XI3cPsx *InstancePtr, void *CallBackRef,
 
 /*****************************************************************************/
 /**
-* @brief
-* This function programs the IBI defaults. It rejects all Slave-Interrupt
-* (SIR), Master-Request (MR) and Hot-Join events, and sets the IBI status
-* queue threshold so that a single IBI generates an interrupt. Individual
-* targets are later opted in with XI3cPsx_EnableIbi(); Hot-Join is opted in
-* with XI3cPsx_EnableHotJoin().
+* @brief Programs the IBI defaults.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* It rejects all Slave-Interrupt (SIR), Master-Request (MR) and Hot-Join events,
+* and sets the IBI status queue threshold so that a single IBI generates an
+* interrupt. Individual targets are later opted in with XI3cPsx_EnableIbi();
+* Hot-Join is opted in with XI3cPsx_EnableHotJoin().
 *
-* @return	None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @note		The IBI threshold interrupt itself is not enabled here; it is
-*		enabled lazily when the first target's IBI (or Hot-Join) is
-*		enabled.
+* @note The IBI threshold interrupt itself is not enabled here; it is enabled
+*       lazily when the first target's IBI (or Hot-Join) is enabled.
 *
 ******************************************************************************/
 static void XI3cPsx_ConfigIbi(XI3cPsx *InstancePtr)
@@ -980,17 +981,15 @@ static void XI3cPsx_ConfigIbi(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function captures the Bus Characteristic Register (BCR) of every
-* enumerated target from the Device Characteristic Table (DCT) into the
-* driver instance. The BCR is used to determine whether a target appends a
-* mandatory data byte to its IBI.
+* @brief Captures the BCR of every enumerated target into the instance.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* Captures the Bus Characteristic Register (BCR) of every enumerated target from
+* the Device Characteristic Table (DCT) into the driver instance. The BCR is
+* used to determine whether a target appends a mandatory data byte to its IBI.
 *
-* @return	None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @note		Call after a successful ENTDAA so the DCT is populated.
+* @note Call after a successful ENTDAA so the DCT is populated.
 *
 ******************************************************************************/
 static void XI3cPsx_CaptureBcr(XI3cPsx *InstancePtr)
@@ -1014,19 +1013,20 @@ static void XI3cPsx_CaptureBcr(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sends a direct ENEC or DISEC CCC to a single target to
-* enable or disable its Slave-Interrupt (SIR) event generation.
+* @brief Sends a direct ENEC or DISEC CCC to a single target.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	DevIndex is the Device Address Table index of the target.
-* @param	Enable is TRUE to send ENEC(SIR), FALSE to send DISEC(SIR).
+* Sends a direct ENEC or DISEC CCC to a single target to enable or disable its
+* Slave-Interrupt (SIR) event generation.
+*
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] DevIndex The Device Address Table index of the target.
+* @param[in] Enable TRUE to send ENEC(SIR), FALSE to send DISEC(SIR).
 *
 * @return
-*		- XST_SUCCESS if the CCC completed without error.
-*		- XST_SEND_ERROR if the payload could not be sent.
-*		- XST_TIMEOUT if the ISR never signaled completion.
-*		- XST_FAILURE if the CCC completed with a bus-level error.
+*        - XST_SUCCESS if the CCC completed without error.
+*        - XST_SEND_ERROR if the payload could not be sent.
+*        - XST_TIMEOUT if the ISR never signaled completion.
+*        - XST_FAILURE if the CCC completed with a bus-level error.
 *
 ******************************************************************************/
 static s32 XI3cPsx_SendEnecDisec(XI3cPsx *InstancePtr, u32 DevIndex, u8 Enable)
@@ -1082,23 +1082,23 @@ static s32 XI3cPsx_SendEnecDisec(XI3cPsx *InstancePtr, u32 DevIndex, u8 Enable)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function enables In-Band Interrupt (SIR) reception for a single
-* target. It clears the SIR reject in the target's DAT entry and in the
-* global reject register, sets IBI-with-data if the target's BCR advertises
-* a mandatory data byte, lazily enables the IBI threshold interrupt, and
-* sends ENEC(SIR) to the target.
+* @brief Enables In-Band Interrupt (SIR) reception for a single target.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	DevIndex is the Device Address Table index of the target
-*		(same index used during dynamic address assignment).
+* It clears the SIR reject in the target's DAT entry and in the global reject
+* register, sets IBI-with-data if the target's BCR advertises a mandatory data
+* byte, lazily enables the IBI threshold interrupt, and sends ENEC(SIR) to the
+* target.
+*
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] DevIndex The Device Address Table index of the target (same
+*            index used during dynamic address assignment).
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_SEND_ERROR if the ENEC(SIR) payload could not be sent.
-*		- XST_TIMEOUT if the IBI queue reset or the ENEC(SIR) response
-*		  never completed.
-*		- XST_FAILURE if any other error.
+*        - XST_SUCCESS if everything went well.
+*        - XST_SEND_ERROR if the ENEC(SIR) payload could not be sent.
+*        - XST_TIMEOUT if the IBI queue reset or the ENEC(SIR) response never
+*          completed.
+*        - XST_FAILURE if any other error.
 *
 ******************************************************************************/
 s32 XI3cPsx_EnableIbi(XI3cPsx *InstancePtr, u32 DevIndex)
@@ -1181,20 +1181,20 @@ s32 XI3cPsx_EnableIbi(XI3cPsx *InstancePtr, u32 DevIndex)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function disables In-Band Interrupt (SIR) reception for a single
-* target. It sends DISEC(SIR) to the target, sets the SIR reject in both the
-* DAT entry and the global reject register, and disables the IBI threshold
-* interrupt if no targets remain armed.
+* @brief Disables In-Band Interrupt (SIR) reception for a single target.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	DevIndex is the Device Address Table index of the target.
+* It sends DISEC(SIR) to the target, sets the SIR reject in both the DAT entry
+* and the global reject register, and disables the IBI threshold interrupt if no
+* targets remain armed.
+*
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] DevIndex The Device Address Table index of the target.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_SEND_ERROR if the DISEC(SIR) payload could not be sent.
-*		- XST_TIMEOUT if the DISEC(SIR) response never completed.
-*		- XST_FAILURE if any other error.
+*        - XST_SUCCESS if everything went well.
+*        - XST_SEND_ERROR if the DISEC(SIR) payload could not be sent.
+*        - XST_TIMEOUT if the DISEC(SIR) response never completed.
+*        - XST_FAILURE if any other error.
 *
 ******************************************************************************/
 s32 XI3cPsx_DisableIbi(XI3cPsx *InstancePtr, u32 DevIndex)
@@ -1239,13 +1239,14 @@ s32 XI3cPsx_DisableIbi(XI3cPsx *InstancePtr, u32 DevIndex)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function returns whether Hot-Join requests are currently rejected at
-* the controller (DEVICE_CTRL.HOT_JOIN_CTRL).
+* @brief Returns whether the controller rejects Hot-Join requests.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* Returns whether Hot-Join requests are currently rejected at the controller
+* (DEVICE_CTRL.HOT_JOIN_CTRL).
 *
-* @return	1 if Hot-Join is rejected, 0 if it is accepted.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+*
+* @return 1 if Hot-Join is rejected, 0 if it is accepted.
 *
 ******************************************************************************/
 static u32 XI3cPsx_IsHotJoinRejected(XI3cPsx *InstancePtr)
@@ -1256,18 +1257,18 @@ static u32 XI3cPsx_IsHotJoinRejected(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function enables Hot-Join request acceptance. It clears
-* DEVICE_CTRL.HOT_JOIN_CTRL so the controller ACKs a Hot-Join request, and
-* lazily enables the IBI threshold interrupt (shared with SIR) since
+* @brief Enables Hot-Join request acceptance.
+*
+* It clears DEVICE_CTRL.HOT_JOIN_CTRL so the controller ACKs a Hot-Join request,
+* and lazily enables the IBI threshold interrupt (shared with SIR) since
 * Hot-Join requests are reported through the same IBI queue.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @note		A Hot-Join sets HotJoinPending and invokes the Hot-Join
-*		handler from the ISR. The blocking ENTDAA enrolment is deferred:
-*		the application must call XI3cPsx_HotJoinDaa() from thread
-*		context to assign the new target its dynamic address.
+* @note A Hot-Join sets HotJoinPending and invokes the Hot-Join handler from the
+*       ISR. The blocking ENTDAA enrolment is deferred: the application must
+*       call XI3cPsx_HotJoinDaa() from thread context to assign the new target
+*       its dynamic address.
 *
 ******************************************************************************/
 void XI3cPsx_EnableHotJoin(XI3cPsx *InstancePtr)
@@ -1286,12 +1287,13 @@ void XI3cPsx_EnableHotJoin(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function disables Hot-Join request acceptance. It sets
-* DEVICE_CTRL.HOT_JOIN_CTRL so the controller NACKs a Hot-Join request, and
-* disables the IBI threshold interrupt if no SIR target remains armed either.
+* @brief Disables Hot-Join request acceptance.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* It sets DEVICE_CTRL.HOT_JOIN_CTRL so the controller NACKs a Hot-Join request,
+* and disables the IBI threshold interrupt if no SIR target remains armed
+* either.
+*
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
 ******************************************************************************/
 void XI3cPsx_DisableHotJoin(XI3cPsx *InstancePtr)
@@ -1313,19 +1315,20 @@ void XI3cPsx_DisableHotJoin(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sets the Hot-Join notification handler, which the driver
-* calls from interrupt context to flag a Hot-Join request. The joining
-* target is NOT yet enrolled when the handler runs; the application must
-* run enrolment (ENTDAA) via XI3cPsx_HotJoinDaa() from thread context.
+* @brief Sets the Hot-Join notification handler.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	CallBackRef is the upper-layer callback reference, passed back
-*		to the handler when it is invoked.
-* @param	FunctionPtr is the pointer to the Hot-Join callback function.
+* The driver calls the handler from interrupt context to flag a Hot-Join
+* request. The joining target is NOT yet enrolled when the handler runs; the
+* application must run enrolment (ENTDAA) via XI3cPsx_HotJoinDaa() from thread
+* context.
 *
-* @note		The handler runs in interrupt context, so its work should be
-*		minimized (e.g. record the event and return).
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] CallBackRef The upper-layer callback reference, passed back to
+*            the handler when it is invoked.
+* @param[in] FunctionPtr Pointer to the Hot-Join callback function.
+*
+* @note The handler runs in interrupt context, so its work should be minimized
+*       (for example record the event and return).
 *
 ******************************************************************************/
 void XI3cPsx_SetHjHandler(XI3cPsx *InstancePtr, void *CallBackRef,
@@ -1341,23 +1344,23 @@ void XI3cPsx_SetHjHandler(XI3cPsx *InstancePtr, void *CallBackRef,
 
 /*****************************************************************************/
 /**
-* @brief
-* This function services a Hot-Join request by re-running ENTDAA (without
-* RSTDAA, so existing targets keep their address) and refreshing the
-* captured BCR of every enumerated target on success.
+* @brief Services a Hot-Join request by re-running ENTDAA.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* Services a Hot-Join request by re-running ENTDAA (without RSTDAA, so existing
+* targets keep their address) and refreshing the captured BCR of every
+* enumerated target on success.
+*
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if any error.
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note		Must be called from thread (non-interrupt) context - e.g.
-*		from the application after a Hot-Join notification. The ISR
-*		only flags the Hot-Join via HotJoinPending. The ENTDAA is
-*		issued interrupt-driven so the live ISR is the single response
-*		consumer; a polled send would race the ISR (which clears the
-*		response first) and time out.
+* @note Must be called from thread (non-interrupt) context - for example from
+*       the application after a Hot-Join notification. The ISR only flags the
+*       Hot-Join via HotJoinPending. The ENTDAA is issued interrupt-driven so
+*       the live ISR is the single response consumer; a polled send would race
+*       the ISR (which clears the response first) and time out.
 *
 ******************************************************************************/
 s32 XI3cPsx_HotJoinDaa(XI3cPsx *InstancePtr)
@@ -1410,12 +1413,11 @@ s32 XI3cPsx_HotJoinDaa(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function returns the number of IBI status entries currently queued.
+* @brief Returns the number of IBI status entries currently queued.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @return	Number of queued IBI status entries.
+* @return Number of queued IBI status entries.
 *
 ******************************************************************************/
 static u32 XI3cPsx_IbiStsLevel(XI3cPsx *InstancePtr)
@@ -1428,14 +1430,12 @@ static u32 XI3cPsx_IbiStsLevel(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function drains and discards Len bytes of IBI payload from the IBI
-* queue port. Used for IBI types the driver does not handle.
+* @brief Drains and discards Len bytes of IBI payload from the IBI queue port.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	Len is the payload length in bytes.
+* Used for IBI types the driver does not handle.
 *
-* @return	None.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Len The payload length in bytes.
 *
 ******************************************************************************/
 static void XI3cPsx_IbiDrain(XI3cPsx *InstancePtr, u32 Len)
@@ -1451,18 +1451,18 @@ static void XI3cPsx_IbiDrain(XI3cPsx *InstancePtr, u32 Len)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function reads an IBI payload from the IBI queue port. It pops
-* ceil(QueueLen/4) words so the whole payload is removed from the queue, but
-* copies at most CopyLen bytes into Buf. Reading the full queue length even
+* @brief Reads an IBI payload from the IBI queue port.
+*
+* It pops ceil(QueueLen/4) words so the whole payload is removed from the queue,
+* but copies at most CopyLen bytes into Buf. Reading the full queue length even
 * when CopyLen is smaller keeps the IBI queue from desynchronising.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	Buf is the destination buffer.
-* @param	CopyLen is the maximum number of payload bytes to copy to Buf.
-* @param	QueueLen is the number of payload bytes present in the queue.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[out] Buf The destination buffer.
+* @param[in] CopyLen The maximum number of payload bytes to copy to Buf.
+* @param[in] QueueLen The number of payload bytes present in the queue.
 *
-* @return	The number of bytes copied into Buf.
+* @return The number of bytes copied into Buf.
 *
 ******************************************************************************/
 static u32 XI3cPsx_IbiReadPayload(XI3cPsx *InstancePtr, u8 *Buf, u32 CopyLen,
@@ -1490,14 +1490,13 @@ static u32 XI3cPsx_IbiReadPayload(XI3cPsx *InstancePtr, u8 *Buf, u32 CopyLen,
 
 /*****************************************************************************/
 /**
-* @brief
-* This function services the IBI threshold interrupt. It drains every queued
-* IBI status entry, decodes the IBI type, and for a Slave-Interrupt (SIR)
-* reads the payload and dispatches it to the registered IBI handler.
+* @brief Services the IBI threshold interrupt.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* It drains every queued IBI status entry, decodes the IBI type, and for a
+* Slave-Interrupt (SIR) reads the payload and dispatches it to the registered
+* IBI handler.
 *
-* @return	None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 ******************************************************************************/
 static void XI3cPsx_HandleIbi(XI3cPsx *InstancePtr)

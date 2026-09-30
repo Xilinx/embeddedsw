@@ -9,10 +9,8 @@
 /**
 *
 * @file xi3cpsx.c
-* @addtogroup Overview
-* @{
 *
-* Handles init functions.
+* @brief Implements I3C initialization and FIFO helpers.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -24,9 +22,15 @@
 * 1.3  sd   11/17/23 Added support for system device-tree flow.
 *      sd   1/30/24  Moved prints under DEBUG flag.
 * 1.8  vn   07/30/26 Fix Doxygen warnings
+* 1.8  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3cpsx_api I3CPSX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -37,29 +41,26 @@
 /*****************************************************************************/
 /**
 *
-* @brief
-* Initializes a specific XI3cPsx instance such that the driver is ready to use.
+* @brief Initializes an XI3cPsx instance so the driver is ready to use.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	ConfigPtr is a reference to a structure containing information
-*		about a specific I3C device. This function initializes an
-*		InstancePtr object for a specific device specified by the
-*		contents of Config.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. The caller is responsible for keeping the address
-*		mapping from EffectiveAddr to the device physical base address
-*		unchanged once this function is invoked. Unexpected errors may
-*		occur if the address mapping changes after this function is
-*		called. If address translation is not used, use
-*		ConfigPtr->BaseAddress for this parameter, passing the physical
-*		address instead.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] ConfigPtr Reference to a structure containing information
+*            about a specific I3C device. This function initializes an
+*            InstancePtr object for a specific device specified by the contents
+*            of Config.
+* @param[in] EffectiveAddr The device base address in the virtual memory
+*            address space. The caller is responsible for keeping the address
+*            mapping from EffectiveAddr to the device physical base address
+*            unchanged once this function is invoked. Unexpected errors may
+*            occur if the address mapping changes after this function is called.
+*            If address translation is not used, use ConfigPtr->BaseAddress for
+*            this parameter, passing the physical address instead.
 *
-* @return	XST_SUCCESS if successful.
-*		XST_DEVICE_IS_STARTED if the instance is already initialized.
-*		XST_FAILURE if SCL clock programming or bus initialization fails
-*		(master mode only).
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_DEVICE_IS_STARTED if the instance is already initialized.
+*        - XST_FAILURE if SCL clock programming or bus initialization fails
+*          (master mode only).
 *
 ******************************************************************************/
 s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
@@ -191,14 +192,11 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 
 /***************************************************************************/
 /**
-* @brief
-* Fill I3CPsx Write Tx FIFO.
+* @brief Writes data into the I3C transmit FIFO.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	TxBuf is the pointer to the send buffer.
-* @param	TxLen is the number of bytes to be sent.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] TxBuf Pointer to the send buffer.
+* @param[in] TxLen The number of bytes to be sent.
 *
 ******************************************************************************/
 void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
@@ -241,13 +239,10 @@ void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen)
 
 /***************************************************************************/
 /**
-* @brief
-* Fill I3CPsx Command FIFO.
+* @brief Writes a command into the I3C command FIFO.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	Cmd is a pointer to the XI3cPsx_Cmd structure.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Cmd Pointer to the XI3cPsx_Cmd structure.
 *
 ******************************************************************************/
 void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
@@ -270,14 +265,11 @@ void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 
 /***************************************************************************/
 /**
-* @brief
-* Read I3CPsx Rx FIFO.
+* @brief Reads data from the I3C receive FIFO.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	RxBuf is the pointer to the recv buffer.
-* @param	RxLen is the number of bytes to be recv.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[out] RxBuf Pointer to the recv buffer.
+* @param[in] RxLen The number of bytes to be recv.
 *
 ******************************************************************************/
 void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
@@ -320,17 +312,14 @@ void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sends the transfer command.
+* @brief Sends the transfer command.
 *
-*
-* @param        InstancePtr is a pointer to the XI3cPsx instance.
-* @param        CmdCCC is a pointer to the Command Info.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] CmdCCC Pointer to the Command Info.
 *
 * @return
-*               - XST_SUCCESS if everything went well.
-*               - XST_FAILURE if any error.
-*
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
@@ -368,17 +357,14 @@ s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sends the Address Assignment command.
+* @brief Sends the Address Assignment command.
 *
-*
-* @param        InstancePtr is a pointer to the XI3cPsx instance.
-* @param        CmdCCC is a pointer to the Command Info.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] CmdCCC Pointer to the Command Info.
 *
 * @return
-*               - XST_SUCCESS if everything went well.
-*               - XST_FAILURE if any error.
-*
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)

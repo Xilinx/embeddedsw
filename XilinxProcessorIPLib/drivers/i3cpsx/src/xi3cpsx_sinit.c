@@ -7,10 +7,10 @@
 /*****************************************************************************/
 /**
 *
-* @file XI3cPsx_sinit.c
-* @{
+* @file xi3cpsx_sinit.c
+* @brief Implements I3C static initialization.
 *
-* The implementation of the XIicPs component's static initialization
+* The implementation of the XI3cPsx component's static initialization
 * functionality.
 *
 * <pre>
@@ -23,9 +23,15 @@
 * 1.7   vlt     12/18/25 Update Doxygen comments to include SDT flow details.
 * 1.7   vlt     03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                        to support 64-bit addressing.
+* 1.8   tb      09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3cpsx_api I3CPSX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -48,22 +54,24 @@
 /*****************************************************************************/
 /**
 *
+* @brief Looks up the device configuration.
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XI3cPsx_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in] DeviceId The unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xi3cpsx.h for the
-*               definition of XI3cPsx_Config.
+* @return A pointer to the configuration found or NULL if the specified device
+*         ID/BaseAddress was not found. See xi3cpsx.h for the definition of
+*         XI3cPsx_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 ******************************************************************************/
 #ifndef SDT

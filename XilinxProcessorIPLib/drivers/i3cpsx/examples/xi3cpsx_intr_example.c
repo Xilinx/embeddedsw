@@ -6,6 +6,7 @@
 /*****************************************************************************/
 /**
  * @file xi3cpsx_intr_example.c
+ * @brief Shows I3C master interrupt-mode transfers.
  *
  * This file contains a reference design example demonstrating the use of the
  * Xilinx I3C controller operating in master mode using an
@@ -34,6 +35,7 @@
  * 1.6  an   07/08/25 Fixed GCC warnings
  * 1.7  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
  * 1.8  vn   07/30/26 Fix Doxygen warnings
+ * 1.8  tb   09/22/26 Align Doxygen comments with AMD documentation standards
  *
  * </pre>
  *
@@ -50,7 +52,7 @@
 #endif
 
 XI3cPsx Xi3cPsx_Instance;
-XScuGic InterruptController;	/* Instance of the Interrupt Controller */
+XScuGic InterruptController;	/**< Instance of the Interrupt Controller. */
 XI3cPsx *InstancePtr = &Xi3cPsx_Instance;
 
 #ifndef SDT
@@ -60,22 +62,29 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr);
 int I3cPsxMasterIntrExample(UINTPTR BaseAddress);
 #endif
 
+/** SCUGIC instance identifier from xparameters.h. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** I3C interrupt vector identifier. */
 #define I3C_INT_VEC_ID		XPAR_PSVXL_I3C_0_INTR
 #ifndef SDT
+/** I3C instance identifier from xparameters.h. */
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_0_DEVICE_ID
 #else
+/** I3C instance identifier from xparameters.h. */
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_0_BASEADDR
 #endif
 
 /*
  * LSM6DSO sensor registers
  */
+/** LSM6DSO WHO_AM_I register address. */
 #define I3C_WHO_AM_I		0x0F
+/** LSM6DSO CTRL3_C register address. */
 #define CTRL3_C			0x12
+/** LSM6DSO CTRL9_XL register address. */
 #define CTRL9_XL		0x18
 
-#define I3C_DATALEN		10
+#define I3C_DATALEN		10	/**< Transfer length in bytes. */
 
 /*
  * The following counters are used to determine when the entire buffer has
@@ -91,12 +100,13 @@ void Handler(void *CallBackRef, u32 Event);
 /******************************************************************************/
 /**
 *
+* @brief Runs the I3C master interrupt example.
+*
 * Main function to call the interrupt example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -122,25 +132,26 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the I3c device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XI3cPsx driver.
+* @brief Runs a minimal test on the I3c device and driver as a design example.
+*
+* It illustrates how to use the XI3cPsx driver.
 *
 * This function sends data and expects to receive the same data through the I3C
 *
 * This function uses interrupt driver mode of the I3C.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the I3cPsx Device and is the
-*		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
+* @param[in] DeviceId Device ID of the I3CPSX device, from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note	       In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 *******************************************************************************/
 #ifndef SDT
@@ -372,18 +383,20 @@ int I3cPsxMasterIntrExample(UINTPTR BaseAddress)
 /******************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the I3C.  This function is application specific since the actual
-* system may or may not have an interrupt controller.  The I3C could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system for the I3C.
 *
-* @param	IicPsPtr contains a pointer to the instance of the Iic
-*		which is going to be connected to the interrupt controller.
+* This function sets up the interrupt system such that interrupts can occur for
+* the I3C. This function is application specific since the actual system may or
+* may not have an interrupt controller. The I3C could be directly connected to a
+* processor without an interrupt controller. Modify this
+* function to fit the application.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @param[in] InstancePtr Pointer to the instance of the I3C which is
+*            going to be connected to the interrupt controller.
 *
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 static int SetupInterruptSystem(XI3cPsx *InstancePtr)
@@ -445,14 +458,14 @@ static int SetupInterruptSystem(XI3cPsx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which updates transfer status up on events
-* from the I3cPsx.  It is called from an interrupt context such that the amount
-* of processing performed should be minimized.
+* @brief Updates transfer status on events from the I3cPsx.
 *
-* @param	CallBackRef is a pointer to the callback reference.
-* @param	Event is the status event from the I3cPsx.
+* This function is the handler which updates transfer status up on events from
+* the I3cPsx. It is called from an interrupt context such that the amount of
+* processing performed should be minimized.
 *
-* @note		None.
+* @param[in] CallBackRef Pointer to the callback reference.
+* @param[in] Event The status event from the I3cPsx.
 *
 *******************************************************************************/
 void Handler(void *CallBackRef, u32 Event)

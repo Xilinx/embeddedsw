@@ -8,10 +8,8 @@
 /**
 *
 * @file xi3cpsx_slave.c
-* @addtogroup Overview
-* @{
 *
-* Handles init functions.
+* @brief Implements I3C slave transfer APIs.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -21,9 +19,15 @@
 * 1.1   sd  14/12/22 Fix warnings
 * 1.2   sd  1/2/23   Write to resume bit
 * 1.3 	sd   1/30/24  Moved prints under DEBUG flag.
+* 1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3cpsx_api I3CPSX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -43,17 +47,15 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sets up the device to be a slave.
+* @brief Sets up the device to be a slave.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	SlaveAddr is the static address of the slave we are receiving from.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] SlaveAddr The static address of the slave we are receiving from.
 *
-* @note
-*	Interrupt is always enabled no matter the transfer is interrupt-
-*	driven or polled mode. Whether device will be interrupted or not
-*	depends on whether the device is connected to an interrupt
-*	controller and interrupt for the device is enabled.
+* @note Interrupt is always enabled no matter the transfer is interrupt- driven
+*       or polled mode. Whether the device is interrupted or not depends on
+*       whether the device is connected to an interrupt controller and interrupt
+*       for the device is enabled.
 *
 ****************************************************************************/
 void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
@@ -109,15 +111,15 @@ void XI3cPsx_SetupSlave(XI3cPsx *InstancePtr, u16 SlaveAddr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function setup a slave interrupt-driven receive.
+* @brief Sets up a slave interrupt-driven receive.
+*
 * Data processing for the receive is handled by the interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the receive buffer.
-* @param	ByteCount is the number of bytes to be received.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[out] MsgPtr Pointer to the receive buffer.
+* @param[in] ByteCount The number of bytes to be received.
 *
-* @note		This routine is for interrupt-driven transfer only.
+* @note This routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
 void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
@@ -141,15 +143,15 @@ void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sets up a slave interrupt-driven send.
+* @brief Sets up a slave interrupt-driven send.
+*
 * Data processing for the send is handled by the interrupt handler.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] MsgPtr Pointer to the send buffer.
+* @param[in] ByteCount The number of bytes to be sent.
 *
-* @note		This routine is for interrupt-driven transfer only.
+* @note This routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
 void XI3cPsx_SlaveSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
@@ -196,20 +198,19 @@ void XI3cPsx_SlaveSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function sends  a buffer in polled mode as a slave.
+* @brief Sends a buffer in polled mode as a slave.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the send buffer.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Cmds is the instance of XI3cPsx_Cmd.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] MsgPtr Pointer to the send buffer.
+* @param[in] ByteCount The number of bytes to be sent.
+* @param[in] Cmds The instance of XI3cPsx_Cmd.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if master sends us data or master terminates the
-*		transfer before all data has sent out.
+*        - XST_SUCCESS if everything went well.
+*        - XST_FAILURE if master sends us data or master terminates the transfer
+*          before all data has sent out.
 *
-* @note		This send routine is for polled mode transfer only.
+* @note This send routine is for polled mode transfer only.
 *
 ****************************************************************************/
 s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
@@ -304,20 +305,19 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* This function receives a buffer in polled mode as a slave.
+* @brief Receives a buffer in polled mode as a slave.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	MsgPtr is the pointer to the receive buffer.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+* @param[out] MsgPtr Pointer to the receive buffer.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if timed out.
+*        - XST_SUCCESS if everything went well.
+*        - XST_FAILURE if timed out.
 *
-* @note		This receive routine is for polled mode transfer only.
-* 		All the FIFO operations are in terms of words, so MsgPtr must
-* 		hold a word rounded count. Number of bytes received is
-* 		reported in CurrByteCount.
+* @note This receive routine is for polled mode transfer only. All the FIFO
+*       operations are in terms of words, so MsgPtr must hold a word
+*       rounded count. The number of bytes received is reported in
+*       CurrByteCount.
 *
 ****************************************************************************/
 s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
@@ -390,8 +390,9 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 
 /*****************************************************************************/
 /**
-* The interrupt handler for slave mode. It does the protocol handling for
-* the interrupt-driven transfers.
+* @brief Handles interrupts in slave mode.
+*
+* It does the protocol handling for the interrupt-driven transfers.
 *
 * Completion events and errors are signaled to upper layer for proper
 * handling.
@@ -419,10 +420,7 @@ s32 XI3cPsx_SlaveRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr)
 * - Other interrupts
 *	These interrupts are marked as error.
 *
-*
-* @param	InstancePtr is a pointer to the XIicPs instance.
-*
-* @note 	None.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 ****************************************************************************/
 void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr)

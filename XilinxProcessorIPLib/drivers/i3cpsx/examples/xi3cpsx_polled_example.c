@@ -6,6 +6,7 @@
 /*****************************************************************************/
 /**
  * @file xi3cpsx_polled_example.c
+ * @brief Shows I3C master polled-mode transfers.
  *
  * This file contains a reference design example demonstrating the use of the
  * Xilinx I3C controller operating in master mode using a polled
@@ -32,6 +33,7 @@
  * 1.3  sd   11/17/23 Added support for system device-tree flow
  * 1.4  gm   10/06/24 Added return statements and remove resetfifos
  * 1.7  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+ * 1.8  tb  09/22/26 Align Doxygen comments with AMD documentation standards
  * </pre>
  *
  ****************************************************************************/
@@ -42,16 +44,21 @@
 #include "xi3cpsx_pr.h"
 
 #ifndef SDT
+/** I3C instance identifier from xparameters.h. */
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_0_DEVICE_ID
 #else
+/** I3C instance identifier from xparameters.h. */
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_0_BASEADDR
 #endif
 
+/** LSM6DSO WHO_AM_I register address. */
 #define I3C_WHO_AM_I		0x0F
+/** LSM6DSO CTRL3_C register address. */
 #define CTRL3_C			0x12
+/** LSM6DSO CTRL9_XL register address. */
 #define CTRL9_XL		0x18
 
-#define I3C_DATALEN		10
+#define I3C_DATALEN		10	/**< Transfer length in bytes. */
 
 XI3cPsx Xi3cPs_Instance;
 XI3cPsx *InstancePtr = &Xi3cPs_Instance;
@@ -66,12 +73,13 @@ int I3cPsxMasterPolledExample(UINTPTR BaseAddress);
 /******************************************************************************/
 /**
 *
+* @brief Runs the I3C master polled example.
+*
 * Main function to call the polled example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -97,25 +105,28 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the I3c device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XI3cPsx driver.
+* @brief Runs a minimal test on the I3c device and driver as a design example.
+*
+* This function does a minimal test on the I3c device and driver as a design
+* example. The purpose of this function is to illustrate how to use the XI3cPsx
+* driver.
 *
 * This function sends data and expects to receive the same data through the I3C
 *
 * This function uses polled driver mode of the I3C.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the I3cPsx Device and is the
-*		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
+* @param[in] DeviceId Device ID of the I3CPSX device, from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 *******************************************************************************/
 #ifndef SDT

@@ -8,11 +8,10 @@
 /**
 *
 * @file xi3cpsx_g.c
-* @addtogroup Overview
-* @{
+* @brief Provides the I3C configuration table.
 *
 * This file contains a configuration table that specifies the configuration of
-* IIC devices in the system.
+* I3C devices in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,10 +19,16 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- --------------------------------------------
 * 1.00  sd      06/10/22 First release
+* 1.8   tb      09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3cpsx_api I3CPSX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -45,7 +50,9 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each IIC device
+ * @brief Lists configuration information for each I3C device in the system.
+ *
+ * This table contains configuration information for each I3C device
  * in the system.
  */
 XI3cPsx_Config XI3cPsx_ConfigTable[XPAR_XI3CPSX_NUM_INSTANCES] = {

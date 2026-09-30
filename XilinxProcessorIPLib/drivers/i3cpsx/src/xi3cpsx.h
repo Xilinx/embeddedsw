@@ -4,13 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XI3CPSX_H       /* prevent circular inclusions */
+#define XI3CPSX_H
+
 /*****************************************************************************/
 /**
 *
 * @file xi3cpsx.h
-* @addtogroup Overview
+* @addtogroup i3cpsx Overview
 * @{
-* @details
+* @brief Implements the PS I3C driver for master and slave transfers.
 *
 * This is an implementation of I3C driver in the PS block. The device can
 * be either a master or a slave on the I3C bus. This implementation supports
@@ -32,7 +35,7 @@
 *    - XI3cPsx_LookupConfig(DeviceId) - Use the device identifier to find
 *      the static configuration structure defined in XI3cPsx_g.c. This is
 *      setup by the tools. For some operating systems the config structure
-*      will be initialized by the software and this call is not needed.
+*      is initialized by the software and this call is not needed.
 *
 *    - XI3cPsx_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
 *      configuration structure provided by the caller. If running in a
@@ -42,11 +45,9 @@
 *
 * <b>Multiple Masters</b>
 *
-*
 * <b>Multiple Slaves</b>
 *
 * Multiple slaves are supported by selecting them with unique addresses.
-*
 *
 * <b>Polled Mode Operation</b>
 *
@@ -54,10 +55,10 @@
 *
 * <b>Interrupts</b>
 *
-* The user must connect the interrupt handler of the driver,
-* XI3cPsx_InterruptHandler to an interrupt system such that it will be called
+* The application must connect the interrupt handler of the driver,
+* XI3cPsx_InterruptHandler to an interrupt system such that it is called
 * when an interrupt occurs. This function does not save and restore the
-* processor context such that the user must provide this processing.
+* processor context such that the application must provide this processing.
 *
 * The driver handles the following interrupts:
 * - Transfer complete
@@ -78,12 +79,10 @@
 *      vlt  03/15/26 Updated BaseAddress type from u32 to UINTPTR
 *                    to support 64-bit addressing.
 * 1.8  vn   07/30/26 Fix Doxygen warnings
+* 1.8  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XI3CPSX_H       /* prevent circular inclusions */
-#define XI3CPSX_H       /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -131,83 +130,102 @@ extern "C" {
 #define XI3CPSX_SLV_IBI_MAX_PAYLOAD	5U	/**< Max target-generated IBI payload: MDB + 4 data bytes */
 /** @} */
 
-/** name Role constants
+/** @name Role constants
  *
  * These constants are used to pass into the device setup routines to
  * set up the device according to transfer direction.
+ * @{
  */
 #define SENDING_ROLE		1  /**< Transfer direction is sending */
 #define RECVING_ROLE		0  /**< Transfer direction is receiving */
-
+/** @} */
 
 #define XI3CPSX_MAX_TRANSFER_SIZE	((u32)255U - (u32)3U) /**< Max transfer size */
 /* Division rounded to integer greater than actual value */
+/** Ceiling division helper. */
 #define XI3CPSX_CEIL_DIV(a, b)        ((a + b - 1) / b)
 
+/** Converts a word count to a byte count. */
 #define XI3CPSX_WORD_TO_BYTES(N)		(N * 4)
 #define XI3CPSX_DATA_LEN			0xFFFFU		/**< Data length */
 #define XI3CPSX_TRANSFER_ERROR			0xF0000000U	/**< Error */
 #define XI3CPSX_TIMEOUT_COUNTER         	2000000U 	/**< Wait for 2 sec in worst case */
 
 /**
- * Maximum number of entries in the Device Address Table (DAT) supported
- * by the controller and tracked by the driver.
+ * @brief Defines the maximum number of Device Address Table (DAT) entries.
+ *
+ * Maximum number of entries in the Device Address Table (DAT) supported by the
+ * controller and tracked by the driver.
  */
 #define XI3CPSX_MAX_DAT_ENTRIES		11U
 
 #define XI3CPSX_DCT_ENTRY_WORDS		4U	/**< Words per Device Characteristics Table (DCT) entry */
 #define XI3CPSX_DCT_ENTRY_BYTES		(XI3CPSX_DCT_ENTRY_WORDS * 4U)	/**< Bytes per DCT entry; spacing between consecutive entries */
 
-/** Compile-time array element count helper. */
+/**
+ * @brief Computes the number of elements in an array at compile time.
+ *
+ * @note
+ * C-style signature
+ *	size_t XI3CPSX_ARRAY_SIZE(ElementType Array[])
+ */
 #define XI3CPSX_ARRAY_SIZE(Array)	(sizeof(Array) / sizeof((Array)[0U]))
 
 /**************************** Type Definitions *******************************/
 
 /**
-* The handler data type allows the user to define a callback function to
+* @brief Defines a callback for I3C interrupt events.
+*
+* The handler data type allows the application to define a callback function to
 * respond to interrupt events in the system. This function is executed
 * in interrupt context, so amount of processing should be minimized.
 *
-* @param	CallBackRef is the callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back to
-*		the upper layer when the callback is invoked. Its type is
-*		not important to the driver, so it is a void pointer.
-* @param	StatusEvent indicates one or more status events that occurred.
+* @param[in] CallBackRef The callback reference passed in by the upper layer
+*            when setting the callback functions, and passed back to the upper
+*            layer when the callback is invoked. Its type is not important to
+*            the driver, so it is a void pointer.
+* @param[in] StatusEvent Indicates one or more status events that occurred.
 */
 typedef void (*XI3cPsx_IntrHandler) (void *CallBackRef, u32 StatusEvent);
 
 /**
-* The IBI handler data type allows the user to define a callback function to
-* respond to In-Band Interrupt (SIR) events received from a target. This
+* @brief Defines a callback for In-Band Interrupt (SIR) events.
+*
+* The IBI handler data type allows the application to define a callback function
+* to respond to In-Band Interrupt (SIR) events received from a target. This
 * function is executed in interrupt context, so the amount of processing
 * should be minimized.
 *
-* @param	CallBackRef is the callback reference passed in by the upper
-*		layer when setting the IBI handler, and passed back to the
-*		upper layer when the callback is invoked.
-* @param	DevAddr is the dynamic address of the target that raised the IBI.
-* @param	Payload points to the mandatory-data-byte/payload bytes drained
-*		from the IBI queue (valid for PayloadLen bytes). Only valid for
-*		the duration of the callback.
-* @param	PayloadLen is the number of valid payload bytes.
+* @param[in] CallBackRef The callback reference passed in by the upper layer
+*            when setting the IBI handler, and passed back to the upper layer
+*            when the callback is invoked.
+* @param[in] DevAddr The dynamic address of the target that raised the IBI.
+* @param[in] Payload Pointer to the mandatory-data-byte/payload bytes drained
+*            from the IBI queue (valid for PayloadLen bytes). Only valid for the
+*            duration of the callback.
+* @param[in] PayloadLen The number of valid payload bytes.
 */
 typedef void (*XI3cPsx_IbiHandler) (void *CallBackRef, u32 DevAddr,
 				    u8 *Payload, u32 PayloadLen);
 
 /**
-* The Hot-Join handler data type allows the user to define a callback
+* @brief Defines a callback for Hot-Join requests.
+*
+* The Hot-Join handler data type allows the application to define a callback
 * function the driver invokes (from interrupt context) to flag a Hot-Join
 * request. The joining target is NOT yet enrolled when this is called; the
 * application must run enrolment (ENTDAA) via XI3cPsx_HotJoinDaa() from
 * thread context.
 *
-* @param	CallBackRef is the callback reference passed in by the upper
-*		layer when setting the Hot-Join handler, and passed back to
-*		the upper layer when the callback is invoked.
+* @param[in] CallBackRef The callback reference passed in by the upper layer
+*            when setting the Hot-Join handler, and passed back to the upper
+*            layer when the callback is invoked.
 */
 typedef void (*XI3cPsx_HjHandler) (void *CallBackRef);
 
 /**
+ * @brief Holds configuration information for the device.
+ *
  * This typedef contains configuration information for the device.
  */
 typedef struct {
@@ -218,10 +236,14 @@ typedef struct {
 #endif
 	UINTPTR BaseAddress;  /**< Base address of the device */
 #ifdef SDT
-	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
-	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+	/**
+	 * Bits[11:0] interrupt ID; bits[15:12] trigger type and level flags.
+	 */
+	u16 IntrId;
+	/**
+	 * Bit[0] interrupt parent type; bit[64/32:1] parent base address.
+	 */
+	UINTPTR IntrParent;
 #endif
 
 	u32 InputClockHz; /**< Input clock frequency */
@@ -229,6 +251,8 @@ typedef struct {
 } XI3cPsx_Config;
 
 /**
+ * @brief Holds transaction command and arguments.
+ *
  * This typedef contains Transaction command and arguments.
  */
 typedef struct {
@@ -239,6 +263,8 @@ typedef struct {
 } XI3cPsx_Cmd;
 
 /**
+ * @brief Holds FIFO depth information.
+ *
  * This typedef contains FIFO depth information.
  */
 typedef struct {
@@ -247,7 +273,9 @@ typedef struct {
 } XI3cPsx_Master_Caps;
 
 /**
- * This typedef contains Command information
+ * @brief Holds command information.
+ *
+ * This typedef contains Command information.
  */
 struct CmdInfo {
 	u8 Cmd;		/**< Command type */
@@ -258,9 +286,11 @@ struct CmdInfo {
 	u8 RxLen;	/**< Receive length in bytes */
 };
 /**
- * The XI3cPsx driver instance data. The user is required to allocate a
- * variable of this type for each IIC device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds per-instance I3C driver state.
+ *
+ * The application must allocate a variable of this type for each I3C
+ * device in the system. A pointer to a variable of this type is then passed
+ * to the driver API functions.
  */
 typedef struct {
 	XI3cPsx_Config Config;	/**< Configuration structure */
@@ -311,13 +341,15 @@ extern XI3cPsx_Config XI3cPsx_ConfigTable[];	/**< Configuration table */
 /****************************************************************************/
 /**
 *
-* Return the register offset of a Device Address Table (DAT) entry. Entries are
-* one word wide and the table base comes from DEVICE_ADDR_TABLE_POINTER.
+* @brief Returns the register offset of a Device Address Table (DAT) entry.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-* @param	Index is the DAT entry index.
+* Entries are one word wide and the table base comes from
+* DEVICE_ADDR_TABLE_POINTER.
 *
-* @return	Register offset of the requested DAT entry.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Index The DAT entry index.
+*
+* @return Register offset of the requested DAT entry.
 *
 *****************************************************************************/
 static inline u32 XI3cPsx_DatEntryOffset(const XI3cPsx *InstancePtr, u32 Index)
@@ -328,14 +360,13 @@ static inline u32 XI3cPsx_DatEntryOffset(const XI3cPsx *InstancePtr, u32 Index)
 /****************************************************************************/
 /**
 *
-* Place one byte into the transmit FIFO.
+* @brief Places one byte into the transmit FIFO.
 *
-* @param	InstancePtr is the instance of IIC
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XI3cPsx_SendByte(XI3cPsx *InstancePtr)
+* @note
+* C-style signature
+*	void XI3cPsx_SendByte(XI3cPsx *InstancePtr)
 *
 *****************************************************************************/
 #define XI3cPsx_SendByte(InstancePtr)					\
@@ -352,14 +383,13 @@ static inline u32 XI3cPsx_DatEntryOffset(const XI3cPsx *InstancePtr, u32 Index)
 /****************************************************************************/
 /**
 *
-* Receive one byte from FIFO.
+* @brief Receives one byte from FIFO.
 *
-* @param	InstancePtr is the instance of IIC
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		u8 XI3cPsx_RecvByte(XI3cPsx *InstancePtr)
+* @note
+* C-style signature
+*	void XI3cPsx_RecvByte(XI3cPsx *InstancePtr)
 *
 *****************************************************************************/
 #define XI3cPsx_RecvByte(InstancePtr)					\
@@ -375,23 +405,19 @@ static inline u32 XI3cPsx_DatEntryOffset(const XI3cPsx *InstancePtr, u32 Index)
 
 /*****************************************************************************/
 /**
-* @brief
-* Compute the I3C odd-parity bit for a 7-bit dynamic address.
+* @brief Computes the I3C odd-parity bit for a 7-bit dynamic address.
 *
 * Per the I3C spec and the DEV_ADDR_TABLE_LOC*n*.DEV_DYNAMIC_ADDR field,
 * bit[7] of the 8-bit encoded value must be the odd parity of bits[6:0],
-* i.e. parity = ~XOR(addr[6:0]).  The controller transmits this 8-bit value
+* that is, parity = ~XOR(addr[6:0]).  The controller transmits this 8-bit value
 * verbatim during ENTDAA, so a raw address write with bit[7]=0 produces
 * wrong parity for any 7-bit address that has an even number of 1-bits
-* (e.g. 0x09, 0x0A, 0x0C, 0x0F, 0x11, 0x12, ...) and the slave NACKs the
+* (for example 0x09, 0x0A, 0x0C, 0x0F, 0x11, 0x12, ...) and the slave NACKs the
 * address assignment, hanging the controller.
 *
-* @param	Addr is the 7-bit dynamic address (only bits[6:0] are used).
+* @param[in] Addr The 7-bit dynamic address (only bits[6:0] are used).
 *
-* @return	0 or 1 — the odd-parity bit to place in bit[7].
-*
-* @note		C-Style signature:
-*		u8 XI3cPsx_OddParity7(u8 Addr)
+* @return 0 or 1 - the odd-parity bit to place in bit[7].
 *
 ****************************************************************************/
 static inline u8 XI3cPsx_OddParity7(u8 Addr)
@@ -405,14 +431,9 @@ static inline u8 XI3cPsx_OddParity7(u8 Addr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function enables the controller
+* @brief Enables the I3C controller.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-*
-* @return	None.
-*
-* @note
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
 ****************************************************************************/
 static inline void XI3cPsx_Enable(XI3cPsx *InstancePtr)
@@ -427,14 +448,9 @@ static inline void XI3cPsx_Enable(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function enables the controller
+* @brief Resumes the I3C controller.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
-*
-* @return	None.
-*
-* @note
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
 ****************************************************************************/
 static inline void XI3cPsx_Resume(XI3cPsx *InstancePtr)
@@ -449,18 +465,15 @@ static inline void XI3cPsx_Resume(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* This function reads the response.
+* @brief Reads the response.
 *
 * It waits for the response from slave and reads the response.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 * @return
-*		- Response code on success.
-*		- XST_TIMEOUT on timeout.
-*
-* @note
+*        - Response code on success.
+*        - XST_TIMEOUT on timeout.
 *
 ****************************************************************************/
 static inline s32 XI3cPsx_GetResponse(XI3cPsx *InstancePtr)
@@ -495,6 +508,14 @@ static inline s32 XI3cPsx_GetResponse(XI3cPsx *InstancePtr)
 	return  (ResponseData & XI3CPSX_RESPONSE_ERR_STS_MASK) >> XI3CPSX_RESPONSE_ERR_STS_SHIFT;
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the response-buffer interrupt threshold.
+*
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Val The response-buffer threshold value.
+*
+****************************************************************************/
 static inline void XI3cPsx_SetRespThreshold(XI3cPsx *InstancePtr, u32 Val)
 {
 	u32 Reg;
@@ -505,6 +526,14 @@ static inline void XI3cPsx_SetRespThreshold(XI3cPsx *InstancePtr, u32 Val)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_QUEUE_THLD_CTRL, Reg);
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the command-queue empty interrupt threshold.
+*
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Val The command-empty threshold value.
+*
+****************************************************************************/
 static inline void XI3cPsx_SetCmdEmptyThreshold(XI3cPsx *InstancePtr, u32 Val)
 {
 	u32 Reg;
@@ -515,6 +544,14 @@ static inline void XI3cPsx_SetCmdEmptyThreshold(XI3cPsx *InstancePtr, u32 Val)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_QUEUE_THLD_CTRL, Reg);
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the receive-buffer interrupt threshold.
+*
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Val The receive-buffer threshold value.
+*
+****************************************************************************/
 static inline void XI3cPsx_SetRxThreshold(XI3cPsx *InstancePtr, u32 Val)
 {
 	u32 Reg;
@@ -525,6 +562,14 @@ static inline void XI3cPsx_SetRxThreshold(XI3cPsx *InstancePtr, u32 Val)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL, Reg);
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the transmit-buffer interrupt threshold.
+*
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Val The transmit-empty threshold value.
+*
+****************************************************************************/
 static inline void XI3cPsx_SetTxThreshold(XI3cPsx *InstancePtr, u32 Val)
 {
 	u32 Reg;
@@ -535,6 +580,14 @@ static inline void XI3cPsx_SetTxThreshold(XI3cPsx *InstancePtr, u32 Val)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL, Reg);
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the receive-start interrupt threshold.
+*
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Val The receive-start threshold value.
+*
+****************************************************************************/
 static inline void XI3cPsx_SetRxStartThreshold(XI3cPsx *InstancePtr, u32 Val)
 {
 	u32 Reg;
@@ -545,6 +598,14 @@ static inline void XI3cPsx_SetRxStartThreshold(XI3cPsx *InstancePtr, u32 Val)
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DATA_BUFFER_THLD_CTRL, Reg);
 }
 
+/*****************************************************************************/
+/**
+* @brief Sets the transmit-start interrupt threshold.
+*
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
+* @param[in] Val The transmit-start threshold value.
+*
+****************************************************************************/
 static inline void XI3cPsx_SetTxStartThreshold(XI3cPsx *InstancePtr, u32 Val)
 {
 	u32 Reg;
@@ -572,13 +633,35 @@ XI3cPsx_Config *XI3cPsx_LookupConfig(UINTPTR BaseAddress);
 s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 			  u32 EffectiveAddr);
 
+/**
+ * @brief Aborts an I3C transfer.
+ *
+ * @param[in] InstancePtr Pointer to the XI3cPsx instance.
+ */
 void XI3cPsx_Abort(XI3cPsx *InstancePtr);
 void XI3cPsx_Resume(XI3cPsx *InstancePtr);
 void XI3cPsx_Reset(XI3cPsx *InstancePtr);
 void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr);
 void XI3cPsx_RecoverFromError(XI3cPsx *InstancePtr);
 
+/**
+ * @brief Checks whether the I3C bus is busy.
+ *
+ * @param[in] InstancePtr Pointer to the XI3cPsx instance.
+ *
+ * @return
+ *        - TRUE if the bus is busy.
+ *        - FALSE if the bus is not busy.
+ */
 s32 XI3cPsx_BusIsBusy(XI3cPsx *InstancePtr);
+/**
+ * @brief Fills the I3C transmit FIFO.
+ *
+ * @param[in] InstancePtr Pointer to the XI3cPsx instance.
+ *
+ * @return
+ *        Remaining byte count for this instance.
+ */
 s32 XI3cPsx_TransmitFifoFill(XI3cPsx *InstancePtr);
 void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd);
 void XI3cPsx_WrTxFifo(XI3cPsx *InstancePtr, u32 *TxBuf, u16 TxLen);
@@ -639,6 +722,15 @@ void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr);
 
 /*
  * Functions for selftest, in XI3cPsx_selftest.c
+ */
+/**
+ * @brief Runs a self-test on the I3C device.
+ *
+ * @param[in] InstancePtr Pointer to the XI3cPsx instance.
+ *
+ * @return
+ *        - XST_SUCCESS if the test was successful.
+ *        - XST_FAILURE if the test was not successful.
  */
 s32 XI3cPsx_SelfTest(XI3cPsx *InstancePtr);
 

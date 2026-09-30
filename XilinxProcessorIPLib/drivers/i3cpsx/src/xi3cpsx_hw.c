@@ -8,8 +8,7 @@
 /**
 *
 * @file xi3cpsx_hw.c
-* @addtogroup Overview
-* @{
+* @brief Implements I3C reset and FIFO reset helpers.
 *
 * This file contains low level access functions using the base address
 * directly without an instance.
@@ -21,28 +20,32 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.00  sd  06/10/22 First release
 * 1.8   vn  07/30/26 Fix Doxygen warnings
+* 1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3cpsx_api I3CPSX APIs
+* @{
+*/
 
 #include "xi3cpsx.h"
 #include "sleep.h"
 /*****************************************************************************/
 /**
 *
-* @brief
-* Resets the IIC device. Reset must only be called after the driver has been
-* initialized. The configuration of the device after reset is the same as its
-* configuration after initialization.  Any data transfer that is in progress is
-* aborted.
+* @brief Resets the I3C controller.
+*
+* Reset must only be called after the driver has been initialized. The
+* configuration of the device after reset is the same as its configuration
+* after initialization. Any data transfer that is in progress is aborted.
 *
 * The upper layer software is responsible for re-configuring (if necessary)
-* and reenabling interrupts for the IIC device after the reset.
+* and reenabling interrupts for the I3C device after the reset.
 *
-* @param        InstancePtr is a pointer to the XIicPs instance.
-*
-* @note         None.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
 ******************************************************************************/
 void XI3cPsx_Reset(XI3cPsx *InstancePtr)
@@ -56,18 +59,16 @@ void XI3cPsx_Reset(XI3cPsx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Resets the IIC device. Reset must only be called after the driver has been
-* initialized. The configuration of the device after reset is the same as its
-* configuration after initialization.  Any data transfer that is in progress is
-* aborted.
+* @brief Resets the I3C FIFOs.
+*
+* Reset must only be called after the driver has been initialized. The
+* configuration of the device after reset is the same as its configuration
+* after initialization. Any data transfer that is in progress is aborted.
 *
 * The upper layer software is responsible for re-configuring (if necessary)
-* and reenabling interrupts for the IIC device after the reset.
+* and reenabling interrupts for the I3C device after the reset.
 *
-* @param        InstancePtr is a pointer to the XIicPs instance.
-*
-* @note         None.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
 ******************************************************************************/
 void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr)
@@ -89,8 +90,7 @@ void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Brings the controller back to a usable state after a transfer error.
+* @brief Brings the controller back to a usable state after a transfer error.
 *
 * An error response such as a receive buffer overflow leaves the core halted,
 * and it stays halted until RESUME is written. The FIFOs are cleared after
@@ -101,7 +101,7 @@ void XI3cPsx_ResetFifos(XI3cPsx *InstancePtr)
 * CCC_DEVICE_STATUS; that register is read only and needs the controller to
 * read it with GETSTATUS.
 *
-* @param        InstancePtr is a pointer to the XI3cPsx instance.
+* @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
 *
 * @note         RESUME must be written before the FIFOs are reset. Resetting
 *               the FIFOs of a halted core leaves it halted.

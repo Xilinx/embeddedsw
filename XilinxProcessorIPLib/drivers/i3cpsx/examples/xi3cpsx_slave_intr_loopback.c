@@ -6,6 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xi3cpsx_slave_intr_loopback.c
+* @brief Shows I3C slave interrupt-mode loopback.
 *
 * This file consists of a slave mode design example which uses the Xilinx
 * I3C device in slave interrupt mode in a loopback setup.
@@ -15,8 +16,6 @@
 * against the transmitted data. Slave also sends the data to master.
 *
 * This code assumes that no Operating System is being used.
-*
-* @note
 *
 * It's a reference example and the data size should be less than or equal
 * to FIFO size.
@@ -28,6 +27,7 @@
 * ----- ---- -------- ---------------------------------------------------------
 * 1.00a sd  06/10/26 First release
 * 1.8   vn  07/30/26 Fix Doxygen warnings
+* 1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -48,21 +48,29 @@
 #ifndef SDT
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_1_DEVICE_ID
 #else
+/** I3C instance identifier from xparameters.h. */
 #define I3C_DEVICE_ID		XPAR_XI3CPSX_1_BASEADDR
 #endif
 
 #ifndef SDT
+/** I3C slave instance identifier from xparameters.h. */
 #define I3C_SLAVE_ID		XPAR_XI3CPSX_0_DEVICE_ID
 #else
+/** I3C slave instance identifier from xparameters.h. */
 #define I3C_SLAVE_ID		XPAR_XI3CPSX_0_BASEADDR
 #endif
 
+/** SCUGIC instance identifier from xparameters.h. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** I3C slave interrupt vector identifier. */
 #define I3C_SLAVE_INT_VEC_ID	XPAR_PSVXL_I3C_0_INTR
+/** I3C master interrupt vector identifier. */
 #define I3C_MASTER_INT_VEC_ID	XPAR_PSVXL_I3C_1_INTR
 
+/** Loopback payload length in bytes. */
 #define LEN			128
-#define I3C_SLAVE_STATIC_ADDR	0x5d
+#define I3C_SLAVE_STATIC_ADDR	0x5d	/**< I3C slave static address. */
+/** Polling timeout iteration count. */
 #define TIMEOUT_COUNTER		10000000U
 
 /************************** Function Prototypes *******************************/
@@ -97,12 +105,13 @@ volatile u32 TotalErrorCount;
 /******************************************************************************/
 /**
 *
+* @brief Runs the I3C slave interrupt loopback example.
+*
 * Main function to call the slave interrupt loopback example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -124,9 +133,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Runs a slave interrupt loopback test on the I3c device and driver.
+*
 * This function does a slave interrupt loopback test on the I3c device and
-* driver as a design example. The purpose of this function is to illustrate
-* how to use the XI3cPsx driver in slave interrupt mode.
+* driver as a design example. The purpose of this function is to illustrate how
+* to use the XI3cPsx driver in slave interrupt mode.
 *
 * This function sends data from the master and receives it on the slave
 * through the I3C loopback. It expects the controllers to be in loopback.
@@ -135,16 +146,17 @@ int main(void)
 * of the I3C.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the I3cPsx Device and is the
-*		XPAR_<I3C_instance>_DEVICE_ID value from xparameters.h
+* @param[in] DeviceId Device ID of the I3CPSX device, from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 *******************************************************************************/
 #ifndef SDT
@@ -317,17 +329,18 @@ int I3cPsxSlaveIntrLoopbackExample(UINTPTR BaseAddress)
 /******************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the I3C. This function is application specific since the actual
-* system may or may not have an interrupt controller.
+* @brief Sets up the interrupt system for the I3C.
 *
-* @param	InstancePtr contains a pointer to the instance of the I3C
-*		device which is going to be connected to the interrupt
-*		controller.
+* This function sets up the interrupt system such that interrupts can occur for
+* the I3C. This function is application specific since the actual system may or
+* may not have an interrupt controller.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @param[in] InstancePtr Pointer to the instance of the I3C device
+*            which is going to be connected to the interrupt controller.
 *
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 static int SetupInterruptSystem(XI3cPsx *InstancePtr)
@@ -386,14 +399,14 @@ static int SetupMasterInterruptSystem(XI3cPsx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which updates transfer status upon events
-* from the I3cPsx. It is called from an interrupt context such that the
-* amount of processing performed should be minimized.
+* @brief Updates transfer status on events from the I3cPsx.
 *
-* @param	CallBackRef is a pointer to the callback reference.
-* @param	Event is the status event from the I3cPsx.
+* This function is the handler which updates transfer status upon events from
+* the I3cPsx. It is called from an interrupt context such that the amount of
+* processing performed should be minimized.
 *
-* @note		None.
+* @param[in] CallBackRef Pointer to the callback reference.
+* @param[in] Event The status event from the I3cPsx.
 *
 *******************************************************************************/
 void XI3cPsx_SlaveStatusHandler(void *CallBackRef, u32 Event)

@@ -9,9 +9,8 @@
 /**
 *
 * @file xi3cpsx_options.c
-* @{
 *
-* Contains functions for the configuration of the XIccPs driver.
+* @brief Implements I3C SCL clock configuration.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,10 +20,16 @@
 * 1.00  sd  06/10/22 First release
 * 1.01  sd  12/01/22 REmove the hardcoding of timing values
 *	    12/14/22 Fix the warnings
+* 1.8   tb  09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup i3cpsx_api I3CPSX APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -43,18 +48,17 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* Sets I3C Scl clock frequency.
+* @brief Sets I3C Scl clock frequency.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if any computed timing
-*		count falls outside [SCL_I3C_TIMING_CNT_MIN, SCL_I3C_TIMING_CNT_MAX],
-*		indicating the input clock and SCL rate combination is not
-*		representable in the hardware timing registers.
+* @return XST_SUCCESS if successful, XST_FAILURE if any computed timing count
+*         falls outside [SCL_I3C_TIMING_CNT_MIN, SCL_I3C_TIMING_CNT_MAX],
+*         indicating the input clock and SCL rate combination is not
+*         representable in the hardware timing registers.
 *
-* @note		The SCL frequency is read from InstancePtr->SclkHz.
-*		To configure a custom SCL frequency, use XI3cPsx_SetSClkRate.
+* @note The SCL frequency is read from InstancePtr->SclkHz. To configure a
+*       custom SCL frequency, use XI3cPsx_SetSClkRate.
 *
 ****************************************************************************/
 s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr)
@@ -118,20 +122,20 @@ s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr)
 
 /*****************************************************************************/
 /**
- * @brief
- * Sets a custom I3C SCL clock frequency by updating the instance SCL rate
- * and configuring the hardware registers accordingly.
+ * @brief Sets a custom I3C SCL clock frequency.
  *
- * @param	InstancePtr is a pointer to the XI3cPsx instance.
- * @param	SclkHz is the desired SCL clock frequency in Hz.
+ * Sets a custom I3C SCL clock frequency by updating the instance SCL rate and
+ * configuring the hardware registers accordingly.
  *
- * @return	XST_SUCCESS if successful, XST_FAILURE if the requested SCL
- *		rate cannot be represented in the hardware timing registers
- *		for the given input clock.
+ * @param[in,out] InstancePtr Pointer to the XI3cPsx instance.
+ * @param[in] SclkHz The desired SCL clock frequency in Hz.
  *
- * @note	This updates InstancePtr->SclkHz and programs the hardware.
- *		For default SCL rate set during initialization, use
- *		XI3cPsx_SetSClk instead.
+ * @return XST_SUCCESS if successful, XST_FAILURE if the requested SCL rate
+ *         cannot be represented in the hardware timing registers for the given
+ *         input clock.
+ *
+ * @note This updates InstancePtr->SclkHz and programs the hardware. For default
+ *       SCL rate set during initialization, use XI3cPsx_SetSClk instead.
  *
  ****************************************************************************/
 s32 XI3cPsx_SetSClkRate(XI3cPsx *InstancePtr, u32 SclkHz)
@@ -155,17 +159,16 @@ s32 XI3cPsx_SetSClkRate(XI3cPsx *InstancePtr, u32 SclkHz)
 
 /*****************************************************************************/
 /**
-* @brief
-* Returns the SCL clock frequency currently configured in the instance.
+* @brief Returns the SCL clock frequency currently configured in the instance.
 *
-* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param[in] InstancePtr Pointer to the XI3cPsx instance.
 *
-* @return	The SCL clock frequency in Hz as last successfully programmed
-*		by XI3cPsx_SetSClk() or XI3cPsx_SetSClkRate().
+* @return The SCL clock frequency in Hz as last successfully programmed by
+*         XI3cPsx_SetSClk() or XI3cPsx_SetSClkRate().
 *
-* @note		This returns the software-stored rate, which is always kept
-*		in sync with the hardware. If XI3cPsx_SetSClkRate() fails,
-*		the previous valid rate is preserved and returned here.
+* @note This returns the software-stored rate, which is always kept in sync with
+*       the hardware. If XI3cPsx_SetSClkRate() fails, the previous valid rate is
+*       preserved and returned here.
 *
 ****************************************************************************/
 u32 XI3cPsx_GetSClk(const XI3cPsx *InstancePtr)
