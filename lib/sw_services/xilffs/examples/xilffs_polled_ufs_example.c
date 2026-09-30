@@ -7,24 +7,23 @@
 /**
 *
 * @file xilffs_polled_ufs_example.c
+* @brief Writes to and reads from a UFS device through the file system.
 *
-*
-* @note This example uses file system with UFS to write to and read from
-* an UFS device in polled mode.
-* To test this example File System should not be in Read Only mode.
-* To test this example USE_MKFS option should be true.
-*
-* This example was tested using UFS device.
-*
-* To test with different logical drives, drive number should be mentioned in
-* both FileName and Path variables. By default, it will take drive 0 if drive
-* number is not mentioned in the FileName variable.
-* For example, to test logical drive 2
-* FileName =  "2:/<file_name>" and Path = "2:/"
-* Similarly to test logical drive N, FileName = "N:/<file_name>" and
-* Path = "N:/"
-*
-* None.
+* @note
+* This example uses the file system with Universal Flash Storage (UFS)
+* to write to and read from a UFS device in polled mode.
+* To test this example, the file system must not be in read-only mode.
+* To test this example, the USE_MKFS option must be true.
+* <br><br>
+* This example was tested using a UFS device.
+* <br><br>
+* To test with different logical drives, specify the drive number in
+* both the FileName and Path variables. By default, the example uses
+* drive 0 if the FileName variable does not specify a drive number.
+* For example, to test logical drive 2, set
+* FileName = "2:/<file_name>" and Path = "2:/".
+* Similarly, to test logical drive N, set FileName = "N:/<file_name>"
+* and Path = "N:/".
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -32,6 +31,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   sk  07/11/24 First release
+* 5.7   vn  09/30/26 Align Doxygen comments with AMD standards
 *
 *</pre>
 *
@@ -58,8 +58,8 @@
 int FfsUfsPolledExample(void);
 
 /************************** Variable Definitions *****************************/
-static FIL fil;		/* File object */
-static FATFS fatfs;
+static FIL fil;		/**< File object. */
+static FATFS fatfs;	/**< File system object. */
 
 /*
  * TEST PROCEDURE:
@@ -98,45 +98,114 @@ static FATFS fatfs;
  * 			=> 2 used for direct Boot-LUN access.
  *
  */
-static char FileName[32] = "2:/BOOT.BIN";
-static char *UFS_File;
+static char FileName[32] = "2:/BOOT.BIN"; /**< Name of the test file. */
+static char *UFS_File; /**< Pointer to the name of the test file. */
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 DestinationAddress[50*1024];
+u8 DestinationAddress[50*1024]; /**< Buffer that receives the read data. */
 #pragma data_alignment = 32
-u8 SourceAddress[50*1024];
+u8 SourceAddress[50*1024]; /**< Buffer that holds the data to write. */
 #else
+/** @cond INTERNAL */
 u8 DestinationAddress[50*1024] __attribute__ ((aligned(32)));
 u8 SourceAddress[50*1024] __attribute__ ((aligned(32)));
+/** @endcond */
 #endif
 
-/* Macros to get the Logical drive numbers for SD/eMMC/UFS */
+/** @name Macros to get the logical drive numbers for SD/eMMC/UFS
+ * @{
+ */
 #if FF_MULTI_PARTITION
-#define SD_DRV_NUM(SDPdrv, Partition)	((SDPdrv * 5) + Partition)	/* SD/eMMC */
-#define UFS_DRV_NUM(LUN, Partition)		(15 + (LUN * 5) + Partition)	/* UFS LUN access */
-#define UFS_BLUN_DRV_NUM(Partition)		(10 + Partition)	/* UFS Boot LUN access */
+/**
+ * @brief Returns the logical drive number of an SD/eMMC partition.
+ *
+ * @param[in]   SDPdrv SD/eMMC physical drive number.
+ * @param[in]   Partition Partition number.
+ *
+ * @return      Logical drive number.
+ *
+ * @note        C-style signature:
+ *              int SD_DRV_NUM(int SDPdrv, int Partition)
+ */
+#define SD_DRV_NUM(SDPdrv, Partition)	((SDPdrv * 5) + Partition)
+/**
+ * @brief Returns the logical drive number of a UFS LUN partition.
+ *
+ * @param[in]   LUN UFS logical unit number.
+ * @param[in]   Partition Partition number.
+ *
+ * @return      Logical drive number for UFS LUN access.
+ *
+ * @note        C-style signature:
+ *              int UFS_DRV_NUM(int LUN, int Partition)
+ */
+#define UFS_DRV_NUM(LUN, Partition)		(15 + (LUN * 5) + Partition)
+/**
+ * @brief Returns the logical drive number of a UFS boot LUN partition.
+ *
+ * @param[in]   Partition Partition number.
+ *
+ * @return      Logical drive number for UFS boot LUN access.
+ *
+ * @note        C-style signature:
+ *              int UFS_BLUN_DRV_NUM(int Partition)
+ */
+#define UFS_BLUN_DRV_NUM(Partition)		(10 + Partition)
 #else
-#define SD_DRV_NUM(SDPdrv, Partition)	(SDPdrv)	/* SD/eMMC */
-#define UFS_DRV_NUM(LUN, Partition)		(LUN + 3)	/* UFS LUN access */
-#define UFS_BLUN_DRV_NUM(Partition)		2		/* UFS Boot LUN access */
+/**
+ * @brief Returns the logical drive number of an SD/eMMC device.
+ *
+ * @param[in]   SDPdrv SD/eMMC physical drive number.
+ * @param[in]   Partition Partition number. Not used when multi-partition
+ *              support is disabled.
+ *
+ * @return      Logical drive number.
+ *
+ * @note        C-style signature:
+ *              int SD_DRV_NUM(int SDPdrv, int Partition)
+ */
+#define SD_DRV_NUM(SDPdrv, Partition)	(SDPdrv)
+/**
+ * @brief Returns the logical drive number of a UFS LUN.
+ *
+ * @param[in]   LUN UFS logical unit number.
+ * @param[in]   Partition Partition number. Not used when multi-partition
+ *              support is disabled.
+ *
+ * @return      Logical drive number for UFS LUN access.
+ *
+ * @note        C-style signature:
+ *              int UFS_DRV_NUM(int LUN, int Partition)
+ */
+#define UFS_DRV_NUM(LUN, Partition)		(LUN + 3)
+/**
+ * @brief Returns the logical drive number of the UFS boot LUN.
+ *
+ * @param[in]   Partition Partition number. Not used when multi-partition
+ *              support is disabled.
+ *
+ * @return      Logical drive number for UFS boot LUN access.
+ *
+ * @note        C-style signature:
+ *              int UFS_BLUN_DRV_NUM(int Partition)
+ */
+#define UFS_BLUN_DRV_NUM(Partition)		2
 #endif
+/** @} */
 
+/** Set to nonzero to switch the boot LUN and repeat the test. */
 #define ENABLE_SWITCH_BLUN 0
 
-#define TEST 7
-MKFS_PARM mkfs_parm;
+#define TEST 7 /**< Base value used to generate the test data. */
+MKFS_PARM mkfs_parm; /**< Format parameters passed to f_mkfs(). */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the UFS example.
+* @brief Calls the UFS example.
 *
-* @param	None
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -160,14 +229,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* File system example using UFS driver to write to and read from an UFS card
-* in polled mode.
+* @brief Writes to and reads from a UFS device through the file system.
 *
-* @param	None
+* This file system example uses the UFS driver in polled mode.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int FfsUfsPolledExample(void)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,24 +8,24 @@
 /**
 *
 * @file xilffs_polled_example.c
+* @brief Writes to and reads from an SD card through the file system.
 *
-*
-* @note This example uses file system with SD to write to and read from
-* an SD card using ADMA2 in polled mode.
-* To test this example File System should not be in Read Only mode.
-* To test this example USE_MKFS option should be true.
-*
-* This example was tested using SD2.0 card and eMMC (using eMMC to SD adaptor).
-*
-* To test with different logical drives, drive number should be mentioned in
-* both FileName and Path variables. By default, it will take drive 0 if drive
-* number is not mentioned in the FileName variable.
-* For example, to test logical drive 1
-* FileName =  "1:/<file_name>" and Path = "1:/"
-* Similarly to test logical drive N, FileName = "N:/<file_name>" and
-* Path = "N:/"
-*
-* None.
+* @note
+* This example uses the file system with SD to write to and read from
+* an SD card using Advanced DMA version 2 (ADMA2) in polled mode.
+* To test this example, the file system must not be in read-only mode.
+* To test this example, the USE_MKFS option must be true.
+* <br><br>
+* This example was tested using an SD2.0 card and eMMC (using an eMMC
+* to SD adapter).
+* <br><br>
+* To test with different logical drives, specify the drive number in
+* both the FileName and Path variables. By default, the example uses
+* drive 0 if the FileName variable does not specify a drive number.
+* For example, to test logical drive 1, set
+* FileName = "1:/<file_name>" and Path = "1:/".
+* Similarly, to test logical drive N, set FileName = "N:/<file_name>"
+* and Path = "N:/".
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,6 +37,7 @@
 * 2.5   sk  07/15/15 Used File size as 8KB to test on emulation platform.
 * 2.9   sk  06/09/16 Added support for mkfs.
 * 3.10  mn  08/18/18 Change file size to 8MB from 8KB for ZynqMP platform
+* 5.7   vn  09/30/26 Align Doxygen comments with AMD standards
 *
 *</pre>
 *
@@ -62,37 +63,35 @@
 int FfsSdPolledExample(void);
 
 /************************** Variable Definitions *****************************/
-static FIL fil;		/* File object */
-static FATFS fatfs;
+static FIL fil;		/**< File object. */
+static FATFS fatfs;	/**< File system object. */
 /*
  * To test logical drive 0, FileName should be "0:/<File name>" or
  * "<file_name>". For logical drive 1, FileName should be "1:/<file_name>"
  */
-static char FileName[32] = "Test.bin";
-static char *SD_File;
+static char FileName[32] = "Test.bin"; /**< Name of the test file. */
+static char *SD_File; /**< Pointer to the name of the test file. */
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 DestinationAddress[10*1024];
+u8 DestinationAddress[10*1024]; /**< Buffer that receives the read data. */
 #pragma data_alignment = 32
-u8 SourceAddress[10*1024];
+u8 SourceAddress[10*1024]; /**< Buffer that holds the data to write. */
 #else
+/** @cond INTERNAL */
 u8 DestinationAddress[10*1024] __attribute__ ((aligned(32)));
 u8 SourceAddress[10*1024] __attribute__ ((aligned(32)));
+/** @endcond */
 #endif
 
-#define TEST 7
-MKFS_PARM mkfs_parm;
+#define TEST 7 /**< Base value used to generate the test data. */
+MKFS_PARM mkfs_parm; /**< Format parameters passed to f_mkfs(). */
 /*****************************************************************************/
 /**
 *
-* Main function to call the SD example.
+* @brief Calls the SD example.
 *
-* @param	None
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -116,16 +115,13 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* File system example using SD driver to write to and read from an SD card
-* in polled mode. This example creates a new file on an
-* SD card (which is previously formatted with FATFS), write data to the file
-* and reads the same data back to verify.
+* @brief Writes to and reads from an SD card using the SD driver in polled mode.
 *
-* @param	None
+* This file system example creates a new file on an SD card that is already
+* formatted with FATFS. It writes data to the file and reads the same data back
+* to verify it.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 int FfsSdPolledExample(void)

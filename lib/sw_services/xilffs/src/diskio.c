@@ -10,26 +10,24 @@
 /**
 *
 * @file diskio.c
-*		This file is the glue layer between file system and
-*		driver.
-*		Description related to SD driver:
-*		Process to use file system with SD
-*		Select xilffs in SDK when creating a BSP
-*		In SDK, set "fs_interface" to 1 to select SD interface.
-*		This glue layer can currently be used only with one
-*		SD controller enabled.
-*		In order to use eMMC, in SDK set "Enable MMC" to 1. If not,
-*		SD support is enabled by default.
+* @brief Implements the glue layer between the file system and the driver.
 *
-*		Description:
-*		This glue layer initializes the host controller and SD card
-*		in disk_initialize. If SD card supports it, 4-bit mode and
-*		high speed mode will be enabled.
-*		The default block size is 512 bytes.
-*		disk_read and disk_write functions are used to read and
-*		write files using ADMA2 in polled mode.
-*		The file system can be used to read from and write to an
-*		SD card that is already formatted as FATFS.
+* Description related to the SD driver:
+* To use the file system with SD, select xilffs in the Software Development
+* Kit (SDK) when creating a board support package (BSP).
+* In SDK, set "fs_interface" to 1 to select the SD interface.
+* You can currently use this glue layer with only one SD controller enabled.
+* To use an embedded MultiMediaCard (eMMC), set "Enable MMC" to 1 in SDK.
+* Otherwise, the glue layer uses SD by default.
+*
+* Description:
+* This glue layer initializes the host controller and SD card in
+* disk_initialize. If the SD card supports them, it enables 4-bit mode and
+* high speed mode. The default block size is 512 bytes. The disk_read and
+* disk_write functions read and write files using Advanced DMA version 2
+* (ADMA2) in polled mode.
+* The file system can read from and write to an SD card that is already
+* formatted as FATFS.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -71,10 +69,9 @@
 * 5.2   ap   12/05/23 Add SDT check to fix bug in disk_initialize.
 *       ap   01/11/24 Fix Doxygen warnings.
 *       sk   07/11/24 Add UFS interface support.
+* 5.7   vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 #include "diskio.h"
@@ -99,21 +96,25 @@
 #include "xil_util.h"
 
 #ifdef XPAR_XSDPS_NUM_INSTANCES
-#define SD_CD_DELAY		10000U		/**< SD card detection delay */
+#define SD_CD_DELAY		10000U		/**< SD card detection delay. */
 #endif
 
-#define XSDPS_NUM_INSTANCES	2		/**< Number of SD instances */
+#define XSDPS_NUM_INSTANCES	2		/**< Number of SD instances. */
 
-#define XUFSPSXC_START_INDEX	3	/**< Start index of UFS instances */
+#define XUFSPSXC_START_INDEX	3	/**< Start index of UFS instances. */
 
 #ifdef FILE_SYSTEM_INTERFACE_RAM
 #include "xparameters.h"
 
-static char *dataramfs = NULL;
+static char *dataramfs = NULL; /**< Start address of the RAM file system. */
 
-#define BLOCKSIZE       1U
-#define SECTORSIZE      512U
-#define SECTORCNT       (RAMFS_SIZE / SECTORSIZE)
+/** @name RAM file system geometry
+ * @{
+ */
+#define BLOCKSIZE       1U /**< Erase block size, in sectors. */
+#define SECTORSIZE      512U /**< Sector size, in bytes. */
+#define SECTORCNT       (RAMFS_SIZE / SECTORSIZE) /**< Number of sectors. */
+/** @} */
 #endif
 
 /*--------------------------------------------------------------------------
@@ -126,32 +127,40 @@ static char *dataramfs = NULL;
  * Global variables
  */
 #ifdef XPAR_XUFSPSXC_NUM_INSTANCES
+/** Disk status. */
 static DSTATUS Stat[XSDPS_NUM_INSTANCES + 33U] =
 { STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT,
   STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT,
   STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT,
-  STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT};	/* Disk status */
+  STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT, STA_NOINIT};
 #else
-static DSTATUS Stat[XSDPS_NUM_INSTANCES] = {STA_NOINIT, STA_NOINIT};	/* Disk status */
+/** Disk status. */
+static DSTATUS Stat[XSDPS_NUM_INSTANCES] = {STA_NOINIT, STA_NOINIT};
 #endif
 
-/** Number of physical drive slots tracked by Stat[] */
+/** Number of physical drive slots tracked by Stat[]. */
 #define XFFS_NUM_DRIVES		((u32)(sizeof(Stat) / sizeof(Stat[0])))
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 #ifdef XPAR_XSDPS_NUM_INSTANCES
+/** SD driver instance of each SD controller. */
 static XSdPs SdInstance[XSDPS_NUM_INSTANCES];
+/** Base address of each SD controller. */
 static UINTPTR BaseAddress[XSDPS_NUM_INSTANCES];
+/** Card detect setting of each SD controller. */
 static u32 CardDetect[XSDPS_NUM_INSTANCES];
+/** Write protect setting of each SD controller. */
 static u32 WriteProtect[XSDPS_NUM_INSTANCES];
+/** Slot type of each SD controller. */
 static u32 SlotType[XSDPS_NUM_INSTANCES];
+/** Host controller specification version of each SD controller. */
 static u8 HostCntrlrVer[XSDPS_NUM_INSTANCES];
 #endif
 
 #ifdef XPAR_XUFSPSXC_NUM_INSTANCES
-#define XUFS_BLUN_PDRV	2U
+#define XUFS_BLUN_PDRV	2U /**< Physical drive number of the UFS boot LUN. */
 
-static XUfsPsxc UfsInstance;
+static XUfsPsxc UfsInstance; /**< UFS driver instance. */
 #endif
 #endif
 
@@ -162,19 +171,20 @@ static XUfsPsxc UfsInstance;
 /*****************************************************************************/
 /**
 *
-* Gets the status of the disk.
-* In case of SD, it checks whether card is present or not.
+* @brief Gets the status of the disk.
 *
-* @param	pdrv - Drive number
+* For SD, this function checks whether the card is present.
+*
+* @param[in]    pdrv Drive number.
 *
 * @return
-*		0		Status ok
-*		STA_NOINIT	Drive not initialized
-*		STA_NODISK	No medium in the drive
-*		STA_PROTECT	Write protected
+*               - 0 if the status is OK.
+*               - STA_NOINIT if the drive is not initialized.
+*               - STA_NODISK if there is no medium in the drive.
+*               - STA_PROTECT if the drive is write protected.
 *
-* @note		In case Card detect signal is not connected,
-*		this function will not be able to check if card is present.
+* @note         If the card detect signal is not connected, this function
+*               cannot check whether the card is present.
 *
 ******************************************************************************/
 DSTATUS disk_status (
@@ -287,20 +297,20 @@ Label:
 /*****************************************************************************/
 /**
 *
-* Initializes the drive.
-* In case of SD, it initializes the host controller and the card.
+* @brief Initializes the drive.
+*
+* For SD, this function initializes the host controller and the card.
 * This function also selects additional settings such as bus width,
-* speed and block size.
+* speed, and block size.
 *
-* @param	pdrv - Drive number
+* @param[in]    pdrv Drive number.
 *
-* @return	s - which contains an OR of the following information
-*		STA_NODISK	Disk is not present
-*		STA_NOINIT	Drive not initialized
-*		STA_PROTECT	Drive is write protected
-*		0 or only STA_PROTECT both indicate successful initialization.
-*
-* @note
+* @return       Drive status. A value of 0 or STA_PROTECT alone indicates
+*               successful initialization. The status is a bitwise OR of
+*               the following flags.
+*               - STA_NODISK if the disk is not present.
+*               - STA_NOINIT if the drive is not initialized.
+*               - STA_PROTECT if the drive is write protected.
 *
 ******************************************************************************/
 DSTATUS disk_initialize (
@@ -434,20 +444,19 @@ DSTATUS disk_initialize (
 /*****************************************************************************/
 /**
 *
-* Reads the drive
-* In case of SD, it reads the SD card using ADMA2 in polled mode.
+* @brief Reads the drive.
 *
-* @param	pdrv - Drive number
-* @param	buff - Pointer to the data buffer to store read data
-* @param	sector - Start sector number
-* @param	count - Sector count
+* For SD, this function reads the SD card using ADMA2 in polled mode.
+*
+* @param[in]    pdrv Drive number.
+* @param[out]   buff Pointer to the data buffer that stores the read data.
+* @param[in]    sector Start sector number.
+* @param[in]    count Sector count.
 *
 * @return
-*		RES_OK		Read successful
-*		STA_NOINIT	Drive not initialized
-*		RES_ERROR	Read not successful
-*
-* @note
+*               - RES_OK if the read is successful.
+*               - STA_NOINIT if the drive is not initialized.
+*               - RES_ERROR if the read is not successful.
 *
 ******************************************************************************/
 DRESULT disk_read (
@@ -531,20 +540,22 @@ DRESULT disk_read (
 /*****************************************************************************/
 /**
 *
-* List specific features and do miscellaneous functions on device.
-* In case of SD, it control device specific features and miscellaneous functions other than generic read/write.
+* @brief Controls device-specific features and miscellaneous functions.
 *
-* @param	pdrv - Drive number
-* @param	cmd - Command code
-* @param	buff - Pointer to the parameter depends on the command code.
+* Lists specific features and performs miscellaneous functions on the device.
+* For SD, this function controls device-specific features and miscellaneous
+* functions other than generic read and write.
+*
+* @param[in]     pdrv Drive number.
+* @param[in]     cmd Command code.
+* @param[in,out] buff Pointer to the parameter, which depends on the command
+*                code.
 *
 * @return
-*		RES_OK		Command successful
-*		RES_PARERR	Command is invalid
-*		RES_NOTRDY	Drive not initialized
-*		RES_ERROR	Error occurred
-*
-* @note
+*                - RES_OK if the command is successful.
+*                - RES_PARERR if the command is invalid.
+*                - RES_NOTRDY if the drive is not initialized.
+*                - RES_ERROR if an error occurs.
 *
 ******************************************************************************/
 DRESULT disk_ioctl (
@@ -712,17 +723,14 @@ DRESULT disk_ioctl (
 	return res;
 }
 
-/******************************************************************************/
+/*****************************************************************************/
 /**
 *
-* This function is User Provided Timer Function for FatFs module
+* @brief Implements the timer function that the application provides to FatFs.
 *
-* @return	DWORD
+* @return       Timestamp packed into a DWORD value.
 *
-* @note		None
-*
-****************************************************************************/
-
+******************************************************************************/
 DWORD get_fattime (void)
 {
 	return	((DWORD)(2010U - 1980U) << 25U)	/* Fixed to Jan. 1, 2010 */
@@ -736,20 +744,19 @@ DWORD get_fattime (void)
 /*****************************************************************************/
 /**
 *
-* Reads the drive
-* In case of SD, it reads the SD card using ADMA2 in polled mode.
+* @brief Writes to the drive.
 *
-* @param	pdrv - Drive number
-* @param	buff - Pointer to the data to be written
-* @param	sector - Sector address
-* @param	count - Sector count
+* For SD, this function writes to the SD card using ADMA2 in polled mode.
+*
+* @param[in]    pdrv Drive number.
+* @param[in]    buff Pointer to the data to write.
+* @param[in]    sector Sector address.
+* @param[in]    count Sector count.
 *
 * @return
-*		RES_OK		Read successful
-*		STA_NOINIT	Drive not initialized
-*		RES_ERROR	Read not successful
-*
-* @note
+*               - RES_OK if the write is successful.
+*               - STA_NOINIT if the drive is not initialized.
+*               - RES_ERROR if the write is not successful.
 *
 ******************************************************************************/
 #if FF_FS_READONLY == 0

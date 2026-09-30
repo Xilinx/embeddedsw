@@ -3,12 +3,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XILFFS_H
+#define XILFFS_H
+
 /*****************************************************************************/
 /**
  *
  * @file xilffs.h
  * @addtogroup xilffs Overview
  * @{
+ * @brief Declares the AMD-specific version macros and API for xilffs.
+ *
  * @details
  *
  * This file contains declarations specific to AMD's unique requirements and
@@ -22,13 +27,11 @@
  * 5.2   ht   10/10/23    Added code for versioning of library.
  * 5.6   an   11/12/25    Update the FatFS version to R0.16
  * 5.7   an   08/26/26    Updated Library version for 2026.2
+ * 5.7   vn   09/30/26    Align Doxygen comments with AMD standards
  *
  *</pre>
  *
- *@note
  *****************************************************************************/
-#ifndef XILFFS_H
-#define XILFFS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,18 +43,21 @@ extern "C" {
 #include "xil_types.h"
 
 /************************** Constant Definitions *****************************/
-/* Library version info */
-#define XILFFS_MAJOR_VERSION	5U	/**< Major version of xilffs library */
-#define XILFFS_MINOR_VERSION	7U	/**< Minor version of xilffs library */
+/** @name Library version info
+ * @{
+ */
+#define XILFFS_MAJOR_VERSION	5U	/**< Major version of xilffs library. */
+#define XILFFS_MINOR_VERSION	7U	/**< Minor version of xilffs library. */
+/** @} */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
 /*****************************************************************************/
 /**
  *
- * @brief	This function returns the version number of xilffs library.
+ * @brief	Returns the version number of the xilffs library.
  *
- * @return	32-bit version number
+ * @return      32-bit version number.
  *
 ******************************************************************************/
 static __attribute__((always_inline)) INLINE
