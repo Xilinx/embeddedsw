@@ -11,6 +11,8 @@
 * @addtogroup dmaps Overview
 * @{
 *
+* @brief Implements self-test functions for the XDmaPs driver.
+*
 * This file contains the self-test functions for the XDmaPs driver.
 *
 * <pre>
@@ -45,25 +47,9 @@
 
 /****************************************************************************/
 /**
-*
-* Runs a self-test on the driver and hardware device. This self
-* test performs a local loopback and verifies data can be sent and received.
-*
-* The time for this test is proportional to the baud rate that has been set
-* prior to calling this function.
-*
-* The mode and control registers are restored before return.
-*
-* @param[in] InstPtr is a pointer to the XDmaPs instance
-*
-* @return
-*
-*		- XST_SUCCESS if the test was successful
-*		- XST_FAILURE if the test failed
-*
-* @note	Hardware malfunction can cause this function to hang.
-*
-******************************************************************************/
+ * @brief Runs a self-test on the driver and hardware device.
+ *
+ *****************************************************************************/
 int XDmaPs_SelfTest(XDmaPs *InstPtr)
 {
 	u32 BaseAddr = InstPtr->Config.BaseAddress;

@@ -4,14 +4,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XDMAPS_H		/* prevent circular inclusions */
+/** @brief Include guard for the DMAPS driver header. */
+#define XDMAPS_H		/* by using protection macros */
+
 /****************************************************************************/
 /**
 *
 * @file xdmaps.h
+* @brief Driver API for the DMA PS (PL330) engine.
+*
 * @addtogroup dmaps Overview
 * @{
-*
-* Driver API for the DMA PS (PL330) engine.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -65,9 +69,6 @@
 * </pre>
 *
 *****************************************************************************/
-
-#ifndef XDMAPS_H		/* prevent circular inclusions */
-#define XDMAPS_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -191,8 +192,8 @@ typedef void (*XDmaPsFaultHandler) (unsigned int Channel,
 				    XDmaPs_Cmd *DmaCmd,
 				    void *CallbackRef);
 
-#define XDMAPS_MAX_CHAN_BUFS	2
-#define XDMAPS_CHAN_BUF_LEN	128
+#define XDMAPS_MAX_CHAN_BUFS	2 /**< Maximum number of channel buffers. */
+#define XDMAPS_CHAN_BUF_LEN	128 /**< Length of each channel buffer in bytes. */
 
 /**
  * The XDmaPs_ProgBuf is the struct for a DMA program buffer.
@@ -327,9 +328,39 @@ void XDmaPs_FaultISR(XDmaPs *InstPtr);
  * Static lookup function implemented in xdmaps_sinit.c
  */
 #ifndef SDT
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by device ID.
+ *
+ * @param[in] DeviceId contains the unique ID of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         device ID, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XDmaPs_Config *XDmaPs_LookupConfig(u16 DeviceId);
 #else
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] BaseAddress contains the base address of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         base address, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XDmaPs_Config *XDmaPs_LookupConfig(UINTPTR BaseAddress);
+/*****************************************************************************/
+/**
+ * @brief Returns the driver configuration table index for the given base address.
+ *
+ * @param[in] InstancePtr is a pointer to the XDmaPs instance.
+ * @param[in] BaseAddress is the base address of the device.
+ *
+ * @return The configuration table index for the matching device.
+ *
+ *****************************************************************************/
 u32 XDmaPs_GetDrvIndex(XDmaPs *InstancePtr, UINTPTR BaseAddress);
 #endif
 
@@ -337,6 +368,17 @@ u32 XDmaPs_GetDrvIndex(XDmaPs *InstancePtr, UINTPTR BaseAddress);
 /*
  * self-test functions in xdmaps_selftest.c
  */
+/*****************************************************************************/
+/**
+ * @brief Runs a self-test on the driver and hardware device.
+ *
+ * @param[in] InstPtr is a pointer to the XDmaPs instance.
+ *
+ * @return
+ *		- XST_SUCCESS if the test was successful.
+ *		- XST_FAILURE if the test failed.
+ *
+ *****************************************************************************/
 int XDmaPs_SelfTest(XDmaPs *InstPtr);
 
 

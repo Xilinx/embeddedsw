@@ -11,8 +11,10 @@
 * @addtogroup dmaps Overview
 * @{
 *
+* @brief Implements the XDmaPs driver interface functions.
+*
 * This file contains the implementation of the interface functions for XDmaPs
-* driver. Refer to the header file xdmaps.h for more detailed information.
+* driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -101,7 +103,7 @@ static void XDmaPs_Print_DmaProgBuf(char *Buf, int Length);
 /****************************************************************************/
 /**
 *
-* Initializes a specific XDmaPs instance so that it is ready to be used.
+* @brief Initializes a specific XDmaPs instance so that it is ready to be used.
 *
 * @param[in] InstPtr is a pointer to the XDmaPs instance.
 * @param[in] Config is a reference to a structure containing information
@@ -117,7 +119,6 @@ static void XDmaPs_Print_DmaProgBuf(char *Buf, int Length);
 * @return
 *
 *		- XST_SUCCESS on initialization completion
-*
 *
 *****************************************************************************/
 int XDmaPs_CfgInitialize(XDmaPs *InstPtr,
@@ -183,12 +184,11 @@ int XDmaPs_CfgInitialize(XDmaPs *InstPtr,
 /****************************************************************************/
 /**
 *
-* Reset the DMA Manager.
+* @brief Resets the DMA Manager.
 *
 * @param[in] InstPtr is the DMA instance.
 *
 * @return	0 on success, -1 on time out
-*
 *
 *****************************************************************************/
 int XDmaPs_ResetManager(XDmaPs *InstPtr)
@@ -203,13 +203,12 @@ int XDmaPs_ResetManager(XDmaPs *InstPtr)
 /****************************************************************************/
 /**
 *
-* Reset the specified DMA Channel.
+* @brief Resets the specified DMA Channel.
 *
 * @param[in] InstPtr is the DMA instance.
 * @param[in] Channel is the channel to be reset.
 *
 * @return	0 on success, -1 on time out
-*
 *
 *****************************************************************************/
 int XDmaPs_ResetChannel(XDmaPs *InstPtr, unsigned int Channel)
@@ -225,12 +224,10 @@ int XDmaPs_ResetChannel(XDmaPs *InstPtr, unsigned int Channel)
 /*****************************************************************************/
 /**
 *
-* Driver fault interrupt service routine
+* @brief Drivers fault interrupt service routine.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_FaultISR(XDmaPs *InstPtr)
@@ -329,7 +326,7 @@ void XDmaPs_FaultISR(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Set the done handler for a channel.
+* @brief Sets the done handler for a channel.
 *
 * @param[in] InstPtr is the DMA instance.
 * @param[in] Channel is the channel number.
@@ -366,7 +363,7 @@ int XDmaPs_SetDoneHandler(XDmaPs *InstPtr,
 /*****************************************************************************/
 /**
 *
-* Set the fault handler for a channel.
+* @brief Sets the fault handler for a channel.
 *
 * @param[in] InstPtr is the DMA instance.
 * @param[in] FaultHandler is the fault interrupt handler.
@@ -392,14 +389,13 @@ int XDmaPs_SetFaultHandler(XDmaPs *InstPtr,
 
 /****************************************************************************/
 /**
-* Builds a DMAEND instruction in the DMA program buffer the program
+* @brief Builds a DMAEND instruction in the DMA program buffer the program.
 * buffer with the constructed instruction.
 *
 * @param[in] DmaProg the DMA program buffer, it's the starting address for
 *		the instruction being constructed
 *
 * @return 	The number of bytes for this instruction which is 1.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMAEND(char *DmaProg)
@@ -414,6 +410,14 @@ static INLINE int XDmaPs_Instr_DMAEND(char *DmaProg)
 	return 1;
 }
 
+/****************************************************************************/
+/**
+ * @brief Copies four bytes from source to destination.
+ *
+ * @param[out] Dst Destination buffer that receives the four bytes.
+ * @param[in] Src Source buffer that provides the four bytes.
+ *
+ *****************************************************************************/
 static INLINE void XDmaPs_Memcpy4(char *Dst, char *Src)
 {
 	*Dst = *Src;
@@ -425,7 +429,7 @@ static INLINE void XDmaPs_Memcpy4(char *Dst, char *Src)
 /****************************************************************************/
 /**
 *
-* Builds a DMAGO instruction in the DMA program buffer the program
+* @brief Builds a DMAGO instruction in the DMA program buffer the program.
 * buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
@@ -441,7 +445,6 @@ static INLINE void XDmaPs_Memcpy4(char *Dst, char *Src)
 *		DMA manager is in the Non-secure state, DMAC aborts.
 *
 * @return	The number of bytes for this instruction which is 6.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMAGO(char *DmaProg, unsigned int Cn,
@@ -469,14 +472,13 @@ static INLINE int XDmaPs_Instr_DMAGO(char *DmaProg, unsigned int Cn,
 /****************************************************************************/
 /**
 *
-* Builds a DMALD instruction in the DMA program buffer the program
+* @brief Builds a DMALD instruction in the DMA program buffer the program.
 * buffer with the constructed instruction.
 *
 * @param[in] DmaProg the DMA program buffer, it's the starting address for the
 *		instruction being constructed
 *
 * @return 	The number of bytes for this instruction which is 1.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMALD(char *DmaProg)
@@ -496,7 +498,7 @@ static INLINE int XDmaPs_Instr_DMALD(char *DmaProg)
 /****************************************************************************/
 /**
 *
-* Builds a DMALP instruction in the DMA program buffer the program
+* @brief Builds a DMALP instruction in the DMA program buffer the program.
 * buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
@@ -506,7 +508,6 @@ static INLINE int XDmaPs_Instr_DMALD(char *DmaProg)
 *		is encoded in the DMALP instruction.
 *
 * @return 	The number of bytes for this instruction which is 2.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
@@ -525,7 +526,7 @@ static INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
 /****************************************************************************/
 /**
 *
-* Builds a DMALPEND instruction in the DMA program buffer the
+* @brief Builds a DMALPEND instruction in the DMA program buffer the.
 * program buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
@@ -535,7 +536,6 @@ static INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
 * @param[in] Lc is the Loop counter register, can either be 0 or 1.
 *
 * @return 	The number of bytes for this instruction which is 2.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned Lc)
@@ -556,17 +556,18 @@ static INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned
 	return 2;
 }
 
-/*
- * Register number for the DMAMOV instruction
+/** @name DMAMOV register identifiers
+ * @{
  */
-#define XDMAPS_MOV_SAR 0x0
-#define XDMAPS_MOV_CCR 0x1
-#define XDMAPS_MOV_DAR 0x2
+#define XDMAPS_MOV_SAR 0x0 /**< Source address register identifier for DMAMOV. */
+#define XDMAPS_MOV_CCR 0x1 /**< Channel control register identifier for DMAMOV. */
+#define XDMAPS_MOV_DAR 0x2 /**< Destination address register identifier for DMAMOV. */
+/** @} */
 
 /****************************************************************************/
 /**
 *
-* Builds a DMAMOV instruction in the DMA program buffer the
+* @brief Builds a DMAMOV instruction in the DMA program buffer the.
 * program buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
@@ -575,7 +576,6 @@ static INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned
 * @param[in] Imm is the 32-bit immediate number
 *
 * @return 	The number of bytes for this instruction which is 6.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm)
@@ -601,13 +601,12 @@ static INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm)
 /****************************************************************************/
 /**
 *
-* Builds a DMANOP instruction in the DMA program buffer the
+* @brief Builds a DMANOP instruction in the DMA program buffer the.
 * program buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
 *		for the instruction being constructed
 * @return 	The number of bytes for this instruction which is 1.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMANOP(char *DmaProg)
@@ -624,14 +623,13 @@ static INLINE int XDmaPs_Instr_DMANOP(char *DmaProg)
 /****************************************************************************/
 /**
 *
-* Builds a DMARMB instruction in the DMA program buffer the
+* @brief Builds a DMARMB instruction in the DMA program buffer the.
 * program buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
 *		for the instruction being constructed
 *
 * @return 	The number of bytes for this instruction which is 1.
-*
 *
 *****************************************************************************/
 int XDmaPs_Instr_DMARMB(char *DmaProg)
@@ -648,7 +646,7 @@ int XDmaPs_Instr_DMARMB(char *DmaProg)
 /****************************************************************************/
 /**
 *
-* Builds a DMASEV instruction in the DMA program buffer the
+* @brief Builds a DMASEV instruction in the DMA program buffer the.
 * program buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
@@ -656,7 +654,6 @@ int XDmaPs_Instr_DMARMB(char *DmaProg)
 * @param[in] EventNumber is the Event number to signal.
 *
 * @return 	The number of bytes for this instruction which is 2.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber)
@@ -676,14 +673,13 @@ static INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber)
 /****************************************************************************/
 /**
 *
-* Builds a DMAST instruction in the DMA program buffer the
+* @brief Builds a DMAST instruction in the DMA program buffer the.
 * program buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
 *		for the instruction being constructed
 *
 * @return 	The number of bytes for this instruction which is 1.
-*
 *
 *****************************************************************************/
 static INLINE int XDmaPs_Instr_DMAST(char *DmaProg)
@@ -704,14 +700,13 @@ static INLINE int XDmaPs_Instr_DMAST(char *DmaProg)
 /****************************************************************************/
 /**
 *
-* Builds a DMAWMB instruction in the DMA program buffer the
+* @brief Builds a DMAWMB instruction in the DMA program buffer the.
 * program buffer with the constructed instruction.
 *
 * @param[in] DmaProg is the DMA program buffer, it's the starting address
 *		for the instruction being constructed
 *
 * @return 	The number of bytes for this instruction which is 1.
-*
 *
 *****************************************************************************/
 int XDmaPs_Instr_DMAWMB(char *DmaProg)
@@ -728,13 +723,12 @@ int XDmaPs_Instr_DMAWMB(char *DmaProg)
 /****************************************************************************/
 /**
 *
-* Conversion function from the endian swap size to the bit encoding of the CCR
+* @brief Conversions function from the endian swap size to the bit encoding of the CCR.
 *
 * @param[in] EndianSwapSize is the endian swap size, in terms of bits, it
 *		could be 8, 16, 32, 64, or 128(We are using DMA assembly syntax)
 *
 * @return	The endian swap size bit encoding for the CCR.
-*
 *
 *****************************************************************************/
 static INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize)
@@ -760,13 +754,12 @@ static INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize)
 /****************************************************************************/
 /**
 *
-* Conversion function from the burst size to the bit encoding of the CCR
+* @brief Conversions function from the burst size to the bit encoding of the CCR.
 *
 * @param[in] BurstSize is the burst size. It's the data width.
 *		In terms of bytes, it could be 1, 2, 4, 8, 16, 32, 64, or 128.
 *		It must be no larger than the bus width.
 *		(We are using DMA assembly syntax.)
-*
 *
 *****************************************************************************/
 static INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize)
@@ -797,14 +790,13 @@ static INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize)
 /****************************************************************************/
 /**
 *
-* Conversion function from PL330 bus transfer descriptors to CCR value. All the
+* @brief Conversions function from PL330 bus transfer descriptors to CCR value. All the.
 * values passed to the functions are in terms of assembly languages, not in
 * terms of the register bit encoding.
 *
 * @param[in] ChanCtrl is the Instance of XDmaPs_ChanCtrl.
 *
 * @return	The 32-bit CCR value.
-*
 *
 *****************************************************************************/
 u32 XDmaPs_ToCCRValue(XDmaPs_ChanCtrl *ChanCtrl)
@@ -860,7 +852,7 @@ u32 XDmaPs_ToCCRValue(XDmaPs_ChanCtrl *ChanCtrl)
 
 /****************************************************************************/
 /**
-* Construct a loop with only DMALD and DMAST as the body using loop counter 0.
+* @brief Constructs a loop with only DMALD and DMAST as the body using loop counter 0.
 * The function also makes sure the loop body and the lpend is in the same
 * cache line.
 *
@@ -874,7 +866,6 @@ u32 XDmaPs_ToCCRValue(XDmaPs_ChanCtrl *ChanCtrl)
 * 		initialize the loop counter.
 *
 * @return	The number of bytes the loop has.
-*
 *
 *****************************************************************************/
 int XDmaPs_ConstructSingleLoop(char *DmaProgStart,
@@ -922,7 +913,7 @@ int XDmaPs_ConstructSingleLoop(char *DmaProgStart,
 
 /****************************************************************************/
 /**
-* Construct a nested loop with only DMALD and DMAST in the inner loop body.
+* @brief Constructs a nested loop with only DMALD and DMAST in the inner loop body.
 * It uses loop counter 1 for the outer loop and loop counter 0 for the
 * inner loop.
 *
@@ -938,7 +929,6 @@ int XDmaPs_ConstructSingleLoop(char *DmaProgStart,
 *		used to initialize the loop counter.
 *
 * @return	The number byes the nested loop program has.
-*
 *
 *****************************************************************************/
 int XDmaPs_ConstructNestedLoop(char *DmaProgStart,
@@ -1037,14 +1027,14 @@ int XDmaPs_ConstructNestedLoop(char *DmaProgStart,
  * [17:15] src_burst_size	b000
  * [14]    src_inc		b0
  */
-#define XDMAPS_CCR_SINGLE_BYTE	(0x0)
-#define XDMAPS_CCR_M2M_SINGLE_BYTE	((0x1 << 14) | 0x1)
+#define XDMAPS_CCR_SINGLE_BYTE	(0x0) /**< CCR value for a single-byte transfer. */
+#define XDMAPS_CCR_M2M_SINGLE_BYTE	((0x1 << 14) | 0x1) /**< CCR value for single-byte memory-to-memory transfer. */
 
 
 /****************************************************************************/
 /**
 *
-* Construct the DMA program based on the descriptions of the DMA transfer.
+* @brief Constructs the DMA program based on the descriptions of the DMA transfer.
 * The function handles memory to memory DMA transfers.
 * It also handles unalgined head and small amount of residue tail.
 *
@@ -1055,7 +1045,6 @@ int XDmaPs_ConstructNestedLoop(char *DmaProgStart,
 *		turned off.
 *
 * @returns	The number of bytes for the program.
-*
 *
 *****************************************************************************/
 static int XDmaPs_BuildDmaProg(unsigned Channel, XDmaPs_Cmd *Cmd,
@@ -1293,7 +1282,7 @@ static int XDmaPs_BuildDmaProg(unsigned Channel, XDmaPs_Cmd *Cmd,
 /****************************************************************************/
 /**
 *
-* Generate a DMA program based for the DMA command, the buffer will be pointed
+* @brief Generates a DMA program based for the DMA command, the buffer will be pointed.
 * by the GeneratedDmaProg field of the command.
 *
 * @param[in] InstPtr is the DMA instance.
@@ -1302,7 +1291,6 @@ static int XDmaPs_BuildDmaProg(unsigned Channel, XDmaPs_Cmd *Cmd,
 *
 * @return	- XST_SUCCESS on success.
 * 		- XST_FAILURE if it fails
-*
 *
 *****************************************************************************/
 int XDmaPs_GenDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
@@ -1369,7 +1357,7 @@ int XDmaPs_GenDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
 
 /****************************************************************************/
 /**
- * Free the DMA program buffer that is pointed by the GeneratedDmaProg field
+ * @brief Frees the DMA program buffer that is pointed by the GeneratedDmaProg field.
  * of the command.
  *
  * @param[in] InstPtr is the DMA instance.
@@ -1378,7 +1366,6 @@ int XDmaPs_GenDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
  *
  * @return	XST_SUCCESS on success.
  * 		XST_FAILURE if there is any error.
- *
  *
  ****************************************************************************/
 int XDmaPs_FreeDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
@@ -1410,7 +1397,7 @@ int XDmaPs_FreeDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
 /****************************************************************************/
 /**
 *
-* Start a DMA command. The command can only be invoked when the channel
+* @brief Starts a DMA command. The command can only be invoked when the channel.
 * is idle. The driver takes the command, generates DMA program if needed,
 * then pass the program to DMAC to execute.
 *
@@ -1427,7 +1414,6 @@ int XDmaPs_FreeDmaProg(XDmaPs *InstPtr, unsigned int Channel, XDmaPs_Cmd *Cmd)
 *		- XST_SUCCESS on success
 *		- XST_DEVICE_BUSY if DMA is busy
 *		- XST_FAILURE on other failures
-*
 *
 ****************************************************************************/
 int XDmaPs_Start(XDmaPs *InstPtr, unsigned int Channel,
@@ -1497,14 +1483,13 @@ int XDmaPs_Start(XDmaPs *InstPtr, unsigned int Channel,
 /****************************************************************************/
 /**
 *
-* Checks  whether the DMA channel is active or idle.
+* @brief Checks whether the DMA channel is active or idle.
 *
 * @param[in] InstPtr is the DMA instance.
 * @param[in] Channel is the DMA channel number.
 *
 * @return	0: if the channel is idle
 * 		1: otherwise
-*
 *
 *****************************************************************************/
 int XDmaPs_IsActive(XDmaPs *InstPtr, unsigned int Channel)
@@ -1524,12 +1509,11 @@ int XDmaPs_IsActive(XDmaPs *InstPtr, unsigned int Channel)
 /****************************************************************************/
 /**
 *
-* Allocate a buffer of the DMA program buffer from the pool.
+* @brief Allocates a buffer of the DMA program buffer from the pool.
 *
 * @param[in] Pool the DMA program pool.
 *
 * @return	The allocated buffer, NULL if there is any error.
-*
 *
 *****************************************************************************/
 static void *XDmaPs_BufPool_Allocate(XDmaPs_ProgBuf *Pool)
@@ -1552,13 +1536,11 @@ static void *XDmaPs_BufPool_Allocate(XDmaPs_ProgBuf *Pool)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 0. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 0. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_0(XDmaPs *InstPtr)
@@ -1569,13 +1551,11 @@ void XDmaPs_DoneISR_0(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 1. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 1. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_1(XDmaPs *InstPtr)
@@ -1586,13 +1566,11 @@ void XDmaPs_DoneISR_1(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 2. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 2. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_2(XDmaPs *InstPtr)
@@ -1603,13 +1581,11 @@ void XDmaPs_DoneISR_2(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 3. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 3. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_3(XDmaPs *InstPtr)
@@ -1620,13 +1596,11 @@ void XDmaPs_DoneISR_3(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 4. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 4. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_4(XDmaPs *InstPtr)
@@ -1637,13 +1611,11 @@ void XDmaPs_DoneISR_4(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 5. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 5. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_5(XDmaPs *InstPtr)
@@ -1654,13 +1626,11 @@ void XDmaPs_DoneISR_5(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 6. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 6. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_6(XDmaPs *InstPtr)
@@ -1671,13 +1641,11 @@ void XDmaPs_DoneISR_6(XDmaPs *InstPtr)
 /*****************************************************************************/
 /**
 *
-* Driver done interrupt service routine for channel 7. We need this done ISR
+* @brief Drivers done interrupt service routine for channel 7. We need this done ISR.
 * mainly because the driver needs to release the DMA program buffer.
 * This is the one that connects the GIC
 *
 * @param[in] InstPtr is the DMA instance.
-*
-*
 *
 ******************************************************************************/
 void XDmaPs_DoneISR_7(XDmaPs *InstPtr)
@@ -1686,12 +1654,12 @@ void XDmaPs_DoneISR_7(XDmaPs *InstPtr)
 }
 
 #ifndef XDMAPS_MAX_WAIT
-#define XDMAPS_MAX_WAIT 4000
+#define XDMAPS_MAX_WAIT 4000 /**< Maximum poll iterations while waiting for DMA debug idle. */
 #endif
 
 /****************************************************************************/
 /**
-* Use the debug registers to kill the DMA thread.
+* @brief Uses the debug registers to kill the DMA thread.
 *
 * @param[in] BaseAddr is DMA device base address.
 * @param[in] Channel is the DMA channel number.
@@ -1699,7 +1667,6 @@ void XDmaPs_DoneISR_7(XDmaPs *InstPtr)
 * 		0: DMA manager thread, 1: DMA channel.
 *
 * @return	0 on success, -1 on time out
-*
 *
 *****************************************************************************/
 static int XDmaPs_Exec_DMAKILL(u32 BaseAddr,
@@ -1742,12 +1709,9 @@ static int XDmaPs_Exec_DMAKILL(u32 BaseAddr,
 /****************************************************************************/
 /**
 *
-*
-* Free a buffer of the DMA program buffer.
+* @brief Frees a buffer of the DMA program buffer.
 * @param[in] Pool the DMA program pool.
 * @param[in] Buf the DMA program buffer to be release.
-*
-*
 *
 *****************************************************************************/
 static void XDmaPs_BufPool_Free(XDmaPs_ProgBuf *Pool, void *Buf)
@@ -1766,14 +1730,13 @@ static void XDmaPs_BufPool_Free(XDmaPs_ProgBuf *Pool, void *Buf)
 
 /*****************************************************************************/
 /**
-* XDmaPs_Exec_DMAGO - Execute the DMAGO to start a channel.
+* @brief XDmaPs_Exec_DMAGOs - Execute the DMAGO to start a channel.
 *
 * @param[in] BaseAddr PL330 device base address
 * @param[in] Channel Channel number for the device
 * @param[in] DmaProg DMA program starting address, this should be DMA address
 *
 * @return	0 on success, -1 on time out
-*
 *
 ****************************************************************************/
 static int XDmaPs_Exec_DMAGO(u32 BaseAddr, unsigned int Channel, u32 DmaProg)
@@ -1835,11 +1798,9 @@ static int XDmaPs_Exec_DMAGO(u32 BaseAddr, unsigned int Channel, u32 DmaProg)
 /****************************************************************************/
 /**
 *
-* It's the generic Done ISR.
+* @brief It's the generic Done ISR.
 * @param[in] InstPtr is the DMA instance.
 * @param[in] Channel is the DMA channel number.
-*
-*
 *
 *****************************************************************************/
 static void XDmaPs_DoneISR_n(XDmaPs *InstPtr, unsigned Channel)
@@ -1888,10 +1849,9 @@ static void XDmaPs_DoneISR_n(XDmaPs *InstPtr, unsigned Channel)
 
 /****************************************************************************/
 /**
-* Prints the content of the buffer in bytes
+* @brief Prints the content of the buffer in bytes.
 * @param[in] Buf is the buffer.
 * @param[in] Length is the length of the DMA program.
-*
 *
 ****************************************************************************/
 static void XDmaPs_Print_DmaProgBuf(char *Buf, int Length)
@@ -1904,11 +1864,9 @@ static void XDmaPs_Print_DmaProgBuf(char *Buf, int Length)
 }
 /****************************************************************************/
 /**
-* Print the Dma Prog Contents.
+* @brief Prints the Dma Prog Contents.
 *
 * @param[in] Cmd is the command buffer.
-*
-*
 *
 *****************************************************************************/
 void XDmaPs_Print_DmaProg(XDmaPs_Cmd *Cmd)

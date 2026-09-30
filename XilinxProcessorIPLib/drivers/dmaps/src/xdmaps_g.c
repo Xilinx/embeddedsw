@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,8 @@
 * @file xdmaps_g.c
 * @addtogroup dmaps Overview
 * @{
+*
+* @brief Holds the configuration table for XDmaPs devices in the system.
 *
 * This file contains a configuration table where each entry is a configuration
 * structure for an XDmaPs device in the system.

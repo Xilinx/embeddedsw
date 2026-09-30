@@ -11,6 +11,8 @@
 * @addtogroup dmaps Overview
 * @{
 *
+* @brief Demonstrates DMA PS transfers with interrupt support.
+*
 * Example demonstrating DMA PS transfers with interrupt support.
 *
 * <pre>
@@ -65,23 +67,23 @@
 #define DMA_DEVICE_ID 			XPAR_XDMAPS_1_DEVICE_ID
 #define INTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #else
-#define DMAPS_BASEADDR			XPAR_XDMAPS_0_BASEADDR
+#define DMAPS_BASEADDR			XPAR_XDMAPS_0_BASEADDR /**< Base address of the DMAPS device. */
 #endif
 
-#define DMA_DONE_INTR_0			XPAR_XDMAPS_0_DONE_INTR_0
-#define DMA_DONE_INTR_1			XPAR_XDMAPS_0_DONE_INTR_1
-#define DMA_DONE_INTR_2			XPAR_XDMAPS_0_DONE_INTR_2
-#define DMA_DONE_INTR_3			XPAR_XDMAPS_0_DONE_INTR_3
-#define DMA_DONE_INTR_4			XPAR_XDMAPS_0_DONE_INTR_4
-#define DMA_DONE_INTR_5			XPAR_XDMAPS_0_DONE_INTR_5
-#define DMA_DONE_INTR_6			XPAR_XDMAPS_0_DONE_INTR_6
-#define DMA_DONE_INTR_7			XPAR_XDMAPS_0_DONE_INTR_7
-#define DMA_FAULT_INTR			XPAR_XDMAPS_0_FAULT_INTR
+#define DMA_DONE_INTR_0			XPAR_XDMAPS_0_DONE_INTR_0 /**< DMA channel 0 done interrupt ID. */
+#define DMA_DONE_INTR_1			XPAR_XDMAPS_0_DONE_INTR_1 /**< DMA channel 1 done interrupt ID. */
+#define DMA_DONE_INTR_2			XPAR_XDMAPS_0_DONE_INTR_2 /**< DMA channel 2 done interrupt ID. */
+#define DMA_DONE_INTR_3			XPAR_XDMAPS_0_DONE_INTR_3 /**< DMA channel 3 done interrupt ID. */
+#define DMA_DONE_INTR_4			XPAR_XDMAPS_0_DONE_INTR_4 /**< DMA channel 4 done interrupt ID. */
+#define DMA_DONE_INTR_5			XPAR_XDMAPS_0_DONE_INTR_5 /**< DMA channel 5 done interrupt ID. */
+#define DMA_DONE_INTR_6			XPAR_XDMAPS_0_DONE_INTR_6 /**< DMA channel 6 done interrupt ID. */
+#define DMA_DONE_INTR_7			XPAR_XDMAPS_0_DONE_INTR_7 /**< DMA channel 7 done interrupt ID. */
+#define DMA_FAULT_INTR			XPAR_XDMAPS_0_FAULT_INTR /**< DMA fault interrupt ID. */
 
 
-#define TEST_ROUNDS	1	/* Number of loops that the Dma transfers run.*/
-#define DMA_LENGTH	1024	/* Length of the Dma Transfers */
-#define TIMEOUT_LIMIT 	0x2000	/* Loop count for timeout */
+#define TEST_ROUNDS	1	/**< Number of loops that the DMA transfers run. */
+#define DMA_LENGTH	1024	/**< Length of the DMA transfers. */
+#define TIMEOUT_LIMIT 	0x2000	/**< Loop count used for timeout polling. */
 
 /**************************** Type Definitions *******************************/
 
@@ -126,11 +128,9 @@ XScuGic GicInstance;
 /****************************************************************************/
 /**
 *
-* Main entry point for the DmaPs interrupt example.
-*
+* @brief Mains entry point for the DmaPs interrupt example.
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
 *
 ****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -158,7 +158,7 @@ int main(void)
 /*****************************************************************************/
 /**
  *
- * Interrupt Example to test the DMA.
+ * @brief Interrupts Example to test the DMA.
  *
  * @if SDT
  * @param[in] DmapsInstPtr is a pointer to the DMA PS instance.
@@ -169,7 +169,6 @@ int main(void)
  * @endif
  *
  * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
- *
  *
  ****************************************************************************/
 #ifndef SDT
@@ -338,7 +337,7 @@ int XDmaPs_Example_W_Intr(XDmaPs *DmapsInstPtr, UINTPTR BaseAddress)
 /******************************************************************************/
 /**
  *
- * Connects the interrupt handler of the interrupt controller to
+ * @brief Connects the interrupt handler of the interrupt controller to.
  * the processor. Separate from the example to allow per-application
  * customization. Each processor or RTOS may require unique processing to
  * connect the interrupt handler.
@@ -463,7 +462,7 @@ int SetupInterruptSystem(XScuGic *GicPtr, XDmaPs *DmaPtr)
 /*****************************************************************************/
 /**
 *
-* DMA done callback for the example.
+* @brief DMAs done callback for the example.
 *
 * @param[in] Channel is the channel number.
 * @param[in] DmaCmd is the DMA command.
