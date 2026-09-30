@@ -10,6 +10,7 @@
 * @file xaxivdma_porting_guide.h
 * @addtogroup axivdma Overview
 * @{
+* @brief Guides porting from the xvdma driver to the xaxivdma driver.
 *
 * This is a guide on how to move from using the xvdma driver to use xaxivdma
 * driver.
@@ -144,14 +145,12 @@
 *					u32 ErrorMask)
 * void XAxiVdma_ClearChannelErrors(XAxiVdma_Channel *Channel, u32 ErrorMask)
 *
-*
 * New core v5.00a has added new features, to support them these APIs are added
 *
 * int XAxiVdma_FsyncSrcSelect(XAxiVdma *InstancePtr, u32 Source,
 *                               u16 Direction)
 * int XAxiVdma_GenLockSourceSelect(XAxiVdma *InstancePtr, u32 Source,
 *				u16 Direction)
-*
 *
 * Due to addition of frame store register in hardware these functions are added
 *
@@ -221,7 +220,6 @@
 * . XVDma_IntrEnableGlobal()
 * . XVDma_IntrDisableGlobal()
 * . XVDma_IntrHandler()
-*
 *
 ******************************************************************************/
 /** @} */

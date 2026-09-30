@@ -1,14 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XAXIVDMA_I_H_    /* prevent circular inclusions */
+/** @brief Include guard for the AXI VDMA internal header. */
+#define XAXIVDMA_I_H_
 
 /*****************************************************************************/
 /**
  *  @file xaxivdma_i.h
 * @addtogroup axivdma Overview
 * @{
+ *
+ * @brief Declares internal API definitions shared by driver files.
  *
  * Internal API definitions shared by driver files.
  *
@@ -40,9 +46,6 @@
  *
  *****************************************************************************/
 
-#ifndef XAXIVDMA_I_H_    /* prevent circular inclusions */
-#define XAXIVDMA_I_H_
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -60,40 +63,38 @@ typedef u32 XAxiVdma_Bd[XAXIVDMA_BD_MINIMUM_ALIGNMENT_WD];
 /* The DMA channel is only visible to driver files
  */
 typedef struct {
-	UINTPTR ChanBase;       /* Base address for this channel */
-	UINTPTR InstanceBase;   /* Base address for the whole device */
-	UINTPTR StartAddrBase;  /* Start address register array base */
+	UINTPTR ChanBase;       /**< Base address for this channel. */
+	UINTPTR InstanceBase;   /**< Base address for the whole device. */
+	UINTPTR StartAddrBase;  /**< Start address register array base. */
 
-	int IsValid;        /* Whether the channel has been initialized */
-	int FlushonFsync;	/* VDMA Transactions are flushed & channel states
-			   reset on Frame Sync */
-	int HasSG;          /* Whether hardware has SG engine */
-	int IsRead;         /* Read or write channel */
-	int HasDRE;         /* Whether support unaligned transfer */
-	int LineBufDepth;	/* Depth of Channel Line Buffer FIFO */
-	int LineBufThreshold;	/* Threshold point at which Channel Line
-				 *  almost empty flag asserts high */
-	int WordLength;     /* Word length */
-	int NumFrames;	/* Number of frames to work on */
+	int IsValid;        /**< Whether the channel has been initialized. */
+	int FlushonFsync;	/**< Flushes VDMA transactions and resets channel state on frame sync. */
+	int HasSG;          /**< Whether hardware has SG engine. */
+	int IsRead;         /**< Read or write channel. */
+	int HasDRE;         /**< Whether unaligned transfer is supported. */
+	int LineBufDepth;	/**< Depth of channel line buffer FIFO. */
+	int LineBufThreshold;	/**< Threshold where channel line almost-empty flag asserts. */
+	int WordLength;     /**< Word length. */
+	int NumFrames;	/**< Number of frames to work on. */
 
-	UINTPTR HeadBdPhysAddr; /* Physical address of the first BD */
-	UINTPTR HeadBdAddr;     /* Virtual address of the first BD */
-	UINTPTR TailBdPhysAddr; /* Physical address of the last BD */
-	UINTPTR TailBdAddr;     /* Virtual address of the last BD */
-	int Hsize;          /* Horizontal size */
-	int Vsize;          /* Vertical size saved for no-sg mode hw start */
+	UINTPTR HeadBdPhysAddr; /**< Physical address of the first BD. */
+	UINTPTR HeadBdAddr;     /**< Virtual address of the first BD. */
+	UINTPTR TailBdPhysAddr; /**< Physical address of the last BD. */
+	UINTPTR TailBdAddr;     /**< Virtual address of the last BD. */
+	int Hsize;          /**< Horizontal size. */
+	int Vsize;          /**< Vertical size saved for non-SG mode hardware start. */
 
-	int AllCnt;         /* Total number of BDs */
+	int AllCnt;         /**< Total number of BDs. */
 
-	int GenLock;	/* Mm2s Gen Lock Mode */
-	int S2MmSOF;	/* S2MM Start of Flag */
-	int StreamWidth;     /* Stream Width */
+	int GenLock;	/**< MM2S genlock mode. */
+	int S2MmSOF;	/**< S2MM start-of-frame flag. */
+	int StreamWidth;     /**< Stream width. */
 	XAxiVdma_Bd BDs[XAXIVDMA_MAX_FRAMESTORE] __attribute__((__aligned__(32)));
-	/*Statically allocated BDs */
-	u32 DbgFeatureFlags; /* Debug Parameter Flags */
-	int AddrWidth;
-	int direction;	/* Determines whether Read or write channel */
-	u8 HasVFlip;  /* Whether hardware has Vertical Flip enabled */
+	/**< Statically allocated buffer descriptors. */
+	u32 DbgFeatureFlags; /**< Debug parameter flags. */
+	int AddrWidth; /**< Address width. */
+	int direction;	/**< Determines whether read or write channel. */
+	u8 HasVFlip;  /**< Whether hardware has vertical flip enabled. */
 } XAxiVdma_Channel;
 
 /* Duplicate layout of XAxiVdma_DmaSetup
@@ -157,5 +158,5 @@ void XAxiVdma_ClearChannelErrors(XAxiVdma_Channel *Channel, u32 ErrorMask);
 }
 #endif
 
-#endif
 /** @} */
+#endif

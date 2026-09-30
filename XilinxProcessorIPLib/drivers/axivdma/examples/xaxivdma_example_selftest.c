@@ -10,8 +10,8 @@
 * @file xaxivdma_example_selftest.c
  * @addtogroup axivdma Overview
  * @{
+* @brief Demonstrates the AXI VDMA self-test example.
  *
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -43,7 +43,7 @@
 
 #ifndef SDT
 #ifndef TESTAPP_GEN
-#define DMA_DEV_ID		XPAR_AXIVDMA_0_DEVICE_ID
+#define DMA_DEV_ID		XPAR_AXIVDMA_0_DEVICE_ID /**< Device ID of the AXI VDMA under test. */
 #endif
 #endif
 
@@ -63,21 +63,16 @@ int AxiVDMASelfTestExample(UINTPTR BaseAddress);
 #endif
 
 /************************** Variable Definitions *****************************/
-/*
- * @brief Device instance definitions.
-  */
-XAxiVdma AxiVdma;
+XAxiVdma AxiVdma; /**< Driver instance for the AXI VDMA under test. */
 
 
 /*****************************************************************************/
 /**
 * @brief Runs the example entry point, invokes the example function, and reports the execution status.
 *
-*
 * @return
-*		- XST_SUCCESS if example finishes successfully
+*		- XST_SUCCESS if example finishes successfully.
 *		- XST_FAILURE if example fails.
-*
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -113,16 +108,14 @@ int main()
 /**
  * @brief Resets the VDMA device and checks that reset completes.
 * @if SDT
-* @param[in] BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device.
 * @else
 * @param[in] DeviceId is the DMA device id.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if channel reset is successful
+*		- XST_SUCCESS if channel reset is successful.
 *		- XST_FAILURE if channel reset fails.
-*
-*
 *
 ******************************************************************************/
 #ifndef SDT

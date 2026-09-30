@@ -4,11 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XAXIVDMA_HW_H_    /* prevent circular inclusions */
+/** @brief Include guard for the AXI VDMA hardware header. */
+#define XAXIVDMA_HW_H_
+
 /*****************************************************************************/
 /**
  *  @file xaxivdma_hw.h
 * @addtogroup axivdma Overview
 * @{
+* @brief Hardware register definitions for the AXI VDMA driver.
  *
  * Hardware definition file. It defines the register interface and Buffer
  * Descriptor (BD) definitions.
@@ -47,9 +52,6 @@
  *
  *****************************************************************************/
 
-#ifndef XAXIVDMA_HW_H_    /* prevent circular inclusions */
-#define XAXIVDMA_HW_H_
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -80,9 +82,9 @@ extern "C" {
  * @brief This is determined by hardware.
  * @{
  */
-#define XAXIVDMA_MAX_VSIZE  0x1FFF  /* Max vertical size, 8K */
-#define XAXIVDMA_MAX_HSIZE  0xFFFF  /* Max horizontal size, 64K */
-#define XAXIVDMA_MAX_STRIDE 0xFFFF  /* Max stride size, 64K */
+#define XAXIVDMA_MAX_VSIZE  0x1FFF  /**< Maximum vertical size (8K). */
+#define XAXIVDMA_MAX_HSIZE  0xFFFF  /**< Maximum horizontal size (64K). */
+#define XAXIVDMA_MAX_STRIDE 0xFFFF  /**< Maximum stride size (64K). */
 #define XAXIVDMA_FRMDLY_MAX 0xF     /**< Maximum frame delay */
 /** @} */
 
@@ -195,8 +197,8 @@ extern "C" {
 #define XAXIVDMA_FRMCNT_MASK   0x00FF0000 /**< Frame counter */
 #define XAXIVDMA_REGINDEX_MASK		0x00000001 /**< Register Index */
 
-#define XAXIVDMA_DELAY_SHIFT     24
-#define XAXIVDMA_FRMCNT_SHIFT    16
+#define XAXIVDMA_DELAY_SHIFT     24 /**< Bit shift for delay timeout counter. */
+#define XAXIVDMA_FRMCNT_SHIFT    16 /**< Bit shift for frame counter. */
 /** @} */
 
 /** @name Bitmask for the XAXIVDMA_CDESC_OFFSET register
@@ -214,7 +216,7 @@ extern "C" {
 /** @name Bitmask for XAXIVDMA_FRMSTORE_OFFSET register
  * @{
  */
-#define XAXIVDMA_FRMSTORE_MASK        0x0000003F
+#define XAXIVDMA_FRMSTORE_MASK        0x0000003F /**< Frame store count mask. */
 /** @} */
 /** @name Bitmask for XAXIVDMA_PARKPTR_OFFSET register
  * @{
@@ -224,10 +226,10 @@ extern "C" {
 #define XAXIVDMA_PARKPTR_READSTR_MASK 0x001F0000 /**< Current read frame */
 #define XAXIVDMA_PARKPTR_WRTSTR_MASK  0x1F000000 /**< Current write frame */
 
-#define XAXIVDMA_READREF_SHIFT        0
-#define XAXIVDMA_WRTREF_SHIFT         8
-#define XAXIVDMA_READSTR_SHIFT        16
-#define XAXIVDMA_WRTSTR_SHIFT         24
+#define XAXIVDMA_READREF_SHIFT        0  /**< Bit shift for read park frame. */
+#define XAXIVDMA_WRTREF_SHIFT         8  /**< Bit shift for write park frame. */
+#define XAXIVDMA_READSTR_SHIFT        16 /**< Bit shift for current read frame. */
+#define XAXIVDMA_WRTSTR_SHIFT         24 /**< Bit shift for current write frame. */
 
 #define XAXIVDMA_FRM_MAX              0xF       /**< At most 16 frames */
 /** @} */
@@ -239,8 +241,8 @@ extern "C" {
 #define XAXIVDMA_VERSION_MINOR_MASK 0x0FF00000 /**< Minor version */
 #define XAXIVDMA_VERSION_REV_MASK   0x000F0000 /**< Revision letter */
 
-#define XAXIVDMA_VERSION_MAJOR_SHIFT 28
-#define XAXIVDMA_VERSION_MINOR_SHIFT 20
+#define XAXIVDMA_VERSION_MAJOR_SHIFT 28 /**< Bit shift for major version. */
+#define XAXIVDMA_VERSION_MINOR_SHIFT 20 /**< Bit shift for minor version. */
 /** @} */
 
 /** @name Bitmask for XAXIVDMA_S2MM_IRQ_MASK_OFFSET register
@@ -324,12 +326,11 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Writes the given register.
+* @brief Writes the given register.
 *
 * @param[in] BaseAddress is the base address of the device
 * @param[in] RegOffset is the register offset to be written
 * @param[in] Data is the 32-bit value to write to the register
-*
 *
 * @note
 * C-style signature:
@@ -346,5 +347,5 @@ extern "C" {
 }
 #endif
 
-#endif
 /** @} */
+#endif

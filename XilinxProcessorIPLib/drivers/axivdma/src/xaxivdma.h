@@ -4,11 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XAXIVDMA_H_     /* Prevent circular inclusions */
+/** @brief Include guard for the AXI VDMA driver header. */
+#define XAXIVDMA_H_     /* by using protection macros */
+
 /*****************************************************************************/
 /**
  *
  * @file xaxivdma.h
  * @addtogroup axivdma Overview
+ * @{
+ * @brief Defines the AXI Video DMA (VDMA) driver interface.
  *
  * This is the Xilinx MVI AXI Video DMA device driver. The DMA engine transfers
 * frames from the AXI Bus or to the AXI Bus. It is in the chain of video
@@ -138,8 +144,7 @@
 * To start a transfer after a stop:
 *
 * - If there are error bits in the status register, then a reset is necessary.
-* Please refer to the \par Reset section for more details on how to start a
-* transfer after a reset.
+* Refer to the Reset section for how to start a transfer after a reset.
 * - If there are no error bits in the status register, then you can call
 * XAxiVdma_DmaStart() to start the transfer again. Note that the transfer
 * always starts from the first video frame.
@@ -280,14 +285,6 @@
 * @endverbatim
  ******************************************************************************/
 
-#ifndef XAXIVDMA_H_     /* Prevent circular inclusions */
-#define XAXIVDMA_H_     /* by using protection macros */
-
-/**
- * @addtogroup axivdma Overview
- * @{
- */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -316,23 +313,23 @@ typedef struct XAxiVdma_Channel XAxiVdma_Channel;
 /**
  * Frame Sync Source Selection
  */
-#define XAXIVDMA_CHAN_FSYNC		0
-#define XAXIVDMA_CHAN_OTHER_FSYNC	1
-#define XAXIVDMA_S2MM_TUSER_FSYNC	2
+#define XAXIVDMA_CHAN_FSYNC		0        /**< Channel frame sync. */
+#define XAXIVDMA_CHAN_OTHER_FSYNC	1        /**< Other channel frame sync. */
+#define XAXIVDMA_S2MM_TUSER_FSYNC	2        /**< S2MM TUSER frame sync. */
 
 /**
  * GenLock Source Selection
  */
-#define XAXIVDMA_EXTERNAL_GENLOCK	0
-#define XAXIVDMA_INTERNAL_GENLOCK	1
+#define XAXIVDMA_EXTERNAL_GENLOCK	0        /**< External genlock source. */
+#define XAXIVDMA_INTERNAL_GENLOCK	1        /**< Internal genlock source. */
 
 /**
  * GenLock Mode Constants
  */
-#define XAXIVDMA_GENLOCK_MASTER		0
-#define XAXIVDMA_GENLOCK_SLAVE		1
-#define XAXIVDMA_DYN_GENLOCK_MASTER	2
-#define XAXIVDMA_DYN_GENLOCK_SLAVE	3
+#define XAXIVDMA_GENLOCK_MASTER		0        /**< Genlock master mode. */
+#define XAXIVDMA_GENLOCK_SLAVE		1        /**< Genlock slave mode. */
+#define XAXIVDMA_DYN_GENLOCK_MASTER	2        /**< Dynamic genlock master mode. */
+#define XAXIVDMA_DYN_GENLOCK_SLAVE	3        /**< Dynamic genlock slave mode. */
 
 /**
  * Interrupt type for setting up callback
@@ -348,20 +345,20 @@ typedef struct XAxiVdma_Channel XAxiVdma_Channel;
 /**
  * Debug Configuration Parameter Constants (C_ENABLE_DEBUG_INFO_*)
  */
-#define XAXIVDMA_ENABLE_DBG_THRESHOLD_REG	0x01
-#define XAXIVDMA_ENABLE_DBG_FRMSTORE_REG	0x02
-#define XAXIVDMA_ENABLE_DBG_FRM_CNTR	0x04
-#define XAXIVDMA_ENABLE_DBG_DLY_CNTR	0x08
-#define XAXIVDMA_ENABLE_DBG_ALL_FEATURES	0x0F
+#define XAXIVDMA_ENABLE_DBG_THRESHOLD_REG	0x01 /**< Enable debug threshold register. */
+#define XAXIVDMA_ENABLE_DBG_FRMSTORE_REG	0x02 /**< Enable debug frame store register. */
+#define XAXIVDMA_ENABLE_DBG_FRM_CNTR	0x04 /**< Enable debug frame counter. */
+#define XAXIVDMA_ENABLE_DBG_DLY_CNTR	0x08 /**< Enable debug delay counter. */
+#define XAXIVDMA_ENABLE_DBG_ALL_FEATURES	0x0F /**< Enable all debug features. */
 
-/* Defined for backward compatibility.
- * This  is a typical DMA Internal Error, which on detection does not require a
- * reset (as opposed to other errors). So user on seeing this need only to
- * reinitialize channels.
+/**
+ * @brief Frame or line mismatch error status code for backward compatibility.
  *
+ * This is a typical DMA internal error that does not require a reset.
+ * Reinitialize the channels when this error is observed.
  */
 #ifndef XST_VDMA_MISMATCH_ERROR
-#define XST_VDMA_MISMATCH_ERROR 1430
+#define XST_VDMA_MISMATCH_ERROR 1430 /**< VDMA mismatch error status code. */
 #endif
 
 /**************************** Type Definitions *******************************/

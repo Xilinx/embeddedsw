@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,6 +10,7 @@
 * @file xaxivdma_g.c
 * @addtogroup axivdma Overview
 * @{
+* @brief Provides a template for AXI VDMA hardware configuration settings.
 *
 * Provide a template for user to define their own hardware settings.
 *

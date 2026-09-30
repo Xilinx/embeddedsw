@@ -10,6 +10,7 @@
 * @file xaxivdma_intr.c
 * @addtogroup axivdma Overview
 * @{
+* @brief Implements interrupt-related functions for the AXI Video DMA driver.
 *
 * Implementation of interrupt related functions.
 *
@@ -38,14 +39,13 @@
 
 /*****************************************************************************/
 /**
- * Enable specific interrupts for a channel
+ * @brief Enables specific interrupts for a channel.
  *
  * Interrupts not specified by the mask will not be affected
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
- * @param IntrType is the bit mask for the interrupts to be enabled
- *
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
+ * @param[in] IntrType is the bit mask for the interrupts to be enabled
  *
  * @note
  * If channel is invalid, then nothing is done
@@ -65,14 +65,13 @@ void XAxiVdma_IntrEnable(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)
 
 /*****************************************************************************/
 /**
- * Disable specific interrupts for a channel
+ * @brief Disables specific interrupts for a channel.
  *
  * Interrupts not specified by the mask will not be affected
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param IntrType is the bit mask for the interrupts to be disabled
- * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
- *
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] IntrType is the bit mask for the interrupts to be disabled
+ * @param[in] Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
  *
  * @note
  * If channel is invalid, then nothing is done
@@ -92,7 +91,7 @@ void XAxiVdma_IntrDisable(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)
 
 /*****************************************************************************/
 /**
- * Get the pending interrupts of a channel
+ * @brief Gets the pending interrupts of a channel.
  *
  * @param[in] InstancePtr is the pointer to the DMA engine to work on
  * @param[in] Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
@@ -126,14 +125,13 @@ u32 XAxiVdma_IntrGetPending(XAxiVdma *InstancePtr, u16 Direction)
 
 /*****************************************************************************/
 /**
- * Clear the pending interrupts specified by the bit mask
+ * @brief Clears the pending interrupts specified by the bit mask.
  *
  * Interrupts not specified by the mask will not be affected
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- * @param Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
- * @param IntrType is the bit mask for the interrupts to be cleared
- *
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
+ * @param[in] Direction is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE
+ * @param[in] IntrType is the bit mask for the interrupts to be cleared
  *
  * @note
  * If channel is invalid, then nothing is done
@@ -152,12 +150,12 @@ void XAxiVdma_IntrClear(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)
 
 /*****************************************************************************/
 /**
- * Masks the S2MM error interrupt for the provided error mask value
+ * @brief Masks the S2MM error interrupt for the provided error mask value.
  *
- * @param	InstancePtr is the XAxiVdma instance to operate on
- * @param	ErrorMask is the mask of error bits for which S2MM error
+ * @param[in] InstancePtr is the XAxiVdma instance to operate on
+ * @param[in] ErrorMask is the mask of error bits for which S2MM error
  *		interrupt can be disabled.
- * @param	Direction is the channel to work on, use XAXIVDMA_READ/WRITE
+ * @param[in] Direction is the channel to work on, use XAXIVDMA_READ/WRITE
  *
  * @return	- XST_SUCCESS, when error bits are cleared.
  *		- XST_INVALID_PARAM, when channel pointer is invalid.
@@ -197,10 +195,9 @@ int XAxiVdma_MaskS2MMErrIntr(XAxiVdma *InstancePtr, u32 ErrorMask,
 
 /*****************************************************************************/
 /**
- * Interrupt handler for the read channel
+ * @brief Interrupts handler for the read channel.
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- *
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
  *
  * @note
  * If the channel is invalid, then no interrupt handling
@@ -257,10 +254,9 @@ void XAxiVdma_ReadIntrHandler(void *InstancePtr)
 
 /*****************************************************************************/
 /**
- * Interrupt handler for the write channel
+ * @brief Interrupts handler for the write channel.
  *
- * @param InstancePtr is the pointer to the DMA engine to work on
- *
+ * @param[in] InstancePtr is the pointer to the DMA engine to work on
  *
  * @note
  * If the channel is invalid, then no interrupt handling
@@ -317,7 +313,7 @@ void XAxiVdma_WriteIntrHandler(void *InstancePtr)
 
 /*****************************************************************************/
 /**
- * Set call back function and call back reference pointer for one channel
+ * @brief Sets call back function and call back reference pointer for one channel.
  *
  * @param[in] InstancePtr is the pointer to the DMA engine to work on
  * @param[in] HandlerType is the interrupt type that this callback handles

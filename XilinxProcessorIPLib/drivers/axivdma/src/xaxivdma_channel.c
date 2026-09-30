@@ -9,7 +9,8 @@
 *
 * @file xaxivdma_channel.c
 * @addtogroup axivdma Overview
-* * @{
+* @{
+* @brief Implements channel-related functions for the AXI Video DMA driver.
 *
 * Implementation of the channel related functions. These functions are used
 * internally by the driver, and are declared in xaxivdma_i.h.
@@ -62,13 +63,7 @@
 #include "xaxivdma.h"
 
 /************************** Constant Definitions *****************************/
-/* Number of polling loops to do to check for reset completion
- *
- * This number is large enough to cover the maximum transfer length
- *
- * However, if the memory operation being throttled by the system, this number
- * is not large enough
- */
+/** Maximum poll loops when waiting for channel reset completion. */
 #define XAXIVDMA_RESET_POLLING      1000
 
 
@@ -76,6 +71,7 @@
 
 /* BD APIs, used by this file only
  */
+/** @cond INTERNAL */
 static u32 XAxiVdma_BdRead(XAxiVdma_Bd *BdPtr, int Offset);
 static void XAxiVdma_BdWrite(XAxiVdma_Bd *BdPtr, int Offset, u32 Value);
 static void XAxiVdma_BdSetNextPtr(XAxiVdma_Bd *BdPtr, u32 NextPtr);
@@ -84,20 +80,20 @@ static int XAxiVdma_BdSetVsize(XAxiVdma_Bd *BdPtr, int Vsize);
 static int XAxiVdma_BdSetHsize(XAxiVdma_Bd *BdPtr, int Vsize);
 static int XAxiVdma_BdSetStride(XAxiVdma_Bd *BdPtr, int Stride);
 static int XAxiVdma_BdSetFrmDly(XAxiVdma_Bd *BdPtr, int FrmDly);
+/** @endcond */
 
 /*****************************************************************************/
-/*
- * Translate virtual address to physical address
+/**
+ * @brief Translates a virtual address to a physical address.
  *
- * When port this driver to other RTOS, please change this definition to
- * be consistent with your target system.
+ * When porting this driver to another RTOS, change this definition to match
+ * the target system address translation.
  *
- * @param VirtAddr is the virtual address to work on
+ * @param[in] VirtAddr is the virtual address to translate.
  *
- *   The physical address of the virtual address
+ * @return Returns the physical address for the virtual address.
  *
- * @note
- *   The virtual address and the physical address are the same here.
+ * @note The virtual address and the physical address are the same here.
  *
  *****************************************************************************/
 #define XAXIVDMA_VIRT_TO_PHYS(VirtAddr) \
@@ -105,10 +101,9 @@ static int XAxiVdma_BdSetFrmDly(XAxiVdma_Bd *BdPtr, int FrmDly);
 
 /*****************************************************************************/
 /**
- * Set the channel to enable access to higher Frame Buffer Addresses (SG=0)
+ * @brief Sets the channel to enable access to higher Frame Buffer Addresses (SG=0).
  *
- * @param Channel is the pointer to the channel to work on
- *
+ * @param[in] Channel is the pointer to the channel to work on
  *
  *****************************************************************************/
 #define XAxiVdma_ChannelHiFrmAddrEnable(Channel) \
@@ -119,10 +114,9 @@ static int XAxiVdma_BdSetFrmDly(XAxiVdma_Bd *BdPtr, int FrmDly);
 
 /*****************************************************************************/
 /**
- * Set the channel to disable access higher Frame Buffer Addresses (SG=0)
+ * @brief Sets the channel to disable access higher Frame Buffer Addresses (SG=0).
  *
- * @param Channel is the pointer to the channel to work on
- *
+ * @param[in] Channel is the pointer to the channel to work on
  *
  *****************************************************************************/
 #define XAxiVdma_ChannelHiFrmAddrDisable(Channel) \
@@ -133,12 +127,11 @@ static int XAxiVdma_BdSetFrmDly(XAxiVdma_Bd *BdPtr, int FrmDly);
 
 /*****************************************************************************/
 /**
- * Initialize a channel of a DMA engine
+ * @brief Initializes a channel of a DMA engine.
  *
  * This function initializes the BD ring for this channel
  *
- * @param Channel is the pointer to the DMA channel to work on
- *
+ * @param[in] Channel is the pointer to the DMA channel to work on
  *
  *****************************************************************************/
 void XAxiVdma_ChannelInit(XAxiVdma_Channel *Channel)
@@ -201,7 +194,7 @@ void XAxiVdma_ChannelInit(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * This function checks whether reset operation is done
+ * @brief Provides function checks whether reset operation is done.
  *
  * @param[in] Channel is the pointer to the DMA channel to work on
  *
@@ -216,12 +209,11 @@ int XAxiVdma_ChannelResetNotDone(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * This function resets one DMA channel
+ * @brief Provides function resets one DMA channel.
  *
  * The registers will be default values after the reset
  *
- * @param Channel is the pointer to the DMA channel to work on
- *
+ * @param[in] Channel is the pointer to the DMA channel to work on
  *
  *****************************************************************************/
 void XAxiVdma_ChannelReset(XAxiVdma_Channel *Channel)
@@ -233,13 +225,12 @@ void XAxiVdma_ChannelReset(XAxiVdma_Channel *Channel)
 }
 
 /*****************************************************************************/
-/*
- * Check whether a DMA channel is running
+/**
+ * @brief Checks whether a DMA channel is running.
  *
- * @param Channel is the pointer to the channel to work on
+ * @param[in] Channel is the pointer to the channel to work on.
  *
- * - non zero if the channel is running
- * - 0 is the channel is idle
+ * @return Returns non-zero if the channel is running, or 0 if idle.
  *
  *****************************************************************************/
 int XAxiVdma_ChannelIsRunning(XAxiVdma_Channel *Channel)
@@ -269,7 +260,7 @@ int XAxiVdma_ChannelIsRunning(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Check whether a DMA channel is busy
+ * @brief Checks whether a DMA channel is busy.
  *
  * @param[in] Channel is the pointer to the channel to work on
  *
@@ -304,12 +295,12 @@ int XAxiVdma_ChannelIsBusy(XAxiVdma_Channel *Channel)
 }
 
 /*****************************************************************************/
-/*
- * Check DMA channel errors
+/**
+ * @brief Returns the error bits for a DMA channel.
  *
- * @param Channel is the pointer to the channel to work on
+ * @param[in] Channel is the pointer to the channel to work on.
  *
- *  	Error bits of the channel, 0 means no errors
+ * @return Returns channel error bits, or 0 if there are no errors.
  *
  *****************************************************************************/
 u32 XAxiVdma_ChannelErrors(XAxiVdma_Channel *Channel)
@@ -319,12 +310,11 @@ u32 XAxiVdma_ChannelErrors(XAxiVdma_Channel *Channel)
 }
 
 /*****************************************************************************/
-/*
- * Clear DMA channel errors
+/**
+ * @brief Clears selected error bits for a DMA channel.
  *
- * @param Channel is the pointer to the channel to work on
- * @param ErrorMask is the mask of error bits to clear.
- *
+ * @param[in] Channel is the pointer to the channel to work on.
+ * @param[in] ErrorMask is the mask of error bits to clear.
  *
  *****************************************************************************/
 void XAxiVdma_ClearChannelErrors(XAxiVdma_Channel *Channel, u32 ErrorMask)
@@ -343,7 +333,7 @@ void XAxiVdma_ClearChannelErrors(XAxiVdma_Channel *Channel, u32 ErrorMask)
 
 /*****************************************************************************/
 /**
- * Get the current status of a channel
+ * @brief Gets the current status of a channel.
  *
  * @param[in] Channel is the pointer to the channel to work on
  *
@@ -357,7 +347,7 @@ u32 XAxiVdma_ChannelGetStatus(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Set the channel to run in parking mode
+ * @brief Sets the channel to run in parking mode.
  *
  * @param[in] Channel is the pointer to the channel to work on
  *
@@ -386,10 +376,9 @@ int XAxiVdma_ChannelStartParking(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Set the channel to run in circular mode, exiting parking mode
+ * @brief Sets the channel to run in circular mode, exiting parking mode.
  *
- * @param Channel is the pointer to the channel to work on
- *
+ * @param[in] Channel is the pointer to the channel to work on
  *
  *****************************************************************************/
 void XAxiVdma_ChannelStopParking(XAxiVdma_Channel *Channel)
@@ -407,10 +396,9 @@ void XAxiVdma_ChannelStopParking(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Set the channel to run in frame count enable mode
+ * @brief Sets the channel to run in frame count enable mode.
  *
- * @param Channel is the pointer to the channel to work on
- *
+ * @param[in] Channel is the pointer to the channel to work on
  *
  *****************************************************************************/
 void XAxiVdma_ChannelStartFrmCntEnable(XAxiVdma_Channel *Channel)
@@ -428,7 +416,7 @@ void XAxiVdma_ChannelStartFrmCntEnable(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Setup BD addresses to a different memory region
+ * @brief Sets BD addresses to a different memory region.
  *
  * In some systems, it is convenient to put BDs into a certain region of the
  * memory. This function enables that.
@@ -496,7 +484,7 @@ int XAxiVdma_ChannelSetBdAddrs(XAxiVdma_Channel *Channel, UINTPTR BdAddrPhys,
 
 /*****************************************************************************/
 /**
- * Start a transfer
+ * @brief Starts a transfer.
  *
  * This function setup the DMA engine and start the engine to do the transfer.
  *
@@ -554,7 +542,7 @@ int XAxiVdma_ChannelStartTransfer(XAxiVdma_Channel *Channel,
 
 /*****************************************************************************/
 /**
- * Configure one DMA channel using the configuration structure
+ * @brief Configures one DMA channel using the configuration structure.
  *
  * Setup the control register and BDs, however, BD addresses are not set.
  *
@@ -809,7 +797,7 @@ int XAxiVdma_ChannelConfig(XAxiVdma_Channel *Channel,
 
 /*****************************************************************************/
 /**
- * Configure buffer addresses for one DMA channel
+ * @brief Configures buffer addresses for one DMA channel.
  *
  * The buffer addresses are physical addresses.
  * Access to 32 Frame Buffer Addresses in direct mode is done through
@@ -905,7 +893,7 @@ int XAxiVdma_ChannelSetBufferAddr(XAxiVdma_Channel *Channel,
 
 /*****************************************************************************/
 /**
- * Start one DMA channel
+ * @brief Starts one DMA channel.
  *
  * @param[in] Channel is the pointer to the channel to work on
  *
@@ -991,10 +979,9 @@ int XAxiVdma_ChannelStart(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Stop one DMA channel
+ * @brief Stops one DMA channel.
  *
- * @param Channel is the pointer to the channel to work on
- *
+ * @param[in] Channel is the pointer to the channel to work on
  *
  *****************************************************************************/
 void XAxiVdma_ChannelStop(XAxiVdma_Channel *Channel)
@@ -1017,10 +1004,9 @@ void XAxiVdma_ChannelStop(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Dump registers from one DMA channel
+ * @brief Dumps registers from one DMA channel.
  *
- * @param Channel is the pointer to the channel to work on
- *
+ * @param[in] Channel is the pointer to the channel to work on
  *
  *****************************************************************************/
 void XAxiVdma_ChannelRegisterDump(XAxiVdma_Channel *Channel)
@@ -1040,7 +1026,7 @@ void XAxiVdma_ChannelRegisterDump(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Set the frame counter and delay counter for one channel
+ * @brief Sets the frame counter and delay counter for one channel.
  *
  * @param[in] Channel is the pointer to the channel to work on
  * @param[in] FrmCnt is the frame counter value to be set
@@ -1092,12 +1078,11 @@ int XAxiVdma_ChannelSetFrmCnt(XAxiVdma_Channel *Channel, u8 FrmCnt, u8 DlyCnt)
 
 /*****************************************************************************/
 /**
- * Get the frame counter and delay counter for both channels
+ * @brief Gets the frame counter and delay counter for both channels.
  *
- * @param Channel is the pointer to the channel to work on
- * @param FrmCnt is the pointer for the returning frame counter value
- * @param DlyCnt is the pointer for the returning delay counter value
- *
+ * @param[in] Channel is the pointer to the channel to work on
+ * @param[in] FrmCnt is the pointer for the returning frame counter value
+ * @param[in] DlyCnt is the pointer for the returning delay counter value
  *
  * @note
  *  If FrmCnt return as 0, then the channel is not initialized
@@ -1137,12 +1122,11 @@ void XAxiVdma_ChannelGetFrmCnt(XAxiVdma_Channel *Channel, u8 *FrmCnt,
 
 /*****************************************************************************/
 /**
- * Enable interrupts for a channel. Interrupts that are not specified by the
+ * @brief Enables interrupts for a channel. Interrupts that are not specified by the.
  * interrupt mask are not affected.
  *
- * @param Channel is the pointer to the channel to work on
- * @param IntrType is the interrupt mask for interrupts to be enabled
- *
+ * @param[in] Channel is the pointer to the channel to work on
+ * @param[in] IntrType is the interrupt mask for interrupts to be enabled
  *
  *****************************************************************************/
 void XAxiVdma_ChannelEnableIntr(XAxiVdma_Channel *Channel, u32 IntrType)
@@ -1170,12 +1154,11 @@ void XAxiVdma_ChannelEnableIntr(XAxiVdma_Channel *Channel, u32 IntrType)
 
 /*****************************************************************************/
 /**
- * Disable interrupts for a channel. Interrupts that are not specified by the
+ * @brief Disables interrupts for a channel. Interrupts that are not specified by the.
  * interrupt mask are not affected.
  *
- * @param Channel is the pointer to the channel to work on
- * @param IntrType is the interrupt mask for interrupts to be disabled
- *
+ * @param[in] Channel is the pointer to the channel to work on
+ * @param[in] IntrType is the interrupt mask for interrupts to be disabled
  *
  *****************************************************************************/
 void XAxiVdma_ChannelDisableIntr(XAxiVdma_Channel *Channel, u32 IntrType)
@@ -1206,7 +1189,7 @@ void XAxiVdma_ChannelDisableIntr(XAxiVdma_Channel *Channel, u32 IntrType)
 
 /*****************************************************************************/
 /**
- * Get pending interrupts of a channel.
+ * @brief Gets pending interrupts of a channel.
  *
  * @param[in] Channel is the pointer to the channel to work on
  *
@@ -1221,12 +1204,11 @@ u32 XAxiVdma_ChannelGetPendingIntr(XAxiVdma_Channel *Channel)
 
 /*****************************************************************************/
 /**
- * Clear interrupts of a channel. Interrupts that are not specified by the
+ * @brief Clears interrupts of a channel. Interrupts that are not specified by the.
  * interrupt mask are not affected.
  *
- * @param Channel is the pointer to the channel to work on
- * @param IntrType is the interrupt mask for interrupts to be cleared
- *
+ * @param[in] Channel is the pointer to the channel to work on
+ * @param[in] IntrType is the interrupt mask for interrupts to be cleared
  *
  *****************************************************************************/
 void XAxiVdma_ChannelIntrClear(XAxiVdma_Channel *Channel, u32 IntrType)
@@ -1250,7 +1232,7 @@ void XAxiVdma_ChannelIntrClear(XAxiVdma_Channel *Channel, u32 IntrType)
 
 /*****************************************************************************/
 /**
- * Get the enabled interrupts of a channel.
+ * @brief Gets the enabled interrupts of a channel.
  *
  * @param[in] Channel is the pointer to the channel to work on
  *
@@ -1265,13 +1247,13 @@ u32 XAxiVdma_ChannelGetEnabledIntr(XAxiVdma_Channel *Channel)
 
 /*********************** BD Functions ****************************************/
 /*****************************************************************************/
-/*
- * Read one word from BD
+/**
+ * @brief Reads one word from a buffer descriptor.
  *
- * @param BdPtr is the BD to work on
- * @param Offset is the byte offset to read from
+ * @param[in] BdPtr is the buffer descriptor to read.
+ * @param[in] Offset is the byte offset to read from.
  *
- *  The word value
+ * @return Returns the 32-bit word value at the offset.
  *
  *****************************************************************************/
 static u32 XAxiVdma_BdRead(XAxiVdma_Bd *BdPtr, int Offset)
@@ -1280,13 +1262,12 @@ static u32 XAxiVdma_BdRead(XAxiVdma_Bd *BdPtr, int Offset)
 }
 
 /*****************************************************************************/
-/*
- * Set one word in BD
+/**
+ * @brief Writes one word into a buffer descriptor.
  *
- * @param BdPtr is the BD to work on
- * @param Offset is the byte offset to write to
- * @param Value is the value to write to the BD
- *
+ * @param[in] BdPtr is the buffer descriptor to update.
+ * @param[in] Offset is the byte offset to write to.
+ * @param[in] Value is the value to write.
  *
  *****************************************************************************/
 static void XAxiVdma_BdWrite(XAxiVdma_Bd *BdPtr, int Offset, u32 Value)
@@ -1297,12 +1278,11 @@ static void XAxiVdma_BdWrite(XAxiVdma_Bd *BdPtr, int Offset, u32 Value)
 }
 
 /*****************************************************************************/
-/*
- * Set the next ptr from BD
+/**
+ * @brief Sets the next descriptor pointer in a buffer descriptor.
  *
- * @param BdPtr is the BD to work on
- * @param NextPtr is the next ptr to set in BD
- *
+ * @param[in] BdPtr is the buffer descriptor to update.
+ * @param[in] NextPtr is the next descriptor pointer to set.
  *
  *****************************************************************************/
 static void XAxiVdma_BdSetNextPtr(XAxiVdma_Bd *BdPtr, u32 NextPtr)
@@ -1312,14 +1292,13 @@ static void XAxiVdma_BdSetNextPtr(XAxiVdma_Bd *BdPtr, u32 NextPtr)
 }
 
 /*****************************************************************************/
-/*
- * Set the start address from BD
+/**
+ * @brief Sets the start address in a buffer descriptor.
  *
- * The address is physical address.
+ * The address is a physical address.
  *
- * @param BdPtr is the BD to work on
- * @param Addr is the address to set in BD
- *
+ * @param[in] BdPtr is the buffer descriptor to update.
+ * @param[in] Addr is the physical start address to set.
  *
  *****************************************************************************/
 static void XAxiVdma_BdSetAddr(XAxiVdma_Bd *BdPtr, u32 Addr)
@@ -1330,14 +1309,15 @@ static void XAxiVdma_BdSetAddr(XAxiVdma_Bd *BdPtr, u32 Addr)
 }
 
 /*****************************************************************************/
-/*
- * Set the vertical size for a BD
+/**
+ * @brief Sets the vertical size for a buffer descriptor.
  *
- * @param BdPtr is the BD to work on
- * @param Vsize is the vertical size to set in BD
+ * @param[in] BdPtr is the buffer descriptor to update.
+ * @param[in] Vsize is the vertical size to set.
  *
- *  - XST_SUCCESS if successful
- *  - XST_INVALID_PARAM if argument Vsize is invalid
+ * @return
+ *  - XST_SUCCESS if successful.
+ *  - XST_INVALID_PARAM if argument Vsize is invalid.
  *
  *****************************************************************************/
 static int XAxiVdma_BdSetVsize(XAxiVdma_Bd *BdPtr, int Vsize)
@@ -1354,14 +1334,15 @@ static int XAxiVdma_BdSetVsize(XAxiVdma_Bd *BdPtr, int Vsize)
 }
 
 /*****************************************************************************/
-/*
- * Set the horizontal size for a BD
+/**
+ * @brief Sets the horizontal size for a buffer descriptor.
  *
- * @param BdPtr is the BD to work on
- * @param Hsize is the horizontal size to set in BD
+ * @param[in] BdPtr is the buffer descriptor to update.
+ * @param[in] Hsize is the horizontal size to set.
  *
- *  - XST_SUCCESS if successful
- *  - XST_INVALID_PARAM if argument Hsize is invalid
+ * @return
+ *  - XST_SUCCESS if successful.
+ *  - XST_INVALID_PARAM if argument Hsize is invalid.
  *
  *****************************************************************************/
 static int XAxiVdma_BdSetHsize(XAxiVdma_Bd *BdPtr, int Hsize)
@@ -1378,14 +1359,15 @@ static int XAxiVdma_BdSetHsize(XAxiVdma_Bd *BdPtr, int Hsize)
 }
 
 /*****************************************************************************/
-/*
- * Set the stride size for a BD
+/**
+ * @brief Sets the stride size for a buffer descriptor.
  *
- * @param BdPtr is the BD to work on
- * @param Stride is the stride size to set in BD
+ * @param[in] BdPtr is the buffer descriptor to update.
+ * @param[in] Stride is the stride size to set.
  *
- *  - XST_SUCCESS if successful
- *  - XST_INVALID_PARAM if argument Stride is invalid
+ * @return
+ *  - XST_SUCCESS if successful.
+ *  - XST_INVALID_PARAM if argument Stride is invalid.
  *
  *****************************************************************************/
 static int XAxiVdma_BdSetStride(XAxiVdma_Bd *BdPtr, int Stride)
@@ -1408,14 +1390,15 @@ static int XAxiVdma_BdSetStride(XAxiVdma_Bd *BdPtr, int Stride)
 }
 
 /*****************************************************************************/
-/*
- * Set the frame delay for a BD
+/**
+ * @brief Sets the frame delay for a buffer descriptor.
  *
- * @param BdPtr is the BD to work on
- * @param FrmDly is the frame delay value to set in BD
+ * @param[in] BdPtr is the buffer descriptor to update.
+ * @param[in] FrmDly is the frame delay value to set.
  *
- *  - XST_SUCCESS if successful
- *  - XST_INVALID_PARAM if argument FrmDly is invalid
+ * @return
+ *  - XST_SUCCESS if successful.
+ *  - XST_INVALID_PARAM if argument FrmDly is invalid.
  *
  *****************************************************************************/
 static int XAxiVdma_BdSetFrmDly(XAxiVdma_Bd *BdPtr, int FrmDly)

@@ -10,7 +10,7 @@
  * @file vdma_api.c
  * @addtogroup axivdma Overview
  * @{
- *
+* @brief Implements high-level helper APIs for the AXI VDMA examples.
  *
  * This file has high level API to configure and start the VDMA.The file assumes that:
  * The design has VDMA with both MM2S and S2MM path enable.
@@ -24,7 +24,7 @@
  * 4.0   adk  11/26/15 First release
  ****************************************************************************/
 
-#define DEBUG_MODE		0
+#define DEBUG_MODE		0 /**< Enables buffer fill and compare checks. */
 
 /******************** Include files **********************************/
 #include "xaxivdma.h"
@@ -33,28 +33,21 @@
 
 /******************** Data structure Declarations *****************************/
 
+/**
+ * @brief Holds VDMA instance context for the high-level API.
+ */
 typedef struct vdma_handle
 {
-	/* The device ID of the VDMA */
-	unsigned int device_id;
-	/* The state variable to keep track if the initialization is done*/
-	unsigned int init_done;
-	/** The XAxiVdma driver instance data. */
-	XAxiVdma* InstancePtr;
-	/* The XAxiVdma_DmaSetup structure contains all the necessary information to
-	 * start a frame write or read. */
-	XAxiVdma_DmaSetup ReadCfg;
-	XAxiVdma_DmaSetup WriteCfg;
-	/* Horizontal size of frame */
-	unsigned int hsize;
-	/* Vertical size of frame */
-	unsigned int vsize;
-	/* Buffer address from where read and write will be done by VDMA */
-	unsigned int buffer_address;
-	/* Flag to tell VDMA to interrupt on frame completion*/
-	unsigned int enable_frm_cnt_intr;
-	/* The counter to tell VDMA on how many frames the interrupt should happen*/
-	unsigned int number_of_frame_count;
+	unsigned int device_id; /**< Device ID of the VDMA. */
+	unsigned int init_done; /**< Tracks whether initialization is complete. */
+	XAxiVdma* InstancePtr; /**< Pointer to the XAxiVdma driver instance. */
+	XAxiVdma_DmaSetup ReadCfg; /**< Read channel DMA setup. */
+	XAxiVdma_DmaSetup WriteCfg; /**< Write channel DMA setup. */
+	unsigned int hsize; /**< Horizontal size of the frame in bytes. */
+	unsigned int vsize; /**< Vertical size of the frame. */
+	unsigned int buffer_address; /**< Buffer address for VDMA read and write. */
+	unsigned int enable_frm_cnt_intr; /**< Enables frame-count interrupt when set. */
+	unsigned int number_of_frame_count; /**< Frame count that triggers the interrupt. */
 }vdma_handle;
 
 /******************** Constant Definitions **********************************/
@@ -82,19 +75,19 @@ static int StartTransfer(XAxiVdma *InstancePtr);
 * of VDMA
 *
 * @param[in] InstancePtr is the handle to XAxiVdma data structure.
-* @param[in] DeviceId is the device ID of current VDMA
-* @param[in] hsize is the horizontal size of the frame. It will be in Pixels.
-* 		The actual size of frame will be calculated by multiplying this
+* @param[in] DeviceId is the device ID of current VDMA.
+* @param[in] hsize is the horizontal size of the frame in pixels.
+* 		The actual size of frame is calculated by multiplying this
 * 		with tdata width.
-* @param[in] vsize is the Vertical size of the frame.
-* @param[in] buf_base_addr is the buffer address where frames will be written
+* @param[in] vsize is the vertical size of the frame.
+* @param[in] buf_base_addr is the buffer address where frames are written
 *		and read by VDMA.
 * @param[in] number_frame_count specifies after how many frames the interrupt
 *		should come.
-* @param[in] enable_frm_cnt_intr is for enabling frame count interrupt
+* @param[in] enable_frm_cnt_intr enables frame count interrupt
 *		when set to 1.
 * @return
-*		- XST_SUCCESS if example finishes successfully
+*		- XST_SUCCESS if example finishes successfully.
 *		- XST_FAILURE if example fails.
 *
 ******************************************************************************/
@@ -247,7 +240,6 @@ int run_triple_frame_buffer(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-*
 ******************************************************************************/
 static int ReadSetup(vdma_handle *vdma_context)
 {
@@ -328,7 +320,6 @@ static int ReadSetup(vdma_handle *vdma_context)
 *
 * @return	XST_SUCCESS if the setup is successful, XST_FAILURE otherwise.
 *
-*
 ******************************************************************************/
 static int WriteSetup(vdma_handle *vdma_context)
 {
@@ -406,14 +397,11 @@ static int WriteSetup(vdma_handle *vdma_context)
 /*****************************************************************************/
 /**
 *
-* @brief Starts DMA transfers while the engine operates in circular buffer mode and transfers video frames continuously.
-*
-* @param[out] InstancePtr points to the DMA engine instance
+* @brief Starts DMA transfers in circular buffer mode for read and write channels.
 *
 * @return
-*		- XST_SUCCESS if both read and write start successfully
-*		- XST_FAILURE if one or both directions cannot be started
-*
+*		- XST_SUCCESS if both read and write start successfully.
+*		- XST_FAILURE if one or both directions cannot be started.
 *
 ******************************************************************************/
 static int StartTransfer(XAxiVdma *InstancePtr)

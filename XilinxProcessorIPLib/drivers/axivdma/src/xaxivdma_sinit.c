@@ -11,6 +11,8 @@
 * @addtogroup axivdma Overview
 * @{
 *
+* @brief Looks up AXI VDMA hardware settings from the configuration table.
+*
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xaxivdma_g.c, generated automatically by XPS or
 * manually by user.
@@ -40,13 +42,14 @@
 /************************** Constant Definitions *****************************/
 
 #ifndef XPAR_XAXIVDMA_NUM_INSTANCES
+/** Number of AXI VDMA instances when not defined in xparameters.h. */
 #define XPAR_XAXIVDMA_NUM_INSTANCES		0
 #endif
 
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device ID/BaseAddress.
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
