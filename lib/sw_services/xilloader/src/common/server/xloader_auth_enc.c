@@ -209,6 +209,7 @@
 #include "xsecure_elliptic.h"
 #include "xsecure_aes_core_hw.h"
 #include "xsecure_rsa_core.h"
+#include "xsecure_rsa_pss.h"
 #include "xsecure_utils.h"
 #include "xplmi_modules.h"
 #include "xplmi_scheduler.h"
@@ -236,12 +237,6 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifndef PLM_RSA_EXCLUDE
-#define XLOADER_RSA_PSS_MSB_PADDING_MASK	(u8)(0x80U)
-					/**< RSA PSS MSB padding mask */
-#define XLOADER_RSA_EM_MSB_INDEX		(0x0U)
-					/**< RSA EM MSB Index */
-#endif
 #define XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT	(31U)
 		/**< Shift for Global Variation Filter in PUF shutter value */
 #define XLOADER_AES_RESET_VAL			(0x1U)
@@ -317,6 +312,9 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 static int XLoader_SecureEncOnlyValidations(const XLoader_SecureParams *SecurePtr);
 static int XLoader_ValidateIV(const u32 *IHPtr, const u32 *EfusePtr);
 static int XLoader_ClearAesKeysOnCfg(void);
+#ifndef PLM_RSA_EXCLUDE
+static int XLoader_MapRsaPssSecureStatus(int SecureStatus);
+#endif
 
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr, XLoader_HBSignParams *HBSignParams);
@@ -1285,236 +1283,89 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function maps XSecure RSA-PSS verification status to
+ *		XLoader minor error codes.
  *
- * @brief	This function encrypts the RSA signature provided and performs
- * 			required PSS operations to extract salt and calculates M prime hash and
- * 			compares with hash obtained from EM.
- *
- * @param   MsgHash of the data to be authenticated.
- * @param   RsaInstPtr is pointer to the XSecure_Rsa instance.
- * @param   Signature is pointer to RSA signature for data to be authenticated.
- * @param   KeySize   is size of RSA key in bytes.
+ * @param	SecureStatus	Status returned by XSecure_RsaPssSignVerify
  *
  * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_SEC_MEMSET_ERROR and XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL
- * 			if failed to create memory for RSA SHA3.
- * 			- XLOADER_SEC_MEMSET_ERROR and XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL
- * 			if failed to create memory for RSA varscom.
- * 			- XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED if failed to match
- * 			with RSA ENC 0xbc value.
- * 			- XLOADER_SEC_MASKED_DB_MSB_ERROR if error in RSA EM MSB.
- * 			- XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL if failed to verify RSA PSS
- * 			signature.
- * 			- XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR if failed to verify
- * 			database in efuse.
- * 			- XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE if RSA PSS hash is not
- * 			matched.
- * 			- XLOADER_SEC_BUF_CLEAR_ERR if failed to clear buffer.
+ *		 - XST_SUCCESS  If verification was successful
+ *		 - XLoader minor error code  On failure
  *
  ******************************************************************************/
-int XLoader_RsaPssSignVerify( u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize)
+static int XLoader_MapRsaPssSecureStatus(int SecureStatus)
+{
+	static const u16 Map[] = {
+		[XSECURE_RSA_PSS_ERR_MEMSET_ENC] = (u16)(((u32)XLOADER_SEC_MEMSET_ERROR << 8U) |
+			(u32)XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL),
+		[XSECURE_RSA_PSS_ERR_MEMSET_VARS] = (u16)(((u32)XLOADER_SEC_MEMSET_ERROR << 8U) |
+			(u32)XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL),
+		[XSECURE_RSA_PSS_ERR_RSA_ENC] = (u16)((u32)XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL << 8U),
+		[XSECURE_RSA_PSS_ERR_MGF] = (u16)((u32)XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL << 8U),
+		[XSECURE_RSA_PSS_ERR_SHA] = (u16)((u32)XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL << 8U),
+		[XSECURE_RSA_PSS_ERR_BC] = (u16)((u32)XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED << 8U),
+		[XSECURE_RSA_PSS_ERR_MSDB] = (u16)((u32)XLOADER_SEC_MASKED_DB_MSB_ERROR << 8U),
+		[XSECURE_RSA_PSS_ERR_DB] = (u16)((u32)XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR << 8U),
+		[XSECURE_RSA_PSS_ERR_HASH_CMP] = (u16)((u32)XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE << 8U),
+		[XSECURE_RSA_PSS_ERR_CLEAR] = (u16)XLOADER_SEC_BUF_CLEAR_ERR,
+	};
+	int Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, 0);
+
+	if (SecureStatus == XST_SUCCESS) {
+		Status = XST_SUCCESS;
+	} else if ((SecureStatus > 0) &&
+		((u32)SecureStatus < (sizeof(Map) / sizeof(Map[0])))) {
+		Status = (int)Map[SecureStatus];
+	} else {
+		/* Use the default RSA-PSS verify failure code. */
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function verifies RSA-PSS signature (SHA3-384) for the given
+ *		message hash by invoking XSecure_RsaPssSignVerify. Signed input
+ *		data and data block workspaces are allocated from
+ *		XLoader_StoreSecureData in PMC chunk memory.
+ *
+ * @param	MsgHash		Pointer to SHA3-384 hash of the data to be
+ *				authenticated
+ * @param	RsaInstPtr	Pointer to initialized XSecure_Rsa instance
+ * @param	Signature	Pointer to RSA signature to be verified
+ * @param	KeySize		Size of RSA key in bytes
+ *
+ * @return
+ *		 - XST_SUCCESS on success.
+ *		 - XLoader minor error code on failure.
+ *		 - XLOADER_SEC_BUF_CLEAR_ERR if failed to clear buffer.
+ *
+ ******************************************************************************/
+int XLoader_RsaPssSignVerify(u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize)
 {
 	volatile int Status = XST_FAILURE;
-	int ClearStatus = XST_FAILURE;
-	volatile u32 DbTmp;
-	XSecure_Sha384Hash MPrimeHash;
-	volatile u8 HashTmp;
-	/* To reduce stack usage, RsaSha3Array and Buffer are moved to a structure
-	 * called XLoader_StoreSecureData which resides at XPLMI_PMC_CHUNK_MEMORY_1.
-	 */
+	volatile int SecureStatus = XST_FAILURE;
+	XSecure_RsaPssSignVerifyInput PssInput;
 	XLoader_StoreSecureData *StoreSecureDataPtr = (XLoader_StoreSecureData *)
 		(UINTPTR)(XPLMI_PMCRAM_CHUNK_MEMORY_1);
-	u8 *XSecure_RsaSha3Array = StoreSecureDataPtr->RsaSha3Array;
-	/**
-	 * - Initialise Buffer variable to store HashMgf and DB.
-	 */
-	u8 *Buffer = StoreSecureDataPtr->Buffer;
-	XLoader_Vars Xsecure_Varsocm __attribute__ ((aligned(32U)));
-	volatile u32 Index;
-	u32 IndexTmp;
-	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	u8 *DataHash = (u8 *)MsgHash;
-	u32 MaskedDbLen = KeySize - XSECURE_SHA_384_HASH_SIZE_IN_BYTES - 1U;
-	u32 DbLen = KeySize - (2U * XSECURE_SHA_384_HASH_SIZE_IN_BYTES) - 2U;
 
-	Status = XPlmi_MemSetBytes(XSecure_RsaSha3Array, XLOADER_PARTITION_SIG_SIZE,
-				0U, XLOADER_PARTITION_SIG_SIZE);
+	PssInput.MsgHashAddr = (u64)(UINTPTR)MsgHash;
+	PssInput.RsaInstPtr = RsaInstPtr;
+	PssInput.SignAddr = (u64)(UINTPTR)Signature;
+	PssInput.KeySize = KeySize;
+	PssInput.ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
+	PssInput.SignedInputData = StoreSecureDataPtr->RsaSha3Array;
+	PssInput.DataBlock = StoreSecureDataPtr->Buffer;
+
+	SecureStatus = XSecure_RsaPssSignVerify(&PssInput);
+
+	Status = XLoader_MapRsaPssSecureStatus(SecureStatus);
+	if (Status == XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "RSA PSS verification is successful\n\r");
+	}
 	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_MEMSET_ERROR,
-				(int)XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL);
-		goto END;
-	}
-	Status = XPlmi_MemSetBytes(&Xsecure_Varsocm, sizeof(Xsecure_Varsocm),
-				0U, sizeof(Xsecure_Varsocm));
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_MEMSET_ERROR,
-				(int)XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL);
-		goto END;
-	}
-
-	/**
-	 * - RSA signature encryption with public key components.
-	 */
-	Status = XSecure_RsaPublicEncrypt(RsaInstPtr, Signature,
-					KeySize,
-					XSecure_RsaSha3Array);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL,
-							 Status);
-		goto END;
-	}
-
-	/**
-	 * - Check for signature encrypted message.
-	 */
-	if (XSecure_RsaSha3Array[KeySize - 1U] !=
-			XLOADER_RSA_SIG_EXP_BYTE) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED, 0);
-		goto END;
-	}
-
-	if ((XSecure_RsaSha3Array[XLOADER_RSA_EM_MSB_INDEX] &
-		XLOADER_RSA_PSS_MSB_PADDING_MASK) !=
-		XLOADER_RSA_EM_MSB_EXP_BYTE) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_MASKED_DB_MSB_ERROR, 0);
-		goto END;
-	}
-
-	/* As PMCDMA can't accept unaligned addresses */
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, Xsecure_Varsocm.EmHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
-		&XSecure_RsaSha3Array[MaskedDbLen], XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-
-	/**
-	 * - Extract Salt and Generate DB from masked DB and Hash.
-	 */
-	Status = XLoader_MaskGenFunc(ShaInstPtr, Buffer,
-			MaskedDbLen, Xsecure_Varsocm.EmHash);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-	/** - XOR MGF output with masked DB from EM to get DB. */
-	for (Index = 0U; Index <MaskedDbLen; Index++) {
-		Buffer[Index] = Buffer[Index] ^ XSecure_RsaSha3Array[Index];
-	}
-
-	/** - Check DB = PS <414 zeros> || 0x01. */
-	for (Index = 0U; Index < DbLen; Index++) {
-		if (Index == 0x0U) {
-			Buffer[Index] = Buffer[Index] &
-				(u8)(~XLOADER_RSA_PSS_MSB_PADDING_MASK);
-		}
-
-		if (Buffer[Index] != 0x0U) {
-			Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
-				Status);
-			goto END;
-		}
-	}
-	if (Index != DbLen) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
-				Status);
-		goto END;
-	}
-
-	DbTmp = Buffer[Index];
-	if ((DbTmp != 0x01U) || (Buffer[Index] != 0x01U)) {
-		Status = XLoader_UpdateMinorErr(
-                                XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR,
-                                Status);
-		goto END;
-	}
-
-	/* As PMCDMA can't accept unaligned addresses */
-	XSECURE_TEMPORAL_CHECK(END, Status, Xil_SMemCpy, Xsecure_Varsocm.Salt, XLOADER_RSA_PSS_SALT_LEN,
-		&Buffer[DbLen + 1U], XLOADER_RSA_PSS_SALT_LEN, XLOADER_RSA_PSS_SALT_LEN);
-
-	/** - Hash on M prime */
-	Status = XSecure_ShaStart(ShaInstPtr, XSECURE_SHA3_384);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-			XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-	/* Padding 1 */
-	Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)Xsecure_Varsocm.Padding1,
-			XLOADER_RSA_PSS_PADDING1);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-	/* Hash the Message */
-	Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)DataHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
-	Status = XSecure_ShaLastUpdate(ShaInstPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-                                XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
-                goto END;
-	}
-#endif
-	/* Salt */
-	Status = XSecure_ShaUpdate(ShaInstPtr, (UINTPTR)Xsecure_Varsocm.Salt,
-			XLOADER_RSA_PSS_SALT_LEN);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&MPrimeHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL, Status);
-		goto END;
-	}
-
-	Status = XST_FAILURE;
-	IndexTmp = MaskedDbLen;
-	/** - Compare MPrime Hash with Hash from EM */
-	for (Index = 0U; Index < XSECURE_SHA_384_HASH_SIZE_IN_BYTES; Index++) {
-		HashTmp = MPrimeHash.Hash[Index];
-		if ((MPrimeHash.Hash[Index] != XSecure_RsaSha3Array[IndexTmp]) ||
-			(HashTmp != XSecure_RsaSha3Array[IndexTmp])) {
-			XPlmi_Printf(DEBUG_INFO, "Failed at RSA PSS signature "
-				"verification\n\r");
-			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)MPrimeHash.Hash,
-				XSECURE_SHA_384_HASH_SIZE_IN_BYTES / XIH_PRTN_WORD_LEN, "M prime Hash");
-			XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)XSecure_RsaSha3Array,
-				XSECURE_SHA_384_HASH_SIZE_IN_BYTES / XIH_PRTN_WORD_LEN, "RSA Encrypted Signature");
-			Status = XLoader_UpdateMinorErr(
-				XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE, 0);
-			goto END;
-		}
-		IndexTmp++;
-	}
-
-	if (Index == XSECURE_SHA_384_HASH_SIZE_IN_BYTES) {
-		Status = XST_SUCCESS;
-	}
-	XPlmi_Printf(DEBUG_INFO, "RSA PSS verification is successful\n\r");
-
-END:
-	ClearStatus = XPlmi_MemSetBytes(&MPrimeHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
-                        XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-	if (ClearStatus != XST_SUCCESS) {
-		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
+		XPlmi_Printf(DEBUG_INFO, "Failed at RSA PSS signature verification\n\r");
 	}
 
 	return Status;
@@ -1533,6 +1384,7 @@ END:
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_SEC_RSA_AUTH_FAIL if failed to verify RSA signature.
+ * 			- XLOADER_SEC_BUF_CLEAR_ERR if failed to clear buffer.
  *
  ******************************************************************************/
 static int XLoader_RsaSignVerify(u8 *MsgHash, XLoader_RsaKey *Key, u8 *Signature) {

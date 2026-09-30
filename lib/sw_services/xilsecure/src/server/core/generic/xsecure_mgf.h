@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file server/versal_net/xsecure_mgf.h
+* @file server/core/generic/xsecure_mgf.h
 *
 * This file contains function declarations and enums related to mask generate function
 *

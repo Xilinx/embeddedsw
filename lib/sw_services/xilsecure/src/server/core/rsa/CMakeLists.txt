@@ -3,8 +3,10 @@
 
 collect (PROJECT_LIB_HEADERS xsecure_rsa.h)
 collect (PROJECT_LIB_HEADERS xsecure_rsa_core.h)
+collect (PROJECT_LIB_HEADERS xsecure_rsa_pss.h)
 collect (PROJECT_LIB_SOURCES xsecure_rsa_core.c)
 collect (PROJECT_LIB_SOURCES xsecure_rsa.c)
+collect (PROJECT_LIB_SOURCES xsecure_rsa_pss.c)
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
 collect (PROJECT_LIB_SOURCES xsecure_rsa_ipihandler.c)
 collect (PROJECT_LIB_HEADERS xsecure_rsa_ipihandler.h)

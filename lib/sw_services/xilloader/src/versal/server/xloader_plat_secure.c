@@ -65,13 +65,10 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-#ifndef PLM_SECURE_EXCLUDE
-#ifndef PLM_RSA_EXCLUDE
-static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert);
-#endif
 
 /************************** Variable Definitions *****************************/
 
+#ifndef PLM_SECURE_EXCLUDE
 /*****************************************************************************/
 /**
  * @brief	This function updates KEK red key availability status from
@@ -146,110 +143,7 @@ int XLoader_RsaKat(void) {
 
 	return Status;
 }
-
-/*****************************************************************************/
-/**
- * @brief	This function converts a non-negative integer to an octet string of a
- * 			specified length.
- *
- * @param	Integer is the variable in which input should be provided.
- * @param	Size holds the required size.
- * @param	Convert is a pointer in which output will be updated.
- *
- *
- ******************************************************************************/
-static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert)
-{
-	if (Integer < XLOADER_I2OSP_INT_LIMIT) {
-		Convert[Size - 1U] = (u8)Integer;
-	}
-}
-
-/*****************************************************************************/
-/**
- * @brief	Mask generation function with SHA3.
- *
- * @param	Sha3InstancePtr is pointer to the XSecure_Sha3 instance.
- * @param	Out is pointer in which output of this function will be stored.
- * @param	OutLen specifies the required length.
- * @param	Input is pointer which holds the input data for	which mask should
- * 			be calculated which should be 48 bytes length.
- *
- * @return
- * 			- XST_SUCCESS on success.
- * 			- XLOADER_SEC_BUF_CLEAR_ERR if failed to clear buffer.
- *
- ******************************************************************************/
-int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
-	u8 * Out, u32 OutLen, u8 *Input)
-{
-	int Status = XST_FAILURE;
-	int ClearStatus = XST_FAILURE;
-	u32 Counter = 0U;
-	u32 HashLen = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
-	XSecure_Sha3Hash HashStore;
-	u8 Convert[XIH_PRTN_WORD_LEN] = {0U};
-	u32 Size = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
-	u8 *OutTmp;
-
-	if ((Sha3InstancePtr == NULL) || (Out == NULL) ||
-		(Input == NULL)) {
-		goto END;
-	}
-
-	if (OutLen == 0U) {
-		goto END;
-	}
-
-	OutTmp = Out;
-	while (Counter <= (OutLen / HashLen)) {
-		XLoader_I2Osp(Counter, XIH_PRTN_WORD_LEN, Convert);
-
-		Status = XSecure_Sha3Start(Sha3InstancePtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)Input, HashLen);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XSecure_Sha3Update(Sha3InstancePtr, (UINTPTR)Convert,
-					XIH_PRTN_WORD_LEN);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		Status = XSecure_Sha3Finish(Sha3InstancePtr, &HashStore);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		if (Counter == (OutLen / HashLen)) {
-			/*
-			 * Only 463 bytes are required but the chunklen is 48 bytes.
-			 * The extra bytes are discarded by the modulus operation below.
-			 */
-			 Size = (OutLen % HashLen);
-		}
-		Status = Xil_SMemCpy(OutTmp, Size, HashStore.Hash, Size, Size);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-		OutTmp = &OutTmp[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
-		Counter = Counter + 1U;
-	}
-
-END:
-	ClearStatus = XPlmi_MemSetBytes(Convert, sizeof(Convert), 0U,
-                        sizeof(Convert));
-	ClearStatus |= XPlmi_MemSetBytes(&HashStore, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
-                        XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
-	if (ClearStatus != XST_SUCCESS) {
-		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
-	}
-	return Status;
-}
 #endif
-
-
 #endif/* END OF PLM_SECURE_EXCLUDE */
 /*****************************************************************************/
 /**

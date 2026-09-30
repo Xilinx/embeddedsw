@@ -97,6 +97,7 @@ extern "C" {
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
+#include "xsecure_rsa_pss.h"
 #endif
 #include "xsecure_aes.h"
 #include "xplmi_util.h"

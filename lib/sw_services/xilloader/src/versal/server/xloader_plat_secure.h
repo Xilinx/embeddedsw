@@ -54,6 +54,9 @@ extern "C" {
 #include "xplmi_config.h"
 #ifndef PLM_SECURE_EXCLUDE
 #include "xsecure_kat.h"
+#ifndef XSECURE_RSA_EXCLUDE
+#include "xsecure_mgf.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -197,13 +200,40 @@ static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 	return XST_SUCCESS;
 }
 
+#ifndef XSECURE_RSA_EXCLUDE
+/*****************************************************************************/
+/**
+ * @brief	This function generates a mask from the seed using SHA3.
+ *
+ * @param	Sha3InstancePtr is pointer to the XSecure_Sha3 instance.
+ * @param	Out is pointer in which output of this function will be stored.
+ * @param	OutLen specifies the required length.
+ * @param	Input is pointer which holds the input data for which mask should
+ *		be calculated which should be 48 bytes length.
+ *
+ * @return	XST_SUCCESS on success.
+ *		Error code on failure.
+ *
+ *****************************************************************************/
+static inline int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
+	u8 *Out, u32 OutLen, u8 *Input)
+{
+	XSecure_MgfInput MgfInput;
+
+	MgfInput.Seed = Input;
+	MgfInput.SeedLen = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
+	MgfInput.Output = Out;
+	MgfInput.OutputLen = OutLen;
+
+	return XSecure_MaskGenFunc(XSECURE_SHA3_384, Sha3InstancePtr, &MgfInput);
+}
+#endif
+
 /************************** Function Prototypes ******************************/
 u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 #ifndef XSECURE_RSA_EXCLUDE
 int XLoader_RsaKat(void);
-int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
-	u8 * Out, u32 OutLen, u8 *Input);
 #endif
 
 /************************** Variable Definitions *****************************/

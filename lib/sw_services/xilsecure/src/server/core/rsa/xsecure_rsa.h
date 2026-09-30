@@ -124,6 +124,7 @@ int XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input,
 	u32 Size, u8 *Result);
 int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	u32 Size, u64 Result);
+#include "xsecure_rsa_pss.h"
 #endif
 
 /** @} */

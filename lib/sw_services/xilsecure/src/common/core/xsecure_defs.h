@@ -151,6 +151,25 @@ typedef struct {
 	u32 Size;	/**< Length of hash */
 } XSecure_RsaSignParams;
 
+#define XSECURE_RSA_PSS_SIGNED_INPUT_DATA_LEN	(512U)
+#define XSECURE_RSA_PSS_DATA_BLOCK_LEN		(480U)
+#define XSECURE_RSA_PSS_ENCODED_MSG_HASH_SCRATCH_LEN	(64U)
+
+/** RSA-PSS verification errors */
+typedef enum {
+	XSECURE_RSA_PSS_ERR_MEMSET_ENC = 1U,
+	XSECURE_RSA_PSS_ERR_MEMSET_VARS,
+	XSECURE_RSA_PSS_ERR_RSA_ENC,
+	XSECURE_RSA_PSS_ERR_MGF,
+	XSECURE_RSA_PSS_ERR_SHA,
+	XSECURE_RSA_PSS_ERR_BC,
+	XSECURE_RSA_PSS_ERR_MSDB,
+	XSECURE_RSA_PSS_ERR_DB,
+	XSECURE_RSA_PSS_ERR_HASH_CMP,
+	XSECURE_RSA_PSS_ERR_CLEAR,
+	XSECURE_RSA_PSS_ERR_INVALID,
+} XSecure_RsaPssStatus;
+
 /** Structure for input parameters for Ellitic Sign generation */
 typedef struct {
 	u64 HashAddr;	/**< Hash address */
