@@ -8,10 +8,9 @@
 /**
  *
  * @file xaxidma_example_simple_poll.c
- * @addtogroup AXIDMA Overview
- * @{
- *
- * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
+* @addtogroup AXIDMA Overview
+* @{
+* @brief Demonstrates AXI DMA simple mode transfers in polling mode.
  * DMA core (AXIDMA) to transfer packets in polling mode when the AXI DMA core
  * is configured in simple mode.
  *
@@ -21,7 +20,6 @@
  * To see the debug print, you need a Uart16550 or uartlite in your system,
  * and please set "-DDEBUG" in your compiler options. You need to rebuild your
  * software executable.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -75,15 +73,15 @@
  */
 
 #ifndef SDT
-#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
+#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID	/**< Device ID of the AXI DMA under test. */
 #endif
 
-#define MAX_PKT_LEN		0x20
+#define MAX_PKT_LEN		0x20	/**< Maximum packet length in bytes for each transfer. */
 
-#define TEST_START_VALUE	0xC
+#define TEST_START_VALUE	0xC	/**< Starting value used to fill and verify test packet data. */
 
-#define NUMBER_OF_TRANSFERS	10
-#define POLL_TIMEOUT_COUNTER    1000000U
+#define NUMBER_OF_TRANSFERS	10	/**< Number of simple transfers to run in this test. */
+#define POLL_TIMEOUT_COUNTER    1000000U	/**< Maximum poll iterations before a transfer times out. */
 
 /**************************** Type Definitions *******************************/
 
@@ -94,6 +92,11 @@
 /************************** Function Prototypes ******************************/
 
 #if (!defined(DEBUG))
+/**
+ * @brief Prints a formatted message when DEBUG is not defined.
+ *
+ * @param[in] format is the printf-style format string.
+ */
 extern void xil_printf(const char *format, ...);
 #endif
 
@@ -111,7 +114,7 @@ static int CheckData(void);
 /*
  * Device instance definitions
  */
-XAxiDma AxiDma;
+XAxiDma AxiDma;	/**< Driver instance for the AXI DMA under test. */
 
 /** @cond INTERNAL */
 static u8 TxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
@@ -123,10 +126,7 @@ static u8 RxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
 /**
 * @brief Invokes the example function and reports the execution status.
 *
-*
-* @retval XST_SUCCESS Example finished successfully.
-* @retval XST_FAILURE Example failed.
-*
+* @return XST_SUCCESS if Example finished successfully, or XST_FAILURE if Example failed.
 *
 ******************************************************************************/
 int main()
@@ -161,9 +161,6 @@ int main()
 *
 * @brief Sets up UART16550 with a baud rate of 9600 and 8 data bits.
 *
-*
-*
-*
 ******************************************************************************/
 static void Uart550_Setup(void)
 {
@@ -186,7 +183,7 @@ static void Uart550_Setup(void)
 *
 * NUMBER_OF_TRANSFERS defines how many times the transfer repeats.
 *
-* @param[in] DeviceId is the device ID of the XAxiDma instance
+* @param[in] DeviceId is the device ID of the XAxiDma instance.
 *
 * @return XST_SUCCESS if the example finishes successfully, XST_FAILURE otherwise.
 *
@@ -199,7 +196,7 @@ int XAxiDma_SimplePollExample(u16 DeviceId)
 *
 * NUMBER_OF_TRANSFERS defines how many times the transfer repeats.
 *
-* @param[in] BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device.
 *
 * @return XST_SUCCESS if the example finishes successfully, XST_FAILURE otherwise.
 *
@@ -312,10 +309,7 @@ int XAxiDma_SimplePollExample(UINTPTR BaseAddress)
 *
 * @brief Checks the data buffer after the DMA transfer completes.
 *
-*
-* @retval XST_SUCCESS Validation is successful.
-* @retval XST_FAILURE Validation failed.
-*
+* @return XST_SUCCESS if Validation is successful, or XST_FAILURE if Validation failed.
 *
 ******************************************************************************/
 static int CheckData(void)

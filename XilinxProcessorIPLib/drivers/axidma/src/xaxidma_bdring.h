@@ -15,8 +15,7 @@
 * @file xaxidma_bdring.h
 * @addtogroup AXIDMA Overview
 * @{
-*
-* This file contains DMA channel related structure and constant definition
+* @brief Defines DMA channel structures and constants for BD rings.
 * as well as function prototypes. Each DMA channel is managed by a Buffer
 * Descriptor ring, and XAxiDma_BdRing is chosen as the symbol prefix used in
 * this file. See xaxidma.h for more information on how a BD ring is managed.
@@ -54,13 +53,13 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 /* State of a DMA channel
  */
-#define AXIDMA_CHANNEL_NOT_HALTED	1
-#define AXIDMA_CHANNEL_HALTED		2
+#define AXIDMA_CHANNEL_NOT_HALTED	1 /**< Channel is not halted. */
+#define AXIDMA_CHANNEL_HALTED		2 /**< Channel is halted. */
 
 /* Argument constant to simplify argument setting
  */
-#define XAXIDMA_NO_CHANGE		0xFFFFFFFF
-#define XAXIDMA_ALL_BDS			0x0FFFFFFF /* 268 Million */
+#define XAXIDMA_NO_CHANGE		0xFFFFFFFF /**< Keep the current argument value unchanged. */
+#define XAXIDMA_ALL_BDS			0x0FFFFFFF /**< Select all buffer descriptors (268 million max). */
 
 /**************************** Type Definitions *******************************/
 
@@ -73,10 +72,10 @@ typedef struct {
 	int IsRxChannel;	/**< Is this a receive channel */
 	volatile int RunState;	/**< Whether channel is running */
 	int HasStsCntrlStrm; 	/**< Whether has stscntrl stream */
-	int HasDRE;
-	int DataWidth;
-	int Addr_ext;
-	u32 MaxTransferLen;
+	int HasDRE; /**< Indicates whether Data Realignment Engine is present. */
+	int DataWidth; /**< Data width of the channel in bits. */
+	int Addr_ext; /**< Indicates whether address extension is enabled. */
+	u32 MaxTransferLen; /**< Maximum transfer length supported by hardware. */
 
 	UINTPTR FirstBdPhysAddr;	/**< Physical address of 1st BD in list */
 	UINTPTR FirstBdAddr;	/**< Virtual address of 1st BD in list */
@@ -126,7 +125,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Use this macro at initialization time to determine how many bytes of memory
+* @brief Uses this macro at initialization time to determine how many bytes of memory.
 * are required to contain a given number of BDs at a given alignment.
 *
 * @param[in] Alignment specifies what byte alignment the BDs must fall on.
@@ -149,7 +148,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the total number of BDs allocated by this channel with
+* @brief Returns the total number of BDs allocated by this channel with.
 * XAxiDma_BdRingCreate().
 *
 * @param[in] RingPtr is the BD ring to operate on.
@@ -166,7 +165,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the number of BDs allocatable with XAxiDma_BdRingAlloc() for pre-
+* @brief Returns the number of BDs allocatable with XAxiDma_BdRingAlloc() for pre-.
 * processing.
 *
 * @param[in] RingPtr is the BD ring to operate on.
@@ -184,10 +183,9 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Snap shot the latest BD a BD ring is processing.
+* @brief Snaps shot the latest BD a BD ring is processing.
 *
 * @param[in] RingPtr is the BD ring to operate on.
-*
 *
 * @note
 *		C-style signature:
@@ -252,7 +250,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Get the BD a BD ring is processing.
+* @brief Gets the BD a BD ring is processing.
 *
 * @param[in] RingPtr is the BD ring to operate on.
 *
@@ -274,7 +272,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the next BD in the ring.
+* @brief Returns the next BD in the ring.
 *
 * @param[in] RingPtr is the BD ring to operate on.
 * @param[in] BdPtr is the current BD.
@@ -295,7 +293,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the previous BD in the ring.
+* @brief Returns the previous BD in the ring.
 *
 * @param[in] RingPtr is the DMA channel to operate on.
 * @param[in] BdPtr is the current BD.
@@ -316,7 +314,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Retrieve the contents of the channel status register
+* @brief Retrieves the contents of the channel status register.
 *
 * @param[in] RingPtr is the channel instance to operate on.
 *
@@ -333,7 +331,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Get error bits of a DMA channel
+* @brief Gets error bits of a DMA channel.
 *
 * @param[in] RingPtr is the channel instance to operate on.
 *
@@ -352,7 +350,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Check whether a DMA channel is started, meaning the channel is not halted.
+* @brief Checks whether a DMA channel is started, meaning the channel is not halted.
 *
 * @param[in] RingPtr is the channel instance to operate on.
 *
@@ -371,7 +369,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Check if the current DMA channel is busy with a DMA operation.
+* @brief Checks if the current DMA channel is busy with a DMA operation.
 *
 * @param[in] RingPtr is the channel instance to operate on.
 *
@@ -392,7 +390,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Set interrupt enable bits for a channel. This operation will modify the
+* @brief Sets interrupt enable bits for a channel. This operation will modify the.
 * XAXIDMA_CR_OFFSET register.
 *
 * @param[in] RingPtr is the channel instance to operate on.
@@ -412,7 +410,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Get enabled interrupts of a channel. It is in XAXIDMA_CR_OFFSET register.
+* @brief Gets enabled interrupts of a channel. It is in XAXIDMA_CR_OFFSET register.
 *
 * @param[in] RingPtr is the channel instance to operate on.
 * @return	Enabled interrupt bits for the channel. Interpret the value using
@@ -430,7 +428,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Clear interrupt enable bits for a channel. It modifies the
+* @brief Clears interrupt enable bits for a channel. It modifies the.
 * XAXIDMA_CR_OFFSET register.
 *
 * @param[in] RingPtr is the channel instance to operate on.
@@ -451,7 +449,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Retrieve the contents of the channel's IRQ register XAXIDMA_SR_OFFSET. This
+* @brief Retrieves the contents of the channel's IRQ register XAXIDMA_SR_OFFSET. This.
 * operation can be used to see which interrupts are pending.
 *
 * @param[in] RingPtr is the channel instance to operate on.
@@ -471,7 +469,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Acknowledge asserted interrupts. It modifies XAXIDMA_SR_OFFSET register.
+* @brief Acknowledges asserted interrupts. It modifies XAXIDMA_SR_OFFSET register.
 * A mask bit set for an unasserted interrupt has no effect.
 *
 * @param[in] RingPtr is the channel instance to operate on.
@@ -489,7 +487,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Enable Cyclic DMA Mode.
+* @brief Enables Cyclic DMA Mode.
 *
 * @param[in] RingPtr is the channel instance to operate on.
 *

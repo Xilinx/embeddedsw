@@ -8,10 +8,9 @@
 /**
  *
  * @file xaxidma_bd.c
- * @addtogroup AXIDMA Overview
- * @{
- *
- * Buffer descriptor (BD) management API implementation.
+* @addtogroup AXIDMA Overview
+* @{
+* @brief Implements buffer descriptor (BD) management functions.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -43,7 +42,7 @@
 
 /*****************************************************************************/
 /**
- * Set the length field for the given BD.
+ * @brief Sets the length field for the given BD.
  *
  * Length has to be non-zero and less than LengthMask.
  *
@@ -87,7 +86,7 @@ int XAxiDma_BdSetLength(XAxiDma_Bd *BdPtr, u32 LenBytes, u32 LengthMask)
 }
 /*****************************************************************************/
 /**
- * Set the BD's buffer address.
+ * @brief Sets the BD's buffer address.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] Addr is the address to set
@@ -129,7 +128,7 @@ u32 XAxiDma_BdSetBufAddr(XAxiDma_Bd *BdPtr, UINTPTR Addr)
 
 /*****************************************************************************/
 /**
- * Set the BD's buffer address when configured for Micro Mode.  The buffer
+ * @brief Sets the BD's buffer address when configured for Micro Mode. The buffer.
  * address should be 4K aligned.
  *
  * @param[in] BdPtr is the BD to operate on
@@ -164,7 +163,7 @@ u32 XAxiDma_BdSetBufAddrMicroMode(XAxiDma_Bd *BdPtr, UINTPTR Addr)
 
 /*****************************************************************************/
 /**
- * Set the APP word at the specified APP word offset for a BD.
+ * @brief Sets the APP word at the specified APP word offset for a BD.
  *
  * @param[in] BdPtr is the BD to operate on.
  * @param[in] Offset is the offset inside the APP word, it is valid from
@@ -207,7 +206,7 @@ int XAxiDma_BdSetAppWord(XAxiDma_Bd *BdPtr, int Offset, u32 Word)
 }
 /*****************************************************************************/
 /**
- * Get the APP word at the specified APP word offset for a BD.
+ * @brief Gets the APP word at the specified APP word offset for a BD.
  *
  * @param[in] BdPtr is the BD to operate on.
  * @param[in] Offset is the offset inside the APP word, it is valid from
@@ -247,11 +246,10 @@ u32 XAxiDma_BdGetAppWord(XAxiDma_Bd *BdPtr, int Offset, int *Valid)
 
 /*****************************************************************************/
 /**
- * Set the control bits for a BD.
+ * @brief Sets the control bits for a BD.
  *
  * @param[in] BdPtr is the BD to operate on.
  * @param[in] Data is the bit value to set
- *
  *
  * @note	Usable only when the DMA is in SG mode
  *
@@ -270,10 +268,9 @@ void XAxiDma_BdSetCtrl(XAxiDma_Bd *BdPtr, u32 Data)
 }
 /*****************************************************************************/
 /**
- * Dump the fields of a BD.
+ * @brief Dumps the fields of a BD.
  *
  * @param[in] BdPtr is the BD to operate on.
- *
  *
  * @note	Usable only when the DMA is in SG mode
  *

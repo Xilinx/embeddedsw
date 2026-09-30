@@ -9,9 +9,8 @@
 *
 * @file xaxidma_bdring.c
 * @addtogroup AXIDMA Overview
-*
-* This file implements buffer descriptor ring related functions. For more
-* information on how to manage the BD ring, please see xaxidma.h.
+* @brief Implements buffer descriptor ring related functions.
+* For more information on how to manage the BD ring, please see xaxidma.h.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -57,7 +56,7 @@
  * This interval is sufficient for hardware to finish 40MB transfer with
  * 32-bit bus.
  */
-#define XAXIDMA_STOP_TIMEOUT	500000   /* about 100 milliseconds on 100MHz */
+#define XAXIDMA_STOP_TIMEOUT	500000   /**< Stop timeout iterations (about 100 ms at 100 MHz). */
 
 /**************************** Type Definitions *******************************/
 
@@ -66,37 +65,32 @@
 /* The following macros are helper functions inside this file.
  */
 
-/******************************************************************************
- * @brief Compute the physical address of a descriptor from its virtual address.
+/**
+ * @brief Computes the physical address of a descriptor from its virtual address.
  *
- * @param[in] BdPtr is the virtual address of the BD
+ * @param[in] BdPtr is the virtual address of the buffer descriptor.
  *
- * @returns	Physical address of BdPtr
+ * @return Physical address of BdPtr.
  *
- * @note	Assume virtual and physical mapping is flat.
- *		RingPtr is an implicit parameter
- *
- *****************************************************************************/
+ * @note Assumes a flat virtual-to-physical mapping. RingPtr is an implicit parameter.
+ */
 #define XAXIDMA_VIRT_TO_PHYS(BdPtr) \
 	((UINTPTR)(BdPtr) + (RingPtr->FirstBdPhysAddr - RingPtr->FirstBdAddr))
 
-/******************************************************************************
- * Move the BdPtr argument ahead an arbitrary number of BDs wrapping around
- * to the beginning of the ring if needed.
+/**
+ * @brief Moves the BD pointer ahead by an arbitrary number of BDs.
  *
- * We know if a wraparound should occur if the new BdPtr is greater than
- * the high address in the ring OR if the new BdPtr crosses the 0xFFFFFFFF
- * to 0 boundary.
+ * Wraps around to the beginning of the ring when needed. A wraparound occurs
+ * when the new BD pointer is greater than the high address in the ring or when
+ * the pointer crosses the 0xFFFFFFFF to 0 boundary.
  *
- * @param[in] RingPtr is the ring BdPtr appears in
- * @param[in,out] BdPtr on input is the starting BD position and on output is the
- *		final BD position
- * @param[in] NumBd is the number of BD spaces to increment
+ * @param[in] RingPtr is the BD ring that contains BdPtr.
+ * @param[out] BdPtr is the starting BD pointer on entry and the updated BD
+ *        pointer on return.
+ * @param[in] NumBd is the number of BD spaces to advance.
  *
- *
- * @note	Usable only when the DMA is in SG mode
- *
- *****************************************************************************/
+ * @note Usable only when the DMA is in scatter-gather mode.
+ */
 #define XAXIDMA_RING_SEEKAHEAD(RingPtr, BdPtr, NumBd)                \
 	{                                                                \
 		UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                                     \
@@ -109,23 +103,20 @@
 		\
 		(BdPtr) = (XAxiDma_Bd*)(void *)Addr;                                 \
 	}
-/******************************************************************************
- * Move the BdPtr argument backwards an arbitrary number of BDs wrapping
- * around to the end of the ring if needed.
+/**
+ * @brief Moves the BD pointer backwards by an arbitrary number of BDs.
  *
- * We know if a wraparound should occur if the new BdPtr is less than
- * the base address in the ring OR if the new BdPtr crosses the 0xFFFFFFFF
- * to 0 boundary.
+ * Wraps around to the end of the ring when needed. A wraparound occurs when
+ * the new BD pointer is less than the base address in the ring or when the
+ * pointer crosses the 0xFFFFFFFF to 0 boundary.
  *
- * @param[in] RingPtr is the ring BdPtr appears in
- * @param[in,out] BdPtr on input is the starting BD position and on output is the
- *		final BD position
- * @param[in] NumBd is the number of BD spaces to increment
+ * @param[in] RingPtr is the BD ring that contains BdPtr.
+ * @param[out] BdPtr is the starting BD pointer on entry and the updated BD
+ *        pointer on return.
+ * @param[in] NumBd is the number of BD spaces to move backward.
  *
- *
- * @note	Usable only when the DMA is in SG mode
- *
- *****************************************************************************/
+ * @note Usable only when the DMA is in scatter-gather mode.
+ */
 #define XAXIDMA_RING_SEEKBACK(RingPtr, BdPtr, NumBd)                  \
 	{                                                                 \
 		UINTPTR Addr = (UINTPTR)(BdPtr);                                      \
@@ -146,7 +137,7 @@
 
 /*****************************************************************************/
 /**
- * Update Current Descriptor
+ * @brief Update Current Descriptor.
  *
  * @param[in] RingPtr is the Channel instance to be worked on.
  *
@@ -650,7 +641,7 @@ int XAxiDma_BdRingStart(XAxiDma_BdRing *RingPtr)
 
 /*****************************************************************************/
 /**
- * Set interrupt coalescing parameters for the given descriptor ring channel.
+ * @brief Sets interrupt coalescing parameters for the given descriptor ring channel.
  *
  * @param[in] RingPtr is a pointer to the descriptor ring instance to be
  *		worked on.
@@ -730,7 +721,7 @@ void XAxiDma_BdRingGetCoalesce(XAxiDma_BdRing *RingPtr,
 
 /*****************************************************************************/
 /**
- * Reserve locations in the BD ring. The set of returned BDs may be modified in
+ * @brief Reserve locations in the BD ring. The set of returned BDs may be modified in.
  * preparation for future DMA transactions. Once the BDs are ready to be
  * submitted to hardware, the application must call XAxiDma_BdRingToHw() in the
  * same order which they were allocated here. Example:
@@ -833,7 +824,7 @@ int XAxiDma_BdRingAlloc(XAxiDma_BdRing *RingPtr, int NumBd,
 }
 /*****************************************************************************/
 /**
- * Fully or partially undo an XAxiDma_BdRingAlloc() operation. Use this
+ * @brief Fullys or partially undo an XAxiDma_BdRingAlloc() operation. Use this.
  * function if all the BDs allocated by XAxiDma_BdRingAlloc() could not be
  * transferred to hardware with XAxiDma_BdRingToHw().
  *
@@ -1519,7 +1510,6 @@ int XAxiDma_BdRingCheck(XAxiDma_BdRing *RingPtr)
  * @brief Dumps the registers for a channel.
  *
  * @param[in] RingPtr is a pointer to the descriptor ring to be worked on.
- *
  *
  * @note	Usable only when the DMA is in SG mode
  *

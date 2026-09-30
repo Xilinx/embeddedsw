@@ -8,10 +8,9 @@
 /**
  *
  * @file xaxidma_example_selftest.c
- * @addtogroup AXIDMA Overview
- * @{
- *
- * This file demonstrates the example to do selftest on the device.
+* @addtogroup AXIDMA Overview
+* @{
+* @brief Demonstrates the AXI DMA self-test example.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -41,7 +40,7 @@
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
+#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID	/**< Device ID of the AXI DMA under test. */
 #endif
 #endif
 
@@ -63,17 +62,14 @@ int AxiDMASelfTestExample(UINTPTR BaseAddress);
 /*
  * Device instance definitions
  */
-XAxiDma AxiDma;
+XAxiDma AxiDma;	/**< Driver instance for the AXI DMA under test. */
 
 
 /*****************************************************************************/
 /**
 * @brief Invokes the example function and reports the execution status.
 *
-*
-* @retval XST_SUCCESS Example finished successfully.
-* @retval XST_FAILURE Example failed.
-*
+* @return XST_SUCCESS if Example finished successfully, or XST_FAILURE if Example failed.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -105,11 +101,11 @@ int main()
 
 /*****************************************************************************/
 /**
-* Resets the DMA device and verifies idle state and checks the device is
+* @brief Resets the DMA device and verifies idle state and checks the device is.
 * coming out of reset or not.
 *
 * @if SDT
-* @param[in] BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device.
 * @else
 * @param[in] DeviceId is the DMA device id.
 * @endif
@@ -117,8 +113,6 @@ int main()
 * @return
 *		- XST_SUCCESS if channel reset is successful
 *		- XST_FAILURE if channel reset fails.
-*
-*
 *
 ******************************************************************************/
 #ifndef SDT

@@ -8,10 +8,9 @@
 /**
  *
  * @file xaxidma_example_simple_intr.c
- * @addtogroup AXIDMA Overview
- * @{
- *
- * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
+* @addtogroup AXIDMA Overview
+* @{
+* @brief Demonstrates AXI DMA simple mode transfers in interrupt mode.
  * DMA core (AXIDMA) to transfer packets.in interrupt mode when the AXIDMA core
  * is configured in simple mode
  *
@@ -21,7 +20,6 @@
  * To see the debug print, you need a Uart16550 or uartlite in your system,
  * and please set "-DDEBUG" in your compiler options. You need to rebuild your
  * software executable.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -89,7 +87,7 @@
  */
 
 #ifndef SDT
-#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
+#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID	/**< Device ID of the AXI DMA under test. */
 #endif
 
 #ifndef SDT
@@ -120,17 +118,17 @@
 
 /* Timeout loop counter for reset
  */
-#define RESET_TIMEOUT_COUNTER	10000
+#define RESET_TIMEOUT_COUNTER	10000	/**< Maximum iterations to wait for DMA reset completion. */
 
-#define TEST_START_VALUE	0xC
+#define TEST_START_VALUE	0xC	/**< Starting value used to fill and verify test packet data. */
 /*
  * Buffer and Buffer Descriptor related constant definition
  */
-#define MAX_PKT_LEN		0x100
+#define MAX_PKT_LEN		0x100	/**< Maximum packet length in bytes for each transfer. */
 
-#define NUMBER_OF_TRANSFERS	10
-#define POLL_TIMEOUT_COUNTER    1000000U
-#define NUMBER_OF_EVENTS	1
+#define NUMBER_OF_TRANSFERS	10	/**< Number of simple transfers to run in this test. */
+#define POLL_TIMEOUT_COUNTER    1000000U	/**< Maximum poll iterations before a transfer times out. */
+#define NUMBER_OF_EVENTS	1	/**< Number of interrupt events expected to complete the test. */
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255
@@ -147,6 +145,11 @@
 
 /************************** Function Prototypes ******************************/
 #ifndef DEBUG
+/**
+ * @brief Prints a formatted message when DEBUG is not defined.
+ *
+ * @param[in] format is the printf-style format string.
+ */
 extern void xil_printf(const char *format, ...);
 #endif
 
@@ -176,16 +179,16 @@ static void DisableIntrSystem(INTC *IntcInstancePtr,
  */
 
 
-static XAxiDma AxiDma;		/* Instance of the XAxiDma */
+static XAxiDma AxiDma;		/**< Instance of the XAxiDma */
 #ifndef SDT
 static INTC Intc;	/* Instance of the Interrupt Controller */
 #endif
 /*
  * Flags interrupt handlers use to notify the application context the events.
  */
-volatile u32 TxDone;
-volatile u32 RxDone;
-volatile u32 Error;
+volatile u32 TxDone;	/**< Set when the transmit path completes successfully. */
+volatile u32 RxDone;	/**< Set when the receive path completes successfully. */
+volatile u32 Error;	/**< Set when a DMA error interrupt or completion error occurs. */
 
 /** @cond INTERNAL */
 static u8 TxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
@@ -208,10 +211,7 @@ static u8 RxBuffer[MAX_PKT_LEN] __attribute__ ((aligned(64)));
 *	Disable Tx and Rx interrupts
 *	Print test status and exit
 *
-*
-* @retval XST_SUCCESS Example finished successfully.
-* @retval XST_FAILURE Example failed.
-*
+* @return XST_SUCCESS if Example finished successfully, or XST_FAILURE if Example failed.
 *
 ******************************************************************************/
 int main(void)
@@ -408,9 +408,6 @@ Done:
 *
 * @brief Sets up UART16550 with a baud rate of 9600 and 8 data bits.
 *
-*
-*
-*
 ******************************************************************************/
 static void Uart550_Setup(void)
 {
@@ -426,17 +423,16 @@ static void Uart550_Setup(void)
 /*****************************************************************************/
 /**
 *
-* Checks the data buffer after the DMA transfer completes.
+* @brief Checks the data buffer after the DMA transfer completes.
 *
 * We use the static tx/rx buffers.
 *
-* @param[in] Length is the length to check
-* @param[in] StartValue is the starting value of the first byte
+* @param[in] Length is the length to check.
+* @param[in] StartValue is the starting value of the first byte.
 *
 * @return
 *		- XST_SUCCESS if validation is successful
 *		- XST_FAILURE if validation is failure.
-*
 *
 ******************************************************************************/
 static int CheckData(int Length, u8 StartValue)
@@ -476,8 +472,6 @@ static int CheckData(int Length, u8 StartValue)
 * is present, then sets the TxDone.flag
 *
 * @param[in] Callback is a pointer to TX channel of the DMA engine.
-*
-*
 *
 ******************************************************************************/
 static void TxIntrHandler(void *Callback)
@@ -550,8 +544,6 @@ static void TxIntrHandler(void *Callback)
 *
 * @param[in] Callback is a pointer to RX channel of the DMA engine.
 *
-*
-*
 ******************************************************************************/
 static void RxIntrHandler(void *Callback)
 {
@@ -614,14 +606,13 @@ static void RxIntrHandler(void *Callback)
 * @brief Sets up the interrupt system for the DMA, assuming an INTC component exists in the hardware system.
 *
 * @param[in] IntcInstancePtr is a pointer to the instance of the INTC.
-* @param[in] AxiDmaPtr is a pointer to the instance of the DMA engine
+* @param[in] AxiDmaPtr is a pointer to the instance of the DMA engine.
 * @param[in] TxIntrId is the TX channel Interrupt ID.
 * @param[in] RxIntrId is the RX channel Interrupt ID.
 *
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE.if not successful
-*
 *
 ******************************************************************************/
 static int SetupIntrSystem(INTC *IntcInstancePtr,
@@ -732,11 +723,9 @@ static int SetupIntrSystem(INTC *IntcInstancePtr,
 *
 * @brief Disables interrupts for the DMA engine.
 *
-* @param[in] IntcInstancePtr is the pointer to the INTC component instance
-* @param[in] TxIntrId is the interrupt ID associated with the DMA TX channel
-* @param[in] RxIntrId is the interrupt ID associated with the DMA RX channel
-*
-*
+* @param[in] IntcInstancePtr is the pointer to the INTC component instance.
+* @param[in] TxIntrId is the interrupt ID associated with the DMA TX channel.
+* @param[in] RxIntrId is the interrupt ID associated with the DMA RX channel.
 *
 ******************************************************************************/
 static void DisableIntrSystem(INTC *IntcInstancePtr,

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,8 +10,7 @@
 * @file xaxidma_porting_guide.h
 * @addtogroup AXIDMA Overview
 * @{
-*
-* This is a guide on how to move from using the xlldma driver to use xaxidma
+* @brief Provides a guide for porting from xlldma to xaxidma.
 * driver.
 *
 * <pre>
@@ -116,6 +115,7 @@
 * Some other functions are added due to hardware interface change, so to
 * replace old API functions.
 *
+* <pre>
 * - XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId);
 * - int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config);
 * - int XAxiDma_ResetIsDone(XAxiDma * InstancePtr);
@@ -130,12 +130,14 @@
 * - int XAxiDma_BdGetActualLength(XAxiDma_Bd* BdPtr);
 * - int XAxiDma_BdSetAppWord(XAxiDma_Bd * BdPtr, int Offset, u32 Word);
 * - u32 XAxiDma_BdGetAppWord(XAxiDma_Bd * BdPtr, int Offset, int *Valid);
+* </pre>
 *
 * <b>API Functions That Have Been Removed</b>
 *
 * Please see individual function comments for how to replace the removed API
 * function with new API functions.
 *
+* <pre>
 * - void XLlDma_Initialize(XLlDma * InstancePtr, u32 BaseAddress).
 *   This function is replaced by XAxiDma_LookupConfig()/XAxiDma_CfgInitialize()
 *
@@ -155,9 +157,11 @@
 * - u32 XLlDma_BdGetStsCtrl(XLlDma_Bd* BdPtr).
 *   Replaced by XAxiDma_BdGetCtrl(XAxiDma_Bd* BdPtr) and
 *   XAxiDma_BdGetSts(XAxiDma_Bd* BdPtr).
+* </pre>
 *
 * <b>API Functions That Have Been Added to support simple DMA mode</b>
 *
+* <pre>
 * - u32 XAxiDma_Busy(XAxiDma *InstancePtr,int Direction);
 * - int XAxiDma_SimpleTransfer(XAxiDma *InstancePtr, u32 BuffAddr, int Length,
 *	int Direction);
@@ -167,11 +171,13 @@
 * - XAxiDma_IntrDisable(InstancePtr, Mask, Direction);
 * - XAxiDma_IntrGetIrq(InstancePtr, Direction);
 * - XAxiDma_IntrAckIrq(InstancePtr, Mask, Direction);
+* </pre>
 *
 * <b> For xaxidma driver v6_00_a Multiple Channel Support
 *     ---------------------------------------------------
 * This driver supports Multi-channel mode and accordingly some APIs are
 * changed to index multiple channels. Few new APIs are added.
+* <pre>
 *  - Changed APIs
 *	* XAxiDma_GetRxRing(InstancePtr, RingIndex)
 * 	* XAxiDma_Start(XAxiDma * InstancePtr, int RingIndex)
@@ -215,15 +221,17 @@
 *	* XAxiDma_BdGetStride()
 *	* XAxiDma_BdSetVSize()
 *	* XAxiDma_BdGetVSize()
+* </pre>
 * <b> For xaxidma driver v7_00_a
 *     ---------------------------------------------------
+* <pre>
 *  - New API
 *	* XAxiDma_GetRxIndexRing(InstancePtr, RingIndex)
 *
 *  - Changed APIs
 *	All the APIs changed in v6_00_a are reverted back for backward
 *	compatibility.
-*</pre>
+* </pre>
 *
 ******************************************************************************/
 /** @} */

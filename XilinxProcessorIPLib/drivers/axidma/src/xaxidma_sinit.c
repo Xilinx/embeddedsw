@@ -10,8 +10,7 @@
 * @file xaxidma_sinit.c
 * @addtogroup AXIDMA Overview
 * @{
-*
-* Look up the hardware settings using device ID. The hardware setting is inside
+* @brief Implements static initialization and configuration lookup for AXI DMA.
 * the configuration table in xaxidma_g.c, generated automatically by XPS or
 * manually by the user.
 *
@@ -43,19 +42,10 @@
 #ifndef SDT
 /*****************************************************************************/
 /**
- * @brief Looks up device configuration by device ID.
+ * Implementation of XAxiDma_LookupConfig(). See xaxidma.h for the API
+ * description.
  *
- * A table contains the configuration info for each device in the system.
- *
- * @param[in] DeviceId contains the unique ID of the device
- *
- * @return A pointer to the configuration table entry corresponding to the given
- *         device ID, or NULL if no match is found.
- *
- * @note In XSCT/classic flow, DeviceId is used to look up the device
- *       configuration.
- *
- ******************************************************************************/
+ *****************************************************************************/
 XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId)
 {
 	extern XAxiDma_Config XAxiDma_ConfigTable[];
@@ -77,14 +67,10 @@ XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId)
 
 /*****************************************************************************/
 /**
- * @brief Looks up device configuration by base address.
+ * Implementation of XAxiDma_LookupConfigBaseAddr(). See xaxidma.h for the API
+ * description.
  *
- * @param[in] Baseaddr is the base address of the device to look up
- *
- * @return The configuration structure for the device. If the device base
- *         address is not found, a NULL pointer is returned.
- *
- ******************************************************************************/
+ *****************************************************************************/
 XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(UINTPTR Baseaddr)
 {
 	extern XAxiDma_Config XAxiDma_ConfigTable[];
@@ -106,16 +92,10 @@ XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(UINTPTR Baseaddr)
 #else
 /*****************************************************************************/
 /**
- * @brief Looks up device configuration by base address.
+ * Implementation of XAxiDma_LookupConfig(). See xaxidma.h for the API
+ * description.
  *
- * A table contains the configuration info for each device in the system.
- *
- * @param[in] BaseAddress contains the base address of the device
- *
- * @return A pointer to the configuration table entry corresponding to the given
- *         base address, or NULL if no match is found.
- *
- ******************************************************************************/
+ *****************************************************************************/
 XAxiDma_Config *XAxiDma_LookupConfig(UINTPTR BaseAddress)
 {
 	extern XAxiDma_Config XAxiDma_ConfigTable[];

@@ -10,8 +10,7 @@
 * @file xaxidma_selftest.c
 * @addtogroup AXIDMA Overview
 * @{
-*
-* Contains diagnostic/self-test functions for the XAxiDma component.
+* @brief Implements diagnostic and self-test functions for AXI DMA.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -30,7 +29,7 @@
 
 
 /************************** Constant Definitions *****************************/
-#define XAXIDMA_RESET_TIMEOUT   500
+#define XAXIDMA_RESET_TIMEOUT   500 /**< Maximum iterations to wait for reset completion. */
 
 /**************************** Type Definitions *******************************/
 
@@ -47,7 +46,7 @@
 /*****************************************************************************/
 /**
 *
-* Runs a self-test on the driver/device. This test perform a
+* @brief Runs a self-test on the driver/device. This test perform a.
 * reset of the DMA device and checks the device is coming out of reset or not
 *
 * @param[in] InstancePtr is a pointer to the XAxiDma instance.

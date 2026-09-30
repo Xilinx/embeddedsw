@@ -8,10 +8,9 @@
 /**
  *
  * @file xaxidma_example_poll_multi_pkts.c
- * @addtogroup AXIDMA Overview
- * @{
- *
- * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
+* @addtogroup AXIDMA Overview
+* @{
+* @brief Demonstrates AXI DMA polling mode with multiple packets.
  * DMA core (AXIDMA) to transfer multiple packets in polling mode when the
  * AXI DMA core is configured in Scatter Gather Mode.
  *
@@ -21,7 +20,6 @@
  * To see the debug print, you need a Uart16550 or uartlite in your system,
  * and please set "-DDEBUG" in your compiler options. You need to rebuild your
  * software executable.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -75,6 +73,11 @@
 #endif
 
 #ifndef DEBUG
+/**
+ * @brief Prints a formatted message when DEBUG is not defined.
+ *
+ * @param[in] format is the printf-style format string.
+ */
 extern void xil_printf(const char *format, ...);
 #endif
 
@@ -84,14 +87,14 @@ extern void xil_printf(const char *format, ...);
  */
 
 #ifndef SDT
-#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID
+#define DMA_DEV_ID		XPAR_AXIDMA_0_DEVICE_ID	/**< Device ID of the AXI DMA under test. */
 #endif
 
 /*
  * Buffer and Buffer Descriptor related constant definition
  */
 /** @cond */
-#define MAX_PKT_LEN		0x200
+#define MAX_PKT_LEN		0x200	/**< Maximum packet length in bytes for each transfer. */
 #define BLOCK_SIZE_2MB		0x200000U
 
 #define NUMBER_OF_PACKETS	0x10
@@ -103,7 +106,7 @@ extern void xil_printf(const char *format, ...);
 #define RX_BUFFER_SIZE		(NUMBER_OF_BDS_IN_RING * MAX_PKT_LEN)
 /** @endcond */
 
-#define TEST_START_VALUE	0xC
+#define TEST_START_VALUE	0xC	/**< Starting value used to fill and verify test packet data. */
 
 /**************************** Type Definitions *******************************/
 
@@ -131,7 +134,7 @@ static int CheckDmaResult(XAxiDma *AxiDmaInstPtr);
 /*
  * Device instance definitions
  */
-XAxiDma AxiDma;
+XAxiDma AxiDma;	/**< Driver instance for the AXI DMA under test. */
 
 /** @cond INTERNAL */
 static u8 TxBuffer[TX_BUFFER_SIZE] __attribute__ ((aligned(64)));
@@ -151,18 +154,18 @@ static u8 RxBdSpace[RX_BD_SPACE_SIZE] __attribute__ ((aligned(BD_SPACE_ALIGN)));
 u32 *Packet;
 /** @endcond */
 
-static XAxiDma_Bd *LastRxBdPtr = NULL;
+static XAxiDma_Bd *LastRxBdPtr = NULL;	/**< Pointer to the last receive buffer descriptor processed. */
 
 /*****************************************************************************/
 /**
-*
-* @brief Runs the example entry point.
-*
-* Runs the DMA core test. It sets up the DMA engine to receive and send
-* packets, transmits a packet, and verifies it after loopback reception.
-*
-*
-******************************************************************************/
+ * @brief Runs the example entry point.
+ *
+ * Runs the DMA core test. It sets up the DMA engine to receive and send
+ * packets, transmits a packet, and verifies it after loopback reception.
+ *
+ * @return XST_SUCCESS if the example finishes successfully, or XST_FAILURE if the example fails.
+ *
+ ******************************************************************************/
 int main(void)
 {
 	int Status;
@@ -263,10 +266,6 @@ int main(void)
 *
 * @brief Sets up UART16550 with a baud rate of 9600 and 8 data bits.
 *
-*
-*
-*
-
 ******************************************************************************/
 static void Uart550_Setup(void)
 {
@@ -288,9 +287,7 @@ static void Uart550_Setup(void)
 *
 * @param[in] AxiDmaInstPtr is the pointer to the instance of the DMA engine.
 *
-* @return	- XST_SUCCESS if the setup is successful
-*		- XST_FAILURE if setup is failure
-*
+* @return XST_SUCCESS if the setup is successful., or XST_FAILURE if setup is failure.
 *
 ******************************************************************************/
 static int RxSetup(XAxiDma *AxiDmaInstPtr)
@@ -404,9 +401,7 @@ static int RxSetup(XAxiDma *AxiDmaInstPtr)
 *
 * @param[in] AxiDmaInstPtr is the instance pointer to the DMA engine.
 *
-* @return	- XST_SUCCESS if the setup is successful
-*		- XST_FAILURE if setup is failure
-*
+* @return XST_SUCCESS if the setup is successful., or XST_FAILURE if setup is failure.
 *
 ******************************************************************************/
 static int TxSetup(XAxiDma *AxiDmaInstPtr)
@@ -470,9 +465,7 @@ static int TxSetup(XAxiDma *AxiDmaInstPtr)
 *
 * @param[in] AxiDmaInstPtr is a pointer to the DMA engine instance.
 *
-* @return	- XST_SUCCESS if the DMA accepts the packet successfully,
-*		- XST_FAILURE if failure.
-*
+* @return XST_SUCCESS if the DMA accepts the packet successfully,., or XST_FAILURE if failure.
 *
 ******************************************************************************/
 static int SendPackets(XAxiDma *AxiDmaInstPtr)
@@ -600,10 +593,7 @@ static int SendPackets(XAxiDma *AxiDmaInstPtr)
 *
 * @brief Checks the data buffer after the DMA transfer completes.
 *
-*
-* @retval XST_SUCCESS Validation is successful.
-* @retval XST_FAILURE Validation failed.
-*
+* @return XST_SUCCESS if validation is successful, or XST_FAILURE if validation fails.
 *
 ******************************************************************************/
 static int CheckData(void)
@@ -641,9 +631,7 @@ static int CheckData(void)
 *
 * @param[in] AxiDmaInstPtr is a pointer to the DMA engine instance.
 *
-* @retval XST_SUCCESS DMA transfer is successful and data is correct.
-* @retval XST_FAILURE DMA transfer failed.
-*
+* @return XST_SUCCESS if DMA transfer is successful and data is correct. XST_FAILURE if DMA transfer failed.
 *
 ******************************************************************************/
 static int CheckDmaResult(XAxiDma *AxiDmaInstPtr)

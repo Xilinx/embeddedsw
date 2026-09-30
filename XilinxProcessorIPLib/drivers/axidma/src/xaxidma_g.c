@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,8 +10,7 @@
 * @file xaxidma_g.c
 * @addtogroup AXIDMA Overview
 * @{
-*
-* Provide a template for user to define their own hardware settings.
+* @brief Provides a configuration table template for AXI DMA devices.
 *
 * If using XPS, then XPS will automatically generate this file.
 *
@@ -41,8 +40,11 @@
 #include "xaxidma.h"
 
 /************************** Constant Definitions *****************************/
-#define XPAR_AXIDMA_0_INCLUDE_SG	0
+#define XPAR_AXIDMA_0_INCLUDE_SG	0 /**< Indicates whether scatter-gather is included for device 0. */
 
+/**
+ * @brief Holds the configuration table for AXI DMA devices in the system.
+ */
 XAxiDma_Config XAxiDma_ConfigTable[] =
 {
 	{

@@ -10,8 +10,7 @@
 * @file xaxidma.c
 * @addtogroup AXIDMA Overview
 * @{
-*
-* This file implements DMA engine-wise initialization and control functions.
+* @brief Implements DMA engine initialization and control functions.
 * For more information on the implementation of this driver, see xaxidma.h.
 *
 * <pre>
@@ -73,7 +72,7 @@
 
 /* Loop counter to check reset done
  */
-#define XAXIDMA_RESET_TIMEOUT	500
+#define XAXIDMA_RESET_TIMEOUT	500 /**< Maximum iterations to wait for reset completion. */
 
 /**************************** Type Definitions *******************************/
 
@@ -277,7 +276,6 @@ int XAxiDma_CfgInitialize(XAxiDma *InstancePtr, XAxiDma_Config *Config)
 * @param[in] InstancePtr is a pointer to the DMA engine instance to be
 *		worked on.
 *
-*
 * @note		After the reset, all interrupts are disabled and the engine
 *		is halted.
 *
@@ -346,7 +344,6 @@ void XAxiDma_Reset(XAxiDma *InstancePtr)
 * @retval 1 Reset is done.
 * @retval 0 Reset is not done.
 *
-*
 ******************************************************************************/
 int XAxiDma_ResetIsDone(XAxiDma *InstancePtr)
 {
@@ -400,7 +397,6 @@ int XAxiDma_ResetIsDone(XAxiDma *InstancePtr)
 * 		- XST_SUCCESS for success
 * 		- XST_NOT_SGDMA if the driver instance has not been initialized
 * 		- XST_DMA_ERROR if starting the hardware channel fails
-*
 *
 *****************************************************************************/
 static int XAxiDma_Start(XAxiDma *InstancePtr)
@@ -498,7 +494,6 @@ static int XAxiDma_Start(XAxiDma *InstancePtr)
 * 		- XST_SUCCESS if successful
 * 		- XST_NOT_SGDMA, if the driver instance is not initialized
 *
-*
 *****************************************************************************/
 int XAxiDma_Pause(XAxiDma *InstancePtr)
 {
@@ -565,7 +560,6 @@ int XAxiDma_Pause(XAxiDma *InstancePtr)
 *		- XST_SUCCESS for success
 *		- XST_NOT_SGDMA if the driver instance has not been initialized
 *		- XST_DMA_ERROR if one of the channels fails to start
-*
 *
 *****************************************************************************/
 int XAxiDma_Resume(XAxiDma *InstancePtr)
@@ -647,7 +641,6 @@ int XAxiDma_Resume(XAxiDma *InstancePtr)
 *		- 1 if engine is started
 *		- 0 otherwise.
 *
-*
 *****************************************************************************/
 static int XAxiDma_Started(XAxiDma *InstancePtr)
 {
@@ -689,7 +682,7 @@ static int XAxiDma_Started(XAxiDma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * Checks whether the specified DMA channel is busy
+ * @brief Checks whether the specified DMA channel is busy.
  *
  * @param[in] InstancePtr is the driver instance we are working on
  *
@@ -699,7 +692,6 @@ static int XAxiDma_Started(XAxiDma *InstancePtr)
  *
  * @return	- TRUE if channel is busy
  *		- FALSE if channel is idle
- *
  *
  *****************************************************************************/
 u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
@@ -714,7 +706,7 @@ u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
 
 /*****************************************************************************/
 /**
- * Enables or disables the KeyHole feature
+ * @brief Enables or disables the KeyHole feature.
  *
  * @param[in] InstancePtr is the driver instance we are working on
  *
@@ -724,7 +716,6 @@ u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
  * @param[in] Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
- *
  *
  *****************************************************************************/
 int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
@@ -751,7 +742,7 @@ int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
 
 /*****************************************************************************/
 /**
- * Enables or disables cyclic mode
+ * @brief Enables or disables cyclic mode.
  *
  * @param[in] InstancePtr is the driver instance we are working on
  *
@@ -761,7 +752,6 @@ int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
  * @param[in] Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
- *
  *
  *****************************************************************************/
 int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
@@ -787,7 +777,7 @@ int XAxiDma_SelectCyclicMode(XAxiDma *InstancePtr, int Direction, int Select)
 
 /*****************************************************************************/
 /**
- * Submits one simple DMA transfer
+ * @brief Submits one simple DMA transfer.
  *
  * It checks in the following sequence:
  *	- if engine is busy, cannot submit

@@ -8,10 +8,9 @@
 /**
  *
  * @file xaxidma_bd.h
- * @addtogroup AXIDMA Overview
- * @{
- *
- * Buffer descriptor (BD) management API.
+* @addtogroup AXIDMA Overview
+* @{
+* @brief Provides buffer descriptor (BD) management APIs.
  *
  * <b> Buffer Descriptors </b>
  *
@@ -118,12 +117,22 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
  * @brief Declares cache flush and invalidate methods for BDs in cached memory.
  */
 #ifdef __aarch64__
-#define XAXIDMA_CACHE_FLUSH(BdPtr)
-#define XAXIDMA_CACHE_INVALIDATE(BdPtr)
+#define XAXIDMA_CACHE_FLUSH(BdPtr) /**< Flushes cache for the buffer descriptor (no-op on AArch64). */
+#define XAXIDMA_CACHE_INVALIDATE(BdPtr) /**< Invalidates cache for the buffer descriptor (no-op on AArch64). */
 #else
+/**
+ * @brief Flushes the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XAXIDMA_CACHE_FLUSH(BdPtr) \
 	Xil_DCacheFlushRange((UINTPTR)(BdPtr), XAXIDMA_BD_HW_NUM_BYTES)
 
+/**
+ * @brief Invalidates the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XAXIDMA_CACHE_INVALIDATE(BdPtr) \
 	Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XAXIDMA_BD_HW_NUM_BYTES)
 #endif
@@ -131,7 +140,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 /*****************************************************************************/
 /**
 *
-* Read the given Buffer Descriptor word.
+* @brief Reads the given Buffer Descriptor word.
 *
 * @param[in] BaseAddress is the base address of the BD to read
 * @param[in] Offset is the word offset to be read
@@ -149,12 +158,11 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 /*****************************************************************************/
 /**
 *
-* Write the given Buffer Descriptor word.
+* @brief Writes the given Buffer Descriptor word.
 *
 * @param[in] BaseAddress is the base address of the BD to write
 * @param[in] Offset is the word offset to be written
 * @param[in] Data is the 32-bit value to write to the field
-*
 *
 * @note
 * 		C-style signature:
@@ -167,12 +175,11 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 /*****************************************************************************/
 /**
 *
-* Write the given Buffer Descriptor word.
+* @brief Writes the given Buffer Descriptor word.
 *
 * @param[in] BaseAddress is the base address of the BD to write
 * @param[in] Offset is the word offset to be written
 * @param[in] Data is the 64-bit value to write to the field
-*
 *
 * @note
 * 		C-style signature:
@@ -184,11 +191,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Zero out BD specific fields. BD fields that are for the BD ring or for the
+ * @brief Zeros out BD specific fields. BD fields that are for the BD ring or for the.
  * system hardware build information are not touched.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -201,7 +207,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Get the control bits for the BD
+ * @brief Gets the control bits for the BD.
  *
  * @param[in] BdPtr is the BD to operate on
  *
@@ -217,7 +223,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 	 & XAXIDMA_BD_CTRL_ALL_MASK)
 /*****************************************************************************/
 /**
- * Retrieve the status of a BD
+ * @brief Retrieves the status of a BD.
  *
  * @param[in] BdPtr is the BD to operate on
  *
@@ -234,7 +240,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 	 XAXIDMA_BD_STS_ALL_MASK)
 /*****************************************************************************/
 /**
- * Retrieve the length field value from the given BD.  The returned value is
+ * @brief Retrieves the length field value from the given BD. The returned value is.
  * the same as what was written with XAxiDma_BdSetLength(). Note that in the
  * this value does not reflect the real length of received data.
  * See the comments of XAxiDma_BdSetLength() for more details. To obtain the
@@ -257,12 +263,11 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the ID field of the given BD. The ID is an arbitrary piece of data the
+ * @brief Sets the ID field of the given BD. The ID is an arbitrary piece of data the.
  * application can associate with a specific BD.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] Id is a 32-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -275,10 +280,9 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the ID field of the given BD previously set with XAxiDma_BdSetId.
+ * @brief Retrieves the ID field of the given BD previously set with XAxiDma_BdSetId.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -289,10 +293,9 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Get the BD's buffer address
+ * @brief Gets the BD's buffer address.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -304,7 +307,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Check whether a BD has completed in hardware. This BD has been submitted
+ * @brief Checks whether a BD has completed in hardware. This BD has been submitted.
  * to hardware. The application can use this function to poll for the
  * completion of the BD.
  *
@@ -328,13 +331,12 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Get the actual transfer length of a BD. The BD has completed in hw.
+ * @brief Gets the actual transfer length of a BD. The BD has completed in hw.
  *
  * May fail when the BD resides in cached memory.
  *
  * @param[in] BdPtr is the BD to check on
  * @param[in] LengthMask is the Maximum Transfer Length.
- *
  *
  * @note
  *		C-style signature:
@@ -347,14 +349,13 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the TID field of the TX BD.
+ * @brief Sets the TID field of the TX BD.
  * Provides a stream identifier and can be used to differentiate between
  * multiple streams of data that are being transferred across the same
  * interface.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] TId is an 8-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -372,10 +373,9 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the TID field of the RX BD previously set with XAxiDma_BdSetTId.
+ * @brief Retrieves the TID field of the RX BD previously set with XAxiDma_BdSetTId.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -388,12 +388,11 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the TDEST field of the TX BD.
+ * @brief Sets the TDEST field of the TX BD.
  * Provides coarse routing information for the data stream.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] TDest is an 8-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -411,11 +410,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the TDest field of the RX BD previously set with i
+ * @brief Retrieves the TDest field of the RX BD previously set with i.
  * XAxiDma_BdSetTDest.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -428,12 +426,11 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the TUSER field of the TX BD.
+ * @brief Sets the TUSER field of the TX BD.
  * User defined sideband signaling.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] TUser is an 8-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -451,11 +448,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the TUSER field of the RX BD previously set with
+ * @brief Retrieves the TUSER field of the RX BD previously set with.
  * XAxiDma_BdSetTUser.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -468,13 +464,12 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the ARCACHE field of the given BD.
+ * @brief Sets the ARCACHE field of the given BD.
  * This signal provides additional information about the cacheable
  * characteristics of the transfer.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] ARCache is an 8-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -492,11 +487,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the ARCACHE field of the given BD previously set with
+ * @brief Retrieves the ARCACHE field of the given BD previously set with.
  * XAxiDma_BdSetARCache.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -510,12 +504,11 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the ARUSER field of the given BD.
+ * @brief Sets the ARUSER field of the given BD.
  * Sideband signals used for user defined information.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] ARUser is an 8-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -534,11 +527,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the ARUSER field of the given BD previously set with
+ * @brief Retrieves the ARUSER field of the given BD previously set with.
  * XAxiDma_BdSetARUser.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -551,13 +543,12 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the STRIDE field of the given BD.
+ * @brief Sets the STRIDE field of the given BD.
  * It is the address distance between the first address of successive
  * horizontal reads.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] Stride is a 32-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -575,11 +566,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the STRIDE field of the given BD previously set with
+ * @brief Retrieves the STRIDE field of the given BD previously set with.
  * XAxiDma_BdSetStride.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
@@ -592,12 +582,11 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the VSIZE field of the given BD.
+ * @brief Sets the VSIZE field of the given BD.
  * Number of horizontal lines for strided access.
  *
  * @param[in] BdPtr is the BD to operate on
  * @param[in] VSize is a 32-bit quantity to set in the BD
- *
  *
  * @note
  *		C-style signature:
@@ -615,11 +604,10 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the STRIDE field of the given BD previously set with
+ * @brief Retrieves the STRIDE field of the given BD previously set with.
  * XAxiDma_BdSetVSize.
  *
  * @param[in] BdPtr is the BD to operate on
- *
  *
  * @note
  *		C-style signature:
