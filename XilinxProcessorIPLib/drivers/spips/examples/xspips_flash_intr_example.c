@@ -9,16 +9,12 @@
 *
 * @file xspips_flash_intr_example.c
 *
+* @brief Implements a design example using the SPI driver (XSpiPs) in
+* interrupt mode with a serial flash device.
 *
-* This file contains a design example using the SPI driver (XSpiPs) in
-* interrupt mode with a serial flash device. This examples performs
-* transfers in Manual start mode using interrupts.
+* The example performs transfers in Manual start mode using interrupts.
 * The hardware which this example runs on, must have a serial flash
-* for it to run. This example has been tested with SST25W080.
-*
-* @note
-*
-* None.
+* for it to run. The example has been tested with SST25W080.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -34,6 +30,7 @@
 * 3.13 sb   09/09/25 Fix flash status register check in erase function
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.15 vn   08/26/26 Fix Doxygen warnings.
+* 3.15 tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -62,32 +59,33 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID	/**< SPI device ID. */
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define SPI_INTR_ID		XPAR_XSPIPS_1_INTR
+#define SPI_INTR_ID		XPAR_XSPIPS_1_INTR /**< SPI interrupt ID. */
 #endif
 
 /*
  * The following constants define the commands which may be sent to the flash
  * device.
  */
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD		0x02
-#define READ_CMD		0x03
-#define WRITE_DISABLE_CMD	0x04
-#define READ_STATUS_CMD		0x05
-#define WRITE_ENABLE_CMD	0x06
-#define FAST_READ_CMD		0x0B
-#define CHIP_ERASE_CMD		0x60
-#define BULK_ERASE_CMD		0xC7
-#define	BLOCK_ERASE_64K_CMD	0xD8
-#define READ_ID			0x90
-#define SST_READ_ID		0x9F
+#define WRITE_STATUS_CMD	0x01	/**< Write status register command. */
+#define WRITE_CMD		0x02	/**< Page program command. */
+#define READ_CMD		0x03	/**< Read data command. */
+#define WRITE_DISABLE_CMD	0x04	/**< Write disable command. */
+#define READ_STATUS_CMD		0x05	/**< Read status register command. */
+#define WRITE_ENABLE_CMD	0x06	/**< Write enable command. */
+#define FAST_READ_CMD		0x0B	/**< Fast read command. */
+#define CHIP_ERASE_CMD		0x60	/**< Chip erase command. */
+#define BULK_ERASE_CMD		0xC7	/**< Bulk erase command. */
+#define	BLOCK_ERASE_64K_CMD	0xD8	/**< 64 KB block erase command. */
+#define READ_ID			0x90	/**< Read ID command. */
+#define SST_READ_ID		0x9F	/**< SST flash read ID command. */
 
-/* Global Block-Protection Unlock register */
+/** Global Block-Protection Unlock register command. */
 #define GLOBAL_BLK_PROT_UNLK	0x98
 
-/* All SST flash parts have ID 0xBF */
+/** All SST flash parts have ID 0xBF. */
 #define SST_FLASH_ID		0xBF
 
 /*
@@ -97,15 +95,16 @@
  * duplex transfers such that the number of bytes received is the number
  * sent and received.
  */
-#define COMMAND_OFFSET		0 /* Flash instruction */
-#define ADDRESS_1_OFFSET	1 /* MSB byte of address to read or write */
-#define ADDRESS_2_OFFSET	2 /* Middle byte of address to read or write */
-#define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
-#define DATA_OFFSET		4 /* Start of Data for Read/Write */
-#define DUMMY_SIZE		1 /* Number of dummy bytes for fast read */
-#define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
+#define COMMAND_OFFSET		0 /**< Flash instruction. */
+#define ADDRESS_1_OFFSET	1 /**< MSB byte of address to read or write. */
+/** Middle byte of address to read or write. */
+#define ADDRESS_2_OFFSET	2
+#define ADDRESS_3_OFFSET	3 /**< LSB byte of address to read or write. */
+#define DATA_OFFSET		4 /**< Start of Data for Read/Write. */
+#define DUMMY_SIZE		1 /**< Number of dummy bytes for fast read. */
+#define RD_ID_SIZE		4 /**< Read ID command + 3 bytes ID response. */
 
-/* Flag stating sst flash or not */
+/** Flag stating sst flash or not. */
 static int is_sst;
 
 
@@ -114,24 +113,24 @@ static int is_sst;
  * flash on the SPI interface, that are not data, but control information
  * which includes the command and address
  */
-#define OVERHEAD_SIZE		4
+#define OVERHEAD_SIZE		4	/**< Command and address bytes. */
 
-#define UNIQUE_VALUE		0x55
+#define UNIQUE_VALUE		0x55	/**< Unique test data value. */
 
 /*
  * The following constants specify the max amount of data and the size of the
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the flash.
  */
-#define MAX_DATA		1024*1024
+#define MAX_DATA		1024*1024	/**< Max data size. */
 
 /*
- * The following constant defines the slave select signal that is used to
- * to select the flash device on the SPI bus, this signal is typically
+ * The following constant defines the slave select signal that
+ * selects the flash device on the SPI bus, this signal is typically
  * connected to the chip select of the device
  */
-#define FLASH_SPI_SELECT_1	0x01
-#define FLASH_SPI_SELECT_0	0x00
+#define FLASH_SPI_SELECT_1	0x01	/**< Flash on chip select 1. */
+#define FLASH_SPI_SELECT_0	0x00	/**< Flash on chip select 0. */
 
 /**************************** Type Definitions *******************************/
 
@@ -174,49 +173,48 @@ static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr);
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-static XScuGic IntcInstance;
+static XScuGic IntcInstance;	/**< Interrupt controller instance. */
 #endif
-static XSpiPs SpiInstance;
+static XSpiPs SpiInstance;	/**< SPI driver instance. */
 #endif
 
-/*
- * The following variables are shared between non-interrupt processing and
- * interrupt processing such that they must be global.
+/**
+ * @brief Indicates that an SPI transfer is in progress.
+ *
+ * The variable is shared between non-interrupt processing and
+ * interrupt processing such that it must be global.
  */
 volatile int TransferInProgress;
 
-/*
- * The following variable tracks any errors that occur during interrupt
- * processing
+/**
+ * @brief Tracks any errors that occur during interrupt processing.
  */
 int Error;
 
-/*
- * Write Address Location in Serial Flash.
+/**
+ * @brief Holds the write address location in the serial flash.
  */
 static int TestAddress;
 
 /*
- * The following variables are used to read and write to the eeprom and they
+ * The following variables read and write to the flash and they
  * are global to avoid having large buffers on the stack
  */
+/** Buffer for the data read from the flash. */
 u8 ReadBuffer[MAX_DATA + DATA_OFFSET + DUMMY_SIZE];
-u8 WriteBuffer[MAX_DATA + DATA_OFFSET];
+u8 WriteBuffer[MAX_DATA + DATA_OFFSET];	/**< Data to write to the flash. */
 
+#ifndef TESTAPP_GEN
 /*****************************************************************************/
 /**
 *
-* Main function to call the SPI Flash example.
-*
+* @brief Calls the SPI Flash interrupt example.
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if not successful
 *
-* @note		None
-*
 ******************************************************************************/
-#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -244,30 +242,30 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The purpose of this function is to illustrate how to use the XSpiPs
-* device driver in interrupt mode. This function writes and reads data
-* from a serial flash.
+* @brief Illustrates how to use the XSpiPs device driver in interrupt mode.
 *
-* @param	SpiInstancePtr is a pointer to the SPI driver instance to use.
+* The function writes and reads data from a serial flash.
+*
+* @param[in]	SpiInstancePtr Pointer to the SPI driver instance to use.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to Interrupt Controller instance.
-* @param	SpiDeviceId is the Instance Id of SPI in the system.
-* @param	SpiIntrId is the Interrupt Id for SPI in the system.
+* @param[in]	IntcInstancePtr Pointer to Interrupt Controller instance.
+* @param[in]	SpiDeviceId The Instance Id of SPI in the system.
+* @param[in]	SpiIntrId The Interrupt Id for SPI in the system.
 * @endif
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if not successful
 *
-* @note		- In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
-*               - This function calls other functions which contain
+* @note		- In XSCT/classic flow, the device configuration is looked up
+*               based on DeviceId.
+*               - The function calls other functions which contain
 *               loops that may be infinite if interrupts are not working such
 *               that it may not return. If the device slave select is not
-*               correct and the device is not responding on bus it will
-*               read a status of 0xFF for the status register as the bus is
+*               correct and the device is not responding on bus it
+*               reads a status of 0xFF for the status register as the bus is
 *               pulled up.
 *
 *****************************************************************************/
@@ -485,7 +483,8 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver.
+* @brief Handles the status events of the SPI driver.
+*
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized.  It is called when a transfer of SPI data
 * completes or an error occurs.
@@ -493,11 +492,9 @@ int SpiPsFlashIntrExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 * This handler provides an example of how to handle SPI interrupts but is
 * application specific.
 *
-* @param	CallBackRef is a reference passed to the handler.
-* @param	StatusEvent is the status of the SPI .
-* @param	ByteCount is the number of bytes transferred.
-*
-* @note		None.
+* @param[in]	CallBackRef A reference passed to the handler.
+* @param[in]	StatusEvent The status of the SPI .
+* @param[in]	ByteCount The number of bytes transferred.
 *
 ******************************************************************************/
 void SpiPsHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
@@ -518,25 +515,22 @@ void SpiPsHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
+* @brief Writes to the serial flash connected to the SPI interface.
 *
-* This function writes to the  serial flash connected to the SPI interface.
 * The flash contains a 256 byte write buffer which can be filled and then a
 * write is automatically performed by the device.  All the data put into the
 * buffer must be in the same page of the device with page boundaries being on
 * 256 byte boundaries.
 *
-* @param	SpiPtr is a pointer to the SPI driver component to use.
-* @param	Address contains the address to write data to in the flash.
-* @param	ByteCount contains the number of bytes to write.
-* @param	Command is the command used to write data to the flash. SPI
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
+* @param[in]	Address The address to write data to in the flash.
+* @param[in]	ByteCount The number of bytes to write.
+* @param[in]	Command The command used to write data to the flash. SPI
 *		device supports only Page Program command to write data to the
 *		flash.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
@@ -643,21 +637,17 @@ static void FlashWrite(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
-* This function reads from the  serial flash connected to the
-* SPI interface.
+* @brief Reads from the serial flash connected to the SPI interface.
 *
-* @param	SpiPtr is a pointer to the SPI driver component to use.
-* @param	Address contains the address to read data from in the flash.
-* @param	ByteCount contains the number of bytes to read.
-* @param	Command is the command used to read data from the flash. SPI
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
+* @param[in]	Address The address to read data from in the flash.
+* @param[in]	ByteCount The number of bytes to read.
+* @param[in]	Command The command used to read data from the flash. SPI
 *		device supports one of the Read, Fast Read, Dual Read and Fast
 *		Read commands to read data from the flash.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
@@ -688,17 +678,16 @@ static void FlashRead(XSpiPs *SpiPtr, u32 Address, u32 ByteCount, u8 Command)
 	while (TransferInProgress);
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
-* This function Unlocks the Global Block-Protection Unlock register bits.
+* @brief Unlocks the Global Block-Protection Unlock register bits.
 *
-* @param        None.
+* @param[in,out] SpiInstancePtr Pointer to the SPI driver instance to use.
 *
 * @return
 *               - XST_SUCCESS if successful
 *               - XST_FAILURE if not successful
-*
-* @note         None.
 *
 ******************************************************************************/
 static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr)
@@ -720,17 +709,16 @@ static int SST_GlobalBlkProtectUnlk(XSpiPs *SpiInstancePtr)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
-* This function reads serial flash ID connected to the SPI interface.
+* @brief Reads the ID of the serial flash connected to the SPI interface.
 *
-* @param	None.
+* @param[in,out]	SpiInstance Pointer to the SPI driver instance to use.
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if not successful
-*
-* @note		None.
 *
 ******************************************************************************/
 static int FlashReadID(XSpiPs *SpiInstance)
@@ -777,17 +765,12 @@ static int FlashReadID(XSpiPs *SpiInstance)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
+* @brief Erases the sectors in the serial flash connected to the SPI interface.
 *
-* This function erases the sectors in the  serial flash connected to the
-* SPI interface.
-*
-* @param	SpiPtr is a pointer to the SPI driver component to use.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
 *
 ******************************************************************************/
 static void FlashErase(XSpiPs *SpiPtr)
@@ -992,17 +975,15 @@ static void FlashErase(XSpiPs *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system for an Spi device.
+* @brief Sets up the interrupt system for an Spi device.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc device.
-* @param	SpiInstancePtr is a pointer to the instance of the Spi device.
-* @param	SpiIntrId is the interrupt Id for an SPI device.
+* @param[in]	IntcInstancePtr Pointer to the instance of the Intc device.
+* @param[in]	SpiInstancePtr Pointer to the instance of the Spi device.
+* @param[in]	SpiIntrId The interrupt Id for an SPI device.
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if not successful
-*
-* @note		None.
 *
 ******************************************************************************/
 static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
@@ -1065,14 +1046,10 @@ static int SpiPsSetupIntrSystem(XScuGic *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the Spi device.
+* @brief Disables the interrupts that occur for the Spi device.
 *
-* @param	IntcInstancePtr is the pointer to an INTC instance.
-* @param	SpiIntrId is the interrupt Id for an SPI device.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	IntcInstancePtr Pointer to an INTC instance.
+* @param[in]	SpiIntrId The interrupt Id for an SPI device.
 *
 ******************************************************************************/
 static void SpiPsDisableIntrSystem(XScuGic *IntcInstancePtr, u16 SpiIntrId)

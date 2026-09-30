@@ -4,18 +4,21 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSPIPS_H
+#define XSPIPS_H
+
 /*****************************************************************************/
 /**
 *
 * @file xspips.h
 * @addtogroup spips Overview
 * @{
-* @details
 *
-* This file contains the implementation of the XSpiPs driver. It works for
-* both the master and slave mode. User documentation for the driver functions
-* is contained in this file in the form of comment blocks at the front of each
-* function.
+* @brief Implements the XSpiPs driver for an SPI master or slave device.
+*
+* The driver works for both the master and slave mode. User documentation for
+* the driver functions is contained in the form of comment blocks at the front
+* of each function.
 *
 * An SPI device connects to an SPI bus through a 4-wire serial interface.
 * The SPI bus is a full-duplex, synchronous bus that facilitates communication
@@ -37,7 +40,7 @@
 * following way:
 *	- XSpiPs_LookupConfig(DeviceId) - Use the divide identifier to find the
 *	static configuration structure defined in xspips_g.c. This is setup by
-*	the tools. For some operating systems the config structure will be
+*	the tools. For some operating systems the config structure is
 *	initialized by the software and this call is not needed.
 *	- XSpiPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
 *	configuration structure provided by the caller. If running in a system
@@ -85,14 +88,15 @@
 * - Auto CS with Manual or Auto Start: It is very difficult for software to
 *   keep the TXFIFO filled. Whenever the TXFIFO runs empty, CS is deasserted.
 *   This results in a single transaction to be split into multiple pieces each
-*   with its own chip select. This will result in garbage data to be sent.
+*   with its own chip select. This results in garbage data to be sent.
 *
 * <b>Interrupts</b>
 *
 * The user must connect the interrupt handler of the driver,
-* XSpiPs_InterruptHandler, to an interrupt system such that it will be
-* called when an interrupt occurs. This function does not save and restore
-* the processor context such that the user must provide this processing.
+* XSpiPs_InterruptHandler, to an interrupt system such that it is
+* called when an interrupt occurs. The interrupt handler does not save and
+* restore the processor context such that the user must provide this
+* processing.
 *
 * The driver handles the following interrupts:
 * - Data Transmit Register/FIFO Underflow
@@ -139,7 +143,6 @@
 * disabled. When configured as a master, Mode Fault Error interrupt indicates
 * that another SPI device is acting as a master on the bus.
 *
-*
 * <b>Polled Operation</b>
 *
 * Transfer in polled mode is supported through a separate interface function
@@ -164,7 +167,7 @@
 *
 * <b>RTOS Independence</b>
 *
-* This driver is intended to be RTOS and processor independent.  It works with
+* The driver is intended to be RTOS and processor independent.  It works with
 * physical addresses only.  Any needs for dynamic memory management, threads or
 * thread mutual exclusion, virtual memory, or cache control must be satisfied
 * by the layer above this driver.
@@ -244,12 +247,11 @@
 * 3.14  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
 * 3.15  vn     08/26/26 Fix Doxygen warnings.
+* 3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
-#ifndef XSPIPS_H		/* prevent circular inclusions */
-#define XSPIPS_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -285,39 +287,39 @@ extern "C" {
  * The <b>Slave Select Decode Enable option</b> selects how the SPI_SS_outN are
  * controlled by the SPI Slave Select Decode bits.
  * 0: Use this setting for the standard configuration of up to three slave
- * select outputs. Only one of the three slave select outputs will be low.
+ * select outputs. Only one of the three slave select outputs is low.
  * (Default)
  * 1: Use this setting for the optional configuration of an additional decoder
  * to support 8 slave select outputs. SPI_SS_outN reflects the value in the
  * register.
  *
- * The <b>SPI Force Slave Select option</b> is used to enable manual control of
+ * The <b>SPI Force Slave Select option</b> enables manual control of
  * the signals SPI_SS_outN.
  * 0: The SPI_SS_outN signals are controlled by the SPI controller during
  * transfers. (Default)
  * 1: The SPI_SS_outN signal indicated by the Slave Select Control bit is
  * forced active (driven low) regardless of any transfers in progress.
  *
- * NOTE: The driver will handle setting and clearing the Slave Select when
- * the user sets the "FORCE_SSELECT_OPTION". Using this option will allow the
+ * NOTE: The driver handles setting and clearing the Slave Select when
+ * the user sets the "FORCE_SSELECT_OPTION". Using this option allows the
  * SPI clock to be set to a faster speed. If the SPI clock is too fast, the
  * processor cannot empty and refill the FIFOs before the TX FIFO is empty
  * When the SPI hardware is controlling the Slave Select signals, this
- * will cause slave to be de-selected and terminate the transfer.
+ * causes the slave to be de-selected and terminates the transfer.
  *
- * The <b>Manual Start option</b> is used to enable manual control of
+ * The <b>Manual Start option</b> enables manual control of
  * the Start command to perform data transfer.
  * 0: The Start command is controlled by the SPI controller during
  * transfers(Default). Data transmission starts as soon as there is data in
  * the TXFIFO and stalls when the TXFIFO is empty
  * 1: The Start command must be issued by software to perform data transfer.
- * Bit 15 of Configuration register is used to issue Start command. This bit
+ * Bit 15 of Configuration register issues the Start command. This bit
  * must be set whenever TXFIFO is filled with new data.
  *
- * NOTE: The driver will set the Manual Start Enable bit in Configuration
- * Register, if Manual Start option is selected. Software will issue
+ * NOTE: The driver sets the Manual Start Enable bit in Configuration
+ * Register, if Manual Start option is selected. Software issues
  * Manual Start command whenever TXFIFO is filled with data. When there is
- * no further data, driver will clear the Manual Start Enable bit.
+ * no further data, driver clears the Manual Start Enable bit.
  *
  * @{
  */
@@ -328,7 +330,6 @@ extern "C" {
 #define XSPIPS_FORCE_SSELECT_OPTION			0x00000010U /**< Force Slave Select */
 #define XSPIPS_MANUAL_START_OPTION			0x00000020U /**< Manual Start mode option */
 /** @} */
-
 
 /** @name SPI Clock Prescaler options
  * The SPI Clock Prescaler Configuration bits are used to program master mode
@@ -347,12 +348,11 @@ extern "C" {
 #define XSPIPS_CLK_PRESCALE_256		0x07U  /**< PCLK/256 Prescaler */
 /** @} */
 
-
 /** @name Callback events
  *
  * These constants specify the handler events that are passed to
  * a handler from the driver.  These constants are not bit masks such that
- * only one will be passed at a time to the handler.
+ * only one is passed at a time to the handler.
  *
  * @{
  */
@@ -363,23 +363,24 @@ extern "C" {
 						RX FIFO full */
 /** @} */
 
-
 /**************************** Type Definitions *******************************/
 /**
+ * @brief Describes the status callback function type of the SPIPS driver.
+ *
  * The handler data type allows the user to define a callback function to
  * handle the asynchronous processing for the SPI device.  The application
  * using this driver is expected to define a handler of this type to support
  * interrupt driven mode.  The handler executes in an interrupt context, so
  * only minimal processing should be performed.
  *
- * @param	CallBackRef is the callback reference passed in by the upper
+ * @param[in]	CallBackRef The callback reference passed in by the upper
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param 	StatusEvent holds one or more status events that have occurred.
+ * @param[in] 	StatusEvent Holds one or more status events that have occurred.
  *		See the XSpiPs_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
- * @param	ByteCount indicates how many bytes of data were successfully
+ * @param[in]	ByteCount Indicates how many bytes of data were successfully
  *		transferred.  This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
@@ -387,7 +388,7 @@ typedef void (*XSpiPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent,
 				      u32 ByteCount);
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds the configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -408,9 +409,11 @@ typedef struct {
 } XSpiPs_Config;
 
 /**
- * The XSpiPs driver instance data. The user is required to allocate a
- * variable of this type for every SPI device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds the XSpiPs driver instance data.
+ *
+ * The user is required to allocate a variable of this type for every SPI
+ * device in the system. A pointer to a variable of this type is then passed
+ * to the driver API functions.
  */
 typedef struct {
 	XSpiPs_Config Config;	 /**< Configuration structure */
@@ -424,7 +427,7 @@ typedef struct {
 	u32 SlaveSelect;     /**< The slave select value when
 					 XSPIPS_FORCE_SSELECT_OPTION is set */
 
-	XSpiPs_StatusHandler StatusHandler;
+	XSpiPs_StatusHandler StatusHandler; /**< Status handler callback */
 	void *StatusRef;  	 /**< Callback reference for status handler */
 	u32 FifoDepth ;		 /**< Depth of the transfer FIFO in Bytes */
 	u32 FifoWidth ;		 /**< Width of the transfer FIFO in Bytes */
@@ -433,18 +436,19 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
-/*
+/**
 *
-* Check in OptionsTable if Manual Start Option is enabled or disabled.
+* @brief Checks whether the Manual Start option is enabled.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return
 *		- TRUE if option is set
 *		- FALSE if option is not set
 *
-* @note		C-Style signature:
-*		u8 XSpiPs_IsManualStart(XSpiPs *InstancePtr)
+* @note
+* C-style signature
+*	u8 XSpiPs_IsManualStart(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsManualStart(InstancePtr) \
@@ -452,18 +456,19 @@ typedef struct {
 	   XSPIPS_MANUAL_START_OPTION) != (u32)0U) ? TRUE : FALSE)
 
 /****************************************************************************/
-/*
+/**
 *
-* Check in OptionsTable if Manual Chip Select Option is enabled or disabled.
+* @brief Checks whether the Manual Chip Select option is enabled.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return
 *		- TRUE if option is set
 *		- FALSE if option is not set
 *
-* @note		C-Style signature:
-*		u8 XSpiPs_IsManualChipSelect(XSpiPs *InstancePtr)
+* @note
+* C-style signature
+*	u8 XSpiPs_IsManualChipSelect(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsManualChipSelect(InstancePtr) \
@@ -471,18 +476,19 @@ typedef struct {
 	   XSPIPS_FORCE_SSELECT_OPTION) != (u32)0U) ? TRUE : FALSE)
 
 /****************************************************************************/
-/*
+/**
 *
-* Check in OptionsTable if Decode Slave Select option is enabled or disabled.
+* @brief Checks whether the Decode Slave Select option is enabled.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return
 *		- TRUE if option is set
 *		- FALSE if option is not set
 *
-* @note		C-Style signature:
-*		u8 XSpiPs_IsDecodeSSelect(XSpiPs *InstancePtr)
+* @note
+* C-style signature
+*	u8 XSpiPs_IsDecodeSSelect(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsDecodeSSelect(InstancePtr) \
@@ -490,18 +496,19 @@ typedef struct {
 	   XSPIPS_DECODE_SSELECT_OPTION) != (u32)0U) ? TRUE : FALSE)
 
 /****************************************************************************/
-/*
+/**
 *
-* Check in OptionsTable if Master Option is enabled or disabled.
+* @brief Checks whether the Master option is enabled.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return
 *		- TRUE if option is set
 *		- FALSE if option is not set
 *
-* @note		C-Style signature:
-*		u8 XSpiPs_IsMaster(XSpiPs *InstancePtr)
+* @note
+* C-style signature
+*	u8 XSpiPs_IsMaster(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_IsMaster(InstancePtr) \
@@ -511,16 +518,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the slave idle count register.
+* @brief Sets the contents of the slave idle count register.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	RegisterValue is the value to be written, valid values are
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
+* @param[in]	RegisterValue The value to be written, valid values are
 *		0-255.
 *
-* @return	None
-*
 * @note
-* C-Style signature:
+* C-style signature
 *	void XSpiPs_SetSlaveIdle(XSpiPs *InstancePtr, u32 RegisterValue)
 *
 *****************************************************************************/
@@ -531,15 +536,18 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the slave idle count register. Use the XSPIPS_SICR_*
-* constants defined in xspips_hw.h to interpret the bit-mask returned.
+* @brief Gets the contents of the slave idle count register.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* Use the XSPIPS_SICR_* constants defined in xspips_hw.h to interpret the
+* bit-mask returned.
+*
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return	8-bit value representing the contents of the SIC register.
 *
-* @note		C-Style signature:
-*		u32 XSpiPs_GetSlaveIdle(XSpiPs *InstancePtr)
+* @note
+* C-style signature
+*	u32 XSpiPs_GetSlaveIdle(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_GetSlaveIdle(InstancePtr)				\
@@ -549,16 +557,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the transmit FIFO watermark register.
+* @brief Sets the contents of the transmit FIFO watermark register.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	RegisterValue is the value to be written, valid values
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
+* @param[in]	RegisterValue The value to be written, valid values
 *		are 1-128.
 *
-* @return	None.
-*
 * @note
-* C-Style signature:
+* C-style signature
 *	void XSpiPs_SetTXWatermark(XSpiPs *InstancePtr, u32 RegisterValue)
 *
 *****************************************************************************/
@@ -569,16 +575,18 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the transmit FIFO watermark register.
+* @brief Gets the contents of the transmit FIFO watermark register.
+*
 * Use the XSPIPS_TXWR_* constants defined xspips_hw.h to interpret
 * the bit-mask returned.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return	8-bit value representing the contents of the TXWR register.
 *
-* @note		C-Style signature:
-*		u32 XSpiPs_GetTXWatermark(u32 *InstancePtr)
+* @note
+* C-style signature
+*	u32 XSpiPs_GetTXWatermark(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_GetTXWatermark(InstancePtr)				\
@@ -587,16 +595,14 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the receive FIFO watermark register.
+* @brief Sets the contents of the receive FIFO watermark register.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	RegisterValue is the value to be written, valid values
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
+* @param[in]	RegisterValue The value to be written, valid values
 *		are 1-128.
 *
-* @return	None.
-*
 * @note
-* C-Style signature:
+* C-style signature
 *	void XSpiPs_SetRXWatermark(XSpiPs *InstancePtr, u32 RegisterValue)
 *
 *****************************************************************************/
@@ -607,16 +613,18 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the receive FIFO watermark register.
+* @brief Gets the contents of the receive FIFO watermark register.
+*
 * Use the XSPIPS_RXWR_* constants defined xspips_hw.h to interpret
 * the bit-mask returned.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return	A 8-bit value representing the contents of the RXWR register.
 *
-* @note		C-Style signature:
-*		u32 XSpiPs_GetRXWatermark(u32 *InstancePtr)
+* @note
+* C-style signature
+*	u32 XSpiPs_GetRXWatermark(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_GetRXWatermark(InstancePtr)				\
@@ -625,14 +633,13 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Enable the device and uninhibit master transactions.
+* @brief Enables the device and uninhibits master transactions.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XSpiPs_Enable(u32 *InstancePtr)
+* @note
+* C-style signature
+*	void XSpiPs_Enable(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_Enable(InstancePtr)					\
@@ -642,14 +649,13 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Disable the device.
+* @brief Disables the device.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XSpiPs_Disable(u32 *InstancePtr)
+* @note
+* C-style signature
+*	void XSpiPs_Disable(XSpiPs *InstancePtr)
 *
 *****************************************************************************/
 #define XSpiPs_Disable(InstancePtr)					\

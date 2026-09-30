@@ -9,24 +9,21 @@
 *
 * @file xspips_slave_polled_example.c
 *
+* @brief Implements a design example using the SPI controller in slave mode.
 *
-* This file contains a design example using the SPI controller in slave mode.
-* This examples performs transfers in polled mode and has been tested with
-* Aardvark Analyzer as Master. This example echoes data which it receives
+* The example performs transfers in polled mode and has been tested with
+* Aardvark Analyzer as Master. The example echoes data which it receives
 * from the master. The slave controller expects MAX_DATA bytes of data from
-* the master to transmit onto the SPI bus which the slave will receive into
-* its Rx buffer. It will poll until the Rx FIFO is filled with the Threshold
-* limit of data which is set to MAX_DATA. On sending data, the master will
-* receive dummy bytes in response. Master has to send MAX_DATA dummy bytes
+* the master to transmit onto the SPI bus which the slave receives into
+* its Rx buffer. It polls until the Rx FIFO is filled with the Threshold
+* limit of data which is set to MAX_DATA. On sending data, the master
+* receives dummy bytes in response. Master has to send MAX_DATA dummy bytes
 * to read back the echoed data.
 *
-*
-* @note
-*
-* The slave mode test needs an external master to send data to the Spi device.
-* This example has been tested with Aardvark Analyzer as Master.
-* The Clock Polarity and Phase should match between master and the slave.
-*
+* @note		The slave mode test needs an external master to send data to
+*		the Spi device. The example has been tested with Aardvark
+*		Analyzer as Master. The Clock Polarity and Phase should match
+*		between master and the slave.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -41,6 +38,7 @@
 * 3.13  sb   09/09/25 Fix GCC warnings.
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.15 vn   08/26/26 Fix Doxygen warnings.
+* 3.15 tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -64,16 +62,16 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID	/**< SPI device ID. */
 #endif
 
 /*
  * The following constant specify the max amount of data the slave is
  * expecting to receive from the master.
  */
-#define MAX_DATA		100
+#define MAX_DATA		100	/**< Max data size in bytes. */
 
-#define UNIQUE_VALUE		0xAA
+#define UNIQUE_VALUE		0xAA	/**< Unique test data value. */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -93,26 +91,23 @@ int SpiPsSlavePolledExample(UINTPTR BaseAddress);
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
-static XSpiPs SpiInstance;
+static XSpiPs SpiInstance;	/**< SPI driver instance. */
 
 /*
- * The ReadBuffer/WriteBuffer is used to read/write to the data which it received
+ * The ReadBuffer/WriteBuffer reads/writes the data which it received
  * from the SPI Bus which master has sent.
  */
-u8 ReadBuffer[MAX_DATA];
-u8 WriteBuffer[MAX_DATA];
+u8 ReadBuffer[MAX_DATA];	/**< Data received from the master. */
+u8 WriteBuffer[MAX_DATA];	/**< Data to send to the master. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the SPI Slave Example.
-*
+* @brief Calls the SPI Slave Example.
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if not successful
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -141,23 +136,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The purpose of this function is to illustrate how to use the XSpiPs
-* device driver in Slave mode. This function reads data from a SPI Master
-* and will echo it back to the Master.
+* @brief Illustrates how to use the XSpiPs device driver in Slave mode.
+*
+* The function reads data from a SPI Master and echoes it back to the
+* Master.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	SpiDeviceId is the Instance Id of SPI in the system.
+* @param[in]	SpiDeviceId The Instance Id of SPI in the system.
 * @endif
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if not successful
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
-*
+* @note		In XSCT/classic flow, the device configuration is looked up
+*               based on DeviceId.
 *
 *****************************************************************************/
 #ifndef SDT

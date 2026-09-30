@@ -8,10 +8,9 @@
 /**
 *
 * @file xspips_hw.c
-* @addtogroup spips Overview
-* @{
 *
-* Contains the reset and post boot rom state initialization.
+* @brief Implements the reset and post boot rom state initialization.
+*
 * Function prototypes in xspips_hw.h
 *
 * <pre>
@@ -26,9 +25,15 @@
 * 3.1   tjs    11/23/18 Added a check for A72 and R5 processor to
 *                       avoid changes made for the workaround DT#842463.
 * 3.15  vn     08/26/26 Fix Doxygen warnings.
+* 3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spips_api SPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -49,11 +54,9 @@
 /*****************************************************************************/
 /**
 *
-* Resets the spi module
+* @brief Resets the SPI module.
 *
-* @param    BaseAddress is the base address of the device.
-*
-* @note		None.
+* @param[in]    BaseAddress The base address of the device.
 *
 ******************************************************************************/
 void XSpiPs_ResetHw(u32 BaseAddress)

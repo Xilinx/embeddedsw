@@ -8,15 +8,12 @@
 /**
 * @file xspips_eeprom_polled_example.c
 *
-* This file contains a design example using the SPI driver (XSpiPs) in
-* polled mode and hardware device with a serial EEPROM device.  The
-* hardware which this example runs on must have a serial EEPROM (Microchip
-* 25XX320 or 25XX160) for it to run.  This example has been tested with the
-* SPI EEPROM on the EP4.5 ARM processor.
+* @brief Implements a design example using the SPI driver (XSpiPs) in
+* polled mode with a serial EEPROM device.
 *
-* @note
-*
-* None.
+* The hardware which this example runs on must have a serial EEPROM
+* (Microchip 25XX320 or 25XX160) for it to run. The example has been tested
+* with the SPI EEPROM on the EP4.5 ARM processor.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -32,6 +29,7 @@
 * 3.9   sb   07/05/23 Added support for system device-tree flow.
 * 3.14  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vn   08/26/26 Fix Doxygen warnings.
+* 3.15  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *
 *</pre>
 *
@@ -55,19 +53,19 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID	/**< SPI device ID. */
 #endif
 
 /*
  * The following constants define the commands which may be sent to the EEPROM
  * device.
  */
-#define WRITE_STATUS_CMD	1
-#define WRITE_CMD		2
-#define READ_CMD		3
-#define WRITE_DISABLE_CMD	4
-#define READ_STATUS_CMD		5
-#define WRITE_ENABLE_CMD	6
+#define WRITE_STATUS_CMD	1	/**< Write status register command. */
+#define WRITE_CMD		2	/**< Write data command. */
+#define READ_CMD		3	/**< Read data command. */
+#define WRITE_DISABLE_CMD	4	/**< Write disable command. */
+#define READ_STATUS_CMD		5	/**< Read status register command. */
+#define WRITE_ENABLE_CMD	6	/**< Write enable command. */
 
 /*
  * The following constants define the offsets within a EepromBuffer data
@@ -76,47 +74,50 @@
  * duplex transfers such that the number of bytes received is the number
  * sent and received.
  */
-#define COMMAND_OFFSET		0 /* EEPROM instruction */
-#define ADDRESS_MSB_OFFSET	1 /* MSB of address to read or write */
-#define ADDRESS_LSB_OFFSET	2 /* LSB of address to read or write */
-#define DATA_OFFSET		3
-#define WRITE_DATA_OFFSET	3  /* Start of data to write to the EEPROM */
-#define READ_DATA_OFFSET	6  /* Start of data read from the EEPROM */
+#define COMMAND_OFFSET		0 /**< EEPROM instruction. */
+#define ADDRESS_MSB_OFFSET	1 /**< MSB of address to read or write. */
+#define ADDRESS_LSB_OFFSET	2 /**< LSB of address to read or write. */
+#define DATA_OFFSET		3 /**< Start of data in the buffer. */
+#define WRITE_DATA_OFFSET	3  /**< Start of data to write to the EEPROM. */
+#define READ_DATA_OFFSET	6  /**< Start of data read from the EEPROM. */
 
 /*
  * The following constants specify the extra bytes which are sent to the
  * EEPROM on the SPI interface, that are not data, but control information
  * which includes the command and address
  */
-#define OVERHEAD_SIZE		3
+#define OVERHEAD_SIZE		3	/**< Command and address bytes. */
 
 /*
  * The following constants specify the page size and number of pages for the
  * EEPROM.  The page size specifies a max number of bytes that can be written
  * to the EEPROM with a single transfer using the SPI driver.
  */
-#define PAGE_SIZE		16
-#define PAGE_COUNT		128
+#define PAGE_SIZE		16	/**< EEPROM page size in bytes. */
+#define PAGE_COUNT		128	/**< Number of EEPROM pages. */
 
 /*
  * The following constants specify the max amount of data and the size of the
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the EEPROM.
  */
-#define MAX_DATA		PAGE_COUNT * PAGE_SIZE
+#define MAX_DATA		PAGE_COUNT * PAGE_SIZE	/**< Max data size. */
+/** Size of the buffer holding the data and the overhead bytes. */
 #define BUFFER_SIZE		MAX_DATA + READ_DATA_OFFSET
 
 /*
- * The following constant defines the slave select signal that is used to
- * to select the EEPROM device on the SPI bus, this signal is typically
+ * The following constant defines the slave select signal that
+ * selects the EEPROM device on the SPI bus, this signal is typically
  * connected to the chip select of the device
  */
-#define EEPROM_SPI_SELECT	0x01
+#define EEPROM_SPI_SELECT	0x01	/**< EEPROM slave select. */
 
 /**************************** Type Definitions *******************************/
 
-/*
- * The following data type is used to send and receive data to the serial
+/**
+ * @brief Holds the data sent to and received from the serial EEPROM device.
+ *
+ * The data type sends and receives data to the serial
  * EEPROM device connected to the SPI interface.  It is an array of bytes
  * rather than a structure for portability avoiding packing issues.  The
  * application must setup the data to be written in this buffer and retrieve
@@ -147,31 +148,30 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress);
  * are initialized to zero each time the program runs.  They could be local
  * but should at least be static so they are zeroed.
  */
-static XSpiPs SpiInstance;
+static XSpiPs SpiInstance;	/**< SPI driver instance. */
 
-/*
- * The following variable allows a test value to be added to the values that
+/**
+ * @brief Holds a test value added to the values written to the EEPROM.
+ *
+ * The variable allows a test value to be added to the values that
  * are written to the EEPROM such that unique values can be generated to
  * guarantee the writes to the EEPROM were successful
  */
 int Test;
 
 /*
- * The following variables are used to read and write to the eeprom and they
+ * The following variables read and write to the eeprom and they
  * are global to avoid having large buffers on the stack
  */
-EepromBuffer ReadBuffer;
-EepromBuffer WriteBuffer;
+EepromBuffer ReadBuffer;	/**< Data read from the EEPROM. */
+EepromBuffer WriteBuffer;	/**< Data to write to the EEPROM. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Spi Eeprom example.
-*
+* @brief Calls the SPI EEPROM polled example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -200,27 +200,28 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The purpose of this function is to illustrate how to use the XSpiPs
-* device driver in polled mode. This test writes and reads data from a
+* @brief Illustrates how to use the XSpiPs device driver in polled mode.
+*
+* This test writes and reads data from a
 * serial EEPROM. The serial EEPROM part must be present in the hardware
 * to use this example.
 *
-* @param	SpiInstancePtr is a pointer to the Spi Instance.
+* @param[in]	SpiInstancePtr Pointer to the Spi Instance.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	SpiDeviceId is the Device Id of Spi.
+* @param[in]	SpiDeviceId The Device Id of Spi.
 * @endif
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note        - This function calls functions which contain loops that may
+* @note        - The function calls functions which contain loops that may
 *              be infinite if interrupts are not working such that it may
 *              not return. If the device slave select is not correct and the
-*              device is not responding on bus it will read a status of 0xFF
+*              device is not responding on bus it reads a status of 0xFF
 *              for the status register as the bus is pulled up.
-*             - In XSCT/classic flow, DeviceId is used to look up the device
-*             configuration.
+*             - In XSCT/classic flow, the device configuration is looked up
+*             based on DeviceId.
 *
 *****************************************************************************/
 #ifndef	SDT
@@ -313,14 +314,12 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function reads from the serial EEPROM connected to the SPI interface.
+* @brief Reads from the serial EEPROM connected to the SPI interface.
 *
-* @param	SpiPtr is a pointer to the SPI driver component to use.
-* @param	Address contains the address to read data from in the EEPROM.
-* @param	ByteCount contains the number of bytes to read.
-* @param	Buffer is a buffer to read the data into.
-*
-* @note		None.
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
+* @param[in]	Address The address to read data from in the EEPROM.
+* @param[in]	ByteCount The number of bytes to read.
+* @param[out]	Buffer A buffer to read the data into.
 *
 ******************************************************************************/
 void EepromRead(XSpiPs *SpiPtr, u16 Address, int ByteCount,
@@ -346,19 +345,18 @@ void EepromRead(XSpiPs *SpiPtr, u16 Address, int ByteCount,
 /*****************************************************************************/
 /**
 *
-* This function writes to the serial EEPROM connected to the SPI interface.
-* This function is not designed to be a driver to handle all
+* @brief Writes to the serial EEPROM connected to the SPI interface.
+*
+* The function is not designed to be a driver to handle all
 * the conditions of the EEPROM device.  The EEPROM contains a 32 byte write
 * buffer which can be filled and then a write is automatically performed by
 * the device.  All the data put into the buffer must be in the same page of
 * the device with page boundaries being on 32 byte boundaries.
 *
-* @param	SpiPtr is a pointer to the SPI driver instance to use.
-* @param	Address contains the address to write data to in the EEPROM.
-* @param	ByteCount contains the number of bytes to write.
-* @param	Buffer is a buffer of data to write from.
-*
-* @note		None.
+* @param[in,out]	SpiPtr Pointer to the SPI driver instance to use.
+* @param[in]	Address The address to write data to in the EEPROM.
+* @param[in]	ByteCount The number of bytes to write.
+* @param[in]	Buffer A buffer of data to write from.
 *
 ******************************************************************************/
 void EepromWrite(XSpiPs *SpiPtr, u16 Address, u8 ByteCount,

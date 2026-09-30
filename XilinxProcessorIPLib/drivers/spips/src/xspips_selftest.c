@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,8 @@
 /**
 *
 * @file xspips_selftest.c
-* @addtogroup spips Overview
-* @{
 *
-* This component contains the implementation of selftest functions for an SPI
-* device.
+* @brief Implements the selftest functions for an SPI device.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,9 +24,15 @@
 *                       Added goto statements.
 * 3.13  sb     09/09/25 Fix chip selection issues.
 * 3.13  sb     09/17/25 Corrected register masking logic in XSpiPs_SelfTest function.
+* 3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spips_api SPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -53,20 +56,20 @@
 /*****************************************************************************/
 /**
 *
-* Runs a self-test on the driver/device. The self-test is destructive in that
+* @brief Runs a self-test on the driver/device.
+*
+* The self-test is destructive in that
 * a reset of the device is performed in order to check the reset values of
 * the registers and to get the device into a known state.
 *
 * Upon successful return from the self-test, the device is reset.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in,out]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return
 * 		- XST_SUCCESS if successful
 *		- XST_REGISTER_ERROR indicates a register did not read or write
 *		correctly.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XSpiPs_SelfTest(XSpiPs *InstancePtr)

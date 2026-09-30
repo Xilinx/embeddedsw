@@ -8,12 +8,8 @@
 /**
 * @file xspips_selftest_example.c
 *
-* This file contains an example for using the SPI Hardware, it does a simple
+* @brief Implements an example for using the SPI Hardware that does a simple
 * hardware connection check.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -30,6 +26,7 @@
 * 3.9   sb   07/05/23   Added support for system device-tree flow.
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.15 vn   08/26/26 Fix Doxygen warnings.
+* 3.15 tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 *******************************************************************************/
@@ -52,7 +49,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID	/**< SPI device ID. */
 #endif
 
 /**************************** Type Definitions ********************************/
@@ -69,19 +66,16 @@ int SpiPsSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions ******************************/
 
-XSpiPs SpiPs;			/* The instance of the SPI device */
+XSpiPs SpiPs;			/**< The instance of the SPI device */
 
+#ifndef TESTAPP_GEN
 /******************************************************************************/
 /**
-* Main function to call the Spi SelfTest example.
-*
+* @brief Calls the SPI SelfTest example.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		None
-*
 *******************************************************************************/
-#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -110,22 +104,22 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a selftest on the SPIPS device and XSpiPs driver as an
-* example. The purpose of this function is to illustrate the usage of the
+* @brief Runs a selftest on the SPIPS device and XSpiPs driver as an example.
+*
+* The purpose of the function is to illustrate the usage of the
 * XSpiPs driver.
 *
-*
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<SPIPS_instance>_DEVICE_ID value from
+* @param[in]	DeviceId The XPAR_<SPIPS_instance>_DEVICE_ID value from
 *		xparameters.h
 * @endif
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the
-*               device configuration.
+* @note		In XSCT/classic flow, the device configuration is looked up
+*               based on DeviceId.
 *
 ****************************************************************************/
 #ifndef SDT

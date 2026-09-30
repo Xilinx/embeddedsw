@@ -4,14 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSPIPS_HW_H
+#define XSPIPS_HW_H
+
 /*****************************************************************************/
 /**
 *
 * @file xspips_hw.h
-* @addtogroup spips Overview
-* @{
 *
-* This header file contains the identifiers and basic driver functions (or
+* @brief Provides the SPIPS register offsets, bit masks and access macros.
+*
+* The header file contains the identifiers and basic driver functions (or
 * macros) that can be used to access the device. Other driver functions
 * are defined in xspips.h.
 *
@@ -32,13 +35,16 @@
 *                        definitions.
 * 3.00  kvn     02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.15  vn      08/26/26 Fix Doxygen warnings.
+* 3.15  tb      09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSPIPS_HW_H		/* prevent circular inclusions */
-#define XSPIPS_HW_H		/* by using protection macros */
+/**
+* @addtogroup spips_api SPIPS APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -99,7 +105,6 @@ extern "C" {
 #define XSPIPS_CR_RESET_STATE    0x00020000U /**< Mode Fail Generation Enable */
 /** @} */
 
-
 /** @name SPI Interrupt Registers
  *
  * <b>SPI Status Register</b>
@@ -114,13 +119,13 @@ extern "C" {
  *
  * <b>SPI Interrupt Enable Register</b>
  *
- * This register is used to enable chosen interrupts for an SPI device.
+ * This register enables chosen interrupts for an SPI device.
  * Writing a '1' to a bit in this register sets the corresponding bit in the
  * SPI Interrupt Mask register.  Write only.
  *
  * <b>SPI Interrupt Disable Register </b>
  *
- * This register is used to disable chosen interrupts for an SPI device.
+ * This register disables chosen interrupts for an SPI device.
  * Writing a '1' to a bit in this register clears the corresponding bit in the
  * SPI Interrupt Mask register. Write only.
  *
@@ -152,20 +157,18 @@ extern "C" {
 						       * interrupts */
 /** @} */
 
-
 /** @name Enable Register
  *
- * This register is used to enable or disable an SPI device.
+ * This register enables or disables an SPI device.
  * Read/Write
  * @{
  */
 #define XSPIPS_ER_ENABLE_MASK	0x00000001U /**< SPI Enable Bit Mask */
 /** @} */
 
-
 /** @name Delay Register
  *
- * This register is used to program timing delays in
+ * This register programs timing delays in
  * slave mode. Read/Write
  * @{
  */
@@ -182,7 +185,6 @@ extern "C" {
 #define XSPIPS_DR_INIT_MASK	0x000000FFU /**< Delay Initially mask */
 /** @} */
 
-
 /** @name Slave Idle Count Registers
  *
  * This register defines the number of pclk cycles the slave waits for a the
@@ -194,8 +196,6 @@ extern "C" {
  */
 #define XSPIPS_SICR_MASK	0x000000FFU /**< Slave Idle Count Mask */
 /** @} */
-
-
 
 /** @name Transmit FIFO Watermark Register
  *
@@ -225,7 +225,7 @@ extern "C" {
 
 /** @name FIFO Depth
  *
- * This macro provides the depth of transmit FIFO and receive FIFO.
+ * Provides the depth of transmit FIFO and receive FIFO.
  *
  * @{
  */
@@ -236,21 +236,22 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XSpiPs_In32 Xil_In32
-#define XSpiPs_Out32 Xil_Out32
+#define XSpiPs_In32 Xil_In32	/**< Reads a 32-bit register. */
+#define XSpiPs_Out32 Xil_Out32	/**< Writes a 32-bit register. */
 
 /****************************************************************************/
 /**
-* Read a register.
+* @brief Reads a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param[in]	BaseAddress The base address of the device.
+* @param[in]	RegOffset The offset from the 1st register of the
 *		device to the target register.
 *
 * @return	The value read from the register.
 *
-* @note		C-Style signature:
-*		u32 XSpiPs_ReadReg(u32 BaseAddress. int RegOffset)
+* @note
+* C-style signature
+*	u32 XSpiPs_ReadReg(u32 BaseAddress, int RegOffset)
 *
 ******************************************************************************/
 #define XSpiPs_ReadReg(BaseAddress, RegOffset) \
@@ -258,18 +259,16 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Write to a register.
+* @brief Writes to a register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param[in]	BaseAddress The base address of the device.
+* @param[in]	RegOffset The offset from the 1st register of the
 *		device to target register.
-* @param	RegisterValue is the value to be written to the register.
+* @param[in]	RegisterValue The value to be written to the register.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XSpiPs_WriteReg(u32 BaseAddress, int RegOffset,
-*		u32 RegisterValue)
+* @note
+* C-style signature
+*	void XSpiPs_WriteReg(u32 BaseAddress, int RegOffset, u32 RegisterValue)
 *
 ******************************************************************************/
 #define XSpiPs_WriteReg(BaseAddress, RegOffset, RegisterValue) \

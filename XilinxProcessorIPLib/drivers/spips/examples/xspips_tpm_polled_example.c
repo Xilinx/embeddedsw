@@ -8,13 +8,11 @@
 /**
 * @file xspips_tpm_polled_example.c
 *
-* This file contains a design example using the SPI driver (XSpiPs) in
-* polled mode and hardware device with a Trusted Platform Module device.
-* This example sends TPM commands to device based on user inputs and displays
-* the response.
-* @note
+* @brief Implements a design example using the SPI driver (XSpiPs) in
+* polled mode with a Trusted Platform Module device.
 *
-* None.
+* The example sends TPM commands to device based on user inputs and displays
+* the response.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,6 +24,7 @@
 *       pre 10/23/25 Fixed bug in TPM command transmission
 * 3.14 vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.15 vn   08/26/26 Fix Doxygen warnings.
+* 3.15 tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *
 *</pre>
 *
@@ -50,45 +49,48 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_XSPIPS_0_DEVICE_ID	/**< SPI device ID. */
 #endif
-#define TPM_SPI_SELECT		0x00
+#define TPM_SPI_SELECT		0x00	/**< TPM slave select. */
 
-#define	XSPIPS_TPM_ACCESS 	0x0000
-#define	XSPIPS_TPM_STS		0x0018
-#define	XSPIPS_TPM_DATA_FIFO	0x0024
-#define	XSPIPS_TPM_DID_VID	0x0F00
-#define	XSPIPS_TPM_RID		0x0F04
+#define	XSPIPS_TPM_ACCESS 	0x0000 /**< TPM access register. */
+#define	XSPIPS_TPM_STS		0x0018 /**< TPM status register. */
+#define	XSPIPS_TPM_DATA_FIFO	0x0024 /**< TPM data FIFO register. */
+#define	XSPIPS_TPM_DID_VID	0x0F00 /**< TPM DID/VID register. */
+#define	XSPIPS_TPM_RID		0x0F04 /**< TPM revision ID register. */
 
-#define	XSPIPS_TPM_ACCESS_VALID		0x80
-#define	XSPIPS_TPM_ACCESS_ACT_LOCAL	0x20
-#define	XSPIPS_TPM_ACCESS_REQ_PEND	0x04
-#define	XSPIPS_TPM_ACCESS_REQ_USE 	0x02
+#define	XSPIPS_TPM_ACCESS_VALID		0x80 /**< Access valid bit. */
+#define	XSPIPS_TPM_ACCESS_ACT_LOCAL	0x20 /**< Active locality bit. */
+#define	XSPIPS_TPM_ACCESS_REQ_PEND	0x04 /**< Pending request bit. */
+#define	XSPIPS_TPM_ACCESS_REQ_USE 	0x02 /**< Request use bit. */
 
-#define	XSPIPS_TPM_STS_VALID 		0x80
-#define	XSPIPS_TPM_STS_CMD_READY	0x40
-#define	XSPIPS_TPM_STS_GO 		0x20
-#define	XSPIPS_TPM_STS_DATA_AVAIL	0x10
-#define	XSPIPS_TPM_STS_DATA_EXPECT 	0x08
+#define	XSPIPS_TPM_STS_VALID 		0x80 /**< Status valid bit. */
+#define	XSPIPS_TPM_STS_CMD_READY	0x40 /**< Command ready bit. */
+#define	XSPIPS_TPM_STS_GO 		0x20 /**< TPM go bit. */
+#define	XSPIPS_TPM_STS_DATA_AVAIL	0x10 /**< Data available bit. */
+#define	XSPIPS_TPM_STS_DATA_EXPECT 	0x08 /**< Data expected bit. */
 
-#define XSPIPS_TPM_TX_HEAD_SIZE		4
-#define XSPIPS_TPM_RX_HEAD_SIZE		10
-#define XSPIPS_TPM_SPI_MAX_SIZE		64
+#define XSPIPS_TPM_TX_HEAD_SIZE		4 /**< SPI request header size. */
+#define XSPIPS_TPM_RX_HEAD_SIZE		10 /**< TPM response header size. */
+#define XSPIPS_TPM_SPI_MAX_SIZE		64 /**< Max bytes per SPI transfer. */
 
-#define XSPIPS_TPM2_CMD_SELFTEST	0x01
-#define XSPIPS_TPM2_CMD_STARTUP		0x02
-#define XSPIPS_TPM2_CMD_PCR_READ	0x03
-#define XSPIPS_TPM2_CMD_PCR_RESET	0x04
-#define XSPIPS_TPM2_CMD_PCR_EXTEND	0x05
-#define XSPIPS_EXIT_CMD_LOOP		0x06
+#define XSPIPS_TPM2_CMD_SELFTEST	0x01 /**< Selftest menu option. */
+#define XSPIPS_TPM2_CMD_STARTUP		0x02 /**< Startup menu option. */
+#define XSPIPS_TPM2_CMD_PCR_READ	0x03 /**< PCR read menu option. */
+#define XSPIPS_TPM2_CMD_PCR_RESET	0x04 /**< PCR reset menu option. */
+#define XSPIPS_TPM2_CMD_PCR_EXTEND	0x05 /**< PCR extend menu option. */
+#define XSPIPS_EXIT_CMD_LOOP		0x06 /**< Exit menu option. */
 
+/** Size of the PCR extend command without the digest. */
 #define XSPIPS_TPM_PCR_EXT_CMD_SIZE	33
 
-#define XSPIPS_TPM_SHA1_DIGEST_SIZE	20
-#define XSPIPS_TPM_SHA256_DIGEST_SIZE	32
+#define XSPIPS_TPM_SHA1_DIGEST_SIZE	20 /**< SHA1 digest size. */
+#define XSPIPS_TPM_SHA256_DIGEST_SIZE	32 /**< SHA256 digest size. */
 
-#define XSPIPS_TPM_RESP_MAX_SIZE	4096	/* Maximum possible TPM response size in bytes */
-#define XSPIPS_TPM_REQ_MAX_SIZE		1024	/* Maximum possible TPM request size in bytes */
+/** Maximum possible TPM response size in bytes. */
+#define XSPIPS_TPM_RESP_MAX_SIZE	4096
+/** Maximum possible TPM request size in bytes. */
+#define XSPIPS_TPM_REQ_MAX_SIZE		1024
 
 /**************************** Type Definitions *******************************/
 int SpiPsReadID(XSpiPs *SpiPtr);
@@ -112,12 +114,16 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress);
  * are initialized to zero each time the program runs.  They could be local
  * but should at least be static so they are zeroed.
  */
-static XSpiPs SpiInstance;
+static XSpiPs SpiInstance;	/**< SPI driver instance. */
 
+/** Buffer for the data sent on the SPI bus. */
 u8 TpmTxBuffer[XSPIPS_TPM_REQ_MAX_SIZE + XSPIPS_TPM_TX_HEAD_SIZE];
+/** Buffer for the data received on the SPI bus. */
 u8 TpmRxBuffer[XSPIPS_TPM_RESP_MAX_SIZE + XSPIPS_TPM_TX_HEAD_SIZE];
+/** Buffer for the TPM command response. */
 u8 TpmRespBuffer[XSPIPS_TPM_RESP_MAX_SIZE];
 
+/** TPM2 get capability command. */
 static u8 tpm2_getcap[] = {
 	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
 	0x00, 0x00, 0x00, 0x16, /* Command Size */
@@ -126,6 +132,7 @@ static u8 tpm2_getcap[] = {
 	0x00, 0x00, 0x01, 0x29, 0x00, 0x00, 0x00, 0x01
 };
 
+/** TPM2 selftest command. */
 static u8 tpm2_selftest[] = {
 	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
 	0x00, 0x00, 0x00, 0x0C, /* Command Size */
@@ -133,6 +140,7 @@ static u8 tpm2_selftest[] = {
 	0x00, 0x00 /* TPM_SU_CLEAR */
 };
 
+/** TPM2 startup command. */
 static u8 tpm2_startup[] = {
 	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
 	0x00, 0x00, 0x00, 0x0C, /* Command Size */
@@ -140,6 +148,7 @@ static u8 tpm2_startup[] = {
 	0x00, 0x00 /* TPM_SU_CLEAR */
 };
 
+/** TPM2 PCR read command. */
 static u8 tpm2_pcrread[] = {
 	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
 	0x00, 0x00, 0x00, 0x14, /* Command Size */
@@ -150,6 +159,7 @@ static u8 tpm2_pcrread[] = {
 	0x00, 0x00, 0x00 /* PCR Select */
 };
 
+/** TPM2 PCR reset command. */
 static u8 tpm2_pcrreset[] = {
 	0x80, 0x02, /* TPM_ST_SESSIONS */
 	0x00, 0x00, 0x00, 0x1B, /* Command Size */
@@ -161,6 +171,7 @@ static u8 tpm2_pcrreset[] = {
 	0x00, 0x00, 0x01, 0x00, 0x00
 };
 
+/** TPM2 PCR extend command. */
 static u8 tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE +
 						     XSPIPS_TPM_SHA256_DIGEST_SIZE] = {
 	0x80, 0x02, /* TPM_ST_SESSIONS */
@@ -174,10 +185,11 @@ static u8 tpm2_pcrextend[XSPIPS_TPM_PCR_EXT_CMD_SIZE +
 	0x00, 0x00 /* Hash Algorithm */
 };
 
-/* Below digest just for reference user can set as required */
+/** SHA1 digest just for reference, user can set as required. */
 static u8 sha1[XSPIPS_TPM_SHA1_DIGEST_SIZE] = {
 	0x00, 0x01, 0x02, 0x03, 0x04, 05
 };
+/** SHA256 digest just for reference, user can set as required. */
 static u8 sha256[XSPIPS_TPM_SHA256_DIGEST_SIZE] = {
 	0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF
 };
@@ -185,11 +197,9 @@ static u8 sha256[XSPIPS_TPM_SHA256_DIGEST_SIZE] = {
 /*****************************************************************************/
 /**
 *
-* Main function to call the Spi TPM example.
+* @brief Calls the SPI TPM example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -218,18 +228,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* @param	SpiInstancePtr is a pointer to the Spi Instance.
+* @brief Illustrates how to use the XSpiPs device driver in polled mode with
+* a TPM device.
+*
+* The function sends TPM commands to the device based on user inputs and
+* displays the response.
+*
+* @param[in]	SpiInstancePtr Pointer to the Spi Instance.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress The base address of the device.
 * @else
-* @param	SpiDeviceId is the Device Id of Spi.
+* @param[in]	SpiDeviceId The Device Id of Spi.
 * @endif
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
-*
+* @note		In XSCT/classic flow, the device configuration is looked up
+*               based on DeviceId.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -474,13 +489,11 @@ int SpiPsTpmPolledExample(XSpiPs *SpiInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function reads vendor identification information.
+* @brief Reads vendor identification information.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsReadID(XSpiPs *SpiPtr)
@@ -509,14 +522,12 @@ int SpiPsReadID(XSpiPs *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function gets TPM status.
+* @brief Gets TPM status.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	StatusPtr is pointer to read status
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[out]	StatusPtr Pointer to read status.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmStatusGet(XSpiPs *SpiPtr, u8 *StatusPtr)
@@ -534,14 +545,12 @@ int SpiPsTpmStatusGet(XSpiPs *SpiPtr, u8 *StatusPtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the TPM status.
+* @brief Sets the TPM status.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	StatusVal is to be written to status register
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[in]	StatusVal Value to be written to status register.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmStatusSet(XSpiPs *SpiPtr, u8 StatusVal)
@@ -559,14 +568,12 @@ int SpiPsTpmStatusSet(XSpiPs *SpiPtr, u8 StatusVal)
 /*****************************************************************************/
 /**
 *
-* This function gets TPM access configuration.
+* @brief Gets TPM access configuration.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	AccessPtr is pointer to get access configuration
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[out]	AccessPtr Pointer to get access configuration.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmAccessGet(XSpiPs *SpiPtr, u8 *AccessPtr)
@@ -584,14 +591,12 @@ int SpiPsTpmAccessGet(XSpiPs *SpiPtr, u8 *AccessPtr)
 /*****************************************************************************/
 /**
 *
-* This function sets TPM access configuration.
+* @brief Sets TPM access configuration.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	Access is set access configuration value
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[in]	Access Access configuration value to set.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmAccessSet(XSpiPs *SpiPtr, u8 Access)
@@ -609,15 +614,13 @@ int SpiPsTpmAccessSet(XSpiPs *SpiPtr, u8 Access)
 /*****************************************************************************/
 /**
 *
-* This function reads data from TPM FIFO.
+* @brief Reads data from TPM FIFO.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	DataPtr is to be read to data FIFO
-* @param	ByteCount is the number of bytes to read.
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[out]	DataPtr Pointer to the buffer for the data read from the FIFO.
+* @param[in]	ByteCount The number of bytes to read.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmFifoRead(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)
@@ -635,15 +638,13 @@ int SpiPsTpmFifoRead(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function write the data TPM FIFO.
+* @brief Writes the data to the TPM FIFO.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	DataPtr is data pointer to be written to FIFO.
-* @param	ByteCount is the number of bytes to read.
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[in]	DataPtr Data pointer to be written to FIFO.
+* @param[in]	ByteCount The number of bytes to write.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmFifoWrite(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)
@@ -661,17 +662,18 @@ int SpiPsTpmFifoWrite(XSpiPs *SpiPtr, u8 *DataPtr, u8 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function sets TPM access configuration.
+* @brief Transfers data to or from a TPM register.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param 	Address register address
-* @param	TxBuf is pointer to transmit buffer
-* @param	RxBuf is pointer to receive buffer
-* @param	Length is transfer length
+* The transfer is split into SPI transfers of up to XSPIPS_TPM_SPI_MAX_SIZE
+* bytes.
+*
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[in] 	Address Register address.
+* @param[in]	TxBuf Pointer to transmit buffer.
+* @param[in,out]	RxBuf Pointer to receive buffer.
+* @param[in]	Length Transfer length.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
@@ -721,16 +723,17 @@ int SpiPsTpmTransfer(XSpiPs *SpiPtr, u32 Address, u8 *TxBuf, u8 *RxBuf,
 /*****************************************************************************/
 /**
 *
-* This function sets TPM access configuration.
+* @brief Sends a TPM command and reads the TPM response.
 *
-* @param	SpiPtr is a pointer to the SPIPS driver component to use.
-* @param	TxBuf is pointer to transmit buffer
-* @param	RxBuf is pointer to receive buffer
-* @param	Txlen is data transfer length
+* The command is written to the TPM data FIFO and the response is read back
+* once the TPM reports that data is available.
+*
+* @param[in,out]	SpiPtr Pointer to the SPIPS driver component to use.
+* @param[in]	TxBuf Pointer to transmit buffer.
+* @param[in,out]	RxBuf Pointer to receive buffer.
+* @param[in]	Txlen Data transfer length.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiPsTpmDataTransfer(XSpiPs *SpiPtr, u8 *TxBuf, u8 *RxBuf, u16 Txlen)

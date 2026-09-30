@@ -8,10 +8,8 @@
 /**
 *
 * @file xspips_options.c
-* @addtogroup spips Overview
-* @{
 *
-* Contains functions for the configuration of the XSpiPs driver.
+* @brief Implements the functions for the configuration of the XSpiPs driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -30,9 +28,15 @@
 *                       in safety mode and done changes such as
 *                       Declared the pointer param as Pointer to const
 * 3.15  vn     08/26/26 Fix Doxygen warnings.
+* 3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spips_api SPIPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -52,16 +56,19 @@
 
 /************************** Variable Definitions *****************************/
 
-/*
- * Create the table of options which are processed to get/set the device
+/**
+ * @brief Describes the mapping of a driver option to its register bit mask.
+ *
+ * The table of options is processed to get/set the device
  * options. These options are table driven to allow easy maintenance and
  * expansion of the options.
  */
 typedef struct {
-	u32 Option;
-	u32 Mask;
+	u32 Option;	/**< Driver option (XSPIPS_*_OPTION). */
+	u32 Mask;	/**< Configuration register bit mask for the option. */
 } OptionsMap;
 
+/** @brief Maps the driver options to the configuration register masks. */
 static OptionsMap OptionsTable[] = {
 	{XSPIPS_MASTER_OPTION, XSPIPS_CR_MSTREN_MASK},
 	{XSPIPS_CLK_ACTIVE_LOW_OPTION, XSPIPS_CR_CPOL_MASK},
@@ -71,17 +78,20 @@ static OptionsMap OptionsTable[] = {
 	{XSPIPS_MANUAL_START_OPTION, XSPIPS_CR_MANSTRTEN_MASK}
 };
 
+/** Number of entries in the options table. */
 #define XSPIPS_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
 
 /*****************************************************************************/
 /**
 *
-* This function sets the options for the SPI device driver. The options control
-* how the device behaves relative to the SPI bus. The device must be idle
-* rather than busy transferring data before setting these device options.
+* @brief Sets the options for the SPI device driver.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	Options contains the specified options to be set. This is a bit
+* The options control how the device behaves relative to the SPI bus. The
+* device must be idle rather than busy transferring data before setting these
+* device options.
+*
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
+* @param[in]	Options The specified options to be set. This is a bit
 *		mask where a 1 means to turn the option on, and a 0 means to
 *		turn the option off. One or more bit values may be contained in
 *		the mask. See the bit definitions named XSPIPS_*_OPTIONS in the
@@ -92,8 +102,7 @@ static OptionsMap OptionsTable[] = {
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		The transfer must complete or be aborted before setting options.
 *
-* @note
-* This function is not thread-safe.
+* @note		The function is not thread-safe.
 *
 ******************************************************************************/
 s32 XSpiPs_SetOptions(const XSpiPs *InstancePtr, u32 Options)
@@ -171,18 +180,16 @@ s32 XSpiPs_SetOptions(const XSpiPs *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the options for the SPI device. The options control how
-* the device behaves relative to the SPI bus.
+* @brief Gets the options for the SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* The options control how the device behaves relative to the SPI bus.
 *
-* @return
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
-* Options contains the specified options currently set. This is a bit value
-* where a 1 means the option is on, and a 0 means the option is off.
-* See the bit definitions named XSPIPS_*_OPTIONS in file xspips.h.
-*
-* @note		None.
+* @return	The options currently set. This is a bit value where a 1
+*		means the option is on, and a 0 means the option is off.
+*		See the bit definitions named XSPIPS_*_OPTIONS in file
+*		xspips.h.
 *
 ******************************************************************************/
 u32 XSpiPs_GetOptions(const XSpiPs *InstancePtr)
@@ -216,12 +223,13 @@ u32 XSpiPs_GetOptions(const XSpiPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the clock prescaler for an SPI device. The device
-* must be idle rather than busy transferring data before setting these device
-* options.
+* @brief Sets the clock prescaler for an SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	Prescaler is the value that determine how much the clock should
+* The device must be idle rather than busy transferring data before setting
+* these device options.
+*
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
+* @param[in]	Prescaler The value that determine how much the clock should
 *		be divided by. Use the XSPIPS_CLK_PRESCALE_* constants defined
 *		in xspips.h for this setting.
 *
@@ -230,8 +238,7 @@ u32 XSpiPs_GetOptions(const XSpiPs *InstancePtr)
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		The transfer must complete or be aborted before setting options.
 *
-* @note
-* This function is not thread-safe.
+* @note		The function is not thread-safe.
 *
 ******************************************************************************/
 s32 XSpiPs_SetClkPrescaler(const XSpiPs *InstancePtr, u8 Prescaler)
@@ -275,14 +282,11 @@ s32 XSpiPs_SetClkPrescaler(const XSpiPs *InstancePtr, u8 Prescaler)
 /*****************************************************************************/
 /**
 *
-* This function gets the clock prescaler of an SPI device.
+* @brief Gets the clock prescaler of an SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
 *
 * @return	The prescaler value.
-*
-* @note		None.
-*
 *
 ******************************************************************************/
 u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr)
@@ -304,23 +308,24 @@ u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the delay register for the SPI device driver.
+* @brief Sets the delay register for the SPI device driver.
+*
 * The delay register controls the Delay Between Transfers, Delay After
 * Transfers, and the Delay Initially. The default value is 0x0. The range of
 * each delay value is 0-255.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	DelayNss is the delay for which the chip select outputs will
-*		be de-asserted between words when CPHA=0.
-* @param	DelayBtwn is the delay between one Slave Select being
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
+* @param[in]	DelayNss The delay for which the chip select outputs are
+*		de-asserted between words when CPHA=0.
+* @param[in]	DelayBtwn The delay between one Slave Select being
 *		de-activated and the activation of another slave. The delay is
 *		the number of master clock periods given by DelayBtwn + 2.
-* @param	DelayAfter define the delay between the last bit of the current
+* @param[in]	DelayAfter Define the delay between the last bit of the current
 *		byte transfer and the first bit of the next byte transfer.
 *		The delay in number of master clock periods is given as:
 *		CPHA=0:DelayInit+DelayAfter+3
 *		CPHA=1:DelayAfter+1
-* @param	DelayInit is the delay between asserting the slave select signal
+* @param[in]	DelayInit The delay between asserting the slave select signal
 *		and the first bit transfer. The delay int number of master clock
 *		periods is DelayInit+1.
 *
@@ -328,8 +333,6 @@ u8 XSpiPs_GetClkPrescaler(const XSpiPs *InstancePtr)
 *		- XST_SUCCESS if delays are successfully set.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		The transfer must complete or be aborted before setting options.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
@@ -366,21 +369,17 @@ s32 XSpiPs_SetDelays(const XSpiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn,
 /*****************************************************************************/
 /**
 *
-* This function gets the delay settings for an SPI device.
+* @brief Gets the delay settings for an SPI device.
+*
 * The delay register controls the Delay Between Transfers, Delay After
 * Transfers, and the Delay Initially. The default value is 0x0.
 *
-* @param	InstancePtr is a pointer to the XSpiPs instance.
-* @param	DelayNss is a pointer to the delay for which the chip select
-*		outputs will be de-asserted between words when CPHA=0.
-* @param	DelayBtwn is a pointer to the Delay Between transfers value.
-*		This is a return parameter.
-* @param	DelayAfter is a pointer to the Delay After transfer value.
-*		This is a return parameter.
-* @param	DelayInit is a pointer to the Delay Initially value. This is
-*		a return parameter.
-*
-* @note		None.
+* @param[in]	InstancePtr Pointer to the XSpiPs instance.
+* @param[out]	DelayNss Pointer to the delay for which the chip select
+*		outputs are de-asserted between words when CPHA=0.
+* @param[out]	DelayBtwn Pointer to the Delay Between transfers value.
+* @param[out]	DelayAfter Pointer to the Delay After transfer value.
+* @param[out]	DelayInit Pointer to the Delay Initially value.
 *
 ******************************************************************************/
 void XSpiPs_GetDelays(const XSpiPs *InstancePtr,u8 *DelayNss, u8 *DelayBtwn,
