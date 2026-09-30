@@ -29,6 +29,7 @@
  *                      flow.
  *  2.0  ml    28/03/24 Added description to fix doxygen warnings
  *  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
+ *  2.4  vmt   09/24/26 Added SCU timer tick configuration from frequency.
  *</pre>
  *
  *@note
@@ -58,6 +59,7 @@ static void XSleepTimer_ScutimerStop(XTimer *InstancePtr);
 #ifdef XTICKTIMER_IS_SCUTIMER
 void XScutimer_CallbackHandler(void *CallBackRef);
 static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay);
+static void XTimer_ScutimerTickIntervalHz(XTimer *InstancePtr, u32 FreqHz);
 static void XTimer_ScutimerSetIntrHandler(XTimer *InstancePtr, u8 Priority);
 static void XTickTimer_ScutimerStop(XTimer *InstancePtr);
 static void XTickTimer_ClearScutimerInterrupt(XTimer *InstancePtr);
@@ -95,6 +97,7 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
 	InstancePtr->XTimer_TickIntrHandler = XTimer_ScutimerSetIntrHandler;
 	InstancePtr->XTimer_TickInterval = XTimer_ScutimerTickInterval;
+	InstancePtr->XTimer_TickIntervalHz = XTimer_ScutimerTickIntervalHz;
 	InstancePtr->XTickTimer_Stop = XTickTimer_ScutimerStop;
 	InstancePtr->XTickTimer_ClearInterrupt = XTickTimer_ClearScutimerInterrupt;
 	return XST_SUCCESS;
@@ -155,18 +158,17 @@ void XScutimer_CallbackHandler(void *CallBackRef)
 
 /*****************************************************************************/
 /**
- * This function configures the scutimer tick interval
+ * This function configures the scutimer tick interval from a frequency
  *
  * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval
+ * @param  FreqHz is the required tick frequency in Hz
  *
  * @return	None
  *
  ****************************************************************************/
-static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
+static void XTimer_ScutimerTickIntervalHz(XTimer *InstancePtr, u32 FreqHz)
 {
 	XScuTimer *ScuTimerInstPtr = &InstancePtr->ScuTimer_TickInst;
-	u32 Freq;
 	static u32 IsTickTimerStarted = FALSE;
 #ifdef SDT
 	u32 ScuTimerFreq = XSLEEPTIMER_FREQ;
@@ -174,18 +176,37 @@ static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
 	u32 ScuTimerFreq = XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ  / 2U;
 #endif
 
+	Xil_AssertVoid(FreqHz > 0U);
+
 	if (FALSE == IsTickTimerStarted) {
 		XTimer_ScutimerInit(InstancePtr, XTickTimer_Instance,
 				    &InstancePtr->ScuTimer_TickInst);
 		IsTickTimerStarted = TRUE;
 	}
-	Freq = XTIMER_DELAY_MSEC / Delay;
 	XScuTimer_Stop(ScuTimerInstPtr);
 	XScuTimer_EnableAutoReload(ScuTimerInstPtr);
 	XScuTimer_SetPrescaler(ScuTimerInstPtr, 0);
-	XScuTimer_LoadTimer(ScuTimerInstPtr, ScuTimerFreq / Freq);
+	XScuTimer_LoadTimer(ScuTimerInstPtr, ScuTimerFreq / FreqHz);
 	XScuTimer_EnableInterrupt(ScuTimerInstPtr);
 	XScuTimer_Start(ScuTimerInstPtr);
+}
+
+/*****************************************************************************/
+/**
+ * This function configures the scutimer tick interval
+ *
+ * @param  InstancePtr is Pointer to the XTimer instance
+ * @param  Delay is the delay interval in milliseconds
+ *
+ * @return	None
+ *
+ ****************************************************************************/
+static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
+{
+	Xil_AssertVoid(Delay > 0U);
+
+	XTimer_ScutimerTickIntervalHz(InstancePtr,
+				     (u32)XTIMER_DELAY_MSEC / Delay);
 }
 
 /*****************************************************************************/

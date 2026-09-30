@@ -2,7 +2,7 @@
  * FreeRTOS Kernel V10.6.1
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Copyright (C) 2014 - 2021 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -159,17 +159,13 @@ void FreeRTOS_SetupTickInterrupt( void )
          * The Xilinx implementation of generating run time task stats uses the same timer used for generating
          * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
          * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+         *
+         * Program the tick timer in Hz to avoid millisecond truncation.
          */
 #if (configGENERATE_RUN_TIME_STATS == 1)
-        /* XTimer_SetInterval() API expects delay in milli seconds
-         * Convert the user provided tick rate to milli seconds.
-         */
-        XTimer_SetInterval(XTIMER_DELAY_MSEC/(Tick_Rate * 10));
+        XTimer_SetIntervalHz(Tick_Rate * 10U);
 #else
-        /* XTimer_SetInterval() API expects delay in milli seconds
-         * Convert the user provided tick rate to milli seconds.
-         */
-        XTimer_SetInterval(XTIMER_DELAY_MSEC/Tick_Rate);
+        XTimer_SetIntervalHz(Tick_Rate);
 #endif
         XTimer_SetHandler(TimerCounterHandler, 0,
 			portLOWEST_USABLE_INTERRUPT_PRIORITY << portPRIORITY_SHIFT);

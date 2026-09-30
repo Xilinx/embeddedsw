@@ -322,17 +322,13 @@ void vApplicationSetupTimerInterrupt( void )
 	 * The Xilinx implementation of generating run time task stats uses the same timer used for generating
 	 * FreeRTOS ticks. In case user decides to generate run time stats the timer time out interval is changed
 	 * as "configured tick rate * 10". The multiplying factor of 10 is hard coded for Xilinx FreeRTOS ports.
+	 *
+	 * Program the tick timer in Hz to avoid millisecond truncation.
 	 */
 #if (configGENERATE_RUN_TIME_STATS == 1)
-	/* XTimer_SetInterval() API expects delay in milli seconds
-         * Convert the user provided tick rate to milli seconds.
-         */
-	XTimer_SetInterval(XTIMER_DELAY_MSEC/(Tick_Rate * 10));
+	XTimer_SetIntervalHz(Tick_Rate * 10U);
 #else
-	/* XTimer_SetInterval() API expects delay in milli seconds
-         * Convert the user provided tick rate to milli seconds.
-         */
-	XTimer_SetInterval(XTIMER_DELAY_MSEC/Tick_Rate);
+	XTimer_SetIntervalHz(Tick_Rate);
 #endif
 }
 #endif

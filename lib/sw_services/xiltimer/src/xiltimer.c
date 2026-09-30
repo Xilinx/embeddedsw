@@ -209,10 +209,11 @@ void XTimer_SetInterval(unsigned long delay)
 *
 * @param            FreqHz Required tick frequency in Hz
 *
-* @note             If XTimer_TickIntervalHz is not implemented (SCU timer,
-*                   AXI timer), this API uses Delay = 1000 / FreqHz with
-*                   integer truncation, so the programmed rate matches
-*                   FreqHz only when 1000 is an exact multiple of FreqHz.
+* @note             If the selected tick timer does not implement
+*                   XTimer_TickIntervalHz, this API uses Delay = 1000 /
+*                   FreqHz with integer truncation, so the programmed rate
+*                   matches FreqHz only when 1000 is an exact multiple of
+*                   FreqHz.
 *
 *****************************************************************************/
 void XTimer_SetIntervalHz(u32 FreqHz)

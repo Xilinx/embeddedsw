@@ -25,6 +25,7 @@
  *  2.5  vmt   09/24/26 Initialize the AXI tick timer from SetIntrHandler
  *                      when IsReady is not set so the handler can be
  *                      installed before the tick interval is programmed.
+ *  2.5  vmt   09/24/26 Added AXI timer tick configuration from frequency.
  *</pre>
  *
  *@note
@@ -48,6 +49,7 @@ static void XSleepTimer_AxiTimerStop(XTimer *InstancePtr);
 
 #ifdef XTICKTIMER_IS_AXITIMER
 static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay);
+static void XAxiTimer_TickIntervalHz(XTimer *InstancePtr, u32 FreqHz);
 static void XAxiTimer_SetIntrHandler(XTimer *InstancePtr, u8 Priority);
 void XAxiTimer_CallbackHandler(void *CallBackRef, u8 TmrCtrNumber);
 static void XTickTimer_AxiTimerStop(XTimer *InstancePtr);
@@ -87,6 +89,7 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
 	InstancePtr->XTimer_TickIntrHandler = XAxiTimer_SetIntrHandler;
 	InstancePtr->XTimer_TickInterval = XAxiTimer_TickInterval;
+	InstancePtr->XTimer_TickIntervalHz = XAxiTimer_TickIntervalHz;
 	InstancePtr->XTickTimer_Stop = XTickTimer_AxiTimerStop;
 	InstancePtr->XTickTimer_ClearInterrupt = XTickTimer_ClearAxiTimerInterrupt;
 
@@ -147,6 +150,46 @@ void XAxiTimer_CallbackHandler(void *CallBackRef, u8 TmrCtrNumber)
 
 /*****************************************************************************/
 /**
+ * This function configures the axi timer tick interval from a frequency
+ *
+ * @param  InstancePtr is Pointer to the XTimer instance
+ * @param  FreqHz is the required tick frequency in Hz
+ *
+ * @return	None
+ *
+ ****************************************************************************/
+static void XAxiTimer_TickIntervalHz(XTimer *InstancePtr, u32 FreqHz)
+{
+	XTmrCtr *AxiTimerInstPtr = &InstancePtr->AxiTimer_TickInst;
+	u32 Tlr;
+
+	Xil_AssertVoid(FreqHz > 0U);
+
+	if (AxiTimerInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
+		XAxiTimer_Init(InstancePtr, XTickTimer_Instance,
+				&InstancePtr->AxiTimer_TickInst);
+	}
+
+	Tlr = AxiTimerInstPtr->Config.SysClockFreqHz / FreqHz;
+	XTmrCtr_SetOptions(AxiTimerInstPtr, 0,
+                           XTC_INT_MODE_OPTION | XTC_AUTO_RELOAD_OPTION |
+			   XTC_DOWN_COUNT_OPTION);
+
+        /*
+         * Set a reset value for the timer counter such that it will expire
+         * earlier than letting it roll over from 0, the reset value is loaded
+         * into the timer counter when it is started
+         */
+        XTmrCtr_SetResetValue(AxiTimerInstPtr, 0, Tlr);
+
+        /*
+	 * Start the timer with the configured reset value.
+         */
+        XTmrCtr_Start(AxiTimerInstPtr, 0);
+}
+
+/*****************************************************************************/
+/**
  * This function configures the axi timer tick interval
  *
  * @param  InstancePtr is Pointer to the XTimer instance
@@ -159,6 +202,8 @@ static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay)
 {
 	XTmrCtr *AxiTimerInstPtr = &InstancePtr->AxiTimer_TickInst;
 	u32 Tlr;
+
+	Xil_AssertVoid(Delay > 0U);
 
 	if (AxiTimerInstPtr->IsReady != XIL_COMPONENT_IS_READY) {
 		XAxiTimer_Init(InstancePtr, XTickTimer_Instance,
@@ -173,7 +218,7 @@ static void XAxiTimer_TickInterval(XTimer *InstancePtr, u32 Delay)
 
         /*
          * Set a reset value for the timer counter such that it will expire
-         * eariler than letting it roll over from 0, the reset value is loaded
+         * earlier than letting it roll over from 0, the reset value is loaded
          * into the timer counter when it is started
          */
         XTmrCtr_SetResetValue(AxiTimerInstPtr, 0, Tlr);
