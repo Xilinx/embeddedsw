@@ -8,8 +8,7 @@
 /**
 *
 * @file xiic_sinit.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC static initialization.
 *
 * The implementation of the Xiic component's static initialization functionality.
 *
@@ -29,9 +28,15 @@
 * 3.10  gm   07/09/23 Added SDT support.
 * 3.15  vlt  11/05/25 Add 64-bit Addressing support.
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -56,22 +61,24 @@
 /*****************************************************************************/
 /**
 *
+* @brief Looks up the device configuration by unique device ID or base address.
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
-* The XIic_ConfigTable[] contains the configuration info for each device in
-* the system.
+* The XIic_ConfigTable[] contains the configuration info for each device in the
+* system.
 *
 * @if SDT
-* @param    BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param    DeviceId contains the unique ID of the device
+* @param[in] DeviceId The unique ID of the device.
 * @endif
 *
-* @return   A pointer to the configuration found or NULL if the specified
-*           device ID/BaseAddress was not found. See xiic.h for the
-*           definition of XIic_Config.
+* @return A pointer to the configuration found or NULL if the specified device
+*         ID/BaseAddress was not found. See xiic.h for the definition of
+*         XIic_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -109,7 +116,9 @@ XIic_Config *XIic_LookupConfig(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XIic instance.  The initialization entails:
+* @brief Initializes a specific XIic instance.
+*
+* Initializes a specific XIic instance. The initialization entails:
 *
 * - Check the device has an entry in the configuration table.
 * - Initialize the driver to allow access to the device registers and
@@ -125,28 +134,29 @@ XIic_Config *XIic_LookupConfig(UINTPTR BaseAddress)
 * is ready to send and receive data on the IIC bus.
 *
 * Before XIic_Start() is called, the interrupt control must connect the ISR
-* routine to the interrupt handler. This is done by the user, and not
-* XIic_Start() to allow the user to use an interrupt controller of their choice.
+* routine to the interrupt handler. This is done by the application, and not
+* XIic_Start(), to allow the use of any interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the unique id of the device controlled by this XIic
-*		instance.  Passing in a device id associates the generic XIic
-*		instance to a specific device, as chosen by the caller or
-*		application developer.
+* @param[in] DeviceId The unique id of the device controlled by this XIic
+*            instance. Passing in a device id associates the generic XIic
+*            instance to a specific device, as chosen by the caller or
+*            application developer.
 * @endif
 *
 * @return
-*		- XST_SUCCESS when successful
-*		- XST_DEVICE_NOT_FOUND indicates the given device id/BaseAddress isn't found
-*		- XST_DEVICE_IS_STARTED indicates the device is started
-*		(i.e. interrupts enabled and messaging is possible).
-*		Must stop before re-initialization is allowed.
+*        - XST_SUCCESS when successful
+*        - XST_DEVICE_NOT_FOUND indicates the given device id/BaseAddress isn't
+*          found
+*        - XST_DEVICE_IS_STARTED indicates the device is started (that is
+*          interrupts enabled and messaging is possible). Must stop before
+*          re-initialization is allowed.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*		configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 ****************************************************************************/
 #ifndef SDT

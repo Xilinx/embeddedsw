@@ -8,8 +8,7 @@
 /**
 *
 * @file xiic.c
-* @addtogroup Overview
-* @{
+* @brief Implements required IIC driver functions.
 *
 * Contains required functions for the XIic component. See xiic.h for more
 * information on the driver.
@@ -61,9 +60,15 @@
 * 3.15  vlt  12/04/25 Add AxiClkFreq and SerialClkDelay to XIic_CfgInitialize
 *                     API for clock configuration.
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -91,7 +96,9 @@ static void XIic_StubHandler(void *CallBackRef, int ByteCount);
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XIic instance.  The initialization entails:
+* @brief Initializes a specific XIic instance.
+*
+* Initializes a specific XIic instance. The initialization entails:
 *
 * - Initialize the driver to allow access to the device registers and
 *   initialize other subcomponents necessary for the operation of the device.
@@ -106,30 +113,27 @@ static void XIic_StubHandler(void *CallBackRef, int ByteCount);
 * is ready to send and receive data on the IIC bus.
 *
 * Before XIic_Start() is called, the interrupt control must connect the ISR
-* routine to the interrupt handler. This is done by the user, and not
-* XIic_Start() to allow the user to use an interrupt controller of their choice.
+* routine to the interrupt handler. This is done by the application, and not
+* XIic_Start(), to allow the use of any interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	Config is a reference to a structure containing information
-*		about a specific IIC device. This function can initialize
-*		multiple instance objects with the use of multiple calls giving
-*		different Config information on each call.
-* @param	EffectiveAddr is the device base address in the virtual memory
-*		address space. The caller is responsible for keeping the
-*		address mapping from EffectiveAddr to the device physical base
-*		address unchanged once this function is invoked. Unexpected
-*		errors may occur if the address mapping changes after this
-*		function is called. If address translation is not used, use
-*		Config->BaseAddress for this parameters, passing the physical
-*		address instead.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] Config Reference to a structure containing information about a
+*            specific IIC device. This function can initialize multiple instance
+*            objects with the use of multiple calls giving different Config
+*            information on each call.
+* @param[in] EffectiveAddr The device base address in the virtual memory
+*            address space. The caller is responsible for keeping the address
+*            mapping from EffectiveAddr to the device physical base address
+*            unchanged once this function is invoked. Unexpected errors may
+*            occur if the address mapping changes after this function is called.
+*            If address translation is not used, use Config->BaseAddress for
+*            this parameters, passing the physical address instead.
 *
 * @return
-*		- XST_SUCCESS when successful
-*		- XST_DEVICE_IS_STARTED indicates the device is started
-*		(i.e. interrupts enabled and messaging is possible). Must stop
-*		before re-initialization is allowed.
-*
-* @note		None.
+*        - XST_SUCCESS when successful
+*        - XST_DEVICE_IS_STARTED indicates the device is started (that is
+*          interrupts enabled and messaging is possible). Must stop before
+*          re-initialization is allowed.
 *
 ****************************************************************************/
 int XIic_CfgInitialize(XIic *InstancePtr, XIic_Config * Config,
@@ -189,13 +193,15 @@ int XIic_CfgInitialize(XIic *InstancePtr, XIic_Config * Config,
 /*****************************************************************************/
 /**
 *
+* @brief Starts the IIC device and driver by enabling the proper interrupts.
+*
 * This function starts the IIC device and driver by enabling the proper
-* interrupts such that data may be sent and received on the IIC bus.
-* This function must be called before the functions to send and receive data.
+* interrupts such that data may be sent and received on the IIC bus. This
+* function must be called before the functions to send and receive data.
 *
 * Before XIic_Start() is called, the interrupt control must connect the ISR
-* routine to the interrupt handler. This is done by the user, and not
-* XIic_Start() to allow the user to use an interrupt controller of their choice.
+* routine to the interrupt handler. This is done by the application, and not
+* XIic_Start(), to allow the use of any interrupt controller.
 *
 * Start enables:
 *  - IIC device
@@ -204,18 +210,16 @@ int XIic_CfgInitialize(XIic *InstancePtr, XIic_Config * Config,
 *	 - Arbitration Lost to detect Tx arbitration errors
 *	 - Global IIC interrupt
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
-* @return	XST_SUCCESS always.
+* @return XST_SUCCESS always.
 *
-* @note
-*
-* The device interrupt is connected to the interrupt controller, but no
+* @note The device interrupt is connected to the interrupt controller, but no
 * "messaging" interrupts are enabled. Addressed as Slave is enabled to
 * reception of messages when this devices address is written to the bus.
 * The correct messaging interrupts are enabled when sending or receiving
 * via the IicSend() and IicRecv() functions. No action is required
-* by the user to control any IIC interrupts as the driver completely
+* by the application to control any IIC interrupts as the driver completely
 * manages all 8 interrupts. Start and Stop control the ability
 * to use the device. Stopping the device completely stops all device
 * interrupts from the processor.
@@ -268,28 +272,26 @@ int XIic_Start(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function stops the IIC device and driver such that data is no longer
-* sent or received on the IIC bus. This function stops the device by
-* disabling interrupts. This function only disables interrupts within the
-* device such that the caller is responsible for disconnecting the interrupt
-* handler of the device from the interrupt source and disabling interrupts
-* at other levels.
+* @brief Stops the IIC device and driver.
+*
+* This function stops the IIC device and driver such that data is no longer sent
+* or received on the IIC bus. This function stops the device by disabling
+* interrupts. This function only disables interrupts within the device such that
+* the caller is responsible for disconnecting the interrupt handler of the
+* device from the interrupt source and disabling interrupts at other levels.
 *
 * Due to bus throttling that could hold the bus between messages when using
-* repeated start option, stop will not occur when the device is actively
+* repeated start option, stop does not occur when the device is actively
 * sending or receiving data from the IIC bus or the bus is being throttled
 * by this device, but instead return XST_IIC_BUS_BUSY.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 * @return
-*		- XST_SUCCESS indicates all IIC interrupts are disabled.
-*		No messages can be received or transmitted until XIic_Start()
-*		is called.
-*		- XST_IIC_BUS_BUSY indicates this device is currently engaged
-*		in message traffic and cannot be stopped.
-*
-* @note		None.
+*        - XST_SUCCESS indicates all IIC interrupts are disabled. No messages
+*          can be received or transmitted until XIic_Start() is called.
+*        - XST_IIC_BUS_BUSY indicates this device is currently engaged in
+*          message traffic and cannot be stopped.
 *
 ****************************************************************************/
 int XIic_Stop(XIic *InstancePtr)
@@ -327,14 +329,16 @@ int XIic_Stop(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Resets the IIC device.
+*
 * Resets the IIC device.
 *
-* @param    InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
-* @note     The complete IIC core is Reset on giving a software reset to
-*           the IIC core. Some previous versions of the core only reset
-*           the Interrupt Logic/Registers, please refer to the HW specification
-*           for further details about this.
+* @note The complete IIC core is Reset on giving a software reset to the IIC
+*       core. Some previous versions of the core only reset the Interrupt
+*       Logic/Registers. Refer to the HW specification for further
+*       details about this.
 *
 ****************************************************************************/
 void XIic_Reset(XIic *InstancePtr)
@@ -349,48 +353,46 @@ void XIic_Reset(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the bus addresses. The addresses include the device
-* address that the device responds to as a slave, or the slave address
-* to communicate with on the bus.  The IIC device hardware is built to
-* allow either 7 or 10 bit slave addressing only at build time rather
-* than at run time. When this device is a master, slave addressing can
-* be selected at run time to match addressing modes for other bus devices.
+* @brief Sets the bus addresses.
+*
+* This function sets the bus addresses. The addresses include the device address
+* that the device responds to as a slave, or the slave address to communicate
+* with on the bus. The IIC device hardware is built to allow either 7 or 10 bit
+* slave addressing only at build time rather than at run time. When this device
+* is a master, slave addressing can be selected at run time to match addressing
+* modes for other bus devices.
 *
 * Addresses are represented as hex values with no adjustment for the data
 * direction bit as the software manages address bit placement.
 * Example: For a 7 address written to the device of 1010 011X where X is
 * the transfer direction (send/recv), the address parameter for this function
-* needs to be 01010011 or 0x53 where the correct bit alllignment will be
+* needs to be 01010011 or 0x53 where the correct bit alignment is
 * handled for 7 as well as 10 bit devices. This is especially important as
 * the bit placement is not handled the same depending on which options are
 * used such as repeated start.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	AddressType indicates which address is being modified, the
-*		address which this device responds to on the IIC bus as a slave,
-*		or the slave address to communicate with when this device is a
-*		master. One of the following values must be contained in
-*		this argument.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] AddressType Indicates which address is being modified, the address
+*            which this device responds to on the IIC bus as a slave, or the
+*            slave address to communicate with when this device is a master. One
+*            of the following values must be contained in this argument.
 * <pre>
 *   XII_ADDR_TO_SEND_TYPE	Slave being addressed by a this master
 *   XII_ADDR_TO_RESPOND_TYPE	Address to respond to as a slave device
 * </pre>
 *
-* @param	Address contains the address to be set, 7 bit or 10 bit address.
-*		A ten bit address must be within the range: 0 - 1023 and a 7 bit
-*		address must be within the range 0 - 127.
+* @param[in] Address The address to be set, 7 bit or 10 bit address. A
+*            ten bit address must be within the range: 0 - 1023 and a 7 bit
+*            address must be within the range 0 - 127.
 *
 * @return
-*		- XST_SUCCESS is returned if the address was successfully set.
-*		- XST_IIC_NO_10_BIT_ADDRESSING indicates only 7 bit addressing
-*		  supported.
-*		- XST_INVALID_PARAM indicates an invalid parameter was
-*		  specified.
+*        - XST_SUCCESS is returned if the address was successfully set.
+*        - XST_IIC_NO_10_BIT_ADDRESSING indicates only 7 bit addressing
+*          supported.
+*        - XST_INVALID_PARAM indicates an invalid parameter was specified.
 *
-* @note
-*
-* Upper bits of 10-bit address is written only when current device is built
-* as a ten bit device.
+* @note Upper bits of 10-bit address is written only when current device is
+* built as a ten bit device.
 *
 ****************************************************************************/
 int XIic_SetAddress(XIic *InstancePtr, int AddressType, int Address)
@@ -438,16 +440,18 @@ int XIic_SetAddress(XIic *InstancePtr, int AddressType, int Address)
 /*****************************************************************************/
 /**
 *
+* @brief Gets the addresses for the IIC device driver.
+*
 * This function gets the addresses for the IIC device driver. The addresses
 * include the device address that the device responds to as a slave, or the
 * slave address to communicate with on the bus. The address returned has the
 * same format whether 7 or 10 bits.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	AddressType indicates which address, the address which this
-*		responds to on the IIC bus as a slave, or the slave address to
-*		communicate with when this device is a master. One of the
-*		following values must be contained in this argument.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] AddressType Indicates which address, the address which this
+*            responds to on the IIC bus as a slave, or the slave address to
+*            communicate with when this device is a master. One of the following
+*            values must be contained in this argument.
 * <pre>
 *   XII_ADDR_TO_SEND_TYPE	Slave being addressed as a master
 *   XII_ADDR_TO_RESPOND_TYPE	Slave address to respond to as a slave
@@ -455,9 +459,7 @@ int XIic_SetAddress(XIic *InstancePtr, int AddressType, int Address)
 *  If neither of the two valid arguments are used, the function returns
 *  the address of the slave device
 *
-* @return	The address retrieved.
-*
-* @note		None.
+* @return The address retrieved.
 *
 ****************************************************************************/
 u16 XIic_GetAddress(XIic *InstancePtr, int AddressType)
@@ -491,22 +493,22 @@ u16 XIic_GetAddress(XIic *InstancePtr, int AddressType)
 /*****************************************************************************/
 /**
 *
-* This function sets the contents of the General Purpose Output register
-* for the IIC device driver. Note that the number of bits in this register is
-* parameterizable in the hardware such that it may not exist.  This function
-* checks to ensure that it does exist to prevent bus errors, but does not
-* ensure that the number of bits in the register are sufficient for the
-* value being written (won't cause a bus error).
+* @brief Sets the contents of the IIC General Purpose Output register.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	OutputValue contains the value to be written to the register.
+* This function sets the contents of the General Purpose Output register for the
+* IIC device driver. Note that the number of bits in this register is
+* parameterizable in the hardware such that it may not exist. This function
+* checks to ensure that it does exist to prevent bus errors, but does not ensure
+* that the number of bits in the register are sufficient for the value being
+* written (won't cause a bus error).
+*
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] OutputValue The value to be written to the register.
 *
 * @return
-*		- XST_SUCCESS if the given data is written to the GPO register.
-* 		- XST_NO_FEATURE if the hardware is configured such that this
-*		register does not contain any bits to read or write.
-*
-* @note		None.
+*        - XST_SUCCESS if the given data is written to the GPO register.
+*        - XST_NO_FEATURE if the hardware is configured such that this register
+*          does not contain any bits to read or write.
 *
 ****************************************************************************/
 int XIic_SetGpOutput(XIic *InstancePtr, u8 OutputValue)
@@ -529,23 +531,20 @@ int XIic_SetGpOutput(XIic *InstancePtr, u8 OutputValue)
 /*****************************************************************************/
 /**
 *
-* This function gets the contents of the General Purpose Output register
-* for the IIC device driver. Note that the number of bits in this register is
+* @brief Gets the contents of the IIC General Purpose Output register.
+*
+* This function gets the contents of the General Purpose Output register for the
+* IIC device driver. Note that the number of bits in this register is
 * parameterizable in the hardware such that it may not exist. This function
 * checks to ensure that it does exist to prevent bus errors.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	OutputValuePtr contains the value which was read from the
-*		register.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[out] OutputValuePtr The value which was read from the register.
 *
 * @return
-*		- XST_SUCCESS if the given data is read from the GPO register.
-* 		- XST_NO_FEATURE if the hardware is configured such that this
-*		register does not contain any bits to read or write.
-*
-* The OutputValuePtr is also an output as it contains the value read.
-*
-* @note		None.
+*        - XST_SUCCESS if the given data is read from the GPO register.
+*        - XST_NO_FEATURE if the hardware is configured such that this register
+*          does not contain any bits to read or write.
 *
 ****************************************************************************/
 int XIic_GetGpOutput(XIic *InstancePtr, u8 *OutputValuePtr)
@@ -569,15 +568,15 @@ int XIic_GetGpOutput(XIic *InstancePtr, u8 *OutputValuePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Determines if the device is currently addressed as a slave.
+*
 * A function to determine if the device is currently addressed as a slave.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 * @return
-* 		- TRUE if the device is addressed as slave.
-*		- FALSE if the device is NOT addressed as slave.
-*
-* @note		None.
+*        - TRUE if the device is addressed as slave.
+*        - FALSE if the device is NOT addressed as slave.
 *
 ****************************************************************************/
 u32 XIic_IsSlave(XIic *InstancePtr)
@@ -594,10 +593,11 @@ u32 XIic_IsSlave(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Sets the receive handler that the driver calls after receiving data.
+*
 * Sets the receive callback function, the receive handler, which the driver
-* calls when it finishes receiving data. The number of bytes used to signal
-* when the receive is complete is the number of bytes set in the XIic_Recv
-* function.
+* calls when it finishes receiving data. The number of bytes used to signal when
+* the receive is complete is the number of bytes set in the XIic_Recv function.
 *
 * The handler executes in an interrupt context such that it must minimize
 * the amount of processing performed such as transferring data to a thread
@@ -605,12 +605,12 @@ u32 XIic_IsSlave(XIic *InstancePtr)
 *
 * The number of bytes received is passed to the handler as an argument.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	CallBackRef is the upper layer callback reference passed back
-*		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] CallBackRef The upper layer callback reference passed back when
+*            the callback function is invoked.
+* @param[in] FuncPtr Pointer to the callback function.
 *
-* @note		The handler is called within interrupt context .
+* @note The handler is called within interrupt context.
 *
 ****************************************************************************/
 void XIic_SetRecvHandler(XIic *InstancePtr, void *CallBackRef,
@@ -627,17 +627,19 @@ void XIic_SetRecvHandler(XIic *InstancePtr, void *CallBackRef,
 /*****************************************************************************/
 /**
 *
+* @brief Sets the send handler called on confirmation of sent data.
+*
 * Sets the send callback function, the send handler, which the driver calls when
 * it receives confirmation of sent data. The handler executes in an interrupt
-* context such that it must minimize the amount of processing performed such
-* as transferring data to a thread context.
+* context such that it must minimize the amount of processing performed such as
+* transferring data to a thread context.
 *
-* @param	InstancePtr the pointer to the XIic instance to be worked on.
-* @param	CallBackRef the upper layer callback reference passed back when
-*		the callback function is invoked.
-* @param	FuncPtr the pointer to the callback function.
+* @param[in,out] InstancePtr The pointer to the XIic instance to be worked on.
+* @param[in] CallBackRef The upper layer callback reference passed back when the
+*            callback function is invoked.
+* @param[in] FuncPtr The pointer to the callback function.
 *
-* @note		The handler is called within interrupt context .
+* @note The handler is called within interrupt context.
 *
 ****************************************************************************/
 void XIic_SetSendHandler(XIic *InstancePtr, void *CallBackRef,
@@ -654,18 +656,20 @@ void XIic_SetSendHandler(XIic *InstancePtr, void *CallBackRef,
 /*****************************************************************************/
 /**
 *
+* @brief Sets the status handler for events that are not data related.
+*
 * Sets the status callback function, the status handler, which the driver calls
-* when it encounters conditions which are not data related. The handler
-* executes in an interrupt context such that it must minimize the amount of
-* processing performed such as transferring data to a thread context. The
-* status events that can be returned are described in xiic.h.
+* when it encounters conditions which are not data related. The handler executes
+* in an interrupt context such that it must minimize the amount of processing
+* performed such as transferring data to a thread context. The status events
+* that can be returned are described in xiic.h.
 *
-* @param	InstancePtr points to the XIic instance to be worked on.
-* @param	CallBackRef is the upper layer callback reference passed back
-*		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] CallBackRef The upper layer callback reference passed back when
+*            the callback function is invoked.
+* @param[in] FuncPtr Pointer to the callback function.
 *
-* @note		The handler is called within interrupt context .
+* @note The handler is called within interrupt context.
 *
 ****************************************************************************/
 void XIic_SetStatusHandler(XIic *InstancePtr, void *CallBackRef,
@@ -679,17 +683,16 @@ void XIic_SetStatusHandler(XIic *InstancePtr, void *CallBackRef,
 	InstancePtr->StatusCallBackRef = CallBackRef;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Provides a stub for the send and receive callbacks.
 *
 * This is a stub for the send and recv callbacks. The stub is here in case the
 * upper layers forget to set the handlers.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference
-* @param	ByteCount is the number of bytes sent or received
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the upper layer callback reference.
+* @param[in] ByteCount The number of bytes sent or received.
 *
 ******************************************************************************/
 static void XIic_StubHandler(void *CallBackRef, int ByteCount)
@@ -699,18 +702,17 @@ static void XIic_StubHandler(void *CallBackRef, int ByteCount)
 	Xil_AssertVoidAlways();
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Provides a stub for the asynchronous error callback.
 *
 * This is a stub for the asynchronous error callback. The stub is here in case
 * the upper layers forget to set the handler.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference.
-* @param	ErrorCode is the Xilinx error code, indicating the cause of
-*		the error.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the upper layer callback reference.
+* @param[in] ErrorCode The Xilinx error code, indicating the cause of the
+*            error.
 *
 ******************************************************************************/
 static void XIic_StubStatusHandler(void *CallBackRef, int ErrorCode)

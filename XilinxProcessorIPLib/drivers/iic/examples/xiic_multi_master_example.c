@@ -7,13 +7,14 @@
 /*****************************************************************************/
 /**
 * @file xiic_multi_master_example.c
+* @brief Shows IIC multi-master operation.
 *
 * This file consists of a Interrupt mode design example which uses the Xilinx
 * IIC device and XIic driver to exercise the EEPROM on the Xilinx boards in a
 * Multi master mode. This example has been tested with an off-board external
 * IIC Master connected on the IIC bus.
 *
-* This example writes/reads from the lower 256 bytes of the IIC EEPROMS. Please
+* This example writes/reads from the lower 256 bytes of the IIC EEPROMS.
 * refer to the datasheets of the IIC EEPROM's for details about the internal
 * addressing and page size of these devices.
 *
@@ -54,10 +55,6 @@
 * the board on which this example is to be run.
 * This code assumes that no Operating System is being used.
 *
-* @note
-*
-* None.
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -76,6 +73,7 @@
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support.
 * 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
@@ -100,7 +98,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/**
+/*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -108,60 +106,69 @@
 #ifndef SDT
 #define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
 #else
+/** IIC base address. */
 #define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
 #endif
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** IIC interrupt ID. */
 #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
-#define INTC			XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC			XIntc	/**< INTC instance type. */
+#define INTC_HANDLER	XIntc_InterruptHandler	/**< INTC interrupt handler. */
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** IIC interrupt ID. */
 #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
-#define INTC			 	XScuGic
+#define INTC			 	XScuGic	/**< INTC instance type. */
+/** INTC interrupt handler. */
 #define INTC_HANDLER		XScuGic_InterruptHandler
 #endif
 #endif
 
-/**
- * The following constant defines the address of the IIC Slave device on the
- * IIC bus. Note that since the address is only 7 bits, this constant is the
- * address divided by 2.
- * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML501/
- * ML410/ML505/ML507/ML510 boards is 0x50. The 7 bit IIC Slave address of the
- * IIC EEPROM on the ML605/SP601/SP605 boards is 0x54.
- * Please refer the User Guide's of the respective boards for further
- * information about the IIC slave address of IIC EEPROM's.
+/*
+ * The following constant defines the address of the IIC Slave device on
+ * the IIC bus. Note that since the address is only 7 bits, this constant
+ * is the address divided by 2. The 7 bit IIC Slave address of the IIC
+ * EEPROM on the ML300/ML310/ML403/ML501/ ML410/ML505/ML507/ML510 boards
+ * is 0x50. The 7 bit IIC Slave address of the IIC EEPROM on the
+ * ML605/SP601/SP605 boards is 0x54. Refer to the user guide of the
+ * respective board for further information about the IIC slave address
+ * of IIC EEPROM's.
  */
 
-#define EEPROM_ADDRESS 0x50	/* 0xA0 as an 8 bit number. */
+#define EEPROM_ADDRESS 0x50	/**< 7-bit IIC EEPROM slave address. */
 
-/**
+/*
  * The page size determines how much data should be written at a time.
- * The ML300 board supports a page size of 32 and 16.
- * The write function should be called with this as a maximum byte count.
+ * The ML300 board supports a page size of 32 and 16. The write function
+ * should be called with this as a maximum byte count.
  */
-#define PAGE_SIZE   16
+#define PAGE_SIZE   16	/**< EEPROM page size in bytes. */
 
-/**
+/*
+ * Defines the EEPROM start address for this test.
  * The Starting address in the IIC EEPROM on which this test is performed.
  */
-#define EEPROM_TEST_START_ADDRESS   128
+#define EEPROM_TEST_START_ADDRESS   128	/**< EEPROM test start address. */
 
-/**
+/*
  * Maximum delay count used for timeout handling
  */
+/** Maximum delay count for timeout handling. */
 #define  MAX_DELAY_CNT    10000
 
 /**************************** Type Definitions *******************************/
 
 /**
+ * @brief Defines the EEPROM address type for the target board.
+ *
  * The AddressType for ML300/ML310/ML410/ML510 boards should be u16 as the
- * address pointer in the on board EEPROM is 2 bytes.
- * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
- * be u8 as the address pointer in the on board EEPROM is 1 bytes.
+ * address pointer in the on board EEPROM is 2 bytes. The AddressType for
+ * ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should be u8 as the address
+ * pointer in the on board EEPROM is 1 bytes.
  */
 typedef u8 AddressType;
 
@@ -181,30 +188,31 @@ static void StatusHandler(XIic *InstancePtr, int Event);
 
 /************************** Variable Definitions *****************************/
 
-XIic IicInstance;		/** The instance of the IIC device. */
+XIic IicInstance;		/**< The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/** The instance of the Interrupt Controller Driver */
+INTC Intc; 	/**< The instance of the Interrupt Controller Driver. */
 #endif
 
 /**
- * Write buffer for writing a page.
+ * @brief Holds the data for writing a page.
  */
 u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
 
-volatile u8 TransmitComplete;	/** Transmit completion flag */
-volatile u8 ReceiveComplete;	/** Receive completion flag */
-volatile u8 BusNotBusy;		/** IIC bus idle flag */
+volatile u8 TransmitComplete;	/**< Transmit completion flag. */
+volatile u8 ReceiveComplete;	/**< Receive completion flag. */
+volatile u8 BusNotBusy;		/**< IIC bus idle flag. */
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* @brief Runs the Multi Master example.
+*
 * Main function to call the Multi Master example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note 	None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -226,12 +234,13 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Writes the data to the IIC EEPROM.
+*
 * This function writes the data to the IIC EEPROM.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ****************************************************************************/
 int IicMultiMasterExample(void)
@@ -407,18 +416,20 @@ int IicMultiMasterExample(void)
 #ifndef SDT
 /****************************************************************************/
 /**
-* This function setups the interrupt system so interrupts can occur for the
-* IIC. The function is application-specific since the actual system may or
-* may not have an interrupt controller. The IIC device could be directly
-* connected to a processor without an interrupt controller. The user should
-* modify this function to fit the application.
+* @brief Sets up the interrupt system so interrupts can occur for the IIC.
 *
-* @param	IicInstPtr contains a pointer to the instance of the IIC which
-*		is going to be connected to the interrupt controller.
+* This function sets up the interrupt system so interrupts can occur for the
+* IIC. The function is application-specific since the actual system may or may
+* not have an interrupt controller. The IIC device could be directly connected
+* to a processor without an interrupt controller. Modify this
+* function to fit the application.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @param[in] IicInstPtr Pointer to the instance of the IIC which is going to be
+*                       connected to the interrupt controller.
 *
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ****************************************************************************/
 static int SetupInterruptSystem(XIic *IicInstPtr)
@@ -526,15 +537,13 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 
 /*****************************************************************************/
 /**
-* This Send handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been sent.
+* @brief Handles send completion from interrupt context.
 *
-* @param	CallBackRef is a pointer to the IIC device instance.
-* @param	ByteCount is the number of bytes sent.
+* This Send handler is called asynchronously from an interrupt context and
+* indicates that data in the specified buffer has been sent.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the IIC device instance.
+* @param[in] ByteCount The number of bytes sent.
 *
 ******************************************************************************/
 static void SendHandler(void *CallBackRef, int ByteCount)
@@ -547,16 +556,14 @@ static void SendHandler(void *CallBackRef, int ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief Handles IIC status events from interrupt context.
+*
 * The Status handler is called asynchronously from an interrupt context and
 * indicates the events that have occurred.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-* 		the handler is being called for.
-* @param	Event indicates the condition that has occurred.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the IIC driver instance for which the
+*                        handler is being called for.
+* @param[in] Event Indicates the condition that has occurred.
 *
 ******************************************************************************/
 static void StatusHandler(XIic *InstancePtr, int Event)

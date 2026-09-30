@@ -7,13 +7,10 @@
 /******************************************************************************/
 /**
 * @file xiic_selftest_example.c
+* @brief Shows the IIC self-test.
 *
 * This file contains a example for using the IIC hardware device and
 * XIic driver.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,6 +28,7 @@
 *                     CR-965028.
 * 3.10  gm   07/09/23 Added SDT support.
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 *******************************************************************************/
@@ -48,8 +46,9 @@
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-#define IIC_DEVICE_ID	   XPAR_IIC_0_DEVICE_ID
+#define IIC_DEVICE_ID	   XPAR_IIC_0_DEVICE_ID	/**< IIC device ID. */
 #else
+/** IIC base address. */
 #define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
 #endif
 #endif
@@ -68,22 +67,25 @@ int IicSelfTestExample(UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions ******************************/
 
-/*
- * The following are declared globally so they are zeroed and so they are
- * easily accessible from a debugger.
+/**
+ * @brief Declares the example globals.
+ *
+ * The following are declared globally so they are zeroed and so they are easily
+ * accessible from a debugger.
  */
 XIic Iic; /* The driver instance for IIC Device */
 
 
 /******************************************************************************/
 /**
+* @brief Runs the example.
+*
 * Main function to call the example. This function is not included if the
 * example is generated from the TestAppGen test tool.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -114,20 +116,22 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a selftest on the IIC device and XIic driver as an
-* example.
+* @brief Runs a selftest on the IIC device and XIic driver as an example.
+*
+* This function does a selftest on the IIC device and XIic driver as an example.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<IIC_instance>_DEVICE_ID value from
-*		xparameters.h.
+* @param[in] DeviceId Device ID of the IIC device, from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the
-*               device configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 ****************************************************************************/
 #ifndef SDT

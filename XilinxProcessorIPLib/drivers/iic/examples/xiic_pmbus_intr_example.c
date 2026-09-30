@@ -5,6 +5,7 @@
 /*****************************************************************************/
 /**
 * @file xiic_pmbus_intr_example.c
+* @brief Shows interrupt-mode PMBus transfers over IIC.
 *
 * This file consists of an interrupt mode design example which uses the Xilinx
 * IIC device and low-level driver to communicate with a PMBus device.
@@ -22,14 +23,13 @@
 *
 * This code assumes that no Operating System is being used.
 *
-* @note None.
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- ----------  -----------------------------------------------
 * 3.15  vlt  02/18/26    Initial version
+* 3.16  tb   09/22/26    Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -46,83 +46,101 @@
 #endif
 /************************** Constant Definitions *****************************/
 
-/**
+/*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+/** Base address of the IIC device. */
 #define	XIIC_BASEADDRESS		XPAR_XIIC_0_BASEADDR
 
-/**
- * The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with channel
- * address 0x05 and PMBus slave address 0x13.
- *
+/*
+ * The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with
+ * channel address 0x05 and PMBus slave address 0x13.
  * The ZC702 and ZC706 boards use a PMBus MUX address of 0x74 with channel
  * address 0x80 and PMBus slave address 0x52.
- *
  * The KCU105 board uses a PMBus MUX address of 0x74 or 0x75 with channel
  * address 0x04 and PMBus slave address 0x0A.
- * Please refer to the User Guide of the respective board and the PMBus
+ * Refer to the User Guide of the respective board and the PMBus
  * device datasheet for further information about the correct addresses and
  * channel to use for PMBus communication.
  * The defines below must be updated to match the board in use.
  */
-#define IIC_MUX_ADDRESS         0x75
-#define IIC_PMBUS_CHANNEL       0x04
+#define IIC_MUX_ADDRESS         0x75	/**< 7-bit IIC MUX address. */
+#define IIC_PMBUS_CHANNEL       0x04	/**< IIC MUX channel for PMBus. */
 
-/**
- * The following constant defines the address of the PMBus device on the IIC bus.
- * Note that this is a 7-bit address. The PMBus slave address may vary depending
- * on the board and the PMBus device used. For example, the KCU105 board uses
- * 0x0A as the PMBus slave address for its power controller.
- * Please refer to the User Guide of the respective board and the PMBus device
- * datasheet for further information about the correct slave address to use.
+/*
+ * The following constant defines the address of the PMBus device on the
+ * IIC bus. Note that this is a 7-bit address. The PMBus slave address
+ * may vary depending on the board and the PMBus device used. For
+ * example, the KCU105 board uses 0x0A as the PMBus slave address for its
+ * power controller. Refer to the User Guide of the respective board and
+ * the PMBus device datasheet for further information about the correct
+ * slave address to use.
  */
-#define PMBUS_SLAVE_ADDR	0x0A
+#define PMBUS_SLAVE_ADDR	0x0A	/**< 7-bit PMBus slave address. */
 
-/**
- * This define should be uncommented if there is an IIC MUX on the board to which
- * the PMBus device is connected. For example, the KCU105 board uses an IIC MUX
- * to access PMBus devices.
+/*
+ * This define should be uncommented if there is an IIC MUX on the board
+ * to which the PMBus device is connected. For example, the KCU105 board
+ * uses an IIC MUX to access PMBus devices.
  */
-#define IIC_MUX_ENABLE			/** Enables the IIC MUX */
+#define IIC_MUX_ENABLE	/**< Enables the IIC MUX. */
 
-#define PMBUS_CMD_READ_VOUT	0x8B	/** Command to read output voltage (VOUT) */
-#define PMBUS_CMD_READ_TEMP	0x8D	/** Command to read temperature (TEMP) */
+/** Command to read output voltage (VOUT). */
+#define PMBUS_CMD_READ_VOUT	0x8B
+/** Command to read temperature (TEMP). */
+#define PMBUS_CMD_READ_TEMP	0x8D
 
-/**
- * PMBus READ_VOUT uses LINEAR16 format.
- * As per PMBus specification, the exponent is defined by VOUT_MODE.
- * For the PMBus device used in this example, VOUT_MODE exponent
- * is fixed at -12 (device/board specific).
+/*
+ * PMBus READ_VOUT uses LINEAR16 format. As per PMBus specification, the
+ * exponent is defined by VOUT_MODE. For the PMBus device used in this
+ * example, VOUT_MODE exponent is fixed at -12 (device/board specific).
  */
+/** VOUT_MODE exponent for LINEAR16 conversion. */
 #define PMBUS_VOUT_EXPONENT	(-12)
 
-/**
+/*
  * Maximum delay count used for timeout handling
  */
+/** Maximum delay count for timeout handling. */
 #define MAX_DELAY_CNT               1000
 
-/** Internal IIC event mask */
-#define EventMask                   0xFF
+/*
+ * Internal IIC event mask
+ */
+#define EventMask                   0xFF	/**< Internal IIC event mask. */
 
-/** Internal event value used for IIC event checking */
+/*
+ * Internal event value used for IIC event checking
+ */
+/** Internal event value for IIC event checking. */
 #define Event_Value                 1
 
-/** Shift to get exponent bits */
-#define EXPONENT_SHIFT   11
+/*
+ * Shift to get exponent bits
+ */
+#define EXPONENT_SHIFT   11	/**< Shift to get exponent bits. */
 
-/** Mask for 5-bit exponent */
-#define EXPONENT_MASK    0x1F
+/*
+ * Mask for 5-bit exponent
+ */
+#define EXPONENT_MASK    0x1F	/**< Mask for 5-bit exponent. */
 
-/** Mask for 11-bit mantissa */
-#define MANTISSA_MASK    0x7FF
+/*
+ * Mask for 11-bit mantissa
+ */
+#define MANTISSA_MASK    0x7FF	/**< Mask for 11-bit mantissa. */
 
-/** Exponent sign bit */
-#define EXP_SIGN_BIT    0x10
+/*
+ * Exponent sign bit
+ */
+#define EXP_SIGN_BIT    0x10	/**< Exponent sign bit. */
 
-/** Mantissa sign bit */
-#define MANT_SIGN_BIT   0x400
+/*
+ * Mantissa sign bit
+ */
+#define MANT_SIGN_BIT   0x400	/**< Mantissa sign bit. */
 
 
 /**************************** Type Definitions *******************************/
@@ -142,27 +160,31 @@ static int Pmbus_ReadWord_Intr(u8 Cmd, u8 *ReadBuf);
 static float Pmbus_Linear11_ToFloat(u16 Raw);
 static float Pmbus_Linear16_ToFloat(u16 Raw, int Vout_Exp);
 /************************** Variable Definitions *****************************/
-XIic IicInstance;		/** The instance of the IIC device. */
+XIic IicInstance;		/**< The instance of the IIC device. */
 
 #ifndef SDT
-INTC Intc;			/** The instance of the Interrupt Controller Driver */
+INTC Intc;
+	/**< The instance of the Interrupt Controller Driver. */
 #endif
 
-volatile u8 TransmitComplete;	/** Flag to check completion of Transmission */
-volatile u8 ReceiveComplete;	/** Flag to check completion of Reception */
-volatile u8 ErrorEvent;		/** Error event flag set by the IIC interrupt handler */
+volatile u8 TransmitComplete;
+	/**< Flag to check completion of Transmission. */
+volatile u8 ReceiveComplete;	/**< Flag to check completion of Reception. */
+volatile u8 ErrorEvent;
+	/**< Error event flag set by the IIC interrupt handler. */
 
-u8 WriteBuffer[1];		/** Write buffer used for IIC data transmission */
+u8 WriteBuffer[1];
+	/**< Write buffer used for IIC data transmission. */
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
-* Main function to call the PMBus interrupt example.
+* @brief Runs the PMBus interrupt example.
 *
-* @return   XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note     None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -186,13 +208,14 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* This function demonstrates PMBus interrupt access: initializes IIC, sets up
-* interrupts, selects MUX (if enabled), and read voltage and temperature from
-* the PMBus device, printing results.
+* @brief Demonstrates PMBus access in interrupt mode.
 *
-* @return   XST_SUCCESS if successful, else XST_FAILURE.
+* It initializes IIC, sets up interrupts, selects the MUX (if enabled), reads
+* voltage and temperature from the PMBus device, and prints the results.
 *
-* @note     None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int IicPmbusInterruptSdtExample(void)
@@ -307,17 +330,18 @@ int IicPmbusInterruptSdtExample(void)
 
 /*****************************************************************************/
 /**
-* This function sends a single command byte to the PMBus slave device using
-* interrupt-driven IIC communication.
+* @brief Sends a single command byte to the PMBus slave device.
 *
-* @param    Cmd contains the command byte to be sent to the slave.
+* It uses interrupt-driven IIC communication.
+*
+* @param[in] Cmd The command byte to be sent to the slave.
 *
 * @return
-*           - XST_SUCCESS if the command was sent successfully.
-*           - XST_FAILURE if an error occurred during transmission.
+*        - XST_SUCCESS if the command was sent successfully.
+*        - XST_FAILURE if an error occurred during transmission.
 *
-* @note     This function waits for the IIC bus to become free before sending
-*           the command and waits for the transmission to complete.
+* @note This function waits for the IIC bus to become free before sending the
+*       command and waits for the transmission to complete.
 *
 ******************************************************************************/
 static int Pmbus_SendCmd_Intr(u8 Cmd)
@@ -352,20 +376,21 @@ static int Pmbus_SendCmd_Intr(u8 Cmd)
 
 /*****************************************************************************/
 /**
-* This function reads a 2-byte word from the PMBus slave device using
-* interrupt-driven IIC communication. It first sends the command byte, then
-* receives the data.
+* @brief Reads a 2-byte word from the PMBus slave device.
 *
-* @param    Cmd contains the command byte to be sent to the slave.
-* @param    ReadBuf is a pointer to the buffer to store the received data.
+* It uses interrupt-driven IIC communication. It first sends the command byte,
+* then receives the data.
+*
+* @param[in] Cmd The command byte to be sent to the slave.
+* @param[out] ReadBuf Pointer to the buffer to store the received data.
 *
 * @return
-*           - XST_SUCCESS if the word was read successfully.
-*           - XST_FAILURE if an error occurred during the operation.
+*        - XST_SUCCESS if the word was read successfully.
+*        - XST_FAILURE if an error occurred during the operation.
 *
-* @note     This function uses a repeated start condition between the write
-*           (command) and read (data) phases. It waits for the receive
-*           operation to complete or timeout.
+* @note This function uses a repeated start condition between the write
+*       (command) and read (data) phases. It waits for the receive operation to
+*       complete or timeout.
 *
 ******************************************************************************/
 static int Pmbus_ReadWord_Intr(u8 Cmd, u8 *ReadBuf)
@@ -424,13 +449,11 @@ static int Pmbus_ReadWord_Intr(u8 Cmd, u8 *ReadBuf)
 
 /*****************************************************************************/
 /**
-* This function converts a PMBus Linear11 formatted value to float.
+* @brief Converts a PMBus Linear11 formatted value to float.
 *
-* @param	Raw is the 16-bit raw value from the PMBus device.
+* @param[in] Raw The 16-bit raw value from the PMBus device.
 *
-* @return	Floating point value after conversion.
-*
-* @note		None.
+* @return Floating point value after conversion.
 *
 ******************************************************************************/
 static float Pmbus_Linear11_ToFloat(u16 Raw)
@@ -471,15 +494,14 @@ static float Pmbus_Linear11_ToFloat(u16 Raw)
 
 /*****************************************************************************/
 /**
-* This function converts a PMBus Linear16 formatted value to float.
+* @brief Converts a PMBus Linear16 formatted value to float.
+*
 * Used for voltage (READ_VOUT).
 *
-* @param	Raw is the 16-bit raw value from the PMBus device.
-* @param	Vout_Exp is the exponent for VOUT.
+* @param[in] Raw The 16-bit raw value from the PMBus device.
+* @param[in] Vout_Exp The exponent for VOUT.
 *
-* @return	Floating point value after conversion.
-*
-* @note		None.
+* @return Floating point value after conversion.
 *
 ******************************************************************************/
 static float Pmbus_Linear16_ToFloat(u16 Raw, int Vout_Exp)
@@ -504,15 +526,13 @@ static float Pmbus_Linear16_ToFloat(u16 Raw, int Vout_Exp)
 
 /*****************************************************************************/
 /**
-* This Send handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been sent.
+* @brief Handles send completion from interrupt context.
 *
-* @param	CallBackRef is a pointer to the IIC device instance.
-* @param	ByteCount is the number of bytes sent.
+* This Send handler is called asynchronously from an interrupt context and
+* indicates that data in the specified buffer has been sent.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the IIC device instance.
+* @param[in] ByteCount The number of bytes sent.
 *
 ******************************************************************************/
 static void SendHandler(void *CallBackRef, int ByteCount)
@@ -525,15 +545,13 @@ static void SendHandler(void *CallBackRef, int ByteCount)
 
 /*****************************************************************************/
 /**
-* This Receive handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been received.
+* @brief Handles receive completion from interrupt context.
 *
-* @param	CallBackRef is a pointer to the IIC device instance.
-* @param	ByteCount is the number of bytes received.
+* This Receive handler is called asynchronously from an interrupt context and
+* indicates that data in the specified buffer has been received.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the IIC device instance.
+* @param[in] ByteCount The number of bytes received.
 *
 ******************************************************************************/
 static void ReceiveHandler(void *CallBackRef, int ByteCount)
@@ -546,18 +564,18 @@ static void ReceiveHandler(void *CallBackRef, int ByteCount)
 
 /*****************************************************************************/
 /**
-* This status handler is invoked from the interrupt context to report
-* IIC status events. It checks for error conditions such as arbitration
-* loss or missing slave acknowledgment and sets an error flag.
+* @brief Handles IIC status events from interrupt context.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-*		    the handler is being called for.
-* @param	Event indicates the condition that has occurred.
+* This status handler is invoked from the interrupt context to report IIC status
+* events. It checks for error conditions such as arbitration loss or missing
+* slave acknowledgment and sets an error flag.
 *
-* @return	None.
+* @param[in] InstancePtr Pointer to the IIC driver instance for which the
+*                        handler is being called for.
+* @param[in] Event Indicates the condition that has occurred.
 *
-* @note	    The errorflag is used by the application to detect PMBus transaction
-*           failures.
+* @note The errorflag is used by the application to detect PMBus transaction
+*       failures.
 *
 ******************************************************************************/
 static void StatusHandler(XIic *InstancePtr, int Event)
@@ -571,11 +589,9 @@ static void StatusHandler(XIic *InstancePtr, int Event)
 #ifdef IIC_MUX_ENABLE
 /*****************************************************************************/
 /**
-* This function initializes the IIC MUX to select the PMBus channel.
+* @brief Initializes the IIC MUX to select the PMBus channel.
 *
-* @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return XST_SUCCESS if pass, otherwise XST_FAILURE.
 *
 ****************************************************************************/
 static int MuxInitIntr(void)

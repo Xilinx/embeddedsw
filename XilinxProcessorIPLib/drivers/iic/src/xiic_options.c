@@ -8,8 +8,7 @@
 /**
 *
 * @file xiic_options.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC option and GPO helpers.
 *
 * Contains options functions for the XIic component. This file is not required
 * unless the functions in this file are called.
@@ -26,9 +25,15 @@
 * 		     Updated to use the HAL APIs/macros.
 * 3.15  vlt 12/04/25 Add XIic_SetClk API for dynamic clock configuration.
 * 3.16  vn  07/30/26 Fix Doxygen warnings
+* 3.16  tb  09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -41,24 +46,25 @@
 /**************************** Type Definitions *****************************/
 #ifdef SDT
 struct TimingRegs {
-        unsigned int Tsusta;
-        unsigned int Tsusto;
-        unsigned int Thdsta;
-        unsigned int Tsudat;
-        unsigned int Tbuf;
+        unsigned int Tsusta; /**< Setup time for a repeated START. */
+        unsigned int Tsusto; /**< Setup time for STOP. */
+        unsigned int Thdsta; /**< Hold time for START. */
+        unsigned int Tsudat; /**< Data setup time. */
+        unsigned int Tbuf; /**< Bus free time. */
 };
 #endif
 
 
 /***************** Macros (Inline Functions) Definitions *******************/
-#define XIIC_REG_VALUES_100KHZ   0
-#define XIIC_REG_VALUES_400KHZ   1
-#define XIIC_REG_VALUES_1MHZ     2
+#define XIIC_REG_VALUES_100KHZ   0	/**< Timing table index for 100 kHz. */
+#define XIIC_REG_VALUES_400KHZ   1	/**< Timing table index for 400 kHz. */
+#define XIIC_REG_VALUES_1MHZ     2	/**< Timing table index for 1 MHz. */
 
-#define XIIC_STANDARD_MODE   100000U
-#define XIIC_FAST_MODE       400000U
-#define XIIC_FAST_MODE_PLUS  1000000U
+#define XIIC_STANDARD_MODE   100000U	/**< Standard mode SCL rate in Hz. */
+#define XIIC_FAST_MODE       400000U	/**< Fast mode SCL rate in Hz. */
+#define XIIC_FAST_MODE_PLUS  1000000U	/**< Fast mode plus SCL rate in Hz. */
 
+/** Number of nanoseconds in one second. */
 #define XIIC_NANOSEC_TO_SEC_DIVISOR    1000000000U
 
 
@@ -78,10 +84,12 @@ static const struct TimingRegs TimingRegValues[] = {
 /*****************************************************************************/
 /**
 *
+* @brief Sets the options for the IIC device driver.
+*
 * This function sets the options for the IIC device driver. The options control
-* how the device behaves relative to the IIC bus. If an option applies to
-* how messages are sent or received on the IIC bus, it must be set prior to
-* calling functions which send or receive data.
+* how the device behaves relative to the IIC bus. If an option applies to how
+* messages are sent or received on the IIC bus, it must be set prior to calling
+* functions which send or receive data.
 *
 * To set multiple options, the values must be ORed together. To not change
 * existing options, read/modify/write with the current options using
@@ -102,19 +110,17 @@ static const struct TimingRegs TimingRegValues[] = {
 *   XIic_SetOptions(&Iic, Options &= ~XII_GENERAL_CALL_OPTION);
 * </pre>
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	NewOptions are the options to be set.  See xiic.h for a list of
-*		the available options.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] NewOptions The options to be set. See xiic.h for a list of the
+*            available options.
 *
-* @note
-*
-* Sending or receiving messages with repeated start enabled, and then
-* disabling repeated start, will not take effect until another master
-* transaction is completed. i.e. After using repeated start, the bus will
-* continue to be throttled after repeated start is disabled until a master
+* @note Sending or receiving messages with repeated start enabled, and then
+* disabling repeated start, does not take effect until another master
+* transaction is completed. That is, after using repeated start, the bus
+* continues to be throttled after repeated start is disabled until a master
 * transaction occurs allowing the IIC to release the bus.
 * <br><br>
-* Options enabled will have a 1 in its appropriate bit position.
+* Options enabled have a 1 in its appropriate bit position.
 *
 ****************************************************************************/
 void XIic_SetOptions(XIic *InstancePtr, u32 NewOptions)
@@ -153,18 +159,18 @@ void XIic_SetOptions(XIic *InstancePtr, u32 NewOptions)
 /*****************************************************************************/
 /**
 *
-* This function gets the current options for the IIC device. Options control
-* the how the device behaves on the IIC bus. See SetOptions for more information
-* on options.
+* @brief Gets the current options for the IIC device.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* This function gets the current options for the IIC device. Options control the
+* how the device behaves on the IIC bus. See SetOptions for more information on
+* options.
 *
-* @return	The options of the IIC device. See xiic.h for a list of
-*		available options.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
-* @note
+* @return The options of the IIC device. See xiic.h for a list of available
+*         options.
 *
-* Options enabled will have a 1 in its appropriate bit position.
+* @note Options enabled have a 1 in its appropriate bit position.
 *
 ****************************************************************************/
 u32 XIic_GetOptions(XIic *InstancePtr)
@@ -176,23 +182,21 @@ u32 XIic_GetOptions(XIic *InstancePtr)
 
 /*****************************************************************************/
 /**
- * @brief
- * Sets the serial clock rate for the IIC device.
- * The device must be idle before setting these device options.
- * The timing register values are calculated according to the input clock
- * frequency and configured scl frequency. For details, please refer the
- * AXI I2C PG and NXP I2C Spec.
+ * @brief Sets the serial clock rate for the IIC device.
  *
- *@param    InstancePtr is a pointer to the XIic instance to be worked on.
- *@param    FsclHz is Clock frequency in Hz(100kHz, 400kHz, 1MHz).
+ * The device must be idle before setting these device options. The timing
+ * register values are calculated according to the input clock frequency and
+ * configured scl frequency. For details, refer to the AXI I2C PG and NXP
+ * I2C Spec.
  *
- *@return
- *              - XST_SUCCESS if options are successfully set.
- *              - XST_DEVICE_IS_STARTED if the device is currently transferring
- *              data. The transfer must complete or be aborted before setting
- *              options.
- *              - XST_INVALID_PARAM if frequency is unsupported or invalid.
+ * @param[in] InstancePtr Pointer to the XIic instance to be worked on.
+ * @param[in] FsclHz Clock frequency in Hz(100kHz, 400kHz, 1MHz).
  *
+ * @return
+ *        - XST_SUCCESS if options are successfully set.
+ *        - XST_DEVICE_IS_STARTED if the device is currently transferring data.
+ *          The transfer must complete or be aborted before setting options.
+ *        - XST_INVALID_PARAM if frequency is unsupported or invalid.
  *
  * **************************************************************************/
 #ifdef SDT

@@ -8,8 +8,7 @@
 /**
 *
 * @file xiic_slave.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC slave transfer APIs.
 *
 * Contains slave functions for the XIic component. This file is necessary when
 * slave operations, sending and receiving data as a slave on the IIC bus,
@@ -51,9 +50,15 @@
 *                    empty and the controller is still in NAAS state.
 * 3.15 vlt  01/27/26 Fixed codespell issues.
 * 3.16 vn   07/30/26 Fix Doxygen warnings
+* 3.16 tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -78,15 +83,14 @@ static void SendSlaveData(XIic *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* This function includes slave code such that slave events will be processed.
-* It is necessary to allow slave code to be optional to reduce the size of
-* the driver. This function may be called at any time but must be prior to
-* being selected as a slave on the IIC bus. This function may be called prior
-* to the Cfg_Initialize() function and must be called before any functions in
-* this file are called.
+* @brief Includes slave code so slave events are processed.
 *
-*
-* @note		None.
+* This function includes slave code such that slave events are processed. It
+* is necessary to allow slave code to be optional to reduce the size of the
+* driver. This function may be called at any time but must be prior to being
+* selected as a slave on the IIC bus. This function may be called prior to the
+* Cfg_Initialize() function and must be called before any functions in this file
+* are called.
 *
 ******************************************************************************/
 void XIic_SlaveInclude(void)
@@ -100,22 +104,20 @@ void XIic_SlaveInclude(void)
 /*****************************************************************************/
 /**
 *
-* This function sends data as a slave on the IIC bus and should not be called
-* until an event has occurred that indicates the device has been selected by
-* a master attempting read from the slave (XII_MASTER_READ_EVENT).
+* @brief Sends data as a slave on the IIC bus.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-* @param	TxMsgPtr is a pointer to the data to be transmitted.
-* @param	ByteCount is the number of message bytes to be sent.
+* This function sends data as a slave on the IIC bus and should not be called
+* until an event has occurred that indicates the device has been selected by a
+* master attempting read from the slave (XII_MASTER_READ_EVENT).
+*
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
+* @param[in] TxMsgPtr Pointer to the data to be transmitted.
+* @param[in] ByteCount The number of message bytes to be sent.
 *
 * @return
-*		- XST_SUCCESS indicates the message transmission has been
-*		initiated.
-*		- XST_IIC_NOT_SLAVE indicates the device has not been
-*		selected to be a slave on the IIC bus such that data
-*		cannot be sent.
-*
-* @note		None.
+*        - XST_SUCCESS indicates the message transmission has been initiated.
+*        - XST_IIC_NOT_SLAVE indicates the device has not been selected to be a
+*          slave on the IIC bus such that data cannot be sent.
 *
 ******************************************************************************/
 int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
@@ -171,23 +173,24 @@ int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function sends data as a slave on the IIC bus and should not be called
-* until an event has occurred that indicates the device has been selected by
-* a master attempting read from the slave (XII_MASTER_READ_EVENT).
+* @brief Receives data as a slave on the IIC bus.
 *
-* If more data is received than specified a No Acknowledge will be sent to
+* This function receives data as a slave on the IIC bus and should not be
+* called until an event has occurred that indicates the device has been
+* selected by a master writing to the slave (XII_MASTER_WRITE_EVENT).
+*
+* If more data is received than specified a No Acknowledge is sent to
 * signal the Master to stop sending data. Any received data is read to prevent
 * the slave device from throttling the bus.
 *
-* @param	InstancePtr is a pointer to the Iic instance to be worked on.
-* @param	RxMsgPtr is a pointer to the data to be transmitted.
-* @param	ByteCount is the number of message bytes to be sent.
+* @param[in,out] InstancePtr Pointer to the Iic instance to be worked on.
+* @param[out] RxMsgPtr Pointer to the buffer to hold the data that is received.
+* @param[in] ByteCount The number of message bytes to be received.
 *
 * @return
-*		- XST_SUCCESS indicates the message transmission has been
-*		initiated.
-*		- XST_IIC_NOT_SLAVE indicates the device has not been selected
-*		to be a slave on the IIC bus such that data cannot be received.
+*        - XST_SUCCESS indicates the message reception has been initiated.
+*        - XST_IIC_NOT_SLAVE indicates the device has not been selected to be a
+*          slave on the IIC bus such that data cannot be received.
 *
 * @internal
 *
@@ -197,13 +200,13 @@ int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 * When the master is not using repeated start:
 *  - Not Addressed As Slave NAAS interrupt signals the master has sent a stop
 *    condition and is no longer sending data. This doesn't imply that the master
-*    will not send a No Ack. It covers when the master fails to send No
+*    does not send a No Ack. It covers when the master fails to send No
 *    Acknowledge before releasing the bus.
 *  - Tx Error interrupt signals end of message.
 *
 * When the master is using repeated start:
 *  - the Tx Error interrupt signals the master finished sending the msg.
-*  - NAAS interrupt will not signal when message is complete as the
+*  - NAAS interrupt does not signal when message is complete as the
 *    master may want to write or read another message with this device.
 *
 * To prevent throttling, the slave must continue to read discard the data
@@ -214,11 +217,11 @@ int XIic_SlaveSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 * this device to acknowlefge the an address sent to it for the next
 * slave message.
 *
-* The slave will always receive 1 byte before the bus is throttled causing a
+* The slave always receives 1 byte before the bus is throttled causing a
 * receive pending interrupt before this routine is executed. After one byte
-* the bus will throttle. The depth is set to the proper amount immediately
+* the bus throttles. The depth is set to the proper amount immediately
 * allowing the master to send more bytes and then to again throttle, but at the
-* proper fifo depth. The interrupt is a level. Clearing and enabling will cause
+* proper fifo depth. The interrupt is a level. Clearing and enabling causes
 * the Rx interrupt to pend at the correct level.
 *
 ******************************************************************************/
@@ -278,15 +281,17 @@ int XIic_SlaveRecv(XIic *InstancePtr, u8 *RxMsgPtr, int ByteCount)
 /*****************************************************************************/
 /**
 *
+* @brief Handles Addressed-As-Slave events.
+*
+* Is called when the IIC device is Addressed As a Slave (AAS). This occurs when
+* another device on the bus, a master, has addressed this device to receive a
+* message.
+*
 * This function is called when the IIC device is Addressed As a Slave (AAS).
 * This occurs when another device on the bus, a master, has addressed this
 * device to receive a message.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void AddrAsSlaveHandler(XIic *InstancePtr)
@@ -332,15 +337,17 @@ static void AddrAsSlaveHandler(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Handles Not-Addressed-As-Slave events.
+*
+* Is called when the IIC device receives Not Addressed As Slave (NAAS) interrupt
+* which indicates that the master has released the bus implying a data transfer
+* is complete.
+*
 * This function is called when the IIC device receives Not Addressed As Slave
 * (NAAS) interrupt which indicates that the master has released the bus implying
 * a data transfer is complete.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void NotAddrAsSlaveHandler(XIic *InstancePtr)
@@ -458,9 +465,11 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Handles data received from the IIC bus as a slave.
+*
 * This function handles data received from the IIC bus as a slave.
 *
-* When the slave expects more than the master has to send, the slave will stall
+* When the slave expects more than the master has to send, the slave stalls
 * waiting for data.
 *
 * When more data is received than data expected a Nack is done to signal master
@@ -473,11 +482,7 @@ static void NotAddrAsSlaveHandler(XIic *InstancePtr)
 * again, must know when to renable bus ACKs. NAAS is used to detect when the
 * master is finished sending messages for any mode.
 
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void RecvSlaveData(XIic *InstancePtr)
@@ -551,6 +556,8 @@ static void RecvSlaveData(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Sends data on the IIC bus as a slave.
+*
 * This function sends data on the IIC bus as a slave.
 *
 * When message data has been sent, but the master keeps reading data, the FIFO
@@ -561,11 +568,7 @@ static void RecvSlaveData(XIic *InstancePtr)
 * NAAS interrupt signals when repeated start occurred and the msg is finished
 * and BNB signals when the master sent a stop.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void SendSlaveData(XIic *InstancePtr)

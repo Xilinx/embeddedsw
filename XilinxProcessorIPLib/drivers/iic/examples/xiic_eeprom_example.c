@@ -7,12 +7,13 @@
 /*****************************************************************************/
 /**
 * @file xiic_eeprom_example.c
+* @brief Shows IIC EEPROM read and write.
 *
 * This file consists of a Interrupt mode design example which uses the Xilinx
 * IIC device and XIic driver to exercise the EEPROM. The XIic driver uses the
 * complete FIFO functionality to transmit/receive data.
 *
-* This example writes/reads from the lower 256 bytes of the IIC EEPROMS. Please
+* This example writes/reads from the lower 256 bytes of the IIC EEPROMS.
 * refer to the datasheets of the IIC EEPROM's for details about the internal
 * addressing and page size of these devices.
 *
@@ -64,16 +65,11 @@
 * The boards with a MUX are a KC705/ZC702/ZC706.
 *
 * The define IIC_EEPROM_CHANNEL needs to be changed depending on the Channel
-* number of EEPROM for IIC Mux. On KC705 it is 0x08 and ZC702 is 0x04. Please
-* refer the User Guide's of the respective boards for further information
+* number of EEPROM for IIC Mux. On KC705 it is 0x08 and ZC702 is 0x04.
+* refer to the user guide of the respective board for further information
 * about the Channel number to use EEPROM.
 *
 * This code assumes that no Operating System is being used.
-*
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -104,6 +100,7 @@
 * 3.15  vlt  03/20/26 Updated comments lines for SCU200 and SCU35 EEPROM address,
 *                     page size, and address type.
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -128,7 +125,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/**
+/*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -136,93 +133,102 @@
 #ifndef SDT
 #define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
 #else
+/** IIC base address. */
 #define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
 #endif
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** IIC interrupt ID. */
 #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
-#define INTC			XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC			XIntc	/**< INTC instance type. */
+#define INTC_HANDLER	XIntc_InterruptHandler	/**< INTC interrupt handler. */
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** IIC interrupt ID. */
 #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
-#define INTC			 	XScuGic
+#define INTC			 	XScuGic	/**< INTC instance type. */
+/** INTC interrupt handler. */
 #define INTC_HANDLER		XScuGic_InterruptHandler
 #endif
 #endif
 
 
-/**
- * The following constant defines the address of the IIC Slave device on the
- * IIC bus. Note that since the address is only 7 bits, this constant is the
- * address divided by 2.
- * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML410/
- * ML501/ML505/ML507/ML510/SCU200 boards is 0x50. The 7 bit IIC Slave address of the
- * IIC EEPROM on the ML605/SP601/SP605/KC705/ZC702/ZC706/ZCU102/KCU105 boards
- * is 0x54.
- * Please refer the User Guide's of the respective boards for further
+/*
+ * The following constant defines the address of the IIC Slave device on
+ * the IIC bus. Note that since the address is only 7 bits, this constant
+ * is the address divided by 2. The 7 bit IIC Slave address of the IIC
+ * EEPROM on the ML300/ML310/ML403/ML410/ ML501/ML505/ML507/ML510/SCU200
+ * boards is 0x50. The 7 bit IIC Slave address of the IIC EEPROM on the
+ * ML605/SP601/SP605/KC705/ZC702/ZC706/ZCU102/KCU105 boards is 0x54.
+ * Refer to the user guide of the respective board for further
  * information about the IIC slave address of IIC EEPROM's.
  */
-#define EEPROM_ADDRESS		0x54	/* 0xA0 as an 8 bit number. */
+#define EEPROM_ADDRESS		0x54	/**< 7-bit IIC EEPROM slave address. */
 
-/**
+/*
  * The IIC_MUX_ADDRESS defines the address of the IIC MUX device on the
- * IIC bus. Note that since the address is only 7 bits, this constant is the
- * address divided by 2.
- * The IIC Slaves on the KC705/ZC702/ZC706 boards are connected to an
- * IIC MUX.
- * IIC_EEPROM_CHANNEL is the Channel number of EEPROM for IIC Mux.
- * On ZC702 is 0x04.
- * The ZCU102 board uses Mux Address 0x74 with EEPROM channel 0x01,the
- * KCU105 board uses Mux Address 0x75 with EEPROM channel 0x07,and the KC705
- * board uses Mux Address 0x74 with EEPROM channel 0x08.
- * Please refer the User Guide's of the respective
- * boards for further information about the Channel number to use EEPROM.
+ * IIC bus. Note that since the address is only 7 bits, this constant is
+ * the address divided by 2. The IIC Slaves on the KC705/ZC702/ZC706
+ * boards are connected to an IIC MUX. IIC_EEPROM_CHANNEL is the Channel
+ * number of EEPROM for IIC Mux. On ZC702 is 0x04. The ZCU102 board uses
+ * Mux Address 0x74 with EEPROM channel 0x01,the KCU105 board uses Mux
+ * Address 0x75 with EEPROM channel 0x07,and the KC705 board uses Mux
+ * Address 0x74 with EEPROM channel 0x08. Refer to the user guide of the
+ * respective board for further information about the Channel number to
+ * use EEPROM.
  */
-#define IIC_MUX_ADDRESS 	0x74
-#define IIC_EEPROM_CHANNEL	0x01
+#define IIC_MUX_ADDRESS 	0x74	/**< 7-bit IIC MUX address. */
+#define IIC_EEPROM_CHANNEL	0x01	/**< IIC MUX channel for the EEPROM. */
 
-/**
- * This define should be uncommented if there is IIC MUX on the board to which
- * this EEPROM is connected. The boards that have IIC MUX are KC705/ZC702/ZC706.
+/*
+ * This define should be uncommented if there is IIC MUX on the board to
+ * which this EEPROM is connected. The boards that have IIC MUX are
+ * KC705/ZC702/ZC706.
  */
-#define IIC_MUX_ENABLE
+#define IIC_MUX_ENABLE	/**< Enable IIC MUX on boards that use one. */
 
-/**
+/*
  * The page size determines how much data should be written at a time.
  * The ML310/ML300/SCU200/SCU35 board supports a page size of 32 and 16.
  * The write function should be called with this as a maximum byte count.
  */
-#define PAGE_SIZE   16
+#define PAGE_SIZE   16	/**< EEPROM page size in bytes. */
 
-/**
+/*
+ * Defines the EEPROM start address for this test.
  * The Starting address in the IIC EEPROM on which this test is performed.
  */
-#define EEPROM_TEST_START_ADDRESS   128
+#define EEPROM_TEST_START_ADDRESS   128	/**< EEPROM test start address. */
 
-/**
+/*
  * Maximum delay count used for timeout handling
  */
+/** Maximum delay count for timeout handling. */
 #define MAX_DELAY_CNT               10000
 
-/** Internal IIC event mask */
-#define EventMask                   0xFF
+/*
+ * Internal IIC event mask
+ */
+#define EventMask                   0xFF	/**< Internal IIC event mask. */
 
-/**
+/*
  * Internal event value used for IIC event checking
  */
+/** Internal event value for IIC event checking. */
 #define Event_Value                 0
 
 /**************************** Type Definitions *******************************/
 
 /**
- * The AddressType for ML300/ML310/ML410/ML510/SCU200/SCU35 boards should be
- * u16 as the address pointer in the on board EEPROM is 2 bytes.
- * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605/KC705/ZC702
- * /ZC706 boards should be u8 as the address pointer in the on board EEPROM is
- * 1 bytes.
+ * @brief Defines the EEPROM address type for the target board.
+ *
+ * The AddressType for ML300/ML310/ML410/ML510/SCU200/SCU35 boards should be u16
+ * as the address pointer in the on board EEPROM is 2 bytes. The AddressType for
+ * ML403/ML501/ML505/ML507/ML605/SP601/SP605/KC705/ZC702 /ZC706 boards should be
+ * u8 as the address pointer in the on board EEPROM is 1 bytes.
  */
 typedef u8 AddressType;
 
@@ -251,33 +257,35 @@ static int MuxInit(void);
 #endif
 /************************** Variable Definitions *****************************/
 
-XIic IicInstance;	/** The instance of the IIC device. */
+XIic IicInstance;	/**< The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/** The instance of the Interrupt Controller Driver */
+INTC Intc; 	/**< The instance of the Interrupt Controller Driver. */
 #endif
 
 /**
- * Write buffer for writing a page.
+ * @brief Holds the data for writing a page.
  */
 u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
 
-u8 ReadBuffer[PAGE_SIZE];	/** Read buffer for reading a page. */
+u8 ReadBuffer[PAGE_SIZE];	/**< Read buffer for reading a page. */
 
-volatile u8 TransmitComplete;	/** Flag to check completion of Transmission */
-volatile u8 ReceiveComplete;	/** Flag to check completion of Reception */
+volatile u8 TransmitComplete;
+	/**< Flag to check completion of Transmission. */
+volatile u8 ReceiveComplete;	/**< Flag to check completion of Reception. */
 
-u8 EepromIicAddr;		/** Variable for storing Eeprom IIC address */
+u8 EepromIicAddr;		/**< Variable for storing Eeprom IIC address. */
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* @brief Runs the High level EEPROM example.
+*
 * Main function to call the High level EEPROM example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -300,13 +308,14 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* This function writes, reads, and verifies the data to the IIC EEPROM. It
-* does the write as a single page write, performs a buffered read.
+* @brief Writes, reads, and verifies the data to the IIC EEPROM.
 *
+* This function writes, reads, and verifies the data to the IIC EEPROM. It does
+* the write as a single page write, performs a buffered read.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int IicEepromExample(void)
@@ -472,15 +481,18 @@ int IicEepromExample(void)
 
 /*****************************************************************************/
 /**
+* @brief Writes a buffer of data to the IIC serial EEPROM.
+*
 * This function writes a buffer of data to the IIC serial EEPROM.
 *
-* @param	ByteCount contains the number of bytes in the buffer to be
-*		written.
+* @param[in] ByteCount The number of bytes in the buffer to be written.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
-* @note		The Byte count should not exceed the page size of the EEPROM as
-*		noted by the constant PAGE_SIZE.
+* @note The Byte count should not exceed the page size of the EEPROM as noted by
+*       the constant PAGE_SIZE.
 *
 ******************************************************************************/
 int EepromWriteData(u16 ByteCount)
@@ -566,14 +578,16 @@ int EepromWriteData(u16 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief Reads data from the IIC serial EEPROM into a specified buffer.
+*
 * This function reads data from the IIC serial EEPROM into a specified buffer.
 *
-* @param	BufferPtr contains the address of the data buffer to be filled.
-* @param	ByteCount contains the number of bytes in the buffer to be read.
+* @param[out] BufferPtr The address of the data buffer to be filled.
+* @param[in] ByteCount The number of bytes in the buffer to be read.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int EepromReadData(u8 *BufferPtr, u16 ByteCount)
@@ -645,18 +659,26 @@ int EepromReadData(u8 *BufferPtr, u16 ByteCount)
 #ifndef SDT
 /*****************************************************************************/
 /**
-* This function setups the interrupt system so interrupts can occur for the
-* IIC device. The function is application-specific since the actual system may
-* or may not have an interrupt controller. The IIC device could be directly
-* connected to a processor without an interrupt controller. The user should
-* modify this function to fit the application.
+* @brief Sets up the interrupt system for the IIC device.
 *
-* @param	IicInstPtr contains a pointer to the instance of the IIC device
-*		which is going to be connected to the interrupt controller.
+* Sets up the interrupt system so interrupts can occur for the IIC device. The
+* function is application-specific since the actual system may or may not have
+* an interrupt controller. The IIC device could be directly connected to a
+* processor without an interrupt controller. Modify this
+* function to fit the application.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* This function sets up the interrupt system so interrupts can occur for the IIC
+* device. The function is application-specific since the actual system may or
+* may not have an interrupt controller. The IIC device could be directly
+* connected to a processor without an interrupt controller. Modify
+* this function to fit the application.
 *
-* @note		None.
+* @param[in] IicInstPtr Pointer to the instance of the IIC device
+*            which is going to be connected to the interrupt controller.
+*
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static int SetupInterruptSystem(XIic *IicInstPtr)
@@ -760,15 +782,13 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 
 /*****************************************************************************/
 /**
-* This Send handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been sent.
+* @brief Handles send completion from interrupt context.
 *
-* @param	CallBackRef is a pointer to the IIC device instance.
-* @param	ByteCount is the number of bytes sent.
+* This Send handler is called asynchronously from an interrupt context and
+* indicates that data in the specified buffer has been sent.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the IIC device instance.
+* @param[in] ByteCount The number of bytes sent.
 *
 ******************************************************************************/
 
@@ -782,15 +802,13 @@ static void SendHandler(void *CallBackRef, int ByteCount)
 
 /*****************************************************************************/
 /**
-* This Receive handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been received.
+* @brief Handles receive completion from interrupt context.
 *
-* @param	CallBackRef is a pointer to the IIC device instance.
-* @param	ByteCount is the number of bytes received.
+* This Receive handler is called asynchronously from an interrupt context and
+* indicates that data in the specified buffer has been received.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the IIC device instance.
+* @param[in] ByteCount The number of bytes received.
 *
 ******************************************************************************/
 static void ReceiveHandler(void *CallBackRef, int ByteCount)
@@ -803,16 +821,14 @@ static void ReceiveHandler(void *CallBackRef, int ByteCount)
 
 /*****************************************************************************/
 /**
-* This Status handler is called asynchronously from an interrupt
-* context and indicates the events that have occurred.
+* @brief Handles IIC status events from interrupt context.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-*		the handler is being called for.
-* @param	Event indicates the condition that has occurred.
+* This Status handler is called asynchronously from an interrupt context and
+* indicates the events that have occurred.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the IIC driver instance for which the
+*            handler is being called for.
+* @param[in] Event Indicates the condition that has occurred.
 *
 ******************************************************************************/
 static void StatusHandler(XIic *InstancePtr, int Event)
@@ -825,11 +841,11 @@ static void StatusHandler(XIic *InstancePtr, int Event)
 #ifdef IIC_MUX_ENABLE
 /*****************************************************************************/
 /**
+* @brief Initializes the IIC MUX to select EEPROM.
+*
 * This function initializes the IIC MUX to select EEPROM.
 *
-* @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return XST_SUCCESS if pass, otherwise XST_FAILURE.
 *
 ****************************************************************************/
 int MuxInit(void)

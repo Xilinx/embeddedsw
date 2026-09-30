@@ -6,6 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xiic_pmbus_polled_example.c
+* @brief Shows polled PMBus transfers over IIC.
 *
 * This file consists of a polled mode design example which uses the Xilinx
 * IIC device and low-level driver to communicate with a PMBus device.
@@ -22,14 +23,13 @@
 *
 * This code assumes that no Operating System is being used.
 *
-* @note None
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date        Changes
 * ----- ---- ----------  -----------------------------------------------
 * 3.15  vlt  02/18/26    Initial version
+* 3.16  tb   09/22/26    Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -43,81 +43,92 @@
 
 /************************** Constant Definitions *****************************/
 
-/**
+/*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+/** Base address of the IIC device. */
 #define XIIC_BASEADDRESS       XPAR_XIIC_0_BASEADDR
 
-/**
- * The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with channel
- * address 0x05 and PMBus slave address 0x13.
- *
+/*
+ * The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with
+ * channel address 0x05 and PMBus slave address 0x13.
  * The ZC702 and ZC706 boards use a PMBus MUX address of 0x74 with channel
  * address 0x80 and PMBus slave address 0x52.
- *
  * The KCU105 board uses a PMBus MUX address of 0x74 or 0x75 with channel
  * address 0x04 and PMBus slave address 0x0A.
- * Please refer to the User Guide of the respective board and the PMBus
+ * Refer to the User Guide of the respective board and the PMBus
  * device datasheet for further information about the correct addresses and
  * channel to use for PMBus communication.
  * The defines below must be updated to match the board in use.
  */
-#define IIC_MUX_ADDRESS         0x75
-#define IIC_PMBUS_CHANNEL       0x04
+#define IIC_MUX_ADDRESS         0x75	/**< 7-bit IIC MUX address. */
+#define IIC_PMBUS_CHANNEL       0x04	/**< IIC MUX channel for PMBus. */
 
-/**
- * The following constant defines the address of the PMBus device on the IIC bus.
- * Note that this is a 7-bit address. The PMBus slave address may vary depending
- * on the board and the PMBus device used. For example, the KCU105 board uses
- * 0x0A as the PMBus slave address for its power controller.
- * Please refer to the User Guide of the respective board and the PMBus device
- * datasheet for further information about the correct slave address to use.
+/*
+ * The following constant defines the address of the PMBus device on the
+ * IIC bus. Note that this is a 7-bit address. The PMBus slave address
+ * may vary depending on the board and the PMBus device used. For
+ * example, the KCU105 board uses 0x0A as the PMBus slave address for its
+ * power controller. Refer to the User Guide of the respective board and
+ * the PMBus device datasheet for further information about the correct
+ * slave address to use.
  */
 
-#define PMBUS_SLAVE_ADDR	0x0A
+#define PMBUS_SLAVE_ADDR	0x0A	/**< 7-bit PMBus slave address. */
 
-/**
- * This define should be uncommented if there is an IIC MUX on the board to which
- * the PMBus device is connected. For example, the KCU105 board uses an IIC MUX
- * to access PMBus devices.
+/*
+ * This define should be uncommented if there is an IIC MUX on the board
+ * to which the PMBus device is connected. For example, the KCU105 board
+ * uses an IIC MUX to access PMBus devices.
  */
 
-#define IIC_MUX_ENABLE
+#define IIC_MUX_ENABLE	/**< Enable IIC MUX on boards that use one. */
 
 
-/**
- * PMBus command definitions:
- * - READ_VOUT uses the Linear16 data format as defined by the PMBus specification.
- * - All other read commands (current, temperature, and frequency) use the
- *   Linear11 data format.
+/*
+ * PMBus command definitions: - READ_VOUT uses the Linear16 data format
+ * as defined by the PMBus specification. - All other read commands
+ * (current, temperature, and frequency) use the Linear11 data format.
  */
-#define PMBUS_CMD_READ_VOUT	0x8B	/** Command to read output voltage (VOUT) */
-#define PMBUS_CMD_READ_TEMP	0x8D	/** Command to read temperature (TEMP) */
+/** Command to read output voltage (VOUT). */
+#define PMBUS_CMD_READ_VOUT	0x8B
+/** Command to read temperature (TEMP). */
+#define PMBUS_CMD_READ_TEMP	0x8D
 
-/**
- * PMBus READ_VOUT uses LINEAR16 format.
- * As per PMBus specification, the exponent is defined by VOUT_MODE.
- * For the PMBus device used in this example, VOUT_MODE exponent
- * is fixed at -12 (device/board specific).
+/*
+ * PMBus READ_VOUT uses LINEAR16 format. As per PMBus specification, the
+ * exponent is defined by VOUT_MODE. For the PMBus device used in this
+ * example, VOUT_MODE exponent is fixed at -12 (device/board specific).
  */
-#define PMBUS_VOUT_EXPONENT	(-12)	/** Exponent used in the calculation of vout voltage.*/
+/** Exponent used in the calculation of vout voltage. */
+#define PMBUS_VOUT_EXPONENT	(-12)
 
-/** Shift to get exponent bits */
-#define EXPONENT_SHIFT   11
+/*
+ * Shift to get exponent bits
+ */
+#define EXPONENT_SHIFT   11	/**< Shift to get exponent bits. */
 
-/** Mask for 5-bit exponent */
-#define EXPONENT_MASK    0x1F
+/*
+ * Mask for 5-bit exponent
+ */
+#define EXPONENT_MASK    0x1F	/**< Mask for 5-bit exponent. */
 
-/** Mask for 11-bit mantissa */
-#define MANTISSA_MASK    0x7FF
+/*
+ * Mask for 11-bit mantissa
+ */
+#define MANTISSA_MASK    0x7FF	/**< Mask for 11-bit mantissa. */
 
-/** Exponent sign bit */
-#define EXP_SIGN_BIT    0x10
+/*
+ * Exponent sign bit
+ */
+#define EXP_SIGN_BIT    0x10	/**< Exponent sign bit. */
 
-/** Mantissa sign bit */
-#define MANT_SIGN_BIT   0x400
+/*
+ * Mantissa sign bit
+ */
+#define MANT_SIGN_BIT   0x400	/**< Mantissa sign bit. */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -132,22 +143,22 @@ static int Pmbus_ReadWord_Polled(u8 Cmd, u8 *ReadBuf);
 int IicPmbusPolledExample(void);
 
 /************************** Variable Definitions *****************************/
-XIic IicInstance;    /** The instance of the IIC device. */
+XIic IicInstance;    /**< The instance of the IIC device. */
 
 
-u8 ReadBuffer[2];   /** Buffer used to store data read from the PMBus device */
+u8 ReadBuffer[2];
+	/**< Buffer used to store data read from the PMBus device. */
 
 /************************** Function Definitions *****************************/
 
 
 /*****************************************************************************/
 /**
-* Main function to call the PMBus polled example.
+* @brief Runs the PMBus polled example.
 *
-*
-* @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -168,12 +179,14 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* This function demonstrates PMBus polled access: initializes IIC, selects MUX
-* (if enabled), and reads VOUT, TEMP, from the PMBus device, printing results.
+* @brief Demonstrates PMBus access in polled mode.
 *
-* @return	XST_SUCCESS if successful, else XST_FAILURE.
+* It initializes IIC, selects the MUX (if enabled), reads VOUT and TEMP from the
+* PMBus device, and prints the results.
 *
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int IicPmbusPolledExample(void)
@@ -254,12 +267,11 @@ int IicPmbusPolledExample(void)
 #ifdef IIC_MUX_ENABLE
 /*****************************************************************************/
 /**
-* This function initializes the IIC MUX to select the PMBus channel in polled mode.
+* @brief Initializes the IIC MUX to select the PMBus channel in polled mode.
 *
-*
-* @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static int MuxInitPolled(void)
@@ -285,14 +297,14 @@ static int MuxInitPolled(void)
 
 /*****************************************************************************/
 /**
-* This function reads a 16-bit word from the PMBus device using polled IIC.
+* @brief Reads a 16-bit word from the PMBus device using polled IIC.
 *
-* @param	Cmd is the PMBus command code to send.
-* @param	ReadBuf is a pointer to the buffer to store the 2 bytes read.
+* @param[in] Cmd The PMBus command code to send.
+* @param[out] ReadBuf Pointer to the buffer to store the 2 bytes read.
 *
-* @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static int Pmbus_ReadWord_Polled(u8 Cmd, u8 *ReadBuf)
@@ -325,13 +337,11 @@ static int Pmbus_ReadWord_Polled(u8 Cmd, u8 *ReadBuf)
 
 /*****************************************************************************/
 /**
-* This function converts a PMBus Linear11 formatted value to float.
+* @brief Converts a PMBus Linear11 formatted value to float.
 *
-* @param	Raw is the 16-bit raw value from the PMBus device.
+* @param[in] Raw The 16-bit raw value from the PMBus device.
 *
-* @return	Floating point value after conversion.
-*
-* @note		None.
+* @return Floating point value after conversion.
 *
 ******************************************************************************/
 static float Pmbus_Linear11_ToFloat(u16 Raw)
@@ -372,15 +382,14 @@ static float Pmbus_Linear11_ToFloat(u16 Raw)
 
 /*****************************************************************************/
 /**
-* This function converts a PMBus Linear16 formatted value to float.
+* @brief Converts a PMBus Linear16 formatted value to float.
+*
 * Used for voltage (READ_VOUT).
 *
-* @param	Raw is the 16-bit raw value from the PMBus device.
-* @param	Vout_Exp is the exponent for VOUT.
+* @param[in] Raw The 16-bit raw value from the PMBus device.
+* @param[in] Vout_Exp The exponent for VOUT.
 *
-* @return	Floating point value after conversion.
-*
-* @note		None.
+* @return Floating point value after conversion.
 *
 ******************************************************************************/
 static float Pmbus_Linear16_ToFloat(u16 Raw, int Vout_Exp)

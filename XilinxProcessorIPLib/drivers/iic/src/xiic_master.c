@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xiic_master.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC master transfer APIs.
 *
 * Contains master functions for the XIic component. This file is necessary to
 * send or receive as a master on the IIC bus.
@@ -36,9 +35,15 @@
 *		     SendBufferPtr in XIic_MasterRecv NULL
 * 3.15  vlt 10/10/25 Replace u8 to int for LoopCnt in RecvMasterData to
 * 		     eliminate type mismatch warning.
+* 3.16  tb  09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -53,22 +58,19 @@
 
 /***************** Macros (Inline Functions) Definitions *******************/
 
-/*****************************************************************************
-*
-* This macro includes master code such that master operations, sending
-* and receiving data, may be used.  This function hooks the master processing
-* to the driver such that events are handled properly and allows master
-* processing to be optional.  It must be called before any functions which
-* are contained in this file are called, such as after the driver is
-* initialized.
-*
-* @param	None.
-*
-* @return 	None.
-*
-* @note		None.
-*
-******************************************************************************/
+/*****************************************************************************/
+/**
+ *
+ * @brief Includes master code for sending and receiving data.
+ *
+ * This macro includes master code such that master operations, sending
+ * and receiving data, may be used.  This function hooks the master processing
+ * to the driver such that events are handled properly and allows master
+ * processing to be optional.  It must be called before any functions which
+ * are contained in this file are called, such as after the driver is
+ * initialized.
+ *
+ ******************************************************************************/
 #define XIIC_MASTER_INCLUDE						\
 {									\
 	XIic_RecvMasterFuncPtr = RecvMasterData;			\
@@ -86,24 +88,23 @@ static int IsBusBusy(XIic *InstancePtr);
 
 /****************************************************************************/
 /**
-* This function sends data as a master on the IIC bus. If the bus is busy, it
-* will indicate so and then enable an interrupt such that the status handler
-* will be called when the bus is no longer busy.  The slave address which has
-* been set with the XIic_SetAddress() function is the address to which the
-* specific data is sent.  Sending data on the bus performs a write operation.
+* @brief Sends data as a master on the IIC bus.
 *
-* @param	InstancePtr points to the Iic instance to be worked on.
-* @param	TxMsgPtr points to the data to be transmitted.
-* @param	ByteCount is the number of message bytes to be sent.
+* This function sends data as a master on the IIC bus. If the bus is busy, it
+* indicates so and then enable an interrupt such that the status handler
+* is called when the bus is no longer busy. The slave address which has
+* been set with the XIic_SetAddress() function is the address to which the
+* specific data is sent. Sending data on the bus performs a write operation.
+*
+* @param[in,out] InstancePtr Pointer to the Iic instance to be worked on.
+* @param[in] TxMsgPtr Pointer to the data to be transmitted.
+* @param[in] ByteCount The number of message bytes to be sent.
 *
 * @return
-*		- XST_SUCCESS indicates the message transmission has been
-*		initiated.
-*		- XST_IIC_BUS_BUSY indicates the bus was in use and that
-*		the BusNotBusy interrupt is enabled which will update the
-*		EventStatus when the bus is no longer busy.
-*
-* @note		None.
+*        - XST_SUCCESS indicates the message transmission has been initiated.
+*        - XST_IIC_BUS_BUSY indicates the bus was in use and that the BusNotBusy
+*          interrupt is enabled which updates the EventStatus when the bus
+*          is no longer busy.
 *
 ******************************************************************************/
 int XIic_MasterSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
@@ -216,26 +217,28 @@ int XIic_MasterSend(XIic *InstancePtr, u8 *TxMsgPtr, int ByteCount)
 
 /*****************************************************************************/
 /**
-* This function receives data as a master from a slave device on the IIC bus.
-* If the bus is busy, it will indicate so and then enable an interrupt such
-* that the status handler will be called when the bus is no longer busy.  The
-* slave address which has been set with the XIic_SetAddress() function is the
-* address from which data is received. Receiving data on the bus performs a
-* read operation.
+* @brief Receives data as a master from a slave device on the IIC bus.
 *
-* @param	InstancePtr is a pointer to the Iic instance to be worked on.
-* @param	RxMsgPtr is a pointer to the data to be transmitted
-* @param	ByteCount is the number of message bytes to be sent
+* This function receives data as a master from a slave device on the IIC bus. If
+* the bus is busy, it indicates so and then enable an interrupt such that
+* the status handler is called when the bus is no longer busy. The slave
+* address which has been set with the XIic_SetAddress() function is the address
+* from which data is received. Receiving data on the bus performs a read
+* operation.
+*
+* @param[in,out] InstancePtr Pointer to the Iic instance to be worked on.
+* @param[out] RxMsgPtr Pointer to the buffer to hold the data that is received.
+* @param[in] ByteCount The number of message bytes to be received.
 *
 * @return
-*		- XST_SUCCESS indicates the message reception processes has
-*		been initiated.
-*		- XST_IIC_BUS_BUSY indicates the bus was in use and that the
-*		BusNotBusy interrupt is enabled which will update the
-*		EventStatus when the bus is no longer busy.
-*		- XST_IIC_GENERAL_CALL_ADDRESS indicates the slave address
-*		is set to the the general call address. This is not allowed
-*		for Master receive mode.
+*        - XST_SUCCESS indicates the message reception processes has been
+*          initiated.
+*        - XST_IIC_BUS_BUSY indicates the bus was in use and that the BusNotBusy
+*          interrupt is enabled which updates the EventStatus when the bus
+*          is no longer busy.
+*        - XST_IIC_GENERAL_CALL_ADDRESS indicates the slave address is set to
+*          the general call address. This is not allowed for Master receive
+*          mode.
 *
 * @internal
 *
@@ -386,21 +389,22 @@ int XIic_MasterRecv(XIic *InstancePtr, u8 *RxMsgPtr, int ByteCount)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
-* This function checks to see if the IIC bus is busy.  If so, it will enable
+* @brief Checks to see if the IIC bus is busy in normal master mode.
+*
+* This function checks to see if the IIC bus is busy.  If so, it enables
 * the bus not busy interrupt such that the driver is notified when the bus
 * is no longer busy.
 *
-* @param	InstancePtr points to the Iic instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 * @return
-*		- FALSE indicates the IIC bus is not busy.
-*		- TRUE indicates the bus was in use and that the BusNotBusy
-*		interrupt is enabled which will update the EventStatus when
-*		the bus is no longer busy.
-*
-* @note		None.
+*        - FALSE indicates the IIC bus is not busy.
+*        - TRUE indicates the bus was in use and that the BusNotBusy interrupt
+*          is enabled which updates the EventStatus when the bus is no
+*          longer busy.
 *
 ******************************************************************************/
 static int IsBusBusy(XIic *InstancePtr)
@@ -433,7 +437,10 @@ static int IsBusBusy(XIic *InstancePtr)
 	return FALSE;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Sends the proper address byte and sets the address bit fields.
 *
 * This function sends the proper byte of the address as well as generate the
 * proper address bit fields depending on the address byte required and the
@@ -445,14 +452,10 @@ static int IsBusBusy(XIic *InstancePtr)
 * to writing the address. If repeated start options is enabled, the
 * control register is written before the address is written to the Tx reg.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
-* @return	None.
-*
-* @note
-*
-* This function does read/modify/write to the device control register. Calling
-* functions must ensure critical sections are used.
+* @note This function does read/modify/write to the device control register.
+*       Calling functions must ensure critical sections are used.
 *
 ******************************************************************************/
 static void SendSlaveAddr(XIic *InstancePtr)
@@ -482,7 +485,10 @@ static void SendSlaveAddr(XIic *InstancePtr)
 	XIic_ClearEnableIntr(InstancePtr->BaseAddress, XIIC_INTR_RX_FULL_MASK);
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Fills the transmit FIFO when the IIC Tx FIFO or register goes empty.
 *
 * When the IIC Tx FIFO/register goes empty, this routine is called by the
 * interrupt service routine to fill the transmit FIFO with data to be sent.
@@ -491,11 +497,7 @@ static void SendSlaveAddr(XIic *InstancePtr)
 * is identical when you don't assume the FIFO is empty but use the Tx_FIFO_OCY
 * register to indicate the available free FIFO bytes.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void SendMasterData(XIic *InstancePtr)
@@ -618,21 +620,25 @@ static void SendMasterData(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is called when the receive register is full. The number
-* of bytes received to cause the interrupt is adjustable using the Receive FIFO
-* Depth register. The number of bytes in the register is read in the Receive
-* FIFO occupancy register. Both these registers are zero based values (0-15)
-* such that a value of zero indicates 1 byte.
+* @brief Handles receive-register-full events.
+*
+* Is called when the receive register is full. The number of bytes received to
+* cause the interrupt is adjustable using the Receive FIFO Depth register. The
+* number of bytes in the register is read in the Receive FIFO occupancy
+* register. Both these registers are zero based values (0-15) such that a value
+* of zero indicates 1 byte.
+*
+* This function is called when the receive register is full. The number of bytes
+* received to cause the interrupt is adjustable using the Receive FIFO Depth
+* register. The number of bytes in the register is read in the Receive FIFO
+* occupancy register. Both these registers are zero based values (0-15) such
+* that a value of zero indicates 1 byte.
 *
 * For a Master Receiver to properly signal the end of a message, the data must
-* be read in up to the message length - 1, where control register bits will be
+* be read in up to the message length - 1, where control register bits are
 * set for bus controls to occur on reading of the last byte.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void RecvMasterData(XIic *InstancePtr)

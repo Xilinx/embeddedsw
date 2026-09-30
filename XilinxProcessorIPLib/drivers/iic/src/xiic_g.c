@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,8 +8,7 @@
 /**
 *
 * @file xiic_g.c
-* @addtogroup Overview
-* @{
+* @brief Provides the IIC configuration table.
 *
 * This file contains a configuration table that specifies the configuration of
 * IIC devices in the system. Each IIC device should have an entry in this table.
@@ -22,9 +22,15 @@
 * 1.01c ecm  12/05/02 new rev
 * 1.01d jhl  10/08/03 Added general purpose output feature
 * 1.13a wgr  03/22/07 Converted to new coding style.
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -45,8 +51,9 @@
 /************************** Variable Definitions *****************************/
 
 /**
- * The IIC configuration table, sized by the number of instances
- * defined in xparameters.h.
+ * @brief Holds the IIC configuration table.
+ *
+ * Sized by the instance count in xparameters.h.
  */
 XIic_Config XIic_ConfigTable[XPAR_XIIC_NUM_INSTANCES] = {
 	{

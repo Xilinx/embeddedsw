@@ -8,11 +8,10 @@
 /**
 *
 * @file xiic_l.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC low-level send and receive helpers.
 *
 * This file contains low-level driver functions that can be used to access the
-* device in normal and dynamic controller mode. The user should refer to the
+* device in normal and dynamic controller mode. Refer to the
 * hardware device specification for more details of the device operation.
 *
 * <pre>
@@ -69,9 +68,15 @@
 * 3.5   sd   08/29/18 Fix bus busy check for the NACK case.
 * 3.15  vlt  04/20/26 Added TX_ERROR check after last byte in SendData()
 *                     and DynSendData() to detect NACK on the last byte.
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -101,23 +106,22 @@ static unsigned DynSendData(UINTPTR BaseAddress, u8 *BufferPtr,
 
 /****************************************************************************/
 /**
-* Receive data as a master on the IIC bus.  This function receives the data
-* using polled I/O and blocks until the data has been received. It only
-* supports 7 bit addressing mode of operation. This function returns zero
-* if bus is busy.
+* @brief Receives data as a master on the IIC bus.
 *
-* @param	BaseAddress contains the base address of the IIC device.
-* @param	Address contains the 7 bit IIC address of the device to send the
-*		specified data to.
-* @param	BufferPtr points to the data to be sent.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Option indicates whether to hold or free the bus after reception
-*		of data, XIIC_STOP = end with STOP condition,
-*		XIIC_REPEATED_START = don't end with STOP condition.
+* Receive data as a master on the IIC bus. This function receives the data using
+* polled I/O and blocks until the data has been received. It only supports 7 bit
+* addressing mode of operation. This function returns zero if bus is busy.
 *
-* @return	The number of bytes received.
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[in] Address The 7 bit IIC address of the device to receive the
+*            data from.
+* @param[out] BufferPtr Pointer to the buffer to hold the data that is received.
+* @param[in] ByteCount The number of bytes to be received.
+* @param[in] Option Indicates whether to hold or free the bus after reception of
+*            data, XIIC_STOP = end with STOP condition, XIIC_REPEATED_START =
+*            don't end with STOP condition.
 *
-* @note		None.
+* @return The number of bytes received.
 *
 ******************************************************************************/
 unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
@@ -221,30 +225,29 @@ unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 	return ByteCount - RemainingByteCount;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Receives data from the previously addressed device on the IIC bus.
 *
 * Receive the specified data from the device that has been previously addressed
 * on the IIC bus.  This function assumes that the 7 bit address has been sent
 * and it should wait for the transmit of the address to complete.
 *
-* @param	BaseAddress contains the base address of the IIC device.
-* @param	BufferPtr points to the buffer to hold the data that is
-*		received.
-* @param	ByteCount is the number of bytes to be received.
-* @param	Option indicates whether to hold or free the bus after reception
-*		of data, XIIC_STOP = end with STOP condition,
-*		XIIC_REPEATED_START = don't end with STOP condition.
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[out] BufferPtr Pointer to the buffer to hold the data that is received.
+* @param[in] ByteCount The number of bytes to be received.
+* @param[in] Option Indicates whether to hold or free the bus after reception of
+*            data, XIIC_STOP = end with STOP condition, XIIC_REPEATED_START =
+*            don't end with STOP condition.
 *
-* @return	The number of bytes remaining to be received.
+* @return The number of bytes remaining to be received.
 *
-* @note
-*
-* This function does not take advantage of the receive FIFO because it is
-* designed for minimal code space and complexity.  It contains loops that
-* that could cause the function not to return if the hardware is not working.
-*
-* This function assumes that the calling function will disable the IIC device
-* after this function returns.
+* @note This function does not take advantage of the receive FIFO because
+*       it is designed for minimal code space and complexity. It contains
+*       loops that could cause the function not to return if the hardware is
+*       not working. This function assumes that the calling function
+*       disables the IIC device after this function returns.
 *
 ******************************************************************************/
 static unsigned RecvData(UINTPTR BaseAddress, u8 *BufferPtr,
@@ -371,22 +374,21 @@ static unsigned RecvData(UINTPTR BaseAddress, u8 *BufferPtr,
 
 /****************************************************************************/
 /**
-* Send data as a master on the IIC bus.  This function sends the data
-* using polled I/O and blocks until the data has been sent. It only supports
-* 7 bit addressing mode of operation.  This function returns zero
-* if bus is busy.
+* @brief Sends data as a master on the IIC bus.
 *
-* @param	BaseAddress contains the base address of the IIC device.
-* @param	Address contains the 7 bit IIC address of the device to send the
-*		specified data to.
-* @param	BufferPtr points to the data to be sent.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Option indicates whether to hold or free the bus after
-* 		transmitting the data.
+* Send data as a master on the IIC bus. This function sends the data using
+* polled I/O and blocks until the data has been sent. It only supports 7 bit
+* addressing mode of operation. This function returns zero if bus is busy.
 *
-* @return	The number of bytes sent.
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[in] Address The 7 bit IIC address of the device to send the
+*            specified data to.
+* @param[in] BufferPtr Pointer to the data to be sent.
+* @param[in] ByteCount The number of bytes to be sent.
+* @param[in] Option Indicates whether to hold or free the bus after transmitting
+*            the data.
 *
-* @note		None.
+* @return The number of bytes sent.
 *
 ******************************************************************************/
 unsigned XIic_Send(UINTPTR BaseAddress, u8 Address,
@@ -492,25 +494,27 @@ unsigned XIic_Send(UINTPTR BaseAddress, u8 Address,
 	return ByteCount - RemainingByteCount;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Sends a buffer to the previously addressed device on the IIC bus.
 *
 * Send the specified buffer to the device that has been previously addressed
 * on the IIC bus.  This function assumes that the 7 bit address has been sent
 * and it should wait for the transmit of the address to complete.
 *
-* @param	BaseAddress contains the base address of the IIC device.
-* @param	BufferPtr points to the data to be sent.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Option indicates whether to hold or free the bus after
-*		transmitting the data.
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[in] BufferPtr Pointer to the data to be sent.
+* @param[in] ByteCount The number of bytes to be sent.
+* @param[in] Option Indicates whether to hold or free the bus after transmitting
+*            the data.
 *
-* @return	The number of bytes remaining to be sent.
+* @return The number of bytes remaining to be sent.
 *
-* @note
-*
-* This function does not take advantage of the transmit FIFO because it is
-* designed for minimal code space and complexity.  It contains loops that
-* that could cause the function not to return if the hardware is not working.
+* @note This function does not take advantage of the transmit FIFO because
+*       it is designed for minimal code space and complexity. It contains
+*       loops that could cause the function not to return if the hardware is
+*       not working.
 *
 ******************************************************************************/
 static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
@@ -648,21 +652,23 @@ static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
 
 /*****************************************************************************/
 /**
-* Receive data as a master on the IIC bus. This function receives the data
-* using polled I/O and blocks until the data has been received. It only
-* supports 7 bit addressing. This function returns zero if bus is busy.
+* @brief Receives data as a master on the IIC bus.
 *
-* @param	BaseAddress contains the base address of the IIC Device.
-* @param	Address contains the 7 bit IIC Device address of the device to
-*		send the specified data to.
-* @param	BufferPtr points to the data to be sent.
-* @param	ByteCount is the number of bytes to be sent. This value can't be
-*		greater than 255 and needs to be greater than 0.
+* Receive data as a master on the IIC bus. This function receives the data using
+* polled I/O and blocks until the data has been received. It only supports 7 bit
+* addressing. This function returns zero if bus is busy.
 *
-* @return	The number of bytes received.
+* @param[in] BaseAddress The base address of the IIC Device.
+* @param[in] Address The 7 bit IIC Device address of the device to receive
+*            the data from.
+* @param[out] BufferPtr Pointer to the buffer to hold the data that is received.
+* @param[in] ByteCount The number of bytes to be received. This value can't be
+*            greater than 255 and needs to be greater than 0.
 *
-* @note		Upon entry to this function, the IIC interface needs to be
-*		already enabled in the CR register.
+* @return The number of bytes received.
+*
+* @note Upon entry to this function, the IIC interface needs to be already
+*       enabled in the CR register.
 *
 ******************************************************************************/
 unsigned XIic_DynRecv(UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)
@@ -729,24 +735,23 @@ unsigned XIic_DynRecv(UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCou
 
 /*****************************************************************************/
 /**
+* @brief Receives data from the previously addressed device on the IIC bus.
+*
 * Receive the specified data from the device that has been previously addressed
-* on the IIC bus. This function assumes the following:
-* - The Rx Fifo occupancy depth has been set to its max.
-* - Upon entry, the Rx Fifo is empty.
-* - The 7 bit address has been sent.
-* - The dynamic stop and number of bytes to receive has been written to Tx
-*   Fifo.
+* on the IIC bus. This function assumes the following: - The Rx Fifo occupancy
+* depth has been set to its max. - Upon entry, the Rx Fifo is empty. - The 7 bit
+* address has been sent. - The dynamic stop and number of bytes to receive has
+* been written to Tx Fifo.
 *
-* @param	BaseAddress contains the base address of the IIC Device.
-* @param	BufferPtr points to the buffer to hold the data that is
-*		received.
-* @param	ByteCount is the number of bytes to be received. The range of
-*		this value is greater than 0 and not higher than 255.
+* @param[in] BaseAddress The base address of the IIC Device.
+* @param[out] BufferPtr Pointer to the buffer to hold the data that is received.
+* @param[in] ByteCount The number of bytes to be received. The range of this
+*            value is greater than 0 and not higher than 255.
 *
-* @return	The number of bytes remaining to be received.
+* @return The number of bytes remaining to be received.
 *
-* @note		This function contains loops that could cause the function not
-*		to return if the hardware is not working.
+* @note This function contains loops that could cause the function not to return
+*       if the hardware is not working.
 *
 ******************************************************************************/
 static unsigned DynRecvData(UINTPTR BaseAddress, u8 *BufferPtr, u8 ByteCount)
@@ -810,21 +815,21 @@ static unsigned DynRecvData(UINTPTR BaseAddress, u8 *BufferPtr, u8 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief Sends data as a master on the IIC bus.
+*
 * Send data as a master on the IIC bus. This function sends the data using
 * polled I/O and blocks until the data has been sent. It only supports 7 bit
 * addressing. This function returns zero if bus is busy.
 *
-* @param	BaseAddress contains the base address of the IIC Device.
-* @param	Address contains the 7 bit IIC address of the device to send the
-*		specified data to.
-* @param	BufferPtr points to the data to be sent.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Option: XIIC_STOP = end with STOP condition,
-*		XIIC_REPEATED_START = don't end with STOP condition.
+* @param[in] BaseAddress The base address of the IIC Device.
+* @param[in] Address The 7 bit IIC address of the device to send the
+*            specified data to.
+* @param[in] BufferPtr Pointer to the data to be sent.
+* @param[in] ByteCount The number of bytes to be sent.
+* @param[in] Option: XIIC_STOP = end with STOP condition, XIIC_REPEATED_START =
+*            don't end with STOP condition.
 *
-* @return	The number of bytes sent.
-*
-* @note		None.
+* @return The number of bytes sent.
 *
 ******************************************************************************/
 unsigned XIic_DynSend(UINTPTR BaseAddress, u16 Address, u8 *BufferPtr,
@@ -893,21 +898,24 @@ unsigned XIic_DynSend(UINTPTR BaseAddress, u16 Address, u8 *BufferPtr,
 	return ByteCount - RemainingByteCount;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Sends a buffer to the previously addressed device on the IIC bus.
 *
 * Send the specified buffer to the device that has been previously addressed
 * on the IIC bus. This function assumes that the 7 bit address has been sent.
 *
-* @param	BaseAddress contains the base address of the IIC Device.
-* @param	BufferPtr points to the data to be sent.
-* @param	ByteCount is the number of bytes to be sent.
-* @param	Option: XIIC_STOP = end with STOP condition, XIIC_REPEATED_START
-*		= don't end with STOP condition.
+* @param[in] BaseAddress The base address of the IIC Device.
+* @param[in] BufferPtr Pointer to the data to be sent.
+* @param[in] ByteCount The number of bytes to be sent.
+* @param[in] Option: XIIC_STOP = end with STOP condition, XIIC_REPEATED_START =
+*            don't end with STOP condition.
 *
-* @return	The number of bytes remaining to be sent.
+* @return The number of bytes remaining to be sent.
 *
-* @note		This function does not take advantage of the transmit Fifo
-*		because it is designed for minimal code space and complexity.
+* @note This function does not take advantage of the transmit Fifo because it is
+*       designed for minimal code space and complexity.
 *
 ******************************************************************************/
 static unsigned DynSendData(UINTPTR BaseAddress, u8 *BufferPtr,
@@ -1002,15 +1010,18 @@ static unsigned DynSendData(UINTPTR BaseAddress, u8 *BufferPtr,
 	return ByteCount;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Initializes the IIC core for dynamic functionality.
 *
 * Initialize the IIC core for Dynamic Functionality.
 *
-* @param	BaseAddress contains the base address of the IIC Device.
+* @param[in] BaseAddress The base address of the IIC Device.
 *
-* @return	XST_SUCCESS if Successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int XIic_DynInit(UINTPTR BaseAddress)
@@ -1053,17 +1064,18 @@ int XIic_DynInit(UINTPTR BaseAddress)
 	return XST_FAILURE;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Checks whether the I2C bus is busy or free.
 *
 * This is a function which tells whether the I2C bus is busy or free.
 *
-* @param	BaseAddr is the base address of the I2C core to work on.
+* @param[in] BaseAddress The base address of the I2C core to work on.
 *
 * @return
-*		- TRUE if the bus is busy.
-*		- FALSE if the bus is NOT busy.
-*
-* @note		None.
+*        - TRUE if the bus is busy.
+*        - FALSE if the bus is NOT busy.
 *
 ******************************************************************************/
 u32 XIic_CheckIsBusBusy(UINTPTR BaseAddress)
@@ -1080,15 +1092,15 @@ u32 XIic_CheckIsBusBusy(UINTPTR BaseAddress)
 
 /******************************************************************************/
 /**
-* This function will wait until the I2C bus is free or timeout.
+* @brief Waits until the I2C bus is free or a timeout occurs.
 *
-* @param	BaseAddress contains the base address of the I2C device.
+* This function waits until the I2C bus is free or timeout.
+*
+* @param[in] BaseAddress The base address of the I2C device.
 *
 * @return
-*		- XST_SUCCESS if the I2C bus was freed before the timeout.
-*		- XST_FAILURE otherwise.
-*
-* @note		None.
+*        - XST_SUCCESS if the I2C bus was freed before the timeout.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 u32 XIic_WaitBusFree(UINTPTR BaseAddress)

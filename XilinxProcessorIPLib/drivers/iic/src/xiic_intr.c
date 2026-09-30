@@ -8,8 +8,7 @@
 /**
 *
 * @file xiic_intr.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC interrupt processing.
 *
 * Contains interrupt functions of the XIic driver.  This file is required
 * for the driver.
@@ -48,10 +47,16 @@
 *		      because here the TX error interrupt indicate NACK, not
 *		      actually TX error.
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 
 /***************************** Include Files *********************************/
@@ -90,13 +95,15 @@ void (*XIic_BusNotBusyFuncPtr) (XIic *InstancePtr) = StubFunction;
 /*****************************************************************************/
 /**
 *
+* @brief Handles interrupts for the XIic driver.
+*
 * This function is the interrupt handler for the XIic driver. This function
 * should be connected to the interrupt system.
 *
 * Only one interrupt source is handled for each interrupt allowing
 * higher priority system interrupts quicker response time.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 * @internal
 *
@@ -227,21 +234,20 @@ void XIic_InterruptHandler(void *InstancePtr)
 	XIic_WriteIisr(IicPtr->BaseAddress, Clear);
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Fills the FIFO using the occupancy register to find available space.
 *
 * This function fills the FIFO using the occupancy register to determine the
 * available space to be filled. When the repeated start option is on, the last
 * byte is withheld to allow the control register to be properly set on the last
 * byte.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
-* @param	Role indicates the role of this IIC device, a slave or a master,
-*		on the IIC bus (XIIC_SLAVE_ROLE or XIIC_MASTER_ROLE).
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] Role Indicates the role of this IIC device, a slave or a master, on
+*            the IIC bus (XIIC_SLAVE_ROLE or XIIC_MASTER_ROLE).
 *
 ******************************************************************************/
 void XIic_TransmitFifoFill(XIic *InstancePtr, int Role)
@@ -284,6 +290,8 @@ void XIic_TransmitFifoFill(XIic *InstancePtr, int Role)
 /*****************************************************************************/
 /**
 *
+* @brief Handles the Tx error interrupt.
+*
 * This interrupt occurs four different ways: Two as master and two as slave.
 * Master:
 * <pre>
@@ -320,9 +328,7 @@ void XIic_TransmitFifoFill(XIic *InstancePtr, int Role)
 * To work with or without FIFO's, the Rx Data interrupt is used to indicate
 * data is in the Rx register.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
+* @param[in,out] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void TxErrorHandler(XIic *InstancePtr)
@@ -415,12 +421,19 @@ static void TxErrorHandler(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* @brief Stubs optional event handlers.
+*
+* Is a stub function that is used for the default function for events that are
+* handled optionally only when the appropriate modules are linked in. Function
+* pointers are used to handle some events to allow some events to be optionally
+* handled.
+*
 * This function is a stub function that is used for the default function for
 * events that are handled optionally only when the appropriate modules are
-* linked in.  Function pointers are used to handle some events to allow
-* some events to be optionally handled.
+* linked in. Function pointers are used to handle some events to allow some
+* events to be optionally handled.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void StubFunction(XIic *InstancePtr)

@@ -7,11 +7,12 @@
 /*****************************************************************************/
 /**
 * @file xiic_low_level_eeprom_example.c
+* @brief Shows low-level IIC EEPROM transfers.
 *
 * This file consists of a polled mode design example which uses the Xilinx
 * IIC device and low-level driver to exercise the EEPROM.
 *
-* This example writes/reads from the lower 256 bytes of the IIC EEPROMS. Please
+* This example writes/reads from the lower 256 bytes of the IIC EEPROMS.
 * refer to the datasheets of the IIC EEPROM's for details about the internal
 * addressing and page size of these devices.
 *
@@ -54,8 +55,6 @@
 *
 * This code assumes that no Operating System is being used.
 *
-* @note		None
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -83,6 +82,7 @@
 * 3.10  gm   07/09/23 Added SDT support.
 * 3.15  vlt  03/20/26 Updated comments lines for SCU200 and SCU35 EEPROM address,
 *                     page size, and address type.
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
@@ -97,53 +97,59 @@
 
 /************************** Constant Definitions *****************************/
 
-/**
+/*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
 
 
+/** IIC device base address. */
 #define IIC_BASE_ADDRESS	XPAR_AXI_IIC_0_BASEADDR
 
-/**
- * The following constant defines the address of the IIC Slave device on the
- * IIC bus. Note that since the address is only 7 bits, this constant is the
- * address divided by 2.
- * The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML410/
- * ML501/ML505/ML507/ML510/SCU200 boards is 0x50. The 7 bit IIC Slave address of the
- * IIC EEPROM on the ML605/SP601/SP605 boards is 0x54.
- * Please refer the User Guide's of the respective boards for further
- * information about the IIC slave address of IIC EEPROM's.
+/*
+ * The following constant defines the address of the IIC Slave device on
+ * the IIC bus. Note that since the address is only 7 bits, this constant
+ * is the address divided by 2. The 7 bit IIC Slave address of the IIC
+ * EEPROM on the ML300/ML310/ML403/ML410/ ML501/ML505/ML507/ML510/SCU200
+ * boards is 0x50. The 7 bit IIC Slave address of the IIC EEPROM on the
+ * ML605/SP601/SP605 boards is 0x54. Refer to the user guide of the
+ * respective board for further information about the IIC slave address
+ * of IIC EEPROM's.
  */
 
-#define EEPROM_ADDRESS	0x54	 /* 0xA0 as an 8 bit number */
+#define EEPROM_ADDRESS	0x54	/**< 7-bit IIC EEPROM slave address. */
 
-/**
+/*
  * The page size determines how much data should be written at a time.
- * The ML300 board supports a page size of 32 and 16
- * The write function should be called with this as a maximum byte count.
+ * The ML300 board supports a page size of 32 and 16 The write function
+ * should be called with this as a maximum byte count.
  */
-#define PAGE_SIZE	16
+#define PAGE_SIZE	16	/**< EEPROM page size in bytes. */
 
-/**
+/*
+ * Defines the EEPROM start address for this test.
  * The Starting address in the IIC EEPROM on which this test is performed
  */
+/** EEPROM test start address. */
 #define EEPROM_TEST_START_ADDRESS	128
 
-/**
+/*
  * Maximum delay count used for timeout handling
  */
+/** Maximum delay count for timeout handling. */
 #define MAX_DELAY_CNT                   10000
 
 
 /**************************** Type Definitions *******************************/
 
 /**
- * The AddressType for ML300/ML310/ML510/SCU200/SCU35 boards should be u16 as the address
- * pointer in the on board EEPROM is 2 bytes.
- * The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should
- * be u8 as the address pointer in the on board EEPROM is 1 bytes.
+ * @brief Defines the EEPROM address type for the target board.
+ *
+ * The AddressType for ML300/ML310/ML510/SCU200/SCU35 boards should be u16 as
+ * the address pointer in the on board EEPROM is 2 bytes. The AddressType for
+ * ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should be u8 as the address
+ * pointer in the on board EEPROM is 1 bytes.
  */
 typedef u8 AddressType;
 
@@ -163,22 +169,24 @@ unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount);
 
 /************************** Variable Definitions **************************/
 
-int ErrorCount;			  /** The Error Count */
+int ErrorCount;			  /**< The Error Count. */
 
-u8 WriteBuffer[PAGE_SIZE];	  /** Write buffer for writing a page */
-u8 ReadBuffer[PAGE_SIZE];	  /** Read buffer for reading a page */
-u8 ReadBufferAll[PAGE_SIZE * 4];  /** Buffer used for reading all the data */
+u8 WriteBuffer[PAGE_SIZE];	  /**< Write buffer for writing a page. */
+u8 ReadBuffer[PAGE_SIZE];	  /**< Read buffer for reading a page. */
+u8 ReadBufferAll[PAGE_SIZE * 4];  /**< Buffer used for reading all the data. */
 
-u8 EepromIicAddr;		  /** Variable for storing Eeprom IIC address */
+u8 EepromIicAddr;
+	/**< Variable for storing Eeprom IIC address. */
 
 /*****************************************************************************/
 /**
+* @brief Runs the low level EEPROM example.
+*
 * Main function to call the low level EEPROM example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -200,13 +208,14 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* The function uses the low level driver of IIC to read and write to the
-* IIC EEPROM board. The addresses tested are from 128 to 192.
+* @brief Reads and writes the IIC EEPROM using the low-level IIC driver.
 *
+* The function uses the low level driver of IIC to read and write to the IIC
+* EEPROM board. The addresses tested are from 128 to 192.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ****************************************************************************/
 int IicLowLevelEeprom(void)
@@ -273,16 +282,16 @@ int IicLowLevelEeprom(void)
 
 /*****************************************************************************/
 /**
-* This function writes, reads, and verifies the read to the IIC EEPROM.  It
-* does the write as a single page write, performs a buffered read, and also
-* performs byte reads.
+* @brief Writes, reads, and verifies the read to the IIC EEPROM.
 *
-* @param	Address is the starting address of the page in the EEPROM device
-*		to which the data is to be written.
+* This function writes, reads, and verifies the read to the IIC EEPROM. It does
+* the write as a single page write, performs a buffered read, and also performs
+* byte reads.
 *
-* @return	 XST_FAILURE if the test fails, XST_SUCCESS if the test passes.
+* @param[in] Address The starting address of the page in the EEPROM device to
+*            which the data is to be written.
 *
-* @note 	None.
+* @return XST_FAILURE if the test fails, XST_SUCCESS if the test passes.
 *
 ****************************************************************************/
 int ReadWriteVerify(AddressType Address)
@@ -345,18 +354,18 @@ int ReadWriteVerify(AddressType Address)
 
 /*****************************************************************************/
 /**
+* @brief Writes a buffer of bytes to the IIC serial EEPROM.
+*
 * This function writes a buffer of bytes to the IIC serial EEPROM.
 *
-* @param	Address contains the address in the EEPROM to write to.
-* @param	BufferPtr contains the address of the data to write.
-* @param	ByteCount contains the number of bytes in the buffer to be written.
-*		Note that this should not exceed the page size of the EEPROM as
-*		noted by the constant PAGE_SIZE.
+* @param[in] Address The address in the EEPROM to write to.
+* @param[in] BufferPtr The address of the data to write.
+* @param[in] ByteCount The number of bytes in the buffer to be written.
+*            Note that this should not exceed the page size of the EEPROM as
+*            noted by the constant PAGE_SIZE.
 *
-* @return	The number of bytes written, a value less than that which was
-*		specified as an input indicates an error.
-*
-* @note		None.
+* @return The number of bytes written, a value less than that which was
+*         specified as an input indicates an error.
 *
 ****************************************************************************/
 unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
@@ -457,19 +466,19 @@ unsigned EepromWriteByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief Reads bytes from the IIC serial EEPROM into a specified buffer.
+*
 * This function reads a number of bytes from the IIC serial EEPROM into a
 * specified buffer.
 *
-* @param	Address contains the address in the EEPROM to read from.
-* @param	BufferPtr contains the address of the data buffer to be filled.
-* @param	ByteCount contains the number of bytes in the buffer to be read.
-*		This value is not constrained by the page size of the device
-*		such that up to 64K may be read in one call.
+* @param[in] Address The address in the EEPROM to read from.
+* @param[out] BufferPtr The address of the data buffer to be filled.
+* @param[in] ByteCount The number of bytes in the buffer to be read.
+*            This value is not constrained by the page size of the device such
+*            that up to 64K may be read in one call.
 *
-* @return	The number of bytes read. A value less than the specified input
-*		value indicates an error.
-*
-* @note		None.
+* @return The number of bytes read. A value less than the specified input value
+*         indicates an error.
 *
 ****************************************************************************/
 unsigned EepromReadByte(AddressType Address, u8 *BufferPtr, u16 ByteCount)

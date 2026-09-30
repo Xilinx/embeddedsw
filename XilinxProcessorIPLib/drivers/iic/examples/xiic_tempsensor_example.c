@@ -7,6 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xiic_tempsensor_example.c
+* @brief Shows IIC temperature-sensor reads.
 *
 * This file contains an interrupt based design example which uses the Xilinx
 * IIC device and driver to exercise the temperature sensor on the ML300 board.
@@ -18,11 +19,7 @@
 * This example assumes that there is an interrupt controller in the hardware
 * system and the IIC device is connected to the interrupt controller.
 *
-* @note
-*
 * 7-bit addressing is used to access the tempsensor.
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -40,6 +37,7 @@
 * 3.15  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
 * 3.16  vn   07/30/26 Fix Doxygen warnings
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
@@ -64,7 +62,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/**
+/*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -72,33 +70,40 @@
 #ifndef SDT
 #define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
 #else
+/** IIC base address. */
 #define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
 #endif
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** IIC interrupt ID. */
 #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
-#define INTC			XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC			XIntc	/**< INTC instance type. */
+#define INTC_HANDLER	XIntc_InterruptHandler	/**< INTC interrupt handler. */
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** IIC interrupt ID. */
 #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
-#define INTC			 	XScuGic
+#define INTC			 	XScuGic	/**< INTC instance type. */
+/** INTC interrupt handler. */
 #define INTC_HANDLER		XScuGic_InterruptHandler
 #endif
 #endif
 
-/**
- * The following constant defines the address of the IIC
- * temperature sensor device on the IIC bus. Note that since
- * the address is only 7 bits, this  constant is the address divided by 2.
+/*
+ * The following constant defines the address of the IIC temperature
+ * sensor device on the IIC bus. Note that since the address is only 7
+ * bits, this constant is the address divided by 2.
  */
-#define TEMP_SENSOR_ADDRESS	0x18 /* The actual address is 0x30 */
+/** 7-bit IIC temperature sensor address. */
+#define TEMP_SENSOR_ADDRESS	0x18
 
-/**
+/*
  * Maximum delay count used for timeout handling
  */
+/** Maximum delay count for timeout handling. */
 #define  MAX_DELAY_CNT    10000
 
 
@@ -124,16 +129,18 @@ static void StatusHandler(void *CallbackRef, int Status);
 
 /************************** Variable Definitions **************************/
 
-XIic Iic;		  /** The instance of the IIC device */
+XIic Iic;		  /**< The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/** The instance of the Interrupt Controller Driver */
+INTC Intc; 	/**< The instance of the Interrupt Controller Driver. */
 #endif
 
 /**
+ * @brief Holds IIC callback status for interrupt handlers.
+ *
  * The following structure contains fields that are used with the callbacks
- * (handlers) of the IIC driver. The driver asynchronously calls handlers
- * when abnormal events occur or when data has been sent or received. This
- * structure must be volatile to work when the code is optimized.
+ * (handlers) of the IIC driver. The driver asynchronously calls handlers when
+ * abnormal events occur or when data has been sent or received. This structure
+ * must be volatile to work when the code is optimized.
  */
 volatile struct {
 	int  EventStatus;
@@ -145,13 +152,14 @@ volatile struct {
 /*****************************************************************************/
 /**
 *
+* @brief Runs the IIC temperature sensor example.
+*
 * The purpose of this function is to illustrate how to use the IIC driver to
 * read the temperature.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 *******************************************************************************/
 int main(void)
@@ -181,27 +189,28 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* The function reads the temperature of the IIC temperature sensor on the
-* IIC bus. It initializes the IIC device driver and sets it up to communicate
-* with the temperature sensor. This function does contain a loop that polls
-* for completion of the IIC processing such that it may not return if
-* interrupts or the hardware are not working.
+* @brief Reads the temperature of the IIC temperature sensor.
+*
+* The function reads the temperature of the IIC temperature sensor on the IIC
+* bus. It initializes the IIC device driver and sets it up to communicate with
+* the temperature sensor. This function does contain a loop that polls for
+* completion of the IIC processing such that it may not return if interrupts or
+* the hardware are not working.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress The base address of the device.
 * @else
-* @param	IicDeviceId is the XPAR_<IIC_instance>_DEVICE_ID value from
-*		xparameters.h for the IIC Device
+* @param[in] IicDeviceId Device ID of the IIC device, from xparameters.h.
 * @endif
-* @param	TempSensorAddress is the address of the Temperature Sensor device
-*		on the IIC bus
-* @param	TemperaturePtr is the data byte read from the temperature sensor
+* @param[in] TempSensorAddress The address of the Temperature Sensor device
+*            on the IIC bus
+* @param[out] TemperaturePtr The data byte read from the temperature sensor.
 *
-* @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
-*		a Failure.
+* @return XST_SUCCESS to indicate success, else XST_FAILURE to indicate a
+*         Failure.
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note In XSCT/classic flow, DeviceId is used to look up the device
+*       configuration.
 *
 *******************************************************************************/
 #ifndef SDT
@@ -323,18 +332,20 @@ int TempSensorExample(UINTPTR BaseAddress, u8 TempSensorAddress, u8 *Temperature
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for IIC. This function is application specific since the actual system may
-* or may not have an interrupt controller. The IIC device could be directly
-* connected to a processor without an interrupt controller. The user should
-* modify this function to fit the application.
+* @brief Sets up the interrupt system such that interrupts can occur for IIC.
 *
-* @param	IicPtr contains a pointer to the instance of the IIC component
-*		which is going to be connected to the interrupt controller.
+* This function sets up the interrupt system such that interrupts can occur for
+* IIC. This function is application specific since the actual system may or may
+* not have an interrupt controller. The IIC device could be directly connected
+* to a processor without an interrupt controller. Modify this
+* function to fit the application.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @param[in] IicPtr Pointer to the instance of the IIC component which is going
+*                   to be connected to the interrupt controller.
 *
-* @notes	None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ****************************************************************************/
 static int SetupInterruptSystem(XIic *IicPtr)
@@ -442,19 +453,17 @@ static int SetupInterruptSystem(XIic *IicPtr)
 
 /*****************************************************************************/
 /**
+* @brief Handles receive completion from interrupt context.
+*
 * This receive handler is called asynchronously from an interrupt context and
 * and indicates that data in the specified buffer was received. The byte count
 * should equal the byte count of the buffer if all the buffer was filled.
 *
-* @param	CallbackRef is a pointer to the IIC device driver instance which
-*		the handler is being called for.
-* @param	ByteCount indicates the number of bytes remaining to be received of
-*		the requested byte count. A value of zero indicates all requested
-*		bytes were received.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] CallbackRef Pointer to the IIC device driver instance which
+*            the handler is being called for.
+* @param[in] ByteCount Indicates the number of bytes remaining to be received of
+*            the requested byte count. A value of zero indicates all requested
+*            bytes were received.
 *
 ****************************************************************************/
 static void RecvHandler(void *CallbackRef, int ByteCount)
@@ -466,17 +475,15 @@ static void RecvHandler(void *CallbackRef, int ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief Handles IIC status events from interrupt context.
+*
 * This status handler is called asynchronously from an interrupt context and
-* indicates that the conditions of the IIC bus changed. This  handler should
-* not be called for the application unless an error occurs.
+* indicates that the conditions of the IIC bus changed. This handler should not
+* be called for the application unless an error occurs.
 *
-* @param	CallbackRef is a pointer to the IIC device driver instance which the
-*		handler is being called for.
-* @param	Status contains the status of the IIC bus which changed.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] CallbackRef Pointer to the IIC device driver instance which
+*            the handler is being called for.
+* @param[in] Status The status of the IIC bus which changed.
 *
 ****************************************************************************/
 static void StatusHandler(void *CallbackRef, int Status)

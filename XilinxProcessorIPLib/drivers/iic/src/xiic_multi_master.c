@@ -8,8 +8,7 @@
 /**
 *
 * @file xiic_multi_master.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC multi-master support.
 *
 * Contains multi-master functions for the XIic component. This file is
 * necessary if multiple masters are on the IIC bus such that arbitration can
@@ -30,9 +29,15 @@
 *		     consistent, see the xiic_i.h and xiic_l.h files for further
 *		     information
 * 3.16  vn  07/30/26 Fix Doxygen warnings
+* 3.16  tb  09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -58,15 +63,13 @@ static void ArbitrationLostHandler(XIic *InstancePtr);
 
 /****************************************************************************/
 /**
+* @brief Includes multi-master code so multi-master events are handled.
+*
 * This function includes multi-master code such that multi-master events are
-* handled properly. Multi-master events include a loss of arbitration and
-* the bus transitioning from busy to not busy.  This function allows the
-* multi-master processing to be optional.  This function must be called prior
-* to allowing any multi-master events to occur, such as after the driver is
-* initialized.
-*
-*
-* @note		None.
+* handled properly. Multi-master events include a loss of arbitration and the
+* bus transitioning from busy to not busy. This function allows the multi-master
+* processing to be optional. This function must be called prior to allowing any
+* multi-master events to occur, such as after the driver is initialized.
 *
 ******************************************************************************/
 void XIic_MultiMasterInclude(void)
@@ -78,8 +81,10 @@ void XIic_MultiMasterInclude(void)
 /*****************************************************************************/
 /**
 *
+* @brief Handles the bus-not-busy interrupt.
+*
 * The IIC bus busy signals when a master has control of the bus. Until the bus
-* is released, i.e. not busy, other devices must wait to use it.
+* is released, that is not busy, other devices must wait to use it.
 *
 * When this interrupt occurs, it signals that the previous master has released
 * the bus for another user.
@@ -99,11 +104,7 @@ void XIic_MultiMasterInclude(void)
 * - Send status to user via status callback with the value:
 *	XII_BUS_NOT_BUSY_EVENT
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void BusNotBusyHandler(XIic *InstancePtr)
@@ -167,11 +168,13 @@ static void BusNotBusyHandler(XIic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* When multiple IIC devices attempt to use the bus simultaneously, only
-* a single device will be able to keep control as a master. Those devices
-* that didn't retain control over the bus are said to have lost arbitration.
-* When arbitration is lost, this interrupt occurs sigaling the user that
-* the message did not get sent as expected.
+* @brief Handles the arbitration-lost interrupt.
+*
+* When multiple IIC devices attempt to use the bus simultaneously, only a single
+* device can keep control as a master. Those devices that didn't
+* retain control over the bus are said to have lost arbitration. When
+* arbitration is lost, this interrupt signals that the message
+* did not get sent as expected.
 *
 * This function, at arbitration lost:
 *   - Disables Tx empty, � empty and Tx error interrupts
@@ -180,11 +183,7 @@ static void BusNotBusyHandler(XIic *InstancePtr)
 *   - Flush Tx FIFO
 *   - Call StatusHandler callback with the value: XII_ARB_LOST_EVENT
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 ******************************************************************************/
 static void ArbitrationLostHandler(XIic *InstancePtr)

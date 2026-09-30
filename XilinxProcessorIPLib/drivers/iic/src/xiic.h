@@ -4,13 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XIIC_H			/* prevent circular inclusions */
+#define XIIC_H
+
 /*****************************************************************************/
 /**
 *
 * @file xiic.h
-* @addtogroup Overview
+* @addtogroup iic Overview
 * @{
-* @details
+* @brief Implements the AXI IIC driver for master and slave transfers.
 *
 * XIic is the driver for an IIC master or slave device.
 *
@@ -18,9 +21,10 @@
 * partitioned such that there are optional parts of the driver.
 * Slave, master, and multimaster features are optional such that all these files
 * are not required at the same time.
-* In order to use the slave and multimaster features of the driver, the user
-* must call functions (XIic_SlaveInclude and XIic_MultiMasterInclude)
-* to dynamically include the code. These functions may be called at any time.
+* To use the slave and multimaster features of the driver, the
+* application must call functions (XIic_SlaveInclude and
+* XIic_MultiMasterInclude) to dynamically include the code. These functions may
+* be called at any time.
 *
 * Two sets of higher level API's are available in the XIic driver that can
 * be used for Transmission/Reception in Master mode :
@@ -32,8 +36,8 @@
 * - XIic_Send()/ XIic_Recv() which is used in normal mode
 * - XIic_DynSend()/ XIic_DynRecv() which is used in Dynamic mode.
 *
-* The user should use a single set of APIs as per his requirement and
-* should not intermix them.
+* Use a single set of APIs as required and
+* do not intermix them.
 *
 * All the driver APIs can be used for read, write and  combined mode of
 * operations on the IIC bus.
@@ -64,7 +68,7 @@
 * The IIC hardware provides a General Purpose Output Register that allows the
 * user to connect general purpose outputs to devices, such as a write protect,
 * for an EEPROM. This register is parameterizable in the hardware such that
-* there could be zero bits in this register and in this case it will cause
+* there could be zero bits in this register and in this case it causes
 * a bus error if read or written.
 *
 * <b>Bus Throttling</b>
@@ -73,7 +77,7 @@
 * either a master or a slave, to stop the clock on the IIC bus. This feature
 * allows the software to perform the appropriate processing for each interrupt
 * without an unreasonable response restriction.  With this design, it is
-* important for the user to understand the implications of bus throttling.
+* important to understand the implications of bus throttling.
 *
 * <b>Repeated Start</b>
 *
@@ -90,7 +94,7 @@
 * monopolize the IIC bus, should repeated start option be enabled and sequences
 * of messages never end(periodic data collection).
 * Also when repeated start is not disable before the last master message is
-* sent or received, will leave the bus captive to the master, but unused.
+* sent or received, leaves the bus captive to the master, but unused.
 *
 * <b>Addressing</b>
 *
@@ -167,13 +171,14 @@
 * Addressed As Slave                XII_MASTER_READ_EVENT,        Slave
 *                                   XII_MASTER_WRITE_EVENT,       Slave
 *                                   XII_GENERAL_CALL_EVENT        Slave
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 * <b>Not Addressed As Slave Interrupt</b>
 *
 * The Not Addressed As Slave interrupt is not passed directly to the
 * application through the status callback.  It is used to determine the end of
 * a message being received by a slave when there was no stop condition
-* (repeated start).  It will cause the receive handler to be called to
+* (repeated start).  It causes the receive handler to be called to
 * indicate completion of the operation.
 *
 * <b>RTOS Independence</b>
@@ -296,8 +301,6 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XIIC_H			/* prevent circular inclusions */
-#define XIIC_H			/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -319,38 +322,38 @@ extern "C" {
  * are bit fields such that more than one may be specified.
  * @{
  */
-/**
+/*
  * <pre>
  * XII_GENERAL_CALL_OPTION	The general call option allows an IIC slave to
- *				recognized the general call address. The status
- *				handler is called as usual indicating the device
- *				has been addressed as a slave with a general
- *				call. It is the application's responsibility to
- *				perform any special processing for the general
- *				call.
- *
+ * 				recognized the general call address. The status
+ * 				handler is called as usual indicating the device
+ * 				has been addressed as a slave with a general
+ * 				call. It is the application's responsibility to
+ * 				perform any special processing for the general
+ * 				call.
  * XII_REPEATED_START_OPTION	The repeated start option allows multiple
- *				messages to be sent/received on the IIC bus
- *				without rearbitrating for the bus.  The messages
- *				are sent as a series of messages such that the
- *				option must be enabled before the 1st message of
- *				the series, to prevent an stop condition from
- *				being generated on the bus, and disabled before
- *				the last message of the series, to allow the
- *				stop condition to be generated.
- *
+ * 				messages to be sent/received on the IIC bus
+ * 				without rearbitrating for the bus.  The messages
+ * 				are sent as a series of messages such that the
+ * 				option must be enabled before the 1st message of
+ * 				the series, to prevent an stop condition from
+ * 				being generated on the bus, and disabled before
+ * 				the last message of the series, to allow the
+ * 				stop condition to be generated.
  * XII_SEND_10_BIT_OPTION	The send 10 bit option allows 10 bit addresses
- *				to be sent on the bus when the device is a
- *				master. The device can be configured to respond
- *				as to 7 bit addresses even though it may be
- *				communicating with other devices that support 10
- *				bit addresses.  When this option is not enabled,
- *				only 7 bit addresses are sent on the bus.
- *
+ * 				to be sent on the bus when the device is a
+ * 				master. The device can be configured to respond
+ * 				as to 7 bit addresses even though it may be
+ * 				communicating with other devices that support 10
+ * 				bit addresses.  When this option is not enabled,
+ * 				only 7 bit addresses are sent on the bus.
  * </pre>
  */
+/** General call option. */
 #define XII_GENERAL_CALL_OPTION		0x00000001
+/** Repeated start option. */
 #define XII_REPEATED_START_OPTION	0x00000002
+/** Send 10 bit option. */
 #define XII_SEND_10_BIT_OPTION		0x00000004
 
 /** @} */
@@ -371,7 +374,6 @@ extern "C" {
 #define XII_GENERAL_CALL_EVENT	0x00000020 /**< General call to all slaves */
 /** @} */
 
-
 /*
  * The following address types are used when setting and getting the addresses
  * of the driver. These are mutually exclusive such that only one or the other
@@ -383,7 +385,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -395,10 +397,14 @@ typedef struct {
 	int Has10BitAddr; /**< Does device have 10 bit address decoding */
 	u8 GpOutWidth;	  /**< Number of bits in general purpose output */
 #ifdef SDT
-	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
-	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+	/**
+	 * Bits[11:0] interrupt ID; bits[15:12] trigger type and level flags.
+	 */
+	u16 IntrId;
+	/**
+	 * Bit[0] interrupt parent type; bit[64/32:1] parent base address.
+	 */
+	UINTPTR IntrParent;
 	u32 SerialClkDelay;  /**< SCL inertial delay */
 	u32 AxiClkFreq;     /**< AXI clock frequency in Hz */
 #endif
@@ -406,44 +412,48 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* This callback function data type is defined to handle the asynchronous
-* processing of sent and received data of the IIC driver.  The application
-* using this driver is expected to define a handler of this type to support
-* interrupt driven mode. The handlers are called in an interrupt context such
-* that minimal processing should be performed. The handler data type is
-* utilized for both send and receive handlers.
+* @brief Defines the send and receive callback type for the IIC driver.
 *
-* @param	CallBackRef is a callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back
-*		to the upper layer when the callback is invoked. Its type is
-*		unimportant to the driver  component, so it is a void pointer.
-* @param	ByteCount indicates the number of bytes remaining to be sent or
-*		received.  A value of zero indicates that the requested number
-*		of bytes were sent or received.
+* This callback function data type is defined to handle the asynchronous
+* processing of sent and received data of the IIC driver. The application using
+* this driver is expected to define a handler of this type to support interrupt
+* driven mode. The handlers are called in an interrupt context such that minimal
+* processing should be performed. The handler data type is utilized for both
+* send and receive handlers.
+*
+* @param[in] CallBackRef A callback reference passed in by the upper layer
+*            when setting the callback functions, and passed back to the upper
+*            layer when the callback is invoked. Its type is unimportant to the
+*            driver component, so it is a void pointer.
+* @param[in] ByteCount Indicates the number of bytes remaining to be sent or
+*            received. A value of zero indicates that the requested number of
+*            bytes were sent or received.
 *
 ******************************************************************************/
 typedef void (*XIic_Handler) (void *CallBackRef, int ByteCount);
 
 /******************************************************************************/
 /**
-* This callback function data type is defined to handle the asynchronous
-* processing of status events of the IIC driver.  The application using
-* this driver is expected to define a handler of this type to support
-* interrupt driven mode. The handler is called in an interrupt context such
-* that minimal processing should be performed.
+* @brief Defines the status callback type for the IIC driver.
 *
-* @param	CallBackRef is a callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back
-*		to the upper layer when the callback is invoked. Its type is
-*		unimportant to the driver component, so it is a void pointer.
-* @param	StatusEvent indicates one or more status events that occurred.
-*		See the definition of the status events above.
+* This callback function data type is defined to handle the asynchronous
+* processing of status events of the IIC driver. The application using this
+* driver is expected to define a handler of this type to support interrupt
+* driven mode. The handler is called in an interrupt context such that minimal
+* processing should be performed.
+*
+* @param[in] CallBackRef A callback reference passed in by the upper layer
+*            when setting the callback functions, and passed back to the upper
+*            layer when the callback is invoked. Its type is unimportant to the
+*            driver component, so it is a void pointer.
+* @param[in] StatusEvent Indicates one or more status events that occurred. See
+*            the definition of the status events above.
 *
 ********************************************************************************/
 typedef void (*XIic_StatusHandler) (void *CallBackRef, int StatusEvent);
 
 /**
- * XIic statistics
+ * @brief Holds XIic statistics.
  */
 typedef struct {
 	u8 ArbitrationLost;/**< Number of times arbitration was lost */
@@ -458,9 +468,11 @@ typedef struct {
 } XIicStats;
 
 /**
- * The XIic driver instance data. The user is required to allocate a
- * variable of this type for every IIC device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds XIic driver instance data.
+ *
+ * The application must allocate a variable of this type for every IIC device
+ * in the system. A pointer to a variable of this type is then passed to the
+ * driver API functions.
  */
 typedef struct {
 	XIicStats Stats;	/**< Statistics */
@@ -498,17 +510,18 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Returns whether the I2C bus is busy or free.
 *
 * This is a function which tells whether the I2C bus is busy or free.
 *
-* @param	InstancePtr points to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 * @return
-*		- TRUE if the bus is busy.
-*		- FALSE if the bus is NOT busy.
-*
-* @note		None.
+*        - TRUE if the bus is busy.
+*        - FALSE if the bus is NOT busy.
 *
 ******************************************************************************/
 static inline u32 XIic_IsIicBusy(XIic *InstancePtr)
@@ -608,7 +621,6 @@ u32 XIic_GetOptions(XIic *InstancePtr);
 #ifdef SDT
 u32 XIic_SetClk(XIic *InstancePtr, u32 FsclHz );
 #endif
-
 
 /*
  * Multi-master functions in xiic_multi_master.c

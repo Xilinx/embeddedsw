@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2012 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,8 +8,7 @@
 /**
 *
 * @file xiic_selftest.c
-* @addtogroup Overview
-* @{
+* @brief Implements IIC self-test.
 *
 * Contains selftest functions for the XIic component.
 *
@@ -38,9 +38,15 @@
 *		     the name and some of the macros have been renamed to be
 *		     consistent, see the xiic_i.h and xiic_l.h files for further
 *		     information
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ****************************************************************************/
+
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 /***************************** Include Files *******************************/
 
@@ -65,17 +71,17 @@
 /*****************************************************************************/
 /**
 *
+* @brief Runs a limited self-test on the driver/device.
+*
 * Runs a limited self-test on the driver/device. This test does a read/write
 * test of the Interrupt Registers There is no loopback capabilities for the
 * device such that this test does not send or receive data.
 *
-* @param	InstancePtr is a pointer to the XIic instance to be worked on.
+* @param[in] InstancePtr Pointer to the XIic instance to be worked on.
 *
 * @return
-*		- XST_SUCCESS if no errors are found
-*		- XST_FAILURE if errors are found
-*
-* @note		None.
+*        - XST_SUCCESS if no errors are found
+*        - XST_FAILURE if errors are found
 *
 ****************************************************************************/
 int XIic_SelfTest(XIic *InstancePtr)

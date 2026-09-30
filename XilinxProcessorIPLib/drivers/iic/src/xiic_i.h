@@ -1,14 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XIIC_I_H		/* prevent circular inclusions */
+#define XIIC_I_H
 
 /*****************************************************************************/
 /**
 *
 * @file xiic_i.h
-* @addtogroup Overview
-* @{
+* @brief Defines IIC internal driver data and macros.
 *
 * This header file contains internal identifiers, which are those shared
 * between XIic components.  The identifiers in this file are not intended for
@@ -45,13 +48,16 @@
 * 2.07a adk   18/04/13 Updated the code to avoid unused variable warnings when
 *			  compiling with the -Wextra -Wall flags.
 *			  Changes done in files xiic.c and xiic_i.h. CR:705001
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIIC_I_H		/* prevent circular inclusions */
-#define XIIC_I_H		/* by using protection macros */
+/**
+* @addtogroup iic_api IIC APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,7 +76,10 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Sends the first byte of a 10-bit address for reads and writes.
 *
 * This macro sends the first byte of the address for a 10 bit address during
 * both read and write operations. It takes care of the details to format the
@@ -79,13 +88,12 @@ extern "C" {
 * address = 1111_0xxD   xx = address MSBits
 *                        D = Tx direction = 0 = write
 *
-* @param	SlaveAddress contains the address of the slave to send to.
-* @param	Operation indicates XIIC_READ_OPERATION or XIIC_WRITE_OPERATION
+* @param[in] SlaveAddress The address of the slave to send to.
+* @param[in] Operation Indicates XIIC_READ_OPERATION or XIIC_WRITE_OPERATION.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_Send10BitAddrByte1(u16 SlaveAddress, u8 Operation);
+* @note
+* C-style signature
+*	void XIic_Send10BitAddrByte1(u16 SlaveAddress, u8 Operation)
 *
 ******************************************************************************/
 #define XIic_Send10BitAddrByte1(SlaveAddress, Operation)		\
@@ -96,36 +104,40 @@ extern "C" {
 			(u32) LocalAddr);				\
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Sends the second byte of a 10-bit address for reads and writes.
 *
 * This macro sends the second byte of the address for a 10 bit address during
 * both read and write operations. It takes care of the details to format the
 * address correctly.
 *
-* @param	SlaveAddress contains the address of the slave to send to.
+* @param[in] SlaveAddress The address of the slave to send to.
 *
-* @return	None.
-*
-* @note		Signature: void XIic_Send10BitAddrByte2(u16 SlaveAddress,
-*				u8 Operation);
+* @note
+* C-style signature
+*	void XIic_Send10BitAddrByte2(u16 SlaveAddress)
 *
 ******************************************************************************/
 #define XIic_Send10BitAddrByte2(SlaveAddress)				\
 	XIic_WriteReg(InstancePtr->BaseAddress, XIIC_DTR_REG_OFFSET,	\
 			(u32)(SlaveAddress));				\
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Sends a 7-bit address for reads and writes.
 *
 * This macro sends the address for a 7 bit address during both read and write
 * operations. It takes care of the details to format the address correctly.
 *
-* @param	SlaveAddress contains the address of the slave to send to.
-* @param	Operation indicates XIIC_READ_OPERATION or XIIC_WRITE_OPERATION
+* @param[in] SlaveAddress The address of the slave to send to.
+* @param[in] Operation Indicates XIIC_READ_OPERATION or XIIC_WRITE_OPERATION.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_Send7BitAddr(u16 SlaveAddress, u8 Operation);
+* @note
+* C-style signature
+*	void XIic_Send7BitAddr(u16 SlaveAddress, u8 Operation)
 *
 ******************************************************************************/
 #define XIic_Send7BitAddr(SlaveAddress, Operation)			\
@@ -136,77 +148,85 @@ extern "C" {
 			(u32) LocalAddr); 				\
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Disables the specified interrupts in the Interrupt Enable register.
 *
 * This macro disables the specified interrupts in the Interrupt enable
 * register.  It is non-destructive in that the register is read and only the
 * interrupts specified is changed.
 *
-* @param	BaseAddress is the base address of the IIC device.
-* @param	InterruptMask contains the interrupts to be disabled
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[in] InterruptMask The interrupts to be disabled.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_DisableIntr(u32 BaseAddress, u32 InterruptMask);
+* @note
+* C-style signature
+*	void XIic_DisableIntr(u32 BaseAddress, u32 InterruptMask)
 *
 ******************************************************************************/
 #define XIic_DisableIntr(BaseAddress, InterruptMask)			\
 	XIic_WriteIier((BaseAddress),					\
 		XIic_ReadIier(BaseAddress) & ~(InterruptMask))
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Enables the specified interrupts in the Interrupt Enable register.
 *
 * This macro enables the specified interrupts in the Interrupt enable
 * register.  It is non-destructive in that the register is read and only the
 * interrupts specified is changed.
 *
-* @param	BaseAddress is the base address of the IIC device.
-* @param	InterruptMask contains the interrupts to be disabled
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[in] InterruptMask The interrupts to be disabled.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_EnableIntr(u32 BaseAddress, u32 InterruptMask);
+* @note
+* C-style signature
+*	void XIic_EnableIntr(u32 BaseAddress, u32 InterruptMask)
 *
 ******************************************************************************/
 #define XIic_EnableIntr(BaseAddress, InterruptMask)			\
 	XIic_WriteIier((BaseAddress),					\
 		XIic_ReadIier(BaseAddress) | (InterruptMask))
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Clears the specified interrupt in the Interrupt Status register.
 *
 * This macro clears the specified interrupt in the Interrupt status
 * register.  It is non-destructive in that the register is read and only the
 * interrupt specified is cleared.  Clearing an interrupt acknowledges it.
 *
-* @param	BaseAddress is the base address of the IIC device.
-* @param	InterruptMask contains the interrupts to be disabled
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[in] InterruptMask The interrupts to be disabled.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_ClearIntr(u32 BaseAddress, u32 InterruptMask);
+* @note
+* C-style signature
+*	void XIic_ClearIntr(u32 BaseAddress, u32 InterruptMask)
 *
 ******************************************************************************/
 #define XIic_ClearIntr(BaseAddress, InterruptMask)			\
 	XIic_WriteIisr((BaseAddress),					\
 		XIic_ReadIisr(BaseAddress) & (InterruptMask))
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Clears and enables the specified interrupt.
 *
 * This macro clears and enables the specified interrupt in the Interrupt
 * status and enable registers.  It is non-destructive in that the registers are
 * read and only the interrupt specified is modified.
 * Clearing an interrupt acknowledges it.
 *
-* @param	BaseAddress is the base address of the IIC device.
-* @param	InterruptMask contains the interrupts to be cleared and enabled
+* @param[in] BaseAddress The base address of the IIC device.
+* @param[in] InterruptMask The interrupts to be cleared and enabled.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_ClearEnableIntr(u32 BaseAddress, u32 InterruptMask);
+* @note
+* C-style signature
+*	void XIic_ClearEnableIntr(u32 BaseAddress, u32 InterruptMask)
 *
 ******************************************************************************/
 #define XIic_ClearEnableIntr(BaseAddress, InterruptMask)		\
@@ -218,18 +238,20 @@ extern "C" {
 		(XIic_ReadIier(BaseAddress) | (InterruptMask)));	\
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Flushes the receive FIFO, discarding all bytes in it.
 *
 * This macro flushes the receive FIFO such that all bytes contained within it
 * are discarded.
 *
-* @param	InstancePtr is a pointer to the IIC instance containing the FIFO
-*		to be flushed.
+* @param[in] InstancePtr Pointer to the IIC instance containing the FIFO to
+*            be flushed.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_FlushRxFifo(XIic *InstancePtr);
+* @note
+* C-style signature
+*	void XIic_FlushRxFifo(XIic *InstancePtr)
 *
 ******************************************************************************/
 #define XIic_FlushRxFifo(InstancePtr)					\
@@ -244,18 +266,20 @@ extern "C" {
 	}								\
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Flushes the transmit FIFO, discarding all bytes in it.
 *
 * This macro flushes the transmit FIFO such that all bytes contained within it
 * are discarded.
 *
-* @param	InstancePtr is a pointer to the IIC instance containing the FIFO
-*		to be flushed.
+* @param[in] InstancePtr Pointer to the IIC instance containing the FIFO to
+*            be flushed.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_FlushTxFifo(XIic *InstancePtr);
+* @note
+* C-style signature
+*	void XIic_FlushTxFifo(XIic *InstancePtr)
 *
 ******************************************************************************/
 #define XIic_FlushTxFifo(InstancePtr);					\
@@ -268,17 +292,19 @@ extern "C" {
 			CntlReg);					\
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Reads the next available received byte from the receive FIFO.
 *
 * This macro reads the next available received byte from the receive FIFO
 * and updates all the data structures to reflect it.
 *
-* @param	InstancePtr is a pointer to the IIC instance to be operated on.
+* @param[in] InstancePtr Pointer to the IIC instance to be operated on.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_ReadRecvByte(XIic *InstancePtr);
+* @note
+* C-style signature
+*	void XIic_ReadRecvByte(XIic *InstancePtr)
 *
 ******************************************************************************/
 #define XIic_ReadRecvByte(InstancePtr)					\
@@ -289,17 +315,19 @@ extern "C" {
 	InstancePtr->Stats.RecvBytes++;					\
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Writes the next byte to be sent to the transmit FIFO.
 *
 * This macro writes the next byte to be sent to the transmit FIFO
 * and updates all the data structures to reflect it.
 *
-* @param	InstancePtr is a pointer to the IIC instance to be operated on.
+* @param[in] InstancePtr Pointer to the IIC instance to be operated on.
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_WriteSendByte(XIic *InstancePtr);
+* @note
+* C-style signature
+*	void XIic_WriteSendByte(XIic *InstancePtr)
 *
 ******************************************************************************/
 #define XIic_WriteSendByte(InstancePtr)				\
@@ -310,23 +338,24 @@ extern "C" {
 	InstancePtr->Stats.SendBytes++;					\
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+*
+* @brief Sets up the control register for a master receive operation.
 *
 * This macro sets up the control register for a master receive operation.
 * A write is necessary if a 10 bit operation is being performed.
 *
-* @param	InstancePtr is a pointer to the IIC instance to be operated on.
-* @param	ControlRegister contains the contents of the IIC device control
-*		register
-* @param	ByteCount contains the number of bytes to be received for the
-*		master receive operation
+* @param[in] InstancePtr Pointer to the IIC instance to be operated on.
+* @param[in] ControlRegister The contents of the IIC device control
+*            register
+* @param[in] ByteCount The number of bytes to be received for the
+*            master receive operation
 *
-* @return	None.
-*
-* @note		Signature:
-*		void XIic_SetControlRegister(XIic *InstancePtr,
-*						u8 ControlRegister,
-*						int ByteCount);
+* @note
+* C-style signature
+*	void XIic_SetControlRegister(XIic *InstancePtr, u8 ControlRegister,
+*		int ByteCount)
 *
 ******************************************************************************/
 #define XIic_SetControlRegister(InstancePtr, ControlRegister, ByteCount)     \

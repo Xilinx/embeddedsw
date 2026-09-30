@@ -7,6 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xiic_repeated_start_example.c
+* @brief Shows IIC repeated-start transfers.
 *
 * This file consists of a interrupt mode design example to demonstrate the use
 * of repeated start using the XIic driver.
@@ -19,10 +20,6 @@
 * device external to the boards.
 *
 * This code assumes that no Operating System is being used.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -43,6 +40,7 @@
 * 3.10  gm   07/09/23 Added SDT support
 * 3.15  vlt  01/27/26 Fixed codespell issues
 * 3.15  vlt  02/17/26 Added timeout handling to polled wait loops.
+* 3.16  tb   09/22/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
@@ -68,7 +66,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/**
+/*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
@@ -76,44 +74,53 @@
 #ifndef SDT
 #define IIC_DEVICE_ID		XPAR_IIC_0_DEVICE_ID
 #else
+/** IIC base address. */
 #define	XIIC_BASEADDRESS	XPAR_XIIC_0_BASEADDR
 #endif
 
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** IIC interrupt ID. */
 #define IIC_INTR_ID	XPAR_INTC_0_IIC_0_VEC_ID
-#define INTC			XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC			XIntc	/**< INTC instance type. */
+#define INTC_HANDLER	XIntc_InterruptHandler	/**< INTC interrupt handler. */
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** IIC interrupt ID. */
 #define IIC_INTR_ID		XPAR_FABRIC_IIC_0_VEC_ID
-#define INTC			 	XScuGic
+#define INTC			 	XScuGic	/**< INTC instance type. */
+/** INTC interrupt handler. */
 #define INTC_HANDLER		XScuGic_InterruptHandler
 #endif
 #endif
 
-/**
- * The following constant defines the address of the IIC
- * device on the IIC bus. Note that since the address is only 7 bits, this
- * constant is the address divided by 2.
+/*
+ * The following constant defines the address of the IIC device on the
+ * IIC bus. Note that since the address is only 7 bits, this constant is
+ * the address divided by 2.
  */
-#define SLAVE_ADDRESS	0x70	/* 0xE0 as an 8 bit number. */
+#define SLAVE_ADDRESS	0x70	/**< IIC slave address. */
 
-#define SEND_COUNT	16	/** Number of bytes to send */
-#define RECEIVE_COUNT   16	/** Number of bytes to receive */
+#define SEND_COUNT	16	/**< Number of bytes to send. */
+#define RECEIVE_COUNT   16	/**< Number of bytes to receive. */
 
-/**
+/*
  * Maximum delay count used for timeout handling
  */
+/** Maximum delay count for timeout handling. */
 #define MAX_DELAY_CNT               10000
 
-/** IIC event mask */
-#define EventMask	0xFF
+/*
+ * IIC event mask
+ */
+#define EventMask	0xFF	/**< Internal IIC event mask. */
 
-/**
+/*
  * Internal event value used for IIC event checking
  */
+/** Internal event value for IIC event checking. */
 #define Event_Value                 0
 
 /**************************** Type Definitions *******************************/
@@ -134,27 +141,29 @@ static void StatusHandler(XIic *InstancePtr, int Event);
 
 /************************** Variable Definitions *****************************/
 
-XIic IicInstance;	/** The instance of the IIC device. */
+XIic IicInstance;	/**< The instance of the IIC device. */
 #ifndef SDT
-INTC Intc; 	/** The instance of the Interrupt Controller Driver */
+INTC Intc; 	/**< The instance of the Interrupt Controller Driver. */
 #endif
 
-u8 WriteBuffer[SEND_COUNT];	/** Write buffer for writing a page. */
-u8 ReadBuffer[RECEIVE_COUNT];	/** Read buffer for reading a page. */
+u8 WriteBuffer[SEND_COUNT];	/**< Write buffer for writing a page. */
+u8 ReadBuffer[RECEIVE_COUNT];	/**< Read buffer for reading a page. */
 
-volatile u8 TransmitComplete;	/** Flag to check completion of Transmission */
-volatile u8 ReceiveComplete;	/** Flag to check completion of Reception */
+volatile u8 TransmitComplete;
+	/**< Flag to check completion of Transmission. */
+volatile u8 ReceiveComplete;	/**< Flag to check completion of Reception. */
 
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
+* @brief Runs the Repeated Start example.
+*
 * Main function to call the Repeated Start example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -176,12 +185,13 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Writes and reads the data to the IIC Slave.
+*
 * This function writes and reads the data to the IIC Slave.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int IicRepeatedStartExample(void)
@@ -270,14 +280,15 @@ int IicRepeatedStartExample(void)
 
 /*****************************************************************************/
 /**
+* @brief Writes a buffer of data to IIC Slave.
+*
 * This function writes a buffer of data to IIC Slave.
 *
-* @param	ByteCount contains the number of bytes in the buffer to be
-*		written.
+* @param[in] ByteCount The number of bytes in the buffer to be written.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static int WriteData(u16 ByteCount)
@@ -372,14 +383,16 @@ static int WriteData(u16 ByteCount)
 
 /*****************************************************************************/
 /**
+* @brief Reads data from the IIC slave into a specified buffer.
+*
 * This function reads a data from the IIC Slave into a specified buffer.
 *
-* @param	BufferPtr contains the address of the data buffer to be filled.
-* @param	ByteCount contains the number of bytes to be read.
+* @param[out] BufferPtr The address of the data buffer to be filled.
+* @param[in] ByteCount The number of bytes to be read.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static int ReadData(u8 *BufferPtr, u16 ByteCount)
@@ -477,18 +490,20 @@ static int ReadData(u8 *BufferPtr, u16 ByteCount)
 #ifndef SDT
 /*****************************************************************************/
 /**
-* This function setups the interrupt system so interrupts can occur for the
-* IIC. The function is application-specific since the actual system may or
-* may not have an interrupt controller. The IIC device could be directly
-* connected to a processor without an interrupt controller. The user should
-* modify this function to fit the application.
+* @brief Sets up the interrupt system so interrupts can occur for the IIC.
 *
-* @param	IicInstPtr contains a pointer to the instance of the IIC  which
-*		is going to be connected to the interrupt controller.
+* This function sets up the interrupt system so interrupts can occur for the
+* IIC. The function is application-specific since the actual system may or may
+* not have an interrupt controller. The IIC device could be directly connected
+* to a processor without an interrupt controller. Modify this
+* function to fit the application.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @param[in] IicInstPtr Pointer to the instance of the IIC which is going to be
+*                       connected to the interrupt controller.
 *
-* @note		None.
+* @return
+*        - XST_SUCCESS if successful.
+*        - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 static int SetupInterruptSystem(XIic *IicInstPtr)
@@ -596,15 +611,13 @@ static int SetupInterruptSystem(XIic *IicInstPtr)
 
 /*****************************************************************************/
 /**
-* This Send handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been sent.
+* @brief Handles send completion from interrupt context.
 *
-* @param	CallBackRef is a pointer to the IIC device instance.
-* @param	ByteCount is the number of bytes sent.
+* This Send handler is called asynchronously from an interrupt context and
+* indicates that data in the specified buffer has been sent.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the IIC device instance.
+* @param[in] ByteCount The number of bytes sent.
 *
 ******************************************************************************/
 static void SendHandler(void *CallBackRef, int ByteCount)
@@ -616,15 +629,13 @@ static void SendHandler(void *CallBackRef, int ByteCount)
 }
 /*****************************************************************************/
 /**
-* This Receive handler is called asynchronously from an interrupt
-* context and indicates that data in the specified buffer has been received.
+* @brief Handles receive completion from interrupt context.
 *
-* @param	CallBackRef is a pointer to the IIC device instance.
-* @param	ByteCount is the number of bytes received.
+* This Receive handler is called asynchronously from an interrupt context and
+* indicates that data in the specified buffer has been received.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] CallBackRef Pointer to the IIC device instance.
+* @param[in] ByteCount The number of bytes received.
 *
 ******************************************************************************/
 static void ReceiveHandler(void *CallBackRef, int ByteCount)
@@ -637,16 +648,14 @@ static void ReceiveHandler(void *CallBackRef, int ByteCount)
 
 /*****************************************************************************/
 /**
-* This Status handler is called asynchronously from an interrupt
-* context and indicates the events that have occurred.
+* @brief Handles IIC status events from interrupt context.
 *
-* @param	InstancePtr is a pointer to the IIC driver instance for which
-*		the handler is being called for.
-* @param	Event indicates the condition that has occurred.
+* This Status handler is called asynchronously from an interrupt context and
+* indicates the events that have occurred.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the IIC driver instance for which the
+*                        handler is being called for.
+* @param[in] Event Indicates the condition that has occurred.
 *
 ******************************************************************************/
 static void StatusHandler(XIic *InstancePtr, int Event)
