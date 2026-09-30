@@ -7,24 +7,26 @@
 /*****************************************************************************/
 /**
 * @file xilflash_readwrite_example.c
-*
+* @brief Tests the Erase, Read and Write features of the Flash Library.
 *
 * This file contains a design example using the Flash Library.
 * This example tests the Erase, Read and Write features. The Page is erased
 * and data is written to the page. The data is read back and compared with
 * the data written for correctness.
 *
-* @note		The Erase operation on a CFI compliant Flash device will result
-*		in an error if the block is locked.
-*		This example performs an Unlock operation before Erase operation
-*		only on the Intel CFI compliant Flash device. The AMD CFI
-*		compliant Flash devices require the user to apply a 12V DC
-*		voltage on the RP pin while performing the Lock and Unlock
-*		operations. This example will not work with the AMD compliant
-*		Flash devices if the block is locked and the user doesn't
-*		perform an Unlock operation.
-*		Change the value of XFL_TO_ASYNCMODE to 1, inorder to operate
-*		the Micron Flash in async mode,if it was set to sync mode.
+* @note
+* The Erase operation on a CFI compliant Flash device results in an
+* error if the block is locked.
+* <br><br>
+* This example performs an Unlock operation before the Erase
+* operation only on the Intel CFI compliant Flash device. The AMD CFI
+* compliant Flash devices require a 12V DC voltage on the RP pin while
+* performing the Lock and Unlock operations. This example does not
+* work with the AMD compliant Flash devices if the block is locked and
+* no Unlock operation is performed.
+* <br><br>
+* Set XFL_TO_ASYNCMODE to 1 to operate the Micron Flash in async mode
+* if it was set to sync mode.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -47,6 +49,7 @@
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
 * 4.14 vn   08/26/26 Fix Doxygen warnings.
+* 4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 *</pre>
 ******************************************************************************/
@@ -59,21 +62,24 @@
 /************************** Constant Definitions *****************************/
 
 /*
- * The following constants define the baseaddress and width the flash memory.
- * These constants map to the XPAR parameters created in the xparameters.h file.
- * They are defined here such that a user can easily change all the needed
- * parameters in one place.
+ * The following constants define the base address and width of the flash
+ * memory. These constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here so that you can easily change all
+ * the needed parameters in one place.
  */
 #ifndef SDT
+/** Flash memory base address. */
 #define FLASH_BASE_ADDRESS	XPAR_EMC_0_S_AXI_MEM0_BASEADDR
 #else
+/** Flash memory base address. */
 #define FLASH_BASE_ADDRESS	XPAR_XEMC_0_BASEADDR
 #endif
 
-/*
- * The following constant defines the total byte width of the flash memory. The
- * user needs to update this width based on the flash width in the design/board.
+/**
+ * The following constant defines the total byte width of the flash memory.
+ * Update this width based on the flash width in the design/board.
  * The total flash width on some of the Xilinx boards is listed below.
+ * <pre>
  * -------------------------------
  * Board		Width
  * -------------------------------
@@ -86,23 +92,39 @@
  * ML605		2 (16 bit)
  * SP605		2 (16 bit)
  * SP601		1 (8 bit)
+ * </pre>
  */
 #define FLASH_MEM_WIDTH		2
 
-#define FLASH_TEST_SIZE		4048
-#define START_ADDRESS		0x060000
-#define BLOCK_OFFSET_ADDR	0x068000
-
-/*
- * The following constant defines the commands and register offsets inorder
- * to change the flash to Async Mode.
+/**
+ * @name Test parameters
+ * @{
  */
+/** Number of bytes to test. */
+#define FLASH_TEST_SIZE		4048
+#define START_ADDRESS		0x060000	/**< Test start offset. */
+#define BLOCK_OFFSET_ADDR	0x068000	/**< Block to lock/unlock. */
+/** @} */
+
 #ifdef XPAR_XFL_DEVICE_FAMILY_INTEL
+/**
+ * @name Async mode commands and register offsets
+ *
+ * The following constants define the commands and register offsets in order
+ * to change the flash to Async Mode.
+ * @{
+ */
+	/** Set to 1 to change the flash to Async Mode. */
 	#define XFL_TO_ASYNCMODE	0
+	/** Config Register value for setting Async mode. */
 	#define ASYNC_ADDR		0x17BBE
+	/** Config Register value for setting Sync mode. */
 	#define SYNC_ADDR		0x07BBE
+	/** Set Configuration Register setup command. */
 	#define INTEL_CMD_CONFIG_REG_SETUP	0x60606060
+	/** Set Configuration Register confirm command. */
 	#define INTEL_CMD_CONFIG_REG_CONFIRM	0x03030303
+/** @} */
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -112,24 +134,24 @@
 /************************** Function Prototypes ******************************/
 int FlashReadWriteExample(void);
 /************************** Variable Definitions *****************************/
-XFlash FlashInstance; /* XFlash Instance. */
+XFlash FlashInstance; /**< XFlash Instance. */
 
 /*
  * Buffers used during read and write transactions.
  */
-u8 ReadBuffer[FLASH_TEST_SIZE]; /* Buffer used to store the data read. */
-u8 WriteBuffer[FLASH_TEST_SIZE]; /* Write buffer. */
+u8 ReadBuffer[FLASH_TEST_SIZE]; /**< Buffer used to store the data read. */
+u8 WriteBuffer[FLASH_TEST_SIZE]; /**< Write buffer. */
 
 /************************** Function Definitions ******************************/
 
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Flash read write example.
+* @brief Runs the Flash read write example.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*            - XST_SUCCESS if successful.
+*            - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -150,11 +172,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function writes, reads, and verifies the data to the Flash device.
+* @brief Writes, reads, and verifies the data to the Flash device.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*            - XST_SUCCESS if successful.
+*            - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int FlashReadWriteExample(void)

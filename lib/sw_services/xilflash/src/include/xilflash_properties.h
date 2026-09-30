@@ -1,19 +1,22 @@
 /******************************************************************************
 * Copyright (c) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XFLASH_PROPERTIES_H
+#define XFLASH_PROPERTIES_H
 
 /*****************************************************************************/
 /**
 *
 * @file xilflash_properties.h
+* @brief Defines the property data types common to flash devices.
 *
-* This file contains various data common to flash devices most of which can be
-* derived from the CFI query.
+* This file contains various data common to flash devices, most of which can
+* be derived from the CFI query.
 *
 * @note
-*
 * There is no implementation file with this component.
 *
 * <pre>
@@ -32,12 +35,10 @@
 *		      fixes the CR 662317.
 *		      CR 662317 Description - Xilinx Platform Flash on ML605
 *		      fails to work.
+* 4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ***************************************************************************/
-
-#ifndef XFLASH_PROPERTIES_H	/**< prevent circular inclusions */
-#define XFLASH_PROPERTIES_H	/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,59 +53,58 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * Flash timing
+ * @brief Holds the flash timing data.
  */
 typedef struct {
-	u16 WriteSingle_Us;	/**< Time to program a single word unit
-				  *   Units are in microseconds */
-	u16 WriteBuffer_Us;	/**< Time to program the contents of the
-				  *  write buffer. Units are in microseconds
-				  *  If the part does not support write
-				  *  buffers, then this value should be
-				  *  zero */
-	u16 EraseBlock_Ms;	/**< Time to erase a single block
-				  *  Units are in milliseconds */
-	u16 EraseChip_Ms;	/**< Time to perform a chip erase
-				  *  Units are in milliseconds */
+	u16 WriteSingle_Us;	/**< Time to program a single word unit. Units
+				 * are in microseconds. */
+	u16 WriteBuffer_Us;	/**< Time to program the contents of the write
+				 * buffer. Units are in microseconds. If the
+				 * part does not support write buffers, then
+				 * this value should be zero. */
+	u16 EraseBlock_Ms;	/**< Time to erase a single block. Units are in
+				 * milliseconds. */
+	u16 EraseChip_Ms;	/**< Time to perform a chip erase. Units are in
+				 * milliseconds. */
 } XFlashTiming;
 
 /**
- * Flash identification
+ * @brief Holds the flash identification data.
  */
 typedef struct {
-	u8 ManufacturerID;	/**< Manufacturer of parts */
-	u16 DeviceID;		/**< Part number of manufacturer */
-	u16 CommandSet;		/**< Command algorithm used by part. Choices
-				  *  are defined in XFL_CMDSET constants */
+	u8 ManufacturerID;	/**< Manufacturer of parts. */
+	u16 DeviceID;		/**< Part number of manufacturer. */
+	u16 CommandSet;		/**< Command algorithm used by part. Choices are
+				 * defined in XFL_CMDSET constants. */
 } XFlashPartID;
 
 /**
- * Programming parameters
+ * @brief Holds the programming parameters.
  */
 typedef struct {
-	u32 WriteBufferSize;	 	/**< Number of bytes that can be
-					  * programmed at once */
-	u32 WriteBufferAlignmentMask;	/**< Alignment of the write buffer */
+	u32 WriteBufferSize;		/**< Number of bytes that can be
+					 * programmed at once. */
+	u32 WriteBufferAlignmentMask;	/**< Alignment of the write buffer. */
 	u32 EraseQueueSize;		/**< Number of erase blocks that can be
-					  *  queued up at once */
+					 * queued up at once. */
 } XFlashProgCap;
 
 /**
- * Consolidated parameters
+ * @brief Holds the consolidated flash properties.
  */
 typedef struct {
-	XFlashPartID PartID;		/**< Uniquely identifies the part */
-	XFlashTiming TimeTypical;	/**< Typical timing data */
-	XFlashTiming TimeMax;		/**< Worst case timing data */
-	XFlashProgCap ProgCap;		/**< Programming capabilities */
+	XFlashPartID PartID;		/**< Uniquely identifies the part. */
+	XFlashTiming TimeTypical;	/**< Typical timing data. */
+	XFlashTiming TimeMax;		/**< Worst case timing data. */
+	XFlashProgCap ProgCap;		/**< Programming capabilities. */
 } XFlashProperties;
 
 /**
- * Flash Specific Command Set
+ * @brief Holds the flash specific command set.
  */
 typedef struct {
-	u32 WriteBufferCommand;		/**< Write Buffer Command */
-	u32 ProgramCommand;		/**< Program Command */
+	u32 WriteBufferCommand;		/**< Write Buffer Command. */
+	u32 ProgramCommand;		/**< Program Command. */
 } XFlashCommandSet;
 
 /************************** Function Prototypes ******************************/

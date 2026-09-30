@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,35 +8,36 @@
 /**
 *
 * @file xilflash_intel.c
+* @brief Implements the Intel CFI version of the XFlash library.
 *
 * This file implements the Intel CFI Version of the XFlash Library.
 *
 * @note
-*
-* - Special consideration has to be given to varying data bus widths. To boost
-*	performance, multiple devices in parallel on the data bus are accessed
-*	in parallel. Therefore to reduce complexity and increase performance,
-*	many local primitive functions are duplicated with the only difference
-*	being the width of writes to the devices.
+* - Special consideration has to be given to varying data bus widths.
+*   To boost performance, multiple devices in parallel on the data bus
+*   are accessed in parallel. Therefore, to reduce complexity and
+*   increase performance, many local primitive functions are
+*   duplicated with the only difference being the width of writes to
+*   the devices.
 *   <br><br>
-*	Even with the performance boosting optimizations, the overhead
-*	associated is rather high due to the general purpose nature of its
-*	design.
+*   Even with the performance boosting optimizations, the overhead
+*   associated is rather high due to the general purpose nature of its
+*   design.
 *   <br><br>
-*	Flash block erasing is a time consuming operation with nearly all
-*	latency occurring due to the devices' themselves. It takes on the order
-*	of 1 second to erase each block.
+*   Flash block erasing is a time consuming operation with nearly all
+*   latency occurring due to the devices themselves. It takes on the
+*   order of one second to erase each block.
 *   <br><br>
-*	 Writes by comparison are much quicker so library overhead becomes an
-*	issue.
-*	The write algorithm has been optimized for bulk data programming and
-*	should provide relatively better performance.
-* - The code/comments refers to WSM frequently. This stands for Write State
-*	Machine. WSM is the internal programming engine of the devices.
-* - This library and the underlying Intel flash memory does not allow re-
-*	programming while code is executing from the same memory.
-* - If hardware is flakey or fails, then this library could hang a thread of
-*	execution.
+*   Writes by comparison are much quicker, so library overhead becomes
+*   an issue. The write algorithm has been optimized for bulk data
+*   programming and should provide relatively better performance.
+* - The code/comments refer to WSM frequently. This stands for Write
+*   State Machine. WSM is the internal programming engine of the
+*   devices.
+* - This library and the underlying Intel flash memory do not allow
+*   reprogramming while code is executing from the same memory.
+* - If hardware is flaky or fails, then this library could hang a
+*   thread of execution.
 *
 * <pre>
 *
@@ -74,6 +75,7 @@
 * 4.1	nsk  08/06/15 Fixed CR 835008.
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
+* 4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -94,64 +96,74 @@
 
 /**************************** Type Definitions *******************************/
 
-/*
- * Define a single type used to access the status register regardless of the
- * width of the devices
+/**
+ * @brief Describes the status register regardless of the device width.
+ *
+ * A single type used to access the status register regardless of the width of
+ * the devices.
  */
 typedef union {
-	u8 Mask8;
-	u16 Mask16;
-	u32 Mask32;
-	Xuint64 Mask64;
+	u8 Mask8;	/**< 8-bit status register value. */
+	u16 Mask16;	/**< 16-bit status register value. */
+	u32 Mask32;	/**< 32-bit status register value. */
+	Xuint64 Mask64;	/**< 64-bit status register value. */
 } StatReg;
 
-/*
- * Define Intel specific data to be part of the instance. This structure will
- * overlay the XFlash_PartData structure attribute of the base class.
+/**
+ * @brief Holds the Intel specific data that is part of the instance.
+ *
+ * This structure overlays the VendorData attribute (XFlashVendorData) of the
+ * base class. The function pointers are specific to the width of the data bus
+ * and are assigned during initialization.
  */
 typedef struct XFlashVendorData_IntelTag {
-	u32 WriteBufferWordCount;	/* This value is written to the WSM when
-					   telling it how many words will be
-					   programmed (always will be the
-					   maximum
-					   allowed) */
-	StatReg SR_WsmReady; /* Status register bitmask for WSM ready */
-	StatReg SR_LastError; /* Status register bitmask for error condition */
+	u32 WriteBufferWordCount;	/**< This value is written to the WSM
+					 * when telling it how many words are
+					 * programmed (always the maximum
+					 * allowed). */
+	StatReg SR_WsmReady;		/**< Status register bitmask for WSM
+					 * ready. */
+	StatReg SR_LastError;		/**< Status register bitmask for error
+					 * condition. */
 
-	/*
-	 * The following functions are specific to the width of the data bus and
-	 * will be assigned during initialization.
-	 *
-	 * SendCmd - Writes a single command to the devices.
-	 * SendCmdSeq - Writes two commands in successive bus cycles to the
-	 *		devices.
-	 * WriteBuffer - Programming algorithm optimized to perform bulk writes
-	 *		to devices.
-	 * GetStatus - Retrieve and interpret the status registers of the
-	 *		devices
-	 * PollSR - Poll the status register of the devices until the WSM
-	 *		signals ready.
-	 */
 	void (*SendCmd) (u32 BaseAddr, u32 Offset, u32 Cmd);
+					/**< Writes a single command to the
+					 * devices. */
 	void (*SendCmdSeq) (u32 BaseAddr, u32 Offset, u32 Cmd1, u32 Cmd2);
+					/**< Writes two commands in successive
+					 * bus cycles to the devices. */
 
 	int (*WriteBuffer) (XFlash *InstancePtr, void *DestPtr,
 			    void *SrcPtr, u32 Bytes);
+					/**< Programming algorithm optimized for
+					 * bulk writes to devices. */
 
 	int (*GetStatus) (XFlash *InstancePtr, u32 Offset);
+					/**< Retrieves and interprets the status
+					 * registers of the devices. */
 	int (*PollSR) (XFlash *InstancePtr, u32 Offset);
+					/**< Polls the status register of the
+					 * devices until the WSM is ready. */
 
 } XFlashVendorData_Intel;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************
-* GET_PARTDATA - Type safe way to convert the base component VendorData type
-*		to the family specific VendorData_Intel type.
+/*****************************************************************************/
+/**
 *
-* Macro signature:
+* @brief Converts the base component VendorData to the Intel specific type.
 *
-*	XFlashVendorData_Intel *GET_PARTDATA(XFlash_PartData *BaseComponent)
+* Type safe way to convert the base component VendorData type to the family
+* specific VendorData_Intel type.
+*
+* @param[in] BaseComponent Pointer to the XFlash instance.
+*
+* @return    Pointer to the XFlashVendorData_Intel data of the instance.
+*
+* @note      C-style signature:
+*            XFlashVendorData_Intel *GET_PARTDATA(XFlash *BaseComponent)
+*
 *****************************************************************************/
 #define GET_PARTDATA(BaseComponent) \
 	((XFlashVendorData_Intel*)&((BaseComponent)->VendorData))
@@ -206,22 +218,21 @@ extern int XFlashGeometry_ToAbsolute(XFlashGeometry *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* Initializes a XFlash instance with device family specific details. The
-* initialization entails:
+* @brief Initializes an XFlash instance with device family specific details.
+*
+* The initialization entails:
 *
 * - Assign part access primitive functions depending on bus width.
 * - Reset the device.
 *
-* @param	InstancePtr is a pointer to the XFlash instance.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
 *
 * @return
-* 		- XST_SUCCESS if successful.
-*		- XFLASH_PART_NOT_SUPPORTED if the command set algorithm or
-*		  Layout is not supported by any specific flash device family
-*		  compiled into the system.
-*		- XST_FAILURE if error.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_PART_NOT_SUPPORTED if the command set algorithm or
+*                  Layout is not supported by any specific flash device family
+*                  compiled into the system.
+*                - XST_FAILURE if error.
 *
 ******************************************************************************/
 int XFlashIntel_Initialize(XFlash *InstancePtr)
@@ -339,21 +350,18 @@ int XFlashIntel_Initialize(XFlash *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* The routine reads the data from the Intel flash device and copies it into
-* user buffer.
+* @brief Reads data from the Intel flash device into the destination buffer.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from
-*		which to read.
-* @param	Bytes is the number of bytes to copy.
-* @param	DestPtr is the destination address to copy data to.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset into the device address space from which to
+*                read.
+* @param[in]     Bytes Number of bytes to copy.
+* @param[out]    DestPtr Destination address to copy data to.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ADDRESS_ERROR if the source address does not start
-*		  within the addressable areas of the device(s).
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ADDRESS_ERROR if the source address does not start
+*                  within the addressable areas of the devices.
 *
 ******************************************************************************/
 int XFlashIntel_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
@@ -395,25 +403,23 @@ int XFlashIntel_Read(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 /*****************************************************************************/
 /**
 *
-* Programs the Intel flash device with data stored in the user buffer.
+* @brief Programs the Intel flash device with data stored in the source buffer.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin programming. Must be aligned to the width of the
-*		flash's data bus.
-* @param	Bytes is the number of bytes to program.
-* @param	SrcPtr is the source address containing data to be programmed.
-*		Must be aligned to the width of the flash's data bus.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset into the device address space from which to
+*                begin programming. Must be aligned to the width of the
+*                flash's data bus.
+* @param[in]     Bytes Number of bytes to program.
+* @param[in]     SrcPtr Source address containing data to be programmed. Must
+*                be aligned to the width of the flash's data bus.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ERROR if a write error occurred. This error is
-*		  usually device specific. Use XFlash_DeviceControl() to
-*		  retrieve specific error conditions. When this error is
-*		  returned, it is possible that the target address range was
-*		  only partially programmed.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ERROR if a write error occurred. This error is
+*                  usually device specific. Use XFlash_DeviceControl() to
+*                  retrieve specific error conditions. When this error is
+*                  returned, it is possible that the target address range was
+*                  only partially programmed.
 *
 ******************************************************************************/
 int XFlashIntel_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
@@ -467,19 +473,17 @@ int XFlashIntel_Write(XFlash *InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 /*****************************************************************************/
 /**
 *
-* Erases the specified address range in the Intel Flash device.
+* @brief Erases the specified address range in the Intel Flash device.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin erasure.
-* @param	Bytes is the number of bytes to erase.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset into the device address space from which to
+*                begin erasure.
+* @param[in]     Bytes Number of bytes to erase.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ADDRESS_ERROR if the destination address range is
-*		  not completely within the addressable areas of the device(s).
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ADDRESS_ERROR if the destination address range is
+*                  not completely within the addressable areas of the devices.
 *
 ******************************************************************************/
 int XFlashIntel_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes)
@@ -559,22 +563,20 @@ int XFlashIntel_Erase(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 /*****************************************************************************/
 /**
 *
-* Locks the blocks in the specified range of the Intel flash device.
+* @brief Locks the blocks in the specified range of the Intel flash device.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin block locking. The first three bytes of every block is
-*		reserved for special purpose. The offset should be at least three
-*		bytes from start of the block.
-* @param	Bytes indicates the number of bytes to Lock in the Block
-*		starting from Offset.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset into the device address space from which to
+*                begin block locking. The first three bytes of every block are
+*                reserved for a special purpose. The offset should be at least
+*                three bytes from the start of the block.
+* @param[in]     Bytes Number of bytes to lock in the block starting from
+*                Offset.
 *
 * @return
-* 		- XST_SUCCESS if successful.
-*		- XFLASH_ADDRESS_ERROR if the destination address range is
-*		  not completely within the addressable areas of the device(s).
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ADDRESS_ERROR if the destination address range is
+*                  not completely within the addressable areas of the devices.
 *
 ******************************************************************************/
 int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
@@ -703,22 +705,20 @@ int XFlashIntel_Lock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 /*****************************************************************************/
 /**
 *
-* Unlocks the blocks in the specified range of the Intel flash device.
+* @brief Unlocks the blocks in the specified range of the Intel flash device.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin block UnLocking. The first three bytes of every block
-*		is reserved for special purpose. The offset should be at least
-*		three bytes from start of the block.
-* @param	Bytes indicates the number of bytes to UnLock in the Block
-*		starting from Offset.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset into the device address space from which to
+*                begin block UnLocking. The first three bytes of every block
+*                are reserved for a special purpose. The offset should be at
+*                least three bytes from the start of the block.
+* @param[in]     Bytes Number of bytes to unlock in the block starting from
+*                Offset.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ADDRESS_ERROR if the destination address range is
-*		  not completely within the addressable areas of the device(s).
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ADDRESS_ERROR if the destination address range is
+*                  not completely within the addressable areas of the devices.
 *
 ******************************************************************************/
 int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
@@ -849,21 +849,21 @@ int XFlashIntel_Unlock(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 /*****************************************************************************/
 /**
 *
-* Clears the Intel flash device status register(s) and place the device(s) into
+* @brief Clears the status registers and places the devices into read mode.
+*
+* Clears the Intel flash device status registers and places the devices into
 * read mode.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_BUSY if the flash devices were in the middle of an
-*		  operation and could not be reset.
-*		- XFLASH_ERROR if the device(s) have experienced an internal
-*		  error during the operation. XFlash_DeviceControl() must be
-*		  used to access the cause of the device specific error
-*		  condition.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_BUSY if the flash devices were in the middle of an
+*                  operation and could not be reset.
+*                - XFLASH_ERROR if the devices have experienced an internal
+*                  error during the operation. XFlash_DeviceControl() must be
+*                  used to access the cause of the device specific error
+*                  condition.
 *
 ******************************************************************************/
 int XFlashIntel_Reset(XFlash *InstancePtr)
@@ -887,20 +887,25 @@ int XFlashIntel_Reset(XFlash *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Clears the Intel flash bank status register and place the bank into read mode.
+* @brief Clears the bank status register and places the bank into read mode.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the bank address.
+* Clears the Intel flash bank status register and places the bank into read
+* mode.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Bank address.
+* @param[in]     Bytes Number of bytes starting from Offset whose banks are
+*                reset.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_BUSY if the flash bank were in the middle of an
-*		  operation and could not be reset.
-*		- XFLASH_ERROR if the bank have experienced an internal error
-*		  during the operation. XFlash_DeviceControl() must be used to
-*		  access the cause of the device specific error condition.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_BUSY if the flash bank was in the middle of an
+*                  operation and could not be reset.
+*                - XFLASH_ERROR if the bank has experienced an internal error
+*                  during the operation. XFlash_DeviceControl() must be used
+*                  to access the cause of the device specific error condition.
+*                - XFLASH_ADDRESS_ERROR if Offset is not within the addressable
+*                  areas of the devices.
 *
 ******************************************************************************/
 static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
@@ -997,19 +1002,17 @@ static int XFlashIntel_ResetBank(XFlash *InstancePtr, u32 Offset, u32 Bytes)
 /*****************************************************************************/
 /**
 *
-* Performs the Intel device specific control functions.
+* @brief Performs the Intel device specific control functions.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Command is the device specific command to issue.
-* @param	Parameters specifies the arguments passed to the device control
-*		function.
+* @param[in]     InstancePtr Pointer to the XFlash instance.
+* @param[in]     Command Device specific command to issue.
+* @param[in,out] Parameters Specifies the arguments passed to the device control
+*                function.
 *
 * @return
-*		- XST_SUCCESS if successful
-*		- XFLASH_NOT_SUPPORTED if the command is not
-*		  recognized/supported by the device(s).
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_NOT_SUPPORTED if the command is not
+*                  recognized/supported by the devices.
 *
 ******************************************************************************/
 int XFlashIntel_DeviceControl(XFlash *InstancePtr, u32 Command,
@@ -1073,20 +1076,22 @@ int XFlashIntel_DeviceControl(XFlash *InstancePtr, u32 Command,
 /*****************************************************************************/
 /**
 *
-* Retrieves and interprets status register data from part arrays that occupy a
-* 8-bit bus.
+* @brief Retrieves status register data from part arrays on an 8-bit bus.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* Retrieves and interprets status register data from part arrays that occupy
+* an 8-bit bus.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
 * @return
-*		- XFLASH_READY if the flash device is ready.
-*		- XFLASH_BUSY if the flash device is Busy.
-*		- XFLASH_ERROR if some error has occurred during flash
-*		  operation.
+*                - XFLASH_READY if the flash device is ready.
+*                - XFLASH_BUSY if the flash device is Busy.
+*                - XFLASH_ERROR if some error has occurred during flash
+*                  operation.
 *
-* @note		No attempt is made to determine the exact cause of an error.
-*		Instead that determination is left up to the user.
+* @note          No attempt is made to determine the exact cause of an error.
+*                Instead, the caller makes that determination.
 *
 ******************************************************************************/
 static int GetStatus8(XFlash *InstancePtr, u32 Offset)
@@ -1126,20 +1131,22 @@ static int GetStatus8(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Retrieves and interprets status register data from part arrays that occupy a
-* 16-bit bus.
+* @brief Retrieves status register data from part arrays on a 16-bit bus.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* Retrieves and interprets status register data from part arrays that occupy
+* a 16-bit bus.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
 * @return
-*		- XFLASH_READY if the flash device is ready.
-*		- XFLASH_BUSY if the flash device is Busy.
-*		- XFLASH_ERROR if some error has occurred during flash
-*		  operation.
+*                - XFLASH_READY if the flash device is ready.
+*                - XFLASH_BUSY if the flash device is Busy.
+*                - XFLASH_ERROR if some error has occurred during flash
+*                  operation.
 *
-* @note		No attempt is made to determine the exact cause of an error.
-*		Instead that determination is left up to the user.
+* @note          No attempt is made to determine the exact cause of an error.
+*                Instead, the caller makes that determination.
 *
 ******************************************************************************/
 static int GetStatus16(XFlash *InstancePtr, u32 Offset)
@@ -1179,20 +1186,22 @@ static int GetStatus16(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Retrieves and interprets status register data from part arrays that occupy a
-* 32-bit bus.
+* @brief Retrieves status register data from part arrays on a 32-bit bus.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* Retrieves and interprets status register data from part arrays that occupy
+* a 32-bit bus.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
 * @return
-*		- XFLASH_READY if the flash device is ready.
-*		- XFLASH_BUSY if the flash device is Busy.
-*		- XFLASH_ERROR if some error has occurred during flash
-*		  operation.
+*                - XFLASH_READY if the flash device is ready.
+*                - XFLASH_BUSY if the flash device is Busy.
+*                - XFLASH_ERROR if some error has occurred during flash
+*                  operation.
 *
-* @note		No attempt is made to determine the exact cause of an error.
-*		Instead that determination is left up to the user.
+* @note          No attempt is made to determine the exact cause of an error.
+*                Instead, the caller makes that determination.
 *
 ******************************************************************************/
 static int GetStatus32(XFlash *InstancePtr, u32 Offset)
@@ -1232,20 +1241,22 @@ static int GetStatus32(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Retrieves and interprets status register data from part arrays that occupy a
-* 64-bit bus.
+* @brief Retrieves status register data from part arrays on a 64-bit bus.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* Retrieves and interprets status register data from part arrays that occupy
+* a 64-bit bus.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
 * @return
-*		- XFLASH_READY if the flash device is ready.
-*		- XFLASH_BUSY if the flash device is Busy.
-*		- XFLASH_ERROR if some error has occurred during flash
-*		  operation.
+*                - XFLASH_READY if the flash device is ready.
+*                - XFLASH_BUSY if the flash device is Busy.
+*                - XFLASH_ERROR if some error has occurred during flash
+*                  operation.
 *
-* @note		No attempt is made to determine the exact cause of an error.
-*		Instead that determination is left up to the user.
+* @note          No attempt is made to determine the exact cause of an error.
+*                Instead, the caller makes that determination.
 *
 ******************************************************************************/
 static int GetStatus64(XFlash *InstancePtr, u32 Offset)
@@ -1291,19 +1302,22 @@ static int GetStatus64(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Polls the status register until the WSM is ready. The device(s) are polled
-* by repeatedly reading the status register.
+* @brief Polls the status register until the WSM is ready.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* The devices are polled by repeatedly reading the status register.
 *
-* @return	- XFLASH_READY if WSM is ready.
-*		- XFLASH_ERROR if WSM is ready, but an error condition
-*		  exists.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
-* @note		For Intel parts, the status register can be accessed from any
-*	 	addressable location in the bank, in command mode. So we pick
-*		the address where operation was performed.
+* @return
+*                - XFLASH_READY if WSM is ready.
+*                - XFLASH_ERROR if WSM is ready, but an error condition
+*                  exists.
+*
+* @note          For Intel parts, the status register can be accessed from any
+*                addressable location in the bank, in command mode.
+*                Therefore, this function uses the address where the
+*                operation was performed.
 *
 ******************************************************************************/
 static int PollSR8(XFlash *InstancePtr, u32 Offset)
@@ -1336,19 +1350,22 @@ static int PollSR8(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Polls the status register until the WSM is ready. The device(s) are polled
-* by repeatedly reading the status register.
+* @brief Polls the status register until the WSM is ready.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* The devices are polled by repeatedly reading the status register.
 *
-* @return	- XFLASH_READY if WSM is ready.
-*		- XFLASH_ERROR if WSM is ready, but an error condition
-*		  exists.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
-* @note		For Intel parts, the status register can be accessed from any
-*	 	addressable location in the bank, in command mode. So we pick
-*		the address where operation was performed.
+* @return
+*                - XFLASH_READY if WSM is ready.
+*                - XFLASH_ERROR if WSM is ready, but an error condition
+*                  exists.
+*
+* @note          For Intel parts, the status register can be accessed from any
+*                addressable location in the bank, in command mode.
+*                Therefore, this function uses the address where the
+*                operation was performed.
 *
 ******************************************************************************/
 static int PollSR16(XFlash *InstancePtr, u32 Offset)
@@ -1381,19 +1398,22 @@ static int PollSR16(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Polls the status register until the WSM is ready. The
-* device(s) are polled by repeatedly reading the status register.
+* @brief Polls the status register until the WSM is ready.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* The devices are polled by repeatedly reading the status register.
 *
-* @return	- XFLASH_READY if WSM is ready.
-*		- XFLASH_ERROR if WSM is ready, but an error condition
-*		  exists.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
-* @note		For Intel parts, the status register can be accessed from any
-*	 	addressable location in the bank, in command mode. So we pick
-*		the address where operation was performed.
+* @return
+*                - XFLASH_READY if WSM is ready.
+*                - XFLASH_ERROR if WSM is ready, but an error condition
+*                  exists.
+*
+* @note          For Intel parts, the status register can be accessed from any
+*                addressable location in the bank, in command mode.
+*                Therefore, this function uses the address where the
+*                operation was performed.
 *
 ******************************************************************************/
 static int PollSR32(XFlash *InstancePtr, u32 Offset)
@@ -1426,19 +1446,22 @@ static int PollSR32(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Polls the status register until the WSM is ready. The device(s) are polled
-* by repeatedly reading the status register.
+* @brief Polls the status register until the WSM is ready.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset address in the flash device.
+* The devices are polled by repeatedly reading the status register.
 *
-* @return	- XFLASH_READY if WSM is ready.
-*		- XFLASH_ERROR if WSM is ready, but an error condition
-*		  exists.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     Offset Offset address in the flash device.
 *
-* @note		For Intel parts, the status register can be accessed from any
-*	 	addressable location in the bank, in command mode. So we pick
-*		the address where operation was performed.
+* @return
+*                - XFLASH_READY if WSM is ready.
+*                - XFLASH_ERROR if WSM is ready, but an error condition
+*                  exists.
+*
+* @note          For Intel parts, the status register can be accessed from any
+*                addressable location in the bank, in command mode.
+*                Therefore, this function uses the address where the
+*                operation was performed.
 *
 ******************************************************************************/
 static int PollSR64(XFlash *InstancePtr, u32 Offset)
@@ -1476,15 +1499,11 @@ static int PollSR64(XFlash *InstancePtr, u32 Offset)
 /*****************************************************************************/
 /**
 *
-* Writes a command using a 8-bit bus cycle.
+* @brief Writes a command using an 8-bit bus cycle.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd is the command/data to write at BaseAddress + Offset
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd Command/data to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmd8(u32 BaseAddress, u32 Offset, u32 Cmd)
@@ -1495,15 +1514,11 @@ static void SendCmd8(u32 BaseAddress, u32 Offset, u32 Cmd)
 /*****************************************************************************/
 /**
 *
-* Writes a command using a 16-bit bus cycle.
+* @brief Writes a command using a 16-bit bus cycle.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd is the command/data to write at BaseAddress + Offset
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd Command/data to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmd16(u32 BaseAddress, u32 Offset, u32 Cmd)
@@ -1514,15 +1529,11 @@ static void SendCmd16(u32 BaseAddress, u32 Offset, u32 Cmd)
 /*****************************************************************************/
 /**
 *
-* Writes a command using a 32-bit bus cycle.
+* @brief Writes a command using a 32-bit bus cycle.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd is the command/data to write at BaseAddress + Offset
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd Command/data to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmd32(u32 BaseAddress, u32 Offset, u32 Cmd)
@@ -1533,16 +1544,14 @@ static void SendCmd32(u32 BaseAddress, u32 Offset, u32 Cmd)
 /*****************************************************************************/
 /**
 *
-* Writes a command using a 64-bit bus cycle. Depending on the architecture,
-* this may be a single write or two 32 bit writes.
+* @brief Writes a command using a 64-bit bus cycle.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd is the command/data to write at BaseAddress + Offset
+* Depending on the architecture, this may be a single write or two 32 bit
+* writes.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd Command/data to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmd64(u32 BaseAddress, u32 Offset, u32 Cmd)
@@ -1553,16 +1562,12 @@ static void SendCmd64(u32 BaseAddress, u32 Offset, u32 Cmd)
 /*****************************************************************************/
 /**
 *
-* Writes a command sequence using 8-bit bus cycles.
+* @brief Writes a command sequence using 8-bit bus cycles.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd1 is the first command to write at BaseAddress + Offset
-* @param	Cmd2 is the second command to write at BaseAddress + Offset
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd1 First command to write at BaseAddress + Offset.
+* @param[in] Cmd2 Second command to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmdSeq8(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
@@ -1574,16 +1579,12 @@ static void SendCmdSeq8(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
 /*****************************************************************************/
 /**
 *
-* Writes a command sequence using 16-bit bus cycles.
+* @brief Writes a command sequence using 16-bit bus cycles.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd1 is the first command to write at BaseAddress + Offset
-* @param	Cmd2 is the second command to write at BaseAddress + Offset
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd1 First command to write at BaseAddress + Offset.
+* @param[in] Cmd2 Second command to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmdSeq16(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
@@ -1596,16 +1597,12 @@ static void SendCmdSeq16(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
 /*****************************************************************************/
 /**
 *
-* Writes a command sequence using 32-bit bus cycles.
+* @brief Writes a command sequence using 32-bit bus cycles.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd1 is the first command to write at BaseAddress + Offset
-* @param	Cmd2 is the second command to write at BaseAddress + Offset
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd1 First command to write at BaseAddress + Offset.
+* @param[in] Cmd2 Second command to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmdSeq32(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
@@ -1617,17 +1614,15 @@ static void SendCmdSeq32(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
 /*****************************************************************************/
 /**
 *
-* Writes a command sequence using 64-bit bus cycles. Depending on the
-* architecture, this may be a single write or two 32 bit writes.
+* @brief Writes a command sequence using 64-bit bus cycles.
 *
-* @param	BaseAddress is the base address of device
-* @param	Offset is the offset into device
-* @param	Cmd1 is the first command to write at BaseAddress + Offset
-* @param	Cmd2 is the second command to write at BaseAddress + Offset
+* Depending on the architecture, this may be a single write or two 32 bit
+* writes.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in] BaseAddress Base address of device.
+* @param[in] Offset Offset into device.
+* @param[in] Cmd1 First command to write at BaseAddress + Offset.
+* @param[in] Cmd2 Second command to write at BaseAddress + Offset.
 *
 ******************************************************************************/
 static void SendCmdSeq64(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
@@ -1639,38 +1634,37 @@ static void SendCmdSeq64(u32 BaseAddress, u32 Offset, u32 Cmd1, u32 Cmd2)
 /*****************************************************************************/
 /**
 *
-* Program the device(s) using the faster write to buffer mechanism. The
-* device(s) are programmed in parallel.
+* @brief Programs the devices using the faster write to buffer mechanism.
 *
-* @param	InstancePtr is the instance to work on
-* @param	DestPtr is the physical destination address in flash memory
-*		space
-* @param	SrcPtr is the source data
-* @param	Bytes is the number of bytes to program
+* The devices are programmed in parallel.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[out]    DestPtr Physical destination address in flash memory space.
+* @param[in]     SrcPtr Source data.
+* @param[in]     Bytes Number of bytes to program.
 *
 * @return
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ERROR if a write error occurred. This error is
+*                  usually device specific. Use XFlash_DeviceControl() to
+*                  retrieve specific error conditions. When this error is
+*                  returned, it is possible that the target address range was
+*                  only partially programmed.
 *
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ERROR if a write error occurred. This error is
-*		  usually device specific. Use XFlash_DeviceControl() to
-*		  retrieve specific error conditions. When this error is
-*		  returned, it is possible that the target address range was
-*		  only partially programmed.
-*
-* @note
-*
-* This algorithm programs only full buffers at a time and must take care
-* of the following situations:
-*	- Partial first buffer programming with pre and/or post padding
-*	  required.
-*	- Multiple full buffer programming.
-*	- Partial last buffer programming with post padding.
-* <br><br>
-* When padding, 0xFF is written to each byte to be padded. This in effect does
-* nothing to the current contents of the flash memory and saves us from having
-* to merge real flash data with user data on partial buffer writes.
-* <br><br>
-* If hardware is failing, then this routine could get stuck in an endless loop.
+* @note          This algorithm programs only full buffers at a time and must
+*                take care of the following situations:
+*                - Partial first buffer programming with pre and/or post
+*                  padding required.
+*                - Multiple full buffer programming.
+*                - Partial last buffer programming with post padding.
+*                  <br><br>
+*                  When padding, 0xFF is written to each byte to be padded.
+*                  This in effect does nothing to the current contents of the
+*                  flash memory. It also avoids having to merge real flash data
+*                  with user data on partial buffer writes.
+*                  <br><br>
+*                  If hardware is failing, then this routine could get stuck in
+*                  an endless loop.
 *
 ******************************************************************************/
 static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
@@ -1881,39 +1875,39 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 /*****************************************************************************/
 /**
 *
-* Program the device(s) using the faster write to buffer mechanism. The
-* device(s) are programmed in parallel.
+* @brief Programs the devices using the faster write to buffer mechanism.
 *
-* @param	InstancePtr is the instance to work on
-* @param	DestPtr is the physical destination address in flash memory
-*		space
-* @param	SrcPtr is the source data
-* @param	Bytes is the number of bytes to program
+* The devices are programmed in parallel.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[out]    DestPtr Physical destination address in flash memory space.
+* @param[in]     SrcPtr Source data.
+* @param[in]     Bytes Number of bytes to program.
 *
 * @return
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ERROR if a write error occurred. This error is
+*                  usually device specific. Use XFlash_DeviceControl() to
+*                  retrieve specific error conditions. When this error is
+*                  returned, it is possible that the target address range was
+*                  only partially programmed.
+*                - XFLASH_ALIGNMENT_ERROR if the source and destination
+*                  pointers are not aligned to a 16-bit word.
 *
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ERROR if a write error occurred. This error is
-*		  usually device specific. Use XFlash_DeviceControl() to
-*		  retrieve specific error conditions. When this error is
-*		  returned, it is possible that the target address range was
-*		  only partially programmed.
-*		- XFLASH_ALIGNMENT_ERROR if the source and destination pointers
-*		  are not aligned to a 16-bit word.
-* @note
-*
-* This algorithm programs only full buffers at a time and must take care
-* of the following situations:
-*	- Partial first buffer programming with pre and/or post padding
-*	  required.
-*	- Multiple full buffer programming.
-*	- Partial last buffer programming with post padding.
-* <br><br>
-* When padding, 0xFF is written to each byte to be padded. This in effect does
-* nothing to the current contents of the flash memory and saves us from having
-* to merge real flash data with user data on partial buffer writes.
-* <br><br>
-* If hardware is failing, then this routine could get stuck in an endless loop.
+* @note          This algorithm programs only full buffers at a time and must
+*                take care of the following situations:
+*                - Partial first buffer programming with pre and/or post
+*                  padding required.
+*                - Multiple full buffer programming.
+*                - Partial last buffer programming with post padding.
+*                  <br><br>
+*                  When padding, 0xFF is written to each byte to be padded.
+*                  This in effect does nothing to the current contents of the
+*                  flash memory. It also avoids having to merge real flash data
+*                  with user data on partial buffer writes.
+*                  <br><br>
+*                  If hardware is failing, then this routine could get stuck in
+*                  an endless loop.
 *
 ******************************************************************************/
 static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
@@ -2132,39 +2126,39 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 /*****************************************************************************/
 /**
 *
-* Program the device(s) using the faster write to buffer mechanism. The
-* device(s) are programmed in parallel.
+* @brief Programs the devices using the faster write to buffer mechanism.
 *
-* @param	InstancePtr is the instance to work on
-* @param	DestPtr is the physical destination address in flash memory
-*		space
-* @param	SrcPtr is the source data
-* @param	Bytes is the number of bytes to program
+* The devices are programmed in parallel.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[out]    DestPtr Physical destination address in flash memory space.
+* @param[in]     SrcPtr Source data.
+* @param[in]     Bytes Number of bytes to program.
 *
 * @return
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ERROR if a write error occurred. This error is
+*                  usually device specific. Use XFlash_DeviceControl() to
+*                  retrieve specific error conditions. When this error is
+*                  returned, it is possible that the target address range was
+*                  only partially programmed.
+*                - XFLASH_ALIGNMENT_ERROR if the source and destination
+*                  pointers are not aligned to a 16-bit word.
 *
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ERROR if a write error occurred. This error is
-*		  usually device specific. Use XFlash_DeviceControl() to
-*		  retrieve specific error conditions. When this error is
-*		  returned, it is possible that the target address range was
-*		  only partially programmed.
-*		- XFLASH_ALIGNMENT_ERROR if the source and destination pointers
-*		  are not aligned to a 16-bit word.
-* @note
-*
-* This algorithm programs only full buffers at a time and must take care
-* of the following situations:
-*	- Partial first buffer programming with pre and/or post padding
-*	  required.
-*	- Multiple full buffer programming.
-*	- Partial last buffer programming with post padding.
-* <br><br>
-* When padding, 0xFF is written to each byte to be padded. This in effect does
-* nothing to the current contents of the flash memory and saves us from having
-* to merge real flash data with user data on partial buffer writes.
-* <br><br>
-* If hardware is failing, then this routine could get stuck in an endless loop.
+* @note          This algorithm programs only full buffers at a time and must
+*                take care of the following situations:
+*                - Partial first buffer programming with pre and/or post
+*                  padding required.
+*                - Multiple full buffer programming.
+*                - Partial last buffer programming with post padding.
+*                  <br><br>
+*                  When padding, 0xFF is written to each byte to be padded.
+*                  This in effect does nothing to the current contents of the
+*                  flash memory. It also avoids having to merge real flash data
+*                  with user data on partial buffer writes.
+*                  <br><br>
+*                  If hardware is failing, then this routine could get stuck in
+*                  an endless loop.
 *
 ******************************************************************************/
 static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
@@ -2403,26 +2397,24 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 /*****************************************************************************/
 /**
 *
-* Program the device(s) using the faster write to buffer mechanism. The
-* device(s) are programmed in parallel.
+* @brief Programs the devices using the faster write to buffer mechanism.
 *
-* @param	InstancePtr is the instance to work on
-* @param	DestPtr is the physical destination address in flash memory
-*		space
-* @param	SrcPtr is the source data
-* @param	Bytes is the number of bytes to program
+* The devices are programmed in parallel.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[out]    DestPtr Physical destination address in flash memory space.
+* @param[in]     SrcPtr Source data.
+* @param[in]     Bytes Number of bytes to program.
 *
 * @return
-*
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ERROR if a write error occurred. This error is
-*		  usually device specific. Use XFlash_DeviceControl() to
-*		  retrieve specific error conditions. When this error is
-*		  returned, it is possible that the target address range was
-*		  only partially programmed.
-*		- XFLASH_ALIGNMENT_ERROR if the source and destination pointers
-*		  are not aligned to a 16-bit word.
-* @note
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ERROR if a write error occurred. This error is
+*                  usually device specific. Use XFlash_DeviceControl() to
+*                  retrieve specific error conditions. When this error is
+*                  returned, it is possible that the target address range was
+*                  only partially programmed.
+*                - XFLASH_ALIGNMENT_ERROR if the source and destination
+*                  pointers are not aligned to a 16-bit word.
 *
 ******************************************************************************/
 static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
@@ -2442,39 +2434,39 @@ static int WriteBuffer16(XFlash *InstancePtr, void *DestPtr,
 /*****************************************************************************/
 /**
 *
-* Programs the device(s) using the faster write to buffer mechanism. The
-* device(s) are programmed in parallel.
+* @brief Programs the devices using the faster write to buffer mechanism.
 *
-* @param	InstancePtr is the instance to work on
-* @param	DestPtr is the physical destination address in flash memory
-*		space
-* @param	SrcPtr is the source data
-* @param	Bytes is the number of bytes to program
+* The devices are programmed in parallel.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[out]    DestPtr Physical destination address in flash memory space.
+* @param[in]     SrcPtr Source data.
+* @param[in]     Bytes Number of bytes to program.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ERROR if a write error occurred. This error is
-*		  usually device specific. Use XFlash_DeviceControl() to
-*		  retrieve specific error conditions. When this error is
-*		  returned, it is possible that the target address range was
-*		  only partially programmed.
-*		- XFLASH_ALIGNMENT_ERROR if the source and destination pointers
-*		  are not aligned to a 16-bit word.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ERROR if a write error occurred. This error is
+*                  usually device specific. Use XFlash_DeviceControl() to
+*                  retrieve specific error conditions. When this error is
+*                  returned, it is possible that the target address range was
+*                  only partially programmed.
+*                - XFLASH_ALIGNMENT_ERROR if the source and destination
+*                  pointers are not aligned to a 16-bit word.
 *
-* @note
-*
-* This algorithm programs only full buffers at a time and must take care
-* of the following situations:
-*	- Partial first buffer programming with pre and/or post padding
-*	  required.
-*	- Multiple full buffer programming.
-*	- Partial last buffer programming with post padding.
-* <br><br>
-* When padding, 0xFF is written to each byte to be padded. This in effect does
-* nothing to the current contents of the flash memory and saves us from having
-* to merge real flash data with user data on partial buffer writes.
-* <br><br>
-* If hardware is failing, then this routine could get stuck in an endless loop.
+* @note          This algorithm programs only full buffers at a time and must
+*                take care of the following situations:
+*                - Partial first buffer programming with pre and/or post
+*                  padding required.
+*                - Multiple full buffer programming.
+*                - Partial last buffer programming with post padding.
+*                  <br><br>
+*                  When padding, 0xFF is written to each byte to be padded.
+*                  This in effect does nothing to the current contents of the
+*                  flash memory. It also avoids having to merge real flash data
+*                  with user data on partial buffer writes.
+*                  <br><br>
+*                  If hardware is failing, then this routine could get stuck in
+*                  an endless loop.
 *
 ******************************************************************************/
 static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
@@ -2746,40 +2738,39 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 /*****************************************************************************/
 /**
 *
-* Programs the device(s) using the faster write to buffer mechanism. The
-* device(s) are programmed in parallel.
+* @brief Programs the devices using the faster write to buffer mechanism.
 *
-* @param	InstancePtr is the instance to work on.
-* @param	DestPtr is the physical destination address in flash memory
-*		space.
-* @param	SrcPtr is the source data.
-* @param	Bytes is the number of bytes to program.
+* The devices are programmed in parallel.
+*
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[out]    DestPtr Physical destination address in flash memory space.
+* @param[in]     SrcPtr Source data.
+* @param[in]     Bytes Number of bytes to program.
 *
 * @return
+*                - XST_SUCCESS if successful.
+*                - XFLASH_ERROR if a write error occurred. This error is
+*                  usually device specific. Use XFlash_DeviceControl() to
+*                  retrieve specific error conditions. When this error is
+*                  returned, it is possible that the target address range was
+*                  only partially programmed.
+*                - XFLASH_ALIGNMENT_ERROR if the source and destination
+*                  pointers are not aligned to a 16-bit word.
 *
-*		- XST_SUCCESS if successful.
-*		- XFLASH_ERROR if a write error occurred. This error is
-*		  usually device specific. Use XFlash_DeviceControl() to
-*		  retrieve specific error conditions. When this error is
-*		  returned, it is possible that the target address range was
-*		  only partially programmed.
-*		- XFLASH_ALIGNMENT_ERROR if the source and destination pointers
-*		  are not aligned to a 16-bit word.
-*
-* @note
-*
-* This algorithm programs only full buffers at a time and must take care
-* of the following situations:
-*	- Partial first buffer programming with pre and/or post padding
-*	  required.
-*	- Multiple full buffer programming.
-*	- Partial last buffer programming with post padding.
-* <br><br>
-* When padding, 0xFF is written to each byte to be padded. This in effect does
-* nothing to the current contents of the flash memory and saves us from having
-* to merge real flash data with user data on partial buffer writes.
-* <br><br>
-* If hardware is failing, then this routine could get stuck in an endless loop.
+* @note          This algorithm programs only full buffers at a time and must
+*                take care of the following situations:
+*                - Partial first buffer programming with pre and/or post
+*                  padding required.
+*                - Multiple full buffer programming.
+*                - Partial last buffer programming with post padding.
+*                  <br><br>
+*                  When padding, 0xFF is written to each byte to be padded.
+*                  This in effect does nothing to the current contents of the
+*                  flash memory. It also avoids having to merge real flash data
+*                  with user data on partial buffer writes.
+*                  <br><br>
+*                  If hardware is failing, then this routine could get stuck in
+*                  an endless loop.
 *
 ******************************************************************************/
 static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
@@ -3067,13 +3058,9 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 /*****************************************************************************/
 /**
 *
-* Reads and interprets part identification data.
+* @brief Reads and interprets part identification data.
 *
-* @param	InstancePtr is the instance to work on.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
 *
 ******************************************************************************/
 static void GetPartID(XFlash *InstancePtr)
@@ -3120,19 +3107,14 @@ static void GetPartID(XFlash *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Sets the RYBY control signal.
+* @brief Sets the RYBY control signal.
 *
-* @param	InstancePtr is the instance to work on.
-* @param	Mode is the mode to set the RYBY signal to.
+* @param[in] InstancePtr Pointer to the XFlash instance.
+* @param[in] Mode Mode to set the RYBY signal to.
 *
 * @return
-*
-* 		- XST_SUCCESS if the mode was successfully
-*		  changed.
-* 		- XFLASH_NOT_SUPPORTED if the mode given is
-*		  unknown/unsupported.
-*
-* @note		None.
+*            - XST_SUCCESS if the mode was successfully changed.
+*            - XFLASH_NOT_SUPPORTED if the mode given is unknown/unsupported.
 *
 ******************************************************************************/
 static int SetRYBY(XFlash *InstancePtr, u32 Mode)
@@ -3177,18 +3159,18 @@ static int SetRYBY(XFlash *InstancePtr, u32 Mode)
 /*****************************************************************************/
 /**
 *
-* Sends commands to erase blocks.
+* @brief Sends commands to erase blocks.
 *
-* @param	InstancePtr is the pointer to xflash object to work on.
-* @param	Region is the region which the first block appears.
-* @param	Block is the starting block to erase.
-* @param	MaxBlocks is the number of consecutive blocks to erase.
+* @param[in]     InstancePtr Pointer to the XFlash instance.
+* @param[in,out] Region Region in which the first block appears.
+* @param[in,out] Block Starting block to erase.
+* @param[in]     MaxBlocks Number of consecutive blocks to erase.
 *
-* @return	The number of blocks enqueued to the part's erase buffer.
-*		Region and Block parameters are incremented the number of blocks
-*		queued.
+* @return        The number of blocks enqueued to the part's erase buffer.
+*                Region and Block parameters are incremented by the number of
+*                blocks queued.
 *
-* @note		Limitation: Only support enqueuing one block at a time.
+* @note          Limitation: Supports enqueuing only one block at a time.
 *
 ******************************************************************************/
 static u16 EnqueueEraseBlocks(XFlash *InstancePtr, u16 *Region,

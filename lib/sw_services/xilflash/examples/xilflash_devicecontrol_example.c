@@ -7,13 +7,11 @@
 /*****************************************************************************/
 /**
 * @file xilflash_devicecontrol_example.c
+* @brief Displays the Flash device geometry and properties.
 *
 * This file contains a design example using the Generic Flash Library.
 * This example displays the Flash device geometry and properties. The geometry
 * and properties are fetched using Device Control API.
-*
-*
-* @note		None.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -27,6 +25,7 @@
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
 * 4.14 vn   08/26/26 Fix Doxygen warnings.
+* 4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 *</pre>
 ******************************************************************************/
 
@@ -39,20 +38,23 @@
 /************************** Constant Definitions *****************************/
 
 /*
- * The following constants define the baseaddress and width the flash memory.
- * These constants map to the XPAR parameters created in the xparameters.h file.
- * They are defined here such that a user can easily change all the needed
- * parameters in one place.
+ * The following constants define the base address and width of the flash
+ * memory. These constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here so that you can easily change all
+ * the needed parameters in one place.
  */
 #ifndef SDT
+/** Flash memory base address. */
 #define FLASH_BASE_ADDRESS	XPAR_EMC_0_S_AXI_MEM0_BASEADDR
 #else
+/** Flash memory base address. */
 #define FLASH_BASE_ADDRESS	XPAR_XEMC_0_BASEADDR
 #endif
-/*
- * The following constant defines the total byte width of the flash memory. The
- * user needs to update this width based on the flash width in the design/board.
+/**
+ * The following constant defines the total byte width of the flash memory.
+ * Update this width based on the flash width in the design/board.
  * The total flash width on some of the Xilinx boards is listed below.
+ * <pre>
  * -------------------------------
  * Board		Width
  * -------------------------------
@@ -65,6 +67,7 @@
  * ML605		2 (16 bit)
  * SP605		2 (16 bit)
  * SP601		1 (8 bit)
+ * </pre>
  */
 #define FLASH_MEM_WIDTH		2
 
@@ -78,18 +81,18 @@ int FlashDeviceControlExample(void);
 
 /************************** Variable Definitions *****************************/
 
-XFlash FlashInstance; /* XFlash Instance. */
+XFlash FlashInstance; /**< XFlash Instance. */
 
 /************************** Function Definitions ******************************/
 
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Flash device control example.
+* @brief Runs the Flash device control example.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*            - XST_SUCCESS if successful.
+*            - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -109,12 +112,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function fetches and displays the geometry and properties of the Flash *
-* device.
+* @brief Fetches and displays the geometry and properties of the Flash device.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*            - XST_SUCCESS if successful.
+*            - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int FlashDeviceControlExample(void)

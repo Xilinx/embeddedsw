@@ -8,18 +8,20 @@
 /**
 *
 * @file xilflash_cfi.c
+* @brief Implements the retrieval and translation of CFI data.
 *
 * The file implements the functions for retrieval and translation of CFI data
 * from a compliant flash device. CFI contains data that defines part geometry,
 * write/erase timing, and programming data.
 *
-* Data is retrieved using macros defined in this xflash_cfi.h file. The
+* Data is retrieved using macros defined in the xilflash_cfi.h file. The
 * macros simplify data extraction because they have been written to take into
 * account the layout of parts on the data bus. To the library, CFI data appears
-* as if it were always being read from a single 8-bit part (XFL_LAYOUT_X8_X8_X1)
-* Otherwise, the retrieval code would have to contend with all the formats
-* illustrated below. The illustration shows how the first three bytes of the CFI
-* query data "QRY" appear in flash memory space for various part layouts.
+* as if it were always being read from a single 8-bit part
+* (XFL_LAYOUT_X8_X8_X1). Otherwise, the retrieval code would have to contend
+* with all the formats illustrated below. The illustration shows how the first
+* three bytes of the CFI query data "QRY" appear in flash memory space for
+* various part layouts.
 * <pre>
 *
 *			Byte Offset (Big-Endian)
@@ -29,14 +31,13 @@
 *			XFL_LAYOUT_X16_X16_X2	Q Q R R Y Y
 * </pre>
 *
-* Where the holes between Q, R, and Y are NULL (all bits 0)
+* Where the holes between Q, R, and Y are NULL (all bits 0).
 *
 * @note
-*
 * This code is intended to be RTOS and processor independent.
-* It works with physical addresses only. Any needs for dynamic memory
-* management, threads, mutual exclusion, virtual memory, or cache control
-* management must be satisfied by the layer above this library.
+* It works with physical addresses only. The layer above this library
+* must satisfy any needs for dynamic memory management, threads,
+* mutual exclusion, virtual memory, or cache control management.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -62,8 +63,8 @@
 * 4.5	tjs  08/13/18 Fixed compilation errors for ARMCC (CR#1008306)
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
+* 4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
-*
 *
 ****************************************************************************/
 
@@ -92,22 +93,22 @@
 /*****************************************************************************/
 /**
 *
-* Retrieves the standard CFI data from the part(s), interpret the data, and
-* update the provided geometry and properties structures.
+* @brief Retrieves and interprets the standard CFI data from the parts.
+*
+* Retrieves the standard CFI data from the parts, interprets the data, and
+* updates the provided geometry and properties structures.
 *
 * Extended CFI data is part specific and ignored here. This data must be read
 * by the specific flash device family library.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	BusWidth is the total width of the flash memory, in bytes.
+* @param[in,out] InstancePtr Pointer to the XFlash instance.
+* @param[in]     BusWidth Total width of the flash memory, in bytes.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XFLASH_CFI_QUERY_ERROR if an error occurred interpreting
-*		  the data.
-*		- XFLASH_PART_NOT_SUPPORTED if invalid Layout parameter.
-*
-* @note		None.
+*                - XST_SUCCESS if successful.
+*                - XFLASH_CFI_QUERY_ERROR if an error occurred interpreting the
+*                  data.
+*                - XFLASH_PART_NOT_SUPPORTED if invalid Layout parameter.
 *
 ******************************************************************************/
 int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
@@ -760,13 +761,13 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 /*****************************************************************************/
 /**
 *
-* Reads 8-bits of data from the CFI data location into a local variable.
+* @brief Reads 8-bits of data from the CFI data location into a local variable.
 *
-* @param	Ptr is the pointer to read. Can be a pointer to any type.
-* @param	Interleave is the byte interleaving (based on part layout).
-* @param	Mode is the mode of operation (based on part layout).
+* @param[in] Ptr Pointer to read. Can be a pointer to any type.
+* @param[in] Interleave Byte interleaving (based on part layout).
+* @param[in] Mode Mode of operation (based on part layout).
 *
-* @return	The byte at Ptr adjusted for the interleave factor.
+* @return    The byte at Ptr adjusted for the interleave factor.
 *
 *****************************************************************************/
 int XFlashCFI_Read8(u8 *Ptr, u8 Interleave, u8 Mode)
@@ -779,13 +780,13 @@ int XFlashCFI_Read8(u8 *Ptr, u8 Interleave, u8 Mode)
 /*****************************************************************************/
 /**
 *
-* Reads 16-bits of data from the CFI data location into a local variable.
+* @brief Reads 16-bits of data from the CFI data location into a local variable.
 *
-* @param	Ptr is the pointer to read. Can be a pointer to any type.
-* @param	Interleave is the byte interleaving (based on part layout).
-* @param	Mode is the mode of operation (based on part layout).
+* @param[in] Ptr Pointer to read. Can be a pointer to any type.
+* @param[in] Interleave Byte interleaving (based on part layout).
+* @param[in] Mode Mode of operation (based on part layout).
 *
-* @return	The 16-bit value at Ptr adjusted for the interleave factor.
+* @return    The 16-bit value at Ptr adjusted for the interleave factor.
 *
 *****************************************************************************/
 int XFlashCFI_Read16(u8 *Ptr, u8 Interleave, u8 Mode)
@@ -804,13 +805,13 @@ int XFlashCFI_Read16(u8 *Ptr, u8 Interleave, u8 Mode)
 /*****************************************************************************/
 /**
 *
-* Reads 8-bits of data from the CFI data location into a local variable.
+* @brief Reads 8-bits of data from the CFI data location into a local variable.
 *
-* @param	Ptr is the pointer to read. Can be a pointer to any type.
-* @param	Interleave is the byte interleaving (based on part layout).
-* @param	Mode is the mode of operation (based on part layout).
+* @param[in] Ptr Pointer to read. Can be a pointer to any type.
+* @param[in] Interleave Byte interleaving (based on part layout).
+* @param[in] Mode Mode of operation (based on part layout).
 *
-* @return	The byte at Ptr adjusted for the interleave factor.
+* @return    The byte at Ptr adjusted for the interleave factor.
 *
 *****************************************************************************/
 int XFlashCFI_Read8(u8 *Ptr, u8 Interleave, u8 Mode)
@@ -825,13 +826,13 @@ int XFlashCFI_Read8(u8 *Ptr, u8 Interleave, u8 Mode)
 /*****************************************************************************/
 /**
 *
-* Reads 16-bits of data from the CFI data location into a local variable.
+* @brief Reads 16-bits of data from the CFI data location into a local variable.
 *
-* @param	Ptr is the pointer to read. Can be a pointer to any type.
-* @param	Interleave is the byte interleaving (based on part layout).
-* @param	Mode is the mode of operation (based on part layout).
+* @param[in] Ptr Pointer to read. Can be a pointer to any type.
+* @param[in] Interleave Byte interleaving (based on part layout).
+* @param[in] Mode Mode of operation (based on part layout).
 *
-* @return	The 16-bit value at Ptr adjusted for the interleave factor.
+* @return    The 16-bit value at Ptr adjusted for the interleave factor.
 *
 *****************************************************************************/
 int XFlashCFI_Read16(u8 *Ptr, u8 Interleave, u8 Mode)

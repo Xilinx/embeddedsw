@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xilflash_platform_flash_example.c
-*
+* @brief Tests the Flash Library with the Xilinx Platform Flash XL device.
 *
 * This file contains a design example using the Flash Library with the Xilinx
 * Platform Flash XL device. This example tests Unlock, Erase, Read and Write
@@ -15,8 +15,6 @@
 * data is read back and compared with the data written for correctness.
 * This example also shows usage of XFlash_DeviceControl to set the Platform
 * Flash XL device in the Async/Sync Mode.
-*
-* @note		None
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -30,6 +28,7 @@
 * 4.7	akm  07/23/19 Initialized Status variable to XST_FAILURE.
 * 4.10	akm  07/14/23 Added support for system device-tree flow.
 * 4.14 vn   08/26/26 Fix Doxygen warnings.
+* 4.14  vn   09/30/26 Align Doxygen comments with AMD standards
 *</pre>
 ******************************************************************************/
 
@@ -40,21 +39,24 @@
 /************************** Constant Definitions *****************************/
 
 /*
- * The following constants define the baseaddress and width the flash memory.
- * These constants map to the XPAR parameters created in the xparameters.h file.
- * They are defined here such that a user can easily change all the needed
- * parameters in one place.
+ * The following constants define the base address and width of the flash
+ * memory. These constants map to the XPAR parameters created in the
+ * xparameters.h file. They are defined here so that you can easily change all
+ * the needed parameters in one place.
  */
 #ifndef SDT
+/** Flash memory base address. */
 #define FLASH_BASE_ADDRESS	XPAR_EMC_0_S_AXI_MEM0_BASEADDR
 #else
+/** Flash memory base address. */
 #define FLASH_BASE_ADDRESS	XPAR_XEMC_0_BASEADDR
 #endif
 
-/*
- * The following constant defines the total byte width of the flash memory. The
- * user needs to update this width based on the flash width in the design/board.
+/**
+ * The following constant defines the total byte width of the flash memory.
+ * Update this width based on the flash width in the design/board.
  * The total flash width on some of the Xilinx boards is listed below.
+ * <pre>
  * -------------------------------
  * Board		Width
  * -------------------------------
@@ -67,17 +69,27 @@
  * ML605		2 (16 bit)
  * SP605		2 (16 bit)
  * SP601		1 (8 bit)
+ * </pre>
  */
 #define FLASH_MEM_WIDTH		2
 
-#define FLASH_TEST_SIZE		4048
-#define START_ADDRESS		0x100000
-
-/*
- * The Sync and Async mode address
+/**
+ * @name Test parameters
+ * @{
  */
-#define ASYNC_ADDR  0x17BBE /* Config Register value for setting Async mode */
-#define SYNC_ADDR   0x07BBE /* Config Register value for setting Sync mode */
+/** Number of bytes to test. */
+#define FLASH_TEST_SIZE		4048
+#define START_ADDRESS		0x100000	/**< Test start offset. */
+/** @} */
+
+/**
+ * @name Sync and Async mode addresses
+ * @{
+ */
+/** Config Register value for setting Async mode. */
+#define ASYNC_ADDR  0x17BBE
+#define SYNC_ADDR   0x07BBE /**< Config Register value for setting Sync mode. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -87,24 +99,24 @@
 int PlatformFlashReadWriteExample(void);
 
 /************************** Variable Definitions *****************************/
-XFlash FlashInstance; /* XFlash Instance. */
+XFlash FlashInstance; /**< XFlash Instance. */
 
 /*
  * Buffers used during read and write transactions.
  */
-u8 ReadBuffer[FLASH_TEST_SIZE]; /* Buffer used to store the data read. */
-u8 WriteBuffer[FLASH_TEST_SIZE]; /* Write buffer. */
+u8 ReadBuffer[FLASH_TEST_SIZE]; /**< Buffer used to store the data read. */
+u8 WriteBuffer[FLASH_TEST_SIZE]; /**< Write buffer. */
 
 /************************** Function Definitions ******************************/
 
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Platform Flash Read/Write example.
+* @brief Runs the Platform Flash Read/Write example.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*            - XST_SUCCESS if successful.
+*            - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int main(void)
@@ -124,11 +136,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function writes, reads, and verifies the data to the Flash device.
+* @brief Writes, reads, and verifies the data to the Flash device.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return
+*            - XST_SUCCESS if successful.
+*            - XST_FAILURE otherwise.
 *
 ******************************************************************************/
 int PlatformFlashReadWriteExample(void)
