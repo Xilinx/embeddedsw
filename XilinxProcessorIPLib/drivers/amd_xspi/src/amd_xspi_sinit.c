@@ -7,8 +7,7 @@
 /**
 *
 * @file amd_xspi_sinit.c
-* @addtogroup amd_xspi Overview
-* @{
+* @brief Implements the static initialization lookup for the AXI XSPI driver.
 *
 * This file contains the static initialization lookup function for the
 * AXI XSPI driver.
@@ -19,9 +18,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup amd_xspi Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -33,17 +37,20 @@
 
 /************************** Variable Definitions *****************************/
 
+/**
+ * @brief Holds the configuration entry for each AXI XSPI instance.
+ */
 extern AmdXspi_Config AmdXspi_ConfigTable[];
 
 /*****************************************************************************/
 /**
-* Look up the device configuration based on the base address.
 *
-* @param[in] BaseAddress is the base address of the device.
+* @brief Looks up the device configuration based on the base address.
 *
-* @return
-*		- A pointer to the configuration table entry if found.
-*		- NULL if not found.
+* @param[in]   BaseAddress Base address of the device.
+*
+* @return      - A pointer to the configuration table entry if found.
+*              - NULL if not found.
 *
 ******************************************************************************/
 AmdXspi_Config *AmdXspi_LookupConfig(UINTPTR BaseAddress)

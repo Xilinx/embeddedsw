@@ -7,8 +7,7 @@
 /**
 *
 * @file amd_xspi_options.c
-* @addtogroup amd_xspi Overview
-* @{
+* @brief Implements the configuration functions of the AXI XSPI controller.
 *
 * This file contains the functions that configure the AXI XSPI controller,
 * such as the clock mode and the target selection.
@@ -19,9 +18,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup amd_xspi Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -38,23 +42,23 @@
 
 /*****************************************************************************/
 /**
-* Set the SPI clock mode (CPOL/CPHA).
+*
+* @brief Sets the SPI clock mode (CPOL/CPHA).
 *
 * The clock is only programmable in the Standard, Dual and Quad modes. A core
 * built for one of the xSPI profiles runs mode 0 and nothing else, so that is
 * the only value it accepts.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] ClkMode is the clock mode (0-3):
-*		- 0: CPOL=0, CPHA=0
-*		- 1: CPOL=0, CPHA=1
-*		- 2: CPOL=1, CPHA=0
-*		- 3: CPOL=1, CPHA=1
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   ClkMode Clock mode (0-3):
+*              - 0: CPOL=0, CPHA=0
+*              - 1: CPOL=0, CPHA=1
+*              - 2: CPOL=1, CPHA=0
+*              - 3: CPOL=1, CPHA=1.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_INVALID_PARAM if the mode is out of range, or is not
-*		  mode 0 on a core built for an xSPI profile.
+* @return      - XST_SUCCESS if successful.
+*              - XST_INVALID_PARAM if the mode is out of range, or is not mode 0
+*                on a core built for an xSPI profile.
 *
 ******************************************************************************/
 s32 AmdXspi_SetClkMode(AmdXspi *InstancePtr, u8 ClkMode)
@@ -103,14 +107,14 @@ s32 AmdXspi_SetClkMode(AmdXspi *InstancePtr, u8 ClkMode)
 
 /*****************************************************************************/
 /**
-* Select a slave device.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] SlaveNum is the slave number (0-7).
+* @brief Selects a slave device.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_INVALID_PARAM if slave number is invalid.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   SlaveNum Slave number (0-7).
+*
+* @return      - XST_SUCCESS if successful.
+*              - XST_INVALID_PARAM if slave number is invalid.
 *
 ******************************************************************************/
 s32 AmdXspi_SetSlaveSelect(AmdXspi *InstancePtr, u8 SlaveNum)

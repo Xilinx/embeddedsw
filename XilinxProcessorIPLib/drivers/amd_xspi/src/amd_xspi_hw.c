@@ -7,8 +7,7 @@
 /**
 *
 * @file amd_xspi_hw.c
-* @addtogroup amd_xspi Overview
-* @{
+* @brief Implements the register-level functions of the AXI XSPI driver.
 *
 * This file contains the register level functions of the AXI XSPI driver.
 * These functions operate directly on the controller registers to prepare
@@ -20,9 +19,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup amd_xspi Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -40,15 +44,16 @@
 
 /*****************************************************************************/
 /**
-* Bring the core to a known state before a transfer is launched.
+*
+* @brief Brings the core to a known state before a transfer is launched.
 *
 * Any event latched by a previous transfer would otherwise be mistaken for an
-* event belonging to this one, and residue left in either FIFO would be
-* prepended to the payload. Every event is discarded rather than only
-* completion and error, because a stale threshold event is just as capable of
-* steering the interrupt handler as a stale completion.
+* event belonging to this one. Residue left in either FIFO would be prepended to
+* the payload. Every event is discarded rather than only completion and error. A
+* stale threshold event is just as capable of steering the interrupt handler as
+* a stale completion.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
 *
 ******************************************************************************/
 void AmdXspi_PrepareTransfer(AmdXspi *InstancePtr)
@@ -80,10 +85,11 @@ void AmdXspi_PrepareTransfer(AmdXspi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Enable specific interrupts.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] IntrMask is the mask of interrupts to enable.
+* @brief Enables specific interrupts.
+*
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   IntrMask Mask of interrupts to enable.
 *
 ******************************************************************************/
 void AmdXspi_IntrEnable(AmdXspi *InstancePtr, u32 IntrMask)
@@ -103,10 +109,11 @@ void AmdXspi_IntrEnable(AmdXspi *InstancePtr, u32 IntrMask)
 
 /*****************************************************************************/
 /**
-* Disable specific interrupts.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] IntrMask is the mask of interrupts to disable.
+* @brief Disables specific interrupts.
+*
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   IntrMask Mask of interrupts to disable.
 *
 ******************************************************************************/
 void AmdXspi_IntrDisable(AmdXspi *InstancePtr, u32 IntrMask)
@@ -126,25 +133,28 @@ void AmdXspi_IntrDisable(AmdXspi *InstancePtr, u32 IntrMask)
 
 /*****************************************************************************/
 /**
-* Reset the AXI XSPI controller.
+*
+* @brief Resets the AXI XSPI controller.
 *
 * The core is left disabled, since writing SOFT_RESET returns every control
 * bit to its default. Enabling it is the caller's to do, which for the driver
 * means AmdXspi_CfgInitialize(). Anything the application configured through
 * the option functions is returned to its default and has to be set again.
 *
-* This can reach past the controller. The core passes the soft reset through
-* to its optional resetn output, so on a design built with that output wired
-* the attached memory is hardware reset too. For a HyperRAM that returns its
-* configuration registers, including the initial latency, to their defaults
-* and costs the contents of the array, which the datasheet says to treat as
-* lost. Anything recovering an error through AmdXspi_Abort() inherits that.
+* This can reach past the controller. The core passes the soft reset through to
+* its optional resetn output. So on a design built with that output wired, the
+* attached memory is hardware reset too.
+*
+* For a HyperRAM, that returns its configuration registers, including the
+* initial latency, to their defaults. It also costs the contents of the array,
+* which the datasheet says to treat as lost. Anything recovering an error
+* through AmdXspi_Abort() inherits that.
 *
 * Both callers check the instance beforehand. The ready state deliberately is
 * not checked, since AmdXspi_CfgInitialize() resets the core before marking
 * the instance ready.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
 *
 ******************************************************************************/
 void AmdXspi_Reset(AmdXspi *InstancePtr)
@@ -195,18 +205,19 @@ void AmdXspi_Reset(AmdXspi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Perform a polled SPI transfer (AXI-Lite mode).
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] SendBufPtr is the buffer to transmit (can be NULL for read-only).
-* @param[in] RecvBufPtr is the buffer for received data (can be NULL for write-only).
-* @param[in] ByteCount is the number of bytes to transfer.
+* @brief Performs a polled SPI transfer (AXI-Lite mode).
 *
-* @return
-*		- XST_SUCCESS if transfer was successful.
-*		- XST_FAILURE if the core reported an error, stalled, or did
-*		  not signal completion.
-*		- XST_DEVICE_BUSY if a transfer is in progress.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     SendBufPtr Buffer to transmit (can be NULL for read-only).
+* @param[out]    RecvBufPtr Buffer for received data (can be NULL for
+*                write-only).
+* @param[in]     ByteCount Number of bytes to transfer.
+*
+* @return        - XST_SUCCESS if transfer was successful.
+*                - XST_FAILURE if the core reported an error, stalled, or
+*                  did not signal completion.
+*                - XST_DEVICE_BUSY if a transfer is in progress.
 *
 ******************************************************************************/
 s32 AmdXspi_Transfer(AmdXspi *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,

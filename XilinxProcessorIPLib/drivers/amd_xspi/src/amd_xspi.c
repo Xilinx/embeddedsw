@@ -7,8 +7,7 @@
 /**
 *
 * @file amd_xspi.c
-* @addtogroup amd_xspi Overview
-* @{
+* @brief Implements the application-facing APIs of the AXI XSPI driver.
 *
 * This file contains the implementation of the application facing APIs of the
 * AXI XSPI driver, including the interrupt handler.
@@ -21,9 +20,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup amd_xspi Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -42,15 +46,16 @@ static void StubHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount);
 
 /*****************************************************************************/
 /**
-* Initialize the AXI XSPI driver instance.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] ConfigPtr is a pointer to the configuration structure.
-* @param[in] EffectiveAddr is the base address of the device.
+* @brief Initializes the AXI XSPI driver instance.
 *
-* @return
-*		- XST_SUCCESS if initialization was successful.
-*		- XST_DEVICE_IS_STARTED if the instance is already initialized.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     ConfigPtr Pointer to the configuration structure.
+* @param[in]     EffectiveAddr Base address of the device.
+*
+* @return        - XST_SUCCESS if initialization was successful.
+*                - XST_DEVICE_IS_STARTED if the instance is already
+*                  initialized.
 *
 ******************************************************************************/
 s32 AmdXspi_CfgInitialize(AmdXspi *InstancePtr, AmdXspi_Config *ConfigPtr,
@@ -96,19 +101,20 @@ s32 AmdXspi_CfgInitialize(AmdXspi *InstancePtr, AmdXspi_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
-* Abort the current transfer and return the core to an idle state.
+*
+* @brief Aborts the current transfer and returns the core to an idle state.
 *
 * The core has no abort control, so a software reset is the only way to tear
-* down a transaction that is already running, and it is what the core offers
+* down a transaction that is already running. It is also what the core offers
 * for recovering from a transaction error. The reset also disables every
-* interrupt and discards every latched event, so nothing the abandoned
-* transfer raised is left behind.
+* interrupt and discards every latched event, so nothing the abandoned transfer
+* raised is left behind.
 *
-* The core is enabled again on return and the clock mode and selected target
-* are put back, so the caller can start a new transfer without any further
+* The core is enabled again on return, and the clock mode and selected target
+* are put back. So the caller can start a new transfer without any further
 * setup.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
 *
 ******************************************************************************/
 void AmdXspi_Abort(AmdXspi *InstancePtr)
@@ -152,21 +158,21 @@ void AmdXspi_Abort(AmdXspi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Perform one or more transfers in polled (blocking) mode.
+*
+* @brief Performs one or more transfers in polled (blocking) mode.
 *
 * Each message describes a Lite-mode transaction (command/address plus one
 * data phase). Messages are dispatched to the existing polled engine
 * (AmdXspi_LiteRead / AmdXspi_LiteWrite) in order and the function returns when
 * all messages complete or on the first failure.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] Msg is an array of messages to transfer.
-* @param[in] NumMsg is the number of messages in the array.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     Msg Array of messages to transfer.
+* @param[in]     NumMsg Number of messages in the array.
 *
-* @return
-*		- XST_SUCCESS if all messages transferred.
-*		- XST_DEVICE_BUSY if a transfer is already in progress.
-*		- XST_FAILURE if a transfer failed.
+* @return        - XST_SUCCESS if all messages transferred.
+*                - XST_DEVICE_BUSY if a transfer is already in progress.
+*                - XST_FAILURE if a transfer failed.
 *
 ******************************************************************************/
 s32 AmdXspi_PolledTransfer(AmdXspi *InstancePtr, AmdXspi_Msg *Msg, u32 NumMsg)
@@ -215,21 +221,21 @@ s32 AmdXspi_PolledTransfer(AmdXspi *InstancePtr, AmdXspi_Msg *Msg, u32 NumMsg)
 
 /*****************************************************************************/
 /**
-* Initiate an interrupt-driven transfer of one or more messages.
+*
+* @brief Initiates an interrupt-driven transfer of one or more messages.
 *
 * This function is non-blocking: it launches the first message and returns
 * immediately. The interrupt handler (AmdXspi_InterruptHandler) drains receive
-* data, advances through the message queue, and invokes the status handler
-* registered with AmdXspi_SetStatusHandler with XST_SPI_TRANSFER_DONE when all
-* messages complete (or a non-zero error event on failure).
+* data and advances through the message queue. When all messages complete, it
+* invokes the status handler registered with AmdXspi_SetStatusHandler with
+* XST_SPI_TRANSFER_DONE (or a non-zero error event on failure).
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] Msg is an array of messages to transfer.
-* @param[in] NumMsg is the number of messages in the array.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     Msg Array of messages to transfer.
+* @param[in]     NumMsg Number of messages in the array.
 *
-* @return
-*		- XST_SUCCESS if the transfer was started.
-*		- XST_DEVICE_BUSY if a transfer is already in progress.
+* @return        - XST_SUCCESS if the transfer was started.
+*                - XST_DEVICE_BUSY if a transfer is already in progress.
 *
 ******************************************************************************/
 s32 AmdXspi_InterruptTransfer(AmdXspi *InstancePtr, AmdXspi_Msg *Msg, u32 NumMsg)
@@ -286,11 +292,12 @@ s32 AmdXspi_InterruptTransfer(AmdXspi *InstancePtr, AmdXspi_Msg *Msg, u32 NumMsg
 
 /*****************************************************************************/
 /**
-* Stub handler for uninitialized callbacks.
 *
-* @param[in] CallBackRef is the callback reference (unused).
-* @param[in] StatusEvent is the status event (unused).
-* @param[in] ByteCount is the byte count (unused).
+* @brief Provides a stub handler for uninitialized callbacks.
+*
+* @param[in]   CallBackRef Callback reference (unused).
+* @param[in]   StatusEvent Status event (unused).
+* @param[in]   ByteCount Byte count (unused).
 *
 ******************************************************************************/
 static void StubHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
@@ -304,17 +311,18 @@ static void StubHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 
 /*****************************************************************************/
 /**
-* Main interrupt handler for the AXI XSPI controller.
+*
+* @brief Serves as the main interrupt handler for the AXI XSPI controller.
 *
 * This function reads the interrupt status, clears the pending interrupts,
 * and advances the active message queue, reporting the outcome through the
 * handler registered with AmdXspi_SetStatusHandler().
 *
 * Receive data is drained both on RX fill-level events and at transaction
-* completion, so a read is not limited to what the RX FIFO holds at the end
-* of the transaction.
+* completion. So a read is not limited to what the RX FIFO holds at the end of
+* the transaction.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance (cast to void*).
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance (cast to void*).
 *
 ******************************************************************************/
 void AmdXspi_InterruptHandler(void *InstancePtr)
@@ -432,14 +440,17 @@ void AmdXspi_InterruptHandler(void *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Set the status callback used by the message-based transfer API
-* (AmdXspi_InterruptTransfer). The handler is invoked from interrupt context
-* with XST_SPI_TRANSFER_DONE when the whole message queue completes, or with
-* a non-zero error event mask if the transfer fails.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] CallBackRef is the reference passed back to the handler.
-* @param[in] FuncPtr is the status callback function.
+* @brief Sets the status callback of the message-based
+* AmdXspi_InterruptTransfer().
+*
+* The handler is invoked from interrupt context with XST_SPI_TRANSFER_DONE when
+* the whole message queue completes. It is invoked with a non-zero error event
+* mask if the transfer fails.
+*
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     CallBackRef Reference passed back to the handler.
+* @param[in]     FuncPtr Status callback function.
 *
 ******************************************************************************/
 void AmdXspi_SetStatusHandler(AmdXspi *InstancePtr, void *CallBackRef,

@@ -3,16 +3,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef AMD_XSPI_CONTROL_H
+#define AMD_XSPI_CONTROL_H
+
 /*****************************************************************************/
 /**
 *
 * @file amd_xspi_control.h
-* @addtogroup amd_xspi Overview
-* @{
+* @brief Declares the low-level functions of the AXI XSPI driver.
 *
 * The amd_xspi_control.h header file for the low-level functions of the AXI
-* XSPI driver. These functions are used internally by the user APIs and are
-* not intended to be called from an application.
+* XSPI driver. These functions are used internally by the application-facing
+* APIs and are not intended to be called from an application.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -20,11 +22,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
-#ifndef AMD_XSPI_CONTROL_H		/**< prevent circular inclusions */
-#define AMD_XSPI_CONTROL_H		/**< by using protection macros */
+
+/** @addtogroup amd_xspi Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,29 +42,32 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * Instruction structure for Lite mode SPI transactions.
+ * @brief Holds an instruction for Lite mode SPI transactions.
+ *
  * This maps to the 32-bit instruction format in the Transmit Register.
  */
 typedef struct {
-	u8 CmdAddrBytes;	/**< Number of command+address bytes (encoded 0-3) */
-	u16 DataBytes;		/**< Number of read/write data bytes (0-512) */
-	u8 IsRead;		/**< 1=Read, 0=Write */
-	u8 DummyCycles;		/**< Number of dummy/latency cycles (0-63) */
-	u8 IoFormat;		/**< IO format (for Dual/Quad modes) */
-	u8 FrameFormat;		/**< Frame format (0-3) */
+	u8 CmdAddrBytes;	/**< Number of command+address bytes (encoded
+				 * 0-3). */
+	u16 DataBytes;		/**< Number of read/write data bytes (0-512). */
+	u8 IsRead;		/**< 1=Read, 0=Write. */
+	u8 DummyCycles;		/**< Number of dummy/latency cycles (0-63). */
+	u8 IoFormat;		/**< IO format (for Dual/Quad modes). */
+	u8 FrameFormat;		/**< Frame format (0-3). */
 } AmdXspi_Instruction;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*****************************************************************************/
 /**
-* Enable the AXI XSPI core.
 *
-* The core is left enabled for as long as the instance is ready, so this is
-* only used by the driver at initialization and to restore the core after a
-* register change that requires it to be quiescent.
+* @brief Enables the AXI XSPI core.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
+* The core is left enabled for as long as the instance is ready. So the driver
+* uses this only at initialization, and to restore the core after a register
+* change that requires it to be quiescent.
+*
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
 *
 ******************************************************************************/
 static inline void AmdXspi_Enable(const AmdXspi *InstancePtr)
@@ -77,9 +85,10 @@ static inline void AmdXspi_Enable(const AmdXspi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Disable the AXI XSPI core.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
+* @brief Disables the AXI XSPI core.
+*
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
 *
 ******************************************************************************/
 static inline void AmdXspi_Disable(const AmdXspi *InstancePtr)
@@ -125,5 +134,6 @@ void AmdXspi_PrepareTransfer(AmdXspi *InstancePtr);
 }
 #endif
 
-#endif /* AMD_XSPI_CONTROL_H */
+
 /** @} */
+#endif /* AMD_XSPI_CONTROL_H */

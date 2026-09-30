@@ -3,14 +3,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef AMD_XSPI_HYPERBUS_CONFIG_H_
+#define AMD_XSPI_HYPERBUS_CONFIG_H_
+
 /*****************************************************************************/
 /**
 *
 * @file amd_xspi_hyperbus_config.h
+* @brief Defines the HyperBus device table for the AXI XSPI examples.
 *
 * This file contains the HyperBus device configuration table and the related
 * defines. It should be included by the AXI XSPI examples and compiled along
-* with them (*.c), in the same way xqspipsu_flash_config.h is used by the
+* with them (*.c). This follows the way xqspipsu_flash_config.h is used by the
 * QSPIPSU examples.
 *
 * This file supports HyperRAM over HyperBus. The table and its accessors are
@@ -45,53 +49,57 @@
 * known-latency entry point.
 *
 * The host does not choose this number freely, it has to reproduce the one the
-* device is programmed to. Per datasheet 002-24692 section 4.2, once the
-* latency clocks named by CR0[7:4] have elapsed "the memory starts to
-* simultaneously transition the RWDS and output the target data", and it keeps
-* streaming for as long as the clock runs. The device never waits for the host,
-* so counting too few clocks samples before the data arrives and counting too
-* many samples past the words that have already gone by. Both give wrong data.
+* device is programmed to. Per datasheet 002-24692 section 4.2, once the latency
+* clocks named by CR0[7:4] have elapsed, "the memory starts to simultaneously
+* transition the RWDS and output the target data". It keeps streaming for as
+* long as the clock runs.
 *
-* What makes the identifying read possible is that CR0[7:4] comes out of reset
-* at the family maximum, a value the datasheet states and the integrator can
-* therefore supply before any register has been read. Section 6.3.2.2 adds that
-* this reset value satisfies tACC all the way to the part's top frequency, so
-* no bus clock a design can legally run needs it lowered first. Lowering it
-* afterwards is a throughput optimisation, not a requirement, and the frequency
-* the design runs at never enters into the identifying read.
+* The device never waits for the host. Counting too few clocks samples before
+* the data arrives. Counting too many samples past the words that have already
+* gone by. Both give wrong data.
+*
+* The identifying read is possible because CR0[7:4] comes out of reset at the
+* family maximum. The datasheet states this value, so the integrator can supply
+* it before any register has been read. Section 6.3.2.2 adds that this reset
+* value satisfies tACC all the way to the part's top frequency. So no bus clock
+* a design can legally run needs it lowered first. Lowering it afterwards is a
+* throughput optimization, not a requirement, and the frequency the design runs
+* at never enters into the identifying read.
 *
 * That value is not taken from this table, because the table cannot be consulted
 * until the device is known. Each example names it as
 * HYPERRAM_DEFAULT_LATENCY_CLOCKS and the integrator sets it for the part fitted
-* to the board. The table does not record it per entry: the HyperBus
-* specification fixes the reset value at 7 clocks for every part, and a
+* to the board. The table does not record it per entry.
+*
+* The HyperBus specification fixes the reset value at 7 clocks for every part. A
 * successful identifying read is itself proof that the configured value matched
-* the device, so a per entry copy could only ever disagree by being stale.
+* the device. So a per entry copy could only ever disagree by being stale.
 *
 * Getting it wrong in the short direction is worse than wrong data. Measurement
-* on an S27KL0642 shows every later transaction returning zeros, with neither
-* aborting the transfer nor cycling the controller bringing the part back: chip
-* select held past tCSM starves the array of refresh, and only RESET# or a
-* power cycle clears it. A part whose reset default is unknown therefore cannot
-* be identified by trial - a wrong guess is unrecoverable in software, and there
-* is no second attempt to spend. Hence the value is configured rather than
-* searched for.
+* on an S27KL0642 shows every later transaction returning zeros. Neither
+* aborting the transfer nor cycling the controller brings the part back. Chip
+* select held past tCSM starves the array of refresh, and only RESET# or a power
+* cycle clears it.
+*
+* A part whose reset default is unknown therefore cannot be identified by trial.
+* A wrong guess is unrecoverable in software, and there is no second attempt to
+* spend. Hence the value is configured rather than searched for.
 *
 * C_TGT_LATENCY is no help here, which is why neither the driver nor these
 * examples read it. A Lite mode design cannot set it, so it stays at the IP
-* default of 4 - a value outside the parameter's own documented range of 7,
-* and one no supported device uses at power-on. The same applies to
-* C_TGT_MEM_SIZE and C_TGT_BURST_LENGTH: geometry, latency and burst length
-* come from the identified device, not from the design.
+* default of 4. That value is outside the parameter's own documented range of 7,
+* and no supported device uses it at power-on. The same applies to
+* C_TGT_MEM_SIZE and C_TGT_BURST_LENGTH: geometry, latency and burst length come
+* from the identified device, not from the design.
 *
 * <b>Adding a new device</b>
 * Append one entry to HyperBus_Config_Table[]. Nothing else needs to change,
-* because the entry holds only the identifiers, a name and tCSM: no latency or
-* burst code is decoded, so nothing in it is a per part encoding. A board
-* fitted with a part whose reset latency differs from the one the example is
-* set for needs HYPERRAM_DEFAULT_LATENCY_CLOCKS changed to match, and the
-* bootstrap note above explains why trying each in turn instead is not an
-* option on a board that cannot assert RESET# between attempts.
+* because the entry holds only the identifiers, a name and tCSM. No latency or
+* burst code is decoded, so nothing in it is a per part encoding. A board fitted
+* with a part whose reset latency differs from the one the example is set for
+* needs HYPERRAM_DEFAULT_LATENCY_CLOCKS changed to match. The bootstrap note
+* above explains why trying each in turn instead is not an option on a board
+* that cannot assert RESET# between attempts.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -99,12 +107,11 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef AMD_XSPI_HYPERBUS_CONFIG_H_	/**< prevent circular inclusions */
-#define AMD_XSPI_HYPERBUS_CONFIG_H_	/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -132,8 +139,8 @@ extern "C" {
  * CA = 0x600000AA0005: CA[44:16] = 0xAA gives address bits [31:3] (0x550) and
  * CA[2:0] = 5 supplies the low three bits.
  */
-#define AMD_XSPI_HYPERBUS_CA_BYTES			6U	/**< A HyperBus command/address
-							     word is always 6 bytes */
+/** A HyperBus command/address word is always 6 bytes. */
+#define AMD_XSPI_HYPERBUS_CA_BYTES			6U
 
 /** 8D-8D-8D moves a byte on each edge of SCK, so two bytes per clock */
 #define AMD_XSPI_HYPERBUS_BYTES_PER_CLOCK		2U
@@ -147,18 +154,23 @@ extern "C" {
  * started has already served it; the wait costs nothing and covers the cold
  * boot case where configuration finishes first.
  */
+/** Maximum tVCS in microseconds. */
 #define AMD_XSPI_HYPERBUS_TVCS_US			150U
 
 /*
  * HyperRAM register space word addresses. These are HyperBus-standard and
  * common to all vendors, so they are not per-device either.
  */
-#define AMD_XSPI_HYPERRAM_IR0_WORD_ADDR		0x00000000U	/**< Identification
-								     Register 0 */
-#define AMD_XSPI_HYPERRAM_IR1_WORD_ADDR		0x00000001U	/**< Identification
-								     Register 1 */
-#define AMD_XSPI_HYPERRAM_CR0_WORD_ADDR		0x00000800U	/**< Configuration
-								     Register 0 */
+/** @name HyperRAM register space word addresses
+ * @{
+ */
+/** Identification Register 0. */
+#define AMD_XSPI_HYPERRAM_IR0_WORD_ADDR		0x00000000U
+/** Identification Register 1. */
+#define AMD_XSPI_HYPERRAM_IR1_WORD_ADDR		0x00000001U
+/** Configuration Register 0. */
+#define AMD_XSPI_HYPERRAM_CR0_WORD_ADDR		0x00000800U
+/** @} */
 
 /*
  * ID Register 0 field definitions (HyperBus standard layout).
@@ -171,12 +183,21 @@ extern "C" {
  * row and 9 column address bits. Always go through the accessors below rather
  * than masking these fields by hand.
  */
-#define AMD_XSPI_HYPERRAM_IR0_MFR_MASK		0x000FU	/**< Manufacturer ID mask */
-#define AMD_XSPI_HYPERRAM_IR0_MFR_SHIFT		0U	/**< Manufacturer ID shift */
-#define AMD_XSPI_HYPERRAM_IR0_COL_BITS_MASK	0x00F0U	/**< Column bit count mask */
-#define AMD_XSPI_HYPERRAM_IR0_COL_BITS_SHIFT	4U	/**< Column bit count shift */
-#define AMD_XSPI_HYPERRAM_IR0_ROW_BITS_MASK	0x1F00U	/**< Row bit count mask */
-#define AMD_XSPI_HYPERRAM_IR0_ROW_BITS_SHIFT	8U	/**< Row bit count shift */
+/** @name ID Register 0 field definitions
+ * @{
+ */
+/** Manufacturer ID mask. */
+#define AMD_XSPI_HYPERRAM_IR0_MFR_MASK		0x000FU
+/** Manufacturer ID shift. */
+#define AMD_XSPI_HYPERRAM_IR0_MFR_SHIFT		0U
+/** Column bit count mask. */
+#define AMD_XSPI_HYPERRAM_IR0_COL_BITS_MASK	0x00F0U
+/** Column bit count shift. */
+#define AMD_XSPI_HYPERRAM_IR0_COL_BITS_SHIFT	4U
+/** Row bit count mask. */
+#define AMD_XSPI_HYPERRAM_IR0_ROW_BITS_MASK	0x1F00U
+#define AMD_XSPI_HYPERRAM_IR0_ROW_BITS_SHIFT	8U /**< Row bit count shift. */
+/** @} */
 
 /*
  * Plausible range for the total word address bit count (row + column) decoded
@@ -184,16 +205,25 @@ extern "C" {
  * the HyperBus Command/Address field carries a 32-bit word address
  * (CA[44:16] plus CA[2:0]).
  */
-#define AMD_XSPI_HYPERRAM_MIN_WORD_ADDR_BITS	16U	/**< Fewest row+column bits
-							     a sane IR0 can report */
-#define AMD_XSPI_HYPERRAM_MAX_WORD_ADDR_BITS	32U	/**< Most row+column bits the
-							     CA field can address */
+/** @name Word address bit count range
+ * @{
+ */
+/** Fewest row+column bits a sane IR0 can report. */
+#define AMD_XSPI_HYPERRAM_MIN_WORD_ADDR_BITS	16U
+/** Most row+column bits the CA field can address. */
+#define AMD_XSPI_HYPERRAM_MAX_WORD_ADDR_BITS	32U
+/** @} */
 
 /* ID Register 1 field definitions */
-#define AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_MASK	0x000FU	/**< Device type mask */
-#define AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_SHIFT	0U	/**< Device type shift */
-#define AMD_XSPI_HYPERRAM_DEV_TYPE_HYPERRAM_2_0	0x1U	/**< Device type value
-							     for HyperRAM 2.0 */
+/** @name ID Register 1 field definitions
+ * @{
+ */
+/** Device type mask. */
+#define AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_MASK	0x000FU
+#define AMD_XSPI_HYPERRAM_IR1_DEV_TYPE_SHIFT	0U /**< Device type shift. */
+/** Device type value for HyperRAM 2.0. */
+#define AMD_XSPI_HYPERRAM_DEV_TYPE_HYPERRAM_2_0	0x1U
+/** @} */
 
 /*
  * Latency code field definition.
@@ -205,13 +235,19 @@ extern "C" {
  * example writes CR0 afterwards, so the code read back can only be the reset
  * one. The raw code is reported as-is.
  */
-#define AMD_XSPI_HYPERBUS_LATENCY_MASK		0x00F0U	/**< CR0 latency code mask */
-#define AMD_XSPI_HYPERBUS_LATENCY_SHIFT		4U	/**< CR0 latency code shift */
+/** @name Latency code field definitions
+ * @{
+ */
+/** CR0 latency code mask. */
+#define AMD_XSPI_HYPERBUS_LATENCY_MASK		0x00F0U
+/** CR0 latency code shift. */
+#define AMD_XSPI_HYPERBUS_LATENCY_SHIFT		4U
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
 /**
- * HyperBus device description.
+ * @brief Describes a HyperBus device.
  *
  * One entry per supported device, looked up at runtime from the manufacturer
  * and device identifiers read out of the part - IR0 and IR1 for HyperRAM.
@@ -219,7 +255,7 @@ extern "C" {
  * This holds ONLY what the device cannot report about itself:
  *
  *   - Geometry is absent. Density, row/column bits, array rows and the address
- *     limit are all decoded from IR0 by the accessors below, so one entry
+ *     limit are all decoded from IR0 by the accessors below. So one entry
  *     serves every density in a family.
  *   - Directly readable register fields are not duplicated.
  *
@@ -228,17 +264,17 @@ extern "C" {
  */
 typedef struct {
 	/* Identity - ManufacturerId and DeviceType form the lookup key */
-	u8 ManufacturerId;	/**< IR0[3:0] */
-	u8 DeviceType;		/**< IR1[3:0] */
-	const char *Name;	/**< Human readable device name */
+	u8 ManufacturerId;	/**< IR0[3:0]. */
+	u8 DeviceType;		/**< IR1[3:0]. */
+	const char *Name;	/**< Human readable device name. */
 
 	u32 CsLowMaxUs;		/**< tCSM: max CS# LOW time, imposed by
-				     refresh */
+				 * refresh. */
 } AmdXspi_HyperBusConfig;
 
 /************************** Variable Definitions *****************************/
 
-/*
+/**
  * Supported HyperBus devices.
  *
  * To add a device, append an entry with that part's tCSM taken from its
@@ -270,11 +306,11 @@ static const AmdXspi_HyperBusConfig HyperBus_Config_Table[] = {
 /*****************************************************************************/
 /**
 *
-* Extract the manufacturer ID from an ID Register 0 value.
+* @brief Extracts the manufacturer ID from an ID Register 0 value.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Manufacturer code from IR0[3:0].
+* @return      Manufacturer code from IR0[3:0].
 *
 ******************************************************************************/
 static INLINE u8 AmdXspi_HyperRamGetManufacturerId(u16 Ir0Value)
@@ -286,11 +322,11 @@ static INLINE u8 AmdXspi_HyperRamGetManufacturerId(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Extract the device type from an ID Register 1 value.
+* @brief Extracts the device type from an ID Register 1 value.
 *
-* @param[in] Ir1Value is the raw IR1 register value.
+* @param[in]   Ir1Value Raw IR1 register value.
 *
-* @return	Device type from IR1[3:0].
+* @return      Device type from IR1[3:0].
 *
 ******************************************************************************/
 static INLINE u8 AmdXspi_HyperRamGetDeviceType(u16 Ir1Value)
@@ -302,14 +338,14 @@ static INLINE u8 AmdXspi_HyperRamGetDeviceType(u16 Ir1Value)
 /*****************************************************************************/
 /**
 *
-* Extract the row address bit count from an ID Register 0 value.
+* @brief Extracts the row address bit count from an ID Register 0 value.
 *
 * IR0[12:8] is encoded as (count - 1), so 01100b reports thirteen row address
 * bits.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Row address bit count (1 to 32).
+* @return      Row address bit count (1 to 32).
 *
 ******************************************************************************/
 static INLINE u8 AmdXspi_HyperRamGetRowAddrBits(u16 Ir0Value)
@@ -321,14 +357,14 @@ static INLINE u8 AmdXspi_HyperRamGetRowAddrBits(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Extract the column address bit count from an ID Register 0 value.
+* @brief Extracts the column address bit count from an ID Register 0 value.
 *
 * IR0[7:4] is encoded as (count - 1), so 1000b reports nine column address
 * bits.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Column address bit count (1 to 16).
+* @return      Column address bit count (1 to 16).
 *
 ******************************************************************************/
 static INLINE u8 AmdXspi_HyperRamGetColAddrBits(u16 Ir0Value)
@@ -340,11 +376,12 @@ static INLINE u8 AmdXspi_HyperRamGetColAddrBits(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Return the total number of word address bits reported by ID Register 0.
+* @brief Returns the total number of word address bits reported by ID Register
+* 0.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Row plus column address bit count.
+* @return      Row plus column address bit count.
 *
 ******************************************************************************/
 static INLINE u8 AmdXspi_HyperRamGetWordAddrBits(u16 Ir0Value)
@@ -356,16 +393,17 @@ static INLINE u8 AmdXspi_HyperRamGetWordAddrBits(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Check whether an ID Register 0 value looks like a real HyperRAM response.
+* @brief Checks whether an ID Register 0 value looks like a real HyperRAM
+* response.
 *
 * Used to decide whether the identifying read found a device at all. An absent
-* or mis-wired part, or one left unresponsive by an earlier bad access, shows
-* up as an all zeros or all ones word, an unassigned manufacturer nibble, or a
-* nonsensical density.
+* or mis-wired part, or one left unresponsive by an earlier bad access, shows up
+* in one of three ways. It returns an all zeros or all ones word, an unassigned
+* manufacturer nibble, or a nonsensical density.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	TRUE if the value is plausible, FALSE otherwise.
+* @return      TRUE if the value is plausible, FALSE otherwise.
 *
 ******************************************************************************/
 static INLINE u32 AmdXspi_HyperRamIsValidId(u16 Ir0Value)
@@ -395,11 +433,12 @@ static INLINE u32 AmdXspi_HyperRamIsValidId(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Return the number of array rows that must be refreshed, decoded from IR0.
+* @brief Returns the number of array rows that must be refreshed, decoded from
+* IR0.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Row count (2 ^ row address bits).
+* @return      Row count (2 ^ row address bits).
 *
 ******************************************************************************/
 static INLINE u32 AmdXspi_HyperRamArrayRows(u16 Ir0Value)
@@ -410,14 +449,14 @@ static INLINE u32 AmdXspi_HyperRamArrayRows(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Find the table entry describing an attached HyperBus device.
+* @brief Finds the table entry describing an attached HyperBus device.
 *
-* @param[in] ManufacturerId is IR0[3:0].
-* @param[in] DeviceType is IR1[3:0].
+* @param[in]   ManufacturerId IR0[3:0].
+* @param[in]   DeviceType IR1[3:0].
 *
-* @return	Pointer to the matching entry, or NULL if the device is not in
-*		the table. A NULL return does not mean the part is absent, only
-*		that its parameters are unknown to this build.
+* @return      Pointer to the matching entry, or NULL if the device is not in
+*              the table. A NULL return does not mean the part is absent, only
+*              that its parameters are unknown to this build.
 *
 ******************************************************************************/
 static INLINE const AmdXspi_HyperBusConfig *AmdXspi_HyperBusLookupConfig(
@@ -438,8 +477,9 @@ static INLINE const AmdXspi_HyperBusConfig *AmdXspi_HyperBusLookupConfig(
 /*****************************************************************************/
 /**
 *
-* Largest payload one transaction may carry without holding chip select low
-* past tCSM.
+* @brief Returns the largest payload one transaction may carry.
+*
+* The payload must not hold chip select low past tCSM.
 *
 * CS# stays low for the command/address phase, the initial latency and then
 * the data, all clocked at SCK, and HyperBus moves two bytes per clock. The
@@ -450,12 +490,12 @@ static INLINE const AmdXspi_HyperBusConfig *AmdXspi_HyperBusLookupConfig(
 * bit is raised and the transaction appears to succeed, so the budget has to
 * be checked rather than observed.
 *
-* @param[in] ConfigPtr is the device entry, or NULL if the device is unknown.
-* @param[in] SckFreqMHz is the bus clock, from AmdXspi_GetSckFreqMHz().
-* @param[in] LatencyClocks is the initial latency in clocks.
+* @param[in]   ConfigPtr Device entry, or NULL if the device is unknown.
+* @param[in]   SckFreqMHz Bus clock, from AmdXspi_GetSckFreqMHz().
+* @param[in]   LatencyClocks Initial latency in clocks.
 *
-* @return	Largest safe payload in bytes, or 0 if the device or bus clock
-*		is unknown, or the overhead alone already fills the budget.
+* @return      Largest safe payload in bytes, or 0 if the device or bus clock is
+*              unknown, or the overhead alone already fills the budget.
 *
 ******************************************************************************/
 static INLINE u32 AmdXspi_HyperBusMaxPayloadBytes(const AmdXspi_HyperBusConfig *ConfigPtr,
@@ -486,16 +526,16 @@ static INLINE u32 AmdXspi_HyperBusMaxPayloadBytes(const AmdXspi_HyperBusConfig *
 /*****************************************************************************/
 /**
 *
-* Return the number of addressable words, decoded from IR0.
+* @brief Returns the number of addressable words, decoded from IR0.
 *
-* HyperRAM is word (16-bit) addressable and the total number of word address
-* bits is the sum of the row and column address bit counts, so the device holds
+* HyperRAM is word (16-bit) addressable. The total number of word address bits
+* is the sum of the row and column address bit counts. So the device holds
 * 2^(RowAddrBits + ColAddrBits) words.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Word count, or 0 if the reported geometry does not fit in 32
-*		bits (which AmdXspi_HyperRamIsValidId already rejects).
+* @return      Word count, or 0 if the reported geometry does not fit in 32 bits
+*              (which AmdXspi_HyperRamIsValidId already rejects).
 *
 ******************************************************************************/
 static INLINE u32 AmdXspi_HyperRamNumWords(u16 Ir0Value)
@@ -512,11 +552,11 @@ static INLINE u32 AmdXspi_HyperRamNumWords(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Return the highest valid word address, decoded from IR0.
+* @brief Returns the highest valid word address, decoded from IR0.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Maximum word address.
+* @return      Maximum word address.
 *
 ******************************************************************************/
 static INLINE u32 AmdXspi_HyperRamMaxWordAddr(u16 Ir0Value)
@@ -533,11 +573,11 @@ static INLINE u32 AmdXspi_HyperRamMaxWordAddr(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Return the density in Mbits, decoded from IR0.
+* @brief Returns the density in Mbits, decoded from IR0.
 *
-* @param[in] Ir0Value is the raw IR0 register value.
+* @param[in]   Ir0Value Raw IR0 register value.
 *
-* @return	Density in Mbits, or 0 if the geometry is out of range.
+* @return      Density in Mbits, or 0 if the geometry is out of range.
 *
 ******************************************************************************/
 static INLINE u32 AmdXspi_HyperRamDensityMbits(u16 Ir0Value)
@@ -555,12 +595,12 @@ static INLINE u32 AmdXspi_HyperRamDensityMbits(u16 Ir0Value)
 /*****************************************************************************/
 /**
 *
-* Return a display name for a device.
+* @brief Returns a display name for a device.
 *
-* @param[in] ConfigPtr is the device entry, or NULL if the device is unknown.
+* @param[in]   ConfigPtr Device entry, or NULL if the device is unknown.
 *
-* @return	Device name, or a generic string when the device is not in the
-*		table.
+* @return      Device name, or a generic string when the device is not in the
+*              table.
 *
 ******************************************************************************/
 static INLINE const char *AmdXspi_HyperBusName(const AmdXspi_HyperBusConfig *ConfigPtr)

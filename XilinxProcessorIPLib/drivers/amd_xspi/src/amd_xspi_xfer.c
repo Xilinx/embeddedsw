@@ -7,8 +7,7 @@
 /**
 *
 * @file amd_xspi_xfer.c
-* @addtogroup amd_xspi Overview
-* @{
+* @brief Implements the data movement functions of the AXI XSPI driver.
 *
 * This file contains the data movement functions of the AXI XSPI driver.
 * These functions push data into the transmit FIFO and pull data out of the
@@ -20,9 +19,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup amd_xspi Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -32,27 +36,33 @@
 
 /************************** Constant Definitions *****************************/
 
+/** @name FIFO wait poll counts
+ * @{
+ */
 /**
  * Bound on how long either direction waits for the FIFO to become workable:
  * for a read, to report data; for a write, to report room.
  *
  * The first AMD_XSPI_FIFO_SPIN_COUNT polls run back to back with no delay.
- * Being slow costs no data in either direction, since the core stops the
- * clock when the RX FIFO fills and waits when the TX FIFO runs dry, but it
- * does spend the only budget that matters: chip select cannot stay low past
- * tCSM, 4 us on this part, and the core raises a transaction error when it
- * does. What the FIFO is waiting on arrives within a clock or two, so the
- * wait must not put a sleep in front of it.
  *
- * Once those polls are spent the transaction has outlived its tCSM budget
- * and the core has already failed it, so nothing is gained by continuing to
- * spin and the remaining polls sleep. That costs the working case nothing
- * and makes the timeout a wall clock bound of about
- * AMD_XSPI_FIFO_SLEEP_COUNT microseconds, rather than a spin count whose
- * real duration depends on the CPU and on AXI latency.
+ * Being slow costs no data in either direction. The core stops the clock when
+ * the RX FIFO fills and waits when the TX FIFO runs dry. But it does spend the
+ * only budget that matters. Chip select cannot stay low past tCSM, 4 us on this
+ * part, and the core raises a transaction error when it does. What the FIFO is
+ * waiting on arrives within a clock or two, so the wait must not put a sleep in
+ * front of it.
+ *
+ * Once those polls are spent, the transaction has outlived its tCSM budget and
+ * the core has already failed it. So nothing is gained by continuing to spin,
+ * and the remaining polls sleep. That costs the working case nothing. The
+ * timeout is then a wall clock bound of about AMD_XSPI_FIFO_SLEEP_COUNT
+ * microseconds. It is not a spin count whose real duration depends on the CPU
+ * and on AXI latency.
  */
 #define AMD_XSPI_FIFO_SPIN_COUNT	256U
+/** Polls that sleep 1 us each. */
 #define AMD_XSPI_FIFO_SLEEP_COUNT	1000U
+/** @} */
 
 /************************** Function Prototypes ******************************/
 
@@ -62,19 +72,21 @@
 
 /*****************************************************************************/
 /**
-* Encode a byte count of command/address bytes into the 2-bit instruction
-* field used by AmdXspi_SendInstruction.
 *
-* Callers must screen the count first with AMD_XSPI_IS_VALID_CMD_ADDR_BYTES,
-* which rejects both the counts this field cannot represent and the ones the
-* core's mode does not permit. A count outside 1, 2, 4, 5 and 6 that reaches
-* here unchecked widens to the 6 byte encoding. The check is left to callers
-* because they know the mode and can fail the transfer, neither of which this
-* function can do while returning a field value.
+* @brief Encodes a command/address byte count into the 2-bit instruction field.
 *
-* @param[in] CmdAddrBytes is the number of command/address bytes (1-6).
+* AmdXspi_SendInstruction uses this field.
 *
-* @return	The encoded 2-bit field value.
+* Callers must screen the count first with AMD_XSPI_IS_VALID_CMD_ADDR_BYTES. It
+* rejects both the counts this field cannot represent and the ones the core's
+* mode does not permit. A count outside 1, 2, 4, 5 and 6 that reaches here
+* unchecked widens to the 6 byte encoding. The check is left to callers because
+* they know the mode and can fail the transfer. This function can do neither
+* while returning a field value.
+*
+* @param[in]   CmdAddrBytes Number of command/address bytes (1-6).
+*
+* @return      The encoded 2-bit field value.
 *
 ******************************************************************************/
 u8 AmdXspi_EncodeCmdAddrBytes(u32 CmdAddrBytes)
@@ -96,11 +108,12 @@ u8 AmdXspi_EncodeCmdAddrBytes(u32 CmdAddrBytes)
 
 /*****************************************************************************/
 /**
-* Pack an instruction descriptor into the 32-bit instruction word.
 *
-* @param[in] InstrPtr is a pointer to the AmdXspi_Instruction structure.
+* @brief Packs an instruction descriptor into the 32-bit instruction word.
 *
-* @return	The assembled instruction word.
+* @param[in]   InstrPtr Pointer to the AmdXspi_Instruction structure.
+*
+* @return      The assembled instruction word.
 *
 ******************************************************************************/
 static u32 AmdXspi_PackInstruction(const AmdXspi_Instruction *InstrPtr)
@@ -131,21 +144,22 @@ static u32 AmdXspi_PackInstruction(const AmdXspi_Instruction *InstrPtr)
 
 /*****************************************************************************/
 /**
-* Assemble an instruction and send it to the Transmit Register.
+*
+* @brief Assembles an instruction and sends it to the Transmit Register.
 *
 * In Lite mode, instruction is sent in 2 AXI-Lite transactions:
 * - First write: {01, LSB 16-bit instruction}
 * - Second write: {10, MSB instruction bits}
 *
-* The instance and the ready state are checked by the public entry points,
-* and the descriptor is a caller local whose command/address field comes from
-* AmdXspi_EncodeCmdAddrBytes and so is in range by construction. The data
-* byte and dummy cycle counts are checked here because AmdXspi_LiteRead and
-* AmdXspi_LiteWrite pass them straight through from the message without
-* bounding them, making this the only place the polled path screens them.
+* The instance and the ready state are checked by the public entry points. The
+* descriptor is a caller local whose command/address field comes from
+* AmdXspi_EncodeCmdAddrBytes, so it is in range by construction. The data byte
+* and dummy cycle counts are checked here. AmdXspi_LiteRead and
+* AmdXspi_LiteWrite pass them straight through from the message without bounding
+* them. So this is the only place the polled path screens them.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] InstrPtr is a pointer to the instruction descriptor.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   InstrPtr Pointer to the instruction descriptor.
 *
 ******************************************************************************/
 void AmdXspi_SendInstruction(AmdXspi *InstancePtr,
@@ -181,14 +195,15 @@ void AmdXspi_SendInstruction(AmdXspi *InstancePtr,
 
 /*****************************************************************************/
 /**
-* Send command and address bytes to the Transmit Register.
+*
+* @brief Sends command and address bytes to the Transmit Register.
 *
 * Every caller checks the instance, the ready state and the buffer before
 * reaching here, so nothing is rechecked.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] CmdAddrBuf is the buffer containing command and address bytes.
-* @param[in] NumBytes is the number of bytes to send.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   CmdAddrBuf Buffer containing command and address bytes.
+* @param[in]   NumBytes Number of bytes to send.
 *
 ******************************************************************************/
 void AmdXspi_SendCmdAddr(AmdXspi *InstancePtr, u8 *CmdAddrBuf, u32 NumBytes)
@@ -214,19 +229,19 @@ void AmdXspi_SendCmdAddr(AmdXspi *InstancePtr, u8 *CmdAddrBuf, u32 NumBytes)
 
 /*****************************************************************************/
 /**
-* Send data bytes to the Transmit Register.
+*
+* @brief Sends data bytes to the Transmit Register.
 *
 * Every caller checks the instance and the ready state, and calls this only
 * when the transmit buffer is non-NULL, so nothing is rechecked.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] DataBuf is the buffer containing data bytes to transmit.
-* @param[in] NumBytes is the number of bytes to send.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   DataBuf Buffer containing data bytes to transmit.
+* @param[in]   NumBytes Number of bytes to send.
 *
-* @return
-*		- XST_SUCCESS if all bytes were written to the FIFO.
-*		- XST_FAILURE if the FIFO stayed full, which means the core
-*		  stopped draining it and no error bit was raised to say so.
+* @return      - XST_SUCCESS if all bytes were written to the FIFO.
+*              - XST_FAILURE if the FIFO stayed full, which means the core
+*                stopped draining it and no error bit was raised to say so.
 *
 ******************************************************************************/
 s32 AmdXspi_SendData(AmdXspi *InstancePtr, u8 *DataBuf, u32 NumBytes)
@@ -290,29 +305,28 @@ s32 AmdXspi_SendData(AmdXspi *InstancePtr, u8 *DataBuf, u32 NumBytes)
 
 /*****************************************************************************/
 /**
-* Receive data bytes from the Receive Register.
 *
-* The payload can be larger than the FIFO, since a Lite read may ask for up
-* to AMD_XSPI_MAX_DATA_BYTES while C_FIFO_DEPTH goes as low as 16 entries, so
-* the data is collected over as many passes as it takes. Each pass waits on
-* RX_EMPTY for data to appear and then drains the number of entries the core
-* reports, which keeps the wait to one register read per poll and still lets
-* a whole burst be taken without re-testing the FIFO per entry.
+* @brief Receives data bytes from the Receive Register.
 *
-* A failed transaction is not detected here and is left to run the wait out,
-* so a read that the core has faulted costs the full timeout before it is
-* reported.
+* The payload can be larger than the FIFO, since a Lite read may ask for up to
+* AMD_XSPI_MAX_DATA_BYTES while C_FIFO_DEPTH goes as low as 16 entries. So the
+* data is collected over as many passes as it takes. Each pass waits on RX_EMPTY
+* for data to appear and then drains the number of entries the core reports.
+* That keeps the wait to one register read per poll. It still lets a whole burst
+* be taken without re-testing the FIFO per entry.
+*
+* A failed transaction is not detected here and is left to run the wait out. So
+* a read that the core has faulted costs the full timeout before it is reported.
 *
 * AmdXspi_LiteRead(), the only caller, checks the instance, the ready state
 * and the receive buffer, so nothing is rechecked.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] DataBuf is the buffer to store received data.
-* @param[in] NumBytes is the number of bytes to receive.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[out]  DataBuf Buffer to store received data.
+* @param[in]   NumBytes Number of bytes to receive.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
+* @return      - XST_SUCCESS if successful.
+*              - XST_FAILURE if failed.
 *
 ******************************************************************************/
 s32 AmdXspi_RecvData(AmdXspi *InstancePtr, u8 *DataBuf, u32 NumBytes)
@@ -378,19 +392,22 @@ s32 AmdXspi_RecvData(AmdXspi *InstancePtr, u8 *DataBuf, u32 NumBytes)
 
 /*****************************************************************************/
 /**
-* Push as much of the message's transmit data into the TX FIFO as there is
-* currently room for, without waiting for the core to make more.
+*
+* @brief Pushes transmit data from the message into the TX FIFO.
+*
+* Pushes as much data as there is currently room for, without waiting for the
+* core to make more.
 *
 * Unlike AmdXspi_SendData, this never blocks: it stops as soon as the FIFO is
 * full or the message has been fully written. That makes it safe to call from
-* interrupt context, and it lets a write larger than the FIFO be delivered
-* across successive fill-level interrupts rather than having to be pushed in
-* one blocking pass when the transaction is launched.
+* interrupt context. It also lets a write larger than the FIFO be delivered
+* across successive fill-level interrupts. The write does not have to be pushed
+* in one blocking pass when the transaction is launched.
 *
 * Progress is accumulated in InstancePtr->MsgTxCnt.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] Msg is the message whose transmit buffer is being sent.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     Msg Message whose transmit buffer is being sent.
 *
 ******************************************************************************/
 void AmdXspi_FillTxFifo(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
@@ -423,33 +440,36 @@ void AmdXspi_FillTxFifo(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
 
 /*****************************************************************************/
 /**
-* Move receive data from the RX FIFO into the message buffer.
 *
-* Progress is accumulated in InstancePtr->MsgRxCnt, so a read larger than the
-* FIFO can be assembled across successive fill-level interrupts rather than
-* having to be resident all at once when the transaction completes.
+* @brief Moves receive data from the RX FIFO into the message buffer.
+*
+* Progress is accumulated in InstancePtr->MsgRxCnt. So a read larger than the
+* FIFO can be assembled across successive fill-level interrupts. It does not
+* have to be resident all at once when the transaction completes.
 *
 * WaitForAll says what an empty FIFO means. Part way through a transaction it
-* means the core has not produced the next entry yet, and returning is right:
-* more fill-level interrupts are coming, and blocking in the handler for data
-* the bus has not carried would spend the tCSM budget of the transaction that
-* is still running. At completion there are no further interrupts to wait for,
-* so the same reading has to be retried: the core signals the transaction
-* complete as the last entries reach the FIFO, and the occupancy count crosses
-* into this clock domain a little behind them, so a drain that starts the
-* moment the interrupt arrives can find the FIFO reporting empty with data
-* still landing. Giving up on that first reading loses the tail of the burst
-* and is reported to the caller as a receive overrun.
+* means the core has not produced the next entry yet, and returning is right.
+* More fill-level interrupts are coming. Blocking in the handler for data the
+* bus has not carried would spend the tCSM budget of the transaction that is
+* still running.
 *
-* The retry only ever spins. It runs in interrupt context, and by the time it
-* is reached the bus has already delivered the data, so the wait is the
-* handful of cycles the count takes to catch up rather than anything bounded
-* by the bus clock.
+* At completion there are no further interrupts to wait for, so the same reading
+* has to be retried. The core signals the transaction complete as the last
+* entries reach the FIFO. The occupancy count crosses into this clock domain a
+* little behind them. So a drain that starts the moment the interrupt arrives
+* can find the FIFO reporting empty with data still landing. Giving up on that
+* first reading loses the tail of the burst and is reported to the caller as a
+* receive overrun.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] Msg is the message whose receive buffer is being filled.
-* @param[in] WaitForAll is 0 to take only what is present and return, or 1 to
-*		wait out a late occupancy count until the message is satisfied.
+* The retry only ever spins. It runs in interrupt context, and by the time it is
+* reached the bus has already delivered the data. So the wait is the handful of
+* cycles the count takes to catch up, rather than anything bounded by the bus
+* clock.
+*
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     Msg Message whose receive buffer is being filled.
+* @param[in]     WaitForAll 0 to take only what is present and return, or 1 to
+*                wait out a late occupancy count until the message is satisfied.
 *
 ******************************************************************************/
 void AmdXspi_DrainRxFifo(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg,

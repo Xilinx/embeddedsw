@@ -7,13 +7,12 @@
 /**
 *
 * @file amd_xspi_control.c
-* @addtogroup amd_xspi Overview
-* @{
+* @brief Implements the low-level transaction functions of the AXI XSPI driver.
 *
-* This file contains the low-level transaction functions of the AXI XSPI
-* driver. These functions assemble a Lite mode instruction and sequence the
-* data movement functions to carry out a complete read or write, and they
-* maintain the message queue used by the interrupt driven API.
+* This file contains the low-level transaction functions of the AXI XSPI driver.
+* These functions assemble a Lite mode instruction and sequence the data
+* movement functions to carry out a complete read or write. They also maintain
+* the message queue used by the interrupt driven API.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,9 +20,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup amd_xspi Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -34,7 +38,7 @@
 
 /**
  * Poll bound for a transaction to report complete. Sized well past the longest
- * Lite mode transfer the core will run so that it only trips on a wedged
+ * Lite mode transfer the core runs so that it only trips on a wedged
  * transaction, never on a slow one.
  */
 #define AMD_XSPI_TXN_POLL_COUNT		1000000U
@@ -47,13 +51,13 @@
 
 /*****************************************************************************/
 /**
-* Poll until the core reports the transaction finished.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
+* @brief Polls until the core reports the transaction finished.
 *
-* @return
-*		- XST_SUCCESS once TXN_COMPLETE is seen.
-*		- XST_FAILURE if the core raises TXN_ERROR or the poll expires.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+*
+* @return      - XST_SUCCESS once TXN_COMPLETE is seen.
+*              - XST_FAILURE if the core raises TXN_ERROR or the poll expires.
 *
 ******************************************************************************/
 static s32 AmdXspi_WaitTxnComplete(AmdXspi *InstancePtr)
@@ -78,7 +82,8 @@ static s32 AmdXspi_WaitTxnComplete(AmdXspi *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Perform a Lite mode read transaction.
+*
+* @brief Performs a Lite mode read transaction.
 *
 * This function sends instruction, command/address, and receives data
 * following the Lite mode protocol for xSPI Profile 2.0 (HyperBus).
@@ -87,16 +92,15 @@ static s32 AmdXspi_WaitTxnComplete(AmdXspi *InstancePtr)
 * so a caller cannot hand a read the transmit buffer by mistake.
 *
 * The instance, the message and the ready state are checked by
-* AmdXspi_PolledTransfer(), the only caller, so only the buffers this
-* function goes on to dereference are checked here.
+* AmdXspi_PolledTransfer(), the only caller. So only the buffers this function
+* goes on to dereference are checked here.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] Msg describes the transaction: command/address bytes, receive
-*		buffer, byte count, dummy cycles and frame/IO format.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   Msg Describes the transaction: command/address bytes, receive
+*              buffer, byte count, dummy cycles and frame/IO format.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
+* @return      - XST_SUCCESS if successful.
+*              - XST_FAILURE if failed.
 *
 ******************************************************************************/
 s32 AmdXspi_LiteRead(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
@@ -157,7 +161,8 @@ s32 AmdXspi_LiteRead(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
 
 /*****************************************************************************/
 /**
-* Perform a Lite mode write transaction.
+*
+* @brief Performs a Lite mode write transaction.
 *
 * This function sends instruction, command/address, and data bytes
 * following the Lite mode protocol for xSPI Profile 2.0 (HyperBus).
@@ -166,16 +171,15 @@ s32 AmdXspi_LiteRead(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
 * so a caller cannot hand a write the receive buffer by mistake.
 *
 * The instance, the message and the ready state are checked by
-* AmdXspi_PolledTransfer(), the only caller, so only the buffer this
-* function goes on to dereference is checked here.
+* AmdXspi_PolledTransfer(), the only caller. So only the buffer this function
+* goes on to dereference is checked here.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] Msg describes the transaction: command/address bytes, transmit
-*		buffer, byte count, dummy cycles and frame/IO format.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
+* @param[in]   Msg Describes the transaction: command/address bytes, transmit
+*              buffer, byte count, dummy cycles and frame/IO format.
 *
-* @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
+* @return      - XST_SUCCESS if successful.
+*              - XST_FAILURE if failed.
 *
 ******************************************************************************/
 s32 AmdXspi_LiteWrite(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
@@ -217,23 +221,28 @@ s32 AmdXspi_LiteWrite(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
 
 /*****************************************************************************/
 /**
-* Start a single message on the bus (instruction + command/address, plus
-* transmit data for a write). This reuses the existing low-level building
-* blocks (AmdXspi_SendInstruction/AmdXspi_SendCmdAddr/AmdXspi_FillTxFifo) and is
-* used both by AmdXspi_InterruptTransfer (to launch the first message) and by
+*
+* @brief Starts a single message on the bus.
+*
+* The message comprises the instruction and command/address, plus transmit data
+* for a write.
+*
+* This reuses the existing low-level building blocks
+* (AmdXspi_SendInstruction/AmdXspi_SendCmdAddr/AmdXspi_FillTxFifo). It is used
+* both by AmdXspi_InterruptTransfer (to launch the first message) and by
 * AmdXspi_InterruptHandler (to launch each subsequent message on completion).
 *
 * Nothing here blocks, which is what makes the second of those callers safe.
 *
-* For a read, receive data is drained by the interrupt handler as the RX FIFO
-* fills and again at completion; this function only issues the transaction.
+* For a read, the interrupt handler drains receive data as the RX FIFO fills and
+* again at completion. This function only issues the transaction.
 *
-* The instance, the message and the ready state are checked by both callers,
-* so what is checked here is the message content, which neither of them
-* inspects and which this function is the first to act on.
+* The instance, the message and the ready state are checked by both callers. So
+* what is checked here is the message content. Neither of them inspects it, and
+* this function is the first to act on it.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] Msg is the message to start.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     Msg Message to start.
 *
 ******************************************************************************/
 void AmdXspi_StartMessage(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
@@ -294,11 +303,13 @@ void AmdXspi_StartMessage(AmdXspi *InstancePtr, const AmdXspi_Msg *Msg)
 
 /*****************************************************************************/
 /**
-* Tear down the active message queue and report the outcome to the caller.
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
-* @param[in] StatusEvent is the event to pass to the status handler.
-* @param[in] ByteCount is the byte count to pass to the status handler.
+* @brief Tears down the active message queue and reports the outcome to the
+* caller.
+*
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     StatusEvent Event to pass to the status handler.
+* @param[in]     ByteCount Byte count to pass to the status handler.
 *
 ******************************************************************************/
 void AmdXspi_FinishMessageQueue(AmdXspi *InstancePtr, u32 StatusEvent,

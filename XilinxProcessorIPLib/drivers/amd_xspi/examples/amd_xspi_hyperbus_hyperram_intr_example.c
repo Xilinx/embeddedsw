@@ -7,19 +7,20 @@
 /**
 *
 * @file amd_xspi_hyperbus_hyperram_intr_example.c
+* @brief Demonstrates the AXI XSPI driver with HyperRAM in interrupt mode.
 *
 * This file contains an interrupt-driven example for the AXI XSPI driver
-* operating in AXI-Lite mode with a HyperBus (xSPI Profile 2.0) HyperRAM
-* device. It is vendor-neutral: any HyperBus HyperRAM returning a valid
-* Identification Register 0 is accepted (tested with an Infineon device;
-* datasheet citations use the Infineon HyperRAM datasheet as a reference).
-* It performs the same flow as the polled example:
+* operating in AXI-Lite mode with a HyperBus (xSPI Profile 2.0) HyperRAM device.
+* It is vendor-neutral: any HyperBus HyperRAM returning a valid Identification
+* Register 0 is accepted. The example is tested with an Infineon device, and
+* datasheet citations use the Infineon HyperRAM datasheet as a reference. It
+* performs the same flow as the polled example:
 * - Initialization of the AXI XSPI controller and interrupt system
 * - Power-up verification of HyperRAM
 * - Reading HyperRAM Identification Registers (IR0, IR1) and CR0
 * - Memory RAM test: a fresh per-run pattern written across a one row region
-*   in chunks and read back
-*   (write/read/verify with data integrity and address decode checks)
+*   in chunks and read back. It performs write/read/verify with data integrity
+*   and address decode checks.
 *
 * Interrupt usage: transactions use the message-based AmdXspi_InterruptTransfer
 * API. TXN_COMPLETE/TXN_ERROR are routed through the GIC/INTC to
@@ -29,10 +30,9 @@
 *
 * NOTE: HyperRAM is self-refreshing DRAM, not flash - there is no flash-style
 * erase command and no defined "erased" value. This example does a RAM test
-* instead: it writes a pattern that mixes each word's address into its value
-* and changes every run, so that a bit stuck at either level, a chunk written
-* to the wrong address and a write that fails silently are all caught by the
-* one pass.
+* instead. It writes a pattern that mixes each word's address into its value and
+* changes every run. One pass then catches a bit stuck at either level, a chunk
+* written to the wrong address, and a write that fails silently.
 *
 * This example requires a GIC or INTC interrupt controller in the system.
 *
@@ -42,6 +42,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   akm  07/29/26 Initial release
+* 1.0   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -57,7 +58,8 @@
 
 /************************** Constant Definitions *****************************/
 
-#define AMD_XSPI_BASEADDR	XPAR_XAMD_XSPI_0_BASEADDR	/**< Controller base address */
+/** Controller base address. */
+#define AMD_XSPI_BASEADDR	XPAR_XAMD_XSPI_0_BASEADDR
 
 /*
  * Register-space word addresses, ID/CR0 field encodings, per-device latency
@@ -83,8 +85,8 @@
  * that is too short can wedge the part until RESET# or a power cycle - see
  * "The bootstrap problem" in amd_xspi_hyperbus_config.h.
  */
-#define HYPERRAM_DEFAULT_LATENCY_CLOCKS	7U	/**< CR0[7:4] reset value of the
-						     fitted part, in clocks */
+/** CR0[7:4] reset value of the fitted part, in clocks. */
+#define HYPERRAM_DEFAULT_LATENCY_CLOCKS	7U
 
 /*
  * Memory test region (HyperRAM memory space, 16-bit word addressing).
@@ -100,15 +102,20 @@
  * Keeping the chunk a power of two and the start address chunk-aligned means
  * no linear burst ever crosses a row boundary part-way through.
  */
-#define HYPERRAM_TEST_WORD_ADDR		0x00000000U	/**< First word address of
-							     the test region */
-#define HYPERRAM_CHUNK_WORDS		16U		/**< 16 words = 32 bytes per
-							     chip-select window */
+/** @name Memory test region
+ * @{
+ */
+/** First word address of the test region. */
+#define HYPERRAM_TEST_WORD_ADDR		0x00000000U
+/** 16 words = 32 bytes per chip-select window. */
+#define HYPERRAM_CHUNK_WORDS		16U
+/** Chunk size in bytes. */
 #define HYPERRAM_CHUNK_BYTES		(HYPERRAM_CHUNK_WORDS * 2U)
-						/**< Chunk size in bytes */
-#define HYPERRAM_TEST_NUM_WORDS		512U		/**< 512 words = 1 KB = one row */
+/** 512 words = 1 KB = one row. */
+#define HYPERRAM_TEST_NUM_WORDS		512U
+/** Transactions per pass. */
 #define HYPERRAM_TEST_NUM_CHUNKS	(HYPERRAM_TEST_NUM_WORDS / HYPERRAM_CHUNK_WORDS)
-						/**< Transactions per pass */
+/** @} */
 
 /*
  * Step added to the value already stored in the region (from the previous
@@ -119,8 +126,8 @@
  * NOTE (maintainers): whenever this example is updated, also change this
  * step (or the base pattern) so a rebuilt binary writes a different data set.
  */
-#define HYPERRAM_SEED_STEP		0x0111U	/**< Added to the stored value to
-						     derive this run's base pattern */
+/** Added to the stored value to derive this run's base pattern. */
+#define HYPERRAM_SEED_STEP		0x0111U
 
 /*
  * Odd multiplier that mixes the word address into the per-run pattern, so
@@ -129,15 +136,15 @@
  * address decode fault would pass unnoticed. Odd, so the mapping is one to
  * one over 16 bits and no two addresses in the region can collide.
  */
-#define HYPERRAM_ADDR_MIX		0x9E37U	/**< Odd multiplier mixing the word
-						     address into the pattern */
+/** Odd multiplier mixing the word address into the pattern. */
+#define HYPERRAM_ADDR_MIX		0x9E37U
 
 /*
  * Fallback base pattern used only when the pre-run read of the region fails
  * (for example first-ever run). Normal runs advance from the stored value.
  */
-#define HYPERRAM_SEED_FALLBACK		0xA500U	/**< Base pattern used when the
-						     pre-run read fails */
+/** Base pattern used when the pre-run read fails. */
+#define HYPERRAM_SEED_FALLBACK		0xA500U
 
 /************************** Function Prototypes ******************************/
 
@@ -167,53 +174,74 @@ static s32 HyperRAM_Compare(AmdXspi *InstancePtr, u32 StartWordAddr,
 
 /************************** Variable Definitions *****************************/
 
-static AmdXspi AmdXspiInstance;
+static AmdXspi AmdXspiInstance;	/**< Driver instance. */
 
+/** Command/address buffer for register access. */
 static u8 CmdAddrBuffer[AMD_XSPI_HYPERBUS_CA_BYTES];
-static u8 DataBuffer[2];	/* 2-byte data buffer for register access */
+static u8 DataBuffer[2];	/**< 2-byte data buffer for register access. */
 
-/*
+/**
  * Device table entry for the attached part, resolved from the ID registers.
  * NULL until the device has been identified.
  */
 static const AmdXspi_HyperBusConfig *HyperRamCfg;
 
-/*
+/**
  * Latency used for register-space reads, set from the device table before the
  * first read. This example only reads CR0, never writes it, so the device
  * stays at its power-on latency throughout and this value never changes.
  */
 static u8 RegLatency;
 
-/*
+/**
+ * @name Transaction buffers
+ *
  * Bus-facing buffers for one transaction. A chip-select window has to close
  * before tCSM, so a single transaction never carries more than a chunk.
+ * @{
  */
+/** Transmit buffer. */
 static u8 MemTxBuffer[HYPERRAM_CHUNK_BYTES];
+/** Receive buffer. */
 static u8 MemRxBuffer[HYPERRAM_CHUNK_BYTES];
+/** @} */
 
-/*
+/**
+ * @name Test region buffers
+ *
  * The pattern written to the test region and the data read back from it. The
  * verify step compares these two directly, so both span the whole region:
  * enlarging HYPERRAM_TEST_NUM_WORDS grows them by 2 bytes per word each.
+ * @{
  */
+/** Pattern written to the test region. */
 static u16 WriteWords[HYPERRAM_TEST_NUM_WORDS];
+/** Data read back from the test region. */
 static u16 ReadWords[HYPERRAM_TEST_NUM_WORDS];
+/** @} */
 
-/* Holds the chunk re-read after a mismatch, to separate a bad write from a
- * bad read. */
+/**
+ * Holds the chunk re-read after a mismatch, to separate a bad write from a
+ * bad read.
+ */
 static u16 RereadWords[HYPERRAM_CHUNK_WORDS];
 
-/*
+/**
+ * @name Transfer status flags
+ *
  * Set from the status callback (runs in interrupt context). The main
  * flow launches a transfer with AmdXspi_InterruptTransfer, then spins on these.
+ * @{
  */
-static volatile int TransferDone;
-static volatile int TransferError;
-static volatile u32 TxnCompleteCount;	/* number of completed transfers */
-static volatile u32 ErrorCount;		/* number of error interrupts */
+static volatile int TransferDone;	/**< Set when a transfer completes. */
+static volatile int TransferError;	/**< Set when a transfer fails. */
+/** @} */
+/** Number of completed transfers. */
+static volatile u32 TxnCompleteCount;
+/** Number of error interrupts. */
+static volatile u32 ErrorCount;
 
-/*
+/**
  * Status event from the most recent callback. A failed transfer reports it, so
  * a short receive (XST_SPI_RECEIVE_OVERRUN, 1154) is told apart from a fault
  * the controller raised, since the two need different fixes.
@@ -226,11 +254,10 @@ static volatile u32 LastStatusEvent;
 /*****************************************************************************/
 /**
 *
-* Main function to run the AXI XSPI interrupt example.
+* @brief Serves as the main entry point for the AXI XSPI interrupt example.
 *
-* @return
-*		- XST_SUCCESS if the example ran successfully.
-*		- XST_FAILURE if the example failed.
+* @return      - XST_SUCCESS if the example ran successfully.
+*              - XST_FAILURE if the example failed.
 *
 ******************************************************************************/
 int main(void)
@@ -257,15 +284,18 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* Report the bus clock, which is the external clock divided by the core's
-* SCK ratio. Worth printing separately because the two are easily confused,
-* and it is the bus clock that the tCSM budget is measured against.
+* @brief Reports the bus clock.
+*
+* The bus clock is the external clock divided by the core's SCK ratio.
+*
+* Worth printing separately because the two are easily confused, and it is the
+* bus clock that the tCSM budget is measured against.
 *
 * A BSP generated before the divider parameters were described in the driver
-* metadata reports them as zero, in which case the frequency is unknown rather
+* metadata reports them as zero. In that case the frequency is unknown rather
 * than zero, and saying so is more useful than printing a wrong number.
 *
-* @param	InstancePtr is a pointer to the AmdXspi instance.
+* @param[in]   InstancePtr Pointer to the AmdXspi instance.
 *
 ******************************************************************************/
 static void PrintSckFreq(AmdXspi *InstancePtr)
@@ -284,14 +314,14 @@ static void PrintSckFreq(AmdXspi *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Returns the controller to a state where a fresh transaction can start.
+* @brief Returns the controller to a state where a fresh transaction can start.
 *
 * AmdXspi_Abort() restores the controller, but the aborted transfer may
 * already have set the flags the status handler drives. Clearing them here
 * keeps the abort and the flag reset together, so a stale completion cannot
 * satisfy the next WaitForTransfer().
 *
-* @param[in] InstancePtr is a pointer to the AmdXspi instance.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
 *
 ******************************************************************************/
 static void HyperRAM_RecoverController(AmdXspi *InstancePtr)
@@ -305,8 +335,13 @@ static void HyperRAM_RecoverController(AmdXspi *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Build HyperBus Command/Address (CA) bytes for Register space access.
+* @brief Builds HyperBus Command/Address (CA) bytes for Register space access.
+*
 * CA[46]=1 (register), CA[45]=1 (linear), MSB-first, big-endian.
+*
+* @param[out]  CaBuf Buffer that receives the command/address bytes.
+* @param[in]   WordAddr Register space word address.
+* @param[in]   IsRead Nonzero for a read, zero for a write.
 *
 ******************************************************************************/
 static void BuildHyperBusCA_Register(u8 *CaBuf, u32 WordAddr, u8 IsRead)
@@ -332,8 +367,13 @@ static void BuildHyperBusCA_Register(u8 *CaBuf, u32 WordAddr, u8 IsRead)
 /*****************************************************************************/
 /**
 *
-* Build HyperBus Command/Address (CA) bytes for Memory space access.
+* @brief Builds HyperBus Command/Address (CA) bytes for Memory space access.
+*
 * Identical to the register builder except CA[46]=0 (memory space).
+*
+* @param[out]  CaBuf Buffer that receives the command/address bytes.
+* @param[in]   WordAddr Memory space word address.
+* @param[in]   IsRead Nonzero for a read, zero for a write.
 *
 ******************************************************************************/
 static void BuildHyperBusCA_Memory(u8 *CaBuf, u32 WordAddr, u8 IsRead)
@@ -365,19 +405,20 @@ static void BuildHyperBusCA_Memory(u8 *CaBuf, u32 WordAddr, u8 IsRead)
 /*****************************************************************************/
 /**
 *
-* Read a single 16-bit register from HyperRAM register space using an
-* interrupt-driven transfer. Register reads take the probe latency currently
-* held in RegLatency, which is the value being validated during the
-* identification sweep. Data is big-endian on the bus, so the first byte
-* received is bits [15:8].
+* @brief Reads a single 16-bit register from HyperRAM register space.
 *
-* @param[in]  InstancePtr is a pointer to the AmdXspi instance.
-* @param[in]  RegWordAddr is the register word address to read.
-* @param[out] Data is the register value, or 0 if the transfer failed.
+* The read uses an interrupt-driven transfer.
 *
-* @return
-*		- XST_SUCCESS if the register was read.
-*		- XST_FAILURE or a driver error code otherwise.
+* Register reads take the probe latency currently held in RegLatency, which is
+* the value being validated during the identification sweep. Data is big-endian
+* on the bus, so the first byte received is bits [15:8].
+*
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     RegWordAddr Register word address to read.
+* @param[out]    Data Register value, or 0 if the transfer failed.
+*
+* @return        - XST_SUCCESS if the register was read.
+*                - XST_FAILURE or a driver error code otherwise.
 *
 ******************************************************************************/
 static s32 HyperRAM_ReadRegister(AmdXspi *InstancePtr, u32 RegWordAddr, u16 *Data)
@@ -421,8 +462,19 @@ static s32 HyperRAM_ReadRegister(AmdXspi *InstancePtr, u32 RegWordAddr, u16 *Dat
 /*****************************************************************************/
 /**
 *
-* Write a block of 16-bit words to HyperRAM memory space (linear burst).
+* @brief Writes a block of 16-bit words to HyperRAM memory space (linear burst).
+*
 * Memory writes use the same initial latency as reads; big-endian on the bus.
+*
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     WordAddr First word address to write.
+* @param[in]     Data Words to write.
+* @param[in]     NumWords Number of words to write.
+* @param[in]     Latency Initial latency in clocks.
+*
+* @return        - XST_SUCCESS if the write completed.
+*                - XST_INVALID_PARAM if a parameter is invalid.
+*                - Otherwise, the error status of the transfer.
 *
 ******************************************************************************/
 static s32 HyperRAM_WriteMemory(AmdXspi *InstancePtr, u32 WordAddr,
@@ -473,7 +525,18 @@ static s32 HyperRAM_WriteMemory(AmdXspi *InstancePtr, u32 WordAddr,
 /*****************************************************************************/
 /**
 *
-* Read a block of 16-bit words from HyperRAM memory space (linear burst).
+* @brief Reads a block of 16-bit words from HyperRAM memory space (linear
+* burst).
+*
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     WordAddr First word address to read.
+* @param[out]    Data Buffer that receives the words read.
+* @param[in]     NumWords Number of words to read.
+* @param[in]     Latency Initial latency in clocks.
+*
+* @return        - XST_SUCCESS if the read completed.
+*                - XST_INVALID_PARAM if a parameter is invalid.
+*                - Otherwise, the error status of the transfer.
 *
 ******************************************************************************/
 static s32 HyperRAM_ReadMemory(AmdXspi *InstancePtr, u32 WordAddr,
@@ -527,16 +590,16 @@ static s32 HyperRAM_ReadMemory(AmdXspi *InstancePtr, u32 WordAddr,
 /*****************************************************************************/
 /**
 *
-* Expected value of one word, derived from its address.
+* @brief Returns the expected value of one word, derived from its address.
 *
-* AddrMix is odd and non-zero, which makes every word in the region distinct
-* so that a chunk written to the wrong address cannot read back as correct.
+* AddrMix is odd and non-zero, which makes every word in the region distinct. So
+* a chunk written to the wrong address cannot read back as correct.
 *
-* @param	Base is the run's base pattern.
-* @param	AddrMix is the address multiplier.
-* @param	WordAddr is the absolute word address.
+* @param[in]   Base Run's base pattern.
+* @param[in]   AddrMix Address multiplier.
+* @param[in]   WordAddr Absolute word address.
 *
-* @return	Expected 16-bit value at that address.
+* @return      Expected 16-bit value at that address.
 *
 ******************************************************************************/
 static u16 HyperRAM_ExpectedWord(u16 Base, u16 AddrMix, u32 WordAddr)
@@ -547,20 +610,20 @@ static u16 HyperRAM_ExpectedWord(u16 Base, u16 AddrMix, u32 WordAddr)
 /*****************************************************************************/
 /**
 *
-* Write a block of words across the test region.
+* @brief Writes a block of words across the test region.
 *
 * The region is covered in chunk-sized transactions so that each chip-select
 * window stays well inside tCSM.
 *
-* @param	InstancePtr is a pointer to the AmdXspi instance.
-* @param	StartWordAddr is the first word address of the region.
-* @param	Data is the block of words to write.
-* @param	NumWords is the region length in words; must be a multiple of
-*		HYPERRAM_CHUNK_WORDS.
-* @param	Latency is the initial latency in clocks.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     StartWordAddr First word address of the region.
+* @param[in]     Data Block of words to write.
+* @param[in]     NumWords Region length in words; must be a multiple of
+*                HYPERRAM_CHUNK_WORDS.
+* @param[in]     Latency Initial latency in clocks.
 *
-* @return	XST_SUCCESS if the whole region was written, otherwise a
-*		failure code.
+* @return        XST_SUCCESS if the whole region was written, otherwise a
+*                failure code.
 *
 ******************************************************************************/
 static s32 HyperRAM_Write(AmdXspi *InstancePtr, u32 StartWordAddr,
@@ -589,20 +652,20 @@ static s32 HyperRAM_Write(AmdXspi *InstancePtr, u32 StartWordAddr,
 /*****************************************************************************/
 /**
 *
-* Read a block of words back from the test region.
+* @brief Reads a block of words back from the test region.
 *
 * Chunked for the same reason as the write path: one chip-select window per
 * transaction.
 *
-* @param	InstancePtr is a pointer to the AmdXspi instance.
-* @param	StartWordAddr is the first word address of the region.
-* @param	Data receives the words read.
-* @param	NumWords is the region length in words; must be a multiple of
-*		HYPERRAM_CHUNK_WORDS.
-* @param	Latency is the initial latency in clocks.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance.
+* @param[in]     StartWordAddr First word address of the region.
+* @param[out]    Data Receives the words read.
+* @param[in]     NumWords Region length in words; must be a multiple of
+*                HYPERRAM_CHUNK_WORDS.
+* @param[in]     Latency Initial latency in clocks.
 *
-* @return	XST_SUCCESS if the whole region was read, otherwise a failure
-*		code.
+* @return        XST_SUCCESS if the whole region was read, otherwise a failure
+*                code.
 *
 ******************************************************************************/
 static s32 HyperRAM_Read(AmdXspi *InstancePtr, u32 StartWordAddr,
@@ -631,28 +694,29 @@ static s32 HyperRAM_Read(AmdXspi *InstancePtr, u32 StartWordAddr,
 /*****************************************************************************/
 /**
 *
-* Compare the data written to the region against the data read back from it,
-* reporting the first few mismatches and a pass/fail summary.
+* @brief Compares the data written to the region against the data read back.
+*
+* Reports the first few mismatches and a pass/fail summary.
 *
 * Every reported mismatch is followed by a fresh read of the chunk holding it.
 * Nothing is written in between, so what comes back says where the corruption
-* happened: the expected value means the device holds the right data and the
-* first read misdelivered it, while the same wrong value again means the write
-* put the wrong data in the array and every read since has faithfully returned
-* it. That distinction cannot be drawn from the first read alone, and it
-* decides whether the transmit or the receive direction is at fault.
+* happened. The expected value means the device holds the right data and the
+* first read misdelivered it. The same wrong value again means the write put the
+* wrong data in the array, and every read since has faithfully returned it. That
+* distinction cannot be drawn from the first read alone, and it decides whether
+* the transmit or the receive direction is at fault.
 *
-* @param	InstancePtr is a pointer to the AmdXspi instance, used for the
-*		re-read.
-* @param	StartWordAddr is the first word address of the region, used to
-*		report a mismatch by device address rather than by index.
-* @param	Written is the block of words handed to HyperRAM_Write().
-* @param	Read is the block of words returned by HyperRAM_Read().
-* @param	NumWords is the region length in words.
-* @param	Label names the test in the log.
-* @param	Latency is the initial latency in clocks, for the re-read.
+* @param[in,out] InstancePtr Pointer to the AmdXspi instance, used for the
+*                re-read.
+* @param[in]     StartWordAddr First word address of the region, used to
+*                report a mismatch by device address rather than by index.
+* @param[in]     Written Block of words handed to HyperRAM_Write().
+* @param[in]     Read Block of words returned by HyperRAM_Read().
+* @param[in]     NumWords Region length in words.
+* @param[in]     Label Names the test in the log.
+* @param[in]     Latency Initial latency in clocks, for the re-read.
 *
-* @return	XST_SUCCESS if every word matched, otherwise XST_FAILURE.
+* @return        XST_SUCCESS if every word matched, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 static s32 HyperRAM_Compare(AmdXspi *InstancePtr, u32 StartWordAddr,
@@ -715,7 +779,14 @@ static s32 HyperRAM_Compare(AmdXspi *InstancePtr, u32 StartWordAddr,
 /*****************************************************************************/
 /**
 *
-* Interrupt-driven HyperRAM example: ID read + zeros/ones/fresh RAM test.
+* @brief Runs the interrupt-driven HyperRAM example.
+*
+* The example reads the ID and runs the zeros, ones, and fresh RAM tests.
+*
+* @param[in]   BaseAddress Base address of the AXI XSPI controller.
+*
+* @return      XST_SUCCESS if the example ran successfully, otherwise
+*              XST_FAILURE.
 *
 ******************************************************************************/
 static s32 AmdXspiIntrExample(UINTPTR BaseAddress)
@@ -1026,10 +1097,17 @@ static s32 AmdXspiIntrExample(UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
-* Status callback for the message-based transfer API. Runs in
-* interrupt context; it only sets flags/counters (no prints) so it does not
-* perturb bus timing. XST_SPI_TRANSFER_DONE marks a successful queue
+*
+* @brief Handles status callbacks for the message-based transfer API.
+*
+* Runs in interrupt context; it only sets flags/counters (no prints) so it does
+* not perturb bus timing. XST_SPI_TRANSFER_DONE marks a successful queue
 * completion; any other event is treated as an error.
+*
+* @param[in]   CallBackRef Callback reference (unused).
+* @param[in]   StatusEvent Status event reported by the driver.
+* @param[in]   ByteCount Number of bytes transferred (unused).
+*
 ******************************************************************************/
 static void AmdXspiStatusHandler(void *CallBackRef, u32 StatusEvent,
 			      u32 ByteCount)
@@ -1050,9 +1128,14 @@ static void AmdXspiStatusHandler(void *CallBackRef, u32 StatusEvent,
 
 /*****************************************************************************/
 /**
-* Wait for the in-flight interrupt-driven transfer to finish, spinning on the
-* flags set by the status callback. Returns XST_SUCCESS on completion,
-* XST_FAILURE on an error event or timeout.
+*
+* @brief Waits for the in-flight interrupt-driven transfer to finish.
+*
+* Spins on the flags set by the status callback.
+*
+* @return      - XST_SUCCESS on completion.
+*              - XST_FAILURE on an error event or timeout.
+*
 ******************************************************************************/
 static s32 WaitForTransfer(void)
 {
