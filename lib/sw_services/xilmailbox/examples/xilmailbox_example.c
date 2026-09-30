@@ -1,23 +1,25 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 * @file xilmailbox_example.c
+* @brief Demonstrates the XilMailbox library by sending an IPI to self.
 *
-* This example demonstrates the usage of mailbox library API's.
+* This example demonstrates the usage of the mailbox library APIs.
 * Each IPI channel can trigger an interrupt to itself and can exchange messages
-* through the message buffer. This feature is used here to exercise the library
-* APIs.
+* through the message buffer. The example uses this feature to exercise the
+* library APIs.
+*
 * Example control flow:
-* - Initialize the XMailbox instance
-* - Write a Message and Trigger IPI to Self in Blocing mode.
-* - Interrupt handler receives IPI and Sends back response.
-* - Read the received response and do a sanity check.
-* - Print PASS or FAIL based on sanity check of response message
+* - Initializes the XMailbox instance.
+* - Writes a message and triggers an IPI to self in blocking mode.
+* - The interrupt handler receives the IPI and sends back the response.
+* - Reads the received response and does a sanity check.
+* - Prints PASS or FAIL based on the sanity check of the response message.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,8 +35,8 @@
 * 	ht	11/25/24  Update Message length to accommodate for CRC bytes when
 * 			  IPI CRC is enabled
 *	ht	01/02/25  Fix GCC warnings.
+* 1.14	vn	09/30/26  Align Doxygen comments with AMD standards
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -53,32 +55,46 @@
 
 
 /************************* Test Configuration ********************************/
-/* IPI device ID to use for this test */
 #ifdef SDT
+/** @name IPI device to use for this test
+ * @{
+ */
+/** Base address of the IPI channel to use for this test. */
 #define TEST_CHANNEL_BASEADDRESS         XMAILBOX_IPI_BASEADDRESS
+/** Remote IPI channel ID. */
 #define REMOTE_CHANNEL_ID       XMAILBOX_IPI_CHANNEL_ID
+/** @} */
 #else
+/** @name IPI device to use for this test
+ * @{
+ */
+/** IPI device ID to use for this test. */
 #define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
+/** Remote IPI channel ID. */
 #define REMOTE_CHANNEL_ID	XPAR_XIPIPSU_0_BIT_MASK
+/** @} */
 #endif
 
 #ifdef ENABLE_IPI_CRC
-/*
- * Subtracting 1 from the message length to accommodate for the CRC bytes when
- * IPI CRC is enabled.
- * */
+/**
+ * Message length, reduced by one to accommodate the CRC bytes when IPI CRC is
+ * enabled.
+ */
 #define TEST_MSG_LEN	7
 #else
-/* Number of messages (each message is 4bytes). Max number of messages is 8 */
+/**
+ * Number of messages (each message is 4 bytes). The maximum number of messages
+ * is eight.
+ */
 #define TEST_MSG_LEN	8
 #endif
 
 /*****************************************************************************/
-XMailbox XMboxInstance;
-static volatile int RecvDone = 0;	/**< Done flag */
-static volatile int ErrorStatus = 0;	/**< Error Status flag*/
-static u32 ReqBuffer[TEST_MSG_LEN];
-static u32 RespBuffer[TEST_MSG_LEN];
+XMailbox XMboxInstance;			/**< XMailbox instance. */
+static volatile int RecvDone = 0;	/**< Done flag. */
+static volatile int ErrorStatus = 0;	/**< Error status flag. */
+static u32 ReqBuffer[TEST_MSG_LEN];	/**< Request message buffer. */
+static u32 RespBuffer[TEST_MSG_LEN];	/**< Response message buffer. */
 
 #ifndef SDT
 int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId);
@@ -88,6 +104,15 @@ int XMailbox_Example(XMailbox *InstancePtr, UINTPTR BaseAddress);
 static void DoneHandler(void *CallBackRefPtr);
 static void ErrorHandler(void *CallBackRefPtr, u32 Mask);
 
+/*****************************************************************************/
+/**
+* @brief       Runs the XilMailbox example.
+*
+* @return
+*              - XST_SUCCESS if the example runs successfully.
+*              - XST_FAILURE if the example fails.
+*
+******************************************************************************/
 int main(void)
 {
 	int Status;
@@ -107,6 +132,26 @@ int main(void)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief       Exchanges IPI messages with self using the XilMailbox APIs.
+*
+* Initializes the mailbox, registers the callbacks, and sends a request
+* message. Reads the request, sends back its bitwise inverse as the response,
+* and then reads and compares the response.
+*
+* @param[out]  InstancePtr Pointer to the XMailbox instance.
+* @if SDT
+* @param[in]   BaseAddress Base address of the IPI instance.
+* @else
+* @param[in]   DeviceId Device ID of the IPI instance.
+* @endif
+*
+* @return
+*              - XST_SUCCESS if successful.
+*              - An error code if an API call or the IPI transfer fails.
+*
+******************************************************************************/
 #ifndef SDT
 int XMailbox_Example(XMailbox *InstancePtr, u32 DeviceId)
 #else
@@ -214,12 +259,29 @@ Done:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* @brief       Handles the receive callback by setting the done flag.
+*
+* @param[in]   CallBackRef Pointer to the XMailbox instance, passed as the
+*              callback reference.
+*
+******************************************************************************/
 static void DoneHandler(void *CallBackRef)
 {
 	Xil_AssertVoid(CallBackRef != NULL);
 	RecvDone = 1;
 }
 
+/*****************************************************************************/
+/**
+* @brief       Handles the error callback by storing the error mask.
+*
+* @param[in]   CallBackRef Pointer to the XMailbox instance, passed as the
+*              callback reference.
+* @param[in]   Mask Bit mask indicating the cause of the error.
+*
+******************************************************************************/
 static void ErrorHandler(void *CallBackRef, u32 Mask)
 {
 	Xil_AssertVoid(CallBackRef != NULL);

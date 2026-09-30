@@ -7,10 +7,9 @@
 /**
  *
  * @file xilmailbox_ipips_control.c
- * @addtogroup xilmailbox Overview
- * @{
+ * @brief Implements the ZynqMP and Versal IPI control functions.
  *
- * This file contains the options for ZynqMP and versal IPI implementation.
+ * This file contains the options for the ZynqMP and Versal IPI implementation.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -29,11 +28,15 @@
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
  * 1.14  vn   08/26/26    Fix Doxygen warnings
+ * 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
  *
  *  *</pre>
  *
- *@note
  *****************************************************************************/
+
+/** @addtogroup xilmailbox Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xilmailbox_ipips_control.h"
@@ -44,19 +47,20 @@
 
 /****************************************************************************/
 /**
- * Initialize the ZynqMP Mailbox Instance
+ * @brief Initializes the ZynqMP mailbox instance.
  *
- * @param       InstancePtr is a pointer to the instance to be worked on
+ * @param[in,out] InstancePtr Pointer to the instance to be worked on.
  * @if SDT
- * @param       BaseAddress is the base address of the IPI instance
+ * @param[in]     BaseAddress Base address of the IPI instance.
  * @else
- * @param       DeviceId is the IPI Instance to be worked on
+ * @param[in]     DeviceId IPI instance to be worked on.
  * @endif
  *
- * @return      XST_SUCCESS if initialization was successful
- *              XST_FAILURE in case of failure
- */
-/****************************************************************************/
+ * @return
+ *                - XST_SUCCESS if initialization was successful.
+ *                - XST_FAILURE in case of failure.
+ *
+ ****************************************************************************/
 #ifndef SDT
 u32 XIpiPs_Init(XMailbox *InstancePtr, u8 DeviceId)
 #else
@@ -107,19 +111,21 @@ u32 XIpiPs_Init(XMailbox *InstancePtr, UINTPTR BaseAddress)
 
 /*****************************************************************************/
 /**
- * This function triggers an IPI to a destination CPU
+ * @brief Triggers an IPI to a destination CPU.
  *
- * @param InstancePtr Pointer to the XMailbox instance.
- * @param Is_Blocking if set trigger the notification in blocking mode
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
+ * @param[in]   Is_Blocking Flag that, when set, triggers the notification in
+ *              blocking mode.
  *
- * @return      XST_SUCCESS in case of success
- *              XST_FAILURE in case of failure
+ * @return
+ *              - XST_SUCCESS in case of success.
+ *              - XST_FAILURE in case of failure.
  *
- * @attention This API will be deprecated in 2026.2 and will be made obsolete
- *            in 2027.1 release. The functionality of this API can be reproduced
- *            with XIpiPs_SendById.
- */
-/****************************************************************************/
+ * @attention   This API is deprecated in 2026.2 and becomes obsolete in the
+ *              2027.1 release. You can reproduce the functionality of this
+ *              API with XIpiPs_SendById.
+ *
+ ****************************************************************************/
 u32 XIpiPs_Send(XMailbox *InstancePtr, u8 Is_Blocking)
 {
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
@@ -141,16 +147,18 @@ u32 XIpiPs_Send(XMailbox *InstancePtr, u8 Is_Blocking)
 
 /*****************************************************************************/
 /**
- * This function triggers an IPI to a destination CPU
+ * @brief Triggers an IPI to a destination CPU.
  *
- * @param InstancePtr Pointer to the XMailbox instance.
- * @param RemoteId Mask of the CPU to which IPI is to be triggered
- * @param Is_Blocking if set trigger the notification in blocking mode
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
+ * @param[in]   RemoteId Mask of the CPU to which the IPI is triggered.
+ * @param[in]   Is_Blocking Flag that, when set, triggers the notification in
+ *              blocking mode.
  *
- * @return      XST_SUCCESS in case of success
- *              XST_FAILURE in case of failure
- */
-/****************************************************************************/
+ * @return
+ *              - XST_SUCCESS in case of success.
+ *              - XST_FAILURE in case of failure.
+ *
+ ****************************************************************************/
 u32 XIpiPs_SendById(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
 {
 	XMailbox_Agent *DataPtr = &InstancePtr->Agent;
@@ -172,23 +180,25 @@ u32 XIpiPs_SendById(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
 
 /*****************************************************************************/
 /**
- * This function sends an IPI message to a destination CPU
+ * @brief Sends an IPI message to a destination CPU.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param MsgBufferPtr is the pointer to Buffer which contains the message to
- *        be sent
- * @param MsgLen is the number of messages (each message is 4bytes)
- * @param BufferType is the type of buffer
- * @param Is_Blocking if set trigger the notification in blocking mode
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
+ * @param[in]   MsgBufferPtr Pointer to the buffer that contains the message
+ *              to send.
+ * @param[in]   MsgLen Number of messages (each message is 4 bytes).
+ * @param[in]   BufferType Type of buffer.
+ * @param[in]   Is_Blocking Flag that, when set, triggers the notification in
+ *              blocking mode.
  *
- * @return      XST_SUCCESS in case of success
- *              XST_FAILURE in case of failure
+ * @return
+ *              - XST_SUCCESS in case of success.
+ *              - XST_FAILURE in case of failure.
  *
- * @attention This API will be deprecated in 2026.2 and will be made obsolete
- *            in 2027.1 release. The functionality of this API can be reproduced
- *            with XIpiPs_SendDataById.
- */
-/****************************************************************************/
+ * @attention   This API is deprecated in 2026.2 and becomes obsolete in the
+ *              2027.1 release. You can reproduce the functionality of this
+ *              API with XIpiPs_SendDataById.
+ *
+ ****************************************************************************/
 u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
 		    u8 BufferType, u8 Is_Blocking)
 {
@@ -218,20 +228,22 @@ u32 XIpiPs_SendData(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
 
 /*****************************************************************************/
 /**
- * This function sends an IPI message to a destination CPU
+ * @brief Sends an IPI message to a destination CPU.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param MsgBufferPtr is the pointer to Buffer which contains the message to
- *        be sent
- * @param MsgLen is the number of messages (each message is 4bytes)
- * @param BufferType is the type of buffer
- * @param RemoteId Mask of the CPU to which IPI is to be triggered
- * @param Is_Blocking if set trigger the notification in blocking mode
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
+ * @param[in]   MsgBufferPtr Pointer to the buffer that contains the message
+ *              to send.
+ * @param[in]   MsgLen Number of messages (each message is 4 bytes).
+ * @param[in]   BufferType Type of buffer.
+ * @param[in]   RemoteId Mask of the CPU to which the IPI is triggered.
+ * @param[in]   Is_Blocking Flag that, when set, triggers the notification in
+ *              blocking mode.
  *
- * @return      XST_SUCCESS in case of success
- *              XST_FAILURE in case of failure
- */
-/****************************************************************************/
+ * @return
+ *              - XST_SUCCESS in case of success.
+ *              - XST_FAILURE in case of failure.
+ *
+ ****************************************************************************/
 u32 XIpiPs_SendDataById(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
 			u8 BufferType, u32 RemoteId, u8 Is_Blocking)
 {
@@ -261,21 +273,21 @@ u32 XIpiPs_SendDataById(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
 
 /*****************************************************************************/
 /**
- * This function reads an IPI message
+ * @brief Reads an IPI message.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param MsgBufferPtr is the pointer to Buffer to which the read message needs
- *        to be stored
- * @param MsgLen is the number of messages (each message is 4bytes)
- * @param BufferType is the type of buffer
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
+ * @param[out]  MsgBufferPtr Pointer to the buffer in which to store the read
+ *              message.
+ * @param[in]   MsgLen Number of messages (each message is 4 bytes).
+ * @param[in]   BufferType Type of buffer.
  *
  * @return
- *      - XST_SUCCESS if successful
- *      - XST_FAILURE if unsuccessful
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if unsuccessful.
  *
- * @attention This API will be deprecated in 2026.2 and will be made obsolete
- *            in 2027.1 release. The functionality of this API can be reproduced
- *            with XIpiPs_RecvDataById.
+ * @attention   This API is deprecated in 2026.2 and becomes obsolete in the
+ *              2027.1 release. You can reproduce the functionality of this
+ *              API with XIpiPs_RecvDataById.
  *
  ****************************************************************************/
 u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
@@ -292,18 +304,18 @@ u32 XIpiPs_RecvData(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
 
 /*****************************************************************************/
 /**
- * This function reads an IPI message
+ * @brief Reads an IPI message.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param MsgBufferPtr is the pointer to Buffer to which the read message needs
- *        to be stored
- * @param MsgLen is the number of messages (each message is 4bytes)
- * @param SourceId Device Mask for the CPU which has sent the message
- * @param BufferType is the type of buffer
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
+ * @param[out]  MsgBufferPtr Pointer to the buffer in which to store the read
+ *              message.
+ * @param[in]   MsgLen Number of messages (each message is 4 bytes).
+ * @param[in]   SourceId Device mask for the CPU that sent the message.
+ * @param[in]   BufferType Type of buffer.
  *
  * @return
- *      - XST_SUCCESS if successful
- *      - XST_FAILURE if unsuccessful
+ *              - XST_SUCCESS if successful.
+ *              - XST_FAILURE if unsuccessful.
  *
  ****************************************************************************/
 u32 XIpiPs_RecvDataById(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
@@ -321,9 +333,9 @@ u32 XIpiPs_RecvDataById(XMailbox *InstancePtr, void *MsgBufferPtr, u32 MsgLen,
 #if !defined (VERSAL_PLM) && !defined (VERSAL_psm) && !defined (PSU_PMU)
 /*****************************************************************************/
 /**
- * This function implements the interrupt handler
+ * @brief Implements the interrupt handler.
  *
- * @param XMailboxPtr Pointer to the XMailbox instance
+ * @param[in]   XMailboxPtr Pointer to the XMailbox instance.
  *
  ****************************************************************************/
 void XIpiPs_IntrHandler(void *XMailboxPtr)
@@ -344,9 +356,9 @@ void XIpiPs_IntrHandler(void *XMailboxPtr)
 #if !defined (__MICROBLAZE__) && !defined (__riscv)
 /*****************************************************************************/
 /**
- * This function implements the interrupt handler for errors
+ * @brief Implements the interrupt handler for errors.
  *
- * @param XMailboxPtr Pointer to the XMailbox instance
+ * @param[in]   XMailboxPtr Pointer to the XMailbox instance.
  *
  ****************************************************************************/
 void XIpiPs_ErrorIntrHandler(void *XMailboxPtr)

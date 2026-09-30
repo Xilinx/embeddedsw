@@ -7,10 +7,10 @@
 /**
  *
  * @file xilmailbox_ipips_intr.c
- * @addtogroup xilmailbox Overview
- * @{
+ * @brief Implements IPI acknowledgment polling and interrupt registration.
  *
- * This file contains the definitions for XIpiPs_PollforDone and XIpiPs_RegisterIrq.
+ * This file contains the definitions for XIpiPs_PollforDone and
+ * XIpiPs_RegisterIrq.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -30,11 +30,15 @@
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
  * 1.14  vn   08/26/26    Fix Doxygen warnings.
+ * 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
  *
  *  *</pre>
  *
- *@note
  *****************************************************************************/
+
+/** @addtogroup xilmailbox Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xilmailbox_ipips_control.h"
@@ -45,18 +49,19 @@
 
 /*****************************************************************************/
 /**
- * Poll for an acknowledgement using Observation Register.
+ * @brief Polls for an acknowledgment using the observation register.
  *
- * @param InstancePtr Pointer to the XMailbox instance
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
  *
- * @return      XST_SUCCESS in case of success
- *              XST_FAILURE in case of failure
+ * @return
+ *              - XST_SUCCESS in case of success.
+ *              - XST_FAILURE in case of failure.
  *
- * @attention This API will be deprecated in 2026.2 and will be made obsolete
- *            in 2027.1 release. The functionality of this API can be reproduced
- *            with XIpiPs_PollforDoneById.
- */
-/****************************************************************************/
+ * @attention   This API is deprecated in 2026.2 and becomes obsolete in the
+ *              2027.1 release. You can reproduce the functionality of this
+ *              API with XIpiPs_PollforDoneById.
+ *
+ ****************************************************************************/
 u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 {
 	/* Initialize the agent to store IPI channel information */
@@ -86,15 +91,17 @@ u32 XIpiPs_PollforDone(XMailbox *InstancePtr)
 
 /*****************************************************************************/
 /**
- * Poll for an acknowledgement using Observation Register.
+ * @brief Polls for an acknowledgment using the observation register.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param RemoteId Mask of the destination CPU from which ACK is expected
+ * @param[in]   InstancePtr Pointer to the XMailbox instance.
+ * @param[in]   RemoteId Mask of the destination CPU from which the
+ *              acknowledgment is expected.
  *
- * @return      XST_SUCCESS in case of success
- *              XST_FAILURE in case of failure
- */
-/****************************************************************************/
+ * @return
+ *              - XST_SUCCESS in case of success.
+ *              - XST_FAILURE in case of failure.
+ *
+ ****************************************************************************/
 u32 XIpiPs_PollforDoneById(XMailbox *InstancePtr, u32 RemoteId)
 {
 	/* Initialize the agent to store IPI channel information */
@@ -126,19 +133,19 @@ u32 XIpiPs_PollforDoneById(XMailbox *InstancePtr, u32 RemoteId)
 #if defined (SDT) || (!defined (__MICROBLAZE__) && !defined (__riscv))
 /*****************************************************************************/
 /**
- * This function registers an irq
+ * @brief Registers an IRQ.
  *
  * @if SDT
- * @param InstancePtr Pointer to the XMailbox instance
+ * @param[in]     InstancePtr Pointer to the XMailbox instance.
  * @else
- * @param IntcInstancePtr Pointer to the XScuGic instance
- * @param InstancePtr Pointer to the XMailbox instance
+ * @param[in,out] IntcInstancePtr Pointer to the XScuGic instance.
+ * @param[in]     InstancePtr Pointer to the XMailbox instance.
  * @endif
- * @param IpiIntrId is the interrupt id of the IPI
+ * @param[in]     IpiIntrId Interrupt ID of the IPI.
  *
  * @return
- *      - XST_SUCCESS if successful
- *      - XST_FAILURE if unsuccessful
+ *                - XST_SUCCESS if successful.
+ *                - XST_FAILURE if unsuccessful.
  *
  ****************************************************************************/
 #ifndef SDT

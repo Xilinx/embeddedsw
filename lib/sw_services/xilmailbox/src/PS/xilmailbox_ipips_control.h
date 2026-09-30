@@ -3,12 +3,14 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XILMAILBOX_IPIPS_CONTROL_H
+#define XILMAILBOX_IPIPS_CONTROL_H
+
 /*****************************************************************************/
 /**
  *
  * @file xilmailbox_ipips_control.h
- * @addtogroup xilmailbox Overview
- * @{
+ * @brief Declares the ZynqMP and Versal IPI control and interrupt functions.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -26,15 +28,15 @@
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
  * 1.14  vn   08/26/26    Fix Doxygen warnings.
+ * 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
  *
  *  *</pre>
  *
- *@note
  *****************************************************************************/
 
-
-#ifndef XILMAILBOX_IPIPS_CONTROL_H
-#define XILMAILBOX_IPIPS_CONTROL_H
+/** @addtogroup xilmailbox Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {

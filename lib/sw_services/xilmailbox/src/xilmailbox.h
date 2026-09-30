@@ -4,35 +4,42 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XILMAILBOX_H
+#define XILMAILBOX_H
+
 /*****************************************************************************/
 /**
  *
  * @file xilmailbox.h
  * @addtogroup xilmailbox Overview
  * @{
+ * @brief Defines the XilMailbox library interface for IPI messaging.
+ *
  * @details
  *
  * The XilMailbox library provides the top-level hooks for sending or receiving
  * an inter-processor interrupt (IPI) message using the Zynq® UltraScale+ MPSoC
  * IPI hardware.
  *
- * For a full description of IPI features, please see the hardware spec.
+ * For a full description of IPI features, see the hardware specification.
  * This library supports the following features:
  *      - Triggering an IPI to a remote agent.
  *      - Sending an IPI message to a remote agent.
- *      - Callbacks for error and recv IPI events.
+ *      - Callbacks for error and receive IPI events.
  *      - Reading an IPI message.
  *
  * <b> Software Initialization </b>
- * - IPI Initialization using XMailbox_Initalize() function. This step
+ * - The XMailbox_Initialize() function initializes IPI. This step
  *   initializes a library instance for the given IPI channel.
- * - XMailbox_Send() function triggers an IPI to a remote agent.
- * - XMailbox_SendData() function sends an IPI message to a remote agent,
- *   Message type should be either XILMBOX_MSG_TYPE_REQ (OR) XILMBOX_MSG_TYPE_RESP.
- * - XMailbox_Recv() function reads an IPI message from a specified source agent,
- *   Message type should be either XILMBOX_MSG_TYPE_REQ (OR) XILMBOX_MSG_TYPE_RESP.
- * - XMailbox_SetCallBack() using this function user can register call backs
- *   for recv and error events.
+ * - The XMailbox_Send() function triggers an IPI to a remote agent.
+ * - The XMailbox_SendData() function sends an IPI message to a remote agent.
+ *   The message type should be either XILMBOX_MSG_TYPE_REQ or
+ *   XILMBOX_MSG_TYPE_RESP.
+ * - The XMailbox_Recv() function reads an IPI message from a specified source
+ *   agent. The message type should be either XILMBOX_MSG_TYPE_REQ or
+ *   XILMBOX_MSG_TYPE_RESP.
+ * - Use the XMailbox_SetCallBack() function to register callbacks for receive
+ *   and error events.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -60,13 +67,11 @@
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
  * 1.14  vn   08/26/26    Fix Doxygen warnings.
+ * 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
  *
  *</pre>
  *
- *@note
  *****************************************************************************/
-#ifndef XILMAILBOX_H
-#define XILMAILBOX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -82,75 +87,124 @@ extern "C" {
 #include "xilmailbox_ipips.h"
 
 /************************** Constant Definitions *****************************/
-#define XILMBOX_MSG_TYPE_REQ	(0x00000001U) /**< Message type buffer */
-#define XILMBOX_MSG_TYPE_RESP	(0x00000002U) /**< Response type buffer */
-#define XMAILBOX_MAX_MSG_LEN	XIPIPSU_MAX_MSG_LEN /**< Maximum number of Messages (each 4-bytes long) */
-
-/**
- * Payload lengths
+/** @name Message types and maximum message length
+ * @{
  */
-#define XMAILBOX_PAYLOAD_LEN_1U                (1U) /**< Payload length of size 1byte */
-#define XMAILBOX_PAYLOAD_LEN_2U                (2U)	/**< Payload length of size 2byte */
-#define XMAILBOX_PAYLOAD_LEN_3U                (3U)	/**< Payload length of size 3byte */
-#define XMAILBOX_PAYLOAD_LEN_4U                (4U)	/**< Payload length of size 4byte */
-#define XMAILBOX_PAYLOAD_LEN_5U                (5U)	/**< Payload length of size 5byte */
-#define XMAILBOX_PAYLOAD_LEN_6U                (6U)	/**< Payload length of size 6byte */
-#define XMAILBOX_PAYLOAD_LEN_7U                (7U)	/**< Payload length of size 7byte */
+#define XILMBOX_MSG_TYPE_REQ	(0x00000001U) /**< Message type buffer. */
+#define XILMBOX_MSG_TYPE_RESP	(0x00000002U) /**< Response type buffer. */
+/** Maximum number of messages (each 4 bytes long). */
+#define XMAILBOX_MAX_MSG_LEN	XIPIPSU_MAX_MSG_LEN
+/** @} */
 
-/* Library version info */
-#define XMAILBOX_MAJOR_VERSION	1U
-#define XMAILBOX_MINOR_VERSION	9U
+/** @name Payload lengths
+ * @{
+ */
+/** Payload length of size 1 byte. */
+#define XMAILBOX_PAYLOAD_LEN_1U                (1U)
+/** Payload length of size 2 bytes. */
+#define XMAILBOX_PAYLOAD_LEN_2U                (2U)
+/** Payload length of size 3 bytes. */
+#define XMAILBOX_PAYLOAD_LEN_3U                (3U)
+/** Payload length of size 4 bytes. */
+#define XMAILBOX_PAYLOAD_LEN_4U                (4U)
+/** Payload length of size 5 bytes. */
+#define XMAILBOX_PAYLOAD_LEN_5U                (5U)
+/** Payload length of size 6 bytes. */
+#define XMAILBOX_PAYLOAD_LEN_6U                (6U)
+/** Payload length of size 7 bytes. */
+#define XMAILBOX_PAYLOAD_LEN_7U                (7U)
+/** @} */
+
+/** @name Library version info
+ * @{
+ */
+#define XMAILBOX_MAJOR_VERSION	1U /**< Library major version. */
+#define XMAILBOX_MINOR_VERSION	9U /**< Library minor version. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
-typedef void (*XMailbox_RecvHandler) (void *CallBackRefPtr); /**< Receive handler */
-typedef void (*XMailbox_ErrorHandler) (void *CallBackRefPtr, u32 ErrorMask); /**< Error handler */
+/**
+ * @brief Defines the callback type for the receive handler.
+ *
+ * @param[in]   CallBackRefPtr Callback reference registered with
+ *              XMailbox_SetCallBack().
+ */
+typedef void (*XMailbox_RecvHandler) (void *CallBackRefPtr);
 
 /**
- * This typedef contains XMAILBOX shared memory state.
+ * @brief Defines the callback type for the error handler.
+ *
+ * @param[in]   CallBackRefPtr Callback reference registered with
+ *              XMailbox_SetCallBack().
+ * @param[in]   ErrorMask Bit mask indicating the cause of the error.
+ */
+typedef void (*XMailbox_ErrorHandler) (void *CallBackRefPtr, u32 ErrorMask);
+
+/**
+ * @brief Describes the XMailbox shared memory state.
  */
 typedef enum {
-	XMAILBOX_SHARED_MEM_UNINITIALIZED = 0, /**< Shared memory uninitialized */
-	XMAILBOX_SHARED_MEM_INITIALIZED, /**< Shared memory initialized */
+	XMAILBOX_SHARED_MEM_UNINITIALIZED = 0, /**< Shared memory
+						* uninitialized. */
+	XMAILBOX_SHARED_MEM_INITIALIZED, /**< Shared memory initialized. */
 } XMailbox_IpiSharedMemState;
 
 
+/**
+ * @brief Describes the shared memory segment used for IPI.
+ */
 typedef struct {
-	u64 Address; /**< Address of the shared memory location */
-	u32 Size; /**< Size of the shared memory location */
-	XMailbox_IpiSharedMemState SharedMemState; /**< State of shared memory */
+	u64 Address; /**< Address of the shared memory location. */
+	u32 Size;    /**< Size of the shared memory location. */
+	XMailbox_IpiSharedMemState SharedMemState;	/**< State of shared
+							 * memory. */
 } XMailbox_IpiSharedMem;
 
 /**
- * Data structure used to refer XilMailbox
- * @attention: The following function pointers XMbox_IPI_Send, XMbox_IPI_SendData,
- *             XMbox_IPI_Recv  will be deprecated in 2026.2 and will be made
- *             obsolete in 2027.1 release.
+ * @brief Stores the XilMailbox instance data.
+ *
+ * @attention The XMbox_IPI_Send, XMbox_IPI_SendData, and XMbox_IPI_Recv
+ *            function pointers are deprecated in 2026.2 and become obsolete
+ *            in the 2027.1 release.
  */
 typedef struct XMboxTag {
-	u32 (*XMbox_IPI_Send)(struct XMboxTag *InstancePtr, u8 Is_Blocking); /**< Triggers an IPI to a destination CPU */
+	u32 (*XMbox_IPI_Send)(struct XMboxTag *InstancePtr, u8 Is_Blocking);
+					    /**< Triggers an IPI to a
+					     * destination CPU. */
 	u32 (*XMbox_IPI_SendData)(struct XMboxTag *InstancePtr, void *BufferPtr,
-				  u32 MsgLen, u8 BufferType, u8 Is_Blocking); /**< Sends an IPI message to a destination CPU */
+				  u32 MsgLen, u8 BufferType, u8 Is_Blocking);
+					    /**< Sends an IPI message to a
+					     * destination CPU. */
 	u32 (*XMbox_IPI_Recv)(struct XMboxTag *InstancePtr, void *BufferPtr,
-			      u32 MsgLen, u8 BufferType); /**< Reads an IPI message */
-	u32 (*XMbox_IPI_SendById)(struct XMboxTag *InstancePtr, u32 RemoteId, u8 Is_Blocking); /**< Triggers an IPI to a destination CPU */
+			      u32 MsgLen, u8 BufferType);
+					    /**< Reads an IPI message. */
+	u32 (*XMbox_IPI_SendById)(struct XMboxTag *InstancePtr, u32 RemoteId, u8 Is_Blocking);
+					    /**< Triggers an IPI to a
+					     * destination CPU. */
 	u32 (*XMbox_IPI_SendDataById)(struct XMboxTag *InstancePtr, void *BufferPtr,
-				      u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking); /**< Sends an IPI message to a destination CPU */
+				      u32 MsgLen, u8 BufferType, u32 RemoteId, u8 Is_Blocking);
+					    /**< Sends an IPI message to a
+					     * destination CPU. */
 	u32 (*XMbox_IPI_RecvById)(struct XMboxTag *InstancePtr, void *BufferPtr,
-				  u32 MsgLen, u32 SourceId, u8 BufferType); /**< Reads an IPI message */
-	XMailbox_RecvHandler RecvHandler;   /**< Receive handler */
-	XMailbox_ErrorHandler ErrorHandler; /**< Callback for rx IPI event */
-	void *ErrorRefPtr; /**<  To be passed to the error interrupt callback */
-	void *RecvRefPtr;  /**< To be passed to the receive interrupt callback */
-	XMailbox_Agent Agent; /**< Agent to store IPI channel information */
-	XMailbox_IpiSharedMem SharedMem; /**< shared memory segment */
-} XMailbox; /**< XilMailbox structure */
+				  u32 MsgLen, u32 SourceId, u8 BufferType);
+					    /**< Reads an IPI message. */
+	XMailbox_RecvHandler RecvHandler;   /**< Receive handler. */
+	XMailbox_ErrorHandler ErrorHandler; /**< Callback for rx IPI event. */
+	void *ErrorRefPtr;		    /**< Reference passed to the error
+					     * interrupt callback. */
+	void *RecvRefPtr;		    /**< Reference passed to the receive
+					     * interrupt callback. */
+	XMailbox_Agent Agent;		    /**< Agent that stores the IPI
+					     * channel information. */
+	XMailbox_IpiSharedMem SharedMem;    /**< Shared memory segment. */
+} XMailbox;
 
 /**
- * This typedef contains XMAILBOX Handler Types.
+ * @brief Describes the XMailbox handler types.
  */
 typedef enum {
-	XMAILBOX_RECV_HANDLER,     /**< For Recv Handler */
-	XMAILBOX_ERROR_HANDLER,    /**< For Error Handler */
+	XMAILBOX_RECV_HANDLER,     /**< Receive handler. */
+	XMAILBOX_ERROR_HANDLER,    /**< Error handler. */
 } XMailbox_Handler;
 
 /****************** Macros (Inline Functions) Definitions *********************/
@@ -158,9 +212,9 @@ typedef enum {
 /*****************************************************************************/
 /**
 *
-* @brief	This function returns the version number of xilmailbox library.
+* @brief Returns the version number of the XilMailbox library.
 *
-* @return	32-bit version number
+* @return 32-bit version number.
 *
 ******************************************************************************/
 static __attribute__((always_inline)) INLINE
@@ -170,8 +224,7 @@ u32 XMailbox_GetLibVersion(void)
 }
 
 /************************** Function Prototypes ******************************/
-/**
- * Functions for xilmailbox.c
+/** @name Functions for xilmailbox.c
  * @{
  */
 #ifndef SDT

@@ -8,10 +8,10 @@
 /**
  *
  * @file xilmailbox_ipips.c
- * @addtogroup xilmailbox Overview
- * @{
+ * @brief Implements XilMailbox initialization for the ZynqMP and Versal IPI.
  *
- * This file contains the definitions for ZynqMP and versal IPI implementation.
+ * This file contains the definitions for the ZynqMP and Versal IPI
+ * implementation.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -40,10 +40,15 @@
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
  * 1.14  vn   08/26/26   Fix Doxygen warnings.
+ * 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
  *</pre>
  *
- *@note
  *****************************************************************************/
+
+/** @addtogroup xilmailbox Overview
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 #include "xilmailbox_ipips_control.h"
@@ -55,19 +60,20 @@
 
 /****************************************************************************/
 /**
- * Initialize the XMailbox Instance
+ * @brief Initializes the XMailbox instance.
  *
- * @param	InstancePtr is a pointer to the instance to be worked on
+ * @param[out]  InstancePtr Pointer to the instance to be worked on.
  * @if SDT
- * @param	BaseAddress is the base address of the IPI instance
+ * @param[in]   BaseAddress Base address of the IPI instance.
  * @else
- * @param	DeviceId is the IPI Instance to be worked on
+ * @param[in]   DeviceId IPI instance to be worked on.
  * @endif
  *
- * @return	XST_SUCCESS if initialization was successful
- * 		XST_FAILURE in case of failure
- */
-/****************************************************************************/
+ * @return
+ *              - XST_SUCCESS if initialization was successful.
+ *              - XST_FAILURE in case of failure.
+ *
+ ****************************************************************************/
 #ifndef SDT
 u32 XMailbox_Initialize(XMailbox *InstancePtr, u8 DeviceId)
 #else

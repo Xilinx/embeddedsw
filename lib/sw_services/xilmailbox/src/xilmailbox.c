@@ -8,10 +8,9 @@
 /**
  *
  * @file xilmailbox.c
- * @addtogroup xilmailbox Overview
- * @{
+ * @brief Implements the XilMailbox library top-level functions.
  *
- * This file contains the definitions for xilinx mailbox library top level
+ * This file contains the definitions for the Xilinx mailbox library top-level
  * functions.
  *
  * <pre>
@@ -32,11 +31,16 @@
  * 			  Use RemoteId based APIs to support concurrent IPI
  * 			  channel requests.
  * 1.14  vn   08/26/26    Fix Doxygen warnings.
+ * 1.14  vn   09/30/26    Align Doxygen comments with AMD standards
  *
  *</pre>
  *
- *@note
  *****************************************************************************/
+
+/** @addtogroup xilmailbox Overview
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 #include "xilmailbox.h"
 
@@ -44,15 +48,16 @@
 
 /*****************************************************************************/
 /**
- * This function triggers an IPI to a destination CPU
+ * @brief Triggers an IPI to a destination CPU.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param RemoteId is the Mask of the CPU to which IPI is to be triggered
- * @param Is_Blocking if set trigger the notification in blocking mode
+ * @param[in,out] InstancePtr Pointer to the XMailbox instance.
+ * @param[in]     RemoteId Mask of the CPU to which the IPI is triggered.
+ * @param[in]     Is_Blocking Flag that, when set, triggers the notification
+ *                in blocking mode.
  *
  * @return
- *	- XST_SUCCESS if successful
- *	- XST_FAILURE if unsuccessful
+ *                - XST_SUCCESS if successful.
+ *                - XST_FAILURE if unsuccessful.
  *
  ****************************************************************************/
 u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
@@ -70,19 +75,21 @@ u32 XMailbox_Send(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)
 
 /*****************************************************************************/
 /**
- * This function sends an IPI message to a destination CPU
+ * @brief Sends an IPI message to a destination CPU.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param RemoteId is the Mask of the CPU to which IPI is to be triggered
- * @param BufferPtr is the pointer to Buffer which contains the message to be sent
- * @param MsgLen is the number of messages (each message is 4bytes)
- * @param BufferType is the type of buffer (XILMBOX_MSG_TYPE_REQ (OR)
- *	  XILMBOX_MSG_TYPE_RESP)
- * @param Is_Blocking if set trigger the notification in blocking mode
+ * @param[in,out] InstancePtr Pointer to the XMailbox instance.
+ * @param[in]     RemoteId Mask of the CPU to which the IPI is triggered.
+ * @param[in]     BufferPtr Pointer to the buffer that contains the message to
+ *                send.
+ * @param[in]     MsgLen Number of messages (each message is 4 bytes).
+ * @param[in]     BufferType Type of buffer (XILMBOX_MSG_TYPE_REQ or
+ *                XILMBOX_MSG_TYPE_RESP).
+ * @param[in]     Is_Blocking Flag that, when set, triggers the notification
+ *                in blocking mode.
  *
  * @return
- *	- XST_SUCCESS if successful
- *	- XST_FAILURE if unsuccessful
+ *                - XST_SUCCESS if successful.
+ *                - XST_FAILURE if unsuccessful.
  *
  ****************************************************************************/
 u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr,
@@ -110,19 +117,19 @@ u32 XMailbox_SendData(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr,
 
 /*****************************************************************************/
 /**
- * This function reads an IPI message
+ * @brief Reads an IPI message.
  *
- * @param InstancePtr Pointer to the XMailbox instance
- * @param SourceId is the Mask for the CPU which has sent the message
- * @param BufferPtr is the pointer to Buffer to which the read message needs
- *	  to be stored
- * @param MsgLen is the number of messages (each message is 4bytes)
- * @param BufferType is the type of buffer (XILMBOX_MSG_TYPE_REQ or
- *	  XILMBOX_MSG_TYPE_RESP)
+ * @param[in,out] InstancePtr Pointer to the XMailbox instance.
+ * @param[in]     SourceId Mask for the CPU that sent the message.
+ * @param[out]    BufferPtr Pointer to the buffer in which to store the read
+ *                message.
+ * @param[in]     MsgLen Number of messages (each message is 4 bytes).
+ * @param[in]     BufferType Type of buffer (XILMBOX_MSG_TYPE_REQ or
+ *                XILMBOX_MSG_TYPE_RESP).
  *
  * @return
- *	- XST_SUCCESS if successful
- *	- XST_FAILURE if unsuccessful
+ *                - XST_SUCCESS if successful.
+ *                - XST_FAILURE if unsuccessful.
  *
  ****************************************************************************/
 u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
@@ -155,8 +162,7 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 /*****************************************************************************/
 /**
 *
-* This routine installs an asynchronous callback function for the given
-* HandlerType.
+* @brief Installs an asynchronous callback function for the given HandlerType.
 *
 * <pre>
 * HandlerType              Callback Function Type
@@ -166,18 +172,18 @@ u32 XMailbox_Recv(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr,
 *
 * </pre>
 *
-* @param	InstancePtr is a pointer to the XMailbox instance.
-* @param	HandlerType specifies which callback is to be attached.
-* @param	CallBackFuncPtr is the address of the callback function.
-* @param	CallBackRefPtr is a user data item that will be passed to the
-* 		callback function when it is invoked.
+* @param[out]  InstancePtr Pointer to the XMailbox instance.
+* @param[in]   HandlerType Specifies which callback to attach.
+* @param[in]   CallBackFuncPtr Address of the callback function.
+* @param[in]   CallBackRefPtr User data item passed to the callback function
+*              when it is invoked.
 *
 * @return
-*		- XST_SUCCESS when handler is installed.
-*		- XST_FAILURE when HandlerType is invalid.
+*              - XST_SUCCESS when the handler is installed.
+*              - XST_FAILURE when HandlerType is invalid.
 *
-* @note		Invoking this function for a handler that already has been
-*		installed replaces it with the new handler.
+* @note        Invoking this function for a handler that has already been
+*              installed replaces it with the new handler.
 *
 ******************************************************************************/
 s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
@@ -213,15 +219,15 @@ s32 XMailbox_SetCallBack(XMailbox *InstancePtr, XMailbox_Handler HandlerType,
 /*****************************************************************************/
 /**
 *
-* @brief	This function sets the shared memory location for IPI usage
+* @brief Sets the shared memory location for IPI usage.
 *
-* @param	InstancePtr is a pointer to the XMailbox instance.
-* @param	Address	Address of shared memory location
-* @param	Size	Size of the memory location
+* @param[in,out] InstancePtr Pointer to the XMailbox instance.
+* @param[in]     Address Address of the shared memory location.
+* @param[in]     Size Size of the memory location.
 *
 * @return
-*	-	XST_SUCCESS - if memory is set for IPI usage
-*	-	XST_FAILURE - On failure
+*                - XST_SUCCESS if the memory is set for IPI usage.
+*                - XST_FAILURE on failure.
 *
 ******************************************************************************/
 u32 XMailbox_SetSharedMem(XMailbox *InstancePtr, u64 Address, u32 Size)
@@ -244,14 +250,13 @@ u32 XMailbox_SetSharedMem(XMailbox *InstancePtr, u64 Address, u32 Size)
 /*****************************************************************************/
 /**
 *
-* @brief	This function returns the shared memory location for IPI usage
+* @brief Returns the shared memory location for IPI usage.
 *
-* @param	InstancePtr is a pointer to the XMailbox instance.
-* @param	Address	Pointer to the address of the variable for
-* 			which memory needs to be assigned
+* @param[in]   InstancePtr Pointer to the XMailbox instance.
+* @param[out]  Address Pointer to the address of the variable to which the
+*              memory is assigned.
 *
-* @return
-* 	- Size	Size of the memory allocated for IPI usage
+* @return      Size of the memory allocated for IPI usage.
 *
 ******************************************************************************/
 u32 XMailbox_GetSharedMem(XMailbox *InstancePtr, u64 **Address)
@@ -272,13 +277,13 @@ u32 XMailbox_GetSharedMem(XMailbox *InstancePtr, u64 **Address)
 /*****************************************************************************/
 /**
 *
-* @brief	This function releases the shared memory
+* @brief Releases the shared memory.
 *
-* @param	InstancePtr is a pointer to the XMailbox instance.
+* @param[out]  InstancePtr Pointer to the XMailbox instance.
 *
 * @return
-*	-	XST_SUCCESS - if memory is released
-*	-	XST_FAILURE - if memory is not released
+*              - XST_SUCCESS if the memory is released.
+*              - XST_FAILURE if the memory is not released.
 *
 ******************************************************************************/
 int XMailbox_ReleaseSharedMem(XMailbox *InstancePtr)
