@@ -4,6 +4,10 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XEMACPS_BDRING_H
+/** @brief Include guard for the EmacPs BD ring header. */
+#define XEMACPS_BDRING_H
+
 /*****************************************************************************/
 /**
 *
@@ -11,6 +15,7 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Defines buffer descriptor ring structures and APIs for EmacPs.
 * The Xiline EmacPs Buffer Descriptor ring driver. This is part of EmacPs
 * DMA functionalities.
 *
@@ -29,8 +34,6 @@
 *
 ******************************************************************************/
 
-#ifndef XEMACPS_BDRING_H	/* prevent curcular inclusions */
-#define XEMACPS_BDRING_H	/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,7 +73,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Use this macro at initialization time to determine how many BDs will fit
+* @brief Uses this macro at initialization time to determine how many BDs will fit.
 * in a BD list within the given memory constraints.
 *
 * The results of this macro can be provided to XEmacPs_BdRingCreate().
@@ -91,7 +94,7 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* Use this macro at initialization time to determine how many bytes of memory
+* @brief Uses this macro at initialization time to determine how many bytes of memory.
 * is required to contain a given number of BDs at a given alignment.
 *
 * @param[in] Alignment specifies what byte alignment the BDs must fall on. This
@@ -112,7 +115,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the total number of BDs allocated by this channel with
+* @brief Returns the total number of BDs allocated by this channel with.
 * XEmacPs_BdRingCreate().
 *
 * @param[out] RingPtr is the DMA channel to operate on.
@@ -128,7 +131,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the number of BDs allocatable with XEmacPs_BdRingAlloc() for pre-
+* @brief Returns the number of BDs allocatable with XEmacPs_BdRingAlloc() for pre-.
 * processing.
 *
 * @param[out] RingPtr is the DMA channel to operate on.
@@ -144,7 +147,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the next BD from BdPtr in a list.
+* @brief Returns the next BD from BdPtr in a list.
 *
 * @param[out] RingPtr is the DMA channel to operate on.
 * @param[out] BdPtr is the BD to operate on.
@@ -164,7 +167,7 @@ typedef struct {
 
 /****************************************************************************/
 /**
-* Return the previous BD from BdPtr in the list.
+* @brief Returns the previous BD from BdPtr in the list.
 *
 * @param[out] RingPtr is the DMA channel to operate on.
 * @param[out] BdPtr is the BD to operate on

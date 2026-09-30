@@ -10,9 +10,11 @@
  * @file xemacps_control.c
 * @addtogroup emacps Overview
 * @{
+*
+* @brief Implements control and configuration functions for EmacPs.
  *
  * Functions in this file implement general purpose command and control related
- * functionality. See xemacps.h for a detailed description of the driver.
+ * functionality.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -51,7 +53,7 @@
 
 /*****************************************************************************/
 /**
- * Set the MAC address for this driver/device.  The address is a 48-bit value.
+ * @brief Sets the MAC address for this driver/device. The address is a 48-bit value.
  * The device must be stopped before calling this function.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
@@ -111,7 +113,7 @@ LONG XEmacPs_SetMacAddress(XEmacPs *InstancePtr, void *AddressPtr, u8 Index)
 
 /*****************************************************************************/
 /**
- * Get the MAC address for this driver/device.
+ * @brief Gets the MAC address for this driver/device.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
  * @param[out] AddressPtr is an output parameter, and is a pointer to a buffer into
@@ -149,7 +151,7 @@ void XEmacPs_GetMacAddress(XEmacPs *InstancePtr, void *AddressPtr, u8 Index)
 
 /*****************************************************************************/
 /**
- * Set 48-bit MAC addresses in hash table.
+ * @brief Sets 48-bit MAC addresses in hash table.
  * The device must be stopped before calling this function.
  *
  * The hash address register is 64 bits long and takes up two locations in
@@ -190,7 +192,6 @@ void XEmacPs_GetMacAddress(XEmacPs *InstancePtr, void *AddressPtr, u8 Index)
  * To receive all multicast frames, the hash register should be set with
  * all ones and the multicast hash enable bit should be set in the network
  * configuration register.
- *
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
  * @param[in] AddressPtr is a pointer to a 6-byte MAC address.
@@ -259,7 +260,7 @@ LONG XEmacPs_SetHash(XEmacPs *InstancePtr, void *AddressPtr)
 
 /*****************************************************************************/
 /**
- * Delete 48-bit MAC addresses in hash table.
+ * @brief Deletes 48-bit MAC addresses in hash table.
  * The device must be stopped before calling this function.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
@@ -326,7 +327,7 @@ LONG XEmacPs_DeleteHash(XEmacPs *InstancePtr, void *AddressPtr)
 }
 /*****************************************************************************/
 /**
- * Clear the Hash registers for the mac address pointed by AddressPtr.
+ * @brief Clears the Hash registers for the mac address pointed by AddressPtr.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
  *
@@ -347,7 +348,7 @@ void XEmacPs_ClearHash(XEmacPs *InstancePtr)
 
 /*****************************************************************************/
 /**
- * Get the Hash address for this driver/device.
+ * @brief Gets the Hash address for this driver/device.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
  * @param[out] AddressPtr is an output parameter, and is a pointer to a buffer into
@@ -373,7 +374,7 @@ void XEmacPs_GetHash(XEmacPs *InstancePtr, void *AddressPtr)
 
 /*****************************************************************************/
 /**
- * Set the Type ID match for this driver/device.  The register is a 32-bit
+ * @brief Sets the Type ID match for this driver/device. The register is a 32-bit.
  * value. The device must be stopped before calling this function.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
@@ -412,7 +413,7 @@ LONG XEmacPs_SetTypeIdCheck(XEmacPs *InstancePtr, u32 Id_Check, u8 Index)
 
 /*****************************************************************************/
 /**
- * Set options for the driver/device. The driver should be stopped with
+ * @brief Sets options for the driver/device. The driver should be stopped with.
  * XEmacPs_Stop() before changing options.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
@@ -582,7 +583,7 @@ LONG XEmacPs_SetOptions(XEmacPs *InstancePtr, u32 Options)
 
 /*****************************************************************************/
 /**
- * Clear options for the driver/device
+ * @brief Clears options for the driver/device.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
  * @param[in] Options are the options to clear. Multiple options can be cleared by
@@ -748,7 +749,7 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
 
 /*****************************************************************************/
 /**
- * Get current option settings
+ * @brief Gets current option settings.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
  *
@@ -771,7 +772,7 @@ u32 XEmacPs_GetOptions(XEmacPs *InstancePtr)
 
 /*****************************************************************************/
 /**
- * Send a pause packet
+ * @brief Sends a pause packet.
  *
  * @param[in] InstancePtr is a pointer to the instance to be worked on.
  *
@@ -805,7 +806,7 @@ LONG XEmacPs_SendPausePacket(XEmacPs *InstancePtr)
 
 /*****************************************************************************/
 /**
- * XEmacPs_GetOperatingSpeed gets the current operating link speed. This may
+ * @brief XEmacPs_GetOperatingSpeed gets the current operating link speed. This may.
  * be the value set by XEmacPs_SetOperatingSpeed() or a hardware default.
  *
  * @param[in] InstancePtr references the TEMAC channel on which to operate.
@@ -842,7 +843,7 @@ u16 XEmacPs_GetOperatingSpeed(XEmacPs *InstancePtr)
 
 /*****************************************************************************/
 /**
- * XEmacPs_SetOperatingSpeed sets the current operating link speed. For any
+ * @brief XEmacPs_SetOperatingSpeed sets the current operating link speed. For any.
  * traffic to be passed, this speed must match the current MII/GMII/SGMII/RGMII
  * link speed.
  *
@@ -885,7 +886,7 @@ void XEmacPs_SetOperatingSpeed(XEmacPs *InstancePtr, u16 Speed)
 
 /*****************************************************************************/
 /**
- * Set the MDIO clock divisor.
+ * @brief Sets the MDIO clock divisor.
  *
  * Calculating the divisor:
  *
@@ -945,7 +946,7 @@ void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor)
 
 /*****************************************************************************/
 /**
-* Read the current value of the PHY register indicated by the PhyAddress and
+* @brief Reads the current value of the PHY register indicated by the PhyAddress and.
 * the RegisterNum parameters. The MAC provides the driver with the ability to
 * talk to a PHY that adheres to the Media Independent Interface (MII) as
 * defined in the IEEE 802.3 standard.
@@ -972,7 +973,7 @@ void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor)
 * access to this function if there are to be multiple threads that can call it.
 *
 * There is the possibility that this function will not return if the hardware
-* is broken (i.e., it never sets the status bit indicating that the read is
+* is broken (that is, it never sets the status bit indicating that the read is
 * done). If this is of concern to the user, the user should provide a mechanism
 * suitable to their needs for recovery.
 *
@@ -1028,7 +1029,7 @@ LONG XEmacPs_PhyRead(XEmacPs *InstancePtr, u32 PhyAddress,
 }
 
 /**
- * Check if a common MDIO (Management Data Input/Output) interface is present.
+ * @brief Checks if a common MDIO (Management Data Input/Output) interface is present.
  * Evaluates whether the GEM instance uses a shared MDIO interface
  * by comparing the base address of the current instance with the MDIO producer
  * base address. The existence of a valid MDIO producer base address is also checked.
@@ -1052,7 +1053,7 @@ int XEmacPs_IsCommonMdioPresent(XEmacPs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Write data to the specified PHY register. The Ethernet driver does not
+* @brief Writes data to the specified PHY register. The Ethernet driver does not.
 * require the device to be stopped before writing to the PHY.  Although it is
 * probably a good idea to stop the device, it is the responsibility of the
 * application to deem this necessary. The MAC provides the driver with the
@@ -1082,7 +1083,7 @@ int XEmacPs_IsCommonMdioPresent(XEmacPs *InstancePtr)
 * access to this function if there are to be multiple threads that can call it.
 *
 * There is the possibility that this function will not return if the hardware
-* is broken (i.e., it never sets the status bit indicating that the write is
+* is broken (that is, it never sets the status bit indicating that the write is
 * done). If this is of concern to the user, the user should provide a mechanism
 * suitable to their needs for recovery.
 *
@@ -1135,11 +1136,10 @@ LONG XEmacPs_PhyWrite(XEmacPs *InstancePtr, u32 PhyAddress,
 
 /*****************************************************************************/
 /**
-* API to update the Burst length in the DMACR register.
+* @brief APIs to update the Burst length in the DMACR register.
 *
 * @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 * @param[in] BLength is the length in bytes for the dma burst.
-*
 *
 ******************************************************************************/
 void XEmacPs_DMABLengthUpdate(XEmacPs *InstancePtr, s32 BLength)

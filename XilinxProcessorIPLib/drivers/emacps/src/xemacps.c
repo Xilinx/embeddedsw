@@ -11,8 +11,10 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Implements the minimum required API functions for the EmacPs driver.
+*
 * The XEmacPs driver. Functions in this file are the minimum required functions
-* for this driver. See xemacps.h for a detailed description of the driver.
+* for this driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -60,7 +62,7 @@ void XEmacPs_StubHandler(void);	/* Default handler routine */
 
 /*****************************************************************************/
 /**
-* Initialize a specific XEmacPs instance/driver. The initialization entails:
+* @brief Initializes a specific XEmacPs instance/driver. The initialization entails:.
 * - Initialize fields of the XEmacPs instance structure
 * - Reset hardware and apply default options
 * - Configure the DMA channels
@@ -135,14 +137,13 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 
 /*****************************************************************************/
 /**
-* Start the Ethernet controller as follows:
+* @brief Starts the Ethernet controller as follows:.
 *   - Enable transmitter if XTE_TRANSMIT_ENABLE_OPTION is set
 *   - Enable receiver if XTE_RECEIVER_ENABLE_OPTION is set
 *   - Start the SG DMA send and receive channels and enable the device
 *     interrupt
 *
 * @param[in] InstancePtr is a pointer to the instance to be worked on.
-*
 *
 * @note
 * Hardware is configured with scatter-gather DMA, the driver expects to start
@@ -238,7 +239,7 @@ void XEmacPs_Start(XEmacPs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Gracefully stop the Ethernet MAC as follows:
+* @brief Gracefullys stop the Ethernet MAC as follows:.
 *   - Disable all interrupts from this device
 *   - Stop DMA channels
 *   - Disable the transmitter and receiver
@@ -290,7 +291,7 @@ void XEmacPs_Stop(XEmacPs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Perform a graceful reset of the Ethernet MAC. Resets the DMA channels, the
+* @brief Performs a graceful reset of the Ethernet MAC. Resets the DMA channels, the.
 * transmitter, and the receiver.
 *
 * Steps to reset
@@ -505,7 +506,7 @@ void XEmacPs_StubHandler(void)
 
 /*****************************************************************************/
 /**
-* Sets the start address of the transmit/receive buffer queue.
+* @brief Sets the start address of the transmit/receive buffer queue.
 *
 * @param[in] InstancePtr is a pointer to the instance to be worked on.
 * @param[in] QPtr is the address of the Queue to be written

@@ -4,6 +4,10 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XEMACPS_HW_H
+/** @brief Include guard for the EmacPs hardware header. */
+#define XEMACPS_HW_H
+
 /*****************************************************************************/
 /**
 *
@@ -11,6 +15,7 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Defines hardware register offsets and constants for EmacPs.
 * Defines identifiers and low-level driver functions (or
 * macros) that can be used to access the PS Ethernet MAC (XEmacPs) device.
 * High-level driver functions are defined in xemacps.h.
@@ -42,8 +47,6 @@
 *
 ******************************************************************************/
 
-#ifndef XEMACPS_HW_H		/* prevent circular inclusions */
-#define XEMACPS_HW_H		/* by using protection macros */
 
 /***************************** Include Files *********************************/
 
@@ -88,15 +91,18 @@ extern "C" {
  *  currently supporting 8, 16, 32, 48, 64, 96, 128, 224.
  * @{
  */
-typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
-	MDC_DIV_64, MDC_DIV_96, MDC_DIV_128, MDC_DIV_224
+/**
+ * @brief MDC clock divisor selections for PHY management.
+ */
+typedef enum { MDC_DIV_8 = 0U, /**< MDC clock divisor of 8. */ MDC_DIV_16, /**< MDC clock divisor of 16. */ MDC_DIV_32, /**< MDC clock divisor of 32. */ MDC_DIV_48, /**< MDC clock divisor of 48. */
+	MDC_DIV_64, /**< MDC clock divisor of 64. */ MDC_DIV_96, /**< MDC clock divisor of 96. */ MDC_DIV_128, /**< MDC clock divisor of 128. */ MDC_DIV_224 /**< MDC clock divisor of 224. */
 } XEmacPs_MdcDiv;
 
 /** @} */
 
 #define XEMACPS_RX_BUF_SIZE 1536U /**< Specify the receive buffer size in
                                        bytes, 64, 128, ... 10240 */
-#define XEMACPS_RX_BUF_SIZE_JUMBO 10240U
+#define XEMACPS_RX_BUF_SIZE_JUMBO 10240U /**< Jumbo receive buffer size in bytes. */
 
 #define XEMACPS_RX_BUF_UNIT   64U /**< Number of receive buffer bytes as a
                                        unit, this is HW setup */
@@ -276,12 +282,12 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 						      second counter */
 #define XEMACPS_PTPP_RXNANOSEC_OFFSET 0x000001FCU /**< 1588 PTP peer receive
 						      nanosecond counter */
-#define XEMACPS_PCS_CONTROL_OFFSET	0x00000200U /** PCS control register */
-#define XEMACPS_PCS_STATUS_OFFSET	0x00000204U /** PCS status register */
+#define XEMACPS_PCS_CONTROL_OFFSET	0x00000200U /**< PCS control register offset. */
+#define XEMACPS_PCS_STATUS_OFFSET	0x00000204U /**< PCS status register offset. */
 
-#define XEMACPS_DCFG1_OFFSET		0x00000280  /** designcfg_debug1 register */
-#define XEMACPS_DCFG6_OFFSET		0x00000294U /** designcfg_debug6 register */
-#define XEMACPS_DCFG12_OFFSET		0x000002AC /** designcfg_debug12 register */
+#define XEMACPS_DCFG1_OFFSET		0x00000280  /**< Designcfg_debug1 register offset. */
+#define XEMACPS_DCFG6_OFFSET		0x00000294U /**< Designcfg_debug6 register offset. */
+#define XEMACPS_DCFG12_OFFSET		0x000002AC /**< Designcfg_debug12 register offset. */
 
 #define XEMACPS_INTQ1_STS_OFFSET     0x00000400U /**< Interrupt Q1 Status
 							reg */
@@ -311,7 +317,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 							reg */
 #define XEMACPS_MSBBUF_RXQBASE_OFFSET  0x000004D4U /**< MSB Buffer RX Q Base
 							reg */
-#define XEMACPS_SCREEN_TYPE2_REG0       0x00000540U /** Screening Type2 Reg0 **/
+#define XEMACPS_SCREEN_TYPE2_REG0       0x00000540U /**< Screening type 2 register 0 offset. */
 
 #define XEMACPS_INTQ1_IER_OFFSET     0x00000600U /**< Interrupt Q1 Enable
 							reg */
@@ -340,7 +346,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
  * @{
  */
 #define XEMACPS_ENABLE_HS_MAC_OFFSET	31 /**< Use High Speed MAC */
-#define XEMACPS_ENABLE_HS_MAC_SIZE	1
+#define XEMACPS_ENABLE_HS_MAC_SIZE	1 /**< High-speed MAC enable field width in bits. */
 #define XEMACPS_NWCTRL_FLUSH_DPRAM_MASK	0x00040000U /**< Flush a packet from
 							Rx SRAM */
 #define XEMACPS_NWCTRL_ZEROPAUSETX_MASK 0x00001000U /**< Transmit zero quantum
@@ -464,7 +470,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
                                        (u32)XEMACPS_TXSR_BUFEXH_MASK | \
                                        (u32)XEMACPS_TXSR_RXOVR_MASK | \
                                        (u32)XEMACPS_TXSR_FRAMERX_MASK | \
-                                       (u32)XEMACPS_TXSR_USEDREAD_MASK)
+                                       (u32)XEMACPS_TXSR_USEDREAD_MASK) /**< Combined TX status error bitmask. */
 /** @} */
 
 /**
@@ -478,7 +484,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 
 #define XEMACPS_RXSR_ERROR_MASK      ((u32)XEMACPS_RXSR_HRESPNOK_MASK | \
                                        (u32)XEMACPS_RXSR_RXOVR_MASK | \
-                                       (u32)XEMACPS_RXSR_BUFFNA_MASK)
+                                       (u32)XEMACPS_RXSR_BUFFNA_MASK) /**< Combined RX status error bitmask. */
 
 #define XEMACPS_SR_ALL_MASK	0xFFFFFFFFU /**< Mask for full register */
 
@@ -495,10 +501,10 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
  * @name HS_MAC SPEED definitions
  * @{
  */
-#define SPEED_1G 	1
-#define SPEED_2_5G	2
-#define SPEED_5G	3
-#define SPEED_10G 	4
+#define SPEED_1G 	1 /**< HS_MAC speed code for 1 Gbps. */
+#define SPEED_2_5G	2 /**< HS_MAC speed code for 2.5 Gbps. */
+#define SPEED_5G	3 /**< HS_MAC speed code for 5 Gbps. */
+#define SPEED_10G 	4 /**< HS_MAC speed code for 10 Gbps. */
 /** @} */
 /**
  * @name PCS control register bit definitions
@@ -512,39 +518,39 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
  * @{
  */
 #define XEMACPS_LINK_STATUS_OFFSET		4U /**< Link status */
-#define XEMACPS_LINK_STATUS_SIZE		1U
+#define XEMACPS_LINK_STATUS_SIZE		1U /**< Link status field width in bits. */
 /** @} */
 
 /**
  * @name USX control register bit definitions
  * @{
  */
-#define XEMACPS_USX_SPEED_OFFSET		14U
-#define XEMACPS_USX_SPEED_SIZE			3U
-#define XEMACPS_SERDES_RATE_OFFSET		12U
-#define XEMACPS_SERDES_RATE_SIZE		2U
-#define XEMACPS_RX_SCR_BYPASS_OFFSET		9U
-#define XEMACPS_RX_SCR_BYPASS_SIZE		1U
-#define XEMACPS_TX_SCR_BYPASS_OFFSET		8U
-#define XEMACPS_TX_SCR_BYPASS_SIZE		1U
-#define XEMACPS_RX_SYNC_RESET_OFFSET		2U
-#define XEMACPS_RX_SYNC_RESET_SIZE		1U
-#define XEMACPS_TX_EN_OFFSET			1U
-#define XEMACPS_TX_EN_SIZE			1U
-#define XEMACPS_SIGNAL_OK_OFFSET		0U
-#define XEMACPS_SIGNAL_OK_SIZE			1U
+#define XEMACPS_USX_SPEED_OFFSET		14U /**< USX speed field bit offset. */
+#define XEMACPS_USX_SPEED_SIZE			3U /**< USX speed field width in bits. */
+#define XEMACPS_SERDES_RATE_OFFSET		12U /**< SerDes rate field bit offset. */
+#define XEMACPS_SERDES_RATE_SIZE		2U /**< SerDes rate field width in bits. */
+#define XEMACPS_RX_SCR_BYPASS_OFFSET		9U /**< RX scrambler bypass field bit offset. */
+#define XEMACPS_RX_SCR_BYPASS_SIZE		1U /**< RX scrambler bypass field width in bits. */
+#define XEMACPS_TX_SCR_BYPASS_OFFSET		8U /**< TX scrambler bypass field bit offset. */
+#define XEMACPS_TX_SCR_BYPASS_SIZE		1U /**< TX scrambler bypass field width in bits. */
+#define XEMACPS_RX_SYNC_RESET_OFFSET		2U /**< RX sync reset field bit offset. */
+#define XEMACPS_RX_SYNC_RESET_SIZE		1U /**< RX sync reset field width in bits. */
+#define XEMACPS_TX_EN_OFFSET			1U /**< TX enable field bit offset. */
+#define XEMACPS_TX_EN_SIZE			1U /**< TX enable field width in bits. */
+#define XEMACPS_SIGNAL_OK_OFFSET		0U /**< Signal OK field bit offset. */
+#define XEMACPS_SIGNAL_OK_SIZE			1U /**< Signal OK field width in bits. */
 /** @} */
 
 /**
  * @name USX control register bit definitions
  * @{
  */
-#define XEMACPS_USX_BLOCK_LOCK_OFFSET		0U
-#define XEMACPS_BLOCK_LOCK_SIZE			1U
+#define XEMACPS_USX_BLOCK_LOCK_OFFSET		0U /**< USX block lock field bit offset. */
+#define XEMACPS_BLOCK_LOCK_SIZE			1U /**< Block lock field width in bits. */
 
-#define SERDES_RATE_5G				0U
-#define SERDES_RATE_10G				1U
-#define SERDES_RATE_25G				2U
+#define SERDES_RATE_5G				0U /**< SerDes rate selection for 5G. */
+#define SERDES_RATE_10G				1U /**< SerDes rate selection for 10G. */
+#define SERDES_RATE_25G				2U /**< SerDes rate selection for 25G. */
 
 /** @} */
 
@@ -574,17 +580,17 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 
 #define XEMACPS_INTQ1_IXR_ALL_MASK	((u32)XEMACPS_INTQ1SR_TXCOMPL_MASK | \
 					 (u32)XEMACPS_INTQ1SR_TXERR_MASK | \
-                                         (u32)XEMACPS_INTQ1SR_RXCOMPL_MASK)
+                                         (u32)XEMACPS_INTQ1SR_RXCOMPL_MASK) /**< Queue 1 all interrupt bitmask. */
 
 #define XEMACPS_INTQ1_IXR_TX_MASK	((u32)XEMACPS_INTQ1SR_TXCOMPL_MASK | \
-					 (u32)XEMACPS_INTQ1SR_TXERR_MASK)
-#define XEMACPS_INTQ1_IXR_RX_MASK	(u32)XEMACPS_INTQ1SR_RXCOMPL_MASK
+					 (u32)XEMACPS_INTQ1SR_TXERR_MASK) /**< Queue 1 TX interrupt bitmask. */
+#define XEMACPS_INTQ1_IXR_RX_MASK	(u32)XEMACPS_INTQ1SR_RXCOMPL_MASK /**< Queue 1 RX interrupt bitmask. */
 
 /* Common Masks for all Queues */
-#define XEMACPS_INTQISR_RXCOMPL_MASK	XEMACPS_INTQ1SR_RXCOMPL_MASK
-#define XEMACPS_INTQISR_TXCOMPL_MASK	XEMACPS_INTQ1SR_TXCOMPL_MASK
-#define XEMACPS_INTQSR_TXERR_MASK	XEMACPS_INTQ1SR_TXERR_MASK
-#define XEMACPS_INTQ_IXR_ALL_MASK	XEMACPS_INTQ1_IXR_ALL_MASK
+#define XEMACPS_INTQISR_RXCOMPL_MASK	XEMACPS_INTQ1SR_RXCOMPL_MASK /**< Common queue RX complete interrupt mask. */
+#define XEMACPS_INTQISR_TXCOMPL_MASK	XEMACPS_INTQ1SR_TXCOMPL_MASK /**< Common queue TX complete interrupt mask. */
+#define XEMACPS_INTQSR_TXERR_MASK	XEMACPS_INTQ1SR_TXERR_MASK /**< Common queue TX error interrupt mask. */
+#define XEMACPS_INTQ_IXR_ALL_MASK	XEMACPS_INTQ1_IXR_ALL_MASK /**< Common queue all-interrupt bitmask. */
 
 /** @} */
 
@@ -624,12 +630,12 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 
 #define XEMACPS_IXR_TX_ERR_MASK    ((u32)XEMACPS_IXR_TXEXH_MASK |         \
                                      (u32)XEMACPS_IXR_RETRY_MASK |         \
-                                     (u32)XEMACPS_IXR_URUN_MASK)
+                                     (u32)XEMACPS_IXR_URUN_MASK) /**< Combined TX error interrupt bitmask. */
 
 
 #define XEMACPS_IXR_RX_ERR_MASK    ((u32)XEMACPS_IXR_HRESPNOK_MASK |      \
                                      (u32)XEMACPS_IXR_RXUSED_MASK |        \
-                                     (u32)XEMACPS_IXR_RXOVR_MASK)
+                                     (u32)XEMACPS_IXR_RXOVR_MASK) /**< Combined RX error interrupt bitmask. */
 
 /** @} */
 
@@ -719,9 +725,12 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 /**  @name Queue Registers Offset
  * @{
  */
-#define MAX_QUEUES_FEASIBLE		4 /* Max queues possible on latest device */
-typedef enum { TXQIBASE = 0U, RXQIBASE, DMA_RXQI_BUFSIZE,
-	       INTQI_STS, INTQI_IER, INTQI_IDR, REG_END
+#define MAX_QUEUES_FEASIBLE		4 /**< Maximum number of queues on the latest device. */
+/**
+ * @brief Queue register offset identifiers for multi-queue access.
+ */
+typedef enum { TXQIBASE = 0U, /**< TX queue i base address register index. */ RXQIBASE, /**< RX queue i base address register index. */ DMA_RXQI_BUFSIZE, /**< RX queue i DMA buffer size register index. */
+	       INTQI_STS, /**< Queue i interrupt status register index. */ INTQI_IER, /**< Queue i interrupt enable register index. */ INTQI_IDR, /**< Queue i interrupt disable register index. */ REG_END /**< Sentinel marking the end of the queue register list. */
 } XEmacPs_QxRegOffset;
 
 /** @} */
@@ -731,14 +740,14 @@ typedef enum { TXQIBASE = 0U, RXQIBASE, DMA_RXQI_BUFSIZE,
  * interface if necessary.
  */
 
-#define XEmacPs_In32  Xil_In32
-#define XEmacPs_Out32 Xil_Out32
+#define XEmacPs_In32  Xil_In32 /**< 32-bit register read primitive. */
+#define XEmacPs_Out32 Xil_Out32 /**< 32-bit register write primitive. */
 
 
 /****************************************************************************/
 /**
 *
-* Read the given register.
+* @brief Reads the given register.
 *
 * @param[in] BaseAddress is the base address of the device
 * @param[in] RegOffset is the register offset to be read
@@ -757,12 +766,11 @@ typedef enum { TXQIBASE = 0U, RXQIBASE, DMA_RXQI_BUFSIZE,
 /****************************************************************************/
 /**
 *
-* Write the given register.
+* @brief Writes the given register.
 *
 * @param[in] BaseAddress is the base address of the device
 * @param[in] RegOffset is the register offset to be written
 * @param[in] Data is the 32-bit value to write to the register
-*
 *
 * @note
 * C-style signature:
@@ -773,14 +781,43 @@ typedef enum { TXQIBASE = 0U, RXQIBASE, DMA_RXQI_BUFSIZE,
 #define XEmacPs_WriteReg(BaseAddress, RegOffset, Data) \
     XEmacPs_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
 
+/**
+ * @brief Forms a register offset macro name for the given field name.
+ *
+ * @param[in] name Field name token used to build XEMACPS_<name>_OFFSET.
+ */
 #define XEMACPS_REG(name)      XEMACPS_##name##_OFFSET
+/**
+ * @brief Forms a single-bit mask for the given field name.
+ *
+ * @param[in] name Field name token used to build XEMACPS_<name>_OFFSET.
+ */
 #define XEMACPS_BIT(name)      ((u32)0x1U << (XEMACPS_##name##_OFFSET))
+/**
+ * @brief Inserts a field value at the field bit offset.
+ *
+ * @param[in] name Field name token.
+ * @param[in] value Field value to place.
+ */
 #define XEMACPS_BF(name, value)\
        (((value) & (((u32)0x1U << XEMACPS_##name##_SIZE) - (u32)0x1U)) \
         << XEMACPS_##name##_OFFSET)
+/**
+ * @brief Extracts a named field from a register value.
+ *
+ * @param[in] name Field name token.
+ * @param[in] value Register value to extract from.
+ */
 #define XEMACPS_BFEXT(name, value)\
        (((value) >> XEMACPS_##name##_OFFSET)           \
         & ((1 << XEMACPS_##name##_SIZE) - 1))
+/**
+ * @brief Inserts a named field into an existing register value.
+ *
+ * @param[in] name Field name token.
+ * @param[in] value Field value to insert.
+ * @param[in] old Previous register value.
+ */
 #define XEMACPS_BFINS(name, value, old)\
        (((old) & ~(((1 << XEMACPS_##name##_SIZE) - 1)  \
                    << XEMACPS_##name##_OFFSET))                    \

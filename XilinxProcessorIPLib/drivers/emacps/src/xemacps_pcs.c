@@ -10,6 +10,8 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Implements ethernet PCS block APIs for EmacPs.
+*
 * Contains the implementation of the ethernet PCS block api's
 *
 * <pre>
@@ -26,7 +28,7 @@
 #include <stdlib.h>
 #include "xemacps_pcs.h"
 #include "xil_sutil.h"
-#define POLL_TIMEOUT	2000000
+#define POLL_TIMEOUT	2000000	/**< Poll timeout in microseconds. */
 
 /*****************************************************************************/
 /**
@@ -35,7 +37,6 @@
 *   - Configure serdes rate and speed in USX_CONTROL register
 *   - Assert Rx reset signal for GT reset
 *   - Wait for PCS_BLOCK_LOCK
-*
 *
 ******************************************************************************/
 void XEmacPs_SetupPCS(XEmacPs *EmacPsInstancePtr)
@@ -70,7 +71,7 @@ void XEmacPs_SetupPCS(XEmacPs *EmacPsInstancePtr)
 
 /*****************************************************************************/
 /**
-* Get USX synchronisation status
+* @brief Gets USX synchronisation status.
 *
 * @return
 * - true if block synchronization achieved
@@ -88,7 +89,7 @@ bool XEmacPs_USXPCSGetState(UINTPTR BaseAddr)
 
 /*****************************************************************************/
 /**
-* Detect if the device supports High Speeds ( 5G, 10G )
+* @brief Detects if the device supports High Speeds ( 5G, 10G ).
 *
 * @return
 * - true if the device support High Speed

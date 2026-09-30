@@ -11,6 +11,8 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Implements buffer descriptor ring management for EmacPs.
+*
 * Implements buffer descriptor ring related functions.
 *
 * <pre>
@@ -53,45 +55,37 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/****************************************************************************
- * Compute the virtual address of a descriptor from its physical address
+/**
+ * @brief Computes the virtual address of a descriptor from its physical address.
  *
- * @param[out] BdPtr is the physical address of the BD
+ * @param[in] BdPtr Physical address of the buffer descriptor.
  *
- * @returns Virtual address of BdPtr
+ * @return Virtual address of the buffer descriptor.
  *
- * @note Assume BdPtr is always a valid BD in the ring
- ****************************************************************************/
+ * @note Assumes BdPtr is always a valid BD in the ring.
+ */
 #define XEMACPS_PHYS_TO_VIRT(BdPtr) \
     ((UINTPTR)(BdPtr) + (RingPtr->BaseBdAddr - RingPtr->PhysBaseAddr))
 
-/****************************************************************************
- * Compute the physical address of a descriptor from its virtual address
+/**
+ * @brief Computes the physical address of a descriptor from its virtual address.
  *
- * @param[out] BdPtr is the physical address of the BD
+ * @param[in] BdPtr Virtual address of the buffer descriptor.
  *
- * @returns Physical address of BdPtr
+ * @return Physical address of the buffer descriptor.
  *
- * @note Assume BdPtr is always a valid BD in the ring
- ****************************************************************************/
+ * @note Assumes BdPtr is always a valid BD in the ring.
+ */
 #define XEMACPS_VIRT_TO_PHYS(BdPtr) \
     ((UINTPTR)(BdPtr) - (RingPtr->BaseBdAddr - RingPtr->PhysBaseAddr))
 
-/****************************************************************************
- * Move the BdPtr argument ahead an arbitrary number of BDs wrapping around
- * to the beginning of the ring if needed.
+/**
+ * @brief Moves BdPtr ahead by NumBd descriptors, wrapping at the ring end.
  *
- * We know if a wrapaound should occur if the new BdPtr is greater than
- * the high address in the ring OR if the new BdPtr crosses over the
- * 0xFFFFFFFF to 0 boundary. The latter test is a valid one since we do not
- * allow a BD space to span this boundary.
- *
- * @param[out] RingPtr is the ring BdPtr appears in
- * @param[out] BdPtr on input is the starting BD position and on output is the
- *        final BD position
- * @param[in] NumBd is the number of BD spaces to increment
- *
- ****************************************************************************/
+ * @param[in] RingPtr Ring that contains BdPtr.
+ * @param[in,out] BdPtr Starting BD on input; updated BD position on output.
+ * @param[in] NumBd Number of BD spaces to advance.
+ */
 #define XEMACPS_RING_SEEKAHEAD(RingPtr, BdPtr, NumBd)                  \
     {                                                                   \
         UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                        \
@@ -105,21 +99,13 @@
         (BdPtr) = (XEmacPs_Bd*)(void *)Addr;                                     \
     }
 
-/****************************************************************************
- * Move the BdPtr argument backwards an arbitrary number of BDs wrapping
- * around to the end of the ring if needed.
+/**
+ * @brief Moves BdPtr backwards by NumBd descriptors, wrapping at the ring start.
  *
- * We know if a wrapaound should occur if the new BdPtr is less than
- * the base address in the ring OR if the new BdPtr crosses over the
- * 0xFFFFFFFF to 0 boundary. The latter test is a valid one since we do not
- * allow a BD space to span this boundary.
- *
- * @param[out] RingPtr is the ring BdPtr appears in
- * @param[out] BdPtr on input is the starting BD position and on output is the
- *        final BD position
- * @param[in] NumBd is the number of BD spaces to increment
- *
- ****************************************************************************/
+ * @param[in] RingPtr Ring that contains BdPtr.
+ * @param[in,out] BdPtr Starting BD on input; updated BD position on output.
+ * @param[in] NumBd Number of BD spaces to move backwards.
+ */
 #define XEMACPS_RING_SEEKBACK(RingPtr, BdPtr, NumBd)                   \
     {                                                                   \
         UINTPTR Addr = (UINTPTR)(void *)(BdPtr);                                  \
@@ -145,7 +131,7 @@ static void XEmacPs_BdSetTxWrap(UINTPTR BdPtr);
 
 /*****************************************************************************/
 /**
- * Using a memory segment allocated by the caller, create and setup the BD list
+ * @brief Using a memory segment allocated by the caller, create and setup the BD list.
  * for the given DMA channel.
  *
  * @param[out] RingPtr is the instance to be worked on.
@@ -259,7 +245,7 @@ LONG XEmacPs_BdRingCreate(XEmacPs_BdRing * RingPtr, UINTPTR PhysAddr,
 
 /*****************************************************************************/
 /**
- * Clone the given BD into every BD in the list.
+ * @brief Clones the given BD into every BD in the list.
  * every field of the source BD is replicated in every BD of the list.
  *
  * Call this API when only when all BDs are in the free group such as
@@ -330,7 +316,7 @@ LONG XEmacPs_BdRingClone(XEmacPs_BdRing * RingPtr, XEmacPs_Bd * SrcBdPtr,
 
 /*****************************************************************************/
 /**
- * Reserve locations in the BD list. The set of returned BDs may be modified
+ * @brief Reserves locations in the BD list. The set of returned BDs may be modified.
  * in preparation for future DMA transaction(s). Once the BDs are ready to be
  * submitted to hardware, the user must call XEmacPs_BdRingToHw() in the same
  * order which they were allocated here. Example:
@@ -420,7 +406,7 @@ LONG XEmacPs_BdRingAlloc(XEmacPs_BdRing * RingPtr, u32 NumBd,
 
 /*****************************************************************************/
 /**
- * Fully or partially undo an XEmacPs_BdRingAlloc() operation. Use this
+ * @brief Fullys or partially undo an XEmacPs_BdRingAlloc() operation. Use this.
  * function if all the BDs allocated by XEmacPs_BdRingAlloc() could not be
  * transferred to hardware with XEmacPs_BdRingToHw().
  *
@@ -501,7 +487,7 @@ LONG XEmacPs_BdRingUnAlloc(XEmacPs_BdRing * RingPtr, u32 NumBd,
 
 /*****************************************************************************/
 /**
- * Enqueue a set of BDs to hardware that were previously allocated by
+ * @brief Enqueues a set of BDs to hardware that were previously allocated by.
  * XEmacPs_BdRingAlloc(). Once this function returns, the argument BD set goes
  * under hardware control. Any changes made to these BDs after this point will
  * corrupt the BD list leading to data corruption and system instability.
@@ -558,7 +544,7 @@ LONG XEmacPs_BdRingToHw(XEmacPs_BdRing * RingPtr, u32 NumBd,
 
 /*****************************************************************************/
 /**
- * Returns a set of BD(s) that have been processed by hardware. The returned
+ * @brief Returns a set of BD(s) that have been processed by hardware. The returned.
  * BDs may be examined to determine the outcome of the DMA transaction(s).
  * Once the BDs have been examined, the user must call XEmacPs_BdRingFree()
  * in the same order which they were retrieved here. Example:
@@ -709,7 +695,7 @@ u32 XEmacPs_BdRingFromHwTx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 
 /*****************************************************************************/
 /**
- * Returns a set of BD(s) that have been processed by hardware. The returned
+ * @brief Returns a set of BD(s) that have been processed by hardware. The returned.
  * BDs may be examined to determine the outcome of the DMA transaction(s).
  * Once the BDs have been examined, the user must call XEmacPs_BdRingFree()
  * in the same order which they were retrieved here. Example:
@@ -856,7 +842,7 @@ u32 XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 
 /*****************************************************************************/
 /**
- * Frees a set of BDs that had been previously retrieved with
+ * @brief Frees a set of BDs that had been previously retrieved with.
  * XEmacPs_BdRingFromHw().
  *
  * @param[out] RingPtr is a pointer to the instance to be worked on.
@@ -899,7 +885,7 @@ LONG XEmacPs_BdRingFree(XEmacPs_BdRing * RingPtr, u32 NumBd,
 
 /*****************************************************************************/
 /**
- * Check the internal data structures of the BD ring for the provided channel.
+ * @brief Checks the internal data structures of the BD ring for the provided channel.
  * The following checks are made:
  *
  *   - Is the BD ring linked correctly in physical address space.
@@ -1015,7 +1001,7 @@ LONG XEmacPs_BdRingCheck(XEmacPs_BdRing * RingPtr, u8 Direction)
 /** @cond INTERNAL */
 /*****************************************************************************/
 /**
- * Set this bit to mark the last descriptor in the receive buffer descriptor
+ * @brief Sets this bit to mark the last descriptor in the receive buffer descriptor.
  * list.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -1041,7 +1027,7 @@ static void XEmacPs_BdSetRxWrap(UINTPTR BdPtr)
 
 /*****************************************************************************/
 /**
- * Sets this bit to mark the last descriptor in the transmit buffer
+ * @brief Sets this bit to mark the last descriptor in the transmit buffer.
  * descriptor list.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -1069,7 +1055,7 @@ static void XEmacPs_BdSetTxWrap(UINTPTR BdPtr)
 
 /*****************************************************************************/
 /**
- * Reset BD ring head and tail pointers.
+ * @brief Resets BD ring head and tail pointers.
  *
  * @param[out] RingPtr is the instance to be worked on.
  * @param[in] virtaddrloc is the virtual base address of the user memory region.

@@ -4,13 +4,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XEMACPS_BD_H
+/** @brief Include guard for the EmacPs buffer descriptor header. */
+#define XEMACPS_BD_H
+
 /*****************************************************************************/
 /**
  *
  * @file xemacps_bd.h
 * @addtogroup emacps Overview
 * @{
- *
+*
+* @brief Provides buffer descriptor (BD) management APIs for EmacPs.
  * This header provides operations to manage buffer descriptors in support
  * of scatter-gather DMA.
  *
@@ -53,8 +58,6 @@
  * ***************************************************************************
  */
 
-#ifndef XEMACPS_BD_H		/* prevent circular inclusions */
-#define XEMACPS_BD_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -71,12 +74,12 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 #ifdef __aarch64__
 /* Minimum BD alignment */
-#define XEMACPS_DMABD_MINIMUM_ALIGNMENT  64U
-#define XEMACPS_BD_NUM_WORDS 4U
+#define XEMACPS_DMABD_MINIMUM_ALIGNMENT  64U /**< Minimum BD alignment in bytes. */
+#define XEMACPS_BD_NUM_WORDS 4U /**< Number of 32-bit words in a BD. */
 #else
 /* Minimum BD alignment */
-#define XEMACPS_DMABD_MINIMUM_ALIGNMENT  4U
-#define XEMACPS_BD_NUM_WORDS 2U
+#define XEMACPS_DMABD_MINIMUM_ALIGNMENT  4U /**< Minimum BD alignment in bytes. */
+#define XEMACPS_BD_NUM_WORDS 2U /**< Number of 32-bit words in a BD. */
 #endif
 
 /**
@@ -89,7 +92,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Zero out BD fields
+ * @brief Zeros out BD fields.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -104,7 +107,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 /****************************************************************************/
 /**
 *
-* Read the given Buffer Descriptor word.
+* @brief Reads the given Buffer Descriptor word.
 *
 * @param[in] BaseAddress is the base address of the BD to read
 * @param[in] Offset is the word offset to be read
@@ -122,12 +125,11 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 /****************************************************************************/
 /**
 *
-* Write the given Buffer Descriptor word.
+* @brief Writes the given Buffer Descriptor word.
 *
 * @param[in] BaseAddress is the base address of the BD to write
 * @param[in] Offset is the word offset to be written
 * @param[in] Data is the 32-bit value to write to the field
-*
 *
 * @note
 * C-style signature:
@@ -139,7 +141,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the BD's Address field (word 0).
+ * @brief Sets the BD's Address field (word 0).
  *
  * @param[out] BdPtr is the BD pointer to operate on
  * @param[in] Addr is the value to write to BD's status field.
@@ -163,7 +165,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the BD's Address field (word 0).
+ * @brief Sets the BD's Address field (word 0).
  *
  * @param[out] BdPtr is the BD pointer to operate on
  * @param[in] Addr is the value to write to BD's status field.
@@ -191,7 +193,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set the BD's Status field (word 1).
+ * @brief Sets the BD's Status field (word 1).
  *
  * @param[out] BdPtr is the BD pointer to operate on
  * @param[in] Data is the value to write to BD's status field.
@@ -208,7 +210,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the BD's Packet DMA transfer status word (word 1).
+ * @brief Retrieves the BD's Packet DMA transfer status word (word 1).
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -227,7 +229,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Get the address (bits 0..31) of the BD's buffer address (word 0)
+ * @brief Gets the address (bits 0..31) of the BD's buffer address (word 0).
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -247,7 +249,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set transfer length in bytes for the given BD. The length must be set each
+ * @brief Sets transfer length in bytes for the given BD. The length must be set each.
  * time a BD is submitted to hardware.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -266,7 +268,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the BD length field.
+ * @brief Retrieves the BD length field.
  *
  * For Tx channels, the returned value is the same as that written with
  * XEmacPs_BdSetLength().
@@ -290,7 +292,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Retrieve the RX frame size.
+ * @brief Retrieves the RX frame size.
  *
  * The returned value is the size of the received packet.
  * This API supports jumbo frame sizes if enabled.
@@ -314,7 +316,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Test whether the given BD has been marked as the last BD of a packet.
+ * @brief Tests whether the given BD has been marked as the last BD of a packet.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -332,7 +334,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Tell the DMA engine that the given transmit BD marks the end of the current
+ * @brief Tells the DMA engine that the given transmit BD marks the end of the current.
  * packet to be processed.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -350,7 +352,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Tell the DMA engine that the current packet does not end with the given
+ * @brief Tells the DMA engine that the current packet does not end with the given.
  * BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -368,7 +370,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Set this bit to mark the last descriptor in the receive buffer descriptor
+ * @brief Sets this bit to mark the last descriptor in the receive buffer descriptor.
  * list.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -386,7 +388,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the wrap bit of the receive BD which indicates end of the
+ * @brief Determines the wrap bit of the receive BD which indicates end of the.
  * BD list.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -403,7 +405,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Sets this bit to mark the last descriptor in the transmit buffer
+ * @brief Sets this bit to mark the last descriptor in the transmit buffer.
  * descriptor list.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -421,7 +423,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the wrap bit of the transmit BD which indicates end of the
+ * @brief Determines the wrap bit of the transmit BD which indicates end of the.
  * BD list.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -437,13 +439,13 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 
 /*****************************************************************************/
-/*
- * Must clear this bit to enable the MAC to write data to the receive
- * buffer. Hardware sets this bit once it has successfully written a frame to
- * memory. Once set, software has to clear the bit before the buffer can be
- * used again. This macro clear the new bit of the receive BD.
+/**
+ * @brief Clears the RX new/used bit so the MAC can write to the receive buffer.
  *
- * @param[out] BdPtr is the BD pointer to operate on
+ * Hardware sets this bit after writing a frame to memory. Software must clear
+ * it before the buffer can be used again.
+ *
+ * @param[in,out] BdPtr BD pointer to operate on.
  *
  * @note
  * C-style signature:
@@ -458,7 +460,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the new bit of the receive BD.
+ * @brief Determines the new bit of the receive BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -474,7 +476,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Software sets this bit to disable the buffer to be read by the hardware.
+ * @brief Software sets this bit to disable the buffer to be read by the hardware.
  * Hardware sets this bit for the first buffer of a frame once it has been
  * successfully transmitted. This macro sets this bit of transmit BD to avoid
  * confusion.
@@ -494,7 +496,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Software clears this bit to enable the buffer to be read by the hardware.
+ * @brief Software clears this bit to enable the buffer to be read by the hardware.
  * Hardware sets this bit for the first buffer of a frame once it has been
  * successfully transmitted. This macro clears this bit of transmit BD.
  *
@@ -513,7 +515,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the used bit of the transmit BD.
+ * @brief Determines the used bit of the transmit BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -529,7 +531,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine if a frame fails to be transmitted due to too many retries.
+ * @brief Determines if a frame fails to be transmitted due to too many retries.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -545,7 +547,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine if a frame fails to be transmitted due to data can not be
+ * @brief Determines if a frame fails to be transmitted due to data can not be.
  * feteched in time or buffers are exhausted.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -562,7 +564,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine if a frame fails to be transmitted due to buffer is exhausted
+ * @brief Determines if a frame fails to be transmitted due to buffer is exhausted.
  * mid-frame.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -579,7 +581,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Sets this bit, no CRC will be appended to the current frame. This control
+ * @brief Sets this bit, no CRC will be appended to the current frame. This control.
  * bit must be set for the first buffer in a frame and will be ignored for
  * the subsequent buffers of a frame.
  *
@@ -601,7 +603,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Clear this bit, CRC will be appended to the current frame. This control
+ * @brief Clears this bit, CRC will be appended to the current frame. This control.
  * bit must be set for the first buffer in a frame and will be ignored for
  * the subsequent buffers of a frame.
  *
@@ -623,7 +625,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the broadcast bit of the receive BD.
+ * @brief Determines the broadcast bit of the receive BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -639,7 +641,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the multicast hash bit of the receive BD.
+ * @brief Determines the multicast hash bit of the receive BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -655,7 +657,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the unicast hash bit of the receive BD.
+ * @brief Determines the unicast hash bit of the receive BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -671,7 +673,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine if the received frame is a VLAN Tagged frame.
+ * @brief Determines if the received frame is a VLAN Tagged frame.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -687,7 +689,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine if the received frame has Type ID of 8100h and null VLAN
+ * @brief Determines if the received frame has Type ID of 8100h and null VLAN.
  * identifier(Priority tag).
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -704,7 +706,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine if the received frame's Concatenation Format Indicator (CFI) of
+ * @brief Determines if the received frame's Concatenation Format Indicator (CFI) of.
  * the frames VLANTCI field was set.
  *
  * @param[out] BdPtr is the BD pointer to operate on
@@ -721,7 +723,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the End Of Frame (EOF) bit of the receive BD.
+ * @brief Determines the End Of Frame (EOF) bit of the receive BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *
@@ -737,7 +739,7 @@ typedef u32 XEmacPs_Bd[XEMACPS_BD_NUM_WORDS];
 
 /*****************************************************************************/
 /**
- * Determine the Start Of Frame (SOF) bit of the receive BD.
+ * @brief Determines the Start Of Frame (SOF) bit of the receive BD.
  *
  * @param[out] BdPtr is the BD pointer to operate on
  *

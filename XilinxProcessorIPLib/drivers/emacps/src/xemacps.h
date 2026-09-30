@@ -4,13 +4,18 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XEMACPS_H
+/** @brief Include guard for the EmacPs driver header. */
+#define XEMACPS_H
+
 /****************************************************************************/
 /**
  *
  * @file xemacps.h
 * @addtogroup emacps Overview
 * @{
- *
+*
+* @brief Defines the driver API for the Gigabit Ethernet MAC (GEM) EmacPs.
  * The Xilinx Embedded Processor Block Ethernet driver.
  *
  * For a full description of XEMACPS features, please see the hardware spec.
@@ -32,7 +37,7 @@
  *
  * <b>Driver Description</b>
  *
- * The device driver enables higher layer software (e.g., an application) to
+ * The device driver enables higher layer software (for example, an application) to
  * communicate to the XEmacPs. The driver handles transmission and reception
  * of Ethernet frames, as well as configuration and control. No pre or post
  * processing of frame data is performed. The driver does not validate the
@@ -314,8 +319,6 @@
  *
  ****************************************************************************/
 
-#ifndef XEMACPS_H		/* prevent circular inclusions */
-#define XEMACPS_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -338,8 +341,8 @@ extern "C" {
 /*
  * Device information
  */
-#define XEMACPS_DEVICE_NAME     "xemacps"
-#define XEMACPS_DEVICE_DESC     "Xilinx PS 10/100/1000 MAC"
+#define XEMACPS_DEVICE_NAME     "xemacps" /**< Device name string. */
+#define XEMACPS_DEVICE_DESC     "Xilinx PS 10/100/1000 MAC" /**< Device description string. */
 
 
 /** @name Configuration options
@@ -413,9 +416,9 @@ extern "C" {
 /**< Enable the TX checksum offload
  *   This option defaults to enabled (set) */
 
-#define XEMACPS_JUMBO_ENABLE_OPTION	        0x00004000U
-#define XEMACPS_SGMII_ENABLE_OPTION	        0x00008000U
-#define XEMACPS_GIGABIT_MODE_ENABLE_OPTION	0x00010000U
+#define XEMACPS_JUMBO_ENABLE_OPTION	        0x00004000U /**< Enable jumbo frame support. */
+#define XEMACPS_SGMII_ENABLE_OPTION	        0x00008000U /**< Enable SGMII mode. */
+#define XEMACPS_GIGABIT_MODE_ENABLE_OPTION	0x00010000U /**< Enable gigabit mode. */
 
 #define XEMACPS_DEFAULT_OPTIONS                     \
 	((u32)XEMACPS_FLOW_CONTROL_OPTION |                  \
@@ -436,9 +439,9 @@ extern "C" {
  * These constants are used as parameters to XEmacPs_SetHandler()
  * @{
  */
-#define XEMACPS_HANDLER_DMASEND 1U
-#define XEMACPS_HANDLER_DMARECV 2U
-#define XEMACPS_HANDLER_ERROR   3U
+#define XEMACPS_HANDLER_DMASEND 1U /**< DMA send completion handler type. */
+#define XEMACPS_HANDLER_DMARECV 2U /**< DMA receive completion handler type. */
+#define XEMACPS_HANDLER_ERROR   3U /**< Error handler type. */
 /** @} */
 
 /* Constants to determine the configuration of the hardware device. They are
@@ -449,31 +452,31 @@ extern "C" {
 /* The next few constants help upper layers determine the size of memory
  * pools used for Ethernet buffers and descriptor lists.
  */
-#define XEMACPS_MAC_ADDR_SIZE   6U	/* size of Ethernet header */
+#define XEMACPS_MAC_ADDR_SIZE   6U	/**< Size of a MAC address in bytes. */
 
-#define XEMACPS_MTU             1500U	/* max MTU size of Ethernet frame */
-#define XEMACPS_MTU_JUMBO       10240U	/* max MTU size of jumbo frame */
-#define XEMACPS_HDR_SIZE        14U	/* size of Ethernet header */
-#define XEMACPS_HDR_VLAN_SIZE   18U	/* size of Ethernet header with VLAN */
-#define XEMACPS_TRL_SIZE        4U	/* size of Ethernet trailer (FCS) */
+#define XEMACPS_MTU             1500U	/**< Maximum MTU size of an Ethernet frame. */
+#define XEMACPS_MTU_JUMBO       10240U	/**< Maximum MTU size of a jumbo frame. */
+#define XEMACPS_HDR_SIZE        14U	/**< Size of an Ethernet header in bytes. */
+#define XEMACPS_HDR_VLAN_SIZE   18U	/**< Size of an Ethernet header with VLAN. */
+#define XEMACPS_TRL_SIZE        4U	/**< Size of an Ethernet trailer (FCS). */
 #define XEMACPS_MAX_FRAME_SIZE       (XEMACPS_MTU + XEMACPS_HDR_SIZE + \
-				      XEMACPS_TRL_SIZE)
+				      XEMACPS_TRL_SIZE) /**< Maximum Ethernet frame size in bytes. */
 #define XEMACPS_MAX_VLAN_FRAME_SIZE  (XEMACPS_MTU + XEMACPS_HDR_SIZE + \
-				      XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
+				      XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE) /**< Maximum VLAN frame size in bytes. */
 #define XEMACPS_MAX_VLAN_FRAME_SIZE_JUMBO  (XEMACPS_MTU_JUMBO + XEMACPS_HDR_SIZE + \
-		XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE)
+		XEMACPS_HDR_VLAN_SIZE + XEMACPS_TRL_SIZE) /**< Maximum jumbo VLAN frame size in bytes. */
 
 /* DMACR Bust length hash defines */
 
-#define XEMACPS_SINGLE_BURST	0x00000001
-#define XEMACPS_4BYTE_BURST		0x00000004
-#define XEMACPS_8BYTE_BURST		0x00000008
-#define XEMACPS_16BYTE_BURST	0x00000010
+#define XEMACPS_SINGLE_BURST	0x00000001 /**< Single AHB burst length. */
+#define XEMACPS_4BYTE_BURST		0x00000004 /**< 4-byte AHB burst length. */
+#define XEMACPS_8BYTE_BURST		0x00000008 /**< 8-byte AHB burst length. */
+#define XEMACPS_16BYTE_BURST	0x00000010 /**< 16-byte AHB burst length. */
 
 /* Clock Frequencies for different GEM speeds */
-#define CLOCK_FREQ_1000MBPS 125000000 /* 1000 Mbps = 125,000,000 Hz = 125 MHz */
-#define CLOCK_FREQ_100MBPS  25000000  /* 100 Mbps = 25,000,000 Hz = 25 MHz */
-#define CLOCK_FREQ_10MBPS   2500000   /* 10 Mbps = 2,500,000 Hz = 2.5 MHz */
+#define CLOCK_FREQ_1000MBPS 125000000 /**< GEM clock frequency at 1000 Mbps (125 MHz). */
+#define CLOCK_FREQ_100MBPS  25000000  /**< GEM clock frequency at 100 Mbps (25 MHz). */
+#define CLOCK_FREQ_10MBPS   2500000   /**< GEM clock frequency at 10 Mbps (2.5 MHz). */
 
 /**************************** Type Definitions ******************************/
 /** @name Typedefs for callback functions
@@ -482,7 +485,7 @@ extern "C" {
  * @{
  */
 /**
- * Callback invoked when frame(s) have been sent or received in interrupt
+ * @brief Callbacks invoked when frame(s) have been sent or received in interrupt.
  * driven DMA mode. To set the send callback, invoke XEmacPs_SetHandler().
  *
  * @param[in] CallBackRef is user data assigned when the callback was set.
@@ -495,7 +498,7 @@ extern "C" {
 typedef void (*XEmacPs_Handler) (void *CallBackRef);
 
 /**
- * Callback when an asynchronous error occurs. To set this callback, invoke
+ * @brief Callbacks when an asynchronous error occurs. To set this callback, invoke.
  * XEmacPs_SetHandler() with XEMACPS_HANDLER_ERROR in the HandlerType
  * parameter.
  *
@@ -551,28 +554,28 @@ typedef struct {
  * to a structure of this type is then passed to the driver API functions.
  */
 typedef struct XEmacPs_Instance {
-	XEmacPs_Config Config;	/* Hardware configuration */
-	u32 IsHighSpeed;    /* Device is High Speed 10G */
-	u32 IsStarted;		/* Device is currently started */
-	u32 IsReady;		/* Device is initialized and ready */
-	u32 Options;		/* Current options word */
+	XEmacPs_Config Config;	/**< Hardware configuration. */
+	u32 IsHighSpeed;    /**< Nonzero when the device is high-speed 10G. */
+	u32 IsStarted;		/**< Nonzero when the device is currently started. */
+	u32 IsReady;		/**< Nonzero when the device is initialized and ready. */
+	u32 Options;		/**< Current options word. */
 
-	XEmacPs_BdRing TxBdRing;	/* Transmit BD ring */
-	XEmacPs_BdRing RxBdRing;	/* Receive BD ring */
+	XEmacPs_BdRing TxBdRing;	/**< Transmit buffer descriptor ring. */
+	XEmacPs_BdRing RxBdRing;	/**< Receive buffer descriptor ring. */
 
-	XEmacPs_Handler SendHandler;
-	XEmacPs_Handler RecvHandler;
-	void *SendRef;
-	void *RecvRef;
+	XEmacPs_Handler SendHandler; /**< Callback for DMA send completion. */
+	XEmacPs_Handler RecvHandler; /**< Callback for DMA receive completion. */
+	void *SendRef; /**< User reference passed to the send handler. */
+	void *RecvRef; /**< User reference passed to the receive handler. */
 
-	XEmacPs_ErrHandler ErrorHandler;
-	void *ErrorRef;
-	u32 Version;
-	u32 RxBufMask;
-	u32 MaxMtuSize;
-	u32 MaxFrameSize;
-	u32 MaxVlanFrameSize;
-	u8  MaxQueues;
+	XEmacPs_ErrHandler ErrorHandler; /**< Callback for asynchronous errors. */
+	void *ErrorRef; /**< User reference passed to the error handler. */
+	u32 Version; /**< Hardware version identifier. */
+	u32 RxBufMask; /**< Receive buffer length mask. */
+	u32 MaxMtuSize; /**< Maximum MTU size for this instance. */
+	u32 MaxFrameSize; /**< Maximum frame size for this instance. */
+	u32 MaxVlanFrameSize; /**< Maximum VLAN frame size for this instance. */
+	u8  MaxQueues; /**< Maximum number of queues supported. */
 
 } XEmacPs;
 
@@ -581,7 +584,7 @@ typedef struct XEmacPs_Instance {
 
 /****************************************************************************/
 /**
-* Retrieve the Tx ring object. This object can be used in the various Ring
+* @brief Retrieves the Tx ring object. This object can be used in the various Ring.
 * API functions.
 *
 * @param[in] InstancePtr is the DMA channel to operate on.
@@ -597,7 +600,7 @@ typedef struct XEmacPs_Instance {
 
 /****************************************************************************/
 /**
-* Retrieve the Rx ring object. This object can be used in the various Ring
+* @brief Retrieves the Rx ring object. This object can be used in the various Ring.
 * API functions.
 *
 * @param[in] InstancePtr is the DMA channel to operate on.
@@ -614,7 +617,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* Enable interrupts specified in <i>Mask</i>. The corresponding interrupt for
+* @brief Enables interrupts specified in <i>Mask</i>. The corresponding interrupt for.
 * each bit set to 1 in <i>Mask</i>, will be enabled.
 *
 * @param[in] InstancePtr is a pointer to the instance to be worked on.
@@ -635,7 +638,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* Disable interrupts specified in <i>Mask</i>. The corresponding interrupt for
+* @brief Disables interrupts specified in <i>Mask</i>. The corresponding interrupt for.
 * each bit set to 1 in <i>Mask</i>, will be enabled.
 *
 * @param[in] InstancePtr is a pointer to the instance to be worked on.
@@ -656,7 +659,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* Enable interrupts of queue <i>Queue</i> specified in <i>Mask</i>.
+* @brief Enables interrupts of queue <i>Queue</i> specified in <i>Mask</i>.
 * The corresponding interrupt for each bit set to 1 in <i>Mask</i>,
 * will be enabled.
 *
@@ -679,7 +682,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* Disable interrupts of queue <i>Queue</i> specified in <i>Mask</i>.
+* @brief Disables interrupts of queue <i>Queue</i> specified in <i>Mask</i>.
 * The corresponding interrupt for each bit set to 1 in <i>Mask</i>,
 * will be disabled.
 *
@@ -702,7 +705,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* This macro triggers transmit circuit to send data currently in TX buffer(s).
+* @brief Provides macro triggers transmit circuit to send data currently in TX buffer(s).
 *
 * @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 *
@@ -722,7 +725,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* This macro determines if the device is configured with checksum offloading
+* @brief Provides macro determines if the device is configured with checksum offloading.
 * on the receive channel
 *
 * @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
@@ -745,7 +748,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* This macro determines if the device is configured with checksum offloading
+* @brief Provides macro determines if the device is configured with checksum offloading.
 * on the transmit channel
 *
 * @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
@@ -770,7 +773,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* This macro sets RX watermark register.
+* @brief Provides macro sets RX watermark register.
 *
 * @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 * @param[in] High is the non-zero RX high watermark value. When SRAM fill level
@@ -778,7 +781,6 @@ typedef struct XEmacPs_Instance {
 * @param[in] Low is the non-zero RX low watermark value. When SRAM fill level
 *	 is below this, a zero length pause frame will be sent IF the last
 *	 pause frame sent was non-zero.
-*
 *
 * @note
 *
@@ -795,7 +797,7 @@ typedef struct XEmacPs_Instance {
 /****************************************************************************/
 /**
 *
-* This macro gets RX watermark register.
+* @brief Provides macro gets RX watermark register.
 *
 * @param[in] InstancePtr is a pointer to the XEmacPs instance to be worked on.
 *
@@ -811,12 +813,48 @@ typedef struct XEmacPs_Instance {
 			XEMACPS_RXWATERMARK_OFFSET)
 
 /******************************************************************************/
+/**
+ * @brief Returns a value with only bit n set.
+ *
+ * @param[in] n Bit index to set.
+ */
 #define BIT(n)			(1U << n)
+/**
+ * @brief Returns x with bit n set.
+ *
+ * @param[in] x Value to modify.
+ * @param[in] n Bit index to set.
+ */
 #define SET_BIT(x, n)		(x | BIT(n))
+/**
+ * @brief Returns bit n of x as 0 or 1.
+ *
+ * @param[in] x Value to read.
+ * @param[in] n Bit index to read.
+ */
 #define GET_BIT(x, n)		((x >> n) & 1U)
+/**
+ * @brief Returns x with bit n cleared.
+ *
+ * @param[in] x Value to modify.
+ * @param[in] n Bit index to clear.
+ */
 #define CLEAR_BIT(x, n)		(x & (~BIT(n)))
+/**
+ * @brief Returns a contiguous bit mask from bit l through bit h.
+ *
+ * @param[in] h Highest bit index in the mask.
+ * @param[in] l Lowest bit index in the mask.
+ */
 #define GENMASK(h, l)		(((~0U) << (l)) & \
 				(~0U >> (sizeof(int) * 8 - 1 - (h))))
+/**
+ * @brief Counts the number of bits set in a 32-bit value.
+ *
+ * @param[in] n Value whose set bits are counted.
+ *
+ * @return Number of bits set in n.
+ */
 static INLINE u8 get_num_set_bits(u32 n)	{
 	u8 count = 0;
 	while(n) {
@@ -842,8 +880,28 @@ void XEmacPs_SetQueuePtr(XEmacPs *InstancePtr, UINTPTR QPtr, u8 QueueNum,
  */
 
 #ifndef SDT
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by device ID.
+ *
+ * @param[in] DeviceId contains the unique ID of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         device ID, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XEmacPs_Config *XEmacPs_LookupConfig(u16 DeviceId);
 #else
+/*****************************************************************************/
+/**
+ * @brief Looks up device configuration by base address.
+ *
+ * @param[in] BaseAddress contains the base address of the device.
+ *
+ * @return A pointer to the configuration table entry corresponding to the given
+ *         base address, or NULL if no match is found.
+ *
+ *****************************************************************************/
 XEmacPs_Config *XEmacPs_LookupConfig(UINTPTR BaseAddress);
 #endif
 
@@ -851,8 +909,33 @@ XEmacPs_Config *XEmacPs_LookupConfig(UINTPTR BaseAddress);
  * Interrupt-related functions in xemacps_intr.c
  * DMA only and FIFO is not supported. This DMA does not support coalescing.
  */
+/*****************************************************************************/
+/**
+ * @brief Installs an asynchronous handler function for the given handler type.
+ *
+ * @param[in] InstancePtr is a pointer to the instance to be worked on.
+ * @param[in] HandlerType indicates what interrupt handler type is
+ *            (`XEMACPS_HANDLER_DMASEND`, `XEMACPS_HANDLER_DMARECV`, or
+ *            `XEMACPS_HANDLER_ERROR`).
+ * @param[in] FuncPointer is the pointer to the callback function.
+ * @param[in] CallBackRef is the upper layer callback reference passed back when
+ *            the callback function is invoked.
+ *
+ * @return
+ *		- XST_SUCCESS if the handler type is valid.
+ *		- XST_INVALID_PARAM if HandlerType is invalid.
+ *
+ *****************************************************************************/
 LONG XEmacPs_SetHandler(XEmacPs *InstancePtr, u32 HandlerType,
 			void *FuncPointer, void *CallBackRef);
+/*****************************************************************************/
+/**
+ * @brief Handles EmacPs interrupts and invokes registered user callbacks.
+ *
+ * @param[in] XEmacPsPtr is a pointer to the XEmacPs instance that caused the
+ *            interrupt.
+ *
+ *****************************************************************************/
 void XEmacPs_IntrHandler(void *XEmacPsPtr);
 
 /*

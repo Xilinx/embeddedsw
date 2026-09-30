@@ -11,6 +11,8 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Implements utility helpers for the EmacPs examples.
+*
 * Implements the utility functions for the XEmacPs example code.
 *
 * <pre>
@@ -56,13 +58,10 @@ u32 Platform;
 
 /****************************************************************************/
 /**
-*
-* Set the MAC addresses in the frame.
+* @brief Sets the MAC addresses in the frame.
 *
 * @param[in] FramePtr is the pointer to the frame.
 * @param[in] DestAddr is the Destination MAC address.
-*
-*
 *
 *****************************************************************************/
 void EmacPsUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
@@ -84,13 +83,10 @@ void EmacPsUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
 
 /****************************************************************************/
 /**
-*
-* Set the frame type for the specified frame.
+* @brief Sets the frame type for the specified frame.
 *
 * @param[in] FramePtr is the pointer to the frame.
 * @param[in] FrameType is the Type to set in frame.
-*
-*
 *
 *****************************************************************************/
 void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
@@ -113,9 +109,10 @@ void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 
 /****************************************************************************/
 /**
-* Places a pattern in the payload section of a frame. The pattern
-* is a  8 bit incrementing series of numbers starting with 0.
-* Once the pattern reaches 256, then the pattern changes to a 16 bit
+* @brief Places a pattern in the payload section of a frame.
+*
+* The pattern is an 8-bit incrementing series of numbers starting with 0.
+* Once the pattern reaches 256, the pattern changes to a 16-bit
 * incrementing pattern:
 * <pre>
 *   0, 1, 2, ... 254, 255, 00, 00, 00, 01, 00, 02, ...
@@ -123,8 +120,6 @@ void EmacPsUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 *
 * @param[in] FramePtr is a pointer to the frame to change.
 * @param[in] PayloadSize is the number of bytes in the payload that will be set.
-*
-*
 *
 *****************************************************************************/
 void EmacPsUtilFrameSetPayloadData(EthernetFrame *FramePtr, u32 PayloadSize)
@@ -164,7 +159,7 @@ void EmacPsUtilFrameSetPayloadData(EthernetFrame *FramePtr, u32 PayloadSize)
 
 /****************************************************************************/
 /**
-* Verifies the frame data against a CheckFrame.
+* @brief Verifies the frame data against a CheckFrame.
 *
 * Validation occurs by comparing the ActualFrame to the header of the
 * CheckFrame. If the headers match, then the payload of ActualFrame is
@@ -174,7 +169,7 @@ void EmacPsUtilFrameSetPayloadData(EthernetFrame *FramePtr, u32 PayloadSize)
 *           that should be present in the ActualFrame parameter.
 * @param[in] ActualFrame is a pointer to a frame to validate.
 *
-* @return   XST_SUCCESS if successful, else XST_FAILURE.
+* @return XST_SUCCESS if successful, else XST_FAILURE.
 *
 *****************************************************************************/
 LONG EmacPsUtilFrameVerify(EthernetFrame *CheckFrame,
@@ -245,11 +240,9 @@ LONG EmacPsUtilFrameVerify(EthernetFrame *CheckFrame,
 
 /****************************************************************************/
 /**
-* Sets all bytes of a frame to 0.
+* @brief Clears the frame buffer by writing a fill pattern.
 *
 * @param[in] FramePtr is a pointer to the frame itself.
-*
-*
 *
 *****************************************************************************/
 void EmacPsUtilFrameMemClear(EthernetFrame *FramePtr)
@@ -266,15 +259,14 @@ void EmacPsUtilFrameMemClear(EthernetFrame *FramePtr)
 
 /****************************************************************************/
 /**
-*
-* Copies data from source to destination for n bytes.
+* @brief Copies data from source to destination for n bytes.
 *
 * @param[in] Destination is the targeted string to copy to.
 * @param[in] Source is the source string to copy from.
 * @param[in] n is number of bytes to be copied.
 *
-* @note     Copies n bytes without checking for a null byte.
-*           Behaves like strncpy() but does not stop at a null terminator.
+* @note Copies n bytes without checking for a null byte.
+*       Behaves like strncpy() but does not stop at a null terminator.
 *
 *****************************************************************************/
 void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n)
@@ -288,11 +280,9 @@ void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n)
 
 /****************************************************************************/
 /**
-*
-* Sets the emacps to loopback mode.
+* @brief Sets the EmacPs MAC into local loopback mode.
 *
 * @param[in] EmacPsInstancePtr is the XEmacPs driver instance.
-*
 *
 *****************************************************************************/
 void EmacPsUtilEnterLocalLoopback(XEmacPs *EmacPsInstancePtr)
@@ -307,24 +297,21 @@ void EmacPsUtilEnterLocalLoopback(XEmacPs *EmacPsInstancePtr)
 }
 
 
+#define PHY_DETECT_REG1 2	/**< PHY identifier register 1 address. */
+#define PHY_DETECT_REG2 3	/**< PHY identifier register 2 address. */
+
+#define PHY_ID_MARVELL	0x141	/**< Marvell PHY OUI identifier value. */
+#define PHY_ID_TI		0x2000	/**< TI PHY OUI identifier value. */
+
 /****************************************************************************/
 /**
+* @brief Detects the PHY address by reading valid MII status register contents.
 *
-* Detects the PHY address by looking for successful MII status
-* register contents.
+* @param[in] EmacPsInstancePtr is a pointer to the XEmacPs driver instance.
 *
-* @param[in] The XEMACPS driver instance
-*
-* @return   The address of the PHY (defaults to 32 if none detected)
-*
+* @return The address of the PHY (defaults to 32 if none detected).
 *
 *****************************************************************************/
-#define PHY_DETECT_REG1 2
-#define PHY_DETECT_REG2 3
-
-#define PHY_ID_MARVELL	0x141
-#define PHY_ID_TI		0x2000
-
 u32 XEmacPsDetectPHY(XEmacPs *EmacPsInstancePtr)
 {
 	u32 PhyAddr;
@@ -351,39 +338,38 @@ u32 XEmacPsDetectPHY(XEmacPs *EmacPsInstancePtr)
 }
 
 
-/****************************************************************************/
-/**
-*
-* Sets the PHY to loopback mode.
-*
-* @param[in] The XEMACPS driver instance
-* @param[in] Speed is the loopback speed 10/100 Mbit.
-*
-* @return   XST_SUCCESS if successful, else XST_FAILURE.
-*
-*
-*****************************************************************************/
-#define PHY_REG0_RESET    0x8000
-#define PHY_REG0_LOOPBACK 0x4000
-#define PHY_REG0_10       0x0100
-#define PHY_REG0_100      0x2100
-#define PHY_REG0_1000     0x0140
-#define PHY_REG21_10      0x0030
-#define PHY_REG21_100     0x2030
-#define PHY_REG21_1000    0x0070
-#define PHY_LOOPCR		0xFE
-#define PHY_REGCR		0x0D
-#define PHY_ADDAR		0x0E
-#define PHY_RGMIIDCTL	0x86
-#define PHY_RGMIICTL	0x32
+#define PHY_REG0_RESET    0x8000	/**< PHY control register reset bit mask. */
+#define PHY_REG0_LOOPBACK 0x4000	/**< PHY control register loopback bit mask. */
+#define PHY_REG0_10       0x0100	/**< PHY control register value for 10 Mbps. */
+#define PHY_REG0_100      0x2100	/**< PHY control register value for 100 Mbps. */
+#define PHY_REG0_1000     0x0140	/**< PHY control register value for 1000 Mbps. */
+#define PHY_REG21_10      0x0030	/**< Marvell page-2 register 21 value for 10 Mbps. */
+#define PHY_REG21_100     0x2030	/**< Marvell page-2 register 21 value for 100 Mbps. */
+#define PHY_REG21_1000    0x0070	/**< Marvell page-2 register 21 value for 1000 Mbps. */
+#define PHY_LOOPCR		0xFE	/**< TI PHY loopback control register address. */
+#define PHY_REGCR		0x0D	/**< TI PHY register control address. */
+#define PHY_ADDAR		0x0E	/**< TI PHY address or data register. */
+#define PHY_RGMIIDCTL	0x86	/**< TI PHY RGMII delay control register. */
+#define PHY_RGMIICTL	0x32	/**< TI PHY RGMII control register. */
 
-#define PHY_REGCR_ADDR	0x001F
-#define PHY_REGCR_DATA	0x401F
+#define PHY_REGCR_ADDR	0x001F	/**< TI PHY REGCR address-mode select value. */
+#define PHY_REGCR_DATA	0x401F	/**< TI PHY REGCR data-mode select value. */
 
 /* RGMII RX and TX tuning values */
-#define PHY_TI_RGMII_ZCU102	0xA8
-#define PHY_TI_RGMII_VERSALEMU	0xAB
+#define PHY_TI_RGMII_ZCU102	0xA8	/**< TI RGMII tuning value for ZCU102. */
+#define PHY_TI_RGMII_VERSALEMU	0xAB	/**< TI RGMII tuning value for Versal emulation. */
 
+/****************************************************************************/
+/**
+* @brief Sets a Marvell PHY into loopback mode at the requested speed.
+*
+* @param[in] EmacPsInstancePtr is a pointer to the XEmacPs driver instance.
+* @param[in] Speed is the loopback speed in Mbps.
+* @param[in] PhyAddr is the PHY address on the MDIO bus.
+*
+* @return XST_SUCCESS if successful, else XST_FAILURE.
+*
+*****************************************************************************/
 LONG EmacPsUtilMarvellPhyLoopback(XEmacPs *EmacPsInstancePtr,
 				  u32 Speed, u32 PhyAddr)
 {
@@ -477,6 +463,17 @@ LONG EmacPsUtilMarvellPhyLoopback(XEmacPs *EmacPsInstancePtr,
 	return XST_SUCCESS;
 }
 
+/****************************************************************************/
+/**
+* @brief Sets a TI PHY into loopback mode at the requested speed.
+*
+* @param[in] EmacPsInstancePtr is a pointer to the XEmacPs driver instance.
+* @param[in] Speed is the loopback speed in Mbps.
+* @param[in] PhyAddr is the PHY address on the MDIO bus.
+*
+* @return XST_SUCCESS if successful, else XST_FAILURE.
+*
+*****************************************************************************/
 LONG EmacPsUtilTiPhyLoopback(XEmacPs *EmacPsInstancePtr,
 			     u32 Speed, u32 PhyAddr)
 {
@@ -630,13 +627,11 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs *EmacPsInstancePtr,
 
 /****************************************************************************/
 /**
+* @brief Provides a delay for the given number of seconds.
 *
-* Provides delays in seconds
+* @param[in] delay is the delay duration in seconds.
 *
-* @param[in] delay in seconds
-*
-*
-* @note     for microblaze the delay is not accurate and it need to tuned.
+* @note For MicroBlaze the delay is not accurate and needs to be tuned.
 *
 *****************************************************************************/
 void EmacpsDelay(u32 delay)
@@ -654,6 +649,16 @@ void EmacpsDelay(u32 delay)
 }
 
 
+/****************************************************************************/
+/**
+* @brief Configures the detected PHY for loopback at the requested speed.
+*
+* @param[in] EmacPsInstancePtr is a pointer to the XEmacPs driver instance.
+* @param[in] Speed is the loopback speed in Mbps.
+*
+* @return XST_SUCCESS if successful, else XST_FAILURE.
+*
+*****************************************************************************/
 LONG EmacPsUtilEnterLoopback(XEmacPs *EmacPsInstancePtr, u32 Speed)
 {
 	LONG Status;
@@ -690,14 +695,12 @@ LONG EmacPsUtilEnterLoopback(XEmacPs *EmacPsInstancePtr, u32 Speed)
 
 /****************************************************************************/
 /**
+* @brief Reports an error detected by the example code.
 *
-* Called by example code when an error is detected. It
-* can be set as a breakpoint with a debugger or it can be used to print out
-* the given message if there is a UART or STDIO device.
+* Can be set as a breakpoint with a debugger or used to print the given
+* message if a UART or STDIO device is available.
 *
-* @param[in] Message is the text explaining the error
-*
-*
+* @param[in] Message is the text explaining the error.
 *
 *****************************************************************************/
 void EmacPsUtilErrorTrap(const char *Message)

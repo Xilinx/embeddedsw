@@ -11,6 +11,8 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Demonstrates EmacPs DMA transfers in interrupt mode.
+*
 * Implements examples that utilize the EmacPs's interrupt driven DMA
 * packet transfer mode to send and receive frames.
 *
@@ -30,7 +32,6 @@
 *
 * - EmacPsResetDevice() demonstrates how to reset the driver/HW without
 *   losing all configuration settings.
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -143,7 +144,7 @@
 #endif
 
 #ifdef SDT
-#define EMACPS_BASEADDR         XPAR_XEMACPS_0_BASEADDR
+#define EMACPS_BASEADDR         XPAR_XEMACPS_0_BASEADDR	/**< Base address of EmacPs instance 0. */
 #elif XPAR_INTC_0_DEVICE_ID
 #define INTC		XIntc
 #define EMACPS_DEVICE_ID	XPAR_XEMACPS_0_DEVICE_ID
@@ -154,36 +155,36 @@
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
 
-#define ZYNQ_EMACPS_0_BASEADDR 0xE000B000
-#define ZYNQ_EMACPS_1_BASEADDR 0xE000C000
+#define ZYNQ_EMACPS_0_BASEADDR 0xE000B000	/**< Zynq EmacPs 0 base address. */
+#define ZYNQ_EMACPS_1_BASEADDR 0xE000C000	/**< Zynq EmacPs 1 base address. */
 
-#define ZYNQMP_EMACPS_0_BASEADDR 0xFF0B0000
-#define ZYNQMP_EMACPS_1_BASEADDR 0xFF0C0000
-#define ZYNQMP_EMACPS_2_BASEADDR 0xFF0D0000
-#define ZYNQMP_EMACPS_3_BASEADDR 0xFF0E0000
+#define ZYNQMP_EMACPS_0_BASEADDR 0xFF0B0000	/**< ZynqMP EmacPs 0 base address. */
+#define ZYNQMP_EMACPS_1_BASEADDR 0xFF0C0000	/**< ZynqMP EmacPs 1 base address. */
+#define ZYNQMP_EMACPS_2_BASEADDR 0xFF0D0000	/**< ZynqMP EmacPs 2 base address. */
+#define ZYNQMP_EMACPS_3_BASEADDR 0xFF0E0000	/**< ZynqMP EmacPs 3 base address. */
 
-#define VERSAL_EMACPS_0_BASEADDR 0xFF0C0000
-#define VERSAL_EMACPS_1_BASEADDR 0xFF0D0000
+#define VERSAL_EMACPS_0_BASEADDR 0xFF0C0000	/**< Versal EmacPs 0 base address. */
+#define VERSAL_EMACPS_1_BASEADDR 0xFF0D0000	/**< Versal EmacPs 1 base address. */
 
-#define VERSAL_NET_EMACPS_0_BASEADDR	0xF19E0000
-#define VERSAL_NET_EMACPS_1_BASEADDR	0xF19F0000
+#define VERSAL_NET_EMACPS_0_BASEADDR	0xF19E0000	/**< Versal Net EmacPs 0 base address. */
+#define VERSAL_NET_EMACPS_1_BASEADDR	0xF19F0000	/**< Versal Net EmacPs 1 base address. */
 
-#define RXBD_CNT       32	/* Number of RxBDs to use */
-#define TXBD_CNT       32	/* Number of TxBDs to use */
-#define NUM_PACKETS    12	/* Total number of packets to be transmitted */
+#define RXBD_CNT       32	/**< Number of RxBDs to use. */
+#define TXBD_CNT       32	/**< Number of TxBDs to use. */
+#define NUM_PACKETS    12	/**< Total number of packets to transmit. */
 
 /*
  * SLCR setting
  */
-#define SLCR_LOCK_ADDR			(XPS_SYS_CTRL_BASEADDR + 0x4)
-#define SLCR_UNLOCK_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x8)
-#define SLCR_GEM0_CLK_CTRL_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x140)
-#define SLCR_GEM1_CLK_CTRL_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x144)
+#define SLCR_LOCK_ADDR			(XPS_SYS_CTRL_BASEADDR + 0x4)	/**< SLCR lock register address. */
+#define SLCR_UNLOCK_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x8)	/**< SLCR unlock register address. */
+#define SLCR_GEM0_CLK_CTRL_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x140)	/**< SLCR GEM0 clock control address. */
+#define SLCR_GEM1_CLK_CTRL_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x144)	/**< SLCR GEM1 clock control address. */
 
 
-#define SLCR_LOCK_KEY_VALUE		0x767B
-#define SLCR_UNLOCK_KEY_VALUE		0xDF0D
-#define SLCR_ADDR_GEM_RST_CTRL		(XPS_SYS_CTRL_BASEADDR + 0x214)
+#define SLCR_LOCK_KEY_VALUE		0x767B	/**< Key value written to lock the SLCR. */
+#define SLCR_UNLOCK_KEY_VALUE		0xDF0D	/**< Key value written to unlock the SLCR. */
+#define SLCR_ADDR_GEM_RST_CTRL		(XPS_SYS_CTRL_BASEADDR + 0x214)	/**< SLCR GEM reset control address. */
 
 /* CRL APB registers for GEM clock control */
 #ifdef XPAR_PSU_CRL_APB_S_AXI_BASEADDR
@@ -193,9 +194,9 @@
 #define CRL_GEM3_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x5C)
 #endif
 
-#define CRL_GEM_DIV_MASK	0x003F3F00
-#define CRL_GEM_DIV0_SHIFT	8
-#define CRL_GEM_DIV1_SHIFT	16
+#define CRL_GEM_DIV_MASK	0x003F3F00	/**< Mask for CRL GEM clock divisors. */
+#define CRL_GEM_DIV0_SHIFT	8	/**< Bit shift for CRL GEM divisor 0. */
+#define CRL_GEM_DIV1_SHIFT	16	/**< Bit shift for CRL GEM divisor 1. */
 
 #ifdef XPAR_PSV_CRL_0_S_AXI_BASEADDR
 #define CRL_GEM0_REF_CTRL	(XPAR_PSV_CRL_0_S_AXI_BASEADDR + 0x118)
@@ -207,17 +208,17 @@
 #define CRL_GEM1_REF_CTRL  ( XPAR_PSX_CRL_0_S_AXI_BASEADDR + 0x11C)
 #endif
 
-#define CRL_GEM_DIV_VERSAL_MASK		0x0003FF00
-#define CRL_GEM_DIV_VERSAL_SHIFT	8
+#define CRL_GEM_DIV_VERSAL_MASK		0x0003FF00	/**< Mask for Versal CRL GEM clock divisor. */
+#define CRL_GEM_DIV_VERSAL_SHIFT	8	/**< Bit shift for Versal CRL GEM divisor. */
 
-#define JUMBO_FRAME_SIZE	10240
-#define FRAME_HDR_SIZE		18
+#define JUMBO_FRAME_SIZE	10240	/**< Jumbo frame size in bytes. */
+#define FRAME_HDR_SIZE		18	/**< Ethernet frame header size in bytes. */
 
-#define GEMVERSION_ZYNQMP	0x7
-#define GEMVERSION_VERSAL	0x107
-#define GEMVERSION_VERSAL_2VE_2VM_10GBE	0xC
+#define GEMVERSION_ZYNQMP	0x7	/**< GEM version identifier for ZynqMP. */
+#define GEMVERSION_VERSAL	0x107	/**< GEM version identifier for Versal. */
+#define GEMVERSION_VERSAL_2VE_2VM_10GBE	0xC	/**< GEM version for Versal 2VE/2VM 10GbE. */
 
-#define QUEUE_DISABLE 	0x1
+#define QUEUE_DISABLE 	0x1	/**< Value used to disable a GEM queue. */
 
 /*************************** Variable Definitions ***************************/
 
@@ -235,8 +236,8 @@ EthernetFrame RxFrame;		/* Receive buffer */
  * Buffer descriptors are allocated in uncached memory. The memory is made
  * uncached by setting the attributes appropriately in the MMU table.
  */
-#define RXBD_SPACE_BYTES XEmacPs_BdRingMemCalc(XEMACPS_BD_ALIGNMENT, RXBD_CNT)
-#define TXBD_SPACE_BYTES XEmacPs_BdRingMemCalc(XEMACPS_BD_ALIGNMENT, TXBD_CNT)
+#define RXBD_SPACE_BYTES XEmacPs_BdRingMemCalc(XEMACPS_BD_ALIGNMENT, RXBD_CNT)	/**< Bytes required for the Rx BD ring. */
+#define TXBD_SPACE_BYTES XEmacPs_BdRingMemCalc(XEMACPS_BD_ALIGNMENT, TXBD_CNT)	/**< Bytes required for the Tx BD ring. */
 
 
 /*
@@ -266,7 +267,7 @@ u8 bd_space[0x100000] __attribute__ ((aligned (0x100000)));
 u8 *RxBdSpacePtr;
 u8 *TxBdSpacePtr;
 
-#define FIRST_FRAGMENT_SIZE 64
+#define FIRST_FRAGMENT_SIZE 64	/**< Size in bytes of the first Tx fragment. */
 
 /*
  * Counters to be incremented by callbacks
@@ -330,12 +331,11 @@ void XEmacPs_SetMdioDivisor(XEmacPs *InstancePtr, XEmacPs_MdcDiv Divisor);
 /****************************************************************************/
 /**
 *
-* Main entry point of the EmacPs interrupt DMA example.
+* @brief Mains entry point of the EmacPs interrupt DMA example.
 *
 * Excluded when the example is generated from the TestAppGen test tool.
 *
 * @return XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
 *
 ****************************************************************************/
 #ifndef TESTAPP_GEN
@@ -379,9 +379,8 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* Demonstrates the usage of the EmacPs driver by sending by
+* @brief Demonstrates the usage of the EmacPs driver by sending by.
 * sending and receiving frames in interrupt driven DMA mode.
-*
 *
 * @if SDT
 * @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
@@ -396,8 +395,6 @@ int main(void)
 * @endif
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-*
 *
 *****************************************************************************/
 #ifdef SDT
@@ -698,7 +695,7 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 /****************************************************************************/
 /**
 *
-* Demonstrates the usage of the EMACPS by sending and
+* @brief Demonstrates the usage of the EMACPS by sending and.
 * receiving a single frame in DMA interrupt mode.
 * The source packet will be described by two descriptors. It will be
 * received into a buffer described by a single descriptor.
@@ -708,7 +705,6 @@ LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 * @param[in] packet is the count of current transmitted/received packet
 *
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
 *
 *****************************************************************************/
 LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
@@ -1034,7 +1030,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 
 /****************************************************************************/
 /**
-* Resets the device but preserves the options set by the user.
+* @brief Resets the device but preserves the options set by the user.
 *
 * The descriptor list could be reinitialized with the same calls to
 * XEmacPs_BdRingClone() as used in main(). Doing this is a matter of
@@ -1047,7 +1043,6 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr, u32 packet)
 *		driver.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
 *
 *****************************************************************************/
 static LONG EmacPsResetDevice(XEmacPs *EmacPsInstancePtr)
@@ -1190,7 +1185,7 @@ static LONG EmacPsResetDevice(XEmacPs *EmacPsInstancePtr)
 /****************************************************************************/
 /**
 *
-* Sets up the interrupt system so interrupts can occur for the
+* @brief Sets up the interrupt system so interrupts can occur for the.
 * EMACPS.
 * @param[in] IntcInstancePtr is a pointer to the instance of the Intc driver.
 * @param[in] EmacPsInstancePtr is a pointer to the instance of the EmacPs
@@ -1199,7 +1194,6 @@ static LONG EmacPsResetDevice(XEmacPs *EmacPsInstancePtr)
 *		XPAR_<EMACPS_instance>_INTR value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
 *
 *****************************************************************************/
 static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
@@ -1325,14 +1319,12 @@ static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
 /****************************************************************************/
 /**
 *
-* Disables the interrupts that occur for EmacPs.
+* @brief Disables the interrupts that occur for EmacPs.
 *
 * @param[in] IntcInstancePtr is the pointer to the instance of the ScuGic
 *		driver.
 * @param[in] EmacPsIntrId is interrupt ID and is typically
 *		XPAR_<EMACPS_instance>_INTR value from xparameters.h.
-*
-*
 *
 *****************************************************************************/
 static void EmacPsDisableIntrSystem(INTC *IntcInstancePtr,
@@ -1352,11 +1344,9 @@ static void EmacPsDisableIntrSystem(INTC *IntcInstancePtr,
 /****************************************************************************/
 /**
 *
-* Transmit handler callback that increments a shared counter for the main thread.
+* @brief Transmits handler callback that increments a shared counter for the main thread.
 *
 * @param[in] Callback is the pointer to the instance of the EmacPs device.
-*
-*
 *
 *****************************************************************************/
 static void XEmacPsSendHandler(void *Callback)
@@ -1382,12 +1372,10 @@ static void XEmacPsSendHandler(void *Callback)
 /****************************************************************************/
 /**
 *
-* This is the Receive handler callback function and will increment a shared
+* @brief Provides is the Receive handler callback function and will increment a shared.
 * counter that can be shared by the main thread of operation.
 *
 * @param[in] Callback is a pointer to the instance of the EmacPs device.
-*
-*
 *
 *****************************************************************************/
 static void XEmacPsRecvHandler(void *Callback)
@@ -1428,7 +1416,7 @@ static void XEmacPsRecvHandler(void *Callback)
 /****************************************************************************/
 /**
 *
-* This is the Error handler callback function and this function increments
+* @brief Provides is the Error handler callback function and this function increments.
 * the error counter so that the main thread knows the number of errors.
 *
 * @param[in] Callback is the callback function for the driver. This
@@ -1436,8 +1424,6 @@ static void XEmacPsRecvHandler(void *Callback)
 * @param[in] Direction is passed in from the driver specifying which
 *		direction error has occurred.
 * @param[in] ErrorWord is the status register value passed in.
-*
-*
 *
 *****************************************************************************/
 static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
@@ -1496,7 +1482,7 @@ static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
 /****************************************************************************/
 /**
 *
-* Sets up the clock divisors for 1000Mbps.
+* @brief Sets up the clock divisors for 1000Mbps.
 *
 * @fn void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 *
@@ -1504,7 +1490,6 @@ static void XEmacPsErrorHandler(void *Callback, u8 Direction, u32 ErrorWord)
 *			driver.
 * @param[in] EmacPsIntrId is the Interrupt ID and is typically
 *			XPAR_<EMACPS_instance>_INTR value from xparameters.h.
-*
 *
 *****************************************************************************/
 void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId __attribute__((unused)))

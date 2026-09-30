@@ -11,6 +11,8 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Implements static initialization and configuration lookup for EmacPs.
+*
 * Contains lookup method by device ID when success, it returns
 * pointer to config table to be used to initialize the device.
 *
@@ -51,23 +53,9 @@ extern XEmacPs_Config XEmacPs_ConfigTable[XPAR_XEMACPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
-*
-* Looks up the device configuration based on the unique device ID/BaseAddress.
-* A table contains the configuration info for each device in the system.
-*
-* @if SDT
-* @param[in] BaseAddress contains the base address of the device
-* @else
-* @param[in] DeviceId contains the unique ID of the device
-* @endif
-*
-* @return
-* Pointer to the matching configuration table entry, or NULL if no match exists.
-*
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
-*
-******************************************************************************/
+ * @brief Looks up device configuration by device ID or base address.
+ *
+ *****************************************************************************/
 #ifdef SDT
 XEmacPs_Config *XEmacPs_LookupConfig(UINTPTR BaseAddress)
 {

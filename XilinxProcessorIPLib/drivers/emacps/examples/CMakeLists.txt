@@ -1,3 +1,4 @@
+# /** @cond TOOLS */
 # Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
@@ -44,3 +45,4 @@ foreach(EXAMPLE ${EXAMPLES})
     add_executable(${EXAMPLE}.elf ${EXAMPLE} ${COMMON_FILE})
     target_link_libraries(${EXAMPLE}.elf -Wl,--gc-sections -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_SOURCE_DIR}/\" -Wl,--start-group ${_deps} -Wl,--end-group)
 endforeach()
+# /** @endcond */

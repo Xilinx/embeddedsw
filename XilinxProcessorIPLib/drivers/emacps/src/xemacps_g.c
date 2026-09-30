@@ -11,6 +11,8 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Holds the configuration table template for EmacPs devices.
+*
 * Contains a configuration table that specifies the configuration of
 * ethernet devices in the system.
 *

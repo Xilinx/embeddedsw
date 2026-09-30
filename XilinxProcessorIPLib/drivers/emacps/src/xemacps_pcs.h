@@ -3,6 +3,10 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XEMACPS_PCS_H
+/** @brief Include guard for the EmacPs PCS header. */
+#define XEMACPS_PCS_H
+
 /*****************************************************************************/
 /**
 *
@@ -10,6 +14,7 @@
 * @addtogroup emacps Overview
 * @{
 *
+* @brief Defines ethernet PCS block interfaces for EmacPs.
 * Contains the declarations of PCS block api's.
 *
 * <pre>
@@ -22,8 +27,6 @@
 *
 ******************************************************************************/
 
-#ifndef XEMACPS_PCS_H		/* prevent circular inclusions */
-#define XEMACPS_PCS_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
