@@ -13,6 +13,7 @@
 * @addtogroup axicdma Overview
 * @{
  *
+* @brief Defines buffer descriptor macros and helpers for AXI CDMA.
  * The API definition for the Buffer Descriptor (BD).
  *
  * <pre>

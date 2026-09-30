@@ -12,6 +12,7 @@
  *  @file xaxicdma.h
 * @addtogroup axicdma Overview
 * @{
+* @brief Defines the driver API for the AXI CDMA engine.
 * @details
  *
  * This is the driver API for the AXI CDMA engine.
@@ -463,36 +464,56 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**
- * @brief Flushes and invalidates cache for buffer descriptors in cached memory.
- *
- * These macros may be NOPs when the underlying cache helpers are unavailable.
+ * @name Buffer descriptor cache maintenance macros
+ * @{
  */
 #ifdef __aarch64__
-#define XAXICDMA_CACHE_FLUSH(BdPtr)
-#define XAXICDMA_CACHE_INVALIDATE(BdPtr)
+#define XAXICDMA_CACHE_FLUSH(BdPtr) /**< Flushes cache for the buffer descriptor (no-op on AArch64). */
+#define XAXICDMA_CACHE_INVALIDATE(BdPtr) /**< Invalidates cache for the buffer descriptor (no-op on AArch64). */
 #elif __MICROBLAZE__
 #ifdef XCACHE_FLUSH_DCACHE_RANGE
+/**
+ * @brief Flushes the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XAXICDMA_CACHE_FLUSH(BdPtr)               \
 	XCACHE_FLUSH_DCACHE_RANGE((BdPtr), XAXICDMA_BD_HW_NUM_BYTES)
 #else
-#define XAXICDMA_CACHE_FLUSH(BdPtr)
+#define XAXICDMA_CACHE_FLUSH(BdPtr) /**< Flushes cache for the buffer descriptor (no-op). */
 #endif
 
 #ifdef XCACHE_INVALIDATE_DCACHE_RANGE
+/**
+ * @brief Invalidates the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XAXICDMA_CACHE_INVALIDATE(BdPtr)          \
 	XCACHE_INVALIDATE_DCACHE_RANGE((BdPtr), XAXICDMA_BD_HW_NUM_BYTES)
 #else
-#define XAXICDMA_CACHE_INVALIDATE(BdPtr)
+#define XAXICDMA_CACHE_INVALIDATE(BdPtr) /**< Invalidates cache for the buffer descriptor (no-op). */
 #endif
 
 #else /* __MICROBLAZE__*/
+/**
+ * @brief Flushes the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XAXICDMA_CACHE_FLUSH(BdPtr)               \
 	Xil_DCacheFlushRange((BdPtr), XAXICDMA_BD_HW_NUM_BYTES);
 
+/**
+ * @brief Invalidates the data cache for a buffer descriptor.
+ *
+ * @param[in] BdPtr is the buffer descriptor address.
+ */
 #define XAXICDMA_CACHE_INVALIDATE(BdPtr)          \
 	Xil_DCacheInvalidateRange((BdPtr), XAXICDMA_BD_HW_NUM_BYTES)
 
 #endif
+/** @} */
 
 
 /************************** Function Prototypes ******************************/

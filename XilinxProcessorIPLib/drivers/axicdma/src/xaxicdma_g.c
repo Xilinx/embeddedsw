@@ -11,6 +11,7 @@
 * @addtogroup axicdma Overview
 * @{
 *
+* @brief Provides the AXI CDMA configuration table for the system.
 * Provide a template for user to define their own hardware settings.
 *
 * If using XPS, XPS will automatically generate this file.

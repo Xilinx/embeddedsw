@@ -10,6 +10,7 @@
 * @addtogroup axicdma Overview
 * @{
  *
+* @brief Implements the driver API for the AXI CDMA engine.
  * The implementation of the API of Xilinx CDMA engine.
  *
  * <pre>
@@ -39,7 +40,6 @@
  *
  * @return	The error bits in the status register. Zero indicates no errors.
  *
- *
  *****************************************************************************/
 u32 XAxiCdma_GetError(XAxiCdma *InstancePtr)
 {
@@ -56,7 +56,6 @@ u32 XAxiCdma_GetError(XAxiCdma *InstancePtr)
  * that have not started will be flushed from the hardware.
  *
  * @param[in] InstancePtr is the driver instance we are working on
- *
  *
  *****************************************************************************/
 void XAxiCdma_Reset(XAxiCdma *InstancePtr)
@@ -93,7 +92,6 @@ void XAxiCdma_Reset(XAxiCdma *InstancePtr)
  *		- 1 if the reset has finished successfully
  *		- 0 if the reset is not done
  *
- *
  *****************************************************************************/
 int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
 {
@@ -121,7 +119,6 @@ int XAxiCdma_ResetIsDone(XAxiCdma *InstancePtr)
  *		- XST_SUCCESS for success
  *		- XST_INVALID_PARAM if word length is less than 4
  *		- XST_FAILURE for reset failure
- *
  *
  *****************************************************************************/
 u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
@@ -223,7 +220,6 @@ u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
  * 		- 1 if the hardware is doing a transfer
  * 		- 0 if the hardware is idle
  *
- *
  *****************************************************************************/
 int XAxiCdma_IsBusy(XAxiCdma *InstancePtr)
 {
@@ -244,7 +240,6 @@ int XAxiCdma_IsBusy(XAxiCdma *InstancePtr)
  *		- 1 if the hardware is in simple mode
  *		- 0 if the hardware is in SG mode
  *
- *
  *****************************************************************************/
 int XAxiCdma_IsSimpleMode(XAxiCdma *InstancePtr)
 {
@@ -264,7 +259,6 @@ int XAxiCdma_IsSimpleMode(XAxiCdma *InstancePtr)
  * @return	- XST_SUCCESS for success
  *		- XST_DEVICE_BUSY when transfer is in progress
  *		- XST_NO_FEATURE when not configured with feature
- *
  *
  *****************************************************************************/
 int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
@@ -325,7 +319,6 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select)
  *		- XST_INVALID_PARAM if pass in invalid mode value
  *		- XST_FAILURE if:Hardware is simple mode only build
  *		Mode switch failed
- *
  *
  *****************************************************************************/
 int XAxiCdma_SwitchMode(XAxiCdma *InstancePtr, int Mode)
@@ -555,7 +548,6 @@ u32 XAxiCdma_SimpleTransfer(XAxiCdma *InstancePtr, UINTPTR SrcAddr, UINTPTR DstA
  *		- XST_INVALID_PARAM if one of the counters is not in the
  *		valid range
  *
- *
  *****************************************************************************/
 int XAxiCdma_SetCoalesce(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)
 {
@@ -611,7 +603,6 @@ int XAxiCdma_SetCoalesce(XAxiCdma *InstancePtr, u32 Counter, u32 Delay)
  *
  * @note	A zero coalescing threshold indicates invalid results
  *
- *
  *****************************************************************************/
 void XAxiCdma_GetCoalesce(XAxiCdma *InstancePtr, u32 *CounterPtr,
 			  u32 *DelayPtr)
@@ -644,7 +635,6 @@ void XAxiCdma_GetCoalesce(XAxiCdma *InstancePtr, u32 *CounterPtr,
  * @brief Dumps the registers of this DMA instance.
  *
  * @param[in] InstancePtr is the driver instance we are working on
- *
  *
  *****************************************************************************/
 void XAxiCdma_DumpRegisters(XAxiCdma *InstancePtr)

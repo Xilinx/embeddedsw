@@ -13,6 +13,7 @@
 * @addtogroup axicdma Overview
 * @{
  *
+* @brief Defines internal identifiers shared by AXI CDMA source files.
  * Header file for utility functions shared by driver files.
  *
  * <pre>

@@ -1,6 +1,10 @@
+/**
+ * @file xaxicdma_simple_poll_header.h
+ * @brief Declares the simple-mode polled example entry point.
+ */
 /******************************************************************************
 * Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 

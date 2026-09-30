@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,6 +11,7 @@
 * @addtogroup axicdma Overview
 * @{
 *
+* @brief Documents porting notes for migrating to the AXI CDMA driver.
 * This is a guide on how to move from using the XPS Central DMA driver,
 * dmacentral, to use xaxidma driver.
 *

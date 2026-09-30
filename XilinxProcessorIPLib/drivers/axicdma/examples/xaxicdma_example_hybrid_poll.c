@@ -11,6 +11,7 @@
  * @addtogroup axicdma Overview
  * @{
  *
+ * @brief Demonstrates hybrid AXI CDMA transfers using polling.
  * This file demonstrates how to use xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in hybrid transfer mode without
  * interrupt. There are three transfers: a simple transfer, a sg transfer, and
@@ -40,7 +41,7 @@
  * 1.00a jz   07/30/10 First release
  * 2.01a rkv  02/01/11 Modified function prototype of
  * 		       XAxiCdma_HybridPollExample to a function taking only one
- *		       arguments i.e. device id.
+ *		       arguments that is device id.
  * 2.01a srt  03/06/12 Added V7 DDR Base Address to fix CR 649405.
  * 		       Modified Flushing and Invalidation of Caches to fix CRs
  *		       648103, 648701.
@@ -81,6 +82,11 @@
 #endif
 
 #if (!defined(DEBUG))
+/**
+ * @brief Prints a formatted message when DEBUG is not defined.
+ *
+ * @param[in] format is the printf-style format string.
+ */
 extern void xil_printf(const char *format, ...);
 #endif
 
@@ -91,27 +97,27 @@ extern void xil_printf(const char *format, ...);
  */
 #ifndef SDT
 #ifndef TESTAPP_GEN
-#define DMA_CTRL_DEVICE_ID  XPAR_AXICDMA_0_DEVICE_ID
+#define DMA_CTRL_DEVICE_ID  XPAR_AXICDMA_0_DEVICE_ID	/**< Device ID of the AXI CDMA controller under test. */
 #endif
 
 #else
 
-#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR
+#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR	/**< Base address of the AXI CDMA device under test. */
 #endif
 
 
-#define BUFFER_BYTESIZE 128 	/* Length of the buffers for simple transfer */
-#define MAX_PKT_LEN         1024  /* Length of BD for SG transfer */
+#define BUFFER_BYTESIZE 128	/**< Length in bytes of the source and destination DMA buffers. */
+#define MAX_PKT_LEN         1024	/**< Maximum packet length in bytes for each buffer descriptor. */
 
-#define MARK_UNCACHEABLE        0x701
+#define MARK_UNCACHEABLE        0x701	/**< Memory attribute used to mark buffers as uncacheable on AArch64. */
 
 /* Number of BDs in the transfer example
  * We show how to submit multiple BDs for one transmit.
  */
-#define NUMBER_OF_BDS_TO_TRANSFER	30
+#define NUMBER_OF_BDS_TO_TRANSFER	30	/**< Number of buffer descriptors to transfer in this test. */
 
-#define RESET_LOOP_COUNT    10 /* Number of times to check reset is done */
-#define POLL_TIMEOUT_COUNTER      1000000U
+#define RESET_LOOP_COUNT    10	/**< Number of times to poll for reset completion. */
+#define POLL_TIMEOUT_COUNTER      1000000U	/**< Maximum poll iterations before a transfer times out. */
 
 /**************************** Type Definitions *******************************/
 
@@ -143,7 +149,7 @@ int XAxiCdma_HybridPollExample(UINTPTR BaseAddress);
 /************************** Variable Definitions *****************************/
 
 
-static XAxiCdma Engine;       /* Instance of the XAxiCdma */
+static XAxiCdma Engine;	/**< Driver instance for the AXI CDMA under test. */
 
 
 /* Source and Destination buffer for simple transfer.
@@ -175,13 +181,12 @@ static u8 SgTxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
 static u8 SgRxBuffer[SG_BUFFER_SIZE] __attribute__ ((aligned (64)));
 /** @endcond */
 
-static u32 *TransmitBufferPtr;
-static u32 *ReceiveBufferPtr;
-
+static u32 *TransmitBufferPtr;	/**< Pointer to the transmit (source) buffer. */
+static u32 *ReceiveBufferPtr;	/**< Pointer to the receive (destination) buffer. */
 /* Shared variables used to test the callbacks.
  */
-volatile static u32 Done = 0;    /* Dma transfer is done */
-volatile static u32 Error = 0;   /* Dma Error occurs */
+volatile static u32 Done = 0;	/**< Set when the DMA transfer completes successfully. */
+volatile static u32 Error = 0;	/**< Set when a DMA error interrupt or completion error occurs. */
 
 
 /*****************************************************************************/
@@ -192,7 +197,6 @@ volatile static u32 Error = 0;   /* Dma Error occurs */
 * @return
 * 		- XST_SUCCESS if example finishes successfully
 * 		- XST_FAILURE if example fails.
-*
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -206,12 +210,10 @@ int main()
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
-	xil_printf("Using global buffer allocation\r\n");
 
 	/* Initialize SG buffer pointers */
-	TransmitBufferPtr = (u32 *)SgTxBuffer;
-	ReceiveBufferPtr = (u32 *)SgRxBuffer;
-
+	TransmitBufferPtr = (u32 *)SgTxBuffer;	/**< Pointer to the transmit (source) buffer. */
+	ReceiveBufferPtr = (u32 *)SgRxBuffer;	/**< Pointer to the receive (destination) buffer. */
 	/* Run the poll example for simple transfer
 	 */
 #ifndef SDT
@@ -238,9 +240,6 @@ int main()
 /**
 * @brief Sets up the baud rate to 9600 and 8 data bits in UART16550.
 *
-*
-*
-*
 ******************************************************************************/
 static void Uart550_Setup(void)
 {
@@ -264,7 +263,6 @@ static void Uart550_Setup(void)
 * @return
 * 		- XST_SUCCESS if setup successful
 * 		- XST_FAILURE if setup failed with error
-*
 *
 ******************************************************************************/
 static int SetupSgTransfer(XAxiCdma *InstancePtr)
@@ -303,7 +301,7 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 	memset((void *)ReceiveBufferPtr, 0,
 	       MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER);
 
-	SrcBufferPtr = (u8 *)TransmitBufferPtr;
+	SrcBufferPtr = (u8 *)TransmitBufferPtr;	/**< Pointer to the transmit (source) buffer. */
 	for (Index = 0; Index < MAX_PKT_LEN * NUMBER_OF_BDS_TO_TRANSFER; Index++) {
 		SrcBufferPtr[Index] = Index & 0xFF;
 	}
@@ -329,7 +327,6 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 * 		- XST_SUCCESS if submission successful
 * 		- XST_FAILURE if submission failed with error
 *
-*
 ******************************************************************************/
 static int SubmitSgTransfer(XAxiCdma *InstancePtr)
 {
@@ -348,8 +345,8 @@ static int SubmitSgTransfer(XAxiCdma *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	SrcBufferAddr = (UINTPTR)TransmitBufferPtr;
-	DstBufferAddr = (UINTPTR)ReceiveBufferPtr;
+	SrcBufferAddr = (UINTPTR)TransmitBufferPtr;	/**< Pointer to the transmit (source) buffer. */
+	DstBufferAddr = (UINTPTR)ReceiveBufferPtr;	/**< Pointer to the receive (destination) buffer. */
 	BdCurPtr = BdPtr;
 
 	/* Set up the BDs
@@ -408,7 +405,6 @@ static int SubmitSgTransfer(XAxiCdma *InstancePtr)
 * @param[in] InstancePtr is a pointer to the XAxiCdma instance
 *
 * @return	Number of BDs that hardware has finished transfer
-*
 *
 ******************************************************************************/
 static int CheckSgCompletion(XAxiCdma *InstancePtr)
@@ -481,7 +477,6 @@ static int CheckSgCompletion(XAxiCdma *InstancePtr)
 * 		- XST_SUCCESS if the two buffer matches
 * 		- XST_FAILURE otherwise
 *
-*
 ******************************************************************************/
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 {
@@ -517,7 +512,6 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 * @return
 * 		- XST_SUCCESS if transfer is successful
 * 		- XST_FAILURE if either the transfer fails or the data has error
-*
 *
 ******************************************************************************/
 static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
@@ -632,7 +626,6 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 * 		- XST_FAILURE if either the transfer fails or the data has
 *		  error
 *
-*
 ******************************************************************************/
 static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 {
@@ -641,9 +634,8 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 	u8 *DstPtr;
 	int TimeOut = POLL_TIMEOUT_COUNTER;
 
-	SrcPtr = (u8 *)TransmitBufferPtr;
-	DstPtr = (u8 *)ReceiveBufferPtr;
-
+	SrcPtr = (u8 *)TransmitBufferPtr;	/**< Pointer to the transmit (source) buffer. */
+	DstPtr = (u8 *)ReceiveBufferPtr;	/**< Pointer to the receive (destination) buffer. */
 #ifdef __aarch64__
 	Xil_SetTlbAttributes((UINTPTR)BdSpace, MARK_UNCACHEABLE);
 #elif defined(ARMR5)
@@ -713,7 +705,6 @@ static int DoSgPollTransfer(XAxiCdma *InstancePtr, int Length)
 *
 * @note		If the hardware build has problems with interrupt, then this
 *		function hangs
-*
 *
 ******************************************************************************/
 #ifndef SDT

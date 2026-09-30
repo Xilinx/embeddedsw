@@ -12,6 +12,7 @@
  * @addtogroup axicdma Overview
  * @{
  *
+ * @brief Demonstrates simple AXI CDMA transfers using polling.
  * This file demonstrates how to use xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in simple transfer mode without
  * interrupt.
@@ -37,7 +38,7 @@
  * 1.00a jz   07/30/10 First release
  * 2.01a rkv  01/28/11 Modified function prototype of
  * 		       XAxiCdma_SimplePollExample to function taking only one
- * 		       arguments i.e. device id.
+ * 		       arguments that is device id.
  * 2.01a srt  03/06/12 Modified Flushing and Invalidation of Caches to fix CRs
  *		       648103, 648701.
  * 4.3   ms   01/22/17 Modified xil_printf statement in main function to
@@ -64,6 +65,11 @@
 #endif
 
 #if (!defined(DEBUG))
+/**
+ * @brief Prints a formatted message when DEBUG is not defined.
+ *
+ * @param[in] format is the printf-style format string.
+ */
 extern void xil_printf(const char *format, ...);
 #endif
 
@@ -77,24 +83,27 @@ extern void xil_printf(const char *format, ...);
 
 #ifndef SDT
 #ifndef TESTAPP_GEN
-#define DMA_CTRL_DEVICE_ID	XPAR_AXICDMA_0_DEVICE_ID
+#define DMA_CTRL_DEVICE_ID	XPAR_AXICDMA_0_DEVICE_ID	/**< Device ID of the AXI CDMA controller under test. */
 #endif
 #else
-#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR
+#define AXICDMA_BASE_ADDR       XPAR_XAXICDMA_0_BASEADDR	/**< Base address of the AXI CDMA device under test. */
 #endif
 
-#define BUFFER_BYTESIZE		64	/* Length of the buffers for DMA
-					 * transfer
-					 */
+/**
+ * @brief Length in bytes of the source and destination DMA buffers.
+ */
+#define BUFFER_BYTESIZE		64
 
-#define NUMBER_OF_TRANSFERS	4	/* Number of transfers to do in this
-					 * test
-					 */
+/**
+ * @brief Number of simple transfers to run in this test.
+ */
+#define NUMBER_OF_TRANSFERS	4
 
-#define RESET_LOOP_COUNT	10	/* Number of times to check reset is
-					 * done
-					 */
-#define POLL_TIMEOUT_COUNTER    1000000U
+/**
+ * @brief Number of times to poll for reset completion.
+ */
+#define RESET_LOOP_COUNT	10
+#define POLL_TIMEOUT_COUNTER    1000000U	/**< Maximum poll iterations before a transfer times out. */
 
 /**************************** Type Definitions *******************************/
 
@@ -117,17 +126,17 @@ int XAxiCdma_SimplePollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-static XAxiCdma AxiCdmaInstance;	/* Instance of the XAxiCdma */
+static XAxiCdma AxiCdmaInstance;	/**< Driver instance for the AXI CDMA under test. */
 
 /* Source and Destination buffer for DMA transfer.
  */
- static volatile u8 SrcBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
- static volatile u8 DestBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));
+ static volatile u8 SrcBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));	/**< Source buffer for the simple DMA transfer. */
+ static volatile u8 DestBuffer[BUFFER_BYTESIZE] __attribute__ ((aligned (64)));	/**< Destination buffer for the simple DMA transfer. */
 
 /* Shared variables used to test the callbacks.
  */
- static volatile u32 Done = 0;	/* Dma transfer is done */
- static volatile u32 Error = 0;	/* Dma Error occurs */
+ static volatile u32 Done = 0;	/**< Set when the DMA transfer completes successfully. */
+ static volatile u32 Error = 0;	/**< Set when a DMA error interrupt or completion error occurs. */
 
 
 /*****************************************************************************/
@@ -138,7 +147,6 @@ static XAxiCdma AxiCdmaInstance;	/* Instance of the XAxiCdma */
 * @return
 *		- XST_SUCCESS if example finishes successfully
 *		- XST_FAILURE if example fails.
-*
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -187,7 +195,6 @@ int main()
 *
 * @note		If the hardware build has problems with interrupt,
 *			then this function hangs
-*
 *
 ******************************************************************************/
 #ifndef SDT
@@ -249,7 +256,6 @@ int XAxiCdma_SimplePollExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress)
 *		- XST_SUCCESS if transfer is successful
 *		- XST_FAILURE if either the transfer fails or the data has
 *		  error
-*
 *
 ******************************************************************************/
 static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
@@ -352,7 +358,6 @@ static int DoSimplePollTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 * @return
 *		- XST_SUCCESS if the two buffer matches
 *		- XST_FAILURE otherwise
-*
 *
 ******************************************************************************/
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)

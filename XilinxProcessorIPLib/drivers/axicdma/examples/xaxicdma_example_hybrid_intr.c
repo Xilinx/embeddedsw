@@ -11,6 +11,7 @@
  * @addtogroup axicdma Overview
  * @{
  *
+ * @brief Demonstrates hybrid AXI CDMA transfers using interrupts.
  * This file demonstrates how to use xaxicdma driver on the Xilinx AXI
  * CDMA core (AXICDMA) to transfer packets in hybrid transfer mode through
  * interrupt.
@@ -94,6 +95,11 @@
 #endif
 
 #if (!defined(DEBUG))
+/**
+ * @brief Prints a formatted message when DEBUG is not defined.
+ *
+ * @param[in] format is the printf-style format string.
+ */
 extern void xil_printf(const char *format, ...);
 #endif
 
@@ -105,11 +111,11 @@ extern void xil_printf(const char *format, ...);
  * Device hardware build related constants.
  */
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define DMA_CTRL_DEVICE_ID	XPAR_AXICDMA_0_DEVICE_ID
+#define DMA_CTRL_DEVICE_ID	XPAR_AXICDMA_0_DEVICE_ID	/**< Device ID of the AXI CDMA controller under test. */
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define DMA_CTRL_IRPT_INTR	XPAR_INTC_0_AXICDMA_0_VEC_ID
 #else
-#define DMA_CTRL_DEVICE_ID 	XPAR_AXICDMA_0_DEVICE_ID
+#define DMA_CTRL_DEVICE_ID 	XPAR_AXICDMA_0_DEVICE_ID	/**< Device ID of the AXI CDMA controller under test. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define DMA_CTRL_IRPT_INTR	XPAR_FABRIC_AXICDMA_0_VEC_ID
 #endif
@@ -118,27 +124,27 @@ extern void xil_printf(const char *format, ...);
 
 #else
 
-#define AXICDMA_BASE_ADDR	XPAR_XAXICDMA_0_BASEADDR
+#define AXICDMA_BASE_ADDR	XPAR_XAXICDMA_0_BASEADDR	/**< Base address of the AXI CDMA device under test. */
 #endif
 
 
-#define BUFFER_BYTESIZE 128 	/* Length of the buffers for DMA transfer */
-#define MAX_PKT_LEN     1024  /* Length of BD for SG transfer */
+#define BUFFER_BYTESIZE 128	/**< Length in bytes of the source and destination DMA buffers. */
+#define MAX_PKT_LEN     1024	/**< Maximum packet length in bytes for each buffer descriptor. */
 
-#define MARK_UNCACHEABLE        0x701
+#define MARK_UNCACHEABLE        0x701	/**< Memory attribute used to mark buffers as uncacheable on AArch64. */
 
 /* Number of BDs in the transfer example
  * We show how to submit multiple BDs for one transmit.
  */
-#define NUMBER_OF_BDS_TO_TRANSFER	30
+#define NUMBER_OF_BDS_TO_TRANSFER	30	/**< Number of buffer descriptors to transfer in this test. */
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1 to 255 for coalescing and 0 to 255 for delay timer
  */
-#define COALESCING_COUNT   5
-#define DELAY_COUNT	   5
-#define POLL_TIMEOUT_COUNTER   1000000U
-#define NUMBER_OF_EVENTS	1
+#define COALESCING_COUNT   5	/**< Interrupt coalescing count programmed into the DMA engine. */
+#define DELAY_COUNT	   5	/**< Interrupt delay counter programmed into the DMA engine. */
+#define POLL_TIMEOUT_COUNTER   1000000U	/**< Maximum poll iterations before a transfer times out. */
+#define NUMBER_OF_EVENTS	1	/**< Number of interrupt events expected to complete the test. */
 /**************************** Type Definitions *******************************/
 
 
@@ -199,7 +205,7 @@ int XAxiCdma_HybridIntrExample(XAxiCdma *InstancePtr, UINTPTR BaseAddress);
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
-static XAxiCdma Engine;       /* Instance of the XAxiCdma */
+static XAxiCdma Engine;	/**< Driver instance for the AXI CDMA under test. */
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 static XIntc IntcController;	/* Instance of the Interrupt Controller */
@@ -245,8 +251,8 @@ u32 *ReceiveBufferPtr; /**< Pointer to receive buffer */
 
 /* Shared variables used to test the callbacks.
  */
-volatile static u32 Done = 0;    /* Dma transfer is done */
-volatile static u32 Error = 0;   /* Dma Bus Error occurs */
+volatile static u32 Done = 0;	/**< Set when the DMA transfer completes successfully. */
+volatile static u32 Error = 0;	/**< Set when a DMA error interrupt or completion error occurs. */
 
 
 /*****************************************************************************/
@@ -257,7 +263,6 @@ volatile static u32 Error = 0;   /* Dma Bus Error occurs */
 * @return
 *		 - XST_SUCCESS if example finishes successfully
 *		 - XST_FAILURE if example fails.
-*
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -271,7 +276,6 @@ int main(void)
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
-	xil_printf("Using global buffer allocation\r\n");
 
 	/* Initialize SG buffer pointers */
 	TransmitBufferPtr = (u32 *)SgTxBuffer;
@@ -305,9 +309,6 @@ int main(void)
 /**
 * @brief Sets up the baud rate to 9600 and 8 data bits in UART16550.
 *
-*
-*
-*
 ******************************************************************************/
 static void Uart550_Setup(void)
 {
@@ -329,7 +330,6 @@ static void Uart550_Setup(void)
 * @return
 * 		- XST_SUCCESS if setup successful
 * 		- XST_FAILURE if setup failed with error
-*
 *
 ******************************************************************************/
 static int SetupSgTransfer(XAxiCdma *InstancePtr)
@@ -407,8 +407,6 @@ static int SetupSgTransfer(XAxiCdma *InstancePtr)
 * 		passes to the callback function.
 * @param[out] IgnorePtr Pointer unused by the simple transfer callback.
 *
-*
-*
 ******************************************************************************/
 static void Example_SimpleCallBack(void *CallBackRef, u32 IrqMask,
 				   int *IgnorePtr)
@@ -426,7 +424,7 @@ static void Example_SimpleCallBack(void *CallBackRef, u32 IrqMask,
 
 /*****************************************************************************/
 /**
-* Callback function for the scatter gather transfer.
+* @brief Callback function for the scatter gather transfer.
 * It is called by the driver's interrupt handler.
 *
 * @param[in] CallBackRef is the reference pointer registered through
@@ -435,8 +433,6 @@ static void Example_SimpleCallBack(void *CallBackRef, u32 IrqMask,
 * @param[in] IrqMask is the interrupt mask the driver interrupt handler
 *		passes to the callback function.
 * @param[out] NumBdPtr is the pointer to number of BDs this handler handles
-*
-*
 *
 ******************************************************************************/
 static void Example_SgCallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
@@ -502,7 +498,6 @@ static void Example_SgCallBack(void *CallBackRef, u32 IrqMask, int *NumBdPtr)
 * 		- XST_SUCCESS if the two buffer matches
 * 		- XST_FAILURE otherwise
 *
-*
 ******************************************************************************/
 static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 {
@@ -542,7 +537,6 @@ static int CheckData(u8 *SrcPtr, u8 *DestPtr, int Length)
 * @return
 * 		- XST_SUCCESS if interrupt system setup successfully
 * 		- XST_FAILURE if error occurs
-*
 *
 *******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
@@ -694,8 +688,6 @@ static int SetupIntrSystem(XScuGic *IntcInstancePtr, XAxiCdma *InstancePtr,
 * @param[in] IntcInstancePtr is the pointer to the instance of the INTC
 * @param[in] IntrId is the interrupt Id for the XAxiCdma instance
 *
-*
-*
 ******************************************************************************/
 #ifdef XPAR_INTC_0_DEVICE_ID
 static void DisableIntrSystem(XIntc *IntcInstancePtr, u32 IntrId)
@@ -732,7 +724,6 @@ static void DisableIntrSystem(XScuGic *IntcInstancePtr, u32 IntrId)
 * 		- XST_SUCCESS if transfer is successful
 * 		- XST_FAILURE if either the transfer fails or the data has
 *			error.
-*
 *
 ******************************************************************************/
 static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
@@ -824,7 +815,6 @@ static int DoSimpleTransfer(XAxiCdma *InstancePtr, int Length, int Retries)
 *			One of the buffer transfer length is invalid
 *			Submission to hardware failed
 *
-*
 ******************************************************************************/
 static int SubmitSgTransfer(XAxiCdma *InstancePtr)
 {
@@ -908,7 +898,6 @@ static int SubmitSgTransfer(XAxiCdma *InstancePtr)
 * @return
 * 		- XST_SUCCESS if transfer finishes successfully
 * 		- XST_FAILURE if transfer has errors
-*
 *
 ******************************************************************************/
 static int DoSgTransfer(XAxiCdma *InstancePtr)
@@ -1003,7 +992,6 @@ static int DoSgTransfer(XAxiCdma *InstancePtr)
 *
 * @note		If the hardware build has problems with interrupt, then this
 *		function hangs
-*
 *
 ******************************************************************************/
 #ifndef SDT

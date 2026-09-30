@@ -10,6 +10,7 @@
 * @addtogroup axicdma Overview
 * @{
  *
+* @brief Implements buffer descriptor access helpers for AXI CDMA.
  * The implementation for the Buffer Descriptor (BD) API functions.
  *
  * <pre>
@@ -42,7 +43,6 @@
  *
  * @param[in] BdPtr is the pointer to the BD to be cleared
  *
- *
  *****************************************************************************/
 void XAxiCdma_BdClear(XAxiCdma_Bd *BdPtr)
 {
@@ -58,7 +58,6 @@ void XAxiCdma_BdClear(XAxiCdma_Bd *BdPtr)
  *
  * @param[in] BdPtr is the pointer to the BD to be cloned to
  * @param[in] TmpBd is the pointer to the BD to be cloned from
- *
  *
  *****************************************************************************/
 void XAxiCdma_BdClone(XAxiCdma_Bd *BdPtr, XAxiCdma_Bd *TmpBd)
@@ -78,7 +77,6 @@ void XAxiCdma_BdClone(XAxiCdma_Bd *BdPtr, XAxiCdma_Bd *TmpBd)
  * @param[in] BdPtr is the pointer to the BD to read the next BD pointer.
  *
  * @return	The next BD pointer of the BD.
- *
  *
  *****************************************************************************/
 LONG XAxiCdma_BdGetNextPtr(XAxiCdma_Bd *BdPtr)
@@ -100,8 +98,6 @@ LONG XAxiCdma_BdGetNextPtr(XAxiCdma_Bd *BdPtr)
  *
  * @param[in] BdPtr is the pointer to the BD to set the next BD pointer.
  * @param[in] NextBdPtr is the next BD pointer value.
- *
- *
  *
  *****************************************************************************/
 void XAxiCdma_BdSetNextPtr(XAxiCdma_Bd *BdPtr, UINTPTR NextBdPtr)
@@ -125,7 +121,6 @@ void XAxiCdma_BdSetNextPtr(XAxiCdma_Bd *BdPtr, UINTPTR NextBdPtr)
  *
  * @return	The status bits of the BD.
  *
- *
  *****************************************************************************/
 u32 XAxiCdma_BdGetSts(XAxiCdma_Bd *BdPtr)
 {
@@ -144,7 +139,6 @@ u32 XAxiCdma_BdGetSts(XAxiCdma_Bd *BdPtr)
  * re-submission.
  *
  * @param[in] BdPtr is the pointer to the BD to clear the status
- *
  *
  *****************************************************************************/
 void XAxiCdma_BdClearSts(XAxiCdma_Bd *BdPtr)
@@ -166,7 +160,6 @@ void XAxiCdma_BdClearSts(XAxiCdma_Bd *BdPtr)
  *		- XST_SUCCESS if buffer address set successfully
  *		- XST_INVALID_PARAM if buffer address is not aligned and
  *		hardware build has no DRE or in lite mode
- *
  *
  *****************************************************************************/
 u32 XAxiCdma_BdSetSrcBufAddr(XAxiCdma_Bd *BdPtr, UINTPTR Addr)
@@ -203,7 +196,6 @@ u32 XAxiCdma_BdSetSrcBufAddr(XAxiCdma_Bd *BdPtr, UINTPTR Addr)
  *
  * @return	The source address of the buffer that this BD describes
  *
- *
  *****************************************************************************/
 LONG XAxiCdma_BdGetSrcBufAddr(XAxiCdma_Bd *BdPtr)
 {
@@ -230,7 +222,6 @@ LONG XAxiCdma_BdGetSrcBufAddr(XAxiCdma_Bd *BdPtr)
  * 		- XST_SUCCESS if buffer address set successfully
  * 		- XST_INVALID_PARAM if buffer address is not aligned and
  *			hardware build has no DRE or in lite mode
- *
  *
  *****************************************************************************/
 u32 XAxiCdma_BdSetDstBufAddr(XAxiCdma_Bd *BdPtr, UINTPTR Addr)
@@ -265,7 +256,6 @@ u32 XAxiCdma_BdSetDstBufAddr(XAxiCdma_Bd *BdPtr, UINTPTR Addr)
  * @param[in] BdPtr is the pointer to the BD to get the destination address
  *
  * @return	The destination address of the buffer that this BD describes
- *
  *
  *****************************************************************************/
 LONG XAxiCdma_BdGetDstBufAddr(XAxiCdma_Bd *BdPtr)
@@ -322,7 +312,6 @@ u32 XAxiCdma_BdSetLength(XAxiCdma_Bd *BdPtr, int LenBytes)
  *
  * @return	The length of the buffer that this BD describes
  *
- *
  *****************************************************************************/
 u32 XAxiCdma_BdGetLength(XAxiCdma_Bd *BdPtr)
 {
@@ -336,7 +325,6 @@ u32 XAxiCdma_BdGetLength(XAxiCdma_Bd *BdPtr)
  *
  * @param[in] BdPtr is the pointer to the BD to set the physical address
  * @param[in] PhysAddr is the physical address of the BD
- *
  *
  *****************************************************************************/
 void XAxiCdma_BdSetPhysAddr(XAxiCdma_Bd *BdPtr, UINTPTR PhysAddr)
@@ -359,7 +347,6 @@ void XAxiCdma_BdSetPhysAddr(XAxiCdma_Bd *BdPtr, UINTPTR PhysAddr)
  * @param[in] BdPtr is the pointer to the BD to work on
  * @param[in] IsLite is the value for whether hardware is in lite mode
  *
- *
  *****************************************************************************/
 void XAxiCdma_BdSetIsLite(XAxiCdma_Bd *BdPtr, int IsLite)
 {
@@ -375,7 +362,6 @@ void XAxiCdma_BdSetIsLite(XAxiCdma_Bd *BdPtr, int IsLite)
  *
  * @param[in] BdPtr is the pointer to the BD to work on
  * @param[in] HasDRE is the value for whether hardware has DRE built in
- *
  *
  *****************************************************************************/
 void XAxiCdma_BdSetHasDRE(XAxiCdma_Bd *BdPtr, int HasDRE)
@@ -393,7 +379,6 @@ void XAxiCdma_BdSetHasDRE(XAxiCdma_Bd *BdPtr, int HasDRE)
  * @param[in] BdPtr is the pointer to the BD to work on
  * @param[in] WordLen is the length of word in bytes
  *
- *
  *****************************************************************************/
 void XAxiCdma_BdSetWordLen(XAxiCdma_Bd *BdPtr, int WordLen)
 {
@@ -409,7 +394,6 @@ void XAxiCdma_BdSetWordLen(XAxiCdma_Bd *BdPtr, int WordLen)
  *
  * @param[in] BdPtr is the pointer to the BD to work on
  * @param[in] MaxLen is the maximum transfer length in bytes
- *
  *
  *****************************************************************************/
 void XAxiCdma_BdSetMaxLen(XAxiCdma_Bd *BdPtr, int MaxLen)
@@ -427,7 +411,6 @@ void XAxiCdma_BdSetMaxLen(XAxiCdma_Bd *BdPtr, int MaxLen)
  * @param[in] BdPtr is the pointer to the BD to get the physical address
  *
  * @return	The physical address of the BD
- *
  *
  *****************************************************************************/
 LONG XAxiCdma_BdGetPhysAddr(XAxiCdma_Bd *BdPtr)
@@ -449,7 +432,6 @@ LONG XAxiCdma_BdGetPhysAddr(XAxiCdma_Bd *BdPtr)
  * @brief Dumps the BD for debug purposes.
  *
  * @param[in] BdPtr is the pointer to the BD to get the physical address
- *
  *
  *****************************************************************************/
 void XAxiCdma_DumpBd(XAxiCdma_Bd *BdPtr)

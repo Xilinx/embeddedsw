@@ -11,6 +11,7 @@
 * @addtogroup axicdma Overview
 * @{
 *
+* @brief Implements static initialization helpers for AXI CDMA.
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xaxivdma_g.c, generated automatically by XPS or
 * manually by user.

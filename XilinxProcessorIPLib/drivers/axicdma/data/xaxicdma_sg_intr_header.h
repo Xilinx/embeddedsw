@@ -1,6 +1,10 @@
+/**
+ * @file xaxicdma_sg_intr_header.h
+ * @brief Declares the scatter-gather interrupt example entry point.
+ */
 /******************************************************************************
 * Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 

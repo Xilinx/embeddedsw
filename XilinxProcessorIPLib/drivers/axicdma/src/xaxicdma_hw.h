@@ -13,6 +13,7 @@
 * @addtogroup axicdma Overview
 * @{
  *
+* @brief Defines register offsets and low-level access for AXI CDMA.
  * Hardware definition file. It defines the register interface and Buffer
  * Descriptor (BD) definitions.
  *
@@ -195,8 +196,8 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XAxiCdma_In32  Xil_In32
-#define XAxiCdma_Out32 Xil_Out32
+#define XAxiCdma_In32  Xil_In32  /**< Reads a 32-bit value from a memory-mapped register. */
+#define XAxiCdma_Out32 Xil_Out32 /**< Writes a 32-bit value to a memory-mapped register. */
 
 /*****************************************************************************/
 /**
@@ -222,7 +223,6 @@ extern "C" {
 * @param[in] BaseAddress is the base virtual address of the device
 * @param[in] RegOffset is the register offset to be written
 * @param[in] Data is the 32-bit value to write to the register
-*
 *
 * @note
 * C-style signature:

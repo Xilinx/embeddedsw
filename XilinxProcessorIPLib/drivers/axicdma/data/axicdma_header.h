@@ -1,5 +1,9 @@
+/**
+ * @file axicdma_header.h
+ * @brief Declares AXI CDMA example entry points for the TestAppGen flow.
+ */
 /******************************************************************************
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 

@@ -10,6 +10,7 @@
 * @addtogroup axicdma Overview
 * @{
  *
+* @brief Implements interrupt-related functions for AXI CDMA.
  * The implementation of the interrupt related API. The interrupt handler is
  * also implemented here.
  *
@@ -30,13 +31,11 @@
 
 /*****************************************************************************/
 /**
- * Enables interrupts specified by the Mask. Interrupts that are
+ * @brief Enables interrupts specified by the Mask. Interrupts that are
  * not in the mask are not affected.
  *
  * @param[in] InstancePtr is the driver instance we are working on
  * @param[in] Mask is the mask for the interrupts to be enabled
- *
- *
  *
  *****************************************************************************/
 void XAxiCdma_IntrEnable(XAxiCdma *InstancePtr, u32 Mask)
@@ -57,7 +56,6 @@ void XAxiCdma_IntrEnable(XAxiCdma *InstancePtr, u32 Mask)
  *
  * @return	The bit mask for the interrupts that are currently enabled
  *
- *
  *****************************************************************************/
 u32 XAxiCdma_IntrGetEnabled(XAxiCdma *InstancePtr)
 {
@@ -67,12 +65,11 @@ u32 XAxiCdma_IntrGetEnabled(XAxiCdma *InstancePtr)
 
 /*****************************************************************************/
 /**
- * Disables interrupts specified by the Mask. Interrupts that
+ * @brief Disables interrupts specified by the Mask. Interrupts that
  * are not in the mask are not affected.
  *
  * @param[in] InstancePtr is the driver instance we are working on
  * @param[in] Mask is the mask for the interrupts to be disabled
- *
  *
  *****************************************************************************/
 void XAxiCdma_IntrDisable(XAxiCdma *InstancePtr, u32 Mask)
@@ -87,14 +84,13 @@ void XAxiCdma_IntrDisable(XAxiCdma *InstancePtr, u32 Mask)
 
 /*****************************************************************************/
 /**
- * Handles driver interrupts, it handles all the
+ * @brief Handles driver interrupts, it handles all the
  * interrupts. For the completion of a transfer that has a callback function,
  * the callback function is called.
  *
  * @param[in] HandlerRef is a reference pointer passed to the interrupt
  *			registration function. It will be a pointer to the driver
  *			instance we are working on
- *
  *
  * @note	If one transfer does not have all its submitted BDs completed
  *		successfully,then a reset is needed to clean up the mess left
