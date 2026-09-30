@@ -6,12 +6,10 @@
 /*****************************************************************************/
 /**
 * @file xospipsv_xfer.c
-* @addtogroup ospipsv_api OSPIPSV APIs
-* @{
+* @brief Implements the OSPIPSV driver data transfer functions.
 *
-* This file contaions the data transfer functions for the OSPIPSV driver,
-* including polled and interrupt-based send/receive operations. These functions
-* are used internally by the driver.
+* The file includes polled and interrupt-based send/receive operations.
+* These functions are used internally by the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,9 +19,15 @@
 * 1.13  sb  02/07/25 First release
 * 1.15  zm  08/07/26 Gate the STIG path on protocol and on transfer size.
 * 1.15  vn  09/03/26 Fix doxygen warnings.
+* 1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 ******************************************************************************/
+
+/**
+* @addtogroup ospipsv_api OSPIPSV APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xospipsv_control.h"
@@ -31,11 +35,10 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* This function performs a polled data receive operation.
+* @brief Performs a polled data receive operation.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	Msg Pointer to the structure containing transfer data.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -64,11 +67,10 @@ u32 XOspiPsv_PollRecvData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){
 
 /*****************************************************************************/
 /**
-* @brief
-* This function performs a polled data send operation.
+* @brief Performs a polled data send operation.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	Msg Pointer to the structure containing transfer data.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -99,11 +101,10 @@ u32 XOspiPsv_PollSendData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){
 
 /*****************************************************************************/
 /**
-* @brief
-* This function performs an interrupt-based data receive operation.
+* @brief Performs an interrupt-based data receive operation.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	Msg Pointer to the structure containing transfer data.
 *
 ******************************************************************************/
 void XOspiPsv_IntrRecvData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){
@@ -141,11 +142,10 @@ void XOspiPsv_IntrRecvData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){
 
 /*****************************************************************************/
 /**
-* @brief
-* This function performs an interrupt-based data send operation.
+* @brief Performs an interrupt-based data send operation.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	Msg Pointer to the structure containing transfer data.
 *
 ******************************************************************************/
 void XOspiPsv_IntrSendData(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg){

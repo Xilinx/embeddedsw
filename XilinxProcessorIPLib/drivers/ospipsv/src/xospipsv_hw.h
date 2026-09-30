@@ -1,17 +1,19 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XOSPIPSV_HW_H_
+#define XOSPIPSV_HW_H_
 
 /*****************************************************************************/
 /**
 *
 * @file xospipsv_hw.h
-* @addtogroup ospipsv_api OSPIPSV APIs
-* @{
+* @brief Contains the low-level register definitions of the OSPIPSV device.
 *
-* The xospipsv_hw.h file contains low level access functions using the base address
+* The file contains low level access functions using the base address
 * directly without an instance.
 *
 * <pre>
@@ -24,13 +26,17 @@
 * 1.6   sk   02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.8   akm  01/03/23 Use Xil_WaitForEvent() API for register bit polling.
 * 1.11  ng  08/20/24 Add spartanup device support
+* 1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ospipsv_api OSPIPSV APIs
+* @{
+*/
 /** @cond INTERNAL */
-#ifndef XOSPIPSV_HW_H_		/**< prevent circular inclusions */
-#define XOSPIPSV_HW_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -276,7 +282,7 @@ extern "C" {
 
 /**
  * @name Octal-SPI Device Delay Register
- * This register is used to introduce relative delays
+ * This register introduces relative delays
  * into the generation of the master output signals.
  * All timings are defined in cycles of the SPI REFERENCE
  * CLOCK/ext_clk, defined in this table as SPI master ref clock.
@@ -419,7 +425,7 @@ extern "C" {
 /**
  * @name Indirect AHB Address Trigger Register
  * This register contains bits for configuring
- * base address that will be used by the AHB controller.
+ * base address that is used by the AHB controller.
  * @{
  */
 /**
@@ -578,7 +584,7 @@ extern "C" {
 /**
  * @name Write Completion Control Register
  * This register contains bits for configuring
- * how the controller will poll the device following
+ * how the controller polls the device following
  * a write transfer like Opcode, Polling count etc.
  * @{
  */
@@ -957,8 +963,8 @@ extern "C" {
 /**
  * @name Indirect Read Transfer Start Address Register
  * This register contains bits for configuring
- * start address from which the indirect access will
- * commence its READ operation.
+ * start address from which the indirect access
+ * commences its READ operation.
  * @{
  */
 /**
@@ -974,7 +980,7 @@ extern "C" {
 /**
  * @name Indirect Read Transfer Number Bytes Register
  * This register contains bits for configuring
- * number of bytes that the indirect access will consume.
+ * number of bytes that the indirect access consumes.
  * This can be bigger than the configured size of SRAM.
  * @{
  */
@@ -1053,8 +1059,8 @@ extern "C" {
 /**
  * @name Indirect Write Transfer Start Address Register
  * This register contains bits for configuring
- * start address from which the indirect access will
- * commence its WRITE operation.
+ * start address from which the indirect access
+ * commences its WRITE operation.
  * @{
  */
 /**
@@ -1070,7 +1076,7 @@ extern "C" {
 /**
  * @name Indirect Write Transfer Number Bytes Register
  * This register contains bits for configuring
- * number of bytes that the indirect access will consume.
+ * number of bytes that the indirect access consumes.
  * This can be bigger than the configured size of SRAM.
  * @{
  */
@@ -1906,7 +1912,7 @@ extern "C" {
 /**
  * @name DMA transfer payload for DMA stream-> memory data transfer
  * This register contains bits for configuring the
- * number of 4-byte words the DMA will transfer from stream to memory.
+ * number of 4-byte words the DMA transfers from stream to memory.
  * @{
  */
 /**
@@ -2315,7 +2321,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+/** @endcond */
 
 #endif /* XOSPIPSV_H_ */
-/** @endcond */
 /** @} */

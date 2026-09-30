@@ -8,11 +8,9 @@
 /**
 *
 * @file xospipsv_hw.c
-* @addtogroup ospipsv_api OSPIPSV APIs
-* @{
+* @brief Implements the hardware functions of the OSPIPSV driver.
 *
-* The xospipsv_hw.c file implements the hardware functions used by the functions in
-* xospipsv_control.c file.
+* These functions are used by the functions in xospipsv_control.c file.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,10 +27,16 @@
 * 1.13	sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 * 1.15	sb   08/11/26 Add support for pattern-based RX PHY tuning.
 * 1.15  vn   09/03/26 Fix doxygen warnings.
+* 1.15  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ospipsv_api OSPIPSV APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xospipsv_control.h"
@@ -54,20 +58,19 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* Configures the STIG control register (Flash cmd register).
+* @brief Configures the STIG control register (Flash cmd register).
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Cmd_op Command opcode.
-* @param	Rd_data_en Specifies whether cmd_op requires data to read or not.
-* @param	Num_rd_data_bytes Number of bytes to read.
-* @param	Cmd_addr_en Specifies whether cmd_op requires addr or not.
-* @param	Mode_bit_en Represents mode bit configuration register.
-* @param	Num_addr_bytes Represents addr bytes (4/3 etc).
-* @param	Wr_data_en Specifies whether cmd_op requires write enable or not.
-* @param	Num_wr_data_bytes Number of bytes to write.
-* @param	Dummy Number of bytes to write.
-* @param	Membank_en Enables STIG memory bank.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Cmd_op Command opcode.
+* @param[in] Rd_data_en Specifies whether cmd_op requires data to read or not.
+* @param[in]	Num_rd_data_bytes Number of bytes to read.
+* @param[in]	Cmd_addr_en Specifies whether cmd_op requires addr or not.
+* @param[in]	Mode_bit_en Represents mode bit configuration register.
+* @param[in]	Num_addr_bytes Represents addr bytes (4/3 etc).
+* @param[in] Wr_data_en Specifies whether cmd_op requires write enable or not.
+* @param[in]	Num_wr_data_bytes Number of bytes to write.
+* @param[in]	Dummy Number of dummy cycles.
+* @param[in]	Membank_en Enables STIG memory bank.
 *
 ******************************************************************************/
 void XOspiPsv_Setup_Stig_Ctrl(const XOspiPsv *InstancePtr,
@@ -113,11 +116,10 @@ void XOspiPsv_Setup_Stig_Ctrl(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* Executes the Flash command configured using Flash Command
+* @brief Executes the Flash command configured using Flash Command
 * control register.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -152,11 +154,10 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Reads data from RX FIFO.
+* @brief Reads data from RX FIFO.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	Msg Pointer to the structure containing transfer data.
 *
 * @note		This operation is in IO mode of reading.
 *
@@ -181,11 +182,10 @@ void XOspiPsv_FifoRead(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 /*****************************************************************************/
 /**
-* @brief
-* Writes data to TX FIFO.
+* @brief Writes data to TX FIFO.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Msg Pointer to the structure containing transfer data.
 *
 * @note		This operation is in IO mode of writing.
 *
@@ -212,13 +212,14 @@ void XOspiPsv_FifoWrite(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 
 /*****************************************************************************/
 /**
-* @brief
-* Configures the below info to write instruction register
+* @brief Configures the write instruction register.
+*
+* The following info is configured:
 * DataXfertype - SPI/Dual/Quad/Octal
 * AddrXfertype - 3 or 4B
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Msg Pointer to the structure containing transfer data.
 *
 * @note		Used in DMA or Linear operations.
 *
@@ -328,13 +329,14 @@ void XOspiPsv_Setup_Dev_Write_Instr_Reg(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* Configures the below info to read instruction register
+* @brief Configures the read instruction register.
+*
+* The following info is configured:
 * DataXfertype - SPI/Dual/Quad/Octal
 * AddrXfertype - 3 or 4B
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Msg Pointer to the structure containing transfer data.
 *
 * @note		Used in DMA or Linear operations
 *
@@ -443,11 +445,10 @@ void XOspiPsv_Setup_Dev_Read_Instr_Reg(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* Sets the device size config register.
+* @brief Sets the device size config register.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Msg Pointer to the structure containing transfer data.
 *
 ******************************************************************************/
 void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
@@ -468,10 +469,9 @@ void XOspiPsv_Setup_Devsize(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* Initiates the indirect read transfer.
+* @brief Initiates the indirect read transfer.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
 *
 ******************************************************************************/
 void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr)
@@ -488,11 +488,10 @@ void XOspiPsv_Start_Indr_RdTransfer(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* Configures the Indirect controller.
+* @brief Configures the Indirect controller.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Msg Pointer to the structure containing transfer data.
 *
 ******************************************************************************/
 void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
@@ -518,11 +517,10 @@ void XOspiPsv_Config_IndirectAhb(const XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* Sets up the Dma configuration.
+* @brief Sets up the Dma configuration.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Msg Pointer to the structure containing transfer data.
 *
 ******************************************************************************/
 void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
@@ -581,10 +579,9 @@ void XOspiPsv_Config_Dma(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 
 /*****************************************************************************/
 /**
-* @brief
-* Initiates the DMA transfer.
+* @brief Initiates the DMA transfer.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -630,12 +627,13 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Waits for bit to be set. This API polls for the required bit for 10 seconds, if
-* not set then timeout occurs.
+* @brief Waits for bit to be set.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Mask Bit mask to check for lock.
+* The API polls for the required bit for 10 seconds, if not set then timeout
+* occurs.
+*
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Mask Bit mask to check for lock.
 *
 * @return
 *		- XST_SUCCESS if lock bit is set.
@@ -661,15 +659,14 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Calculates the Max window size and the corresponding Average Rx Tap.
+* @brief Calculates the Max window size and the corresponding Average Rx Tap.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	FlashMsg Pointer to XOspiPsv_Msg instance.
-* @param	AvgRXTap Pointer to median Rx Tap.
-* @param	MaxWindowSize Pointer to maximum window size.
-* @param	DummyIncr Flag to indicate additional dummy.
-* @param	TXTap Tx tap value used while doing Rx tuning.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	FlashMsg Pointer to XOspiPsv_Msg instance.
+* @param[out]	AvgRXTap Pointer to median Rx Tap.
+* @param[in,out]	MaxWindowSize Pointer to maximum window size.
+* @param[in]	DummyIncr Flag to indicate additional dummy.
+* @param[in]	TXTap Tx tap value used while doing Rx tuning.
 *
 * @return
 *		- XST_SUCCESS if lock bit is set.

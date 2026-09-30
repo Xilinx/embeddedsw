@@ -8,11 +8,9 @@
 /**
 *
 * @file xospipsv.c
-* @addtogroup ospipsv_api OSPIPSV APIs
-* @{
+* @brief Implements the functions to perform transfers on the OSPIPSV hardware.
 *
-* The xospipsv.c file implements the functions required to use the OSPIPSV hardware to
-* perform a transfer. These are accessible to the user via XOspiPsv.h.
+* These are accessible to the user via XOspiPsv.h.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -54,10 +52,16 @@
 * 1.15  zm  08/07/26 Reject interrupt transfers the STIG path cannot issue.
 * 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
 * 1.15  vn  09/03/26 Fix doxygen warnings.
+* 1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ospipsv_api OSPIPSV APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -89,13 +93,13 @@ static inline void StubStatusHandler(void *CallBackRef, u32 StatusEvent);
 
 /*****************************************************************************/
 /**
-* @brief
-* Initializes a specific XOspiPsv instance so that the driver is ready to use.
+* @brief Initializes a specific XOspiPsv instance so that the driver is
+* ready to use.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	ConfigPtr Reference to a structure containing information
-*		about a specific OSPIPSV device. This function initializes an
-*		InstancePtr object for a specific device specified by the
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	ConfigPtr Reference to a structure containing information
+*		about a specific OSPIPSV device. The InstancePtr object is
+*		initialized for a specific device specified by the
 *		contents of Config.
 *
 * @return
@@ -223,13 +227,12 @@ u32 XOspiPsv_CfgInitialize(XOspiPsv *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* Resets the configuration register.
+* @brief Resets the configuration register.
 *
 * The Upper layer software is responsible for re-configuring (if necessary)
 * and restarting the OSPIPSV device after the reset.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
 *
 ******************************************************************************/
 void XOspiPsv_Reset(XOspiPsv *InstancePtr)
@@ -246,10 +249,9 @@ void XOspiPsv_Reset(XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* Reset the OSPI flash device.
+* @brief Resets the OSPI flash device.
 *
-* @param	Type Reset type.
+* @param[in]	Type Reset type.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -308,11 +310,10 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Resets the OSPI flash device via OSPI controller.
+* @brief Resets the OSPI flash device via OSPI controller.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Type Resets type.
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Type Reset type.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -355,12 +356,9 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Asserts the chip select line.
+* @brief Asserts the chip select line.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-*
-* @return	None
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
 *
 ******************************************************************************/
 static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr)
@@ -380,12 +378,9 @@ static inline void XOspiPsv_AssertCS(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* De-asserts the chip select line.
+* @brief De-asserts the chip select line.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-*
-* @return	None
+* @param[in]	InstancePtr Pointer to the XOspiPsv instance.
 *
 ******************************************************************************/
 static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr)
@@ -407,12 +402,13 @@ static inline void XOspiPsv_DeAssertCS(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* Performs a transfer on the bus in polled mode. The messages
-* passed are all transferred on the bus between one CS assert and de-assert.
+* @brief Performs a transfer on the bus in polled mode.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* The messages passed are all transferred on the bus between one CS assert
+* and de-assert.
+*
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	Msg Pointer to the structure containing transfer data.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -484,11 +480,10 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Starts a DMA transfer.
+* @brief Starts a DMA transfer.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Msg Pointer to the structure containing transfer data.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -556,10 +551,9 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Checks for DMA transfer complete.
+* @brief Checks for DMA transfer complete.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return
 *		- XST_SUCCESS if DMA transfer complete.
@@ -618,11 +612,10 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Performs a transfer on the bus in interrupt mode.
+* @brief Performs a transfer on the bus in interrupt mode.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Msg Pointer to the structure containing transfer data.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	Msg Pointer to the structure containing transfer data.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -697,14 +690,13 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Handles interrupt based transfers.
+* @brief Handles interrupt based transfers.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_DEVICE_BUSY if a transfer is already in progress.
+*		- XST_FAILURE if the controller does not become idle.
 *
 ******************************************************************************/
 u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
@@ -802,14 +794,13 @@ u32 XOspiPsv_IntrHandler(XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
- * @brief
- * Stops the transfer of data to internal DST FIFO from stream interface and
- * also stops the issuing of new write commands to memory.
+ * @brief Stops the transfer of data to internal DST FIFO from stream
+ * interface and also stops the issuing of new write commands to memory.
  *
- * By calling this API, any ongoing Dma transfers will be paused and DMA will
- * not issue AXI write commands to memory
+ * By calling this API, any ongoing Dma transfers are paused and DMA does
+ * not issue AXI write commands to memory.
  *
- * @param	InstancePtr Pointer to the XOspiPsv instance.
+ * @param[in]	InstancePtr Pointer to the XOspiPsv instance.
  *
  *****************************************************************************/
 void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
@@ -834,13 +825,12 @@ void XOspiPsv_Idle(const XOspiPsv *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* Configures TX and RX DLL Delay. Based on the mode and reference clock
-* this API calculates the RX delay and configure them in PHY configuration
-* register.
+* @brief Configures TX and RX DLL Delay.
 *
+* Based on the mode and reference clock this API calculates the RX delay
+* and configure them in PHY configuration register.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -980,13 +970,15 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Configures the dual-byte opcode mode.
+* @brief Configures the dual-byte opcode mode.
 *
-* @param	InstancePtr Pointer to the XOspiPsv instance.
-* @param	Enable 1 to enable dual-byte opcode, 0 to disable.
+* @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+* @param[in]	Enable 0 to disable dual-byte opcode, 1 to enable it with
+*		inverted opcode, 2 to enable it with same opcode.
 *
-* @return	None.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if Enable is not a valid value.
 *
 ******************************************************************************/
 u32 XOspiPsv_ConfigDualByteOpcode(XOspiPsv *InstancePtr, u8 Enable)
@@ -1018,10 +1010,11 @@ ERROR_PATH:
 
 /*****************************************************************************/
 /**
- * @brief
- * Sets the status callback function, the status handler, which the driver
- * calls when it encounters conditions that should be reported to upper
- * layer software. The handler executes in an interrupt context, so it must
+ * @brief Sets the status callback function, the status handler, which the
+ * driver calls when it encounters conditions that should be reported to
+ * upper layer software.
+ *
+ * The handler executes in an interrupt context, so it must
  * minimize the amount of processing performed. One of the following status
  * events is passed to the status handler.
  *
@@ -1030,13 +1023,12 @@ ERROR_PATH:
  * XST_SPI_TRANSFER_DONE		The requested data transfer is done
  *
  * </pre>
- * @param	InstancePtr Pointer to the XOspiPsv instance.
- * @param	CallBackRef Upper layer callback reference passed back
+ * @param[in,out]	InstancePtr Pointer to the XOspiPsv instance.
+ * @param[in]	CallBackRef Upper layer callback reference passed back
  *		when the callback function is invoked.
- * @param	FuncPointer Pointer to the callback function.
+ * @param[in]	FuncPointer Pointer to the callback function.
  *
  * @note
- *
  * The handler is called within interrupt context, so it should do its work
  * quickly and queue potentially time-consuming work to a task-level thread.
  *
@@ -1054,14 +1046,12 @@ void XOspiPsv_SetStatusHandler(XOspiPsv *InstancePtr, void *CallBackRef,
 
 /*****************************************************************************/
 /**
- * @brief
- * Stub for the status callback. The stub is here in case the upper
- * layers forget to set the handler.
+ * @brief Implements a stub for the status callback.
  *
- * @param	CallBackRef Pointer to the upper layer callback reference
- * @param	StatusEvent Event that just occurred.
+ * The stub is here in case the upper layers forget to set the handler.
  *
- * @return	None.
+ * @param[in]	CallBackRef Pointer to the upper layer callback reference.
+ * @param[in]	StatusEvent Event that just occurred.
  *
  ******************************************************************************/
 static inline void StubStatusHandler(void *CallBackRef, u32 StatusEvent)

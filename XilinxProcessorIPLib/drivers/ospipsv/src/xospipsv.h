@@ -4,14 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XOSPIPSV_H_
+#define XOSPIPSV_H_
+
 /*****************************************************************************/
 /**
 *
 * @file xospipsv.h
-* @addtogroup ospipsv_api OSPIPSV APIs
+* @addtogroup ospipsv Overview
 * @{
-* @details
-*
+* @brief Contains the OSPIPSV driver types, macros and function prototypes.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -64,12 +66,11 @@
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
 * 	    abh 11/10/25 Fixed MISRA-C violations
 * 1.15  sb  08/11/26 Add support for pattern-based RX PHY tuning.
+* 1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
-#ifndef XOSPIPSV_H_		/**< prevent circular inclusions */
-#define XOSPIPSV_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -87,24 +88,26 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
+ * @brief Specifies the status callback handler type for the OSPIPSV device.
+ *
  * The handler data type allows the user to define a callback function to
  * handle the asynchronous processing for the OSPIPSV device. The application
  * using this driver is expected to define a handler of this type to support
  * interrupt driven mode. The handler executes in an interrupt context, so
  * only minimal processing should be performed.
  *
- * @param	CallBackRef Callback reference passed in by the upper
+ * @param[in]	CallBackRef Callback reference passed in by the upper
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param 	StatusEvent Holds one or more status events that have occurred.
+ * @param[in] 	StatusEvent Holds one or more status events that have occurred.
  *		See the XOspiPsv_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
  */
 typedef void (*XOspiPsv_StatusHandler) (void *CallBackRef, u32 StatusEvent);
 
 /**
- * This typedef contains configuration information for a flash message.
+ * @brief Holds the configuration information for a flash message.
  */
 typedef struct {
 	u8 *TxBfrPtr;	/**< Write buffer pointer */
@@ -124,7 +127,7 @@ typedef struct {
 } XOspiPsv_Msg;
 
 /**
- * This typedef holds the RX tuning related information.
+ * @brief Holds the RX tuning related information.
  *
  * The RX tuning algorithm compares the data read at every RX tap against a
  * reference pattern which is expected to be pre-programmed in the flash. The
@@ -148,7 +151,7 @@ typedef struct {
 } XOspiPsv_RxTuning;
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds the configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -170,7 +173,9 @@ typedef struct {
 } XOspiPsv_Config;
 
 /**
- * The XOspiPsv driver instance data. The user is required to allocate a
+ * @brief Holds the XOspiPsv driver instance data.
+ *
+ * The user is required to allocate a
  * variable of this type for every OSPIPSV device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
  */
@@ -201,7 +206,7 @@ typedef struct {
 	u8 UnalignReadBuffer[4];	/**< Buffer used to read the unaligned bytes in DMA */
 #pragma pack(pop)
 #else
-	/**< Buffer used to read the unaligned bytes in DMA */
+	/** Buffer used to read the unaligned bytes in DMA */
 	u8 UnalignReadBuffer[4] __attribute__ ((aligned(64))); /**< Read Buffer */
 #endif
 	XOspiPsv_RxTuning RxTuning;	/**< RX tuning configuration */
@@ -219,25 +224,53 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * User configuration options.
  */
 #define XOSPIPSV_DAC_EN_OPTION	0x1U
-#define XOSPIPSV_IDAC_EN_OPTION	0x2U
-#define XOSPIPSV_STIG_EN_OPTION	0x4U
-#define XOSPIPSV_CLK_POL_OPTION	0x8U
-#define XOSPIPSV_CLK_PHASE_OPTION	0x10U
-#define XOSPIPSV_PHY_EN_OPTION	0x20U
-#define XOSPIPSV_LEGIP_EN_OPTION	0x40U
-#define XOSPIPSV_DTR_EN_OPTION	0x80U
-#define XOSPIPSV_CRC_EN_OPTION	0x100U
-#define XOSPIPSV_DB_OP_EN_OPTION	0x200U
+#define XOSPIPSV_IDAC_EN_OPTION	0x2U	/**< INDAC (DMA) mode enable option. */
+#define XOSPIPSV_STIG_EN_OPTION	0x4U	/**< STIG mode enable option. */
+#define XOSPIPSV_CLK_POL_OPTION	0x8U	/**< Clock polarity option. */
+#define XOSPIPSV_CLK_PHASE_OPTION	0x10U	/**< Clock phase option. */
+#define XOSPIPSV_PHY_EN_OPTION	0x20U	/**< PHY mode enable option. */
+#define XOSPIPSV_LEGIP_EN_OPTION	0x40U	/**< Legacy IP mode option. */
+#define XOSPIPSV_DTR_EN_OPTION	0x80U	/**< DTR protocol enable option. */
+#define XOSPIPSV_CRC_EN_OPTION	0x100U	/**< CRC enable option. */
+#define XOSPIPSV_DB_OP_EN_OPTION	0x200U	/**< Dual-byte opcode option. */
 /** @} */
 
 /**
  * @name Low-level memory read/write
  * @{
  */
+/****************************************************************************/
 /**
- * Low level macros to read/write memory.
- */
+*
+* @brief Reads the given OSPIPSV register.
+*
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset of the register.
+*
+* @return	The 32-bit value of the register.
+*
+* @note
+* C-style signature
+*	u32 XOspiPsv_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
+*
+******************************************************************************/
 #define XOspiPsv_ReadReg(BaseAddress, RegOffset) Xil_In32((BaseAddress) + (u32)(RegOffset))
+
+/****************************************************************************/
+/**
+*
+* @brief Writes a value to the given OSPIPSV register.
+*
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset of the register.
+* @param[in]	RegisterValue 32-bit value to write to the register.
+*
+* @note
+* C-style signature
+*	void XOspiPsv_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
+*		u32 RegisterValue)
+*
+******************************************************************************/
 #define XOspiPsv_WriteReg(BaseAddress, RegOffset, RegisterValue) \
 	Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(RegisterValue))
 /** @} */
@@ -250,7 +283,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select INDAC and DAC modes.
  */
 #define XOSPIPSV_IDAC_MODE		0x0U
-#define XOSPIPSV_DAC_MODE		0x1U
+#define XOSPIPSV_DAC_MODE		0x1U	/**< Direct access mode. */
 /** @} */
 
 /**
@@ -261,7 +294,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select RX and TX transfer flags.
  */
 #define XOSPIPSV_MSG_FLAG_RX	0x2U
-#define XOSPIPSV_MSG_FLAG_TX	0x4U
+#define XOSPIPSV_MSG_FLAG_TX	0x4U	/**< TX transfer flag. */
 /** @} */
 
 /**
@@ -272,28 +305,28 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select Read and Write prototype.
  */
 #define XOSPIPSV_READ_1_1_1	0U
-#define XOSPIPSV_READ_1_0_1	1U
-#define XOSPIPSV_READ_1_1_2	2U
-#define XOSPIPSV_READ_1_1_8	3U
-#define XOSPIPSV_READ_1_8_8	4U
-#define XOSPIPSV_READ_8_8_8	5U
-#define XOSPIPSV_READ_8_0_0	6U
-#define XOSPIPSV_READ_8_8_0	7U
-#define XOSPIPSV_READ_8_0_8	8U
-#define XOSPIPSV_READ_1_1_4	9U
-#define XOSPIPSV_READ_4_4_4	10U
+#define XOSPIPSV_READ_1_0_1	1U	/**< 1-0-1 read protocol. */
+#define XOSPIPSV_READ_1_1_2	2U	/**< 1-1-2 read protocol. */
+#define XOSPIPSV_READ_1_1_8	3U	/**< 1-1-8 read protocol. */
+#define XOSPIPSV_READ_1_8_8	4U	/**< 1-8-8 read protocol. */
+#define XOSPIPSV_READ_8_8_8	5U	/**< 8-8-8 read protocol. */
+#define XOSPIPSV_READ_8_0_0	6U	/**< 8-0-0 read protocol. */
+#define XOSPIPSV_READ_8_8_0	7U	/**< 8-8-0 read protocol. */
+#define XOSPIPSV_READ_8_0_8	8U	/**< 8-0-8 read protocol. */
+#define XOSPIPSV_READ_1_1_4	9U	/**< 1-1-4 read protocol. */
+#define XOSPIPSV_READ_4_4_4	10U	/**< 4-4-4 read protocol. */
 
-#define XOSPIPSV_WRITE_1_1_1	0U
-#define XOSPIPSV_WRITE_1_0_1	1U
-#define XOSPIPSV_WRITE_1_1_2	2U
-#define XOSPIPSV_WRITE_1_1_8	3U
-#define XOSPIPSV_WRITE_1_8_8	4U
-#define XOSPIPSV_WRITE_8_8_8	5U
-#define XOSPIPSV_WRITE_8_0_0	6U
-#define XOSPIPSV_WRITE_8_8_0	7U
-#define XOSPIPSV_WRITE_8_0_8	8U
-#define XOSPIPSV_WRITE_1_1_4	9U
-#define XOSPIPSV_WRITE_4_4_4	10U
+#define XOSPIPSV_WRITE_1_1_1	0U	/**< 1-1-1 write protocol. */
+#define XOSPIPSV_WRITE_1_0_1	1U	/**< 1-0-1 write protocol. */
+#define XOSPIPSV_WRITE_1_1_2	2U	/**< 1-1-2 write protocol. */
+#define XOSPIPSV_WRITE_1_1_8	3U	/**< 1-1-8 write protocol. */
+#define XOSPIPSV_WRITE_1_8_8	4U	/**< 1-8-8 write protocol. */
+#define XOSPIPSV_WRITE_8_8_8	5U	/**< 8-8-8 write protocol. */
+#define XOSPIPSV_WRITE_8_0_0	6U	/**< 8-0-0 write protocol. */
+#define XOSPIPSV_WRITE_8_8_0	7U	/**< 8-8-0 write protocol. */
+#define XOSPIPSV_WRITE_8_0_8	8U	/**< 8-0-8 write protocol. */
+#define XOSPIPSV_WRITE_1_1_4	9U	/**< 1-1-4 write protocol. */
+#define XOSPIPSV_WRITE_4_4_4	10U	/**< 4-4-4 write protocol. */
 /** @} */
 
 /**
@@ -304,7 +337,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select CS0 and CS1.
  */
 #define XOSPIPSV_SELECT_FLASH_CS0	0U
-#define XOSPIPSV_SELECT_FLASH_CS1	1U
+#define XOSPIPSV_SELECT_FLASH_CS1	1U	/**< Select flash on CS1. */
 /** @} */
 
 /**
@@ -315,22 +348,22 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select different baud rate divisors.
  */
 #define XOSPIPSV_CLK_PRESCALE_2		0U
-#define XOSPIPSV_CLK_PRESCALE_4		1U
-#define XOSPIPSV_CLK_PRESCALE_6		2U
-#define XOSPIPSV_CLK_PRESCALE_8		3U
-#define XOSPIPSV_CLK_PRESCALE_10	4U
-#define XOSPIPSV_CLK_PRESCALE_12	5U
-#define XOSPIPSV_CLK_PRESCALE_14	6U
-#define XOSPIPSV_CLK_PRESCALE_16	7U
-#define XOSPIPSV_CLK_PRESCALE_18	8U
-#define XOSPIPSV_CLK_PRESCALE_20	9U
-#define XOSPIPSV_CLK_PRESCALE_22	10U
-#define XOSPIPSV_CLK_PRESCALE_24	11U
-#define XOSPIPSV_CLK_PRESCALE_26	12U
-#define XOSPIPSV_CLK_PRESCALE_28	13U
-#define XOSPIPSV_CLK_PRESCALE_30	14U
-#define XOSPIPSV_CLK_PRESCALE_32	15U
-#define XOSPIPSV_CR_PRESC_MAXIMUM	15U
+#define XOSPIPSV_CLK_PRESCALE_4		1U	/**< Baud rate divisor 4. */
+#define XOSPIPSV_CLK_PRESCALE_6		2U	/**< Baud rate divisor 6. */
+#define XOSPIPSV_CLK_PRESCALE_8		3U	/**< Baud rate divisor 8. */
+#define XOSPIPSV_CLK_PRESCALE_10	4U	/**< Baud rate divisor 10. */
+#define XOSPIPSV_CLK_PRESCALE_12	5U	/**< Baud rate divisor 12. */
+#define XOSPIPSV_CLK_PRESCALE_14	6U	/**< Baud rate divisor 14. */
+#define XOSPIPSV_CLK_PRESCALE_16	7U	/**< Baud rate divisor 16. */
+#define XOSPIPSV_CLK_PRESCALE_18	8U	/**< Baud rate divisor 18. */
+#define XOSPIPSV_CLK_PRESCALE_20	9U	/**< Baud rate divisor 20. */
+#define XOSPIPSV_CLK_PRESCALE_22	10U	/**< Baud rate divisor 22. */
+#define XOSPIPSV_CLK_PRESCALE_24	11U	/**< Baud rate divisor 24. */
+#define XOSPIPSV_CLK_PRESCALE_26	12U	/**< Baud rate divisor 26. */
+#define XOSPIPSV_CLK_PRESCALE_28	13U	/**< Baud rate divisor 28. */
+#define XOSPIPSV_CLK_PRESCALE_30	14U	/**< Baud rate divisor 30. */
+#define XOSPIPSV_CLK_PRESCALE_32	15U	/**< Baud rate divisor 32. */
+#define XOSPIPSV_CR_PRESC_MAXIMUM	15U	/**< Maximum prescaler value. */
 /** @} */
 
 /**
@@ -341,8 +374,11 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select default OSPI configuration.
  */
 #define XOSPIPSV_NO_SLAVE_SELCT_VALUE	0xFU
+/** DAC disable value used in the initial configuration. */
 #define XOSPIPSV_DISABLE_DAC_VALUE		0x0U
+/** SPI disable value used in the initial configuration. */
 #define XOSPIPSV_SPI_DISABLE_VALUE		0x0U
+/** Initial value of the configuration register. */
 #define XOSPIPSV_CONFIG_INIT_VALUE		(((u32)XOSPIPSV_CLK_PRESCALE_2 << \
 		(u32)XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_SHIFT) | \
 		((u32)XOSPIPSV_NO_SLAVE_SELCT_VALUE << \
@@ -350,11 +386,17 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
 		((u32)XOSPIPSV_DISABLE_DAC_VALUE << \
 		 (u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_SHIFT) | \
 		(u32)XOSPIPSV_SPI_DISABLE_VALUE)
+/** Write completion poll count field value in PHY mode. */
 #define XOSPIPSV_POLL_CNT_FLD_PHY	0x3U
+/** Write completion poll count field value in non-PHY mode. */
 #define XOSPIPSV_POLL_CNT_FLD_NON_PHY	0x1U
+/** Minimum PHY mode frequency in Hz. */
 #define XOSPIPSV_MIN_PHY_FREQ	50000000
+/** Additional status polling dummy cycles in DDR mode. */
 #define XOSPIPSV_DDR_STATS_REG_DUMMY	0x8U
+/** Remap address register value used in DAC mode. */
 #define XOSPIPSV_REMAP_ADDR_VAL		0x40000000U
+/** Read data capture delay in SDR non-PHY mode. */
 #define XOSPIPSV_NON_PHY_RD_DLY		0x1U
 /** @} */
 
@@ -367,7 +409,9 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * SDR+NON-PHY, SDR+PHY and DDR+PHY.
  */
 #define XOSPIPSV_EDGE_MODE_SDR_PHY			0x0U
+/** SDR non-PHY edge mode. */
 #define XOSPIPSV_EDGE_MODE_SDR_NON_PHY		0x1U
+/** DDR PHY edge mode. */
 #define XOSPIPSV_EDGE_MODE_DDR_PHY			0x2U
 /** @} */
 
@@ -379,17 +423,22 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select TX DLL delays.
  */
 #define XOSPIPSV_SDR_TX_VAL			0x5U
-#define XOSPIPSV_DDR_TX_VAL			0x0U
+#define XOSPIPSV_DDR_TX_VAL			0x0U	/**< DDR TX delay. */
 #if defined (VERSAL_NET)
+/** TX DLL delay in DDR mode with DLL master mode. */
 #define XOSPIPSV_DDR_TX_VAL_MASTER		0x26U
 #else
+/** TX DLL delay in DDR mode with DLL master mode. */
 #define XOSPIPSV_DDR_TX_VAL_MASTER		0x1EU
 #endif
 #if defined (SPARTANUP)
+/** TX DLL delay in SDR mode with DLL master mode. */
 #define XOSPIPSV_SDR_TX_VAL_MASTER		0x40U
 #else
+/** TX DLL delay in SDR mode with DLL master mode. */
 #define XOSPIPSV_SDR_TX_VAL_MASTER		0x3CU
 #endif
+/** Maximum number of DLL taps. */
 #define XOSPIPSV_DLL_MAX_TAPS			0x7FU
 /** @} */
 
@@ -401,7 +450,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select HWPIN and INBAND resets.
  */
 #define XOSPIPSV_HWPIN_RESET	0x0U
-#define XOSPIPSV_INBAND_RESET	0x1U
+#define XOSPIPSV_INBAND_RESET	0x1U	/**< Inband reset. */
 /** @} */
 
 /**
@@ -412,7 +461,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select DLL BYPASS and MASTER modes.
  */
 #define XOSPIPSV_DLL_BYPASS_MODE	0x0U
-#define XOSPIPSV_DLL_MASTER_MODE	0x1U
+#define XOSPIPSV_DLL_MASTER_MODE	0x1U	/**< DLL master mode. */
 /** @} */
 
 /**
@@ -423,7 +472,7 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to select SINGLE and STACKED connection modes.
  */
 #define XOSPIPSV_CONNECTION_MODE_SINGLE		0x0U
-#define XOSPIPSV_CONNECTION_MODE_STACKED	0x1U
+#define XOSPIPSV_CONNECTION_MODE_STACKED	0x1U	/**< Stacked mode. */
 /** @} */
 
 /**
@@ -434,18 +483,19 @@ extern XOspiPsv_Config XOspiPsv_ConfigTable[];
  * Macros to enable/disable Dual Byte opcode.
  */
 #define XOSPIPSV_DUAL_BYTE_OP_DISABLE	0x0U
+/** Dual byte opcode enabled with inverted opcode. */
 #define XOSPIPSV_DUAL_BYTE_OP_ENABLE	0x1U
+/** Dual byte opcode enabled with same opcode. */
 #define XOSPIPSV_DUAL_BYTE_OP_SAME	0x2U
 /** @} */
 
-/**< Macro used for more than 32-bit address */
+/** Macro used for more than 32-bit address */
 #define XOSPIPSV_RXADDR_OVER_32BIT	0x100000000U
 
 /**
  * Minimum frequency for Tap grain selection.
  */
 #define XOSPIPSV_TAP_GRAN_SEL_MIN_FREQ	120000000U
-
 
 /* Initialization and reset */
 #ifndef SDT

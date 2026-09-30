@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,7 @@
 /**
 *
 * @file xospipsv_g.c
-* @addtogroup ospipsv_api OSPIPSV APIs
-* @{
-*
-* The xospipsv_g.c contains a configuration table that specifies the configuration of
-* OSPI devices in the system.
+* @brief Contains the configuration table of the OSPI devices in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,10 +17,16 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   sk  01/09/19 First release
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
+* 1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ospipsv_api OSPIPSV APIs
+* @{
+*/
 /***************************** Include Files *********************************/
 #include "xparameters.h"
 #include "xospipsv.h"

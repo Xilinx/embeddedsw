@@ -8,11 +8,7 @@
 /**
 *
 * @file xospipsv_sinit.c
-* @addtogroup ospipsv_api OSPIPSV APIs
-* @{
-*
-* The xospipsv_sinit.c file contains implementation of the XOspiPsv component's static initialization
-* functionality.
+* @brief Implements the static initialization of the XOspiPsv component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,9 +19,15 @@
 * 1.6   sk  02/07/22 Replaced driver version in addtogroup with Overview.
 * 1.9   sb  06/06/23 Added support for system device-tree flow.
 * 1.14  vlt 12/15/25 Update Doxygen comments to include SDT flow details.
+* 1.15  tb  09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup ospipsv_api OSPIPSV APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -48,22 +50,24 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device
+* ID/BaseAddress.
+*
 * The XOspiPsv_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xospipsv.h for the
 *               definition of XOspiPsv_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note        In XSCT/classic flow, the device configuration is looked up
+*              by DeviceId.
 *
 ******************************************************************************/
 #ifndef SDT
