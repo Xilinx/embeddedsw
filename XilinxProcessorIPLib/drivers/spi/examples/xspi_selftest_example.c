@@ -8,11 +8,7 @@
 /**
 * @file xspi_selftest_example.c
 *
-* This file contains a example for using the SPI Hardware and driver.
-*
-* @note
-*
-* None
+* @brief Implements an example for using the SPI Hardware and driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -32,6 +28,7 @@
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 *******************************************************************************/
@@ -55,7 +52,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID       XPAR_SPI_0_DEVICE_ID
+#define SPI_DEVICE_ID       XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
 #endif
 
 /**************************** Type Definitions ********************************/
@@ -74,21 +71,20 @@ int SpiSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions ******************************/
 
-XSpi Spi; /* The instance of the SPI device */
+XSpi Spi; /**< The instance of the SPI device. */
 
 
+#ifndef TESTAPP_GEN
 /******************************************************************************/
 /**
-* Main function to call the example. This function is not included if the
-* example is generated from the TestAppGen test tool.
+* @brief Runs the SPI selftest example.
 *
+* The function is not included if the example is generated from the
+* TestAppGen test tool.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
 *
-* @note		None
-*
 *******************************************************************************/
-#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -116,22 +112,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a selftest and loopback test on the SPI device and
-* XSpi driver as an example. The purpose of this function is to illustrate
-* how to use the XSpi component.
+* @brief Runs a selftest and loopback test on the SPI device and XSpi driver as
+* an example.
 *
+* The purpose of the function is to illustrate how to use the XSpi component.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<SPI_instance>_DEVICE_ID value from
+* @param[in]	DeviceId XPAR_<SPI_instance>_DEVICE_ID value from
 *		xparameters.h
 * @endif
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, XST_FAILURE if unsuccessful
 *
-* @note	        In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note	        In XSCT/classic flow, the device configuration is looked up
+*               by DeviceId.
 *
 ****************************************************************************/
 #ifndef SDT

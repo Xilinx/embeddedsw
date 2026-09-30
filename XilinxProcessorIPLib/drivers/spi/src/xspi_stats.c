@@ -8,11 +8,8 @@
 /**
 *
 * @file xspi_stats.c
-* @addtogroup spi Overview
-* @{
 *
-* This component contains the implementation of statistics functions for the
-* XSpi driver component.
+* @brief Implements the statistics functions for the XSpi driver component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,9 +24,15 @@
 * 3.00a ktn  10/28/09 Updated all the register accesses as 32 bit access.
 *		      Updated driver to use the HAL APIs/macros.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spi_api SPI APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -54,10 +57,10 @@
 /*****************************************************************************/
 /**
 *
-* Gets a copy of the statistics for an SPI device.
+* @brief Gets a copy of the statistics for an SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	StatsPtr is a pointer to a XSpi_Stats structure which will get a
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[out] StatsPtr Pointer to a XSpi_Stats structure which gets a
 *		copy of current statistics.
 *
 * @note		Statistics are not updated in polled mode of operation.
@@ -80,9 +83,9 @@ void XSpi_GetStats(XSpi *InstancePtr, XSpi_Stats *StatsPtr)
 /*****************************************************************************/
 /**
 *
-* Clears the statistics for the SPI device.
+* @brief Clears the statistics for the SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @note		Statistics are not updated in polled mode of operation.
 *

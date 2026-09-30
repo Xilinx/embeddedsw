@@ -1,18 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XSPI_I_H
+#define XSPI_I_H
 
 /*****************************************************************************/
 /**
 *
 * @file xspi_i.h
-* @addtogroup spi Overview
-* @{
 *
-* This header file contains internal identifiers. It is intended for internal
-* use only.
+* @brief Contains internal identifiers of the SPI driver.
+*
+* This header is intended for internal use only.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,12 +29,15 @@
 *                     register definitions and bit definitions to _l.h.
 * 2.00a sv   07/30/08 Removed the Macro for statistics, moved the interrupt
 *                     register definitions and bit definitions to _l.h.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSPI_I_H		/* prevent circular inclusions */
-#define XSPI_I_H		/* by using protection macros */
+/**
+* @addtogroup spi_api SPI APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {

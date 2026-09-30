@@ -8,15 +8,10 @@
 /**
 * @file xspi_intr_example.c
 *
-*
-* This file contains a design example using the Spi driver (XSpi) and the Spi
+* @brief Implements a design example using the Spi driver (XSpi) and the Spi
 * device using the interrupt mode.
 *
-* This example works with a PPC/MicroBlaze processor.
-*
-* @note
-*
-* None.
+* The example works with a PPC/MicroBlaze processor.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -41,6 +36,7 @@
 * 4.11	sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre>
 ******************************************************************************/
 
@@ -74,21 +70,22 @@
  */
 #ifndef SDT
 #ifndef TESTAPP_GEN
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** SPI interrupt ID. */
 #define SPI_IRPT_INTR		XPAR_INTC_0_SPI_0_VEC_ID
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC           XIntc
-#define INTC_HANDLER   XIntc_InterruptHandler
+#define INTC           XIntc	/**< Interrupt controller type. */
+#define INTC_HANDLER   XIntc_InterruptHandler	/**< INTC handler. */
 #else
-#define INTC           XScuGic
-#define INTC_HANDLER   XScuGic_InterruptHandler
+#define INTC           XScuGic	/**< Interrupt controller type. */
+#define INTC_HANDLER   XScuGic_InterruptHandler	/**< INTC handler. */
 #endif
 #endif
 
-/*
+/**
  *  This is the size of the buffer to be transmitted/received in this example.
  */
 #define BUFFER_SIZE			 12
@@ -96,9 +93,8 @@
 
 /**************************** Type Definitions *******************************/
 
-/*
- * The following data type is used to send and receive data on the SPI
- * interface.
+/**
+ * @brief Holds the data sent and received on the SPI interface.
  */
 typedef u8 DataBuffer[BUFFER_SIZE];
 
@@ -133,20 +129,20 @@ static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId);
  */
 #ifndef TESTAPP_GEN
 #ifndef SDT
-static INTC Intc;	 /* The instance of the Interrupt Controller */
+static INTC Intc;	 /**< Instance of the Interrupt Controller. */
 #endif
-static XSpi  SpiInstance;	 /* The instance of the SPI device */
+static XSpi  SpiInstance;	 /**< Instance of the SPI device. */
 #endif
 
-/*
+/**
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
 volatile int TransferInProgress;
 
-/*
+/**
  * The following variable tracks any errors that occur during interrupt
- * processing
+ * processing.
  */
 int Error;
 
@@ -154,22 +150,19 @@ int Error;
  * The following variables are used to read and write to the  Spi device, they
  * are global to avoid having large buffers on the stack.
  */
-u8 ReadBuffer[BUFFER_SIZE];
-u8 WriteBuffer[BUFFER_SIZE];
+u8 ReadBuffer[BUFFER_SIZE];	/**< Buffer to read from the Spi device. */
+u8 WriteBuffer[BUFFER_SIZE];	/**< Buffer to write to the Spi device. */
 
 
+#ifndef TESTAPP_GEN
 /*****************************************************************************/
 /**
 *
-* Main function to call the Spi interrupt example.
-*
+* @brief Runs the Spi interrupt example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None
-*
 ******************************************************************************/
-#ifndef TESTAPP_GEN
 int main(void)
 {
 	int Status;
@@ -198,31 +191,32 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the Spi device and driver as a
-* design example. The purpose of this function is to illustrate how to use
+* @brief Runs a minimal test on the Spi device and driver as a design example.
+*
+* The purpose of the function is to illustrate how to use
 * the XSpi component using the interrupt mode.
 *
-* This function sends data and expects to receive the same data.
+* The function sends data and expects to receive the same data.
 *
-* @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @param[in]	SpiInstancePtr Pointer to the instance of Spi component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the INTC
+* @param[in]	IntcInstancePtr Pointer to the instance of the INTC
 * 		component.
-* @param	SpiDeviceId is the Device ID of the Spi Device and is the
+* @param[in]	SpiDeviceId Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
-* @param	SpiIntrId is the interrupt Id and is typically
+* @param[in]	SpiIntrId Interrupt Id and is typically
 *		XPAR_<INTC_instance>_<SPI_instance>_VEC_ID value from
 *		xparameters.h .
 * @endif
 *
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, otherwise XST_FAILURE.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note        - In XSCT/classic flow, DeviceId is used to look up the
-*              device configuration.
-*              - This function contains an infinite loop such that if
+* @note        - In XSCT/classic flow, the device configuration is looked
+*              up by DeviceId.
+*              - The function contains an infinite loop such that if
 *              interrupts are not working it may never return.
 *
 ******************************************************************************/
@@ -362,7 +356,8 @@ int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver.
+* @brief Handles the status events of the SPI driver.
+*
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized. It is called when a transfer of SPI data
 * completes or an error occurs.
@@ -370,13 +365,11 @@ int SpiIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 * This handler provides an example of how to handle SPI interrupts and
 * is application specific.
 *
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in]	CallBackRef Upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
+* @param[in]	StatusEvent Event that just occurred.
+* @param[in]	ByteCount Number of bytes transferred up until the event
 *		occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 void SpiIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
@@ -398,27 +391,28 @@ void SpiIntrHandler(void *CallBackRef, u32 StatusEvent, u32 ByteCount)
 }
 
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the Spi device. This function is application specific since the actual
-* system may or may not have an interrupt controller. The Spi device could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system such that interrupts can occur for the
+* Spi device.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc device.
-* @param	SpiInstancePtr is a pointer to the instance of the Spi device.
-* @param	SpiIntrId is the interrupt Id and is typically
+* The function is application specific since the actual system may or may not
+* have an interrupt controller. The Spi device could be directly connected to
+* a processor without an interrupt controller. The user should modify this
+* function to fit the application.
+*
+* @param[in]	IntcInstancePtr Pointer to the instance of the Intc device.
+* @param[in]	SpiInstancePtr Pointer to the instance of the Spi device.
+* @param[in]	SpiIntrId Interrupt Id and is typically
 *		XPAR_<INTC_instance>_<SPI_instance>_VEC_ID value from
 *		xparameters.h
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE or the
+*		XScuGic_Connect() error status.
 *
 ******************************************************************************/
-#ifndef SDT
 static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 			      u16 SpiIntrId)
 {
@@ -524,17 +518,13 @@ static int SpiSetupIntrSystem(INTC *IntcInstancePtr, XSpi *SpiInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the Spi device.
+* @brief Disables the interrupts that occur for the Spi device.
 *
-* @param	IntcInstancePtr is the pointer to the instance of the INTC
+* @param[in]	IntcInstancePtr Pointer to the instance of the INTC
 *		component.
-* @param	SpiIntrId is the interrupt Id and is typically
+* @param[in]	SpiIntrId Interrupt Id and is typically
 *		XPAR_<INTC_instance>_<SPI_instance>_VEC_ID value from
 *		xparameters.h
-*
-* @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 static void SpiDisableIntrSystem(INTC *IntcInstancePtr, u16 SpiIntrId)

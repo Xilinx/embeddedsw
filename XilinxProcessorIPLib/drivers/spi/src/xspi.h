@@ -4,17 +4,19 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSPI_H
+#define XSPI_H
+
 /*****************************************************************************/
 /**
 *
 * @file xspi.h
 * @addtogroup spi Overview
 * @{
-* @details
 *
-* This component contains the implementation of the XSpi component. It is the
-* driver for an SPI master or slave device. It supports 8-bit, 16-bit and 32-bit
-* wide data transfers.
+* @brief Implements the XSpi driver for an SPI master or slave device.
+*
+* The driver supports 8-bit, 16-bit and 32-bit wide data transfers.
 *
 * SPI is a 4-wire serial interface. It is a full-duplex, synchronous bus that
 * facilitates communication between one master and one slave. The device is
@@ -62,7 +64,7 @@
 *
 * The SPI hardware is parameterized such that it can be built with or without
 * FIFOs. When using FIFOs, both send and receive must have FIFOs. The driver
-* will not function correctly if one direction has a FIFO but the other
+* does not function correctly if one direction has a FIFO but the other
 * direction does not. The frequency of the interrupts which occur is
 * proportional to the data rate such that high data rates without the FIFOs
 * could cause the software to consume large amounts of processing time. The
@@ -71,8 +73,8 @@
 * <b>Interrupts</b>
 *
 * The user must connect the interrupt handler of the driver,
-* XSpi_InterruptHandler to an interrupt system such that it will be called when
-* an interrupt occurs. This function does not save and restore the processor
+* XSpi_InterruptHandler to an interrupt system such that it is called when
+* an interrupt occurs. The handler does not save and restore the processor
 * context such that the user must provide this processing.
 *
 * The driver handles the following interrupts:
@@ -142,7 +144,7 @@
 *
 * <b>Polled Operation</b>
 *
-* This driver operates in polled mode operation too. To put the driver in polled
+* The driver operates in polled mode operation too. To put the driver in polled
 * mode the Global Interrupt must be disabled after the Spi is Initialized and
 * Spi driver is started.
 *
@@ -168,7 +170,7 @@
 *
 * <b>RTOS Independence</b>
 *
-* This driver is intended to be RTOS and processor independent. It works
+* The driver is intended to be RTOS and processor independent. It works
 * with physical addresses only.  Any needs for dynamic memory management,
 * threads or thread mutual exclusion, virtual memory, or cache control must
 * be satisfied by the layer above this driver.
@@ -292,12 +294,10 @@
 * 4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XSPI_H			/* prevent circular inclusions */
-#define XSPI_H			/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -346,31 +346,33 @@ extern "C" {
  * </pre>
  */
 #define XSP_MASTER_OPTION		0x1
-#define XSP_CLK_ACTIVE_LOW_OPTION	0x2
-#define XSP_CLK_PHASE_1_OPTION		0x4
-#define XSP_LOOPBACK_OPTION		0x8
-#define XSP_MANUAL_SSELECT_OPTION	0x10
+#define XSP_CLK_ACTIVE_LOW_OPTION	0x2	/**< Active low clock option. */
+#define XSP_CLK_PHASE_1_OPTION		0x4	/**< Clock phase 1 option. */
+#define XSP_LOOPBACK_OPTION		0x8	/**< Loopback mode option. */
+#define XSP_MANUAL_SSELECT_OPTION	0x10	/**< Manual slave select. */
 /** @} */
 
 /**************************** Type Definitions *******************************/
 
 /******************************************************************************/
 /**
+* @brief Describes the status callback function type of the SPI driver.
+*
 * The handler data type allows the user to define a callback function to
 * handle the asynchronous processing of the SPI driver.  The application using
 * this driver is expected to define a handler of this type to support interrupt
 * driven mode.  The handler executes in an interrupt context such that minimal
 * processing should be performed.
 *
-* @param CallBackRef	A callback reference passed in by the upper layer when
+* @param[in] CallBackRef A callback reference passed in by the upper layer when
 *			setting the callback functions, and passed back to the
 *			upper layer when the callback is invoked. Its type is
 *			unimportant to the driver component, so it is a void
 *			pointer.
-* @param StatusEvent	Indicates one or more status events that occurred. See
+* @param[in] StatusEvent Indicates one or more status events that occurred. See
 *			the XSpi_SetStatusHandler() for details on the status
 *			events that can be passed in the callback.
-* @param ByteCount	Indicates how many bytes of data were successfully
+* @param[in] ByteCount	Indicates how many bytes of data were successfully
 *			transferred.  This may be less than the number of bytes
 *			requested if the status event indicates an error.
 *
@@ -379,7 +381,7 @@ typedef void (*XSpi_StatusHandler) (void *CallBackRef, u32 StatusEvent,
 				    unsigned int ByteCount);
 
 /**
- * XSpi statistics
+ * @brief Holds the XSpi driver statistics.
  */
 typedef struct {
 	u32 ModeFaults;		/**< Number of mode fault errors */
@@ -391,7 +393,7 @@ typedef struct {
 } XSpi_Stats;
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds the configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -420,9 +422,11 @@ typedef struct {
 } XSpi_Config;
 
 /**
- * The XSpi driver instance data. The user is required to allocate a
- * variable of this type for every SPI device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds the XSpi driver instance data.
+ *
+ * The user is required to allocate a variable of this type for every SPI
+ * device in the system. A pointer to a variable of this type is then passed
+ * to the driver API functions.
  */
 typedef struct {
 	XSpi_Stats Stats;	/**< Statistics */
@@ -455,18 +459,17 @@ typedef struct {
 /******************************************************************************/
 /**
 *
-* This macro writes to the global interrupt enable register to enable
-* interrupts from the device.
+* @brief Enables interrupts from the device at the global level.
 *
-* Interrupts enabled using XSpi_IntrEnable() will not occur until the global
-* interrupt enable bit is set by using this function.
+* The macro writes to the global interrupt enable register. Interrupts
+* enabled using XSpi_IntrEnable() do not occur until the global interrupt
+* enable bit is set by using this macro.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XSpi_IntrGlobalEnable(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	void XSpi_IntrGlobalEnable(XSpi *InstancePtr)
 *
 ******************************************************************************/
 #define XSpi_IntrGlobalEnable(InstancePtr)				\
@@ -476,15 +479,14 @@ typedef struct {
 /******************************************************************************/
 /**
 *
-* This macro disables all interrupts for the device by writing to the Global
+* @brief Disables all interrupts for the device by writing to the Global
 * interrupt enable register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XSpi_IntrGlobalDisable(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	void XSpi_IntrGlobalDisable(XSpi *InstancePtr)
 *
 ******************************************************************************/
 #define XSpi_IntrGlobalDisable(InstancePtr) 				\
@@ -493,17 +495,18 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This function determines if interrupts are enabled at the global level by
+* @brief Determines if interrupts are enabled at the global level by
 * reading the global interrupt register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return
 *		- TRUE if global interrupts are enabled.
 *		- FALSE if global interrupts are disabled.
 *
-* @note		C-Style signature:
-*		int XSpi_IsIntrGlobalEnabled(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	int XSpi_IsIntrGlobalEnabled(XSpi *InstancePtr)
 *
 ******************************************************************************/
 #define XSpi_IsIntrGlobalEnabled(InstancePtr)				\
@@ -513,18 +516,20 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This function gets the contents of the Interrupt Status Register.
+* @brief Gets the contents of the Interrupt Status Register.
+*
 * This register indicates the status of interrupt sources for the device.
 * The status is independent of whether interrupts are enabled such
 * that the status register may also be polled when interrupts are not enabled.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	A status which contains the value read from the Interrupt
 *		Status Register.
 *
-* @note		C-Style signature:
-*		u32 XSpi_IntrGetStatus(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	u32 XSpi_IntrGetStatus(XSpi *InstancePtr)
 *
 ******************************************************************************/
 #define XSpi_IntrGetStatus(InstancePtr) \
@@ -533,48 +538,46 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This function clears the specified interrupts in the Interrupt status
-* Register. The interrupt is cleared by writing to this register with the bits
+* @brief Clears the specified interrupts in the Interrupt Status Register.
+*
+* The interrupt is cleared by writing to this register with the bits
 * to be cleared set to a one and all others bits to zero. Setting a bit which
 * is zero within this register causes an interrupt to be generated.
 *
-* This function writes only the specified value to the register such that
+* The macro writes only the specified value to the register such that
 * some status bits may be set and others cleared.  It is the caller's
 * responsibility to get the value of the register prior to setting the value
 * to prevent an destructive behavior.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	ClearMask is the Bitmask for interrupts to be cleared.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	ClearMask Bitmask for interrupts to be cleared.
 *		Bit positions of "1" clears the interrupt. Bit positions of 0
-*		will keep the previous setting. This mask is formed by OR'ing
+*		keep the previous setting. This mask is formed by OR'ing
 *		XSP_INTR_* bits defined in xspi_l.h.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XSpi_IntrClear(XSpi *InstancePtr, u32 ClearMask);
+* @note
+* C-style signature
+*	void XSpi_IntrClear(XSpi *InstancePtr, u32 ClearMask)
 *
 ******************************************************************************/
 #define XSpi_IntrClear(InstancePtr, ClearMask) 			\
 	XSpi_WriteReg(((InstancePtr)->BaseAddr),  XSP_IISR_OFFSET,	\
 		      XSpi_IntrGetStatus(InstancePtr) | (ClearMask))
 
-
 /******************************************************************************/
 /**
 *
-* This function sets the contents of the Interrupt Enable Register.
+* @brief Sets the contents of the Interrupt Enable Register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	EnableMask is the bitmask of the interrupts to be enabled.
-*		Bit positions of 1 will be enabled. Bit positions of 0 will
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	EnableMask Bitmask of the interrupts to be enabled.
+*		Bit positions of 1 are enabled. Bit positions of 0
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSP_INTR_* bits defined in xspi_l.h.
 *
-* @return 	None.
-*
-* @note		C-Style signature:
-*		void XSpi_IntrEnable(XSpi *InstancePtr, u32 EnableMask);
+* @note
+* C-style signature
+*	void XSpi_IntrEnable(XSpi *InstancePtr, u32 EnableMask)
 *
 ******************************************************************************/
 #define XSpi_IntrEnable(InstancePtr, EnableMask)			\
@@ -585,18 +588,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Disable the specified Interrupts in the Interrupt Enable Register.
+* @brief Disables the specified interrupts in the Interrupt Enable Register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	DisableMask is the bitmask of the interrupts to be disabled.
-*		Bit positions of 1 will be disabled. Bit positions of 0 will
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	DisableMask Bitmask of the interrupts to be disabled.
+*		Bit positions of 1 are disabled. Bit positions of 0
 *		keep the previous setting. This mask is formed by OR'ing
 *		XSP_INTR_* bits defined in xspi_l.h.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		void XSpi_IntrDisable(XSpi *InstancePtr, u32 DisableMask);
+* @note
+* C-style signature
+*	void XSpi_IntrDisable(XSpi *InstancePtr, u32 DisableMask)
 *
 ******************************************************************************/
 #define XSpi_IntrDisable(InstancePtr, DisableMask) 			\
@@ -604,18 +606,18 @@ typedef struct {
 		      XSpi_ReadReg(((InstancePtr)->BaseAddr), 		\
 				   XSP_IIER_OFFSET) & (~ ((DisableMask) & XSP_INTR_ALL )))
 
-
 /*****************************************************************************/
 /**
 *
-* This function gets the contents of the Interrupt Enable Register.
+* @brief Gets the contents of the Interrupt Enable Register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	The contents read from the Interrupt Enable Register.
 *
-* @note		C-Style signature:
-*		u32 XSpi_IntrGetEnabled(XSpi *InstancePtr)
+* @note
+* C-style signature
+*	u32 XSpi_IntrGetEnabled(XSpi *InstancePtr)
 *
 ******************************************************************************/
 #define XSpi_IntrGetEnabled(InstancePtr) \
@@ -624,16 +626,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the control register. Use the XSP_CR_* constants defined
-* above to create the bit-mask to be written to the register.
+* @brief Sets the contents of the control register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	Mask is the 32-bit value to write to the control register.
+* Use the XSP_CR_* constants defined in xspi_l.h to create the bit-mask to be
+* written to the register.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	Mask The 32-bit value to write to the control register.
 *
-* @note		C-Style signature:
-* 		void XSpi_SetControlReg(XSpi *InstancePtr, u32 Mask);
+* @note
+* C-style signature
+*	void XSpi_SetControlReg(XSpi *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 #define XSpi_SetControlReg(InstancePtr, Mask) \
@@ -642,16 +645,19 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the control register. Use the XSP_CR_* constants defined
-* above to interpret the bit-mask returned.
+* @brief Gets the contents of the control register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* Use the XSP_CR_* constants defined in xspi_l.h to interpret the bit-mask
+* returned.
+*
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	A 32-bit value representing the contents of the control
 *		register.
 *
-* @note		C-Style signature:
-* 		u32 XSpi_GetControlReg(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	u32 XSpi_GetControlReg(XSpi *InstancePtr)
 *
 *****************************************************************************/
 #define XSpi_GetControlReg(InstancePtr) \
@@ -660,16 +666,19 @@ typedef struct {
 /***************************************************************************/
 /**
 *
-* Get the contents of the status register. Use the XSP_SR_* constants defined
-* above to interpret the bit-mask returned.
+* @brief Gets the contents of the status register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* Use the XSP_SR_* constants defined in xspi_l.h to interpret the bit-mask
+* returned.
+*
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	An 32-bit value representing the contents of the status
 *		register.
 *
-* @note		C-Style signature:
-* 		u8 XSpi_GetStatusReg(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	u8 XSpi_GetStatusReg(XSpi *InstancePtr)
 *
 *****************************************************************************/
 #define XSpi_GetStatusReg(InstancePtr) \
@@ -678,16 +687,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the XIP control register. Use the XSP_CR_XIP_* constants
-* defined above to create the bit-mask to be written to the register.
+* @brief Sets the contents of the XIP control register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	Mask is the 32-bit value to write to the control register.
+* Use the XSP_CR_XIP_* constants defined in xspi_l.h to create the bit-mask to
+* be written to the register.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	Mask The 32-bit value to write to the control register.
 *
-* @note		C-Style signature:
-* 		void XSpi_SetXipControlReg(XSpi *InstancePtr, u32 Mask);
+* @note
+* C-style signature
+*	void XSpi_SetXipControlReg(XSpi *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 #define XSpi_SetXipControlReg(InstancePtr, Mask) \
@@ -696,16 +706,19 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the XIP control register. Use the XSP_CR_XIP_* constants
-* defined above to interpret the bit-mask returned.
+* @brief Gets the contents of the XIP control register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* Use the XSP_CR_XIP_* constants defined in xspi_l.h to interpret the bit-mask
+* returned.
+*
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	A 32-bit value representing the contents of the control
 *		register.
 *
-* @note		C-Style signature:
-* 		u32 XSpi_GetXipControlReg(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	u32 XSpi_GetXipControlReg(XSpi *InstancePtr)
 *
 *****************************************************************************/
 #define XSpi_GetXipControlReg(InstancePtr) \
@@ -714,16 +727,19 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the status register. Use the XSP_SR_XIP_* constants
-* defined above to interpret the bit-mask returned.
+* @brief Gets the contents of the XIP status register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* Use the XSP_SR_XIP_* constants defined in xspi_l.h to interpret the bit-mask
+* returned.
+*
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	An 32-bit value representing the contents of the status
 *		register.
 *
-* @note		C-Style signature:
-* 		u8 XSpi_GetXipStatusReg(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	u8 XSpi_GetXipStatusReg(XSpi *InstancePtr)
 *
 *****************************************************************************/
 #define XSpi_GetXipStatusReg(InstancePtr) \
@@ -732,17 +748,17 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Set the contents of the slave select register. Each bit in the mask
-* corresponds to a slave select line. Only one slave should be selected at
-* any one time.
+* @brief Sets the contents of the slave select register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	Mask is the 32-bit value to write to the slave select register.
+* Each bit in the mask corresponds to a slave select line. Only one slave
+* should be selected at any one time.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	Mask The 32-bit value to write to the slave select register.
 *
-* @note		C-Style signature:
-* 		void XSpi_SetSlaveSelectReg(XSpi *InstancePtr, u32 Mask);
+* @note
+* C-style signature
+*	void XSpi_SetSlaveSelectReg(XSpi *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 #define XSpi_SetSlaveSelectReg(InstancePtr, Mask) \
@@ -751,16 +767,18 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Get the contents of the slave select register. Each bit in the mask
-* corresponds to a slave select line. Only one slave should be selected at
-* any one time.
+* @brief Gets the contents of the slave select register.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* Each bit in the mask corresponds to a slave select line. Only one slave
+* should be selected at any one time.
+*
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	The 32-bit value in the slave select register.
 *
-* @note		C-Style signature:
-* 		u32 XSpi_GetSlaveSelectReg(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	u32 XSpi_GetSlaveSelectReg(XSpi *InstancePtr)
 *
 *****************************************************************************/
 #define XSpi_GetSlaveSelectReg(InstancePtr) 			\
@@ -769,15 +787,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Enable the device and uninhibit master transactions. Preserves the current
-* contents of the control register.
+* @brief Enables the device and uninhibits master transactions.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* Preserves the current contents of the control register.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
-* @note		C-Style signature:
-* 		void XSpi_Enable(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	void XSpi_Enable(XSpi *InstancePtr)
 *
 *****************************************************************************/
 #define XSpi_Enable(InstancePtr) \
@@ -792,14 +810,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* Disable the device. Preserves the current contents of the control register.
+* @brief Disables the device.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* Preserves the current contents of the control register.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
-* @note		C-Style signature:
-* 		void XSpi_Disable(XSpi *InstancePtr);
+* @note
+* C-style signature
+*	void XSpi_Disable(XSpi *InstancePtr)
 *
 *****************************************************************************/
 #define XSpi_Disable(InstancePtr) \
@@ -839,7 +858,6 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr,
 void XSpi_SetStatusHandler(XSpi *InstancePtr, void *CallBackRef,
 			   XSpi_StatusHandler FuncPtr);
 void XSpi_InterruptHandler(void *InstancePtr);
-
 
 /*
  * Functions for selftest, in xspi_selftest.c

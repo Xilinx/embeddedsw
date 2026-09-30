@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,9 @@
 /**
 *
 * @file xspi_options.c
-* @addtogroup spi Overview
-* @{
 *
-* Contains functions for the configuration of the XSpi driver component.
+* @brief Implements the functions for the configuration of the XSpi driver
+* component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,10 +22,16 @@
 * 1.11a wgr  03/22/07 Converted to new coding style.
 * 3.00a ktn  10/28/09 Updated all the register accesses as 32 bit access.
 *		      Updated driver to use the HAL APIs/macros.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spi_api SPI APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -47,16 +52,19 @@
 
 /************************** Variable Definitions *****************************/
 
-/*
+/**
+ * @brief Describes the mapping of a driver option to a control register mask.
+ *
  * Create the table of options which are processed to get/set the device
  * options. These options are table driven to allow easy maintenance and
  * expansion of the options.
  */
 typedef struct {
-	u32 Option;
-	u32 Mask;
+	u32 Option;	/**< Driver option bit (XSP_*_OPTION). */
+	u32 Mask;	/**< Control register mask for the option. */
 } OptionsMap;
 
+/** Table of options processed to get/set the device options. */
 static OptionsMap OptionsTable[] = {
 	{XSP_LOOPBACK_OPTION, XSP_CR_LOOPBACK_MASK},
 	{XSP_CLK_ACTIVE_LOW_OPTION, XSP_CR_CLK_POLARITY_MASK},
@@ -65,17 +73,20 @@ static OptionsMap OptionsTable[] = {
 	{XSP_MANUAL_SSELECT_OPTION, XSP_CR_MANUAL_SS_MASK}
 };
 
+/** Number of entries in the options table. */
 #define XSP_NUM_OPTIONS		(sizeof(OptionsTable) / sizeof(OptionsMap))
 
 /*****************************************************************************/
 /**
 *
-* This function sets the options for the SPI device driver. The options control
-* how the device behaves relative to the SPI bus. The device must be idle
-* rather than busy transferring data before setting these device options.
+* @brief Sets the options for the SPI device driver.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	Options contains the specified options to be set. This is a bit
+* The options control how the device behaves relative to the SPI bus. The
+* device must be idle rather than busy transferring data before setting these
+* device options.
+*
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	Options Specified options to be set. This is a bit
 *		mask where a 1 means to turn the option on, and a 0 means to
 *		turn the option off. One or more bit values may be contained in
 *		the mask.
@@ -89,8 +100,7 @@ static OptionsMap OptionsTable[] = {
 *		slave-only device as a master.
 *
 * @note
-*
-* This function makes use of internal resources that are shared between the
+* The function makes use of internal resources that are shared between the
 * XSpi_Stop() and XSpi_SetOptions() functions. So if one task might be setting
 * device options while another is trying to stop the device, the user is
 * required to provide protection of this shared data (typically using a
@@ -156,19 +166,16 @@ int XSpi_SetOptions(XSpi *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the options for the SPI device. The options control how
-* the device behaves relative to the SPI bus.
+* @brief Gets the options for the SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* The options control how the device behaves relative to the SPI bus.
 *
-* @return
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
-* Options contains the specified options to be set. This is a bit mask where a
-* 1 means to turn the option on, and a 0 means to turn the option off. One or
-* more bit values may be contained in the mask. See the bit definitions named
-* XSP_*_OPTIONS in the file xspi.h.
-*
-* @note		None.
+* @return	The options currently set. This is a bit mask where a 1 means
+*		the option is on, and a 0 means the option is off. One or more
+*		bit values may be contained in the mask. See the bit
+*		definitions named XSP_*_OPTIONS in the file xspi.h.
 *
 ******************************************************************************/
 u32 XSpi_GetOptions(XSpi *InstancePtr)

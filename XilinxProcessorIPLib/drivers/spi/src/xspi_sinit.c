@@ -8,11 +8,9 @@
 /**
 *
 * @file xspi_sinit.c
-* @addtogroup spi Overview
-* @{
 *
-* The implementation of the XSpi component's static initialization
-* functionality.
+* @brief Implements the static initialization functionality of the XSpi
+* component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,10 +21,16 @@
 * 1.11a wgr  03/22/07 Converted to new coding style.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spi_api SPI APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -50,22 +54,24 @@ extern XSpi_Config XSpi_ConfigTable[];
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device
+* ID/BaseAddress.
+*
 * The XSpi_ConfigTable[] contains the configuration info for each device in the
 * system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xspi.h for the
 *               definition of XSpi_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note        In XSCT/classic flow, the device configuration is looked up
+*              by DeviceId.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -104,7 +110,8 @@ XSpi_Config *XSpi_LookupConfig(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XSpi instance such that the driver is ready to use.
+* @brief Initializes a specific XSpi instance such that the driver is ready to
+* use.
 *
 * The state of the device after initialization is:
 *	- Device is disabled
@@ -112,18 +119,17 @@ XSpi_Config *XSpi_LookupConfig(UINTPTR BaseAddress)
 *	- Active high clock polarity
 *	- Clock phase 0
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique id of the device controlled by this XSpi
+* @param[in]	DeviceId Unique id of the device controlled by this XSpi
 *		instance. Passing in a device id associates the generic XSpi
 *		instance to a specific device, as chosen by the caller or
 *		application developer.
 * @endif
 *
 * @return
-*
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is started. It must be
 *		  stopped to re-initialize.
@@ -131,8 +137,8 @@ XSpi_Config *XSpi_LookupConfig(UINTPTR BaseAddress)
 *		  configuration such that initialization could not be
 *		  accomplished.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*		configuration.
+* @note		In XSCT/classic flow, the device configuration is looked up
+*		by DeviceId.
 *
 ******************************************************************************/
 #ifndef SDT

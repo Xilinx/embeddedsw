@@ -8,25 +8,24 @@
 /**
 * @file xspi_slave_polled_example.c
 *
-* This file contains a design example using the Spi driver (XSpi) and the SPI
+* @brief Implements a design example using the Spi driver (XSpi) and the SPI
 * device as a Slave, in polled mode.
 *
-* This example fills the Spi Tx buffer with the number of data bytes it expects
+* The example fills the Spi Tx buffer with the number of data bytes it expects
 * to receive from the master and then Spi device waits for an external master to
 * initiate the transfer. When the master initiates the transfer, the Spi device
 * receives data from the master and simultaneously sends the data in Tx buffer
-* to the master. Once the transfer is complete, this example prints the data
+* to the master. Once the transfer is complete, the example prints the data
 * received from the master. The number of bytes to be received by the Spi slave
-* is defined by the constant BUFFER_SIZE in this file.
+* is defined by the constant BUFFER_SIZE in the file.
 *
 * The external SPI devices that are present on the Xilinx boards don't support
-* the Master functionality. This example has been tested with an off board
+* the Master functionality. The example has been tested with an off board
 * external SPI Master device and the Xilinx SPI device configured as a Slave.
-* This example has been tested for byte-wide SPI transfers.
+* The example has been tested for byte-wide SPI transfers.
 *
 * @note
-*
-* This example assumes that there is a STDIO device in the system.
+* The example assumes that there is a STDIO device in the system.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -45,6 +44,7 @@
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 *
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre>
 ******************************************************************************/
 
@@ -67,10 +67,10 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
 #endif
 
-/*
+/**
  * This is the size of the buffer to be transmitted/received in this example.
  */
 #define BUFFER_SIZE		16
@@ -96,16 +96,16 @@ static int SpiSlavePolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
  * initialized to zero each time the program runs. They could be local but
  * should at least be static so that they are zeroed.
  */
-static XSpi SpiInstance;   /* The instance of the SPI device */
+static XSpi SpiInstance;   /**< The instance of the SPI device. */
 
 /*
  * The following variables are used to read from the  Spi device, these are
  * global to avoid having large buffers on the stack.
  */
-u8 ReadBuffer[BUFFER_SIZE];
-u8 WriteBuffer[BUFFER_SIZE];
+u8 ReadBuffer[BUFFER_SIZE];	/**< Buffer to read from the Spi device. */
+u8 WriteBuffer[BUFFER_SIZE];	/**< Buffer to write to the Spi device. */
 
-/*
+/**
  * The following variable allows a test value to be added to the values that
  * are sent in reflection to the Master transmission such that unique values can
  * be generated to guarantee the transfer from Slave to Master is successful.
@@ -115,12 +115,9 @@ int Test;
 /*****************************************************************************/
 /**
 *
-* Main function to call the Spi Slave example in polled mode.
-*
+* @brief Runs the Spi Slave example in polled mode.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -148,22 +145,23 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the Spi device and driver as a design
-* example. The purpose of this function is to illustrate the device slave
-* functionality in polled mode. This function receives data from a master and
+* @brief Runs a minimal test on the Spi device and driver as a design example.
+*
+* The purpose of the function is to illustrate the device slave
+* functionality in polled mode. The function receives data from a master and
 * prints the received data.
 *
-* @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @param[in]	SpiInstancePtr Pointer to the instance of Spi component.
 * @if SDT
-* @param	BaseAddress is the base address of the Spi Device.
+* @param[in]	BaseAddress Base address of the Spi Device.
 * @else
-* @param	SpiDeviceId is the Device ID of the Spi Device and is the
+* @param[in]	SpiDeviceId Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		This function contains an infinite loop such that if the Spi
+* @note		The function contains an infinite loop such that if the Spi
 *		device doesn't receive any data, it may never return.
 *
 ******************************************************************************/

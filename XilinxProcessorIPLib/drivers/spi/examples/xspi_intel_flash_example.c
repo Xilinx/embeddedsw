@@ -8,20 +8,17 @@
 /**
 * @file xspi_intel_flash_example.c
 *
-* This file contains a design example using the SPI driver (XSpi) and hardware
-* device with an Intel Serial Flash Memory (S33) in the interrupt mode.
-* This example erases a sector, writes to a Page within the sector, reads back
+* @brief Implements a design example using the SPI driver (XSpi) and an Intel
+* Serial Flash Memory (S33) in the interrupt mode.
+*
+* The example erases a sector, writes to a Page within the sector, reads back
 * from that Page and compares the data.
 *
 * The example works with an Intel Serial Flash Memory (S33). The number of bytes
 * per page in this device is 256. For further details about the device refer to
 * the Intel Serial Flash Memory (S33) Data sheet
 *
-* This example assumes that the underlying processor is MicroBlaze.
-*
-* @note
-*
-* None.
+* The example assumes that the underlying processor is MicroBlaze.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -40,6 +37,7 @@
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -69,15 +67,18 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** SPI device ID. */
 #define SPI_DEVICE_ID			XPAR_SPI_0_DEVICE_ID
+/** INTC device ID. */
 #define INTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
+/** SPI interrupt ID. */
 #define SPI_INTR_ID			XPAR_INTC_0_SPI_0_VEC_ID
 #endif
 
-/*
- * The following constant defines the slave select signal that is used to
- * to select the Flash device on the SPI bus, this signal is typically
- * connected to the chip select of the device.
+/**
+ * The following constant defines the slave select signal that selects the
+ * Flash device on the SPI bus, this signal is typically connected to the chip
+ * select of the device.
  */
 #define INTEL_SPI_SELECT 0x01
 
@@ -85,49 +86,49 @@
 /*
  * Definitions of the commands shown in this example.
  */
-#define INTEL_COMMAND_RANDOM_READ	0x03 /* Random read command */
-#define INTEL_COMMAND_PAGEPROGRAM_WRITE	0x02 /* Page Program command */
-#define	INTEL_COMMAND_WRITE_ENABLE	0x06 /* Write Enable command */
-#define INTEL_COMMAND_SECTOR_ERASE	0xD8 /* Sector Erase command */
-#define INTEL_COMMAND_BULK_ERASE	0xC7 /* Bulk Erase command */
-#define INTEL_COMMAND_STATUSREG_READ	0x05 /* Status read command */
-#define INTEL_COMMAND_STATUSREG_WRITE	0x01 /* Status write command */
+#define INTEL_COMMAND_RANDOM_READ	0x03 /**< Random read command. */
+#define INTEL_COMMAND_PAGEPROGRAM_WRITE	0x02 /**< Page Program command. */
+#define	INTEL_COMMAND_WRITE_ENABLE	0x06 /**< Write Enable command. */
+#define INTEL_COMMAND_SECTOR_ERASE	0xD8 /**< Sector Erase command. */
+#define INTEL_COMMAND_BULK_ERASE	0xC7 /**< Bulk Erase command. */
+#define INTEL_COMMAND_STATUSREG_READ	0x05 /**< Status read command. */
+#define INTEL_COMMAND_STATUSREG_WRITE	0x01 /**< Status write command. */
 
 /*
  * This definitions specify the EXTRA bytes for each of the command
  * transactions. This count includes command byte, address bytes and any
  * don't care bytes needed.
  */
-#define INTEL_READ_WRITE_EXTRA_BYTES	4 /* Read/Write extra bytes */
-#define	INTEL_WRITE_ENABLE_BYTES	1 /* Write Enable bytes */
-#define INTEL_SECTOR_ERASE_BYTES	4 /* Sector erase extra bytes */
-#define INTEL_BULK_ERASE_BYTES		1 /* Bulk erase extra bytes */
-#define INTEL_STATUS_READ_BYTES		2 /* Status read bytes count */
-#define INTEL_STATUS_WRITE_BYTES	2 /* Status write bytes count */
+#define INTEL_READ_WRITE_EXTRA_BYTES	4 /**< Read/Write extra bytes. */
+#define	INTEL_WRITE_ENABLE_BYTES	1 /**< Write Enable bytes. */
+#define INTEL_SECTOR_ERASE_BYTES	4 /**< Sector erase extra bytes. */
+#define INTEL_BULK_ERASE_BYTES		1 /**< Bulk erase extra bytes. */
+#define INTEL_STATUS_READ_BYTES		2 /**< Status read bytes count. */
+#define INTEL_STATUS_WRITE_BYTES	2 /**< Status write bytes count. */
 
 /*
  * Flash not busy mask in the status register of the flash device.
  */
-#define INTEL_FLASH_SR_IS_READY_MASK	0x01 /* Ready mask */
+#define INTEL_FLASH_SR_IS_READY_MASK	0x01 /**< Ready mask. */
 
-/*
+/**
  * Sector protection disable mask in the status register for all the sectors of
  * the flash device.
  */
 #define INTEL_DISABLE_PROTECTION_ALL	0x00
 
-/*
+/**
  * Number of bytes per page in the flash device.
  */
 #define INTEL_FLASH_PAGE_SIZE		256
 
 
-/*
+/**
  * Address of the page to perform Erase, Write and Read operations.
  */
 #define INTEL_FLASH_TEST_ADDRESS 0x00
 
-/*
+/**
  * Byte offset value written to Flash. This needs to redefined for writing
  * different patterns of data to the Flash device.
  */
@@ -136,13 +137,13 @@
 /*
  * Byte Positions.
  */
-#define BYTE1			0 /* Byte 1 position */
-#define BYTE2			1 /* Byte 2 position */
-#define BYTE3			2 /* Byte 3 position */
-#define BYTE4			3 /* Byte 4 position */
-#define BYTE5			4 /* Byte 5 position */
+#define BYTE1			0 /**< Byte 1 position. */
+#define BYTE2			1 /**< Byte 2 position. */
+#define BYTE3			2 /**< Byte 3 position. */
+#define BYTE4			3 /**< Byte 4 position. */
+#define BYTE5			4 /**< Byte 5 position. */
 
-#define INTEL_DUMMYBYTE		0xFF /* Dummy byte */
+#define INTEL_DUMMYBYTE		0xFF /**< Dummy byte. */
 
 /**************************** Type Definitions *******************************/
 
@@ -171,26 +172,25 @@ static int SetupInterruptSystem(XSpi *SpiPtr);
  * but should at least be static so they are zeroed.
  */
 #ifndef SDT
-static XIntc InterruptController;
+static XIntc InterruptController;	/**< Interrupt controller instance. */
 #endif
-static XSpi Spi;
+static XSpi Spi;	/**< SPI driver instance. */
 
-/*
+/**
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
 static volatile int TransferInProgress;
 
-/*
+/**
  * The following variable tracks any errors that occur during interrupt
  * processing.
  */
 int ErrorCount;
 
-/*
- * Buffers used during read and write transactions.
- */
+/** Read buffer used during read and write transactions. */
 u8 ReadBuffer[INTEL_FLASH_PAGE_SIZE + INTEL_READ_WRITE_EXTRA_BYTES];
+/** Write buffer used during read and write transactions. */
 u8 WriteBuffer[INTEL_FLASH_PAGE_SIZE + INTEL_READ_WRITE_EXTRA_BYTES];
 
 /************************** Function Definitions ******************************/
@@ -198,12 +198,10 @@ u8 WriteBuffer[INTEL_FLASH_PAGE_SIZE + INTEL_READ_WRITE_EXTRA_BYTES];
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Flash example.
+* @brief Runs the Intel Flash example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, else XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -416,13 +414,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function enables writes to the Intel Serial Flash memory.
+* @brief Enables writes to the Intel Serial Flash memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiIntelFlashWriteEnable(XSpi *SpiPtr)
@@ -460,12 +456,12 @@ int SpiIntelFlashWriteEnable(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function writes the data to the specified locations in the Intel Serial
+* @brief Writes the data to the specified locations in the Intel Serial
 * Flash memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the address in the Buffer, where to write the data.
-* @param	ByteCount is the number of bytes to be written.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Address in the Buffer, where to write the data.
+* @param[in]	ByteCount Number of bytes to be written.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -522,16 +518,14 @@ int SpiIntelFlashWrite(XSpi *SpiPtr, u32 Addr, u32 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function reads the data from the Intel Serial Flash Memory
+* @brief Reads the data from the Intel Serial Flash Memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the starting address in the Flash Memory from which the
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Starting address in the Flash Memory from which the
 *		data is to be read.
-* @param	ByteCount is the number of bytes to be read.
+* @param[in]	ByteCount Number of bytes to be read.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiIntelFlashRead(XSpi *SpiPtr, u32 Addr, u32 ByteCount)
@@ -572,13 +566,13 @@ int SpiIntelFlashRead(XSpi *SpiPtr, u32 Addr, u32 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function erases the entire contents of the Intel Serial Flash.
+* @brief Erases the entire contents of the Intel Serial Flash.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		The erased bytes will read as 0xFF.
+* @note		The erased bytes read as 0xFF.
 *
 ******************************************************************************/
 int SpiIntelFlashBulkErase(XSpi *SpiPtr)
@@ -616,16 +610,15 @@ int SpiIntelFlashBulkErase(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function erases the contents of the specified Sector in the Intel Serial
-* Flash.
+* @brief Erases the contents of the specified Sector in the Intel Serial Flash.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the address within a sector of the Buffer, which is to
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Address within a sector of the Buffer, which is to
 *		be erased.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		The erased bytes will read as 0xFF.
+* @note		The erased bytes read as 0xFF.
 *
 ******************************************************************************/
 int SpiIntelFlashSectorErase(XSpi *SpiPtr, u32 Addr)
@@ -666,9 +659,9 @@ int SpiIntelFlashSectorErase(XSpi *SpiPtr, u32 Addr)
 /*****************************************************************************/
 /**
 *
-* This function reads the Status register of the Intel Serial Flash.
+* @brief Reads the Status register of the Intel Serial Flash.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -711,10 +704,10 @@ int SpiIntelFlashGetStatus(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function writes to the Status register of the Intel Flash.
+* @brief Writes to the Status register of the Intel Flash.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	StatusRegister is the value to be written to the status register
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	StatusRegister Value to be written to the status register
 * 		of the flash device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
@@ -759,13 +752,12 @@ int SpiIntelFlashWriteStatus(XSpi *SpiPtr, u8 StatusRegister)
 /*****************************************************************************/
 /**
 *
-* This function waits till the Intel Serial Flash is ready to accept next
-* command.
+* @brief Waits till the Intel Serial Flash is ready to accept next command.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		This function reads the status register of the Buffer and waits
-*.		till the WIP bit of the status register becomes 0.
+* @note		The function reads the status register of the Buffer and waits
+*		till the WIP bit of the status register becomes 0.
 *
 ******************************************************************************/
 int SpiIntelFlashWaitForFlashNotBusy(void)
@@ -799,7 +791,8 @@ int SpiIntelFlashWaitForFlashNotBusy(void)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver.
+* @brief Handles the status events of the SPI driver.
+*
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized. It is called when a transfer of SPI data
 * completes or an error occurs.
@@ -807,13 +800,11 @@ int SpiIntelFlashWaitForFlashNotBusy(void)
 * This handler provides an example of how to handle SPI interrupts and
 * is application specific.
 *
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in]	CallBackRef Upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
+* @param[in]	StatusEvent Event that just occurred.
+* @param[in]	ByteCount Number of bytes transferred up until the event
 *		occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
@@ -834,23 +825,23 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the Spi device. This function is application specific since the actual
-* system may or may not have an interrupt controller. The Spi device could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system such that interrupts can occur for the
+* Spi device.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* The function is application specific since the actual system may or may not
+* have an interrupt controller. The Spi device could be directly connected to
+* a processor without an interrupt controller. The user should modify this
+* function to fit the application.
+*
+* @param[in]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None
-*
 ******************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 

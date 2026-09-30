@@ -8,17 +8,14 @@
 /**
 * @file xspi_numonyx_flash_quad_example.c
 *
-* This file contains a design example using the SPI driver (XSpi) and axi_qspi
+* @brief Implements a design example using the SPI driver (XSpi) and axi_qspi
 * device with a Numonyx quad serial flash device in the interrupt mode.
-* This example erases a Sector, writes to a Page within the Sector, reads back
+*
+* The example erases a Sector, writes to a Page within the Sector, reads back
 * from that Page and compares the data.
 *
-* This example  has been tested with an N25Q128 device on KC705 and ZC770
+* The example  has been tested with an N25Q128 device on KC705 and ZC770
 * board. The bytes per page (PAGE_SIZE) in N25Q128 is 256.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -34,6 +31,7 @@
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -69,71 +67,75 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** SPI device ID. */
 #define SPI_DEVICE_ID			XPAR_SPI_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** SPI interrupt ID. */
 #define SPI_INTR_ID		XPAR_INTC_0_SPI_0_VEC_ID
 #else
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** SPI interrupt ID. */
 #define SPI_INTR_ID		XPAR_FABRIC_SPI_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		    static XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC		    static XIntc /**< INTC instance type. */
+#define INTC_HANDLER	XIntc_InterruptHandler	/**< INTC handler. */
 #else
-#define INTC			static XScuGic
-#define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC			static XScuGic /**< INTC instance type. */
+#define INTC_HANDLER	XScuGic_InterruptHandler	/**< INTC handler. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
 
-/*
- * The following constant defines the slave select signal that is used to
- * to select the Flash device on the SPI bus, this signal is typically
- * connected to the chip select of the device.
+/**
+ * The following constant defines the slave select signal that selects the
+ * Flash device on the SPI bus, this signal is typically connected to the chip
+ * select of the device.
  */
 #define SPI_SELECT 			0x01
 
 /*
  * Definitions of the commands shown in this example.
  */
-#define COMMAND_PAGE_PROGRAM		0x02 /* Page Program command */
-#define COMMAND_QUAD_WRITE		0x32 /* Quad Input Fast Program */
-#define COMMAND_RANDOM_READ		0x03 /* Random read command */
-#define COMMAND_DUAL_READ		0x3B /* Dual Output Fast Read */
-#define COMMAND_DUAL_IO_READ		0xBB /* Dual IO Fast Read */
-#define COMMAND_QUAD_READ		0x6B /* Quad Output Fast Read */
-#define COMMAND_QUAD_IO_READ		0xEB /* Quad IO Fast Read */
-#define	COMMAND_WRITE_ENABLE		0x06 /* Write Enable command */
-#define COMMAND_SECTOR_ERASE		0xD8 /* Sector Erase command */
-#define COMMAND_BULK_ERASE		0xC7 /* Bulk Erase command */
-#define COMMAND_STATUSREG_READ		0x05 /* Status read command */
+#define COMMAND_PAGE_PROGRAM		0x02 /**< Page Program command. */
+#define COMMAND_QUAD_WRITE		0x32 /**< Quad Input Fast Program. */
+#define COMMAND_RANDOM_READ		0x03 /**< Random read command. */
+#define COMMAND_DUAL_READ		0x3B /**< Dual Output Fast Read. */
+#define COMMAND_DUAL_IO_READ		0xBB /**< Dual IO Fast Read. */
+#define COMMAND_QUAD_READ		0x6B /**< Quad Output Fast Read. */
+#define COMMAND_QUAD_IO_READ		0xEB /**< Quad IO Fast Read. */
+#define	COMMAND_WRITE_ENABLE		0x06 /**< Write Enable command. */
+#define COMMAND_SECTOR_ERASE		0xD8 /**< Sector Erase command. */
+#define COMMAND_BULK_ERASE		0xC7 /**< Bulk Erase command. */
+#define COMMAND_STATUSREG_READ		0x05 /**< Status read command. */
 
 /**
  * This definitions specify the EXTRA bytes in each of the command
  * transactions. This count includes Command byte, address bytes and any
  * don't care bytes needed.
  */
-#define READ_WRITE_EXTRA_BYTES		4 /* Read/Write extra bytes */
-#define	WRITE_ENABLE_BYTES		1 /* Write Enable bytes */
-#define SECTOR_ERASE_BYTES		4 /* Sector erase extra bytes */
-#define BULK_ERASE_BYTES		1 /* Bulk erase extra bytes */
-#define STATUS_READ_BYTES		2 /* Status read bytes count */
-#define STATUS_WRITE_BYTES		2 /* Status write bytes count */
+#define READ_WRITE_EXTRA_BYTES		4 /**< Read/Write extra bytes. */
+#define	WRITE_ENABLE_BYTES		1 /**< Write Enable bytes. */
+#define SECTOR_ERASE_BYTES		4 /**< Sector erase extra bytes. */
+#define BULK_ERASE_BYTES		1 /**< Bulk erase extra bytes. */
+#define STATUS_READ_BYTES		2 /**< Status read bytes count. */
+#define STATUS_WRITE_BYTES		2 /**< Status write bytes count. */
 
 /*
  * Flash not busy mask in the status register of the flash device.
  */
-#define FLASH_SR_IS_READY_MASK		0x01 /* Ready mask */
+#define FLASH_SR_IS_READY_MASK		0x01 /**< Ready mask. */
 
-/*
+/**
  * Number of bytes per page in the flash device.
  */
 #define PAGE_SIZE			256
 
-/*
+/**
  * Address of the page to perform Erase, Write and Read operations.
  */
 #define FLASH_TEST_ADDRESS		0x00
@@ -141,14 +143,14 @@
 /*
  * Byte Positions.
  */
-#define BYTE1				0 /* Byte 1 position */
-#define BYTE2				1 /* Byte 2 position */
-#define BYTE3				2 /* Byte 3 position */
-#define BYTE4				3 /* Byte 4 position */
-#define BYTE5				4 /* Byte 5 position */
-#define BYTE6				5 /* Byte 6 position */
-#define BYTE7				6 /* Byte 7 position */
-#define BYTE8				7 /* Byte 8 position */
+#define BYTE1				0 /**< Byte 1 position. */
+#define BYTE2				1 /**< Byte 2 position. */
+#define BYTE3				2 /**< Byte 3 position. */
+#define BYTE4				3 /**< Byte 4 position. */
+#define BYTE5				4 /**< Byte 5 position. */
+#define BYTE6				5 /**< Byte 6 position. */
+#define BYTE7				6 /**< Byte 7 position. */
+#define BYTE8				7 /**< Byte 8 position. */
 
 /*
  * The following definitions specify the number of dummy bytes to ignore in the
@@ -162,11 +164,11 @@
  * same logic applies Quad read command, so we end up with 4 dummy bytes in
  * that case.
  */
-#define DUAL_READ_DUMMY_BYTES		2
-#define QUAD_READ_DUMMY_BYTES		4
+#define DUAL_READ_DUMMY_BYTES		2	/**< Dual read dummy bytes. */
+#define QUAD_READ_DUMMY_BYTES		4	/**< Quad read dummy bytes. */
 
-#define DUAL_IO_READ_DUMMY_BYTES	2
-#define QUAD_IO_READ_DUMMY_BYTES	5
+#define DUAL_IO_READ_DUMMY_BYTES	2 /**< Dual IO read dummy bytes. */
+#define QUAD_IO_READ_DUMMY_BYTES	5 /**< Quad IO read dummy bytes. */
 
 /**************************** Type Definitions *******************************/
 
@@ -195,30 +197,29 @@ static int SetupInterruptSystem(XSpi *SpiPtr);
  * are initialized to zero each time the program runs. They could be local
  * but should at least be static so they are zeroed.
  */
-static XSpi Spi;
+static XSpi Spi;	/**< SPI driver instance. */
 #ifndef SDT
-INTC InterruptController;
+INTC InterruptController;	/**< Interrupt controller instance. */
 #endif
 
-/*
+/**
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
 static volatile int TransferInProgress;
 
-/*
+/**
  * The following variable tracks any errors that occur during interrupt
  * processing.
  */
 static int ErrorCount;
 
-/*
- * Buffers used during read and write transactions.
- */
+/** Read buffer used during read and write transactions. */
 static u8 ReadBuffer[PAGE_SIZE + READ_WRITE_EXTRA_BYTES + 4];
+/** Write buffer used during read and write transactions. */
 static u8 WriteBuffer[PAGE_SIZE + READ_WRITE_EXTRA_BYTES];
 
-/*
+/**
  * Byte offset value written to Flash. This needs to be redefined for writing
  * different patterns of data to the Flash device.
  */
@@ -229,12 +230,10 @@ static u8 TestByte = 0x20;
 /*****************************************************************************/
 /**
 *
-* Main function to run the quad flash example.
+* @brief Runs the quad flash example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, else XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -547,13 +546,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function enables writes to the Numonyx Serial Flash memory.
+* @brief Enables writes to the Numonyx Serial Flash memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int SpiFlashWriteEnable(XSpi *SpiPtr)
@@ -599,17 +596,15 @@ int SpiFlashWriteEnable(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function writes the data to the specified locations in the Numonyx Serial
+* @brief Writes the data to the specified locations in the Numonyx Serial
 * Flash memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the address in the Buffer, where to write the data.
-* @param	ByteCount is the number of bytes to be written.
-* @param	WriteCmd is the write command used to write data to the flash.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Address in the Buffer, where to write the data.
+* @param[in]	ByteCount Number of bytes to be written.
+* @param[in]	WriteCmd Write command used to write data to the flash.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int SpiFlashWrite(XSpi *SpiPtr, u32 Addr, u32 ByteCount, u8 WriteCmd)
@@ -668,17 +663,15 @@ int SpiFlashWrite(XSpi *SpiPtr, u32 Addr, u32 ByteCount, u8 WriteCmd)
 /*****************************************************************************/
 /**
 *
-* This function reads the data from the Numonyx Serial Flash Memory
+* @brief Reads the data from the Numonyx Serial Flash Memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the starting address in the Flash Memory from which the
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Starting address in the Flash Memory from which the
 *		data is to be read.
-* @param	ByteCount is the number of bytes to be read.
-* @param	ReadCmd is the read command used to read data from the flash.
+* @param[in]	ByteCount Number of bytes to be read.
+* @param[in]	ReadCmd Read command used to read data from the flash.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int SpiFlashRead(XSpi *SpiPtr, u32 Addr, u32 ByteCount, u8 ReadCmd)
@@ -737,13 +730,13 @@ int SpiFlashRead(XSpi *SpiPtr, u32 Addr, u32 ByteCount, u8 ReadCmd)
 /*****************************************************************************/
 /**
 *
-* This function erases the entire contents of the Numonyx Serial Flash device.
+* @brief Erases the entire contents of the Numonyx Serial Flash device.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		The erased bytes will read as 0xFF.
+* @note		The erased bytes read as 0xFF.
 *
 ******************************************************************************/
 int SpiFlashBulkErase(XSpi *SpiPtr)
@@ -789,16 +782,16 @@ int SpiFlashBulkErase(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function erases the contents of the specified Sector in the Numonyx
+* @brief Erases the contents of the specified Sector in the Numonyx
 * Serial Flash device.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the address within a sector of the Buffer, which is to
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Address within a sector of the Buffer, which is to
 *		be erased.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		The erased bytes will be read back as 0xFF.
+* @note		The erased bytes are read back as 0xFF.
 *
 ******************************************************************************/
 int SpiFlashSectorErase(XSpi *SpiPtr, u32 Addr)
@@ -847,9 +840,9 @@ int SpiFlashSectorErase(XSpi *SpiPtr, u32 Addr)
 /*****************************************************************************/
 /**
 *
-* This function reads the Status register of the Numonyx Flash.
+* @brief Reads the Status register of the Numonyx Flash.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -894,13 +887,12 @@ int SpiFlashGetStatus(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function waits till the Numonyx serial Flash is ready to accept next
-* command.
+* @brief Waits till the Numonyx serial Flash is ready to accept next command.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		This function reads the status register of the Buffer and waits
-*.		till the WIP bit of the status register becomes 0.
+* @note		The function reads the status register of the Buffer and waits
+*		till the WIP bit of the status register becomes 0.
 *
 ******************************************************************************/
 int SpiFlashWaitForFlashReady(void)
@@ -935,7 +927,8 @@ int SpiFlashWaitForFlashReady(void)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver.
+* @brief Handles the status events of the SPI driver.
+*
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized. It is called when a transfer of SPI data
 * completes or an error occurs.
@@ -943,13 +936,11 @@ int SpiFlashWaitForFlashReady(void)
 * This handler provides an example of how to handle SPI interrupts and
 * is application specific.
 *
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in]	CallBackRef Upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
+* @param[in]	StatusEvent Event that just occurred.
+* @param[in]	ByteCount Number of bytes transferred up until the event
 *		occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
@@ -970,23 +961,23 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the Spi device. This function is application specific since the actual
-* system may or may not have an interrupt controller. The Spi device could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system such that interrupts can occur for the
+* Spi device.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* The function is application specific since the actual system may or may not
+* have an interrupt controller. The Spi device could be directly connected to
+* a processor without an interrupt controller. The user should modify this
+* function to fit the application.
+*
+* @param[in]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None
-*
 ******************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 

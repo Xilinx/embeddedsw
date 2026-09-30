@@ -8,16 +8,12 @@
 /**
 * @file xspi_eeprom_example.c
 *
+* @brief Implements a design example using the SPI driver (XSpi) and a serial
+* EEPROM device.
 *
-* This file contains a design example using the SPI driver (XSpi) and
-* hardware device with a serial EEPROM device.  The hardware which this
-* example runs on must have a serial EEPROM (Microchip 25XX320 or 25XX160)
-* for it to run.  This example has been tested with the SPI EEPROM on the ML410
-* platform for PPC processor.
-*
-* @note
-*
-* None.
+* The hardware which this example runs on must have a serial EEPROM (Microchip
+* 25XX320 or 25XX160) for it to run.  The example has been tested with the SPI
+* EEPROM on the ML410 platform for PPC processor.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -39,6 +35,7 @@
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre>
 *
 ******************************************************************************/
@@ -68,8 +65,9 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** SPI interrupt ID. */
 #define SPI_INTR_ID		XPAR_INTC_0_SPI_0_VEC_ID
 #endif
 
@@ -78,12 +76,12 @@
  * The following constants define the commands which may be sent to the EEPROM
  * device.
  */
-#define WRITE_STATUS_CMD	1
-#define WRITE_CMD		2
-#define READ_CMD		3
-#define WRITE_DISABLE_CMD	4
-#define READ_STATUS_CMD		5
-#define WRITE_ENABLE_CMD	6
+#define WRITE_STATUS_CMD	1	/**< Write status register command. */
+#define WRITE_CMD		2	/**< Write data command. */
+#define READ_CMD		3	/**< Read data command. */
+#define WRITE_DISABLE_CMD	4	/**< Write disable command. */
+#define READ_STATUS_CMD		5	/**< Read status register command. */
+#define WRITE_ENABLE_CMD	6	/**< Write enable command. */
 
 /*
  * The following constants define the offsets within a EepromBuffer data
@@ -92,17 +90,17 @@
  * duplex transfers such that the number of bytes received is the number
  * sent and received.
  */
-#define COMMAND_OFFSET		0 /* EEPROM instruction */
-#define ADDRESS_MSB_OFFSET	1 /* MSB of address to read or write */
-#define ADDRESS_LSB_OFFSET	2 /* LSB of address to read or write */
-#define DATA_OFFSET		3
-#define WRITE_DATA_OFFSET	3  /* Start of data to write to the EEPROM */
-#define READ_DATA_OFFSET	6  /* Start of data read from the EEPROM */
+#define COMMAND_OFFSET		0 /**< EEPROM instruction. */
+#define ADDRESS_MSB_OFFSET	1 /**< MSB of address to read or write. */
+#define ADDRESS_LSB_OFFSET	2 /**< LSB of address to read or write. */
+#define DATA_OFFSET		3 /**< Offset of data in the buffer. */
+#define WRITE_DATA_OFFSET	3  /**< Start of data to write to the EEPROM. */
+#define READ_DATA_OFFSET	6  /**< Start of data read from the EEPROM. */
 
-/*
+/**
  * The following constants specify the extra bytes which are sent to the
  * EEPROM on the SPI interface, that are not data, but control information
- * which includes the command and address
+ * which includes the command and address.
  */
 #define OVERHEAD_SIZE   3
 
@@ -111,32 +109,33 @@
  * EEPROM.  The page size specifies a max number of bytes that can be written
  * to the EEPROM with a single transfer using the SPI driver.
  */
-#define PAGE_SIZE       16
-#define PAGE_COUNT      128
+#define PAGE_SIZE       16	/**< EEPROM page size in bytes. */
+#define PAGE_COUNT      128	/**< Number of EEPROM pages. */
 
 /*
  * The following constants specify the max amount of data and the size of the
  * the buffer required to hold the data and overhead to transfer the data to
  * and from the EEPROM.
  */
-#define MAX_DATA        PAGE_COUNT * PAGE_SIZE
-#define BUFFER_SIZE     MAX_DATA + READ_DATA_OFFSET
+#define MAX_DATA        PAGE_COUNT * PAGE_SIZE	/**< Maximum data size. */
+#define BUFFER_SIZE     MAX_DATA + READ_DATA_OFFSET	/**< Buffer size. */
 
-/*
- * The following constant defines the slave select signal that is used to
- * to select the EEPROM device on the SPI bus, this signal is typically
- * connected to the chip select of the device
+/**
+ * The following constant defines the slave select signal that selects the
+ * EEPROM device on the SPI bus, this signal is typically connected to the
+ * chip select of the device.
  */
 #define SEEPROM_SPI_SELECT 0x01
 
 /**************************** Type Definitions *******************************/
 
-/*
- * The following data type is used to send and receive data to the serial
- * EEPROM device connected to the SPI interface.  It is an array of bytes
- * rather than a structure for portability avoiding packing issues.  The
- * application must setup the data to be written in this buffer and retrieve
- * the data read from it.
+/**
+ * @brief Holds the data sent to and received from the serial EEPROM device
+ * connected to the SPI interface.
+ *
+ * It is an array of bytes rather than a structure for portability avoiding
+ * packing issues.  The application must setup the data to be written in this
+ * buffer and retrieve the data read from it.
  */
 typedef u8 EepromBuffer[BUFFER_SIZE];
 
@@ -162,26 +161,26 @@ void EepromWrite(XSpi *SpiPtr, u16 Address, u8 ByteCount, EepromBuffer Buffer);
  * but should at least be static so they are zeroed.
  */
 #ifndef SDT
-XIntc InterruptController;
+XIntc InterruptController;	/**< Interrupt controller instance. */
 #endif
-XSpi Spi;
+XSpi Spi;	/**< SPI driver instance. */
 
-/*
+/**
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
 volatile int TransferInProgress;
 
-/*
+/**
  * The following variable tracks any errors that occur during interrupt
- * processing
+ * processing.
  */
 int Error;
 
-/*
+/**
  * The following variable allows a test value to be added to the values that
  * are written to the EEPROM such that unique values can be generated to
- * guarantee the writes to the EEPROM were successful
+ * guarantee the writes to the EEPROM were successful.
  */
 int Test;
 
@@ -189,25 +188,25 @@ int Test;
  * The following variables are used to read and write to the eeprom and they
  * are global to avoid having large buffers on the stack
  */
-EepromBuffer ReadBuffer;
-EepromBuffer WriteBuffer;
+EepromBuffer ReadBuffer;	/**< Buffer to read from the EEPROM. */
+EepromBuffer WriteBuffer;	/**< Buffer to write to the EEPROM. */
 
 /******************************************************************************/
 /**
 *
-* The purpose of this function is to illustrate how to use the XSpi
-* device driver. This test writes and reads data from a Microchip serial EEPROM.
+* @brief Illustrates how to use the XSpi device driver.
+*
+* The test writes and reads data from a Microchip serial EEPROM.
 * This part must be present in the hardware to use this example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, else XST_FAILURE.
 *
 * @note
-*
-* This function calls functions which contain loops that may be infinite
+* The function calls functions which contain loops that may be infinite
 * if interrupts are not working such that it may not return. If the device
-* slave select is not correct and the device is not responding on bus it will
-* read a status of 0xFF for the status register as the bus is pulled up.
+* slave select is not correct and the device is not responding on bus it
+* reads a status of 0xFF for the status register as the bus is pulled up.
 *
 *****************************************************************************/
 int main(void)
@@ -334,7 +333,8 @@ int main(void)
 /******************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver.
+* @brief Handles the status events of the SPI driver.
+*
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized.  It is called when a transfer of SPI data
 * completes or an error occurs.
@@ -342,12 +342,9 @@ int main(void)
 * This handler provides an example of how to handle SPI interrupts
 * but is application specific.
 *
-*
-* @param 	CallBackRef is a reference passed to the handler.
-* @param	StatusEvent is the status of the SPI .
-* @param	ByteCount is the number of bytes transferred.
-*
-* @note		None.
+* @param[in] 	CallBackRef Reference passed to the handler.
+* @param[in]	StatusEvent Status of the SPI.
+* @param[in]	ByteCount Number of bytes transferred.
 *
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
@@ -371,15 +368,12 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 /******************************************************************************/
 /**
 *
-* This function reads from the Microchip serial EEPROM connected to the
-* SPI interface.
+* @brief Reads from the Microchip serial EEPROM connected to the SPI interface.
 *
-* @param 	SpiPtr is a pointer to the SPI driver component to use.
-* @param 	Address contains the address to read data from in the EEPROM.
-* @param 	ByteCount contains the number of bytes to read.
-* @param 	Buffer is a buffer to read the data into.
-*
-* @note		None.
+* @param[in,out] 	SpiPtr Pointer to the SPI driver component to use.
+* @param[in] 	Address Address to read data from in the EEPROM.
+* @param[in] 	ByteCount Number of bytes to read.
+* @param[out] 	Buffer Buffer to read the data into.
 *
 ******************************************************************************/
 void EepromRead(XSpi *SpiPtr, u16 Address, int ByteCount, EepromBuffer Buffer)
@@ -411,19 +405,18 @@ void EepromRead(XSpi *SpiPtr, u16 Address, int ByteCount, EepromBuffer Buffer)
 /******************************************************************************/
 /**
 *
-* This function writes to the Microchip serial EEPROM connected to the
-* SPI interface.  This function is not designed to be a driver to handle all
-* the conditions of the EEPROM device.  The EEPROM contains a 32 byte write
+* @brief Writes to the Microchip serial EEPROM connected to the SPI interface.
+*
+* The function is not designed to be a driver to handle all the conditions of
+* the EEPROM device.  The EEPROM contains a 32 byte write
 * buffer which can be filled and then a write is automatically performed by
 * the device.  All the data put into the buffer must be in the same page of
 * the device with page boundaries being on 32 byte boundaries.
 *
-* @param 	SpiPtr is a pointer to the SPI driver component to use.
-* @param 	Address contains the address to write data to in the EEPROM.
-* @param 	ByteCount contains the number of bytes to write.
-* @param 	Buffer is a buffer of data to write from.
-*
-* @note		None.
+* @param[in,out] 	SpiPtr Pointer to the SPI driver component to use.
+* @param[in] 	Address Address to write data to in the EEPROM.
+* @param[in] 	ByteCount Number of bytes to write.
+* @param[in] 	Buffer Buffer of data to write from.
 *
 ******************************************************************************/
 void EepromWrite(XSpi *SpiPtr, u16 Address, u8 ByteCount, EepromBuffer Buffer)
@@ -509,24 +502,24 @@ void EepromWrite(XSpi *SpiPtr, u16 Address, u8 ByteCount, EepromBuffer Buffer)
 	}
 }
 
-/****************************************************************************
+#ifndef SDT
+/****************************************************************************/
+/**
 *
+* @brief Sets up the interrupt system such that interrupts can occur for the
+* SPI driver.
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the SPI driver.  This function is application specific since the actual
-* system may or may not have an interrupt controller. The SPI device could
-* be directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* The function is application specific since the actual system may or may not
+* have an interrupt controller. The SPI device could be directly connected to
+* a processor without an interrupt controller. The user should modify this
+* function to fit the application.
 *
-* @param 	SpiPtr contains a pointer to the instance of the XSpi component
+* @param[in] 	SpiPtr Pointer to the instance of the XSpi component
 * 		which is going to be connected to the interrupt controller.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		None.
-*
 ****************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 

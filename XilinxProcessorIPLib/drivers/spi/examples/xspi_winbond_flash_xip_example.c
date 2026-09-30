@@ -8,14 +8,10 @@
 /**
 * @file xspi_winbond_flash_xip_example.c
 *
+* @brief Implements a design example using the Spi driver (XSpi) and the Spi
+* device configured in XIP Mode.
 *
-* This file contains a design example using the Spi driver (XSpi) and the Spi
-* device configured in XIP Mode. This example reads data from the Flash Memory
-* in the way RAM is accessed.
-*
-* @note
-*
-* None.
+* The example reads data from the Flash Memory in the way RAM is accessed.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -31,6 +27,7 @@
 *                     examples.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre>
 ******************************************************************************/
 
@@ -52,7 +49,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
 #endif
 
 
@@ -75,18 +72,15 @@ int SpiXipExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
  * The instances to support the device drivers are global such that the
  * are initialized to zero each time the program runs.
  */
-static XSpi  SpiInstance;	 /* The instance of the SPI device */
+static XSpi  SpiInstance;	 /**< The instance of the SPI device. */
 
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Spi XIP example.
-*
+* @brief Runs the Spi XIP example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -113,26 +107,27 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function reads data from Flash memory in the way any memory is accessed.
-* The purpose of this function is to illustrate how to use SPI device in XIP
+* @brief Reads data from Flash memory in the way any memory is accessed.
+*
+* The purpose of the function is to illustrate how to use SPI device in XIP
 * Mode.
 *
-* This function reads data from Flash in the same way any other memory is
+* The function reads data from Flash in the same way any other memory is
 * accessed
 *
-*
-* @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @param[in]	SpiInstancePtr Pointer to the instance of Spi component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	SpiDeviceId is the Device ID of the Spi Device and is the
+* @param[in]	SpiDeviceId Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, otherwise XST_FAILURE.
 *
-* @note  	In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
+* @note  	In XSCT/classic flow, the device configuration is looked up
+*               by DeviceId.
 *
 ******************************************************************************/
 #ifndef SDT

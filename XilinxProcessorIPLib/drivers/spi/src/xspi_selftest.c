@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,8 @@
 /**
 *
 * @file xspi_selftest.c
-* @addtogroup spi Overview
-* @{
 *
-* This component contains the implementation of selftest functions for the
-* XSpi driver component.
+* @brief Implements the selftest functions for the XSpi driver component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,9 +28,15 @@
 *		      in the case of axi_qspi - CR 620502
 * 3.04a bss  03/21/12 Updated Selftest to check for XIP mode and return if XIP
 *		      mode is true
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spi_api SPI APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -42,11 +45,11 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSP_SR_RESET_STATE	0x5	   /* Default to Tx/Rx reg empty */
-#define XSP_CR_RESET_STATE	0x180
+#define XSP_SR_RESET_STATE	0x5	   /**< Default to Tx/Rx reg empty. */
+#define XSP_CR_RESET_STATE	0x180	   /**< Control register reset value. */
 
-#define XSP_HALF_WORD_TESTBYTE	0x2200	   /* Test Byte for Half Word */
-#define XSP_WORD_TESTBYTE	0xAA005500 /* Test Byte for Word */
+#define XSP_HALF_WORD_TESTBYTE	0x2200	   /**< Test Byte for Half Word. */
+#define XSP_WORD_TESTBYTE	0xAA005500 /**< Test Byte for Word. */
 
 /**************************** Type Definitions *******************************/
 
@@ -64,24 +67,24 @@ static int LoopbackTest(XSpi *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* Runs a self-test on the driver/device. The self-test is destructive in that
-* a reset of the device is performed in order to check the reset values of
-* the registers and to get the device into a known state. A simple loopback
+* @brief Runs a self-test on the driver/device.
+*
+* The self-test is destructive in that a reset of the device is performed in
+* order to check the reset values of the registers and to get the device into
+* a known state. A simple loopback
 * test is also performed to verify that transmit and receive are working
 * properly. The device is changed to master mode for the loopback test, since
 * only a master can initiate a data transfer.
 *
 * Upon successful return from the self-test, the device is reset.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return
-* 		- XST_SUCCESS if successful.
+*		- XST_SUCCESS if successful.
 *		- XST_REGISTER_ERROR indicates a register did not read or write
 *		  correctly.
-* 		- XST_LOOPBACK_ERROR if a loopback error occurred.
-*
-* @note		None.
+*		- XST_LOOPBACK_ERROR if a loopback error occurred.
 *
 ******************************************************************************/
 int XSpi_SelfTest(XSpi *InstancePtr)
@@ -180,24 +183,23 @@ int XSpi_SelfTest(XSpi *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
-* Runs an internal loopback test on the SPI device. This is done as a master
-* with a enough data to fill the FIFOs if FIFOs are present. If the device is
-* configured as a slave-only, this function returns successfully even though
-* no loopback test is performed.
+* @brief Runs an internal loopback test on the SPI device.
 *
-* This function does not restore the device context after performing the test
-* as it assumes the device will be reset after the call.
+* The test is done as a master with enough data to fill the FIFOs if FIFOs are
+* present. If the device is configured as a slave-only, the function returns
+* successfully even though no loopback test is performed.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* The function does not restore the device context after performing the test
+* as it assumes the device is reset after the call.
+*
+* @param[in] InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return
-* 		- XST_SUCCESS if loopback was performed successfully or not
+*		- XST_SUCCESS if loopback was performed successfully or not
 *		  performed at all if device is slave-only.
 *		- XST_LOOPBACK_ERROR if loopback failed.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int LoopbackTest(XSpi *InstancePtr)

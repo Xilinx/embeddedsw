@@ -8,12 +8,13 @@
 /**
 * @file xspi_atmel_flash_example.c
 *
-* This file contains a design example using the SPI driver (XSpi) and
-* hardware device with an Atmel Serial Flash Device (AT45XX series).
-* This example erases the Page, writes to the Page, reads back from the Page and
+* @brief Implements a design example using the SPI driver (XSpi) and an Atmel
+* Serial Flash Device (AT45XX series).
+*
+* The example erases the Page, writes to the Page, reads back from the Page and
 * compares the data.
 *
-* This example works for an Atmel AT45DB161D. The bytes per page
+* The example works for an Atmel AT45DB161D. The bytes per page
 * (ATMEL_PAGE_SIZE) in this device is 528 bytes for default addressing mode and
 * 512 bytes in Power-of-2 addressing mode.
 * For further details of device refer to the Atmel Datasheet of AT45DB161D
@@ -26,17 +27,13 @@
 * to the serial flash device used, there is no error checking done in the
 * example for the address specified by the user.
 *
-* This example also works with the In-System Flash(ISF) in the S3AN devices.
+* The example also works with the In-System Flash(ISF) in the S3AN devices.
 * The ATMEL_PAGE_SIZE and ATMEL_FLASH_TEST_ADDRESS need to be defined properly
 * based on the device used. For further details of the ISF refer to the
 * Spartan-3AN FPGA In-System Flash User Guide (UG333).
 *
-* This example assumes that the underlying processor is MicroBlaze and default
+* The example assumes that the underlying processor is MicroBlaze and default
 * addressing mode is used in the Flash Device.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -58,6 +55,7 @@
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -87,15 +85,16 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** SPI interrupt ID. */
 #define SPI_INTR_ID		XPAR_INTC_0_SPI_0_VEC_ID
 #endif
 
-/*
- * The following constant defines the slave select signal that is used to
- * to select the Flash device on the SPI bus, this signal is typically
- * connected to the chip select of the device.
+/**
+ * The following constant defines the slave select signal that selects the
+ * Flash device on the SPI bus, this signal is typically connected to the chip
+ * select of the device.
  */
 #define ATMEL_SPI_SELECT 0x01
 
@@ -103,19 +102,20 @@
 /*
  * Definition of the commands
  */
-#define ATMEL_COMMAND_READ		0x03 /* Read command */
-#define ATMEL_COMMAND_WRITE		0x82 /* Write command */
-#define ATMEL_COMMAND_STATUSREG_READ	0xD7 /* Status Register Read command */
-#define ATMEL_COMMAND_PAGE_ERASE	0x81 /* Erase command */
+#define ATMEL_COMMAND_READ		0x03 /**< Read command. */
+#define ATMEL_COMMAND_WRITE		0x82 /**< Write command. */
+/** Status Register Read command. */
+#define ATMEL_COMMAND_STATUSREG_READ	0xD7
+#define ATMEL_COMMAND_PAGE_ERASE	0x81 /**< Erase command. */
 
 /*
  * The following definition specify the EXTRA bytes in the command
  * transactions. This count includes Command byte, address bytes and any
  * don't care bytes needed.
  */
-#define ATMEL_READ_WRITE_EXTRA_BYTES	0x4 /* Read/Write extra bytes */
-#define ATMEL_PAGE_ERASE_BYTES		0x4 /* Page erase extra bytes */
-#define ATMEL_STATUS_READ_BYTES		0x2 /* Status read bytes count */
+#define ATMEL_READ_WRITE_EXTRA_BYTES	0x4 /**< Read/Write extra bytes. */
+#define ATMEL_PAGE_ERASE_BYTES		0x4 /**< Page erase extra bytes. */
+#define ATMEL_STATUS_READ_BYTES		0x2 /**< Status read bytes count. */
 
 /*
  * The following constants define the offsets for command and data.
@@ -123,19 +123,19 @@
  * because the SPI driver is designed to allow full  duplex transfers
  * such that the number of bytes received is the number sent and received.
  */
-#define ATMEL_COMMAND_OFFSET      	0
-#define ATMEL_ADDRESS_BYTE1_OFFSET	1
-#define ATMEL_ADDRESS_BYTE2_OFFSET  	2
-#define ATMEL_ADDRESS_BYTE3_OFFSET	3
+#define ATMEL_COMMAND_OFFSET      	0	/**< Command byte offset. */
+#define ATMEL_ADDRESS_BYTE1_OFFSET	1	/**< Address byte 1 offset. */
+#define ATMEL_ADDRESS_BYTE2_OFFSET  	2	/**< Address byte 2 offset. */
+#define ATMEL_ADDRESS_BYTE3_OFFSET	3	/**< Address byte 3 offset. */
 
-/*
- * The following definitions specify the status register bit definitions.
+/**
+ * Status register bit mask that indicates the Flash is ready.
  */
 #define ATMEL_FLASH_SR_IS_READY_MASK	0x80
 
-#define ATMEL_PAGE_SIZE		264  /* Page Size */
+#define ATMEL_PAGE_SIZE		264  /**< Page Size. */
 
-/*
+/**
  * Address of the page to perform Erase, Write and Read operations.
  */
 #define ATMEL_FLASH_TEST_ADDRESS	0x259800
@@ -144,11 +144,11 @@
  * Byte offset value written to Flash. This needs to redefined for writing
  * different patterns of data to the Flash device.
  */
-#define ATMEL_TEST_BYTE		0x10 /* Test value written to Flash */
+#define ATMEL_TEST_BYTE		0x10 /**< Test value written to Flash. */
 
 
-#define ATMEL_DUMMYBYTE			0xFF
-#define ATMEL_INITBYTE			0x00
+#define ATMEL_DUMMYBYTE			0xFF	/**< Dummy byte value. */
+#define ATMEL_INITBYTE			0x00	/**< Buffer init byte. */
 
 /**************************** Type Definitions *******************************/
 
@@ -173,26 +173,25 @@ static int SpiAtmelFlashWaitForFlashNotBusy(XSpi *SpiPtr);
  * but should at least be static so they are zeroed.
  */
 #ifndef SDT
-static XIntc InterruptController;
+static XIntc InterruptController;	/**< Interrupt controller instance. */
 #endif
-static XSpi Spi;
+static XSpi Spi;	/**< SPI driver instance. */
 
-/*
+/**
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
 static volatile int TransferInProgress;
 
-/*
+/**
  * The following variable tracks any errors that occur during interrupt
  * processing.
  */
 int ErrorCount;
 
-/*
- * Buffers used during read and write transactions.
- */
+/** Read buffer used during read and write transactions. */
 u8 ReadBuffer[ATMEL_PAGE_SIZE + ATMEL_READ_WRITE_EXTRA_BYTES];
+/** Write buffer used during read and write transactions. */
 u8 WriteBuffer[ATMEL_PAGE_SIZE + ATMEL_READ_WRITE_EXTRA_BYTES];
 
 /************************** Function Definitions ******************************/
@@ -200,12 +199,10 @@ u8 WriteBuffer[ATMEL_PAGE_SIZE + ATMEL_READ_WRITE_EXTRA_BYTES];
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Atmel Flash example.
+* @brief Runs the Atmel Flash example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, else XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -358,17 +355,14 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function reads data from the Atmel Flash device connected to the SPI
-* interface.
+* @brief Reads data from the Atmel Flash device connected to the SPI interface.
 *
-* @param	SpiPtr is a pointer to the SPI driver component to use.
-* @param	Address is the address from which the data is to be read from
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
+* @param[in]	Address Address from which the data is to be read from
 *		the Flash.
-* @param	ByteCount is the number of bytes to read.
+* @param[in]	ByteCount Number of bytes to read.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiAtmelFlashRead(XSpi *SpiPtr, u32 Address, u16 ByteCount)
@@ -425,15 +419,13 @@ int SpiAtmelFlashRead(XSpi *SpiPtr, u32 Address, u16 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function writes to the Atmel Flash device connected to the SPI interface.
+* @brief Writes to the Atmel Flash device connected to the SPI interface.
 *
-* @param	SpiPtr is a pointer to the SPI driver component to use.
-* @param	Address is the address to which the data is written.
-* @param	ByteCount contains the number of bytes to write.
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
+* @param[in]	Address Address to which the data is written.
+* @param[in]	ByteCount Number of bytes to write.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiAtmelFlashWrite(XSpi *SpiPtr, u32 Address, u16 ByteCount)
@@ -483,14 +475,12 @@ int SpiAtmelFlashWrite(XSpi *SpiPtr, u32 Address, u16 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function erases the contents of the specified Page in the Flash.
+* @brief Erases the contents of the specified Page in the Flash.
 *
-* @param	SpiPtr is a pointer to the SPI driver component to use.
-* @param	Address contains the address of the page to be erased.
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
+* @param[in]	Address Address of the page to be erased.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int SpiAtmelFlashPageErase(XSpi *SpiPtr, u32 Address)
@@ -528,13 +518,11 @@ int SpiAtmelFlashPageErase(XSpi *SpiPtr, u32 Address)
 /*****************************************************************************/
 /**
 *
-* This function waits till the flash is ready to accept next command.
+* @brief Waits till the flash is ready to accept next command.
 *
-* @param	SpiPtr is a pointer to the SPI driver component to use.
+* @param[in,out]	SpiPtr Pointer to the SPI driver component to use.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int SpiAtmelFlashWaitForFlashNotBusy(XSpi *SpiPtr)
@@ -585,7 +573,8 @@ static int SpiAtmelFlashWaitForFlashNotBusy(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver.
+* @brief Handles the status events of the SPI driver.
+*
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized. It is called when a transfer of SPI data
 * completes or an error occurs.
@@ -593,13 +582,11 @@ static int SpiAtmelFlashWaitForFlashNotBusy(XSpi *SpiPtr)
 * This handler provides an example of how to handle SPI interrupts and
 * is application specific.
 *
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in]	CallBackRef Upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
+* @param[in]	StatusEvent Event that just occurred.
+* @param[in]	ByteCount Number of bytes transferred up until the event
 *		occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
@@ -620,23 +607,23 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the Spi device. This function is application specific since the actual
-* system may or may not have an interrupt controller. The Spi device could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system such that interrupts can occur for the
+* Spi device.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* The function is application specific since the actual system may or may not
+* have an interrupt controller. The Spi device could be directly connected to
+* a processor without an interrupt controller. The user should modify this
+* function to fit the application.
+*
+* @param[in]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None
-*
 ******************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 

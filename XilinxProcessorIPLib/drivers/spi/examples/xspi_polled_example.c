@@ -8,18 +8,13 @@
 /**
 * @file xspi_polled_example.c
 *
-*
-* This file contains a design example using the Spi driver (XSpi) and the Spi
+* @brief Implements a design example using the Spi driver (XSpi) and the Spi
 * device using the polled mode.
 *
 * To put the driver in polled mode the Global Interrupt must be disabled after
 * the Spi is Initialized and Spi driver is started.
 *
-* This example works with a PPC/MicroBlaze processor.
-*
-* @note
-*
-* None.
+* The example works with a PPC/MicroBlaze processor.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -40,6 +35,7 @@
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre>
 ******************************************************************************/
 
@@ -62,10 +58,10 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
 #endif
 
-/*
+/**
  *  This is the size of the buffer to be transmitted/received in this example.
  */
 #define BUFFER_SIZE		12
@@ -73,9 +69,8 @@
 
 /**************************** Type Definitions *******************************/
 
-/*
- * The following data type is used to send and receive data on the SPI
- * interface.
+/**
+ * @brief Holds the data sent and received on the SPI interface.
  */
 typedef u8 DataBuffer[BUFFER_SIZE];
 
@@ -97,25 +92,22 @@ int SpiPolledExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress);
  * The instances to support the device drivers are global such that the
  * are initialized to zero each time the program runs.
  */
-static XSpi  SpiInstance;	 /* The instance of the SPI device */
+static XSpi  SpiInstance;	 /**< Instance of the SPI device. */
 
 /*
  * The following variables are used to read and write to the  Spi device, they
  * are global to avoid having large buffers on the stack.
  */
-u8 ReadBuffer[BUFFER_SIZE];
-u8 WriteBuffer[BUFFER_SIZE];
+u8 ReadBuffer[BUFFER_SIZE];	/**< Buffer to read from the Spi device. */
+u8 WriteBuffer[BUFFER_SIZE];	/**< Buffer to write to the Spi device. */
 
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Spi Polled example.
-*
+* @brief Runs the Spi Polled example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -142,26 +134,27 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the Spi device and driver as a
-* design example. The purpose of this function is to illustrate how to use
+* @brief Runs a minimal test on the Spi device and driver as a design example.
+*
+* The purpose of the function is to illustrate how to use
 * the XSpi component using the polled mode.
 *
-* This function sends data and expects to receive the same data.
+* The function sends data and expects to receive the same data.
 *
-*
-* @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @param[in]	SpiInstancePtr Pointer to the instance of Spi component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	SpiDeviceId is the Device ID of the Spi Device and is the
+* @param[in]	SpiDeviceId Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, otherwise XST_FAILURE.
 *
-* @note        - In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
-*              - This function contains an infinite loop such that if the Spi
+* @note        - In XSCT/classic flow, the device configuration is looked up
+*              by DeviceId.
+*              - The function contains an infinite loop such that if the Spi
 *              device is not working it may never return.
 *
 ******************************************************************************/

@@ -8,19 +8,16 @@
 /**
 * @file xspi_stm_flash_example.c
 *
-* This file contains a design example using the SPI driver (XSpi) and hardware
+* @brief Implements a design example using the SPI driver (XSpi) and hardware
 * device with an STM serial Flash device (M25P series) in the interrupt mode.
-* This example erases a Sector, writes to a Page within the Sector, reads back
+*
+* The example erases a Sector, writes to a Page within the Sector, reads back
 * from that Page and compares the data.
 *
-* This example  has been tested with an M25P16 device. The bytes per page
+* The example  has been tested with an M25P16 device. The bytes per page
 * (STM_PAGE_SIZE) in M25P16 is 256.
 *
-* This example assumes that the underlying processor is MicroBlaze.
-*
-* @note
-*
-* None.
+* The example assumes that the underlying processor is MicroBlaze.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -39,6 +36,7 @@
 *       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
@@ -69,14 +67,17 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** SPI device ID. */
 #define SPI_DEVICE_ID			XPAR_SPI_0_DEVICE_ID
+/** INTC device ID. */
 #define INTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
+/** SPI interrupt ID. */
 #define SPI_INTR_ID			XPAR_INTC_0_SPI_0_VEC_ID
 #endif
 
-/*
- * The following constant defines the slave select signal that is used to
- * to select the Flash device on the SPI bus, this signal is typically
+/**
+ * The following constant defines the slave select signal that selects
+ * the Flash device on the SPI bus, this signal is typically
  * connected to the chip select of the device.
  */
 #define STM_SPI_SELECT 0x01
@@ -84,12 +85,12 @@
 /*
  * Definitions of the commands shown in this example.
  */
-#define STM_COMMAND_RANDOM_READ		0x03 /* Random read command */
-#define STM_COMMAND_PAGEPROGRAM_WRITE	0x02 /* Page Program command */
-#define	STM_COMMAND_WRITE_ENABLE	0x06 /* Write Enable command */
-#define STM_COMMAND_SECTOR_ERASE	0xD8 /* Sector Erase command */
-#define STM_COMMAND_BULK_ERASE		0xC7 /* Bulk Erase command */
-#define STM_COMMAND_STATUSREG_READ	0x05 /* Status read command */
+#define STM_COMMAND_RANDOM_READ		0x03 /**< Random read command. */
+#define STM_COMMAND_PAGEPROGRAM_WRITE	0x02 /**< Page Program command. */
+#define	STM_COMMAND_WRITE_ENABLE	0x06 /**< Write Enable command. */
+#define STM_COMMAND_SECTOR_ERASE	0xD8 /**< Sector Erase command. */
+#define STM_COMMAND_BULK_ERASE		0xC7 /**< Bulk Erase command. */
+#define STM_COMMAND_STATUSREG_READ	0x05 /**< Status read command. */
 
 
 /**
@@ -97,29 +98,29 @@
  * transactions. This count includes Command byte, address bytes and any
  * don't care bytes needed.
  */
-#define STM_READ_WRITE_EXTRA_BYTES	4 /* Read/Write extra bytes */
-#define	STM_WRITE_ENABLE_BYTES		1 /* Write Enable bytes */
-#define STM_SECTOR_ERASE_BYTES		4 /* Sector erase extra bytes */
-#define STM_BULK_ERASE_BYTES		1 /* Bulk erase extra bytes */
-#define STM_STATUS_READ_BYTES		2 /* Status read bytes count */
-#define STM_STATUS_WRITE_BYTES		2 /* Status write bytes count */
+#define STM_READ_WRITE_EXTRA_BYTES	4 /**< Read/Write extra bytes. */
+#define	STM_WRITE_ENABLE_BYTES		1 /**< Write Enable bytes. */
+#define STM_SECTOR_ERASE_BYTES		4 /**< Sector erase extra bytes. */
+#define STM_BULK_ERASE_BYTES		1 /**< Bulk erase extra bytes. */
+#define STM_STATUS_READ_BYTES		2 /**< Status read bytes count. */
+#define STM_STATUS_WRITE_BYTES		2 /**< Status write bytes count. */
 
 /*
  * Flash not busy mask in the status register of the flash device.
  */
-#define STM_FLASH_SR_IS_READY_MASK	0x01 /* Ready mask */
+#define STM_FLASH_SR_IS_READY_MASK	0x01 /**< Ready mask. */
 
-/*
+/**
  * Number of bytes per page in the flash device.
  */
 #define STM_PAGE_SIZE		256
 
-/*
+/**
  * Address of the page to perform Erase, Write and Read operations.
  */
 #define STM_FLASH_TEST_ADDRESS	0x00
 
-/*
+/**
  * Byte offset value written to Flash. This needs to redefined for writing
  * different patterns of data to the Flash device.
  */
@@ -128,13 +129,13 @@
 /*
  * Byte Positions.
  */
-#define BYTE1				0 /* Byte 1 position */
-#define BYTE2				1 /* Byte 2 position */
-#define BYTE3				2 /* Byte 3 position */
-#define BYTE4				3 /* Byte 4 position */
-#define BYTE5				4 /* Byte 5 position */
+#define BYTE1				0 /**< Byte 1 position. */
+#define BYTE2				1 /**< Byte 2 position. */
+#define BYTE3				2 /**< Byte 3 position. */
+#define BYTE4				3 /**< Byte 4 position. */
+#define BYTE5				4 /**< Byte 5 position. */
 
-#define STM_DUMMYBYTE			0xFF /* Dummy byte */
+#define STM_DUMMYBYTE			0xFF /**< Dummy byte. */
 
 /**************************** Type Definitions *******************************/
 
@@ -162,26 +163,25 @@ static int SetupInterruptSystem(XSpi *SpiPtr);
  * but should at least be static so they are zeroed.
  */
 #ifndef SDT
-static XIntc InterruptController;
+static XIntc InterruptController;	/**< Interrupt controller instance. */
 #endif
-static XSpi Spi;
+static XSpi Spi;	/**< SPI driver instance. */
 
-/*
+/**
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
 static volatile int TransferInProgress;
 
-/*
+/**
  * The following variable tracks any errors that occur during interrupt
  * processing.
  */
 int ErrorCount;
 
-/*
- * Buffers used during read and write transactions.
- */
+/** Read buffer used during read and write transactions. */
 u8 ReadBuffer[STM_PAGE_SIZE + STM_READ_WRITE_EXTRA_BYTES];
+/** Write buffer used during read and write transactions. */
 u8 WriteBuffer[STM_PAGE_SIZE + STM_READ_WRITE_EXTRA_BYTES];
 
 /************************** Function Definitions ******************************/
@@ -189,12 +189,10 @@ u8 WriteBuffer[STM_PAGE_SIZE + STM_READ_WRITE_EXTRA_BYTES];
 /*****************************************************************************/
 /**
 *
-* Main function to execute the Flash example.
+* @brief Runs the STM Flash example.
 *
-*
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
+* @return	XST_SUCCESS if successful, XST_DEVICE_NOT_FOUND if the SPI
+*		configuration is not found, else XST_FAILURE.
 *
 ******************************************************************************/
 int main(void)
@@ -378,13 +376,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function enables writes to the STM Serial Flash memory.
+* @brief Enables writes to the STM Serial Flash memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int SpiStmFlashWriteEnable(XSpi *SpiPtr)
@@ -422,16 +418,14 @@ int SpiStmFlashWriteEnable(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function writes the data to the specified locations in the STM Serial
-* Flash memory.
+* @brief Writes the data to the specified locations in the STM Serial Flash
+* memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the address in the Buffer, where to write the data.
-* @param	ByteCount is the number of bytes to be written.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Address in the Buffer, where to write the data.
+* @param[in]	ByteCount Number of bytes to be written.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int SpiStmFlashWrite(XSpi *SpiPtr, u32 Addr, u32 ByteCount)
@@ -483,16 +477,14 @@ int SpiStmFlashWrite(XSpi *SpiPtr, u32 Addr, u32 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function reads the data from the STM Serial Flash Memory
+* @brief Reads the data from the STM Serial Flash Memory.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the starting address in the Flash Memory from which the
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Starting address in the Flash Memory from which the
 *		data is to be read.
-* @param	ByteCount is the number of bytes to be read.
+* @param[in]	ByteCount Number of bytes to be read.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int SpiStmFlashRead(XSpi *SpiPtr, u32 Addr, u32 ByteCount)
@@ -533,13 +525,13 @@ int SpiStmFlashRead(XSpi *SpiPtr, u32 Addr, u32 ByteCount)
 /*****************************************************************************/
 /**
 *
-* This function erases the entire contents of the STM Serial Flash device.
+* @brief Erases the entire contents of the STM Serial Flash device.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		The erased bytes will read as 0xFF.
+* @note		The erased bytes read as 0xFF.
 *
 ******************************************************************************/
 int SpiStmFlashBulkErase(XSpi *SpiPtr)
@@ -577,16 +569,16 @@ int SpiStmFlashBulkErase(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function erases the contents of the specified Sector in the STM Serial
-* Flash device.
+* @brief Erases the contents of the specified Sector in the STM Serial Flash
+* device.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
-* @param	Addr is the address within a sector of the Buffer, which is to
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
+* @param[in]	Addr Address within a sector of the Buffer, which is to
 *		be erased.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		The erased bytes will be read back as 0xFF.
+* @note		The erased bytes are read back as 0xFF.
 *
 ******************************************************************************/
 int SpiStmFlashSectorErase(XSpi *SpiPtr, u32 Addr)
@@ -627,9 +619,9 @@ int SpiStmFlashSectorErase(XSpi *SpiPtr, u32 Addr)
 /*****************************************************************************/
 /**
 *
-* This function reads the Status register of the STM Flash.
+* @brief Reads the Status register of the STM Flash.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in,out]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
@@ -672,11 +664,11 @@ int SpiStmFlashGetStatus(XSpi *SpiPtr)
 /*****************************************************************************/
 /**
 *
-* This function waits till the STM serial Flash is ready to accept next command.
+* @brief Waits till the STM serial Flash is ready to accept next command.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		This function reads the status register of the Buffer and waits
+* @note		The function reads the status register of the Buffer and waits
 *.		till the WIP bit of the status register becomes 0.
 *
 ******************************************************************************/
@@ -711,21 +703,20 @@ int SpiStmFlashWaitForFlashNotBusy(void)
 /*****************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver.
+* @brief Handles the status events of the SPI driver.
+*
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized. It is called when a transfer of SPI data
 * completes or an error occurs.
 *
-* This handler provides an example of how to handle SPI interrupts and
+* The handler provides an example of how to handle SPI interrupts and
 * is application specific.
 *
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in]	CallBackRef Upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
+* @param[in]	StatusEvent Event that just occurred.
+* @param[in]	ByteCount Number of bytes transferred up until the event
 *		occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
@@ -746,23 +737,23 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 	}
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the Spi device. This function is application specific since the actual
+* @brief Sets up the interrupt system such that interrupts can occur for the
+* Spi device.
+*
+* The function is application specific since the actual
 * system may or may not have an interrupt controller. The Spi device could be
 * directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* user should modify the function to fit the application.
 *
-* @param	SpiPtr is a pointer to the instance of the Spi device.
+* @param[in]	SpiPtr Pointer to the instance of the Spi device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note		None
-*
 ******************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(XSpi *SpiPtr)
 {
 

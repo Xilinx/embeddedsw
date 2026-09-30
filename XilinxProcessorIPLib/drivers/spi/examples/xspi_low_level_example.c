@@ -8,14 +8,16 @@
 /**
 * @file  xspi_low_level_example.c
 *
-* This file contains a design example using the low-level driver of the
-* SPI driver (XSpi). These macros are found in xspi_l.h.  A simple loopback
-* test is done within an SPI device in polled mode. This example works only with
+* @brief Implements a design example using the low-level driver of the SPI
+* driver (XSpi).
+*
+* These macros are found in xspi_l.h.  A simple loopback
+* test is done within an SPI device in polled mode. The example works only with
 * 8-bit wide data transfers.
 *
 * @note
-* This example works only with 8-bit wide data transfers in standard SPI mode.
-* This example will not work if the axi_qspi device is confiured in dual/quad
+* The example works only with 8-bit wide data transfers in standard SPI mode.
+* The example does not work if the axi_qspi device is confiured in dual/quad
 * modes.
 *
 * To make this example work for 16 bit transfers change u8 Buffer[BUFFER_SIZE]
@@ -25,7 +27,6 @@
 * To make this example work for 32 bit transfers change u8 Buffer[BUFFER_SIZE]
 * to u32 Buffer[BUFFER_SIZE]. The SPI Core should also be configured for 32 bit
 * access during the build time.
-*
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -43,6 +44,7 @@
 *                     CR-965028.
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *</pre>
 *******************************************************************************/
 
@@ -65,9 +67,9 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_BASEADDR		XPAR_SPI_0_BASEADDR
+#define SPI_BASEADDR		XPAR_SPI_0_BASEADDR /**< SPI base address. */
 #else
-#define SPI_BASEADDR		XPAR_XSPI_0_BASEADDR
+#define SPI_BASEADDR		XPAR_XSPI_0_BASEADDR /**< SPI base address. */
 #endif
 
 /**************************** Type Definitions ********************************/
@@ -83,25 +85,22 @@ int XSpi_LowLevelExample(u32 BaseAddress);
 /************************** Variable Definitions ******************************/
 
 
-/*
+/**
  *  This is the size of the buffer to be transmitted/received in this example.
  */
 #define BUFFER_SIZE			 32
 
-/*
- * The buffer used for Transmission/Reception of the SPI test data
+/**
+ * The buffer used for Transmission/Reception of the SPI test data.
  */
 u16 Buffer[BUFFER_SIZE];
 
 /******************************************************************************/
 /**
-* This function is the main function of the SPI Low Level example.
-*
+* @brief Runs the SPI Low Level example.
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		Failure.
-*
-* @note		None
 *
 *******************************************************************************/
 int main(void)
@@ -125,13 +124,11 @@ int main(void)
 /******************************************************************************/
 /**
 *
-* This function does a simple loopback test within an SPI device.
+* @brief Runs a simple loopback test within an SPI device.
 *
-* @param	BaseAddress is the BaseAddress of the SPI device
+* @param[in]	BaseAddress Base address of the SPI device.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
 *
 *******************************************************************************/
 int XSpi_LowLevelExample(u32 BaseAddress)

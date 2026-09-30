@@ -8,11 +8,10 @@
 /**
 *
 * @file xspi.c
-* @addtogroup spi Overview
-* @{
 *
-* Contains required functions of the XSpi driver component.  See xspi.h for
-* a detailed description of the device and driver.
+* @brief Implements the required functions of the XSpi driver component.
+*
+* See xspi.h for a detailed description of the device and driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -89,9 +88,15 @@
 *       zm   07/10/26 Added ByteCount alignment check against data width in
 *                     XSpi_Transfer.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spi_api SPI APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 
@@ -120,7 +125,8 @@ void XSpi_Abort(XSpi *InstancePtr);
 /*****************************************************************************/
 /**
 *
-* Initializes a specific XSpi instance such that the driver is ready to use.
+* @brief Initializes a specific XSpi instance such that the driver is ready to
+* use.
 *
 * The state of the device after initialization is:
 *	- Device is disabled
@@ -128,17 +134,17 @@ void XSpi_Abort(XSpi *InstancePtr);
 *	- Active high clock polarity
 *	- Clock phase 0
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	Config is a reference to a structure containing information
-*		about a specific SPI device. This function initializes an
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	Config Reference to a structure containing information
+*		about a specific SPI device. The function initializes an
 *		InstancePtr object for a specific device specified by the
-*		contents of Config. This function can initialize multiple
+*		contents of Config. The function can initialize multiple
 *		instance objects with the use of multiple calls giving
-		different Config information on each call.
-* @param	EffectiveAddr is the device base address in the virtual memory
+*		different Config information on each call.
+* @param[in]	EffectiveAddr Device base address in the virtual memory
 *		address space. The caller is responsible for keeping the
 *		address mapping from EffectiveAddr to the device physical base
-*		address unchanged once this function is invoked. Unexpected
+*		address unchanged once the function is invoked. Unexpected
 *		errors may occur if the address mapping changes after this
 *		function is called. If address translation is not used, use
 *		Config->BaseAddress for this parameters, passing the physical
@@ -148,8 +154,8 @@ void XSpi_Abort(XSpi *InstancePtr);
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is started. It must be
 *		  stopped to re-initialize.
-*
-* @note		None.
+*		- XST_FAILURE if the FIFO reset does not complete when the
+*		  startup block is used.
 *
 ******************************************************************************/
 int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
@@ -290,20 +296,20 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 /*****************************************************************************/
 /**
 *
-* This function enables interrupts for the SPI device. If the Spi driver is used
-* in interrupt mode, it is up to the user to connect the SPI interrupt handler
-* to the interrupt controller before this function is called. If the Spi driver
-* is used in polled mode the user has to disable the Global Interrupts after
-* this function is called. If the device is configured with FIFOs, the FIFOs are
-* reset at this time.
+* @brief Enables interrupts for the SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* If the Spi driver is used in interrupt mode, it is up to the user to connect
+* the SPI interrupt handler to the interrupt controller before the function
+* is called. If the Spi driver is used in polled mode the user has to disable
+* the Global Interrupts after the function is called. If the device is
+* configured with FIFOs, the FIFOs are reset at this time.
+*
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return
 *		- XST_SUCCESS if the device is successfully started
 *		- XST_DEVICE_IS_STARTED if the device was already started.
-*
-* @note		None.
+*		- XST_FAILURE if the FIFO reset does not complete.
 *
 ******************************************************************************/
 int XSpi_Start(XSpi *InstancePtr)
@@ -363,34 +369,34 @@ int XSpi_Start(XSpi *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function stops the SPI device by disabling interrupts and disabling the
-* device itself. Interrupts are disabled only within the device itself. If
-* desired, the caller is responsible for disabling interrupts in the interrupt
-* controller and disconnecting the interrupt handler from the interrupt
-* controller.
+* @brief Stops the SPI device by disabling interrupts and disabling the device
+* itself.
+*
+* Interrupts are disabled only within the device itself. If desired, the
+* caller is responsible for disabling interrupts in the interrupt controller
+* and disconnecting the interrupt handler from the interrupt controller.
 *
 * In interrupt mode, if the device is in progress of transferring data on the
-* SPI bus, this function returns a status indicating the device is busy. The
-* user will be notified via the status handler when the transfer is complete,
+* SPI bus, the function returns a status indicating the device is busy. The
+* user is notified via the status handler when the transfer is complete,
 * and at that time can again try to stop the device. As a master, we do not
 * allow the device to be stopped while a transfer is in progress because the
 * slave may be left in a bad state. As a slave, we do not allow the device to be
 * stopped while a transfer is in progress because the master is not done with
 * its transfer yet.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return
-* 		- XST_SUCCESS if the device is successfully started.
+*		- XST_SUCCESS if the device is successfully stopped.
 *		- XST_DEVICE_BUSY if a transfer is in progress and cannot be
 *		  stopped.
 *
 * @note
-*
-* This function makes use of internal resources that are shared between the
+* The function makes use of internal resources that are shared between the
 * XSpi_Stop() and XSpi_SetOptions() functions. So if one task might be setting
 * device options while another is trying to stop the device, the user is
-* is required to provide protection of this shared data (typically using a
+* required to provide protection of this shared data (typically using a
 * semaphore).
 *
 ******************************************************************************/
@@ -428,18 +434,18 @@ int XSpi_Stop(XSpi *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Resets the SPI device by writing to the Software Reset register. Reset must
-* only be called after the driver has been initialized. The configuration of the
-* device after reset is the same as its configuration after initialization.
+* @brief Resets the SPI device by writing to the Software Reset register.
+*
+* Reset must only be called after the driver has been initialized. The
+* configuration of the device after reset is the same as its configuration
+* after initialization.
 * Refer to the XSpi_Initialize function for more details. This is a hard reset
 * of the device. Any data transfer that is in progress is aborted.
 *
 * The upper layer software is responsible for re-configuring (if necessary)
 * and restarting the SPI device after the reset.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
 *
 ******************************************************************************/
 void XSpi_Reset(XSpi *InstancePtr)
@@ -469,16 +475,18 @@ void XSpi_Reset(XSpi *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Transfers the specified data on the SPI bus. If the SPI device is configured
-* to be a master, this function initiates bus communication and sends/receives
-* the data to/from the selected SPI slave. If the SPI device is configured to
-* be a slave, this function prepares the data to be sent/received when selected
-* by a master. For every byte sent, a byte is received.
+* @brief Transfers the specified data on the SPI bus.
 *
-* This function/driver operates in interrupt mode and polled mode.
-*  - In interrupt mode this function is non-blocking and the transfer is
-*    initiated by this function and completed by the interrupt service routine.
-*  - In polled mode this function is blocking and the control exits this
+* If the SPI device is configured to be a master, the function initiates bus
+* communication and sends/receives the data to/from the selected SPI slave.
+* If the SPI device is configured to be a slave, the function prepares the
+* data to be sent/received when selected by a master. For every byte sent, a
+* byte is received.
+*
+* The function and driver operate in interrupt mode and polled mode.
+*  - In interrupt mode the function is non-blocking and the transfer is
+*    initiated by the function and completed by the interrupt service routine.
+*  - In polled mode the function is blocking and the control exits the
 *    function only after all the requested data is transferred.
 *
 * The caller has the option of providing two different buffers for send and
@@ -510,27 +518,27 @@ void XSpi_Reset(XSpi *InstancePtr)
 *	receive N bytes of data.
 * </pre>
 *
-* In interrupt mode, though this function takes a buffer as an argument, the
+* In interrupt mode, though the function takes a buffer as an argument, the
 * driver can only transfer a limited number of bytes at time. It transfers only
 * one byte at a time if there are no FIFOs, or it can transfer the number of
 * bytes up to the size of the FIFO if FIFOs exist.
-*  - In interrupt mode a call to this function only starts the transfer, the
+*  - In interrupt mode a call to the function only starts the transfer, the
 *    subsequent transfer of the data is performed by the interrupt service
 *    routine until the entire buffer has been transferred.The status callback
 *    function is called when the entire buffer has been sent/received.
-*  - In polled mode this function is blocking and the control exits this
+*  - In polled mode the function is blocking and the control exits the
 *    function only after all the requested data is transferred.
 *
-* As a master, the SetSlaveSelect function must be called prior to this
+* As a master, the SetSlaveSelect function must be called prior to the
 * function.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	SendBufPtr is a pointer to a buffer of data which is to be sent.
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	SendBufPtr Pointer to a buffer of data which is to be sent.
 *		This buffer must not be NULL.
-* @param	RecvBufPtr is a pointer to a buffer which will be filled with
+* @param[out]	RecvBufPtr Pointer to a buffer which is filled with
 *		received data. This argument can be NULL if the caller does not
 *		wish to receive data.
-* @param	ByteCount contains the number of bytes to send/receive. The
+* @param[in]	ByteCount Number of bytes to send/receive. The
 *		number of bytes received always equals the number of bytes sent.
 *
 * @return
@@ -546,8 +554,7 @@ void XSpi_Reset(XSpi *InstancePtr)
 *		width in bytes.
 *
 * @note
-*
-* This function is not thread-safe.  The higher layer software must ensure that
+* The function is not thread-safe.  The higher layer software must ensure that
 * no two threads are transferring data on the SPI bus at the same time.
 *
 ******************************************************************************/
@@ -875,9 +882,11 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 /*****************************************************************************/
 /**
 *
-* Selects or deselect the slave with which the master communicates. Each slave
-* that can be selected is represented in the slave select register by a bit.
-* The argument passed to this function is the bit mask with a 1 in the bit
+* @brief Selects or deselects the slave with which the master communicates.
+*
+* Each slave that can be selected is represented in the slave select register
+* by a bit.
+* The argument passed to the function is the bit mask with a 1 in the bit
 * position of the slave being selected. Only one slave can be selected.
 *
 * The user is not allowed to deselect the slave while a transfer is in progress.
@@ -885,13 +894,13 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 * implicitly deselects the current slave. In order to explicitly deselect the
 * current slave, a zero can be passed in as the argument to the function.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	SlaveMask is a 32-bit mask with a 1 in the bit position of the
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	SlaveMask 32-bit mask with a 1 in the bit position of the
 *		slave being selected. Only one slave can be selected. The
 *		SlaveMask can be zero if the slave is being deselected.
 *
 * @return
-* 		- XST_SUCCESS if the slave is selected or deselected
+*		- XST_SUCCESS if the slave is selected or deselected
 *		successfully.
 *		- XST_DEVICE_BUSY if a transfer is in progress, slave cannot be
 *		changed
@@ -899,8 +908,7 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 *		selected.
 *
 * @note
-*
-* This function only sets the slave which will be selected when a transfer
+* The function only sets the slave which is selected when a transfer
 * occurs. The slave is not selected when the SPI is idle. The slave select
 * has no affect when the device is configured as a slave.
 *
@@ -957,17 +965,17 @@ int XSpi_SetSlaveSelect(XSpi *InstancePtr, u32 SlaveMask)
 /*****************************************************************************/
 /**
 *
-* Gets the current slave select bit mask for the SPI device.
+* @brief Gets the current slave select bit mask for the SPI device.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @return	The value returned is a 32-bit mask with a 1 in the bit position
 *		of the slave currently selected. The value may be zero if no
 *		slaves are selected.
 *
-* @note		This API is used to get the current slave select bit mask
+* @note		The API gets the current slave select bit mask
 *		that was set using the XSpi_SetSlaveSelect API.
-*		This API deos not read the register from the core and returns
+*		The API does not read the register from the core and returns
 *		the slave select register stored in the instance pointer.
 *
 ******************************************************************************/
@@ -987,11 +995,14 @@ u32 XSpi_GetSlaveSelect(XSpi *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Sets the status callback function, the status handler, which the driver calls
-* when it encounters conditions that should be reported to the higher layer
-* software. The handler executes in an interrupt context, so it must minimize
-* the amount of processing performed such as transferring data to a thread
-* context. One of the following status events is passed to the status handler.
+* @brief Sets the status callback function that the driver calls to report
+* conditions to the higher layer software.
+*
+* The driver calls the status handler when it encounters conditions that
+* should be reported to the higher layer software. The handler executes in
+* an interrupt context, so it must minimize the amount of processing performed
+* such as transferring data to a thread context. One of the following status
+* events is passed to the status handler.
 * <pre>
 *   XST_SPI_MODE_FAULT		A mode fault error occurred, meaning another
 *				master tried to select this device as a slave
@@ -1020,13 +1031,12 @@ u32 XSpi_GetSlaveSelect(XSpi *InstancePtr)
 *				transfer).
 * </pre>
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
-* @param	CallBackRef is the upper layer callback reference passed back
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
+* @param[in]	CallBackRef Upper layer callback reference passed back
 *		when the callback function is invoked.
-* @param	FuncPtr is the pointer to the callback function.
+* @param[in]	FuncPtr Pointer to the callback function.
 *
 * @note
-*
 * The handler is called within interrupt context, so it should do its work
 * quickly and queue potentially time-consuming work to a task-level thread.
 *
@@ -1045,17 +1055,14 @@ void XSpi_SetStatusHandler(XSpi *InstancePtr, void *CallBackRef,
 /*****************************************************************************/
 /**
 *
-* This is a stub for the status callback. The stub is here in case the upper
-* layers forget to set the handler.
+* @brief Implements a stub for the status callback.
 *
-* @param	CallBackRef is a pointer to the upper layer callback reference
-* @param	StatusEvent is the event that just occurred.
-* @param	ByteCount is the number of bytes transferred up until the event
+* The stub is here in case the upper layers forget to set the handler.
+*
+* @param[in]	CallBackRef Pointer to the upper layer callback reference.
+* @param[in]	StatusEvent Event that just occurred.
+* @param[in]	ByteCount Number of bytes transferred up until the event
 *		occurred.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
@@ -1070,9 +1077,11 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 /*****************************************************************************/
 /**
 *
-* The interrupt handler for SPI interrupts. This function must be connected
-* by the user to an interrupt source. This function does not save and restore
-* the processor context such that the user must provide this processing.
+* @brief Handles the SPI interrupts.
+*
+* The handler must be connected by the user to an interrupt source. It does
+* not save and restore the processor context such that the user must provide
+* this processing.
 *
 * The interrupts that are handled are:
 *
@@ -1106,10 +1115,9 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 *   after the CS is asserted, doesn't match any command in the Lookup table.
 *   This interrupt is valid only for axi_qspi.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* @param[in]	InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @note
-*
 * The slave select register is being set to deselect the slave when a transfer
 * is complete.  This is being done regardless of whether it is a slave or a
 * master since the hardware does not drive the slave select as a slave.
@@ -1372,16 +1380,16 @@ void XSpi_InterruptHandler(void *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Aborts a transfer in progress by setting the stop bit in the control register,
-* then resetting the FIFOs if present. The byte counts are cleared and the
-* busy flag is set to false.
+* @brief Aborts a transfer in progress by setting the stop bit in the control
+* register, then resetting the FIFOs if present.
 *
-* @param	InstancePtr is a pointer to the XSpi instance to be worked on.
+* The byte counts are cleared and the busy flag is set to false.
+*
+* @param[in,out] InstancePtr Pointer to the XSpi instance to be worked on.
 *
 * @note
-*
-* This function does a read/modify/write of the control register. The user of
-* this function needs to take care of critical sections.
+* The function does a read/modify/write of the control register. The user of
+* the function needs to take care of critical sections.
 *
 ******************************************************************************/
 void XSpi_Abort(XSpi *InstancePtr)

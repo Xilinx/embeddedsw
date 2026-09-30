@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2001 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,8 @@
 /**
 *
 * @file xspi_g.c
-* @addtogroup spi Overview
-* @{
 *
-* This file contains a configuration table that specifies the configuration of
+* @brief Contains the configuration table that specifies the configuration of
 * SPI devices in the system.
 *
 * <pre>
@@ -29,10 +27,16 @@
 * 3.02a sdm  05/04/11 Added a new parameter for the mode in which SPI device
 *		      operates.
 * 3.06a adk  07/08/13 Added a new parameter for the startup block
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup spi_api SPI APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xspi.h"
@@ -53,8 +57,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each SPI device
- * in the system.
+ * @brief Holds the configuration information for each SPI device in the system.
  */
 XSpi_Config XSpi_ConfigTable[XPAR_XSPI_NUM_INSTANCES] = {
 	{

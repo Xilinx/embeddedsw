@@ -8,28 +8,26 @@
 /**
 * @file xspi_slave_intr_example.c
 *
-*
-* This file contains a design example using the Spi driver (XSpi) and the Spi
+* @brief Implements a design example using the Spi driver (XSpi) and the Spi
 * device as a Slave, in interrupt mode.
 *
-* This example fills the Spi Tx buffer with the number of data bytes it expects
+* The example fills the Spi Tx buffer with the number of data bytes it expects
 * to receive from the master and then Spi device waits for an external master to
 * initiate the transfer. When the master initiates the transfer, the Spi device
 * receives data from the master and simultaneously sends the data in Tx buffer
 * to the master. Once the transfer is complete, a transfer complete interrupt is
-* generated and this example prints the data received from the master. The
+* generated and the example prints the data received from the master. The
 * number of bytes to be received by the Spi slave is defined by the constant
-* BUFFER_SIZE in this file.
+* BUFFER_SIZE in the file.
 *
 * The external SPI devices that are present on the Xilinx boards don't support
-* the Master functionality. This example has been tested with Aardvark I2C/SPI
+* the Master functionality. The example has been tested with Aardvark I2C/SPI
 * Host Adapter, an off board external SPI Master device and the Xilinx SPI
-* device configured as a Slave. This example has been tested for byte-wide SPI
+* device configured as a Slave. The example has been tested for byte-wide SPI
 * transfers.
 *
 * @note
-*
-* This example assumes that there is a STDIO device in the system.
+* The example assumes that there is a STDIO device in the system.
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -50,6 +48,7 @@
 * 4.11  sb   07/11/23 Added support for system device-tree flow.
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
+* 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
 *
 *</pre>
 ******************************************************************************/
@@ -79,12 +78,13 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define SPI_DEVICE_ID		XPAR_SPI_0_DEVICE_ID	/**< SPI device ID. */
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID	/**< INTC device ID. */
+/** SPI interrupt ID. */
 #define SPI_IRPT_INTR		XPAR_INTC_0_SPI_0_VEC_ID
 #endif
 
-/*
+/**
  * This is the size of the buffer to be transmitted/received in this example.
  */
 #define BUFFER_SIZE		32
@@ -116,26 +116,26 @@ static void SpiHandler(void *CallBackRef, u32 StatusEvent,
  * initialized to zero each time the program runs. They could be local but
  * should at least be static so that they are zeroed.
  */
-static XSpi  SpiInstance;   /* Instance of the SPI device */
+static XSpi  SpiInstance;   /**< Instance of the SPI device. */
 #ifndef SDT
-static XIntc IntcInstance;  /* Instance of the Interrupt controller device */
+static XIntc IntcInstance;  /**< Instance of the Interrupt controller device. */
 #endif
 
 /*
  * The following variables are used to read/write from the  Spi device, these
  * are global to avoid having large buffers on the stack.
  */
-u8 ReadBuffer[BUFFER_SIZE];
-u8 WriteBuffer[BUFFER_SIZE];
+u8 ReadBuffer[BUFFER_SIZE];	/**< Buffer to read from the Spi device. */
+u8 WriteBuffer[BUFFER_SIZE];	/**< Buffer to write to the Spi device. */
 
-/*
+/**
  * The following variable allows a test value to be added to the values that
  * are sent in reflection to the Master transmission such that unique values can
  * be generated to guarantee the transfer from Slave to Master is successful.
  */
 int Test;
 
-/*
+/**
  * The following variables are shared between non-interrupt processing and
  * interrupt processing such that they must be global.
  */
@@ -144,12 +144,9 @@ static volatile int TransferInProgress;
 /*****************************************************************************/
 /**
 *
-* Main function to call the Spi Slave example in interrupt mode.
-*
+* @brief Runs the Spi Slave example in interrupt mode.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -176,24 +173,25 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the Spi device and driver as a design
-* example. The purpose of this function is to illustrate the device slave
-* functionality in interrupt mode. This function receives data from a master and
+* @brief Runs a minimal test on the Spi device and driver as a design example.
+*
+* The purpose of the function is to illustrate the device slave
+* functionality in interrupt mode. The function receives data from a master and
 * prints the received data.
 *
-* @param	SpiInstancePtr is a pointer to the instance of Spi component.
+* @param[in]	SpiInstancePtr Pointer to the instance of Spi component.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	SpiDeviceId is the Device ID of the Spi Device and is the
+* @param[in]	SpiDeviceId Device ID of the Spi Device and is the
 *		XPAR_<SPI_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note        - In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
-*              - This function contains an infinite loop such that if the Spi
+* @note        - In XSCT/classic flow, the device configuration is looked up
+*              by DeviceId.
+*              - The function contains an infinite loop such that if the Spi
 *              device doesn't receive any data or if the interrupts are not
 *              working, it may never return.
 *
@@ -320,19 +318,19 @@ static int SpiSlaveIntrExample(XSpi *SpiInstancePtr, UINTPTR BaseAddress)
 /****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the SPI driver. This function is application specific since the actual
+* @brief Sets up the interrupt system such that interrupts can occur for the SPI
+* driver.
+*
+* The function is application specific since the actual
 * system may or may not have an interrupt controller. The SPI device could
 * be directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* user should modify the function to fit the application.
 *
-* @param	SpiInstance contains a pointer to the instance of the XSpi
+* @param[in]	SpiInstance Pointer to the instance of the XSpi
 * 		component which is going to be connected to the interrupt
 *		controller.
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 static int SetupInterruptSystem(XSpi *SpiInstance)
@@ -401,16 +399,15 @@ static int SetupInterruptSystem(XSpi *SpiInstance)
 /******************************************************************************/
 /**
 *
-* This function is the handler which performs processing for the SPI driver. It
-* is called from an interrupt context such that the amount of processing to be
-* performed should be minimized. This handler provides an example of how to
-* handle SPI interrupts but is application specific.
+* @brief Handles the status events of the SPI driver.
 *
-* @param 	CallBackRef is a reference passed to the handler.
-* @param	StatusEvent is the status of the SPI.
-* @param	ByteCount is the number of bytes transferred.
+* The handler is called from an interrupt context such that the amount of
+* processing to be performed should be minimized. The handler provides an
+* example of how to handle SPI interrupts but is application specific.
 *
-* @note		None.
+* @param[in] 	CallBackRef Reference passed to the handler.
+* @param[in]	StatusEvent Status of the SPI.
+* @param[in]	ByteCount Number of bytes transferred.
 *
 ******************************************************************************/
 static void SpiHandler(void *CallBackRef, u32 StatusEvent,

@@ -1,11 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2008 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef SPI_INTR_HEADER_H		/* prevent circular inclusions */
-#define SPI_INTR_HEADER_H		/* by using protection macros */
+#ifndef SPI_INTR_HEADER_H
+#define SPI_INTR_HEADER_H
+
+/******************************************************************************/
+/**
+*
+* @file spi_intr_header.h
+*
+* @brief Declares prototypes for the SPI driver examples.
+*
+******************************************************************************/
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,6 +24,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+/** @cond INTERNAL */
 #ifdef XPAR_INTC_0_DEVICE_ID
 int SpiIntrExample(XIntc *IntcInstancePtr, \
                        XSpi *SpiInstancePtr, \
@@ -27,6 +37,7 @@ int SpiIntrExample(XScuGic *IntcInstancePtr, \
                        u16 SpiIntrId);
 
 #endif
+/** @endcond */
 
 #ifdef __cplusplus
 }
