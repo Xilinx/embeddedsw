@@ -3,6 +3,8 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+#ifndef XWDTPS_H
+#define XWDTPS_H
 
 /****************************************************************************/
 /**
@@ -10,6 +12,8 @@
 * @file xwdtps.h
 * @addtogroup wdtps Overview
 * @{
+* @brief Provides the main header file for the XWdtPs watchdog timer driver.
+*
 * @details
 *
 * The Xilinx watchdog timer driver supports the Xilinx watchdog timer hardware.
@@ -37,7 +41,7 @@
 *
 * The reset condition of the hardware has the maximum initial count in the
 * Counter Reset Value (CRV) and the WDT is disabled with the reset enable
-* enabled and the reset length set to 32 clocks. i.e.
+* enabled and the reset length set to 32 clocks, that is,
 * <pre>
 *     register ZMR = 0x1C2
 *     register CCR = 0x3FC
@@ -73,12 +77,11 @@
 * 3.9   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 * 3.9   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 3.10  vn     09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-#ifndef XWDTPS_H		/* prevent circular inclusions */
-#define XWDTPS_H		/**< by using protection macros */
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
@@ -92,64 +95,72 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name Output signal selections
  * Choices for output selections for the device, used in
- * XWdtPs_EnableOutput()/XWdtPs_DisableOutput() functions
+ * XWdtPs_EnableOutput()/XWdtPs_DisableOutput() functions.
+ * @{
  */
-#define XWDTPS_RESET_SIGNAL	0x01U   /**< Reset signal request */
-#define XWDTPS_IRQ_SIGNAL	0x02U   /**< IRQ signal request */
+#define XWDTPS_RESET_SIGNAL	0x01U   /**< Reset signal request. */
+#define XWDTPS_IRQ_SIGNAL	0x02U   /**< IRQ signal request. */
+/** @} */
 
-/*
+/** @name Control value setting flags
  * Control value setting flags, used in
- * XWdtPs_SetControlValues()/XWdtPs_GetControlValues() functions
+ * XWdtPs_SetControlValue()/XWdtPs_GetControlValue() functions.
+ * @{
  */
-#define XWDTPS_CLK_PRESCALE		0x01U   /**< Clock Prescale request */
-#define XWDTPS_COUNTER_RESET	0x02U   /**< Counter Reset request */
+#define XWDTPS_CLK_PRESCALE		0x01U   /**< Clock Prescale request. */
+#define XWDTPS_COUNTER_RESET	0x02U   /**< Counter Reset request. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Stores configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID of device */
+	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;             /**< Name of the device */
+	char *Name;             /**< Name of the device. */
 #endif
-	UINTPTR BaseAddress;	/**< Base address of the device */
+	UINTPTR BaseAddress;	/**< Base address of the device. */
 #ifdef SDT
-	u32 InputClockHz;	/**< Input clock frequency */
-	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u32 InputClockHz;	/**< Input clock frequency. */
+	u16 IntrId;		/**< Bits[11:0] Interrupt-id, Bits[15:12]
+				 * trigger type and level flags. */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type,
+				 * Bit[64/32:1] Parent base address. */
 #endif
 } XWdtPs_Config;
 
 
 /**
- * The XWdtPs driver instance data. The user is required to allocate a
- * variable of this type for every watchdog/timer device in the system.
- * A pointer to a variable of this type is then passed to the driver API
- * functions.
+ * @brief Stores the XWdtPs driver instance data.
+ *
+ * The application must allocate a variable of this type for every
+ * watchdog/timer device in the system. A pointer to a variable of this type
+ * is then passed to the driver API functions.
  */
 typedef struct {
-	XWdtPs_Config Config;   /**< Hardware Configuration */
-	u32 IsReady;		/**< Device is initialized and ready */
-	u32 IsStarted;		/**< Device watchdog timer is running */
+	XWdtPs_Config Config;   /**< Hardware Configuration. */
+	u32 IsReady;		/**< Device is initialized and ready. */
+	u32 IsStarted;		/**< Device watchdog timer is running. */
 } XWdtPs;
 
 /************************** Variable Definitions *****************************/
-extern XWdtPs_Config XWdtPs_ConfigTable[];      /**< Configuration table */
+extern XWdtPs_Config XWdtPs_ConfigTable[];      /**< Configuration table. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
 /**
 *
-* Check if the watchdog timer has expired. This function is used for polled
-* mode and it is also used to check if the last reset was caused by the
-* watchdog timer.
+* @brief Checks if the watchdog timer has expired.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
+* Use this macro in polled mode. It also checks if the watchdog timer caused
+* the last reset.
+*
+* @param[in]	InstancePtr Pointer to the XWdtPs instance.
 *
 * @return
 *		- TRUE if the watchdog has expired.
@@ -167,12 +178,12 @@ extern XWdtPs_Config XWdtPs_ConfigTable[];      /**< Configuration table */
 /****************************************************************************/
 /**
 *
-* Restart the watchdog timer. An application needs to call this function
-* periodically to keep the timer from asserting the enabled output.
+* @brief Restarts the watchdog timer.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
+* An application must call this macro periodically to keep the timer from
+* asserting the enabled output.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XWdtPs instance.
 *
 * @note		C-style signature:
 *		void XWdtPs_RestartWdt(XWdtPs *InstancePtr)
@@ -221,5 +232,5 @@ s32 XWdtPs_SelfTest(XWdtPs *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

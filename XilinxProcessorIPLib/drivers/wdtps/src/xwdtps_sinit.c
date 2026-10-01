@@ -8,11 +8,7 @@
 /**
 *
 * @file xwdtps_sinit.c
-* @addtogroup wdtps Overview
-* @{
-*
-* This file contains method for static initialization (compile-time) of the
-* driver.
+* @brief Implements the static initialization (compile-time) of the driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,10 +21,15 @@
 * 3.9  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.9  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                      to support 64-bit addressing.
+* 3.10 vn     09/30/26 Align Doxygen comments with AMD standards
 
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdtps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -48,22 +49,23 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the device ID/BaseAddress.
+*
 * The XWdtPs_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]    DeviceId Unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xwdtps.h for the
 *               definition of XWdtPs_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ******************************************************************************/
 #ifndef SDT

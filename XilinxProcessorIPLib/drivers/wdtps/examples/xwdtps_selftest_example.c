@@ -7,13 +7,10 @@
 /*****************************************************************************/
 /**
 * @file  xwdtps_selftest_example.c
+* @brief Demonstrates the XWdtPs driver self-test.
 *
 * This file contains a design example using the System Watchdog Timer driver
 * (XWdtPs) and hardware device.
-*
-* @note
-*
-* None.
 *
 * MODIFICATION HISTORY:
 *
@@ -24,6 +21,7 @@
 * 3.6   sb     06/27/23 Added support for system device-tree flow.
 * 3.8   ht     06/18/24 Modify instance name to avoid multiple definition error.
 * 3.9   vlt   12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.10  vn    09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
 
@@ -35,14 +33,16 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name XPAR parameter mappings
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
-#define WDT_DEVICE_ID		XPAR_XWDTPS_0_DEVICE_ID
+#define WDT_DEVICE_ID		XPAR_XWDTPS_0_DEVICE_ID /**< WDT device ID. */
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -60,16 +60,13 @@ int WdtPsSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XWdtPs WdtPsInstance;		/* Instance of WatchDog Timer  */
+XWdtPs WdtPsInstance;		/**< Instance of WatchDog Timer. */
 
 /*****************************************************************************/
 /**
-* Main function to call the self test example.
+* @brief Calls the self test example from the main function.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -100,23 +97,24 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* This function does a minimal test on the watchdog timer device and driver
-* as a design example. The purpose of this function is to illustrate how to use
-* the XWdtPs driver.
+* @brief Runs a minimal test on the watchdog timer device and driver.
+*
+* The test serves as a design example. The purpose of this function is to
+* illustrate how to use the XWdtPs driver.
 *
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the watchdog timer to expire.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique device id of the device.
+* @param[in]    DeviceId Unique device ID of the device.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT

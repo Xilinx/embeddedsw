@@ -8,10 +8,8 @@
 /**
 *
 * @file xwdtps.c
-* @addtogroup wdtps Overview
-* @{
+* @brief Implements the interface functions of the XWdtPs driver.
 *
-* Contains the implementation of interface functions of the XWdtPs driver.
 * See xwdtps.h for a description of the driver.
 *
 * <pre>
@@ -28,10 +26,15 @@
 * 3.2	sne    08/05/19 Fixed coverity warnings.
 * 3.6	sb     06/27/23 Added support for system device-tree flow.
 * 3.10  vn     07/30/26 Fix Doxygen warnings
+* 3.10  vn     09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdtps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -55,20 +58,19 @@
 /****************************************************************************/
 /**
 *
-* Initialize a specific watchdog timer instance/driver. This function
-* must be called before other functions of the driver are called.
+* @brief Initializes a specific watchdog timer instance/driver.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
-* @param	ConfigPtr is the config structure.
-* @param	EffectiveAddress is the base address for the device. It could be
-*		a virtual address if address translation is supported in the
-*		system, otherwise it is the physical address.
+* Call this function before calling any other function of the driver.
+*
+* @param[in,out] InstancePtr Pointer to the XWdtPs instance.
+* @param[in]     ConfigPtr Pointer to the configuration structure.
+* @param[in]     EffectiveAddress Base address for the device. It could be
+*                a virtual address if address translation is supported in the
+*                system, otherwise it is the physical address.
 *
 * @return
 *		- XST_SUCCESS if initialization was successful.
 *		- XST_DEVICE_IS_STARTED if the device has already been started.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
@@ -115,11 +117,9 @@ s32 XWdtPs_CfgInitialize(XWdtPs *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Start the watchdog timer of the device.
+* @brief Starts the watchdog timer of the device.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XWdtPs instance.
 *
 ******************************************************************************/
 void XWdtPs_Start(XWdtPs *InstancePtr)
@@ -158,15 +158,13 @@ void XWdtPs_Start(XWdtPs *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Disable the watchdog timer.
+* @brief Disables the watchdog timer.
 *
 * It is the caller's responsibility to disconnect the interrupt handler
 * of the watchdog timer from the interrupt source, typically an interrupt
 * controller, and disable the interrupt in the interrupt controller.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XWdtPs instance.
 *
 ******************************************************************************/
 void XWdtPs_Stop(XWdtPs *InstancePtr)
@@ -202,16 +200,15 @@ void XWdtPs_Stop(XWdtPs *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Enables the indicated signal/output.
+* @brief Enables the indicated signal/output.
+*
 * Performs a read/modify/write cycle to update the value correctly.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
-* @param	Signal is the desired signal/output.
+* @param[in]	InstancePtr Pointer to the XWdtPs instance.
+* @param[in]	Signal Desired signal/output.
 *		Valid Signal Values are XWDTPS_RESET_SIGNAL and
 *		XWDTPS_IRQ_SIGNAL.
 *		Only one of them can be specified at a time.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
@@ -258,16 +255,15 @@ void XWdtPs_EnableOutput(XWdtPs *InstancePtr, u8 Signal)
 /****************************************************************************/
 /**
 *
-* Disables the indicated signal/output.
+* @brief Disables the indicated signal/output.
+*
 * Performs a read/modify/write cycle to update the value correctly.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
-* @param	Signal is the desired signal/output.
+* @param[in]	InstancePtr Pointer to the XWdtPs instance.
+* @param[in]	Signal Desired signal/output.
 *		Valid Signal Values are XWDTPS_RESET_SIGNAL and
-*		XWDTPS_IRQ_SIGNAL
+*		XWDTPS_IRQ_SIGNAL.
 *		Only one of them can be specified at a time.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
@@ -314,11 +310,12 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 /****************************************************************************/
 /**
 *
-* Returns the current control setting for the indicated signal/output.
-* The register referenced is the Counter Control Register (XWDTPS_CCR_OFFSET)
+* @brief Returns the current control setting for the indicated signal/output.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
-* @param	Control is the desired signal/output.
+* The register referenced is the Counter Control Register (XWDTPS_CCR_OFFSET).
+*
+* @param[in]	InstancePtr Pointer to the XWdtPs instance.
+* @param[in]	Control Desired signal/output.
 *		Valid Control Values are XWDTPS_CLK_PRESCALE and
 *		XWDTPS_COUNTER_RESET. Only one of them can be specified at a
 *		time.
@@ -326,12 +323,10 @@ void XWdtPs_DisableOutput(XWdtPs *InstancePtr, u8 Signal)
 * @return	The contents of the requested control field in the Counter
 *		Control Register (XWDTPS_CCR_OFFSET).
 *		If the Control is XWDTPS_CLK_PRESCALE then use the
-*		definitions XWDTEPB_CCR_PSCALE_XXXX.
+*		definitions XWDTPS_CCR_PSCALE_XXXX.
 *		If the Control is XWDTPS_COUNTER_RESET then the values are
 *		0x0 to 0xFFF. This is the Counter Restart value in the CCR
 *		register.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
@@ -374,25 +369,25 @@ u32 XWdtPs_GetControlValue(XWdtPs *InstancePtr, u8 Control)
 /****************************************************************************/
 /**
 *
+* @brief Updates the control setting for the indicated signal/output.
+*
 * Updates the current control setting for the indicated signal/output with
 * the provided value.
 *
 * Performs a read/modify/write cycle to update the value correctly.
-* The register referenced is the Counter Control Register (XWDTPS_CCR_OFFSET)
+* The register referenced is the Counter Control Register (XWDTPS_CCR_OFFSET).
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
-* @param	Control is the desired signal/output.
+* @param[in]	InstancePtr Pointer to the XWdtPs instance.
+* @param[in]	Control Desired signal/output.
 *		Valid Control Values are XWDTPS_CLK_PRESCALE and
 *		XWDTPS_COUNTER_RESET. Only one of them can be specified at a
 *		time.
-* @param	Value is the desired control value.
+* @param[in]	Value Desired control value.
 *		If the Control is XWDTPS_CLK_PRESCALE then use the
-*		definitions XWDTEPB_CCR_PSCALE_XXXX.
+*		definitions XWDTPS_CCR_PSCALE_XXXX.
 *		If the Control is XWDTPS_COUNTER_RESET then the valid values
-*		are 0x0 to 0xFFF, this sets the counter restart value of the CCR
-*		register.
-*
-* @note		None.
+*		are 0x0 to 0xFFF. This sets the counter restart value of the
+*		CCR register.
 *
 ******************************************************************************/
 void XWdtPs_SetControlValue(XWdtPs *InstancePtr, u8 Control, u32 Value)

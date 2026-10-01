@@ -7,14 +7,11 @@
 /*****************************************************************************/
 /**
 * @file  xwdtps_polled_example.c
+* @brief Demonstrates XWdtPs driver usage in polled mode.
 *
 * This file contains a design example using the System Watchdog Timer driver
 * (XWdtPs) and hardware device. This function assumes that the reset output
 * of the Watchdog timer device is not connected to the reset of the processor.
-*
-* @note
-*
-* None.
 *
 * MODIFICATION HISTORY:
 *
@@ -24,6 +21,7 @@
 * 1.00a ecm/jz 01/15/10 First release
 * 3.6   sb     06/27/23 Added support for system device-tree flow.
 * 3.9   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+* 3.10  vn     09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
 
@@ -35,14 +33,17 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name XPAR parameter mappings
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** WDT device ID. */
 #define WDT_DEVICE_ID  		XPAR_XWDTPS_0_DEVICE_ID
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -60,17 +61,14 @@ int WdtPsPolledExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XWdtPs Watchdog;		/* Instance of WatchDog Timer  */
+XWdtPs Watchdog;		/**< Instance of WatchDog Timer. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Wdt polled mode example.
+* @brief Calls the WDT polled mode example from the main function.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 ******************************************************************************/
 int main(void)
@@ -99,29 +97,30 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* This function does a minimal test on the System Watchdog Timer device and
-* driver as a design example.  The purpose of this function is to illustrate
-* how to use the XWdtPs driver.
+* @brief Runs a minimal test on the System Watchdog Timer device and driver.
+*
+* The test serves as a design example. The purpose of this function is to
+* illustrate how to use the XWdtPs driver.
 *
 * This function assumes that the reset output of the Watchdog timer
 * device is not connected to the reset of the processor. The function
-* allows the Watchdog Timer to timeout such that a reset will occur if it is
-* connected.  If the interrupt output is connected to an interrupt input, the
-* user must handle the interrupts appropriately if the output is enabled.
+* allows the Watchdog Timer to timeout such that a reset occurs if it is
+* connected. If the interrupt output is connected to an interrupt input,
+* handle the interrupts appropriately if the output is enabled.
 *
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the Watchdog Timer to expire.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique device id of the device.
+* @param[in]    DeviceId Unique device ID of the device.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ****************************************************************************/
 #ifndef SDT

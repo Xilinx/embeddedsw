@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,7 @@
 /**
 *
 * @file xwdtps_selftest.c
-* @addtogroup wdtps Overview
-* @{
-*
-* Contains diagnostic self-test functions for the XWdtPs driver.
+* @brief Implements diagnostic self-test functions for the XWdtPs driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +19,14 @@
 * 1.02a sg     08/01/12 Modified it use the Reset Length mask for the self
 *		        test for CR 658287
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  vn     09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdtps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -50,18 +52,17 @@
 /****************************************************************************/
 /**
 *
-* Run a self-test on the timebase. This test verifies that the register access
-* locking functions. This is tested by trying to alter a register without
-* setting the key value and verifying that the register contents did not
-* change.
+* @brief Runs a self-test on the timebase.
 *
-* @param	InstancePtr is a pointer to the XWdtPs instance.
+* This test verifies that the register access locking functions. The test
+* tries to alter a register without setting the key value and verifies that
+* the register contents did not change.
+*
+* @param[in]	InstancePtr Pointer to the XWdtPs instance.
 *
 * @return
 *		- XST_SUCCESS if self-test was successful.
 *		- XST_FAILURE if self-test was not successful.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XWdtPs_SelfTest(XWdtPs *InstancePtr)
