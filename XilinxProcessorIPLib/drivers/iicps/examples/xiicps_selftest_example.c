@@ -8,9 +8,10 @@
 /**
  * @file xiicps_selftest_example.c
  *
+ * @brief Runs a self-test on the IIC device using the XIicPs driver.
+ *
  * This example runs on zynqmp / versal evaluation boards using the IIC hardware
  * device and XIicPs driver.
- *
  *
  * <pre> MODIFICATION HISTORY:
  *
@@ -20,6 +21,7 @@
  * 3.13  rna 02/05/21   Changed XIicPs global variable name
  * 3.18  gm  07/14/23   Added SDT support.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+ * 3.24  tb  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
@@ -38,9 +40,9 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
+#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID /**< Device ID. */
 #else
-#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR /**< Base address. */
 #endif
 
 
@@ -56,17 +58,14 @@ int IicPsSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions ******************************/
 
-XIicPs IicPsInstance;			/* Instance of the IIC Device */
+XIicPs IicPsInstance;			/**< Instance of the IIC Device. */
 
 /******************************************************************************/
 /**
 *
-* Main function to call the Self Test example.
-*
+* @brief Calls the Self Test example from the main function.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -98,23 +97,22 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the Iic device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to use the XIicPs component.
+* @brief Runs a minimal test on the Iic device and driver as a design example.
 *
+* The purpose of this function is to illustrate how to use the XIicPs
+* component.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @param[in]    DeviceId Device ID of the IicPs Device, which is the
+*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note	        In XSCT/classic flow, DeviceId is used to look up the
 *               device configuration.
-*
 *
 *******************************************************************************/
 #ifndef SDT

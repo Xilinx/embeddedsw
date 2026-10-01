@@ -8,11 +8,10 @@
 /**
 *
 * @file xiicps_hw.c
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Implements the reset sequence for the IIC interface.
 *
 * The xiicps_hw.c file contains implementation of required functions for
-* providing the reset sequence to the i2c interface
+* providing the reset sequence to the i2c interface.
 *
 * <pre> MODIFICATION HISTORY:
 *
@@ -24,9 +23,14 @@
 * 3.11  rna	02/11/20 Moved XIicPs_Reset function from xiicps.c
 * 3.18  gm	08/25/23 Added XIicPs_MasterRead function.
 * 3.24  vn 08/26/26 Fix Doxygen warnings
+* 3.24  tb 09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -44,21 +48,21 @@
 /************************** Variable Definitions *****************************/
 /*****************************************************************************/
 /**
-* @brief
-* Performs the reset sequence to the given I2c interface by
-* configuring the appropriate control bits in the I2c specific registers
-* the i2cps reset sequence involves the following steps
-*	Disable all the interrupts
-*	Clear the status
-*	Clear FIFO's and disable hold bit
-*	Clear the line status
-*	Update relevant configuration registers with reset values
+* @brief Performs the reset sequence to the given I2c interface.
 *
-* @param   BaseAddress Base address of the interface
+* The reset configures the appropriate control bits in the I2c specific
+* registers. The i2cps reset sequence involves the following steps:
+*	- Disable all the interrupts.
+*	- Clear the status.
+*	- Clear FIFOs and disable hold bit.
+*	- Clear the line status.
+*	- Update relevant configuration registers with reset values.
+*
+* @param[in]    BaseAddress Base address of the interface.
 *
 * @note
-* This function will not modify the slcr registers that are relevant for
-* I2c controller
+* This function does not modify the slcr registers that are relevant for
+* I2c controller.
 ******************************************************************************/
 void XIicPs_ResetHw(UINTPTR BaseAddress)
 {
@@ -89,17 +93,16 @@ void XIicPs_ResetHw(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Resets the IIC device. Reset must only be called after the driver has been
-* initialized. The configuration of the device after reset is the same as its
-* configuration after initialization.  Any data transfer that is in progress is
-* aborted.
+* @brief Resets the IIC device.
+*
+* Reset must only be called after the driver has been initialized. The
+* configuration of the device after reset is the same as its configuration
+* after initialization. Any data transfer that is in progress is aborted.
 *
 * The upper layer software is responsible for re-configuring (if necessary)
 * and reenabling interrupts for the IIC device after the reset.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
-*
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
 *
 ******************************************************************************/
 void XIicPs_Reset(XIicPs *InstancePtr)
@@ -127,17 +130,15 @@ void XIicPs_Reset(XIicPs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* Receives data byte by byte till Rx data is valid in interrupt
-* master mode.
+* @brief Receives data byte by byte in interrupt master mode.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
-* @param        IsHold Hold status.
-* @param        ByteCntPtr Pointer to the byte count.
+* Data is received byte by byte till Rx data is valid.
 *
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[in]     IsHold Hold status.
+* @param[in,out] ByteCntPtr Pointer to the byte count.
 *
  ****************************************************************************/
-
 void XIicPs_MasterRead(XIicPs *InstancePtr, s32 IsHold, s32 *ByteCntPtr)
 {
 	u32 Platform;

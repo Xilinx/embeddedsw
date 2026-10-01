@@ -7,6 +7,8 @@
 /**
  * @file xiicps_smbus_polled_slave_example.c
  *
+ * @brief Demonstrates SMBus slave transfers in polled mode.
+ *
  * This example can run on zynqmp / versal platform evaluation board and
  * IIC controller configured slave in polled mode and loopback setup used for
  * master.
@@ -20,6 +22,7 @@
  * 3.18  gm  07/14/23 Added SDT support.
  * 3.22  bkv 07/09/25 Fixed GCC Warning.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+ * 3.24  tb  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
@@ -38,19 +41,23 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
+#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID /**< Device ID. */
 #else
-#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR /**< Base address. */
 #endif
 
-/* The slave address to send to and receive from.
+/** @name IIC bus settings
+ * @{
+ */
+/** The slave address to send to and receive from.
  */
 #define IIC_SLAVE_ADDR		0x45
-#define IIC_SCLK_RATE		400000
+#define IIC_SCLK_RATE		400000 /**< IIC serial clock rate in Hz. */
+/** @} */
 
-/*
+/**
  * The following constant controls the length of the buffers to be sent
- * and received with the IIC
+ * and received with the IIC.
  */
 #define BUFFER_SIZE	250
 
@@ -68,29 +75,26 @@ int XIicPsSmbusPolledReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCou
 
 /************************** Variable Definitions ******************************/
 
-XIicPs Iic;				/* Instance of the IIC Device */
+XIicPs Iic;				/**< Instance of the IIC Device. */
 
 /*
  * The following buffers are used in this example to send and receive data
  * with the IIC. These buffers are defined as global so that they are not
  * defined on the stack.
  */
-u8 SendBuffer[BUFFER_SIZE];	/* Buffer for Transmitting Data */
-u8 RecvBuffer[BUFFER_SIZE];	/* Buffer for Receiving Data */
+u8 SendBuffer[BUFFER_SIZE];	/**< Buffer for Transmitting Data. */
+u8 RecvBuffer[BUFFER_SIZE];	/**< Buffer for Receiving Data. */
 
-u8 RecvByteCount = 0;
-u8 RecvCmd;			/* Received command */
-u8 Cmd;				/* Command received during Send operation */
+u8 RecvByteCount = 0; /**< Byte count received from the master. */
+u8 RecvCmd;			/**< Received command. */
+u8 Cmd; /**< Command received during Send operation. */
 
 /******************************************************************************/
 /**
 *
-* Main function to call the polled slave example.
-*
+* @brief Calls the polled slave example from the main function.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *******************************************************************************/
 int main(void)
@@ -139,14 +143,16 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Does polled mode SMBus transfers in slave mode.
+*
 * This function does polled mode transfer in slave mode. It first sends to
 * master then receives.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @param[in]    DeviceId Device ID of the IicPs Device, which is the
+*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -218,6 +224,18 @@ int IicPsSmbusSlavePolledExample(UINTPTR BaseAddress)
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Receives a command and sends a buffer of data to the smbus master.
+*
+* @param[in,out] InstancePtr Contains the address of XIicPs instance.
+* @param[out]    Command Holds the command received from the master.
+* @param[in]     ByteCount Contains the number of bytes to send.
+* @param[in]     SendBufferPtr Contains the address of send buffer.
+*
+* @return        XST_SUCCESS if successful else XST_FAILURE.
+*
+******************************************************************************/
 int XIicPsSmbusPolledWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCount, u8 *SendBufferPtr)
 {
 	int Status;
@@ -267,6 +285,18 @@ int XIicPsSmbusPolledWriteBlockData(XIicPs *InstancePtr, u8 *Command, u8 ByteCou
 	return XST_SUCCESS;
 }
 
+/*****************************************************************************/
+/**
+* @brief Receives a command and a buffer of data from the smbus master.
+*
+* @param[in]    InstancePtr Contains the address of XIicPs instance.
+* @param[out]   Command Holds the command received from the master.
+* @param[out]   ByteCount Holds the byte count received from the master.
+* @param[out]   RecvBufferPtr Contains the address of receive buffer.
+*
+* @return	XST_SUCCESS if successful else XST_FAILURE.
+*
+******************************************************************************/
 int XIicPsSmbusPolledReadBlockData(XIicPs *InstancePtr, u8 *Command, u8 *ByteCount, u8 *RecvBufferPtr)
 {
 	int Status;

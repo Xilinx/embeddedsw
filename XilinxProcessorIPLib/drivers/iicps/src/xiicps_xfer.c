@@ -8,8 +8,7 @@
 /**
 *
 * @file xiicps_xfer.c
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Implements the internal data transfer helpers of the XIicPs driver.
 *
 * The xiicps_xfer.c file contains implementation of required helper functions
 * for the XIicPs driver.
@@ -23,9 +22,14 @@
 * 3.18  gm      08/25/23 Added XIicPs_MasterPolledRead, XIicPs_MasterIntrSend
 *			 and XIicPs_MasterIntrRead functions.
 * 3.24  vn      08/26/26 Fix Doxygen warnings
+* 3.24  tb      09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -47,11 +51,11 @@
 
 /*****************************************************************************/
 /**
-* This function prepares a device to transfers as a master.
+* @brief Prepares a device to transfer as a master.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
 *
-* @param        Role Specifies whether the device is sending or receiving.
+* @param[in]    Role Specifies whether the device is sending or receiving.
 *
 * @return
 *               - XST_SUCCESS if everything went well.
@@ -109,11 +113,11 @@ s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 
 /*****************************************************************************/
 /**
-* This function handles continuation of sending data. It is invoked
-* from interrupt handler.
+* @brief Handles continuation of sending data.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
+* It is invoked from the interrupt handler.
 *
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
 *
 ****************************************************************************/
 void MasterSendData(XIicPs *InstancePtr)
@@ -143,16 +147,13 @@ void MasterSendData(XIicPs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
-* Handles polled mode receive in master mode.
+* @brief Handles polled mode receive in master mode.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
-* @param        IsHold Hold status.
-* @param        ByteCountVar ByteCount.
-*
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[in]     IsHold Hold status.
+* @param[in]     ByteCountVar Byte count.
 *
  ****************************************************************************/
-
 void XIicPs_MasterPolledRead(XIicPs *InstancePtr, s32 IsHold, s32 ByteCountVar)
 {
 	u32 Platform;
@@ -234,15 +235,13 @@ void XIicPs_MasterPolledRead(XIicPs *InstancePtr, s32 IsHold, s32 ByteCountVar)
 
 /*****************************************************************************/
 /**
-* @brief
-* Handles interrupt-driven send in master mode.
+* @brief Handles interrupt-driven send in master mode.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
-* @param        IntrStatusReg Value of interrupt status register.
-* @param        StatusEventPtr Pointer to the StatusEvent.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[in]     IntrStatusReg Value of interrupt status register.
+* @param[in,out] StatusEventPtr Pointer to the StatusEvent.
 *
  ****************************************************************************/
-
 void XIicPs_MasterIntrSend(XIicPs *InstancePtr, u32 IntrStatusReg,
 			    u32 *StatusEventPtr)
 {
@@ -258,16 +257,13 @@ void XIicPs_MasterIntrSend(XIicPs *InstancePtr, u32 IntrStatusReg,
 
 /*****************************************************************************/
 /**
-* @brief
-* Handles interrupt-driven receive in master mode.
+* @brief Handles interrupt-driven receive in master mode.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
-* @param        IntrStatusRegPtr Pointer to the interrupt status register.
-* @param        IsHold Hold status.
-*
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[in,out] IntrStatusRegPtr Pointer to the interrupt status register.
+* @param[in]     IsHold Hold status.
 *
  ****************************************************************************/
-
 void XIicPs_MasterIntrRead(XIicPs *InstancePtr, u32 *IntrStatusRegPtr,
 					      s32 IsHold)
 {
@@ -356,14 +352,13 @@ void XIicPs_MasterIntrRead(XIicPs *InstancePtr, u32 *IntrStatusRegPtr,
 /*****************************************************************************/
 /**
 *
-* Handles the continuation of receiving data. It is invoked
-* from interrupt handler.
+* @brief Handles the continuation of receiving data.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
+* It is invoked from the interrupt handler.
 *
-* @return       Number of bytes still expected by the instance.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
 *
-* @note         None.
+* @return        Number of bytes still expected by the instance.
 *
 ****************************************************************************/
 s32 SlaveRecvData(XIicPs *InstancePtr)

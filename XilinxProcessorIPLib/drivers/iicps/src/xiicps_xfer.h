@@ -1,15 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XIICPS_XFER_H
+#define XIICPS_XFER_H
 
 /*****************************************************************************/
 /**
 *
 * @file xiicps_xfer.h
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Declares the internal data transfer helpers of the XIicPs driver.
 *
 * The xiicps_xfer.h file contains implementation of required helper functions
 * for the XIicPs driver.
@@ -22,12 +24,15 @@
 * 3.18  gm      08/25/23 Added function prototypes for XIicPs_MasterPolledRead,
 * 			 XIicPs_MasterIntrSend, XIicPs_MasterIntrRead and
 * 			 XIicPs_MasterRead.
+* 3.24  tb      09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 /** @cond INTERNAL */
-#ifndef XIICPS_XFER_H             /* prevent circular inclusions */
-#define XIICPS_XFER_H             /**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,13 +51,11 @@ extern "C" {
 /*****************************************************************************/
 /**
 *
-* Checks if Rx data is valid or not.
+* @brief Checks if Rx data is valid.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
 *
 * @return       The return value is '1' if Rx data is valid, '0' otherwise.
-*
-* @note         None.
 *
 ******************************************************************************/
 static INLINE u32 XIicPs_RxDataValid(XIicPs *InstancePtr)
@@ -64,14 +67,12 @@ static INLINE u32 XIicPs_RxDataValid(XIicPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Checks if Rx FIFO is full or not.
+* @brief Checks if the Rx FIFO is full.
 *
-* @param        InstancePtr Pointer to the XIicPs instance.
-* @param        ByteCountVar Number of bytes to be received.
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
+* @param[in]    ByteCountVar Number of bytes to be received.
 *
 * @return       The return value is '0' if Rx FIFO is full, '1' otherwise.
-*
-* @note         None.
 *
 ******************************************************************************/
 static INLINE u32 XIicPs_RxFIFOFull(XIicPs *InstancePtr, s32 ByteCountVar)
@@ -125,6 +126,6 @@ s32 SlaveRecvData(XIicPs *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @endcond */
 /** @} */
+#endif /* end of protection macro */

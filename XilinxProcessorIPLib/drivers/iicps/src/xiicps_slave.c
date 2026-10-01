@@ -7,8 +7,7 @@
 /*****************************************************************************/
 /**
 * @file xiicps_slave.c
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Implements the slave mode transfers of the XIicPs driver.
 *
 * The xiicps_slave.c file handles slave transfers.
 *
@@ -31,9 +30,14 @@
 * 3.16  gm  05/10/22 Updated slave mode receive API's by removing byte count
 * 		     dependency.
 * 3.24  vn  08/26/26 Fix Doxygen warnings
+* 3.24  tb  09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xiicps.h"
@@ -52,17 +56,16 @@
 
 /*****************************************************************************/
 /**
-* @brief
-* Sets up the device to be a slave.
+* @brief Sets up the device to be a slave.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
-* @param	SlaveAddr Address of the slave we are receiving from.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[in]     SlaveAddr Address of the slave we are receiving from.
 *
 * @note
-*	Interrupt is always enabled no matter the transfer is interrupt-driven
-*	or polled mode. The device interruption depends
-*	on whether the device is connected to an interrupt
-*	controller and interrupt for the device is enabled.
+* Interrupt is always enabled whether the transfer is interrupt-driven
+* or polled mode. The device interruption depends
+* on whether the device is connected to an interrupt
+* controller and interrupt for the device is enabled.
 *
 ****************************************************************************/
 void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
@@ -104,16 +107,16 @@ void XIicPs_SetupSlave(XIicPs *InstancePtr, u16 SlaveAddr)
 
 /*****************************************************************************/
 /**
-* @brief
-* Sets up a slave interrupt-driven send. It set the repeated
-* start for the device with a transfer size larger than FIFO depth.
-* Data processing for the send is initiated by the interrupt handler.
+* @brief Sets up a slave interrupt-driven send.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
-* @param	MsgPtr Pointer to the send buffer.
-* @param	ByteCount Number of bytes to be sent.
+* It sets the repeated start for the device with a transfer size larger than
+* FIFO depth. The interrupt handler initiates data processing for the send.
 *
-* @note		This send routine is for interrupt-driven transfer only.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[in]     MsgPtr Pointer to the send buffer.
+* @param[in]     ByteCount Number of bytes to be sent.
+*
+* @note          This send routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
 void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
@@ -146,15 +149,15 @@ void XIicPs_SlaveSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* Sets up a slave interrupt-driven receive.
-* Data processing for the receive is handled by the interrupt handler.
+* @brief Sets up a slave interrupt-driven receive.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
-* @param	MsgPtr Pointer to the receive buffer.
-* @param	ByteCount Number of bytes to be received.
+* The interrupt handler handles data processing for the receive.
 *
-* @note		This routine is for interrupt-driven transfer only.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[out]    MsgPtr Pointer to the receive buffer.
+* @param[in]     ByteCount Number of bytes to be received.
+*
+* @note          This routine is for interrupt-driven transfer only.
 *
 ****************************************************************************/
 void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
@@ -189,19 +192,18 @@ void XIicPs_SlaveRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
-* Sends a buffer in polled mode as a slave.
+* @brief Sends a buffer in polled mode as a slave.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
-* @param	MsgPtr Pointer to the send buffer.
-* @param	ByteCount Number of bytes to be sent.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[in]     MsgPtr Pointer to the send buffer.
+* @param[in]     ByteCount Number of bytes to be sent.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if master sends us data or master terminates the
-*		transfer before all data has sent out.
+*                - XST_SUCCESS if everything went well.
+*                - XST_FAILURE if master sends us data or master terminates
+*                  the transfer before all data has been sent out.
 *
-* @note		This send routine is for polled mode transfer only.
+* @note          This send routine is for polled mode transfer only.
 *
 ****************************************************************************/
 s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
@@ -337,18 +339,17 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 }
 /*****************************************************************************/
 /**
-* @brief
-* This function receives a buffer in polled mode as a slave.
+* @brief Receives a buffer in polled mode as a slave.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
-* @param	MsgPtr Pointer to the receive buffer.
-* @param	ByteCount Number of bytes to be received.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
+* @param[out]    MsgPtr Pointer to the receive buffer.
+* @param[in]     ByteCount Number of bytes to be received.
 *
 * @return
-*		- XST_SUCCESS if everything went well.
-*		- XST_FAILURE if timed out.
+*                - XST_SUCCESS if everything went well.
+*                - XST_FAILURE if timed out.
 *
-* @note		This receive routine is for polled mode transfer only.
+* @note          This receive routine is for polled mode transfer only.
 *
 ****************************************************************************/
 s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
@@ -434,7 +435,9 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 
 /*****************************************************************************/
 /**
-* The interrupt handler for slave mode. It does the protocol handling for
+* @brief Handles interrupts for slave mode.
+*
+* The interrupt handler for slave mode does the protocol handling for
 * the interrupt-driven transfers.
 *
 * Completion events and errors are signaled to upper layer for proper
@@ -446,7 +449,8 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 *	data from us. Send more data, and check whether the send is complete.
 *
 *	If the instance is receiving, it means that the master has written
-* 	more data to us. Receive more data, and check whether the receive is complete.
+*	more data to us. Receive more data, and check whether the receive is
+*	complete.
 *
 * - COMP:
 *	This marks that stop sequence has been sent from the master, transfer
@@ -461,9 +465,7 @@ s32 XIicPs_SlaveRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 * - Other interrupts:
 *	These interrupts are marked as error.
 *
-*
-* @param	InstancePtr Pointer to the XIicPs instance.
-*
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
 *
 ****************************************************************************/
 void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)

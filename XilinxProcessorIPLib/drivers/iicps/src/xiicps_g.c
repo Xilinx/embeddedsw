@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xiicps_g.c
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Provides the configuration table for the IIC devices.
 *
 * The xiicps_g.c file contains a configuration table that specifies the
 * configuration of IIC devices in the system.
@@ -22,9 +21,14 @@
 * 1.00a drg/jz  01/30/10 First release
 * 2.00  hk   22/01/14 Added check for picking second instance
 * 3.00	sk	 01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.24	tb	 09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -46,8 +50,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each IIC device
- * in the system.
+ * @brief Holds configuration information for each IIC device in the system.
  */
 XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES] = {
 	{

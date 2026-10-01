@@ -8,11 +8,13 @@
 /**
 * @file xiicps_polled_master_example.c
 *
+* @brief Demonstrates the IIC controller as master in polled mode.
+*
 * This example can run on zynqmp / versal platform evaluation board and
 * IIC controller configured master in polled mode and Aardvark Analyzer used as
 * slave.
 *
-* The example uses buffer size 132. Please set the send buffer of the
+* The example uses buffer size 132. Set the send buffer of the
 * Aardvark device to be continuous 64 bytes from 0x00 to 0x3F.
  *
  * <pre> MODIFICATION HISTORY:
@@ -23,6 +25,7 @@
  * 3.18  gm  07/14/23 Added SDT support.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
  * 3.24  vn  08/26/26 Fix Doxygen warnings.
+ * 3.24  tb  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
@@ -45,18 +48,22 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
+#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID /**< Device ID. */
 #else
-#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR /**< Base address. */
 #endif
 
-/*
+/** @name IIC bus settings
+ * @{
+ */
+/**
  * The slave address to send to and receive from.
  */
 #define IIC_SLAVE_ADDR		0x55
-#define IIC_SCLK_RATE		100000
+#define IIC_SCLK_RATE		100000 /**< IIC serial clock rate in Hz. */
+/** @} */
 
-/*
+/**
  * The following constant controls the length of the buffers to be sent
  * and received with the IIC.
  */
@@ -74,25 +81,22 @@ int IicPsMasterPolledExample(UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions ******************************/
 
-XIicPs Iic;		/**< Instance of the IIC Device */
+XIicPs Iic;		/**< Instance of the IIC Device. */
 
 /*
  * The following buffers are used in this example to send and receive data
  * with the IIC.
  */
-u8 SendBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Transmitting Data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Receiving Data. */
 
 
 /******************************************************************************/
 /**
 *
-* Main function to call the polled master example.
-*
+* @brief Calls the polled master example from the main function.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *******************************************************************************/
 int main(void)
@@ -122,16 +126,18 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Sends data to the slave and receives data from it as master.
+*
 * This function sends data and expects to receive data from slave as modular
 * of 64.
 *
 * This function uses interrupt-driven mode of the device.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @param[in]    DeviceId Device ID of the IicPs Device, which is the
+*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.

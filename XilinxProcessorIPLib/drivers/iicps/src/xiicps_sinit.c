@@ -8,8 +8,7 @@
 /**
 *
 * @file xiicps_sinit.c
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Implements the static initialization functions of the XIicPs driver.
 *
 * The xiicps_sinit.c file contains implementation of the XIicPs component's
 * static initialization functionality.
@@ -25,10 +24,15 @@
 * 3.23  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.23  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 3.24  tb     09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -53,22 +57,24 @@
 /*****************************************************************************/
 /**
 *
+* @brief Looks up the device configuration by device ID or base address.
+*
 * Looks up the device configuration based on the unique device ID/BaseAddress.
 * The XIicPs_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]    DeviceId Contains the unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xiicps.h for the
 *               definition of XIicPs_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ******************************************************************************/
 #ifndef SDT

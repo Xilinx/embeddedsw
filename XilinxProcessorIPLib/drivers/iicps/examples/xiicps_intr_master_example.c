@@ -8,6 +8,8 @@
 /**
  * @file xiicps_intr_master_example.c
  *
+ * @brief Demonstrates the IIC controller as master in interrupt mode.
+ *
  * This example can run on zynqmp / versal platform evaluation board and
  * IIC controller configured master in interrupt-driven mode and Aardvark
  * Analyzer used as slave.
@@ -24,6 +26,7 @@
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
  * 3.24  vn  08/26/26 Fix Doxygen warnings
  * 3.24  vn  08/26/26 Fix GCC Warnings
+ * 3.24  tb  09/30/26 Align Doxygen comments with AMD standards
  * </pre>
  *
  ****************************************************************************/
@@ -46,26 +49,38 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define IIC_INT_VEC_ID		XPAR_XIICPS_0_INTR
+/** @name XPAR parameter mappings
+ * @{
+ */
+#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID /**< Device ID. */
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID /**< SCUGIC ID. */
+#define IIC_INT_VEC_ID		XPAR_XIICPS_0_INTR /**< Interrupt ID. */
+/** @} */
 #else
-#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR /**< Base address. */
 #endif
 
-/*
+/** @name IIC bus settings
+ * @{
+ */
+/**
  * The slave address to send to and receive from.
  */
 #define IIC_SLAVE_ADDR		0x55
-#define IIC_SCLK_RATE		100000
+#define IIC_SCLK_RATE		100000 /**< IIC serial clock rate in Hz. */
+/** @} */
 
 
-/*
+/**
+ * @name Buffer sizes
  * The following constant controls the length of the buffers to be sent
  * and received with the IIC.
+ * @{
  */
-#define TEST_BUFFER_SIZE   	250
+#define TEST_BUFFER_SIZE   	250 /**< Size of the test buffers. */
+/** Number of transfer sizes tested. */
 #define NUMBER_OF_SIZES		18
+/** @} */
 
 /**************************** Type Definitions ********************************/
 
@@ -82,35 +97,32 @@ void Handler(void *CallBackRef, u32 Event);
 
 /************************** Variable Definitions ******************************/
 
-XIicPs Iic;			/* Instance of the IIC Device */
+XIicPs Iic;			/**< Instance of the IIC Device. */
 #ifndef SDT
-XScuGic InterruptController;	/* Instance of the Interrupt Controller */
+XScuGic InterruptController;	/**< Instance of the Interrupt Controller. */
 #endif
 
 /*
  * The following buffers are used in this example to send and receive data
  * with the IIC. They are defined as global so that they are not on the stack.
  */
-u8 SendBuffer[TEST_BUFFER_SIZE];    /* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE];    /* Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Transmitting Data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Receiving Data. */
 
 /*
  * The following counters are used to determine when the entire buffer has
  * been sent and received.
  */
-volatile u32 SendComplete;
-volatile u32 RecvComplete;
-volatile u32 TotalErrorCount;
+volatile u32 SendComplete; /**< Send complete flag. */
+volatile u32 RecvComplete; /**< Receive complete flag. */
+volatile u32 TotalErrorCount; /**< Total error count. */
 
 /******************************************************************************/
 /**
 *
-* Main function to call the example.
-*
+* @brief Calls the example from the main function.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *******************************************************************************/
 int main(void)
@@ -140,6 +152,8 @@ int main(void)
 /*****************************************************************************/
 /**
 *
+* @brief Runs a minimal master test on the Iic device in interrupt mode.
+*
 * This function does a minimal test on the Iic device and driver as a
 * design example. The purpose of this function is to illustrate
 * how to use the XIicPs driver.
@@ -150,19 +164,19 @@ int main(void)
 * This function uses interrupt driver mode of the IIC.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @param[in]    DeviceId Device ID of the IicPs Device, which is the
+*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 * @note	        In XSCT/classic flow, DeviceId is used to look up the
 *               device configuration.
-*
-* This function contains an infinite loop such that if interrupts are not
-* working it may never return.
+*               <br><br>
+*               This function contains an infinite loop such that if
+*               interrupts are not working it may never return.
 *
 *******************************************************************************/
 #ifndef SDT
@@ -311,18 +325,18 @@ int IicPsMasterIntrExample(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
+* @brief Handles data events from the IIC.
+*
 * This function is the handler which performs processing to handle data events
-* from the IIC.  It is called from an interrupt context such that the amount
+* from the IIC. It is called from an interrupt context such that the amount
 * of processing performed should be minimized.
 *
 * This handler provides an example of how to handle data for the IIC and
 * is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver, in
+* @param[in]    CallBackRef Contains a callback reference from the driver, in
 *		this case it is the instance pointer for the IIC driver.
-* @param	Event contains the specific kind of event that has occurred.
-*
-* @note		None.
+* @param[in]    Event Contains the specific kind of event that has occurred.
 *
 *******************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
@@ -350,18 +364,17 @@ void Handler(void *CallBackRef, u32 Event)
 /******************************************************************************/
 /**
 *
-* This function setups the interrupt system such that interrupts can occur
-* for the IIC.  This function is application specific since the actual
-* system may or may not have an interrupt controller.  The IIC could be
-* directly connected to a processor without an interrupt controller.  The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system so that interrupts can occur for the IIC.
 *
-* @param	IicPsPtr contains a pointer to the instance of the Iic
+* This function is application specific since the actual
+* system may or may not have an interrupt controller. The IIC could be
+* directly connected to a processor without an interrupt controller. Modify
+* this function to fit the application.
+*
+* @param[in]    IicPsPtr Contains a pointer to the instance of the Iic
 *		which is going to be connected to the interrupt controller.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 *******************************************************************************/
 static int SetupInterruptSystem(XIicPs *IicPsPtr)

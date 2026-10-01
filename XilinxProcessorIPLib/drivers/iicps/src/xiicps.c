@@ -8,8 +8,7 @@
 /**
 *
 * @file xiicps.c
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Implements the general setup functions of the XIicPs driver.
 *
 * This section contains implementation of required functions for
 * the XIicPs driver.
@@ -35,10 +34,15 @@
 * 3.18  gm	07/14/23 Added SDT support.
 * 3.23  vlt     03/30/26 Implemented bus recovery feature.
 * 3.24  vn      08/26/26 Fix Doxygen warnings
+* 3.24  tb      09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -51,10 +55,14 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/** Number of SCL pulses for bus recovery */
+/** @name Bus recovery parameters
+ * @{
+ */
+/** Number of SCL pulses for bus recovery. */
 #define XIICPS_RECOVERY_PULSES	9U
-/** HOLD toggle delay in microseconds (5000 us = 5 ms) for I2C bus recovery */
+/** HOLD toggle delay in microseconds (5000 us = 5 ms) for I2C bus recovery. */
 #define XIICPS_RECOVERY_DELAY	5000U
+/** @} */
 
 /************************** Function Prototypes ******************************/
 
@@ -66,19 +74,20 @@ static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent);
 /*****************************************************************************/
 /**
 *
-* @brief
-* Initializes a specific XIicPs instance so that the driver is ready to use.
+* @brief Initializes a specific XIicPs instance.
+*
+* After initialization, the driver is ready to use.
 *
 * The state of the device after initialization is:
-*   - Device is disabled
-*   - Slave mode
+*   - Device is disabled.
+*   - Slave mode.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
-* @param	ConfigPtr Reference to a structure containing information
+* @param[out]   InstancePtr Pointer to the XIicPs instance.
+* @param[in]    ConfigPtr Reference to a structure containing information
 *		about a specific IIC device. This function initializes an
 *		InstancePtr object for a specific device specified by the
 *		contents of Config.
-* @param	EffectiveAddr Device base address in the virtual memory
+* @param[in]    EffectiveAddr Device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -88,7 +97,6 @@ static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent);
 *		address instead.
 *
 * @return	The return value is XST_SUCCESS if successful.
-*
 *
 ******************************************************************************/
 s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
@@ -138,15 +146,13 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 
 /*****************************************************************************/
 /**
-* @brief
-* Checks the availability of the I2C bus.
+* @brief Checks the availability of the I2C bus.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
 *
 * @return
-* 		- TRUE if the bus is busy.
-*		- FALSE if the bus is not busy.
-*
+*                - TRUE if the bus is busy.
+*                - FALSE if the bus is not busy.
 *
 ******************************************************************************/
 s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
@@ -178,14 +184,12 @@ s32 XIicPs_BusIsBusy(XIicPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Stub for the status callback. The stub is here in case the upper
-* layers forget to set the handler.
+* @brief Provides a stub for the status callback.
 *
-* @param	CallBackRef Pointer to the upper layer callback reference.
-* @param	StatusEvent Event that just occurred.
+* The stub is here in case the upper layers forget to set the handler.
 *
-* @return	None.
-*
+* @param[in]    CallBackRef Pointer to the upper layer callback reference.
+* @param[in]    StatusEvent Event that just occurred.
 *
 ******************************************************************************/
 static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent)
@@ -198,12 +202,11 @@ static INLINE void StubHandler(void *CallBackRef, u32 StatusEvent)
 /*****************************************************************************/
 /**
 *
-* @brief
-* Aborts a transfer in progress by resetting the FIFOs. The byte counts are
-* cleared.
+* @brief Aborts a transfer in progress by resetting the FIFOs.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
+* The byte counts are cleared.
 *
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
 *
 ******************************************************************************/
 void XIicPs_Abort(XIicPs *InstancePtr)
@@ -249,14 +252,16 @@ void XIicPs_Abort(XIicPs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Puts more data into the transmit FIFO. The number of bytes is either the expected
-* number of bytes for this transfer or available space in FIFO, which ever is less.
+* @brief Puts more data into the transmit FIFO.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
+* The number of bytes is either the expected number of bytes for this transfer
+* or available space in FIFO, whichever is less.
 *
-* @return	Number of bytes left for this instance.
+* @param[in,out] InstancePtr Pointer to the XIicPs instance.
 *
-* @note		This is function is shared by the master and slave.
+* @return        Number of bytes left for this instance.
+*
+* @note          This function is shared by the master and slave.
 *
 ******************************************************************************/
 s32 TransmitFifoFill(XIicPs *InstancePtr)
@@ -290,17 +295,15 @@ s32 TransmitFifoFill(XIicPs *InstancePtr)
 
 /*****************************************************************************/
 /**
-* Enables/Disables clock stretching (SCL HOLD).
+* @brief Enables or disables clock stretching (SCL HOLD).
 *
-* @param	InstancePtr	Pointer to the XIicPs instance.
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
 *
-* @param	Enable	Value to enable/disable clock stretching (SCL HOLD).
-* 			1 to Enable
-* 			0 to Disable
-*
+* @param[in]    Enable Value to enable or disable clock stretching (SCL HOLD).
+*		- 1 to Enable.
+*		- 0 to Disable.
 *
 ******************************************************************************/
-
 void XIicPsSclHold(XIicPs *InstancePtr, u8 Enable)
 {
 	UINTPTR BaseAddr;
@@ -326,15 +329,13 @@ void XIicPsSclHold(XIicPs *InstancePtr, u8 Enable)
 
 /*****************************************************************************/
 /**
-* Sets the timeout value.
+* @brief Sets the timeout value.
 *
-* @param	InstancePtr	Pointer to the XIicPs instance.
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
 *
-* @param	Value	Timeout value.
-*
+* @param[in]    Value Timeout value.
 *
 ******************************************************************************/
-
 void XIicPsSetTimeOut(XIicPs *InstancePtr, u8 Value)
 {
 	UINTPTR BaseAddr;
@@ -356,16 +357,17 @@ void XIicPsSetTimeOut(XIicPs *InstancePtr, u8 Value)
 /*****************************************************************************/
 /**
  *
- * Performs I2C bus recovery using the PS I2C controller HOLD feature.
+ * @brief Performs I2C bus recovery using the PS I2C controller HOLD feature.
  *
- * This API is used when the I2C controller is already in Master mode and the
- * bus is stuck due to a slave holding SDA low. The API toggles the HOLD bit
+ * Use this API when the I2C controller is already in Master mode and the
+ * bus is stuck because a slave holds SDA low. The API toggles the HOLD bit
  * to manually generate SCL pulses, allowing the slave to release the bus.
  *
- * @param   InstancePtr Pointer to the XIicPs instance.
+ * @param[in]  InstancePtr Pointer to the XIicPs instance.
  *
- * @return  XST_SUCCESS if recovery sequence is executed.
- *          XST_FAILURE if controller is not in Master mode.
+ * @return
+ *             - XST_SUCCESS if recovery sequence is executed.
+ *             - XST_FAILURE if controller is not in Master mode.
  *
  ******************************************************************************/
 s32 XIicPs_BusRecovery(XIicPs *InstancePtr)

@@ -8,6 +8,8 @@
 /**
 * @file xiicps_eeprom_polled_example.c
 *
+* @brief Demonstrates EEPROM access in polled mode using the XIicPs driver.
+*
 * This file consists of a polled mode design example which uses the Xilinx PS
 * IIC device and XIicPs driver to exercise the EEPROM.
 * This example runs on zynqmp evaluation board (zcu102).
@@ -23,10 +25,6 @@
 * EEPROM is 1 bytes.
 *
 * This code assumes that no Operating System is being used.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -48,6 +46,7 @@
 * 3.18   gm   07/14/23 Added SDT support.
 * 3.22   bkv  07/09/25 Fixed GCC Warning.
 * 3.24   vn   08/26/26 Fix Doxygen warnings
+* 3.24   tb   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -69,28 +68,37 @@
  * address divided by 2.
  */
 
-#define IIC_SCLK_RATE		100000
-#define SLV_MON_LOOP_COUNT 0x00FFFFFF	/**< Slave Monitor Loop Count*/
-#define MUX_ADDR 0x74
-#define MAX_CHANNELS 0x04
+/** @name Example configuration
+ * @{
+ */
+#define IIC_SCLK_RATE		100000 /**< IIC serial clock rate in Hz. */
+#define SLV_MON_LOOP_COUNT 0x00FFFFFF	/**< Slave Monitor Loop Count. */
+#define MUX_ADDR 0x74 /**< IIC address of the MUX. */
+#define MAX_CHANNELS 0x04 /**< Highest MUX channel select value. */
+/** @} */
 
-/*
+/**
+ * @name Page sizes
  * The page size determines how much data should be written at a time.
  * The write function should be called with this as a maximum byte count.
+ * @{
  */
-#define MAX_SIZE		64
-#define PAGE_SIZE_16	16
-#define PAGE_SIZE_32	32
-#define PAGE_SIZE_64	64
+#define MAX_SIZE		64 /**< Maximum page size in bytes. */
+#define PAGE_SIZE_16	16 /**< Page size of 16 bytes. */
+#define PAGE_SIZE_32	32 /**< Page size of 32 bytes. */
+#define PAGE_SIZE_64	64 /**< Page size of 64 bytes. */
+/** @} */
 
-/*
+/**
  * The Starting address in the IIC EEPROM on which this test is performed.
  */
 #define EEPROM_START_ADDRESS	0
 
 /**************************** Type Definitions *******************************/
 
-/*
+/**
+ * @brief Defines the address type of the on-board EEPROM.
+ *
  * The AddressType should be u8 as the address pointer in the on-board
  * EEPROM is 1 byte.
  */
@@ -118,24 +126,27 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize);
 static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr);
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
-XIicPs IicInstance;		/* The instance of the IIC device. */
+XIicPs IicInstance;		/**< The instance of the IIC device. */
 #endif
-u32 Platform;
+u32 Platform; /**< Platform information. */
 
-/*
+/**
  * Write buffer for writing a page.
  */
 u8 WriteBuffer[sizeof(AddressType) + MAX_SIZE];
 
-u8 ReadBuffer[MAX_SIZE];	/* Read buffer for reading a page. */
+u8 ReadBuffer[MAX_SIZE];	/**< Read buffer for reading a page. */
 
-/**Searching for the required EEPROM Address and user can also add
- * their own EEPROM Address in the below array list**/
+/**
+ * Holds the EEPROM addresses to search for. The application can also add its
+ * own EEPROM Address in the below array list.
+ */
 u16 EepromAddr[] = {0x54, 0x55, 0};
-u16 MuxAddr[] = {0x74, 0};
-u16 EepromSlvAddr;
-u32 PageSize;
+u16 MuxAddr[] = {0x74, 0}; /**< MUX addresses to search for. */
+u16 EepromSlvAddr; /**< Slave address of the EEPROM that is found. */
+u32 PageSize; /**< Page size of the EEPROM that is found. */
 #ifdef SDT
+/** Configuration table of the IIC devices. */
 extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
 #endif
 
@@ -144,12 +155,9 @@ extern XIicPs_Config XIicPs_ConfigTable[XPAR_XIICPS_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
-* Main function to call the Iic EEPROM polled example.
-*
+* @brief Calls the Iic EEPROM polled example from the main function.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -174,13 +182,11 @@ int main(void)
 #endif
 /*****************************************************************************/
 /**
-* This function writes, reads, and verifies the data to the IIC EEPROM. It
-* does the write as a single page write, performs a buffered read.
+* @brief Writes, reads, and verifies the data to the IIC EEPROM.
 *
+* It does the write as a single page write, performs a buffered read.
 *
 * @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 IicPsEepromPolledExample(void)
@@ -284,16 +290,16 @@ s32 IicPsEepromPolledExample(void)
 
 /*****************************************************************************/
 /**
-* This function writes a buffer of data to the IIC serial EEPROM.
+* @brief Writes a buffer of data to the IIC serial EEPROM.
 *
-* @param	IicInstance is a pointer to the IIC instance.
-* @param	ByteCount contains the number of bytes in the buffer to be
-*		written.
+* @param[in,out] IicInstance Pointer to the IIC instance.
+* @param[in]     ByteCount Contains the number of bytes in the buffer to be
+*                written.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return        XST_SUCCESS if successful else XST_FAILURE.
 *
-* @note		The Byte count should not exceed the page size of the EEPROM as
-*		noted by the constant PAGE_SIZE.
+* @note          The Byte count should not exceed the page size of the EEPROM
+*                as noted by the constant PAGE_SIZE.
 *
 ******************************************************************************/
 static s32 EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
@@ -326,15 +332,15 @@ static s32 EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 
 /*****************************************************************************/
 /**
-* This function reads data from the IIC serial EEPROM into a specified buffer.
+* @brief Reads data from the IIC serial EEPROM into a specified buffer.
 *
-* @param	IicInstance is a pointer to the IIC instance.
-* @param	BufferPtr contains the address of the data buffer to be filled.
-* @param	ByteCount contains the number of bytes in the buffer to be read.
+* @param[in,out] IicInstance Pointer to the IIC instance.
+* @param[out]    BufferPtr Contains the address of the data buffer to be
+*                filled.
+* @param[in]     ByteCount Contains the number of bytes in the buffer to be
+*                read.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
-*
-* @note		None.
+* @return        XST_SUCCESS if successful else XST_FAILURE.
 *
 ******************************************************************************/
 static s32 EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
@@ -379,14 +385,12 @@ static s32 EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
 
 /*****************************************************************************/
 /**
-* This function initializes the IIC MUX to select the required channel.
+* @brief Initializes the IIC MUX to select the required channel.
 *
-* @param	MuxIicAddr is the IIC address of the MUX.
-* @param	WriteBuffer is the channel select value.
+* @param[in]    MuxIicAddr IIC address of the MUX.
+* @param[in]    WriteBuffer Channel select value.
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
@@ -432,17 +436,15 @@ static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 
 /*****************************************************************************/
 /**
-* This function perform the initial configuration for the IICPS Device.
+* @brief Performs the initial configuration for the IICPS Device.
 *
 * @if SDT
-* @param	BaseAddress is the base address of the device.
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device.
+* @param[in]    DeviceId Device ID of the IicPs Device.
 * @endif
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 #ifndef SDT
@@ -481,21 +483,18 @@ static s32 IicPsConfig(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function is use to figure out the slave device is alive or not.
+* @brief Checks whether the slave device is alive or not.
 *
-* @param	addr is the slave address.
+* @param[in]    addr Slave address.
 * @if SDT
-* @param	BaseAddress is the base address of the device.
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device.
+* @param[in]    DeviceId Device ID of the IicPs Device.
 * @endif
 *
 * @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note         None.
-*
 *******************************************************************************/
-
 #ifndef SDT
 static s32 IicPsFindDevice(u16 addr, u16 DeviceId)
 #else
@@ -516,15 +515,13 @@ static s32 IicPsFindDevice(u16 addr, UINTPTR BaseAddress)
 }
 /*****************************************************************************/
 /**
-* This function is use to figure out the Eeprom slave device
+* @brief Finds the EEPROM slave device.
 *
-* @param	Eeprom_Addr is the EEPROM slave address.
-* @param	PageSize is the pagesize pointer.
+* @param[out]   Eeprom_Addr EEPROM slave address.
+* @param[out]   PageSize Pagesize pointer.
 *
-* @return	XST_SUCCESS if successful and also update the epprom slave
-* device address in addr variable else XST_FAILURE.
-*
-* @note		None.
+* @return	XST_SUCCESS if successful and also updates the EEPROM slave
+*		device address in addr variable, else XST_FAILURE.
 *
 ******************************************************************************/
 static s32 IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize)
@@ -586,13 +583,11 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize)
 /*****************************************************************************/
 /**
 *
-* This function checks the availability of EEPROM using slave monitor mode.
+* @brief Checks the availability of EEPROM using slave monitor mode.
 *
-* @param	Address is the EEPROM address.
+* @param[in]    Address EEPROM address.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note 	None.
 *
 *******************************************************************************/
 static s32 FindEepromDevice(u16 Address)
@@ -628,15 +623,13 @@ static s32 FindEepromDevice(u16 Address)
 
 /*****************************************************************************/
 /**
-* This function is used to figure out page size Eeprom slave device
+* @brief Finds the page size of the EEPROM slave device.
 *
-* @param	EepromAddr is the EEPROM address.
-* @param	PageSize_ptr is the pagesize pointer.
+* @param[in]    EepromAddr EEPROM address.
+* @param[out]   PageSize_ptr Pagesize pointer.
 *
-* @return	XST_SUCCESS if successful and also update the epprom slave
-* device pagesize else XST_FAILURE.
-*
-* @note		None.
+* @return	XST_SUCCESS if successful and also updates the EEPROM slave
+*		device pagesize, else XST_FAILURE.
 *
 ******************************************************************************/
 static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
@@ -704,18 +697,16 @@ static int FindEepromPageSize(u16 EepromAddr, u32 *PageSize_ptr)
 /*****************************************************************************/
 /**
 *
-* This function checks the availability of a slave using slave monitor mode.
+* @brief Checks the availability of a slave using slave monitor mode.
 *
-* @param	Address is the slave address to monitor.
+* @param[in]    Address Slave address to monitor.
 * @if SDT
-* @param	BaseAddress is the base address of the device.
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device.
+* @param[in]    DeviceId Device ID of the IicPs Device.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note 	None.
 *
 *******************************************************************************/
 #ifndef SDT

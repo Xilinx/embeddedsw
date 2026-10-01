@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,10 @@
 /**
 *
 * @file xiicps_selftest.c
-* @addtogroup iicps_api IICPS APIs
-* @{
+* @brief Implements the self-test function of the XIicPs driver.
 *
-* The xiicps_selftest.c file component contains the implementation of selftest functions for the
-* XIicPs driver component.
+* The xiicps_selftest.c file component contains the implementation of selftest
+* functions for the XIicPs driver component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,9 +22,14 @@
 * 1.00a sdm    09/22/11 Removed unused code
 * 3.0	sk	   11/03/14 Removed TimeOut Register value check
 *			   01/31/15	Modified the code according to MISRAC 2012 Compliant.
+* 3.24	tb	   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup iicps_api IICPS APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -33,7 +37,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define REG_TEST_VALUE    0x00000005U	/**< Register value to write */
+#define REG_TEST_VALUE    0x00000005U	/**< Register value to write. */
 
 /**************************** Type Definitions *******************************/
 
@@ -50,21 +54,20 @@
 /*****************************************************************************/
 /**
 *
-* @brief
-* Runs a self-test on the driver/device. The self-test is destructive in that
-* a reset of the device is performed in order to check the reset values of
-* the registers and to get the device into a known state.
+* @brief Runs a self-test on the driver/device.
+*
+* The self-test is destructive in that a reset of the device is performed. The
+* reset checks the reset values of the registers and gets the device into a
+* known state.
 *
 * Upon successful return from the self-test, the device is reset.
 *
-* @param	InstancePtr Pointer to the XIicPs instance.
+* @param[in]    InstancePtr Pointer to the XIicPs instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_REGISTER_ERROR indicates a register did not read or write
 *		correctly.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XIicPs_SelfTest(XIicPs *InstancePtr)

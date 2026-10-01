@@ -8,18 +8,20 @@
 /**
 * @file xiicps_polled_multi_master_example.c
 *
+* @brief Demonstrates multi-master support in polled mode.
+*
 * Design example is to demonstrate multi-master support in polled mode.
-* In case arbitration lost there will be retry..
+* In case of arbitration lost, the example retries the transfer.
 *
 * The XIicPs_MasterSendPolled() API is used to transmit the data and the
 * XIicPs_MasterRecvPolled() API is used to receive the data.
-* This example tested on ZCU102 board and slave address needs to be
-* changed based on board design
+* This example is tested on ZCU102 board and slave address needs to be
+* changed based on board design.
 *
 * This example can run on zynqmp / versal IIC device as master in polled mode
 * and Aardvark test hardware used as slave.
 *
-* It uses buffer size 132. Please set the send buffer of the Aardvark device to
+* It uses buffer size 132. Set the send buffer of the Aardvark device to
 * be continuous 64 bytes from 0x00 to 0x3F.
  *
  * <pre> MODIFICATION HISTORY:
@@ -29,6 +31,7 @@
  * 1.00a sg  03/09/19 First release
  * 3.18  gm  07/14/23 Added SDT support.
  * 3.23  vlt 12/17/25 Update Doxygen comments to include SDT flow details.
+ * 3.24  tb  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
@@ -47,18 +50,22 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID
+#define IIC_DEVICE_ID		XPAR_XIICPS_0_DEVICE_ID /**< Device ID. */
 #else
-#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR
+#define XIICPS_BASEADDRESS	XPAR_XIICPS_0_BASEADDR /**< Base address. */
 #endif
 
-/*
+/** @name IIC bus settings
+ * @{
+ */
+/**
  * The slave address to send to and receive from.
  */
 #define IIC_SLAVE_ADDR		0x55
-#define IIC_SCLK_RATE		100000
+#define IIC_SCLK_RATE		100000 /**< IIC serial clock rate in Hz. */
+/** @} */
 
-/*
+/**
  * The following constant controls the length of the buffers to be sent
  * and received with the IIC.
  */
@@ -76,25 +83,22 @@ s32 IicPsMultiMasterPolledExample(UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions ******************************/
 
-XIicPs Iic;		/**< Instance of the IIC Device */
+XIicPs Iic;		/**< Instance of the IIC Device. */
 
 /*
  * The following buffers are used in this example to send and receive data
  * with the IIC.
  */
-u8 SendBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Receiving Data */
+u8 SendBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Transmitting Data. */
+u8 RecvBuffer[TEST_BUFFER_SIZE];    /**< Buffer for Receiving Data. */
 
 
 /******************************************************************************/
 /**
 *
-* Main function to call the polled master example.
-*
+* @brief Calls the polled master example from the main function.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *******************************************************************************/
 int main(void)
@@ -123,19 +127,18 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* The purpose of this function is to illustrate multi-master arbitration
-* lost support in XIicPs driver.
+* @brief Illustrates multi-master arbitration lost support in XIicPs driver.
 *
-* This function sends data and expects to receive data from slave device
+* This function sends data and expects to receive data from slave device.
 *
 * This function uses polled transfer functions to send and receive from device.
-* In case arbitration lost status will re-initiate the transfer
+* In case of arbitration lost status, it re-initiates the transfer.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Contains the base address of the device.
 * @else
-* @param	DeviceId is the Device ID of the IicPs Device and is the
-*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h
+* @param[in]    DeviceId Device ID of the IicPs Device, which is the
+*		XPAR_<IICPS_instance>_DEVICE_ID value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
