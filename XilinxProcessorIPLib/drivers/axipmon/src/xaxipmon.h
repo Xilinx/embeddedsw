@@ -3,11 +3,8 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-/** @def XAXIPMON_H
- *  @brief Include guard for the AXI Performance Monitor driver header.
- */
-#ifndef XAXIPMON_H /* Prevent circular inclusions */
-#define XAXIPMON_H /* by using protection macros  */
+#ifndef XAXIPMON_H
+#define XAXIPMON_H
 
 /****************************************************************************/
 /**
@@ -15,7 +12,8 @@
 * @file xaxipmon.h
 * @addtogroup axipmon Overview
 * @{
-* @brief AXI Performance Monitor driver header file.
+* @brief Defines the AXI Performance Monitor driver public interface.
+*
 * @details
 *
 * The XAxiPmon driver supports the Xilinx AXI Performance Monitor device.
@@ -29,60 +27,53 @@
 * The following Metrics can be computed:
 *
 * Metrics computed for an AXI4 MM agent:
-*	Write Request Count: Total number of write requests by/to the agent.
-*	Read Request Count: Total number of read requests given by/to the
-*			    agent.
-*	Read Latency: It is defined as the time from the start of read address
-*       	      transaction to the beginning of the read data service.
-*	Write Latency: It is defined as the period needed a master completes
-*        	       write data transaction, that is from write address
-*        	       transaction to write response from slave.
-*	Write Byte Count: Total number of bytes written by/to the agent.
-*        		  This metric is helpful when calculating the
-*        		  throughput of the system.
-*	Read Byte Count: Total number of bytes read from/by the agent.
-*	Average Write Latency: Average write latency seen by the agent.
-*        		       It can be derived from total write latency
-*        		       and the write request count.
-*	Average Read Latency: Average read latency seen by the agent. It can be
-*        		      derived from total read latency and the read
-*        		      request count.
-*	Master Write Idle Cycle Count: Number of idle cycles caused by the
-*        			       masters during write transactions to
-*        			       the slave.
-*	Slave Write Idle Cycle Count: Number of idle cycles caused by this slave
-*        			      during write transactions to the slave.
-*	Master Read Idle Cycle Count: Number of idle cycles caused by the
-*        			      master during read transactions to the
-*        			      slave.
-*	Slave Read Idle Cycle Count: Number of idle cycles caused by this slave
-*        			     during read transactions to the slave.
+* - Write Request Count: Total number of write requests by/to the agent.
+* - Read Request Count: Total number of read requests given by/to the agent.
+* - Read Latency: It is defined as the time from the start of read address
+*   transaction to the beginning of the read data service.
+* - Write Latency: The period a master needs to complete a write data
+*   transaction, that is, from write address transaction to write response from
+*   slave.
+* - Write Byte Count: Total number of bytes written by/to the agent. This metric
+*   is helpful when calculating the throughput of the system.
+* - Read Byte Count: Total number of bytes read from/by the agent.
+* - Average Write Latency: Average write latency seen by the agent. It can be
+*   derived from total write latency and the write request count.
+* - Average Read Latency: Average read latency seen by the agent. It can be
+*   derived from total read latency and the read request count.
+* - Master Write Idle Cycle Count: Number of idle cycles caused by the masters
+*   during write transactions to the slave.
+* - Slave Write Idle Cycle Count: Number of idle cycles caused by this slave
+*   during write transactions to the slave.
+* - Master Read Idle Cycle Count: Number of idle cycles caused by the master
+*   during read transactions to the slave.
+* - Slave Read Idle Cycle Count: Number of idle cycles caused by this slave
+*   during read transactions to the slave.
 *
 * Metrics computed for an AXI4-Stream agent:
 *
-*	Transfer Cycle Count: Total number of writes by/to the agent.
-*	Data Byte Count: Total number of data bytes written by/to the agent.
-*			 This metric helps in calculating the throughput
-*			 of the system.
-*	Position Byte Count: Total number of position bytes transferred.
-*	Null Byte Count: Total number of null bytes transferred.
-*	Packet Count: Total number of packets transferred.
+* - Transfer Cycle Count: Total number of writes by/to the agent.
+* - Data Byte Count: Total number of data bytes written by/to the agent. This
+*   metric helps in calculating the throughput of the system.
+* - Position Byte Count: Total number of position bytes transferred.
+* - Null Byte Count: Total number of null bytes transferred.
+* - Packet Count: Total number of packets transferred.
 *
 * There are three modes : Advanced, Profile and Trace.
 * - Advanced mode has 10 Metric Counters, Sampled Metric Counters, Incrementers
 *   and Sampled Incrementers.
 * - Profile mode has only 47 Metric Counters and Sampled Metric Counters.
 * - Trace mode has no Counters.
-* User should refer to the hardware device specification for detailed
-* information about the device.
+* Refer to the hardware device specification for detailed information about
+* the device.
 *
 * This header file contains the prototypes of driver functions that can
 * be used to access the AXI Performance Monitor device.
 *
 * <b> Initialization and Configuration </b>
 *
-* The device driver enables higher layer software (for example, an application) to
-* communicate to the AXI Performance Monitor device.
+* The device driver enables higher layer software (for example, an application)
+* to communicate to the AXI Performance Monitor device.
 *
 * XAxiPmon_CfgInitialize() API is used to initialize the AXI Performance Monitor
 * device. First call the XAxiPmon_LookupConfig() API which
@@ -216,14 +207,14 @@
 *			both profile and trace modes are present set mode as
 *			Advanced.
 * 6.2	bss  03/02/15	To support Zynq MP APM:
-*						Added Is32BitFiltering in XAxiPmon_Config structure.
-*						Updated XAxiPmon_SetWriteId, XAxiPmon_SetReadId,
-*						XAxiPmon_GetWriteId, XAxiPmon_GetReadId
-*						XAxiPmon_SetWriteIdMask, XAxiPmon_SetReadIdMask
-*						XAxiPmon_GetWriteIdMask, XAxiPmon_GetReadIdMask
-*						functions in xaxipmon.c.
-*						Added XAPM_RID_OFFSET and XAPM_RIDMASK_OFFSET in
-*						xaxipmon_hw.h
+*                       Added Is32BitFiltering in XAxiPmon_Config structure.
+*                       Updated XAxiPmon_SetWriteId, XAxiPmon_SetReadId,
+*                       XAxiPmon_GetWriteId, XAxiPmon_GetReadId
+*                       XAxiPmon_SetWriteIdMask, XAxiPmon_SetReadIdMask
+*                       XAxiPmon_GetWriteIdMask, XAxiPmon_GetReadIdMask
+*                       functions in xaxipmon.c.
+*                       Added XAPM_RID_OFFSET and XAPM_RIDMASK_OFFSET in
+*                       xaxipmon_hw.h
 *
 * 6.3	kvn  07/02/15	Modified code according to MISRA-C:2012 guidelines.
 * 6.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
@@ -240,6 +231,7 @@
 * 6.12  ht   12/01/24 Fix GCC warnings.
 * 6.14  vlt  12/17/25 Update Doxygen comments to include SDT flow details.
 * 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+* 6.15  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -263,8 +255,9 @@ extern "C" {
  *
  * @{
  */
-#define XAPM_MAX_COUNTERS		10U /**< Maximum number of Counters */
-#define XAPM_MAX_COUNTERS_PROFILE	48U /**< Maximum number of Counters */
+#define XAPM_MAX_COUNTERS		10U /**< Maximum number of Counters. */
+/** Maximum number of Counters in Profile mode. */
+#define XAPM_MAX_COUNTERS_PROFILE	48U
 
 /** @} */
 
@@ -275,16 +268,16 @@ extern "C" {
  * @{
  */
 
-#define XAPM_METRIC_COUNTER_0	0U /**< Metric Counter 0 Register Index */
-#define XAPM_METRIC_COUNTER_1	1U /**< Metric Counter 1 Register Index */
-#define XAPM_METRIC_COUNTER_2	2U /**< Metric Counter 2 Register Index */
-#define XAPM_METRIC_COUNTER_3	3U /**< Metric Counter 3 Register Index */
-#define XAPM_METRIC_COUNTER_4	4U /**< Metric Counter 4 Register Index */
-#define XAPM_METRIC_COUNTER_5	5U /**< Metric Counter 5 Register Index */
-#define XAPM_METRIC_COUNTER_6	6U /**< Metric Counter 6 Register Index */
-#define XAPM_METRIC_COUNTER_7	7U /**< Metric Counter 7 Register Index */
-#define XAPM_METRIC_COUNTER_8	8U /**< Metric Counter 8 Register Index */
-#define XAPM_METRIC_COUNTER_9	9U /**< Metric Counter 9 Register Index */
+#define XAPM_METRIC_COUNTER_0	0U /**< Metric Counter 0 Register Index. */
+#define XAPM_METRIC_COUNTER_1	1U /**< Metric Counter 1 Register Index. */
+#define XAPM_METRIC_COUNTER_2	2U /**< Metric Counter 2 Register Index. */
+#define XAPM_METRIC_COUNTER_3	3U /**< Metric Counter 3 Register Index. */
+#define XAPM_METRIC_COUNTER_4	4U /**< Metric Counter 4 Register Index. */
+#define XAPM_METRIC_COUNTER_5	5U /**< Metric Counter 5 Register Index. */
+#define XAPM_METRIC_COUNTER_6	6U /**< Metric Counter 6 Register Index. */
+#define XAPM_METRIC_COUNTER_7	7U /**< Metric Counter 7 Register Index. */
+#define XAPM_METRIC_COUNTER_8	8U /**< Metric Counter 8 Register Index. */
+#define XAPM_METRIC_COUNTER_9	9U /**< Metric Counter 9 Register Index. */
 
 /** @} */
 
@@ -312,30 +305,30 @@ extern "C" {
  * @{
  */
 
-#define XAPM_METRIC_SET_0		0U /**< Write Transaction Count */
-#define XAPM_METRIC_SET_1		1U /**< Read Transaction Count */
-#define XAPM_METRIC_SET_2		2U /**< Write Byte Count */
-#define XAPM_METRIC_SET_3		3U /**< Read Byte Count */
-#define XAPM_METRIC_SET_4		4U /**< Write Beat Count */
-#define XAPM_METRIC_SET_5		5U /**< Total Read Latency */
-#define XAPM_METRIC_SET_6		6U /**< Total Write Latency */
-#define XAPM_METRIC_SET_7		7U /**< Slv_Wr_Idle_Cnt */
-#define XAPM_METRIC_SET_8		8U /**< Mst_Rd_Idle_Cnt */
-#define XAPM_METRIC_SET_9		9U /**< Num_BValids */
-#define XAPM_METRIC_SET_10		10U /**< Num_WLasts */
-#define XAPM_METRIC_SET_11		11U /**< Num_RLasts */
-#define XAPM_METRIC_SET_12		12U /**< Minimum Write Latency */
-#define XAPM_METRIC_SET_13		13U /**< Maximum Write Latency */
-#define XAPM_METRIC_SET_14		14U /**< Minimum Read Latency */
-#define XAPM_METRIC_SET_15		15U /**< Maximum Read Latency */
-#define XAPM_METRIC_SET_16		16U /**< Transfer Cycle Count */
-#define XAPM_METRIC_SET_17		17U /**< Packet Count */
-#define XAPM_METRIC_SET_18		18U /**< Data Byte Count */
-#define XAPM_METRIC_SET_19		19U /**< Position Byte Count */
-#define XAPM_METRIC_SET_20		20U /**< Null Byte Count */
-#define XAPM_METRIC_SET_21		21U /**< Slv_Idle_Cnt */
-#define XAPM_METRIC_SET_22		22U /**< Mst_Idle_Cnt */
-#define XAPM_METRIC_SET_30		30U /**< External event count */
+#define XAPM_METRIC_SET_0		0U  /**< Write Transaction Count. */
+#define XAPM_METRIC_SET_1		1U  /**< Read Transaction Count. */
+#define XAPM_METRIC_SET_2		2U  /**< Write Byte Count. */
+#define XAPM_METRIC_SET_3		3U  /**< Read Byte Count. */
+#define XAPM_METRIC_SET_4		4U  /**< Write Beat Count. */
+#define XAPM_METRIC_SET_5		5U  /**< Total Read Latency. */
+#define XAPM_METRIC_SET_6		6U  /**< Total Write Latency. */
+#define XAPM_METRIC_SET_7		7U  /**< Slv_Wr_Idle_Cnt. */
+#define XAPM_METRIC_SET_8		8U  /**< Mst_Rd_Idle_Cnt. */
+#define XAPM_METRIC_SET_9		9U  /**< Num_BValids. */
+#define XAPM_METRIC_SET_10		10U /**< Num_WLasts. */
+#define XAPM_METRIC_SET_11		11U /**< Num_RLasts. */
+#define XAPM_METRIC_SET_12		12U /**< Minimum Write Latency. */
+#define XAPM_METRIC_SET_13		13U /**< Maximum Write Latency. */
+#define XAPM_METRIC_SET_14		14U /**< Minimum Read Latency. */
+#define XAPM_METRIC_SET_15		15U /**< Maximum Read Latency. */
+#define XAPM_METRIC_SET_16		16U /**< Transfer Cycle Count. */
+#define XAPM_METRIC_SET_17		17U /**< Packet Count. */
+#define XAPM_METRIC_SET_18		18U /**< Data Byte Count. */
+#define XAPM_METRIC_SET_19		19U /**< Position Byte Count. */
+#define XAPM_METRIC_SET_20		20U /**< Null Byte Count. */
+#define XAPM_METRIC_SET_21		21U /**< Slv_Idle_Cnt. */
+#define XAPM_METRIC_SET_22		22U /**< Mst_Idle_Cnt. */
+#define XAPM_METRIC_SET_30		30U /**< External event count. */
 
 
 /** @} */
@@ -346,7 +339,7 @@ extern "C" {
  * @{
  */
 
-#define XAPM_MAX_AGENTS 	8U /**< Maximum number of Agents */
+#define XAPM_MAX_AGENTS 	8U /**< Maximum number of Agents. */
 
 /** @} */
 
@@ -355,30 +348,30 @@ extern "C" {
  * @{
  */
 
-#define XAPM_FLAG_WRADDR	0x00000001 /**< Write Address Flag */
-#define XAPM_FLAG_FIRSTWR	0x00000002 /**< First Write Flag */
-#define XAPM_FLAG_LASTWR	0x00000004 /**< Last Write Flag */
-#define XAPM_FLAG_RESPONSE	0x00000008 /**< Response Flag */
-#define XAPM_FLAG_RDADDR	0x00000010 /**< Read Address Flag */
-#define XAPM_FLAG_FIRSTRD	0x00000020 /**< First Read Flag */
-#define XAPM_FLAG_LASTRD	0x00000040 /**< Last Read Flag */
-#define XAPM_FLAG_SWDATA	0x00010000 /**< Software-written Data Flag */
-#define XAPM_FLAG_EVENT		0x00020000 /**< Event Flag. */
-#define XAPM_FLAG_EVNTSTOP	0x00040000 /**< Event Stop Flag. */
-#define XAPM_FLAG_EVNTSTART	0x00080000 /**< Event Start Flag. */
-#define XAPM_FLAG_GCCOVF	0x00100000 /**< Global Clock Counter Overflow
-					     *  Flag */
-#define XAPM_FLAG_SCLAPSE	0x00200000 /**< Sample Counter Lapse Flag */
-#define XAPM_FLAG_MC0		0x00400000U /**< Metric Counter 0 Flag */
-#define XAPM_FLAG_MC1		0x00800000U /**< Metric Counter 1 Flag */
-#define XAPM_FLAG_MC2		0x01000000U /**< Metric Counter 2 Flag */
-#define XAPM_FLAG_MC3		0x02000000U /**< Metric Counter 3 Flag */
-#define XAPM_FLAG_MC4		0x04000000U /**< Metric Counter 4 Flag */
-#define XAPM_FLAG_MC5		0x08000000U /**< Metric Counter 5 Flag */
-#define XAPM_FLAG_MC6		0x10000000U /**< Metric Counter 6 Flag */
-#define XAPM_FLAG_MC7		0x20000000U /**< Metric Counter 7 Flag */
-#define XAPM_FLAG_MC8		0x40000000U /**< Metric Counter 8 Flag */
-#define XAPM_FLAG_MC9		0x80000000U /**< Metric Counter 9 Flag */
+#define XAPM_FLAG_WRADDR	0x00000001	/**< Write Address Flag. */
+#define XAPM_FLAG_FIRSTWR	0x00000002	/**< First Write Flag. */
+#define XAPM_FLAG_LASTWR	0x00000004	/**< Last Write Flag. */
+#define XAPM_FLAG_RESPONSE	0x00000008	/**< Response Flag. */
+#define XAPM_FLAG_RDADDR	0x00000010	/**< Read Address Flag. */
+#define XAPM_FLAG_FIRSTRD	0x00000020	/**< First Read Flag. */
+#define XAPM_FLAG_LASTRD	0x00000040	/**< Last Read Flag. */
+#define XAPM_FLAG_SWDATA	0x00010000 /**< Software-written Data Flag. */
+#define XAPM_FLAG_EVENT		0x00020000	/**< Event Flag. */
+#define XAPM_FLAG_EVNTSTOP	0x00040000	/**< Event Stop Flag. */
+#define XAPM_FLAG_EVNTSTART	0x00080000	/**< Event Start Flag. */
+/** Global Clock Counter Overflow Flag. */
+#define XAPM_FLAG_GCCOVF	0x00100000
+#define XAPM_FLAG_SCLAPSE	0x00200000 /**< Sample Counter Lapse Flag. */
+#define XAPM_FLAG_MC0		0x00400000U	/**< Metric Counter 0 Flag. */
+#define XAPM_FLAG_MC1		0x00800000U	/**< Metric Counter 1 Flag. */
+#define XAPM_FLAG_MC2		0x01000000U	/**< Metric Counter 2 Flag. */
+#define XAPM_FLAG_MC3		0x02000000U	/**< Metric Counter 3 Flag. */
+#define XAPM_FLAG_MC4		0x04000000U	/**< Metric Counter 4 Flag. */
+#define XAPM_FLAG_MC5		0x08000000U	/**< Metric Counter 5 Flag. */
+#define XAPM_FLAG_MC6		0x10000000U	/**< Metric Counter 6 Flag. */
+#define XAPM_FLAG_MC7		0x20000000U	/**< Metric Counter 7 Flag. */
+#define XAPM_FLAG_MC8		0x40000000U	/**< Metric Counter 8 Flag. */
+#define XAPM_FLAG_MC9		0x80000000U	/**< Metric Counter 9 Flag. */
 
 /** @} */
 
@@ -386,18 +379,18 @@ extern "C" {
  * @name Macros for Read/Write Latency Start and End points
  * @{
  */
-#define XAPM_LATENCY_ADDR_ISSUE		0U /**< Address Issue as start
-					point for Latency calculation*/
-#define XAPM_LATENCY_ADDR_ACCEPT	1U /**< Address Acceptance as start
-					point for Latency calculation*/
-#define XAPM_LATENCY_LASTRD		0U /**< Last Read as end point for
-					Latency calculation */
-#define XAPM_LATENCY_LASTWR		0U /**< Last Write as end point for
-					Latency calculation */
-#define XAPM_LATENCY_FIRSTRD		1U /**< First Read as end point for
-					Latency calculation */
-#define XAPM_LATENCY_FIRSTWR		1U /**< First Write as end point for
-					Latency calculation */
+/** Address Issue as start point for Latency calculation. */
+#define XAPM_LATENCY_ADDR_ISSUE		0U
+/** Address Acceptance as start point for Latency calculation. */
+#define XAPM_LATENCY_ADDR_ACCEPT	1U
+/** Last Read as end point for Latency calculation. */
+#define XAPM_LATENCY_LASTRD		0U
+/** Last Write as end point for Latency calculation. */
+#define XAPM_LATENCY_LASTWR		0U
+/** First Read as end point for Latency calculation. */
+#define XAPM_LATENCY_FIRSTRD		1U
+/** First Write as end point for Latency calculation. */
+#define XAPM_LATENCY_FIRSTWR		1U
 
 /** @} */
 
@@ -406,11 +399,11 @@ extern "C" {
  * @{
  */
 
-#define XAPM_MODE_TRACE			2U /**< APM in Trace mode */
+#define XAPM_MODE_TRACE			2U /**< APM in Trace mode. */
 
-#define XAPM_MODE_PROFILE		1U /**< APM in Profile mode */
+#define XAPM_MODE_PROFILE		1U /**< APM in Profile mode. */
 
-#define XAPM_MODE_ADVANCED		0U /**< APM in Advanced mode */
+#define XAPM_MODE_ADVANCED		0U /**< APM in Advanced mode. */
 
 /** @} */
 
@@ -421,33 +414,33 @@ extern "C" {
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;			/**< Unique ID of device */
+	u16 DeviceId;			/**< Unique ID of device. */
 #else
-	char *Name;                     /**< Name of the device */
+	char *Name;                     /**< Name of the device. */
 #endif
-	UINTPTR BaseAddress;		/**< Device base address */
-	s32 GlobalClkCounterWidth;	/**< Global Clock Counter Width */
-	s32 MetricSampleCounterWidth ;	/**< Metric Sample Counters Width */
-	u8  IsEventCount;		/**< Event Count Enabled 1 - enabled
-							   0 - not enabled */
-	u8  NumberofSlots;		/**< Number of Monitor Slots */
-	u8  NumberofCounters;		/**< Number of Counters */
-	u8  HaveSampledCounters;	/**< Have Sampled Counters 1 - present
-							    0 - Not present */
-	u8 IsEventLog;			/**< Event Logging Enabled 1 - enabled
-							    0 - Not enabled */
-	u32 FifoDepth;			/**< Event Log FIFO Depth */
-	u32 FifoWidth;			/**< Event Log FIFO Width */
-	u32 TidWidth; 			/**< Streaming Interface TID Width */
-	u8  ScaleFactor;		/**< Event Count Scaling factor */
-	u8  ModeAdvanced;		/**< Advanced Mode */
-	u8  ModeProfile;		/**< Profile Mode */
-	u8  ModeTrace;			/**< Trace Mode */
-	u8  Is32BitFiltering;   /**< 32 bit filtering enabled */
+	UINTPTR BaseAddress;		/**< Device base address. */
+	s32 GlobalClkCounterWidth;	/**< Global Clock Counter Width. */
+	s32 MetricSampleCounterWidth ;	/**< Metric Sample Counters Width. */
+	u8  IsEventCount;		/**< Event Count Enabled: 1 enabled, 0
+					 * not enabled. */
+	u8  NumberofSlots;		/**< Number of Monitor Slots. */
+	u8  NumberofCounters;		/**< Number of Counters. */
+	u8  HaveSampledCounters;	/**< Sampled Counters present: 1
+					 * present, 0 not present. */
+	u8 IsEventLog;			/**< Event Logging Enabled: 1 enabled, 0
+					 * not enabled. */
+	u32 FifoDepth;			/**< Event Log FIFO Depth. */
+	u32 FifoWidth;			/**< Event Log FIFO Width. */
+	u32 TidWidth; 			/**< Streaming Interface TID Width. */
+	u8  ScaleFactor;		/**< Event Count Scaling factor. */
+	u8  ModeAdvanced;		/**< Advanced Mode. */
+	u8  ModeProfile;		/**< Profile Mode. */
+	u8  ModeTrace;			/**< Trace Mode. */
+	u8  Is32BitFiltering;		/**< 32 bit filtering enabled. */
 #ifdef SDT
-	u32 IntId; /**< Interrupt ID on GIC **/
-	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+	u32 IntId;			/**< Interrupt ID on GIC. */
+	UINTPTR IntrParent;		/**< Bit[0] interrupt parent type,
+					 * Bit[64/32:1] parent base address. */
 #endif
 } XAxiPmon_Config;
 
@@ -460,9 +453,9 @@ typedef struct {
  * driver API functions.
  */
 typedef struct {
-	XAxiPmon_Config Config;	/**< XAxiPmon_Config of current device */
-	u32  IsReady;		/**< Device is initialized and ready  */
-	u8   Mode;		/**< APM Mode */
+	XAxiPmon_Config Config;	/**< XAxiPmon_Config of current device. */
+	u32  IsReady;		/**< Device is initialized and ready. */
+	u8   Mode;		/**< APM Mode. */
 } XAxiPmon;
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -473,7 +466,7 @@ typedef struct {
 *
 * @brief Enables the Global Interrupt.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_IntrGlobalEnable(XAxiPmon *InstancePtr)
@@ -489,7 +482,7 @@ typedef struct {
 *
 * @brief Disables the Global Interrupt.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_IntrGlobalDisable(XAxiPmon *InstancePtr)
@@ -503,18 +496,19 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* @brief Enables interrupt(s).
+* @brief Enables the specified interrupts.
 *
 * Use the XAPM_IXR_* constants defined in
 * xaxipmon_hw.h to create the bit-mask to enable interrupts.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
-* @param[in]   Mask is the mask to enable. Bit positions of 1 will be enabled.
-*		Bit positions of 0 will keep the previous setting. This mask is
-*		formed by OR'ing XAPM_IXR__* bits defined in xaxipmon_hw.h.
+* @param[in]   InstancePtr Pointer to the XAxiPmon instance.
+* @param[in]   Mask Mask to enable. Bit positions of 1 enable the
+*              corresponding interrupt. Bit positions of 0 keep the previous
+*              setting. This mask is formed by the bitwise OR of the
+*              XAPM_IXR__* bits defined in xaxipmon_hw.h.
 *
-* @note		C-Style signature:
-*		void XAxiPmon_IntrEnable(XAxiPmon *InstancePtr, u32 Mask)
+* @note        C-Style signature:
+*              void XAxiPmon_IntrEnable(XAxiPmon *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 #define XAxiPmon_IntrEnable(InstancePtr, Mask)				     \
@@ -526,19 +520,19 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* @brief Disables interrupt(s).
+* @brief Disables the specified interrupts.
 *
 * Use the XAPM_IXR_* constants defined in
 * xaxipmon_hw.h to create the bit-mask to disable interrupts.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
-* @param[in]   Mask is the mask to disable. Bit positions of 1 will be
-*		disabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by OR'ing XAPM_IXR_* bits defined in
-*		xaxipmon_hw.h.
+* @param[in]   InstancePtr Pointer to the XAxiPmon instance.
+* @param[in]   Mask Mask to disable. Bit positions of 1 disable the
+*              corresponding interrupt. Bit positions of 0 keep the previous
+*              setting. This mask is formed by the bitwise OR of the
+*              XAPM_IXR_* bits defined in xaxipmon_hw.h.
 *
-* @note		C-Style signature:
-*		void XAxiPmon_IntrDisable(XAxiPmon *InstancePtr, u32 Mask)
+* @note        C-Style signature:
+*              void XAxiPmon_IntrDisable(XAxiPmon *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 #define XAxiPmon_IntrDisable(InstancePtr, Mask)				     \
@@ -549,15 +543,15 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* @brief Clears the specified interrupt(s).
+* @brief Clears the specified interrupts.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
-* @param[in]   Mask is the mask to clear. Bit positions of 1 will be cleared.
-*		This mask is formed by OR'ing XAPM_IXR_* bits defined in
-*		xaxipmon_hw.h.
+* @param[in]   InstancePtr Pointer to the XAxiPmon instance.
+* @param[in]   Mask Mask to clear. Bit positions of 1 clear the
+*              corresponding interrupt. This mask is formed by the bitwise
+*              OR of the XAPM_IXR_* bits defined in xaxipmon_hw.h.
 *
-* @note		C-Style signature:
-*		void XAxiPmon_IntrClear(XAxiPmon *InstancePtr, u32 Mask)
+* @note        C-Style signature:
+*              void XAxiPmon_IntrClear(XAxiPmon *InstancePtr, u32 Mask)
 *
 *****************************************************************************/
 #define XAxiPmon_IntrClear(InstancePtr, Mask)				     \
@@ -570,9 +564,9 @@ typedef struct {
 *
 * @brief Returns the Interrupt Status Register contents.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
-* @return	Interrupt Status Register contents
+* @return       Interrupt Status Register contents.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_IntrGetStatus(XAxiPmon *InstancePtr)
@@ -587,7 +581,7 @@ typedef struct {
 *
 * @brief Enables the Global Clock Counter.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_EnableGlobalClkCounter(XAxiPmon *InstancePtr)
@@ -603,7 +597,7 @@ typedef struct {
 *
 * @brief Disables the Global Clock Counter.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_DisableGlobalClkCounter(XAxiPmon *InstancePtr)
@@ -619,11 +613,11 @@ typedef struct {
 *
 * @brief Enables the specified flag in the Flag Control Register.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
-* @param[in]   Flag is one of the XAPM_FLAG_* masks defined in xaxipmon.h
+* @param[in]   InstancePtr Pointer to the XAxiPmon instance.
+* @param[in]   Flag One of the XAPM_FLAG_* masks defined in xaxipmon.h.
 *
-* @note		C-Style signature:
-*		void XAxiPmon_EnableFlag(XAxiPmon *InstancePtr)
+* @note        C-Style signature:
+*              void XAxiPmon_EnableFlag(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_EnableFlag(InstancePtr, Flag) \
@@ -636,11 +630,11 @@ typedef struct {
 *
 * @brief Disables the specified flag in the Flag Control Register.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
-* @param[in]   Flag is one of the XAPM_FLAG_* masks defined in xaxipmon.h
+* @param[in]   InstancePtr Pointer to the XAxiPmon instance.
+* @param[in]   Flag One of the XAPM_FLAG_* masks defined in xaxipmon.h.
 *
-* @note		C-Style signature:
-*		void XAxiPmon_DisableFlag(XAxiPmon *InstancePtr)
+* @note        C-Style signature:
+*              void XAxiPmon_DisableFlag(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_DisableFlag(InstancePtr, Flag) \
@@ -654,7 +648,7 @@ typedef struct {
 * @brief Loads the sample interval register value into the sample
 * interval counter.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_LoadSampleIntervalCounter(XAxiPmon *InstancePtr)
@@ -671,10 +665,10 @@ typedef struct {
 *
 * @brief Enables the down count of the sample interval counter.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
-*	   void XAxiPmon_EnableSampleIntervalCounter(XAxiPmon *InstancePtr)
+*               void XAxiPmon_EnableSampleIntervalCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_EnableSampleIntervalCounter(InstancePtr) \
@@ -687,10 +681,10 @@ typedef struct {
 *
 * @brief Disables the down count of the sample interval counter.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]   InstancePtr Pointer to the XAxiPmon instance.
 *
-* @note		C-Style signature:
-*	    void XAxiPmon_DisableSampleIntervalCounter(XAxiPmon *InstancePtr)
+* @note        C-Style signature:
+*              void XAxiPmon_DisableSampleIntervalCounter(XAxiPmon *InstancePtr)
 *
 *****************************************************************************/
 #define XAxiPmon_DisableSampleIntervalCounter(InstancePtr) \
@@ -703,7 +697,7 @@ typedef struct {
 *
 * @brief Enables reset of Metric Counters when Sample Interval Counter lapses.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_EnableMetricCounterReset(XAxiPmon *InstancePtr)
@@ -718,7 +712,7 @@ typedef struct {
 *
 * @brief Disables the Metric Counter reset.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_DisableMetricCounterReset(XAxiPmon *InstancePtr)
@@ -734,7 +728,7 @@ typedef struct {
 *
 * @brief Enables the ID Filter masking.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_EnableIDFilter(XAxiPmon *InstancePtr)
@@ -750,7 +744,7 @@ typedef struct {
 *
 * @brief Disables the ID Filter masking.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @note		C-Style signature:
 *		void XAxiPmon_DisableIDFilter(XAxiPmon *InstancePtr)
@@ -766,10 +760,11 @@ typedef struct {
 *
 * @brief Samples Metric Counters to Sampled Metric Counters.
 *
-* Reads the Sample Register and also returns the interval, that is the number of
-* clocks in between previous read to the current read of sample register.
+* Reads the Sample Register and also returns the interval. The interval is the
+* number of clocks between the previous read and the current read of the sample
+* register.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @return	Interval, that is the number of clocks in between previous
 *		read to the current read of sample register.

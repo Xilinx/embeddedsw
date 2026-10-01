@@ -8,10 +8,8 @@
 /**
 *
 * @file xaxipmon_selftest.c
-* @addtogroup axipmon Overview
-* @{
 *
-* @brief Self-test function for the XAxiPmon driver.
+* @brief Implements the self-test function for the XAxiPmon driver.
 *
 * Performs a diagnostic self-test by writing and reading the Alarm
 * Threshold Register.
@@ -28,9 +26,14 @@
 * 2.00a bss  06/23/12 Updated to support v2_00a version of IP.
 * 6.3   kvn  07/02/15 Modified code according to MISRA-C:2012 guidelines.
 * 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+* 6.15  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 *****************************************************************************/
+
+/** @addtogroup axipmon Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -43,8 +46,12 @@
  * to the Range Registers of Incrementers
  */
 
-#define XAPM_TEST_RANGEUPPER_VALUE	16U /**< Test Value for Upper Range */
-#define XAPM_TEST_RANGELOWER_VALUE	 8U /**< Test Value for Lower Range */
+/** @name Incrementer range test values
+ * @{
+ */
+#define XAPM_TEST_RANGEUPPER_VALUE	16U /**< Test Value for Upper Range. */
+#define XAPM_TEST_RANGELOWER_VALUE	 8U /**< Test Value for Lower Range. */
+/** @} */
 
 /**************************** Type Definitions ******************************/
 
@@ -65,12 +72,12 @@
 *	  it back for comparison.
 *	- Resets the device again.
 *
-* @param[in]   InstancePtr is a pointer to the XAxiPmon instance.
+* @param[in]    InstancePtr Pointer to the XAxiPmon instance.
 *
 * @return
 *		- XST_SUCCESS if the value read from the Range Register of
 *		  Incrementer 0 is the same as the value written.
-*		- XST_FAILURE Otherwise
+*               - XST_FAILURE Otherwise.
 *
 * @note		This is a destructive test in that resets of the device are
 *		performed. Refer to the device specification for the

@@ -8,10 +8,8 @@
 /**
 *
 * @file xaxipmon_g.c
-* @addtogroup axipmon Overview
-* @{
 *
-* @brief Configuration table for AXI Performance Monitor devices.
+* @brief Defines the configuration table for AXI Performance Monitor devices.
 *
 * Specifies the configuration of AxiMon devices in the system.
 *
@@ -26,9 +24,14 @@
 * 1.00a bss    02/22/12 First release
 * 2.00a bss    06/23/12 Updated to support v2_00a version of IP.
 * 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+* 6.15  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup axipmon Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -46,8 +49,8 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each System Monitor/ADC
- * device in the system.
+ * @brief Holds the configuration of each AXI Performance Monitor device in
+ * the system.
  */
 XAxiPmon_Config XAxiPmon_ConfigTable[XPAR_XAXIPMON_NUM_INSTANCES] =
 {

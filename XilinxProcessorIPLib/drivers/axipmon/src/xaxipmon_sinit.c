@@ -8,10 +8,8 @@
 /**
 *
 * @file xaxipmon_sinit.c
-* @addtogroup axipmon Overview
-* @{
 *
-* @brief Static initialization functions for the XAxiPmon driver.
+* @brief Implements static initialization for the XAxiPmon driver.
 *
 * Provides lookup functions to retrieve device configuration.
 *
@@ -27,9 +25,14 @@
 * 6.10  ht   06/23/23 Added support for system device-tree flow.
 * 6.14  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+* 6.15  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup axipmon Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -45,25 +48,30 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
+/**
+ * @brief Holds the configuration entry for each AXI Performance Monitor
+ *        instance.
+ */
 extern XAxiPmon_Config XAxiPmon_ConfigTable[];
 
 /*****************************************************************************/
 /**
 *
-* @brief Looks up the device configuration based on the unique
-*        device ID or BaseAddress.
+* @brief Looks up the device configuration by unique device ID or base
+*        address.
+*
 * The XAxiPmon_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param[in]   BaseAddress contains the base address of the device
+* @param[in]   BaseAddress Base address of the device.
 * @else
-* @param[in]   DeviceId contains the unique ID of the device
+* @param[in]   DeviceId Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID/BaseAddress was not found. See xaxipmon.h for the
-*               definition of XAxiPmon_Config.
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID/BaseAddress was not found. See xaxipmon.h for the
+*              definition of XAxiPmon_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.

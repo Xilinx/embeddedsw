@@ -9,12 +9,14 @@
 *
 * @file xaxipmon_ocm_example.c
 *
-* This file contains a design example showing how to use the driver APIs of the
-* AXI Performance Monitor driver to measure the following metrics captured at
+* @brief Measures OCM traffic metrics using the AXI Performance Monitor driver.
+*
+* This file contains a design example that shows how to use the AXI Performance
+* Monitor driver APIs. The example measures the following metrics captured at
 * OCM of Zynq MP:
-*	- Write Transcation Count
+*	- Write Transaction Count
 *	- Write Byte Count
-*	- Read Transcation Count
+*	- Read Transaction Count
 *	- Read Byte Count
 *
 * <pre>
@@ -32,6 +34,7 @@
 * 6.14  vlt    01/27/26 Fixed codespell issues
 * 6.15  vn     07/30/26 Fix Doxygen warnings
 * 6.15  vn   09/08/26 Align Doxygen comments with AMD standards
+* 6.15  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -50,15 +53,22 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** Device ID. */
 #define AXIPMON_DEVICE_ID		XPAR_PSU_APM_1_DEVICE_ID
 #endif
 
-/* Sampling interval */
+/** Sampling interval. */
 #define SAMPLE_INTERVAL			0x100
 
 /* OCM test Address */
+/** @name OCM test addresses
+ * @{
+ */
+/** OCM write test address. */
 #define OCM_WRITE_ADDRESS		0xFFFE0000
+/** OCM read test address. */
 #define OCM_READ_ADDRESS		0xFFFF0000
+/** @} */
 
 /**************************** Type Definitions ******************************/
 
@@ -74,14 +84,14 @@ void ReadMetrics(XAxiPmon *ApmInst, u32 *buffer, u8 Counter1, u8 Counter2);
 
 /************************** Variable Definitions ****************************/
 
-static XAxiPmon  AxiPmonInst;
+static XAxiPmon  AxiPmonInst; /**< AXI Performance Monitor driver instance. */
 
-u32 MetricsBuffer[6];
+u32 MetricsBuffer[6]; /**< Buffer for the collected metrics. */
 
 /****************************************************************************/
 /**
 *
-* Main function that invokes the example in this file.
+* @brief Invokes the AXI Performance Monitor OCM example.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -115,8 +125,8 @@ int main(void)
 	xil_printf("OCM APM Monitor results\n");
 
 	/*
-	 * 1 32 bit write transaction from A53 to OCM i.e, 4 bytes
-	 * 1 read transaction i.e, 16 bytes at OCM (128 bit data bus)
+	 * 1 32 bit write transaction from A53 to OCM that is, 4 bytes
+	 * 1 read transaction that is, 16 bytes at OCM (128 bit data bus)
 	 * A53 -> Interconnect -> APM -> OCM
 	 */
 	Status = ApmCheck(MetricsBuffer, 1, 4, 1, 16);
@@ -137,18 +147,20 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* Checks the metrics passed to this function are same as collected by APM.
+* @brief Checks the metrics passed to this function are same as collected by
+*        APM.
 *
-* @param[in]   BufferPtr is pointer to buffer containing captured metrics.
-* @param[in]   Wtx is Write transaction count value to be checked.
-* @param[in]   Wbc is Write byte count value to be checked.
-* @param[in]   Rtx is Read transaction count value to be checked.
-* @param[in]   Rbc is Read byte count value to be checked.
+* @param[in]   BufferPtr Pointer to buffer containing captured metrics.
+* @param[in]   Wtx Write transaction count value to be checked.
+* @param[in]   Wbc Write byte count value to be checked.
+* @param[in]   Rtx Read transaction count value to be checked.
+* @param[in]   Rbc Read byte count value to be checked.
 *
 * @return
-*		- XST_SUCCESS if metrics passed are equal to metrics collected by APM.
-*		- XST_FAILURE if any of the metrics passed is not equal to metrics
-*						collected by APM.
+*              - XST_SUCCESS if metrics passed are equal to metrics collected by
+*                APM.
+*              - XST_FAILURE if any of the metrics passed is not equal to
+*                metrics collected by APM.
 *
 *****************************************************************************/
 int ApmCheck(u32 *BufferPtr, u16 Wtx, u16 Wbc, u16 Rtx, u16 Rbc)
@@ -190,8 +202,8 @@ int ApmCheck(u32 *BufferPtr, u16 Wtx, u16 Wbc, u16 Rtx, u16 Rbc)
 /****************************************************************************/
 /**
 *
-* Generates write and read transcations to OCM and reads metrics captured
-* by APM.
+* @brief Generates write and read transactions to OCM and reads metrics
+*        captured by APM.
 *
 *****************************************************************************/
 void OcmTransaction()
@@ -216,23 +228,23 @@ void OcmTransaction()
 
 /****************************************************************************/
 /**
-* Sets Counter 0 and Counter 1 for collecting the passed metrics
+* @brief Sets Counter 0 and Counter 1 for collecting the passed metrics.
 *
-* @param[in]   InstancePtr is pointer to APM instance.
-* @param[in]   slot is APM slot.
-* @param[in]   Metric1 is Metric to be captured by Counter 1
-* @param[in]   Metric2 is Metric to be captured by Counter 2
+* @param[in]   InstancePtr Pointer to APM instance.
+* @param[in]   slot APM slot.
+* @param[in]   Metric1 Metric to be captured by Counter 1.
+* @param[in]   Metric2 Metric to be captured by Counter 2.
 *
 * @return
-*       - XST_SUCCESS on success.
-*       - XST_FAILURE on failure.
+*              - XST_SUCCESS on success.
+*              - XST_FAILURE on failure.
 *
 *****************************************************************************/
 int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 {
 	int Status;
 
-	/**< reset Metric counter and Global counters */
+	/* Reset Metric counter and Global counters */
 	XAxiPmon_ResetMetricCounter(InstancePtr);
 	XAxiPmon_ResetGlobalClkCounter(InstancePtr);
 
@@ -259,12 +271,12 @@ int ApmMetricConfig(XAxiPmon *InstancePtr, u8 slot, u8 Metric1, u8 Metric2)
 /****************************************************************************/
 /**
 *
-* Reads metrics from APM counters to buffer.
+* @brief Reads metrics from APM counters to buffer.
 *
-* @param[in]   InstancePtr is pointer to APM instance.
-* @param[in]   BufferPtr is pointer to buffer.
-* @param[in]   Counter1 is counter number.
-* @param[in]   Counter2 is counter number.
+* @param[in]   InstancePtr Pointer to APM instance.
+* @param[out]  BufferPtr Pointer to buffer.
+* @param[in]   Counter1 Counter number.
+* @param[in]   Counter2 Counter number.
 *
 *****************************************************************************/
 void ReadMetrics(XAxiPmon *InstancePtr, u32 *BufferPtr, u8 Counter1,
