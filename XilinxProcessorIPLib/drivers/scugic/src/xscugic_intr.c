@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,6 +42,7 @@
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
 *
+* 5.8   ml   09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 * @internal
@@ -73,6 +74,7 @@
 
 /*****************************************************************************/
 /**
+*
 * This function is the primary interrupt handler for the driver.  It must be
 * connected to the interrupt source such that it is called when an interrupt of
 * the interrupt controller is active. It will resolve which interrupts are
@@ -84,11 +86,7 @@
 * initialized.  It does not verify that entries in the table are valid before
 * calling an interrupt handler.
 *
-*
-* @param	InstancePtr Pointer to the XScuGic instance.
-*
-* @return	None.
-*
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
 *
 ******************************************************************************/
 void XScuGic_InterruptHandler(XScuGic *InstancePtr)

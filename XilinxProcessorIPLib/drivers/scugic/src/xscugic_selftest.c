@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,7 +13,6 @@
 *
 * The xscugic_selftest.c file contains diagnostic self-test functions for the XScuGic driver.
 *
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -25,25 +24,22 @@
 *                     reported by checkpatch. It fixes CR#1006344.
 * 5.2   ml   03/02/23 Add description to fix Doxygen warnings.
 * 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
+* 5.8   ml   09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xscugic.h"
 
 /************************** Constant Definitions *****************************/
-
 #define        XSCUGIC_PCELL_ID        0xB105F00DU /**< PCELL ID value */
 
 /**************************** Type Definitions *******************************/
 
-
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 
@@ -52,19 +48,16 @@
 /*****************************************************************************/
 /**
 *
-* Runs a self-test on the driver/device. This test reads the ID registers and
+* @brief Runs a self-test on the driver/device. This test reads the ID registers and
 * compares them.
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
+* @param[in]	InstancePtr is a pointer to the XScuGic instance.
 *
-* @return
-*
-*		-XST_SUCCESS if self-test is successful.
+* @return	-XST_SUCCESS if self-test is successful.
 *		-XST_FAILURE if the self-test is not successful.
 *
-*
 ******************************************************************************/
-s32  XScuGic_SelfTest(XScuGic *InstancePtr)
+s32 XScuGic_SelfTest(XScuGic *InstancePtr)
 {
 	u32 RegValue1 = 0U;
 	u32 Index;

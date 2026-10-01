@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,10 +14,6 @@
 *
 * This example shows the use of the Interrupt Controller with the ARM
 * processor.
-*
-* @note
-*
-* none
 *
 * <pre>
 *
@@ -65,7 +61,7 @@
 #define XSCUGIC_CPU_BASEADDR		XPAR_SCUGIC_0_CPU_BASEADDR
 #define XSCUGIC_DIST_BASEADDR		XPAR_SCUGIC_0_DIST_BASEADDR
 #else
-#define XSCUGIC_DIST_BASEADDR		XPAR_XSCUGIC_0_BASEADDR
+#define XSCUGIC_DIST_BASEADDR		XPAR_XSCUGIC_0_BASEADDR /**< Base address of the GIC distributor. */
 #endif
 
 #if defined (GICv3)
@@ -73,11 +69,9 @@
                                                  Bit [15:0] Targeted CPUs */
 #define XSUGIC_SGI_INT_ID	   0x5U       /* Modify it to intended SGI interrupt ID */
 #else
-#define GIC_DEVICE_INT_MASK        0x02010003 /* Bit [25:24] Target list filter
-                                                 Bit [23:16] 16 = Target CPU iface 0
-                                                 Bit [3:0] identifies the SFI */
+#define GIC_DEVICE_INT_MASK        0x02010003 /**< Bits [25:24]: target-list filter; [23:16]: CPU target; [3:0]: SGI ID. */
 #endif
-#define XSCUGIC_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
+#define XSCUGIC_SW_TIMEOUT_VAL	10000000U /**< Software timeout value in clock cycles. */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -107,11 +101,7 @@ static XScuGic_Config *CfgPtr;
 *
 * This is the main function for the Interrupt Controller Low Level example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -148,12 +138,7 @@ int main(void)
 * has come out of the reset state such that it will allow interrupts to be
 * simulated by the software.
 *
-* @param	CpuBaseAddress is Base Address of the Interrupt Controller
-*		Device
-*
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE
-*
-* @note		None.
 *
 ******************************************************************************/
 static int ScuGicLowLevelExample()
@@ -250,12 +235,6 @@ static int ScuGicLowLevelExample()
 * each application.  Each processor or RTOS may require unique processing to
 * connect the interrupt handler.
 *
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
-*
 ******************************************************************************/
 void SetupInterruptSystem(void)
 {
@@ -276,23 +255,19 @@ void SetupInterruptSystem(void)
 /*****************************************************************************/
 /**
 *
-* This function is designed to look like an interrupt handler in a device
-* driver. This is typically a 2nd level handler that is called from the
-* interrupt controller interrupt handler.  This handler would typically
-* perform device specific processing such as reading and writing the registers
-* of the device to clear the interrupt condition and pass any data to an
-* application using the device driver.
+* @brief Simulates a device driver interrupt handler for the example.
 *
-* @param    CallbackRef is passed back to the device driver's interrupt handler
+* This is typically a 2nd level handler that is called from the interrupt
+* controller interrupt handler. This handler would typically perform device
+* specific processing such as reading and writing the registers of the device
+* to clear the interrupt condition and pass any data to an application using
+* the device driver.
+* @param[in]	CallbackRef is passed back to the device driver's interrupt handler
 *           by the XScuGic driver.  It was given to the XScuGic driver in the
 *           XScuGic_Connect() function call.  It is typically a pointer to the
 *           device driver instance variable if using the Xilinx Level 1 device
 *           drivers.  In this example, we are passing it as scugic cpu
 *           interface base address to access ack and EOI registers.
-*
-* @return   None.
-*
-* @note     None.
 *
 ******************************************************************************/
 void LowInterruptHandler(void *CallbackRef)
@@ -343,6 +318,15 @@ void LowInterruptHandler(void *CallbackRef)
 }
 
 
+/** @brief Default priority value for all interrupt lines. */
+#define DEFAULT_PRIORITY    0xa0a0a0a0UL
+#if defined (GICv3)
+#define DEFAULT_TARGET    0x0UL /**< Default target CPU mask for GICv3. */
+#else
+#define DEFAULT_TARGET    0x01010101UL /**< Default target CPU mask. */
+#endif
+
+/** @brief Initialize the GIC distributor hardware registers. */
 static void GicDistInit(u32 BaseAddress)
 {
 	u32 Int_Id;
@@ -369,8 +353,7 @@ static void GicDistInit(u32 BaseAddress)
 	XScuGic_Enable_SystemReg_CPU_Interface_EL3();
 #endif
 	XScuGic_Enable_SystemReg_CPU_Interface_EL1();
-
-	/* Disable distributor */
+	/* Disable distributor. */
 	temp = XScuGic_ReadReg(BaseAddress, XSCUGIC_DIST_EN_OFFSET);
 	temp |= (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
 	temp &= ~(XSCUGIC_EN_INT_MASK);
@@ -402,12 +385,6 @@ static void GicDistInit(u32 BaseAddress)
 	}
 
 
-#define DEFAULT_PRIORITY    0xa0a0a0a0UL
-#if defined (GICv3)
-#define DEFAULT_TARGET    0x0UL
-#else
-#define DEFAULT_TARGET    0x01010101UL
-#endif
 
 	for (Int_Id = 0; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id += 4) {
 		/*
@@ -468,6 +445,7 @@ static void GicDistInit(u32 BaseAddress)
 }
 
 #if !defined (GICv3)
+/** @brief Initialize the GIC CPU interface registers. */
 static void GicCPUInit(u32 BaseAddress)
 {
 	/*

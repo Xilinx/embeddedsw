@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,12 +29,12 @@
 * 5.2   ml   09/07/23 Added comments to fix HIS COMF violations.
 * 5.7   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 5.8   ml   09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xscugic.h"
@@ -44,14 +44,11 @@
 
 /************************** Constant Definitions *****************************/
 
-
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
-
 
 /************************** Function Prototypes ******************************/
 
@@ -62,9 +59,9 @@
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId Unique identifier for a device.
+* @param[in]	DeviceId Unique identifier for a device.
 * @endif
 *
 * @return	A pointer to the XScuGic configuration structure for the
@@ -101,11 +98,10 @@ XScuGic_Config *XScuGic_LookupConfig(u16 DeviceId)
 * will refer to an entry in the device configuration table defined in the
 * xscugic_g.c file.
 *
-* @param        BaseAddress Base address of the device.
+* @param[in]	BaseAddress Base address of the device.
 *
-* @return       A pointer to the XScuGic configuration structure for the
+* @return	A pointer to the XScuGic configuration structure for the
 *               specified device, or NULL if the device is not found.
-*
 *
 ******************************************************************************/
 XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress)
@@ -116,7 +112,7 @@ XScuGic_Config *XScuGic_LookupConfigBaseAddr(UINTPTR BaseAddress)
 	/*
 	 * checks the BaseAddress in configuration table
 		 * whether it matches or not
-		 */
+	 */
 	for (Index = 0U; Index < (u32)XPAR_SCUGIC_NUM_INSTANCES; Index++) {
 		if (XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) {
 			CfgPtr = &XScuGic_ConfigTable[Index];
@@ -134,7 +130,7 @@ XScuGic_Config *XScuGic_LookupConfig(UINTPTR BaseAddress)
 
 	/* checks the BaseAddress in configuration table
 	* whether it matches or not
-	*/
+	 */
 	for (Index = 0U; XScuGic_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XScuGic_ConfigTable[Index].DistBaseAddress == BaseAddress) || !BaseAddress) {
 			CfgPtr = &XScuGic_ConfigTable[Index];

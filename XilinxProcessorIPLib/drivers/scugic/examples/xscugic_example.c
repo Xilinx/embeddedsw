@@ -14,10 +14,6 @@
 * to see more examples of how the intc and interrupts can be used by a software
 * application.
 *
-* @note
-*
-* None
-*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -80,12 +76,12 @@
 #ifndef SDT
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #else
-#define XSCUGiC_DIST_BASEADDR 	XPAR_XSCUGIC_0_BASEADDR
+#define XSCUGiC_DIST_BASEADDR 	XPAR_XSCUGIC_0_BASEADDR /**< Base address of the GIC distributor. */
 #endif
-#define INTC_DEVICE_INT_ID	0x0E
+#define INTC_DEVICE_INT_ID	0x0E /**< Interrupt ID used in this example. */
 
-#define XSCUGIC_SPI_CPU_MASK	(XSCUGIC_SPI_CPU0_MASK << XPAR_CPU_ID)
-#define XSCUGIC_SW_TIMEOUT_VAL	10000000U /* Wait for 10 sec */
+#define XSCUGIC_SPI_CPU_MASK	(XSCUGIC_SPI_CPU0_MASK << XPAR_CPU_ID) /**< CPU target mask for SPI interrupts. */
+#define XSCUGIC_SW_TIMEOUT_VAL	10000000U /**< Software timeout value in clock cycles. */
 
 #if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5))
 #define TIMER_PPI_INT_ID        30U
@@ -123,7 +119,7 @@ void TimerInterruptHandler(void *CallbackRef);
 
 /************************** Variable Definitions *****************************/
 
-XScuGic InterruptController; 	     /* Instance of the Interrupt Controller */
+XScuGic InterruptController;  /**< Instance of the Interrupt Controller */
 #ifndef SDT
 static XScuGic_Config *GicConfig;    /* The configuration parameters of the
                                        controller */
@@ -132,15 +128,15 @@ static XScuGic_Config *GicConfig;    /* The configuration parameters of the
  * Create a shared variable to be used by the main thread of processing and
  * the interrupt processing
  */
-static volatile u32 InterruptProcessed = FALSE;
-
-/* Timer PPI globals used across all APU GIC versions */
+static volatile u32 InterruptProcessed = FALSE;  /**< Software interrupt completion flag. */
+/* Timer PPI globals used across all APU GIC versions. */
 #if defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5)) || defined (PLATFORM_ZYNQ)
 static volatile u32 TimerInterruptProcessed = FALSE;
-static u32 TimerIntrId;       /* Encoded interrupt ID (SDT flow only)    */
-static UINTPTR IntcBaseAddr;  /* Encoded intc base addr (SDT flow only)  */
+static u32 TimerIntrId;  /**< Encoded interrupt ID (SDT flow only) */
+static UINTPTR IntcBaseAddr;  /**< Encoded intc base addr (SDT flow only) */
 #endif
 
+/** @brief Print assertion failure details with file name and line number. */
 static void AssertPrint(const char8 *FilenamePtr, s32 LineNumber)
 {
 	xil_printf("ASSERT: File Name: %s ", FilenamePtr);
@@ -152,11 +148,7 @@ static void AssertPrint(const char8 *FilenamePtr, s32 LineNumber)
 *
 * This is the main function for the Interrupt Controller example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS to indicate success, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 int main(void)
@@ -190,20 +182,17 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function is an example of how to use the interrupt controller driver
-* (XScuGic) and the hardware device.  This function is designed to
-* work without any hardware devices to cause interrupts. It may not return
-* if the interrupt controller is not properly connected to the processor in
-* either software or hardware.
+* @brief Demonstrates XScuGic driver and hardware device operation.
 *
-* This function relies on the fact that the interrupt controller hardware
-* has come out of the reset state such that it will allow interrupts to be
-* simulated by the software.
-*
+* This function is designed to work without any hardware devices to cause
+* interrupts. It may not return if the interrupt controller is not properly
+* connected to the processor in either software or hardware. This function
+* relies on the fact that the interrupt controller hardware has come out of the
+* reset state such that it will allow interrupts to be simulated by the
+* software.
 * @if SDT
-* @param	None
 * @else
-* @param	DeviceId is Device ID of the Interrupt Controller Device,
+* @param[in]	DeviceId is Device ID of the Interrupt Controller Device,
 *		typically XPAR_<INTC_instance>_DEVICE_ID value from
 *		xparameters.h
 * @endif
@@ -348,12 +337,10 @@ int ScuGicExample(void)
 * each application.  Each processor or RTOS may require unique processing to
 * connect the interrupt handler.
 *
-* @param	XScuGicInstancePtr is the instance of the interrupt controller
+* @param[in]	XScuGicInstancePtr is the instance of the interrupt controller
 *		that needs to be worked on.
 *
-* @return	None.
-*
-* @note		None.
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ****************************************************************************/
 int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr)
@@ -366,9 +353,8 @@ int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr)
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				     (Xil_ExceptionHandler) XScuGic_InterruptHandler,
 				     XScuGicInstancePtr);
-
 	/*
-	 * Enable interrupts in the ARM
+	 * Enable interrupts in the ARM.
 	 */
 	Xil_ExceptionEnable();
 
@@ -378,25 +364,21 @@ int SetUpInterruptSystem(XScuGic *XScuGicInstancePtr)
 /******************************************************************************/
 /**
 *
-* This function is designed to look like an interrupt handler in a device
-* driver. This is typically a 2nd level handler that is called from the
-* interrupt controller interrupt handler.  This handler would typically
-* perform device specific processing such as reading and writing the registers
-* of the device to clear the interrupt condition and pass any data to an
-* application using the device driver.  Many drivers already provide this
-* handler and the user is not required to create it.
+* @brief Simulates a device driver interrupt handler for the example.
 *
-* @param	CallbackRef is passed back to the device driver's interrupt
+* This is typically a 2nd level handler that is called from the interrupt
+* controller interrupt handler. This handler would typically perform device
+* specific processing such as reading and writing the registers of the device
+* to clear the interrupt condition and pass any data to an application using
+* the device driver. Many drivers already provide this handler and the user is
+* not required to create it.
+* @param[in]	CallbackRef is passed back to the device driver's interrupt
 *		handler by the XScuGic driver.  It was given to the XScuGic
 *		driver in the XScuGic_Connect() function call.  It is typically
 *		a pointer to the device driver instance variable.
 *		In this example, we do not care about the callback
 *		reference, so we passed it a 0 when connecting the handler to
 *		the XScuGic driver and we make no use of it here.
-*
-* @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void DeviceDriverHandler(void *CallbackRef)
@@ -426,18 +408,16 @@ void DeviceDriverHandler(void *CallbackRef)
 *  - GICv3 (Versal2 Cortex-R52, ARMR52):
 *      AArch32 variant using CP15 coprocessor registers. PPI 13, GIC ID 29.
 *
-* @param	XScuGicInstancePtr is a pointer to the instance of XScuGic driver.
+* @param[in]	XScuGicInstancePtr is a pointer to the instance of XScuGic driver.
 *
 * @return	XST_SUCCESS if the test passes, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 int TestTimerPPI(XScuGic *XScuGicInstancePtr)
 {
 	int Status;
 #if (defined (GICv3) || (defined (PLATFORM_ZYNQMP) && !defined (ARMR5))) && !defined (ARMR52)
-	u64 TimerFreq;  /* AArch64 generic timer frequency (Hz) */
+	u64 TimerFreq;  /**< AArch64 generic timer frequency (Hz) */
 #endif
 
 	/* Connect timer interrupt handler */
@@ -477,9 +457,9 @@ int TestTimerPPI(XScuGic *XScuGicInstancePtr)
 	mtcp("p15, 0, %0, c14, c2, 1", TIMER_ENABLE_BIT);    /* Enable   */
 #elif defined(GICv3) || (defined(PLATFORM_ZYNQMP) && !defined(ARMR5))
 	TimerFreq = mfcp(CNTFRQ_EL0);
-	mtcp(CNTP_CTL_EL0, (u64)0);                /* Disable               */
+	mtcp(CNTP_CTL_EL0, (u64)0);  /**< Disable */
 	mtcp(CNTP_TVAL_EL0, (u64)(TimerFreq / 10U)); /* Load 100ms countdown */
-	mtcp(CNTP_CTL_EL0, (u64)TIMER_ENABLE_BIT); /* Enable, IMASK=0       */
+	mtcp(CNTP_CTL_EL0, (u64)TIMER_ENABLE_BIT);  /**< Enable, IMASK=0 */
 #elif defined(PLATFORM_ZYNQ)
 	Xil_Out32(SCUTIMER_CTRL_REG, 0U);              /* Disable timer        */
 	Xil_Out32(SCUTIMER_LOAD_REG, SCUTIMER_LOAD_100MS); /* ~100ms at 333MHz */
@@ -501,13 +481,9 @@ int TestTimerPPI(XScuGic *XScuGicInstancePtr)
 *
 * This is the interrupt handler for the ARM Generic Physical Timer.
 *
-* @param	CallbackRef is a callback reference passed in by the upper layer
+* @param[in]	CallbackRef is a callback reference passed in by the upper layer
 *		when setting the handler, and is passed back to the upper layer
 *		when the handler is called. In this example, it is not used.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void TimerInterruptHandler(void *CallbackRef)

@@ -138,7 +138,7 @@
 * 4.7   mus  03/17/22 Fixed XScuGic_InterruptMaptoCpu and
 *                     XScuGic_InterruptUnmapFromCpu for GICv3. It fixes
 *                     CR#1126156.
-* 5.0   mus  22/02/22 Added support for VERSAL NET.
+* 5.0   mus  22/02/22 Added support for PSX-based GIC.
 * 5.0   asa  03/29/22 The API XScuGic_IsInitialized has a bug where if
 * 		      Distributor Control Register, GICD_CTLR has both
 * 		      bit 0 and 1 set, the API wrongly returns 0.
@@ -152,7 +152,7 @@
 *                     It fixes CR#1152445.
 * 5.1   mus  02/13/23 Updated XScuGic_CfgInitialize, XScuGic_Enable and
 *                     XScuGic_Disable to support interrupts on each core
-*                     of all CortexA78/CortexR52 clusters in VERSAL NET SoC.
+*                     of all CortexA78/CortexR52 clusters in PSX SoC.
 *                     While at it, modified interrupt routing logic to make
 *                     use of CPU affinity register instead of XPAR_CPU_ID macro.
 *                     Also, XScuGic_CfgInitialize has been updated to find
@@ -190,6 +190,7 @@
 *                     Added code to ensure that during GIC driver initialization
 *                     there are no stale and pending interrupts present.
 *
+* 5.8   ml   09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -202,12 +203,10 @@
 #include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
-
 #define DEFAULT_PRIORITY    0xa0a0a0a0U /**< Default value for priority_level
                                              register */
 
 /**************************** Type Definitions *******************************/
-
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -215,26 +214,22 @@
 static u32 CpuId; /**< CPU Core identifier */
 
 /************************** Function Prototypes ******************************/
-
 static void StubHandler(void *CallBackRef);
 #if defined (GICv3)
-static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr);
+	static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr);
 #endif
 
 /*****************************************************************************/
 /**
 *
-* DoDistributorInit initializes the distributor of the GIC. The
+* @brief DoDistributorInit initializes the distributor of the GIC. The
 * initialization entails:
 *
 * - Write the trigger mode, priority
 * - All interrupt sources are disabled
 * - Enable the distributor
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-*
-* @return	None
-*
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
 *
 ******************************************************************************/
 static void DoDistributorInit(const XScuGic *InstancePtr)
@@ -317,8 +312,9 @@ static void DoDistributorInit(const XScuGic *InstancePtr)
 	}
 	/*
 	 * Set security for SGI/PPI
-	 *
-	 */
+	*
+	******************************************************************************/
+
 	XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_RDIST_IGROUPR_OFFSET,
 				     XSCUGIC_DEFAULT_SECURITY);
 #endif
@@ -345,13 +341,10 @@ static void DoDistributorInit(const XScuGic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* DistributorInit initializes the distributor of the GIC. It calls
+* @brief DistributorInit initializes the distributor of the GIC. It calls
 * DoDistributorInit to finish the initialization.
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-*
-* @return	None
-*
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
 *
 ******************************************************************************/
 static void DistributorInit(XScuGic *InstancePtr)
@@ -379,13 +372,10 @@ static void DistributorInit(XScuGic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Clears stale interrupt state for the current CPU core in warm-restart scenarios
+* @brief Clears stale interrupt state for the current CPU core in warm-restart scenarios
 * where GIC distributor state is preserved but the CPU is restarted.
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-*
-* @return	None
-*
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
 *
 ******************************************************************************/
 static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr)
@@ -395,7 +385,7 @@ static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr)
 	u32 Target_Cpu;
 	u32 Mask;
 
-	/* Clear SGI/PPI enable and pending state for the restarted core only. */
+	/**< Clear SGI/PPI enable and pending state for the restarted core only. */
 	XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_DISABLE_OFFSET, 0xFFFFFFFFU);
 	XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_PENDING_CLR_OFFSET, 0xFFFFFFFFU);
 
@@ -412,19 +402,19 @@ static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr)
 #endif
 
 	for (Int_Id = XSCUGIC_SPI_INT_ID_START;
-		 Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
-		 Int_Id++) {
+	     Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+	     Int_Id++) {
 		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
 						 XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
 		if (Target_Cpu == LocalCpuID) {
 			Mask = (u32)0x00000001U << (Int_Id % 32U);
 			XScuGic_DistWriteReg(InstancePtr,
 					     XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
-								      Int_Id),
+							     Int_Id),
 					     Mask);
 			XScuGic_DistWriteReg(InstancePtr,
 					     XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_PENDING_CLR_OFFSET,
-								      Int_Id),
+							     Int_Id),
 					     Mask);
 		}
 	}
@@ -435,16 +425,13 @@ static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* CPUInitialize initializes the CPU Interface of the GIC. The initialization
+* @brief CPUInitialize initializes the CPU Interface of the GIC. The initialization
 * entails:
 *
 *	- Set the priority of the CPU
 *	- Enable the CPU interface
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-*
-* @return	None
-*
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
 *
 ******************************************************************************/
 static void CPUInitialize(const XScuGic *InstancePtr)
@@ -481,17 +468,17 @@ static void CPUInitialize(const XScuGic *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* CfgInitialize a specific interrupt controller instance/driver. The
+* @brief CfgInitialize a specific interrupt controller instance/driver. The
 * initialization entails:
 *
 * - Initialize fields of the XScuGic structure
 * - Initial vector table with stub function calls
 * - All interrupt sources are disabled
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-* @param	ConfigPtr Pointer to a config table for the particular
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
+* @param[in]	ConfigPtr Pointer to a config table for the particular
 *		device this driver is associated with.
-* @param	EffectiveAddr Device base address in the virtual memory
+* @param[in]	EffectiveAddr Device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -500,14 +487,12 @@ static void CPUInitialize(const XScuGic *InstancePtr)
 *		Config->BaseAddress for this parameters, passing the physical
 *		address instead.
 *
-* @return
-*		- XST_SUCCESS if initialization was successful
-*
+* @return	- XST_SUCCESS if initialization was successful
 *
 ******************************************************************************/
-s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
-			   XScuGic_Config *ConfigPtr,
-			   u32 EffectiveAddr)
+s32 XScuGic_CfgInitialize(XScuGic *InstancePtr,
+			  XScuGic_Config *ConfigPtr,
+			  u32 EffectiveAddr)
 {
 	u32 Int_Id;
 	(void) EffectiveAddr;
@@ -550,9 +535,9 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 			* was not initialized statically by the tools/user. Set
 			* the callback reference to this instance so that
 			* unhandled interrupts can be tracked.
-			*/
+			 */
 			if (InstancePtr->Config->HandlerTable[Int_Id].Handler
-			     == (Xil_InterruptHandler)NULL) {
+			    == (Xil_InterruptHandler)NULL) {
 				InstancePtr->Config->HandlerTable[Int_Id].Handler
 					= (Xil_InterruptHandler)StubHandler;
 			}
@@ -603,28 +588,25 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* Makes the connection between the Int_Id of the interrupt source and the
+* @brief Makes the connection between the Int_Id of the interrupt source and the
 * associated handler that is to run when the interrupt is recognized. The
 * argument provided in this call as the Callbackref is used as the argument
 * for the handler when it is called.
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-* @param	Int_Id contains the ID of the interrupt source and should be
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
+* @param[in]	Int_Id contains the ID of the interrupt source and should be
 *		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-* @param	Handler Handler for interrupt.
-* @param	CallBackRef Instance pointer of the connecting driver.
+* @param[in]	Handler Handler for interrupt.
+* @param[in]	CallBackRef Instance pointer of the connecting driver.
 *
-* @return
-*
-*		- XST_SUCCESS if the handler was connected correctly.
-*
+* @return	- XST_SUCCESS if the handler was connected correctly.
 *
 * WARNING: The handler provided as an argument will overwrite any handler
 * that was previously connected.
 *
 ****************************************************************************/
-s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
-		     Xil_InterruptHandler Handler, void *CallBackRef)
+s32 XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
+		    Xil_InterruptHandler Handler, void *CallBackRef)
 {
 	/*
 	 * Validate the input arguments
@@ -653,16 +635,13 @@ s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
 /*****************************************************************************/
 /**
 *
-* Updates the interrupt table with the Null Handler and NULL arguments at the
+* @brief Updates the interrupt table with the Null Handler and NULL arguments at the
 * location pointed at by the Int_Id. This effectively disconnects that interrupt
 * source from any handler. The interrupt is disabled also.
 *
-* @param	InstancePtr Pointer to the XScuGic instance to be worked on.
-* @param	Int_Id Contains the ID of the interrupt source and should
+* @param[in]	InstancePtr Pointer to the XScuGic instance to be worked on.
+* @param[in]	Int_Id Contains the ID of the interrupt source and should
 *		be in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-*
-* @return	None.
-*
 *
 ****************************************************************************/
 void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
@@ -715,17 +694,14 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 /*****************************************************************************/
 /**
 *
-* Enables the interrupt source provided as the argument Int_Id. Any pending
+* @brief Enables the interrupt source provided as the argument Int_Id. Any pending
 * interrupt condition for the specified Int_Id will occur after this function is
 * called.
 * This API also maps the interrupt to the requesting CPU.
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-* @param	Int_Id Contains the ID of the interrupt source and should be
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
+* @param[in]	Int_Id Contains the ID of the interrupt source and should be
 *		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-*
-* @return	None.
-*
 *
 ****************************************************************************/
 void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
@@ -789,18 +765,15 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 /*****************************************************************************/
 /**
 *
-* Disables the interrupt source provided as the argument Int_Id such that the
+* @brief Disables the interrupt source provided as the argument Int_Id such that the
 * interrupt controller will not cause interrupts for the specified Int_Id. The
 * interrupt controller will continue to hold an interrupt condition for the
 * Int_Id, but will not cause an interrupt.
 * This API also unmaps the interrupt for the requesting CPU.
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-* @param	Int_Id Contains the ID of the interrupt source and should be
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
+* @param[in]	Int_Id Contains the ID of the interrupt source and should be
 *		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-*
-* @return	None.
-*
 *
 ****************************************************************************/
 void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
@@ -870,26 +843,23 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 /*****************************************************************************/
 /**
 *
-* Allows software to simulate an interrupt in the interrupt controller. This
+* @brief Allows software to simulate an interrupt in the interrupt controller. This
 * function will only be successful when the interrupt controller has been
 * started in simulation mode. A simulated interrupt allows the interrupt
 * controller to be tested without any device to drive an interrupt input
 * signal into it.
 *
-* @param	InstancePtr Pointer to the XScuGic instance.
-* @param	Int_Id Software interrupt ID to simulate an interrupt.
-* @param	Cpu_Identifier List of CPUs to send the interrupt.
+* @param[in]	InstancePtr Pointer to the XScuGic instance.
+* @param[in]	Int_Id Software interrupt ID to simulate an interrupt.
+* @param[in]	Cpu_Identifier List of CPUs to send the interrupt.
 *               For VERSAL_NET bits 0-7 specifies core ID to send the interrupt.
 *               bits 8-15 specifies the cluster id.
 *
-* @return
-*
-* XST_SUCCESS if successful, or XST_FAILURE if the interrupt could not be
+* @return	XST_SUCCESS if successful, or XST_FAILURE if the interrupt could not be
 * simulated
 *
-*
 ******************************************************************************/
-s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Identifier)
+s32 XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Identifier)
 {
 #if defined (GICv3)
 	u64 Mask;
@@ -911,11 +881,11 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Identifier)
 #if defined (VERSAL_NET)
 #if defined (ARMR52)
 	Mask = ((u64)((Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >>
-	XSCUGIC_CLUSTERID_SHIFT) << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
+		      XSCUGIC_CLUSTERID_SHIFT) << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
 	Mask |= ((u64)1U << ((u32)Cpu_Identifier & XSCUGIC_COREID_MASK));
 #else
 	Mask = ((Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
-	Mask =  ( Mask << XSCUGIC_SGI1R_AFFINITY2_SHIFT);
+	Mask = (Mask << XSCUGIC_SGI1R_AFFINITY2_SHIFT);
 
 	Mask |= ((Cpu_Identifier & XSCUGIC_COREID_MASK) << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
 	Mask |= 0x1;
@@ -968,13 +938,10 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Identifier)
 /*****************************************************************************/
 /**
 *
-* A stub for the asynchronous callback. The stub is here in case the upper
+* @brief A stub for the asynchronous callback. The stub is here in case the upper
 * layers forget to set the handler.
 *
-* @param	CallBackRef Pointer to the upper layer callback reference.
-*
-* @return	None.
-*
+* @param[in]	CallBackRef Pointer to the upper layer callback reference.
 *
 ******************************************************************************/
 static void StubHandler(void *CallBackRef)
@@ -992,15 +959,16 @@ static void StubHandler(void *CallBackRef)
 
 /****************************************************************************/
 /**
-* Sets the interrupt priority and trigger type for the specificd IRQ source.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	Int_Id IRQ source number to modify.
-* @param	Priority New priority for the IRQ source. 0 is highest
+* @brief Sets the interrupt priority and trigger type for the specified IRQ source.
+*
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Int_Id IRQ source number to modify.
+* @param[in]	Priority New priority for the IRQ source. 0 is highest
 *           priority, 0xF8(248) is lowest. There are 32 priority levels
 *           supported with a step of 8. Hence the supported priorities are
 *           0, 8, 16, 32, 40 ..., 248.
-* @param	Trigger New trigger type for the IRQ source.
+* @param[in]	Trigger New trigger type for the IRQ source.
 * Each bit pair describes the configuration for an INT_ID.
 * SFI    Read Only    b10 always
 * PPI    Read Only    depending on how the PPIs are configured.
@@ -1009,9 +977,6 @@ static void StubHandler(void *CallBackRef)
 * SPI                LSB is read only.
 *                    b01    Active HIGH level sensitive
 *                    b11 Rising edge sensitive/
-*
-* @return	None.
-*
 *
 *****************************************************************************/
 void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
@@ -1031,7 +996,7 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	Xil_AssertVoid(Trigger <= (u8)XSCUGIC_INT_CFG_MASK);
 	Xil_AssertVoid(LocalPriority <= (u8)XSCUGIC_MAX_INTR_PRIO_VAL);
 #if defined (GICv3)
-	if (Int_Id < XSCUGIC_SPI_INT_ID_START ) {
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
 		XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id), Priority);
 		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr, XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
 		Index = XScuGic_Get_Rdist_Int_Trigger_Index(Int_Id);
@@ -1101,18 +1066,15 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 
 /****************************************************************************/
 /**
-* Gets the interrupt priority and trigger type for the specificd IRQ source.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	Int_Id IRQ source number to modify.
-* @param	Priority Pointer to the value of the priority of the IRQ
+* @brief Gets the interrupt priority and trigger type for the specified IRQ source.
+*
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Int_Id IRQ source number to modify.
+* @param[out]	Priority Pointer to the value of the priority of the IRQ
 *		source. This is a return value.
-* @param	Trigger Pointer to the value of the trigger of the IRQ
+* @param[out]	Trigger Pointer to the value of the trigger of the IRQ
 *		source.
-*
-* @return	Pointer to the value of the trigger of the IRQ
-*		source.
-*
 *
 *****************************************************************************/
 void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
@@ -1129,8 +1091,9 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	Xil_AssertVoid(Trigger != NULL);
 
 #if defined (GICv3)
-	if (Int_Id < XSCUGIC_SPI_INT_ID_START ) {
-		*Priority = XScuGic_ReDistSGIPPIReadReg(InstancePtr, XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id));
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
+		*Priority = XScuGic_ReDistSGIPPIReadReg(InstancePtr,
+							XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id));
 		RegValue = XScuGic_ReDistSGIPPIReadReg(InstancePtr, XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
 		RegValue = RegValue >> ((Int_Id % 16U) * 2U);
 		*Trigger = (u8)(RegValue & XSCUGIC_INT_CFG_MASK);
@@ -1176,16 +1139,14 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 }
 /****************************************************************************/
 /**
-* Sets the target CPU for the interrupt of a peripheral.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	Cpu_Identifier CPU number for which the interrupt has to be targeted
+* @brief Sets the target CPU for the interrupt of a peripheral.
+*
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Cpu_Identifier CPU number for which the interrupt has to be targeted
 *               For VERSAL_NET APU: 0 t0 3 bits specifies core id and 4 to 7 bits specifies
 *               cluster id of the targeted core.
-* @param	Int_Id IRQ source number to modify.
-*
-* @return	None.
-*
+* @param[in]	Int_Id IRQ source number to modify.
 *
 *****************************************************************************/
 void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)
@@ -1250,34 +1211,32 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 }
 /****************************************************************************/
 /**
-* Unmaps specific SPI interrupt from the target CPU.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	Cpu_Identifier CPU number from which the interrupt has to be
+* @brief Unmaps specific SPI interrupt from the target CPU.
+*
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Cpu_Identifier CPU number from which the interrupt has to be
 *			unmapped.
 *               For VERSAL_NET APU: 0 t0 3 bits specifies core id and 4 to 7
 *               bits specifies cluster id of the targeted core.
-* @param	Int_Id IRQ source number to modify
-*
-* @return	None.
-*
+* @param[in]	Int_Id IRQ source number to modify
 *
 *****************************************************************************/
 void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)
 {
-/*
- * For GICv3 1 of N SPI interrupt selection mode is not supported in
- * driver. Specific interrupt can be routed to only specific core.
- * Affinity of targeted core is programmed in GICD_IROUTER register.
- * GICD_IROUTER does not have any provision to un-map interrupt for
- * core, if we change affinity value, interrupt would be attached
- * to other core. Hence, skipping unmapping of interrupt here to
- * avoid un-intentional re-mapping of interrupt to other core.
- */
+	/*
+	 * For GICv3 1 of N SPI interrupt selection mode is not supported in
+	 * driver. Specific interrupt can be routed to only specific core.
+	 * Affinity of targeted core is programmed in GICD_IROUTER register.
+	 * GICD_IROUTER does not have any provision to un-map interrupt for
+	 * core, if we change affinity value, interrupt would be attached
+	 * to other core. Hence, skipping unmapping of interrupt here to
+	 * avoid un-intentional re-mapping of interrupt to other core.
+	 */
 #if defined (GICv3)
-        (void)InstancePtr;
-        (void)Cpu_Identifier;
-        (void)Int_Id;
+	(void)InstancePtr;
+	(void)Cpu_Identifier;
+	(void)Int_Id;
 #else
 	u32 RegValue;
 
@@ -1319,27 +1278,25 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 
 }
 /****************************************************************************/
 /**
-* Unmaps all SPI interrupts from the target CPU.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	Cpu_Identifier CPU number from which the interrupts has to be
+* @brief Unmaps all SPI interrupts from the target CPU.
+*
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Cpu_Identifier CPU number from which the interrupts has to be
 *			unmapped.
-*
-* @return	None.
-*
 *
 *****************************************************************************/
 void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier)
 {
-/*
- * For GICv3 1 of N SPI interrupt selection mode is not supported in
- * driver. Specific interrupt can be routed to only specific core.
- * Affinity of targeted core is programmed in GICD_IROUTER register.
- * GICD_IROUTER does not have any provision to un-map interrupt for
- * core, if we change affinity value, interrupt would be attached
- * to other core. Hence, skipping unmapping of interrupt here to
- * avoid un-intentional re-mapping of interrupt to other core.
- */
+	/*
+	 * For GICv3 1 of N SPI interrupt selection mode is not supported in
+	 * driver. Specific interrupt can be routed to only specific core.
+	 * Affinity of targeted core is programmed in GICD_IROUTER register.
+	 * GICD_IROUTER does not have any provision to un-map interrupt for
+	 * core, if we change affinity value, interrupt would be attached
+	 * to other core. Hence, skipping unmapping of interrupt here to
+	 * avoid un-intentional re-mapping of interrupt to other core.
+	 */
 #if defined (GICv3)
 	(void)InstancePtr;
 	(void)Cpu_Identifier;
@@ -1361,7 +1318,7 @@ void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier)
 	LocalCpuID |= LocalCpuID << 8U;
 	LocalCpuID |= LocalCpuID << 16U;
 
-	for (Int_Id = 32U; Int_Id  < XSCUGIC_MAX_NUM_INTR_INPUTS;
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 	     Int_Id = Int_Id + 4U) {
 
 		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
@@ -1382,16 +1339,14 @@ void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Identifier)
 }
 /****************************************************************************/
 /**
-* Checks if the interrupt target register contains all interrupts to be
+*
+* @brief Checks if the interrupt target register contains all interrupts to be
 * targeted for current CPU. If they are programmed to be forwarded to current
 * cpu, this API disable all interrupts and disable GIC distributor.
 * This API also removes current CPU from interrupt target registers for all
 * interrupt.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-*
-* @return	None.
-*
+* @param[in]	InstancePtr Pointer to the instance to be worked on.
 *
 *****************************************************************************/
 void XScuGic_Stop(XScuGic *InstancePtr)
@@ -1442,22 +1397,22 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 	     Int_Id++) {
 
-       /*
-        * In case of GICv3 there are 2 interrupt modes,
-        * - 1 of N SPI interrupt selection: In this mode, GIC controller
-        *   sends interrupt to any available core, specific core can be
-        *   made available by using GICR_CTRL register in redistributor.
-        * - Interrupt routed to fixed affinity specified in GICD_IROUTER:
-        *   In this mode, interrupts are routed to specific core as specified
-        *   in GICD_IROUTER.
-        * We are not enabling 1 of N SPI interrupt selection in driver, interrupts
-        * are always routed to fixed affinity. That means interrupts are being
-        * routed only to one core. Also, GICv3 integrated in ARMR52 does not support
-        * 1 of N SPI interrupt selection mode.
-        * By default interrupts are routed to affinity 0 (core 0).
-        * There is no as such way to un-map interrupt, either interrupt mapped
-        * to current core needs to be disabled or re-map to another core.
-        */
+		/*
+		 * In case of GICv3 there are 2 interrupt modes,
+		 * - 1 of N SPI interrupt selection: In this mode, GIC controller
+		 *   sends interrupt to any available core, specific core can be
+		 *   made available by using GICR_CTRL register in redistributor.
+		 * - Interrupt routed to fixed affinity specified in GICD_IROUTER:
+		 *   In this mode, interrupts are routed to specific core as specified
+		 *   in GICD_IROUTER.
+		 * We are not enabling 1 of N SPI interrupt selection in driver, interrupts
+		 * are always routed to fixed affinity. That means interrupts are being
+		 * routed only to one core. Also, GICv3 integrated in ARMR52 does not support
+		 * 1 of N SPI interrupt selection mode.
+		 * By default interrupts are routed to affinity 0 (core 0).
+		 * There is no as such way to un-map interrupt, either interrupt mapped
+		 * to current core needs to be disabled or re-map to another core.
+		 */
 
 		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
 						 XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
@@ -1473,8 +1428,8 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 			 * disabled or re-map to other core. Disabling interrupts maaped to
 			 * current core is safe rather than re-mapping to other core.
 			 */
-			 XScuGic_DistWriteReg(InstancePtr,XSCUGIC_DISABLE_OFFSET +
-                         (((Int_Id) / 32U) * 4U), ((u32)0x00000001U << ((Int_Id) % 32U)));
+			XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DISABLE_OFFSET +
+					     (((Int_Id) / 32U) * 4U), ((u32)0x00000001U << ((Int_Id) % 32U)));
 
 		}
 	}
@@ -1513,7 +1468,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	 * and then disable distributor.
 	 */
 	if (DistDisable == (u32)1) {
-	 #if ! defined (GICv3)
+#if ! defined (GICv3)
 		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 		     Int_Id = Int_Id + 32U) {
 			/*
@@ -1521,10 +1476,10 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 			 */
 			XScuGic_DistWriteReg(InstancePtr,
 					     XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
-							     Int_Id),
+						     Int_Id),
 					     0xFFFFFFFFU);
 		}
-	#endif
+#endif
 		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
 	}
 	/*
@@ -1536,12 +1491,10 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 
 /****************************************************************************/
 /**
-* Updates the CpuId global variable.
 *
-* @param	CpuCoreId CPU core number.
+* @brief Updates the CpuId global variable.
 *
-* @return	None.
-*
+* @param[in]	CpuCoreId CPU core number.
 *
 *****************************************************************************/
 void XScuGic_SetCpuID(u32 CpuCoreId)
@@ -1556,10 +1509,10 @@ void XScuGic_SetCpuID(u32 CpuCoreId)
 
 /****************************************************************************/
 /**
-* Returns the CpuId variable.
+*
+* @brief Returns the CpuId variable.
 *
 * @return	The CPU core number.
-*
 *
 *****************************************************************************/
 u32 XScuGic_GetCpuID(void)
@@ -1569,12 +1522,13 @@ u32 XScuGic_GetCpuID(void)
 
 /****************************************************************************/
 /**
-* Checks whether the XScGic is initialized or not given the device ID/BaseAddress.
+*
+* @brief Checks whether the XScGic is initialized or not given the device ID/BaseAddress.
 *
 * @if SDT
-* @param	BaseAddress is the base address of the device
+* @param[in]	BaseAddress is the base address of the device
 * @else
-* @param	DeviceId ID of the XScuGic device.
+* @param[in]	DeviceId ID of the XScuGic device.
 * @endif
 *
 * @return	Returns 1 if initialized otherwise 0.
@@ -1584,9 +1538,9 @@ u32 XScuGic_GetCpuID(void)
 *
 *****************************************************************************/
 #ifndef SDT
-u8 XScuGic_IsInitialized(u32 DeviceId)
+	u8 XScuGic_IsInitialized(u32 DeviceId)
 #else
-u8 XScuGic_IsInitialized(u32 BaseAddress)
+	u8 XScuGic_IsInitialized(u32 BaseAddress)
 #endif
 {
 	u8 Device_Initilaized = 0U;
@@ -1617,9 +1571,8 @@ u8 XScuGic_IsInitialized(u32 BaseAddress)
 #if defined (GICv3)
 /****************************************************************************/
 /**
-* Marks processor core which calls this API as asleep.
 *
-* @return	None.
+* @brief Marks processor core which calls this API as asleep.
 *
 * @note 	It should be called before suspending processor core. Once this
 * 			API is invoked, pending interrupts for processor core asserts
@@ -1640,10 +1593,8 @@ void XScuGic_MarkCoreAsleep(XScuGic *InstancePtr)
 
 /****************************************************************************/
 /**
-* Marks processor core which calls this API as awake.
 *
-* @return	None.
-*
+* @brief Marks processor core which calls this API as awake.
 *
 *****************************************************************************/
 void XScuGic_MarkCoreAwake(XScuGic *InstancePtr)

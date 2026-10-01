@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 3.10  mus  07/17/18 Updated file to fix the various coding style issues
 *                     reported by checkpatch. It fixes CR#1006344.
 *
+* 5.8   ml   09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 * @internal
@@ -36,7 +37,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xscugic.h"
 #include "xparameters.h"
 
@@ -61,7 +61,7 @@
  *
  * Refer to the XScuGic_Config data structure in xscugic.h for details on how
  * this table should be initialized.
- */
+*/
 XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES] = {
 	{
 		(u16)XPAR_SCUGIC_0_DEVICE_ID,  /* Unique ID  of device */

@@ -1,12 +1,15 @@
+/**
+ * @file scugic_header.h
+ * @brief Declarations for SCUGIC driver example functions.
+*/
 /******************************************************************************
 * Copyright (C) 2011 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-
 #ifndef SCUGIC_HEADER_H		/* prevent circular inclusions */
+/** @brief Include guard to prevent multiple inclusions. */
 #define SCUGIC_HEADER_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
