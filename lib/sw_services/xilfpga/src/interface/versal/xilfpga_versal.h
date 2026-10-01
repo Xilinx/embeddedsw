@@ -11,14 +11,13 @@
  * @addtogroup xilfpga_versal XilFPGA APIs for Versal Adaptive SoCs
  * @{
  *
- * <pre>
  * The XILFPGA library for AMD Versal Adaptive SoCs provides the interface to the application to
  * configure the programmable logic (PL) though the PS.
  *
  * - Supported Features:
  *    - Partial Bitstream loading.
  *
- * #  Xilfpga_PL library Interface modules	{#xilfpgapllib}
+ * #  Xilfpga_PL library Interface modules
  *	Xilfpga_PL library uses the below major components to configure the PL
  *	through PS.
  *  -  xilmailbox library is used to transfer the actual Bit stream file from
@@ -27,13 +26,13 @@
  * @note XilFPGA library is capable of loading only .pdi format files into PL.
  * The library does not support other file formats.
  *
- *
- * ##   Initialization & Writing Bitstream	{#xilinit}
+ * ##   Initialization & Writing Bitstream
  *
  * Use the u32 XFpga_PL_BitSream_Load(); function to initialize the driver
  * and load the Bitstream.
  *
- *
+ * @cond xilfpga_internal
+ * <pre>
  * MODIFICATION HISTORY:
  *
  * Ver   Who  Date        Changes
@@ -54,8 +53,9 @@
  * 6.5  Nava 08/18/23  Resolved the doxygen issues.
  * 6.6  AC	 04/04/24  Resolved the doxygen issues.
  * 6.10 Arvd 02/11/26  Fixed Doxygen warnings.
- * </pre>
- *
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
+ * @endcond
  *
  ******************************************************************************/
 

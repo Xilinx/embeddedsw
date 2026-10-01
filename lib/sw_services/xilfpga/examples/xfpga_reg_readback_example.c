@@ -8,14 +8,11 @@
 /**
  * @file  xfpga_reg_readback_example.c
  *
- *
  * This example prints out the values of all the configuration registers in the
  * FPGA.
  *
  * This example assumes that there is a UART Device or STDIO Device in the
  * hardware system.
- *
- * @note		None.
  *
  * MODIFICATION HISTORY:
  *
@@ -106,13 +103,11 @@ int main(void)
  *
  * This function reads the configuration registers inside the FPGA.
  *
- * @param	InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return
  *		- XST_SUCCESS if successful
  *		- XST_FAILURE if unsuccessful
- *
- * @note		None.
  *
  *****************************************************************************/
 static int Xfpga_RegReadExample(XFpga *InstancePtr)

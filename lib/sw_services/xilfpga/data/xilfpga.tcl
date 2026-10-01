@@ -1,5 +1,5 @@
 ###############################################################################
-# Copyright (c) 2016 - 20222 Xilinx, Inc.  All rights reserved.
+# Copyright (c) 2016 - 2022 Xilinx, Inc.  All rights reserved.
 # Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #

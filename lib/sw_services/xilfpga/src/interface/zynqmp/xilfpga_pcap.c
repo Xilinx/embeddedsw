@@ -137,7 +137,8 @@
  * 6.10 Arvd 02/11/26  Fixed Doxygen warnings
  * 6.10 Arvd 02/20/26  Add support to set config regs and
  *                     read frame data via PMUFW
- * </pre>
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
  *
  * @note
  *
@@ -305,7 +306,7 @@ static const u8 BootgenBinFormat[] = {
 /**
  * This API, when called, initializes the XFPGA interface with default settings.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -363,7 +364,7 @@ END:
  * This function validate the Bitstream Image boot header and image header info,
  * also copies all the required details to the ImageInfo pointer.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return	Returns Status
  *		- XST_SUCCESS on success
@@ -491,7 +492,7 @@ END:
 /**
  * This function prepare the FPGA to receive configuration data.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return      Returns Status
  *		- XFPGA_SUCCESS on success
@@ -506,7 +507,7 @@ static u32 XFpga_PreConfigPcap(XFpga *InstancePtr)
 	volatile u32 Status = XFPGA_FAILURE;
 	u32 RegVal;
 
-	/* Enable the PCAP clk */
+	/**< Enable the PCAP clk */
 	RegVal = Xil_In32(PCAP_CLK_CTRL);
 	Xil_Out32(PCAP_CLK_CTRL, RegVal | PCAP_CLK_EN_MASK);
 
@@ -546,7 +547,7 @@ END:
 /**
  * This function write count bytes of configuration data into the PL.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return	Returns Status
  *		- XFPGA_SUCCESS on success
@@ -610,7 +611,7 @@ END:
  * This Function sets FPGA into operating state after writing Configuration
  * data.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -688,7 +689,7 @@ static u32 XFpga_PostConfigPcap(XFpga *InstancePtr)
 /**
  * Performs the necessary initialization of PCAP interface
  *
- * @param Flags Provides information about Crypto operation needs
+ * @param[in] Flags Provides information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
  *
  * @return Returns Status
@@ -701,7 +702,7 @@ static u32 XFpga_PcapInit(u32 Flags)
 	u32 Status = XFPGA_FAILURE;
 	u32 RegVal;
 
-	/* Take PCAP out of Reset */
+	/**< Take PCAP out of Reset */
 	RegVal = Xil_In32(CSU_PCAP_RESET);
 	RegVal &= (~CSU_PCAP_RESET_RESET_MASK);
 	Xil_Out32(CSU_PCAP_RESET, RegVal);
@@ -752,9 +753,9 @@ static u32 XFpga_PcapWaitForDone(void)
 /**
  * Writes data to PCAP interface
  *
- * @param Size Number of bytes that the DMA should write to the
+ * @param[in] Size Number of bytes that the DMA should write to the
  *        PCAP interface
- * @param BitstreamAddr Linear Bitstream memory base address
+ * @param[in] BitstreamAddr Linear Bitstream memory base address
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -793,8 +794,6 @@ END:
 /**
  * This function waits for PCAP to come to idle state.
  *
- * @param	None
- *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
@@ -816,8 +815,8 @@ static u32 XFpga_PcapWaitForidle(void)
  * This function is used to Validate the user provided crypto flags
  * with Image crypto flags.
  *
- * @param ImageInfo Pointer to XSecure_ImageInfo structure.
- * @param Flags Provides the information about Crypto operation needs
+ * @param[in] ImageInfo Pointer to XSecure_ImageInfo structure.
+ * @param[in] Flags Provides the information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
  *
  * @return Returns Status
@@ -884,7 +883,7 @@ END:
 /**
  * Loads the secure Bitstream into the PL.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -931,7 +930,7 @@ static u32 XFpga_SecureLoadToPl(XFpga *InstancePtr)
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -1030,8 +1029,8 @@ END:
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
- * @param InstancePtr Pointer to the XFpga structure.
- * @param Size Number of bytes that the DMA should write to the
+ * @param[in] InstancePtr Pointer to the XFpga structure.
+ * @param[in] Size Number of bytes that the DMA should write to the
  *        PCAP interface.
  *
  * @return Returns Status
@@ -1132,16 +1131,14 @@ END:
  * This function performs authentication the Blocks and store the
  * This SHA3 hashes on secure memory.
  *
- * @param BitstreamAddr Linear memory address
- * @param Size Number of bytes that the DMA should write to the
+ * @param[in] BitstreamAddr Linear memory address
+ * @param[in] Size Number of bytes that the DMA should write to the
  *        PCAP interface.
- * @param AcAddr authentication certificate base address.
+ * @param[in] AcAddr authentication certificate base address.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
  *		- Error code on failure
- *
- * @note None.
  *
  ******************************************************************************/
 static u32 XFpga_AuthPlChunks(UINTPTR BitstreamAddr, u32 Size, UINTPTR AcAddr)
@@ -1246,11 +1243,11 @@ END:
  * Sends the data to PCAP in blocks via AES engine if encryption
  * exists or directly to PCAP by CSUDMA if an encryption is not enabled.
  *
- * @param PlAesInfo is a pointer to XFpgaPs_PlPartition
- * @param BitstreamAddr Linear memory secure image base address
- * @param Flags It provides the information about Crypto operation needs
+ * @param[in] PlAesInfo is a pointer to XFpgaPs_PlPartition
+ * @param[in] BitstreamAddr Linear memory secure image base address
+ * @param[in] Flags It provides the information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
- * @param Size Number of bytes that the DMA should write to the
+ * @param[in] Size Number of bytes that the DMA should write to the
  *        PCAP interface.
  *
  * @return Returns Status
@@ -1350,8 +1347,7 @@ END:
 /**
  * This is the function to write Encrypted data into PCAP interface
  *
- *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -1405,15 +1401,13 @@ END:
 /**
  * This API decrypts the chunks of data
  *
- * @param PartitionParams Pointer to XFpgaPs_PlPartition
- * @param ChunkAdrs Holds the address of chunk address
- * @param ChunkSize Holds the size of chunk
+ * @param[in] PartitionParams Pointer to XFpgaPs_PlPartition
+ * @param[in] ChunkAdrs Holds the address of chunk address
+ * @param[in] ChunkSize Holds the size of chunk
  *
  * @return
  *	Error code on failure
  *	XFPGA_SUCCESS on success
- *
- * @note	 None.
  *
  ******************************************************************************/
 static u32 XFpga_DecrptPlChunks(XFpgaPs_PlPartition *PartitionParams,
@@ -1568,13 +1562,11 @@ END:
  * This function calculates the next block size and updates the required
  * parameters.
  *
- * @param PartitionParams is a pointer to XFpgaPs_PlPartition
+ * @param[in] PartitionParams is a pointer to XFpgaPs_PlPartition
  *
  * @return
  *	Error code on failure
  *	XFPGA_SUCCESS on success
- *
- * @note	None
  *
  ******************************************************************************/
 static u32 XFpga_DecrptSetUpNextBlk(XFpgaPs_PlPartition *PartitionParams)
@@ -1622,14 +1614,10 @@ END:
 /**
  * This function is used to copy data to AES/PL.
  *
- * @param InstancePtr is an instance of CSUDMA
- * @param Src holds the source Address
- * @param Size of the data
- * @param EnLast - 0 or 1
- *
- * @return None
- *
- * @note	None
+ * @param[in] InstancePtr is an instance of CSUDMA
+ * @param[in] Src holds the source Address
+ * @param[in] Size of the data
+ * @param[in] EnLast - 0 or 1
  *
  ******************************************************************************/
 static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src, u32 Size,
@@ -1652,15 +1640,13 @@ static void XFpga_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src, u32 Size,
  * This function sends data to AES engine which needs to be decrypted till the
  * end of the encryption block.
  *
- * @param PartitionParams is a pointer to XFpgaPs_PlPartition
- * @param ChunkAdrs is a pointer to the data location
- * @param ChunkSize is the remaining chunk size
+ * @param[in] PartitionParams is a pointer to XFpgaPs_PlPartition
+ * @param[in] ChunkAdrs is a pointer to the data location
+ * @param[in] ChunkSize is the remaining chunk size
  *
  * @return
  *	Error code on failure
  *	XFPGA_SUCCESS on success
- *
- * @note None
  *
  *****************************************************************************/
 static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
@@ -1723,7 +1709,7 @@ static u32 XFpga_DecrptPl(XFpgaPs_PlPartition *PartitionParams,
 				 * remaining data of the encrypted block
 				 * and part of GCM tag and secure header of
 				 * next block also exists with chunk,
-				 * copy that portion for proceessing along
+				 * copy that portion for processing along
 				 *  with next chunk of data
 				 */
 				if (Size < (XSECURE_SECURE_HDR_SIZE +
@@ -1820,14 +1806,12 @@ END:
 /**
  * This function decrypts the secure header when key rolling is enabled
  *
- * @param InstancePtr is an instance AES engine.
- * @param SrcAddr holds the address of secure header
+ * @param[in] InstancePtr is an instance AES engine.
+ * @param[in] SrcAddr holds the address of secure header
  *
  * @return
  *	Error code on failure
  *	XFPGA_SUCCESS on success
- *
- * @note	None
  *
  ******************************************************************************/
 static u32 XFpga_DecrypSecureHdr(XSecure_Aes *InstancePtr, UINTPTR SrcAddr)
@@ -1904,12 +1888,12 @@ END:
 /**
  * This function initializes the instance pointer.
  *
- * @param InstancePtr Pointer to the XSecure_Aes instance.
- * @param CsuDmaPtr Pointer to the XCsuDma instance.
- * @param IvPtr Pointer to the Initialization Vector for decryption
- * @param KeyPtr Pointer to Aes decryption key in case KUP key is used.
+ * @param[out] InstancePtr Pointer to the XSecure_Aes instance initialized by this function.
+ * @param[out] AesKupKey Pointer to the converted AES key buffer when a KUP key is used.
+ * @param[in] IvPtr Pointer to the Initialization Vector for decryption
+ * @param[in] KeyPtr Pointer to Aes decryption key in case KUP key is used.
  *               Passes `Null` if device key is to be used.
- * @param Flags It provides the information about Crypto operation needs
+ * @param[in] Flags It provides the information about Crypto operation needs
  *        to be performed on the given Image (or) Data.
  *
  * @return Returns Status
@@ -2035,8 +2019,6 @@ static u32 XFpga_PowerUpPl(void)
  * 	- XFPGA_SUCCESS if successful
  *  - XFPGA_ERROR_PL_ISOLATION if unsuccessful
  *
- * @note None.
- *
  **************************************************************************/
 static u32 XFpga_IsolationRestore(void)
 {
@@ -2066,11 +2048,7 @@ static u32 XFpga_IsolationRestore(void)
 
 /**************************************************************************/
 /**
- * This function is used to start reset of the PL from PS EMIO pins
- *
- * @return	None.
- *
- * @note	None.
+ * This function is used to start reset of the PL from PS EMIO pins.
  *
  ****************************************************************************/
 void XFpga_PsPlGpioResetsLow(void)
@@ -2087,11 +2065,7 @@ void XFpga_PsPlGpioResetsLow(void)
 
 /***************************************************************************/
 /**
- * This function is used to release reset of the PL from PS EMIO pins
- *
- * @return	None.
- *
- * @note	None.
+ * This function is used to release reset of the PL from PS EMIO pins.
  *
  ***************************************************************************/
 void XFpga_PsPlGpioResetsHigh(void)
@@ -2125,12 +2099,11 @@ static u32 XFpga_PcapStatus(void)
 /**
  * Returns the value of the specified configuration register.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return
  *               - XFPGA_SUCCESS if successful
  *               - XFPGA_FAILURE if unsuccessful
- *
  *
  ****************************************************************************/
 static u32 XFpga_GetConfigRegPcap(const XFpga *InstancePtr)
@@ -2256,13 +2229,12 @@ END:
 /**
  * This function performs the readback of fpga configuration data.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return
  *               - XFPGA_SUCCESS if successful
  *               - XFPGA_FAILURE if unsuccessful
  *
- * @note None.
  ****************************************************************************/
 static u32 XFpga_GetPLConfigDataPcap(const XFpga *InstancePtr)
 {
@@ -2484,13 +2456,11 @@ END:
  * Generates a Type 1 packet header that reads back the requested Configuration
  * register.
  *
- * @param        Register is the address of the register to be read back.
- * @param        OpCode is the read/write operation code.
- * @param        Size is the size of the word to be read.
+ * @param[in] Register is the address of the register to be read back.
+ * @param[in] OpCode is the read/write operation code.
+ * @param[in] Size is the size of the word to be read.
  *
  * @return       Type 1 packet header to read the specified register
- *
- * @note         None.
  *
  *****************************************************************************/
 static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
@@ -2525,12 +2495,11 @@ static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u16 Size)
  * Generates a Type 2 packet header that reads back the requested Configuration
  * register.
  *
- * @param        OpCode is the read/write operation code.
- * @param        Size is the size of the word to be read.
+ * @param[in] OpCode is the read/write operation code.
+ * @param[in] Size is the size of the word to be read.
  *
  * @return       Type 2 packet header to read the specified register
  *
- * @note         None.
  *****************************************************************************/
 static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size)
 {
@@ -2560,15 +2529,14 @@ static u32 Xfpga_Type2Pkt(u8 OpCode, u32 Size)
 /**
  * Sets the library firmware state
  *
- * @param	State xilfpga firmware state
+ * @param[in] State xilfpga firmware state
  *
- * @return	None
  *****************************************************************************/
 static void XFpga_SetFirmwareState(u8 State)
 {
 	u32 RegVal;
 
-	/* Set Firmware State in PMU GLOBAL GEN STORAGE1 Register */
+	/**< Set Firmware State in PMU GLOBAL GEN STORAGE1 Register */
 	RegVal = Xil_In32(PMU_GLOBAL_GEN_STORAGE5);
 	RegVal &= ~XFPGA_STATE_MASK;
 	RegVal |= ((u32)State << XFPGA_STATE_SHIFT);
@@ -2595,9 +2563,9 @@ static u32 XFpga_GetFirmwareState(void)
  * and set the required csudma configurations before transfer the data
  * into the PL.
  *
- * @param Buf  Linear memory image base address
- * @param Size Size of the Bitstream Image(Number of bytes).
- * @param Pos Bitstream First Dummy Word position.
+ * @param[in,out] Buf  Linear memory image base address
+ * @param[in] Size Size of the Bitstream Image(Number of bytes).
+ * @param[out] Pos Bitstream First Dummy Word position.
  *
  * @return
  *	- XFPGA_SUCCESS if successful
@@ -2613,7 +2581,7 @@ static u32 XFpga_SelectEndianess(u8 *Buf, u32 Size, u32 *Pos)
 	u8 BitHdrSize = (u8)ARRAY_LENGTH(BootgenBinFormat);
 	u32 IsBitNonAligned;
 
-	/* Check for Bitstream Size */
+	/**< Check for Bitstream Size */
 	if (Size == 0U) {
 		goto END;
 	}
@@ -2679,7 +2647,7 @@ END:
 /****************************************************************************/
 /**This function is used to Get pcap interface supported feature list
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
  * @return
  *      - XFPGA_SUCCESS if, successful
@@ -2713,8 +2681,8 @@ END:
 /*****************************************************************************/
 /** This function is used to Write on  Configuration Register
  *
- * @param		- mask : Mask Value used for generating the Header Mask
- * @param		- Data : Data to write to command buffer
+ * @param[in] mask Mask value used for generating the header mask.
+ * @param[in] Data Data to write to the command buffer.
  *
  * @return
  *              - returns XFPGA_SUCCESS on success
@@ -2809,9 +2777,9 @@ END:
 /*****************************************************************************/
 /** This function performs the readback of fpga configuration data.
  *
- * @param		 - ReadbackAddr : Buffer Address to save the readback data
- * @param		 - NumFrame     : Len of data to read
- * @param		 - FarAddr      : Frame address
+ * @param[out] ReadbackAddr Buffer address to save the readback data.
+ * @param[in] NumFrames Number of frames to read.
+ * @param[in] FarAddr Frame address.
  *
  * @return
  *               - returns XFPGA_SUCCESS on success
@@ -2996,5 +2964,4 @@ END:
 	return Status;
 }
 #endif
-/* @endcond */
 /** @} */

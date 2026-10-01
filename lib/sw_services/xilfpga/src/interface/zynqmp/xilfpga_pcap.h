@@ -71,7 +71,8 @@
  * 6.3   Nava   08/05/22 Added doxygen tags.
  * 6.10  Arvd   02/04/26 Fixed codespell errors
  * 6.10  Arvd   02/11/26 Fixed Doxygen warnings
- * </pre>
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
  *
  * @note
  *
@@ -227,55 +228,34 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 /**
  * Structure to store the PL encrypted Image details
- *
- * @param SecureAes Used to store AES initialization info.
- * @param NextBlkLen Used to store the next encrypted block size info.
  */
 typedef struct {
-	XSecure_Aes *SecureAes;	/* AES initialized structure */
-	u32 NextBlkLen;		/* Not required for user, used
-				 * for storing next block size
-				 */
+	XSecure_Aes *SecureAes;	/**< AES initialized structure */
+	u32 NextBlkLen;		/**< Next encrypted block size. */
 } XFpgaPs_PlEncryption;
 
 /**
  * Structure to store Encryption parameters info
- *
- * @param PlEncrypt Used to store the PL encrypted Image details
- * @param SecureHdr Used to store the Secure header
- * @param Hdr Size of the secure header.
- * @param SssInstance Used to store the secure switch instance info
  */
 typedef struct {
-	XFpgaPs_PlEncryption PlEncrypt;	/* Encryption parameters */
-	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
-	u32 Hdr;
-	XSecure_Sss SssInstance;
+	XFpgaPs_PlEncryption PlEncrypt;	/**< Encryption parameters */
+	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE]; /**< Secure header buffer. */
+	u32 Hdr; /**< Size of the secure header. */
+	XSecure_Sss SssInstance; /**< Secure switch instance. */
 } XFpgaPs_PlPartition;
 
 /**
  * Structure to store the PL Image details.
- *
- * @param Secure_ImageInfo	Used to store the secure image data.
- * @param PlAesInfo used to store the encrypted image data.
- * @param Secure_Aes The AES-GCM driver instance data structure
- * @param TotalBitPartCount Used to store the number of Authenticated partitions info.
- * @param SecureOcmState Used to Preserve the initialization states for the OCM
- *                 use cases.
- * @param RemaningBytes used to preserve the remaining byte to process Authenticated
- *                bitstream Images.
- * @param AcPtr Used to Access the authenticate certificate buffer address
- * @param BitAddr Used to Access the Bitstream buffer Address.
  */
 typedef struct {
-	XSecure_ImageInfo SecureImageInfo;
-	XFpgaPs_PlPartition PlAesInfo;
-	XSecure_Aes Secure_Aes;
-	u32 TotalBitPartCount;
-	u32 SecureOcmState;
-	u32 RemaningBytes;
-	UINTPTR AcPtr;
-	UINTPTR BitAddr;
+	XSecure_ImageInfo SecureImageInfo; /**< Secure image data. */
+	XFpgaPs_PlPartition PlAesInfo; /**< Encrypted image data. */
+	XSecure_Aes Secure_Aes; /**< AES-GCM driver instance. */
+	u32 TotalBitPartCount; /**< Number of authenticated partitions. */
+	u32 SecureOcmState; /**< OCM initialization state for secure use cases. */
+	u32 RemaningBytes; /**< Remaining bytes for authenticated bitstream. */
+	UINTPTR AcPtr; /**< Authentication certificate buffer address. */
+	UINTPTR BitAddr; /**< Bitstream buffer address. */
 } XFpga_Info;
 
 /************************** Variable Definitions *****************************/

@@ -69,6 +69,7 @@
 #                      XSECURE_ONLY_BHDR_AUTH_ALLOWED to prevent accessing
 #                      uninitialized PartitionHdr structure.
 # 6.10 Arvd  02/04/26  Fixed codespell errors
+# 6.11  ml   09/21/26  Fixed doxygen 1.15.0 and compliance checker warnings.
 #
 ##############################################################################
 
@@ -81,7 +82,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psv_cortexa72 psx_cortexa78 psv_cortexr5 psu_cortexa53 psu_cortexr5 psx_cortexr52 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "XilFPGA library provides an interface to the Linux or bare-metal users for configuring the PL over PCAP from PS";
-  OPTION VERSION = 6.10;
+  OPTION VERSION = 6.11;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = true;
 PARAM name = debug_mode, desc = "Which is used to Enable the Debug messages in the library", type = bool, default = false;

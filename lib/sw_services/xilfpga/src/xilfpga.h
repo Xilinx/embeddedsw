@@ -92,8 +92,8 @@
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * 6.10 Arvd  02/20/26  Add support to set config regs and
  *                      read frame data via PMUFW
- * </pre>
- *
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
  *
  ******************************************************************************/
 #ifndef XILFPGA_H
@@ -145,7 +145,7 @@ typedef struct XFpgatag{
 /*
 @cond internal
 
-*/
+ */
 
 #define XFPGA_SUCCESS			(0x0U)
 #define XFPGA_FAILURE			(0x1U)

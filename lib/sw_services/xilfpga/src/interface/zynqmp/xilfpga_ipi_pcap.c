@@ -45,7 +45,8 @@
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * 6.10 Arvd  02/20/26  Add support to set config regs and
  *                      read frame data via PMUFW
- * </pre>
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
  *
  * @note
  *
@@ -87,12 +88,12 @@ static u32 XFpga_IPI_PcapStatus(void);
 
 static XMailbox XMboxInstance;
 
-/* @endcond */
+/**< @endcond */
 
 /*****************************************************************************/
 /**This API, when called, initializes the XFPGA interface with default settings.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return Returns Status
  *		- XFPGA_SUCCESS on success
@@ -133,7 +134,7 @@ END:
 /**
  * This function writes bitstream data into the PL.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return	Returns Status
  *		- XFPGA_SUCCESS on success
@@ -184,13 +185,12 @@ END:
 /**
  * This function performs the readback of fpga configuration data/registers.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return
  *               - XFPGA_SUCCESS if successful
  *               - XFPGA_FAILURE if unsuccessful
  *
- * @note None.
  ****************************************************************************/
 static u32 XFpga_IPI_GetPLConfigDataPcap(const XFpga *InstancePtr)
 {
@@ -229,13 +229,12 @@ END:
 /**
  * This function performs the readback of fpga configuration data/registers.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return
  *               - XFPGA_SUCCESS if successful
  *               - XFPGA_FAILURE if unsuccessful
  *
- * @note None.
  ****************************************************************************/
 static u32 XFpga_IPI_GetPLConfigRegPcap(const XFpga *InstancePtr)
 {
@@ -280,8 +279,6 @@ END:
 /*****************************************************************************/
 /**
  * Provides the STATUS of PCAP interface
- *
- * @param	None
  *
  * @return	Status of the PCAP interface.
  *

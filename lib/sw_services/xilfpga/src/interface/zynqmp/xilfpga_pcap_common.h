@@ -61,7 +61,8 @@
  *                      Size(Bitstream size).
  * 6.3  Nava  08/05/22  Added doxygen tags.
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
- * </pre>
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
  * @endcond
  *
  * @note
@@ -82,10 +83,10 @@ extern "C" {
 /**
  * Structure to store the PL Write Image details.
  *
- * @param BitstreamAddr	Bitstream image base address.
- * @param KeyAddr	Aes key address which is used for Decryption
- * @param Size		Used to store size of Bitstream Image.
- * @param Flags		Flags are used to specify the type of Bitstream file.
+ * @param[in] BitstreamAddr	Bitstream image base address.
+ * @param[in] KeyAddr	Aes key address which is used for Decryption
+ * @param[in] Size		Used to store size of Bitstream Image.
+ * @param[in] Flags		Flags are used to specify the type of Bitstream file.
  *                      * BIT(0) - Bitstream type
  *                                     * 0 - Full Bitstream
  *                                     * 1 - Partial Bitstream
@@ -113,13 +114,13 @@ typedef struct {
 /**
  * Structure to store the PL Image details.
  *
- * @param ReadbackAddr	Address which is used to store the PL readback data.
- * @param ConfigReg		Configuration register value to be returned (or)
+ * @param[in] ReadbackAddr	Address which is used to store the PL readback data.
+ * @param[in] ConfigReg		Configuration register value to be returned (or)
  * 			The number of Fpga configuration frames to read
  */
 typedef struct {
-		UINTPTR ReadbackAddr;
-		u32 ConfigReg_NumFrames;
+		UINTPTR ReadbackAddr; /**< Address used to store the PL readback data. */
+		u32 ConfigReg_NumFrames; /**< Configuration register value or number of FPGA frames to read. */
 }XFpga_Read;
 
 /************************** Variable Definitions *****************************/

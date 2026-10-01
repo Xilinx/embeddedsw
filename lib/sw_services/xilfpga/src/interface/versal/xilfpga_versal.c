@@ -49,7 +49,8 @@
  * 6.6  Nava  10/20/23  Removed unwanted branching statements.
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * 6.10 Arvd  03/03/26  Added SMC support for EL1 non-secure PDI load via ATF
- * </pre>
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
  *
  * @note
  *
@@ -98,7 +99,7 @@ u32 (*const Write_To_Pl)(struct XFpgatag *InstancePtr) = XFpga_WriteToPl;
 /*****************************************************************************/
 /**This API, when called, initializes the XFPGA interface with default settings.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  * @ingroup xilfpga_versal
  *
  * @return Returns Status
@@ -134,7 +135,7 @@ END:
 /**
  * This function writes bitstream data into the PL.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
  * @return	Returns Status
  *		- XFPGA_SUCCESS on success

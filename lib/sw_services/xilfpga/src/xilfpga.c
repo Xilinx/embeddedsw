@@ -77,7 +77,8 @@
  * 6.10 Arvd  02/11/26  Fixed Doxygen warnings.
  * 6.10 Arvd  02/20/26  Add support to set config regs and
  *                      read frame data via PMUFW
- * </pre>
+ * 6.11  ml   09/21/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+* </pre>
  *
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -103,15 +104,15 @@ static u32 XFpga_ValidateBitstreamParam(const XFpga *InstancePtr,
  * bitstream, For Bootgen-generated bitstreams bitstream size is taken
  * from the bitstream header.
  *
- *@param InstancePtr Pointer to the XFpga structure.
+ *@param[in] InstancePtr Pointer to the XFpga structure.
  *
- *@param BitstreamImageAddr  Linear memory bitstream image base address
+ *@param[in] BitstreamImageAddr  Linear memory bitstream image base address
  *
- *@param KeyAddr AES key address which is used for decryption.
+ *@param[in] KeyAddr AES key address which is used for decryption.
  *
- *@param Size Used to store size of bitstream image.
+ *@param[in] Size Used to store size of bitstream image.
  *
- *@param Flags Flags are used to specify the type of bitstream file.
+ *@param[in] Flags Flags are used to specify the type of bitstream file.
  *			* BIT(0) - Bitstream type
  *					* 0 - Full bitstream
  *					* 1 - Partial bitstream
@@ -204,15 +205,15 @@ END:
 /**
  * This function is used to validate the bitstream image.
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
- * @param BitstreamImageAddr  Linear memory bitstream image base address
+ * @param[in] BitstreamImageAddr  Linear memory bitstream image base address
  *
- * @param KeyAddr Aes key address which is used for decryption.
+ * @param[in] KeyAddr Aes key address which is used for decryption.
  *
- * @param Size Used to store size of bitstream image.
+ * @param[in] Size Used to store size of bitstream image.
  *
- * @param Flags Flags are used to specify the type of bitstream file.
+ * @param[in] Flags Flags are used to specify the type of bitstream file.
  *			* BIT(0) - Bitstream type
  *					* 0 - Full bitstream
  *					* 1 - Partial bitstream
@@ -272,7 +273,7 @@ END:
 
 /**This function prepares the FPGA to receive configuration data.
  *
- * @param InstancePtr is the pointer to the XFpga.
+ * @param[in] InstancePtr is the pointer to the XFpga.
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
@@ -304,15 +305,15 @@ END:
 
 /**This function writes the count bytes of configuration data into the PL.
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
- * @param BitstreamImageAddr  Linear memory bitstream image base address
+ * @param[in] BitstreamImageAddr  Linear memory bitstream image base address
  *
- * @param KeyAddr Aes key address which is used for decryption.
+ * @param[in] KeyAddr Aes key address which is used for decryption.
  *
- * @param Size Used to store size of bitstream image.
+ * @param[in] Size Used to store size of bitstream image.
  *
- * @param Flags Flags are used to specify the type of bitstream file.
+ * @param[in] Flags Flags are used to specify the type of bitstream file.
  *			* BIT(0) - Bitstream type
  *					* 0 - Full bitstream
  *					* 1 - Partial bitstream
@@ -373,7 +374,7 @@ END:
 /*****************************************************************************/
 /** This function sets the FPGA to the operating state after writing.
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
  * @return Codes as mentioned in xilfpga.h
  *****************************************************************************/
@@ -409,11 +410,11 @@ END:
 /**
  * This function provides functionality to read back the PL configuration data
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
- * @param ReadbackAddr Address which is used to store the PL readback data.
+ * @param[out] ReadbackAddr Address which is used to store the PL readback data.
  *
- * @param NumFrames The number of FPGA configuration frames to read.
+ * @param[in] NumFrames The number of FPGA configuration frames to read.
  *
  * @return
  *	- XFPGA_SUCCESS, if successful
@@ -454,12 +455,12 @@ END:
 /**
  * This function provides PL specific configuration register values
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
- * @param ReadbackAddr Address which is used to store the PL Configuration
+ * @param[out] ReadbackAddr Address which is used to store the PL Configuration
  *		       register data.
  *
- * @param ConfigRegAddr Configuration register address as mentioned in the
+ * @param[in] ConfigRegAddr Configuration register address as mentioned in the
  *			UG570.
  *
  * @return
@@ -515,12 +516,12 @@ END:
 /**
  * This function writes to the PL MASK and CTL0 configuration registers via PCAP.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
- * @param mask Value written to the MASK configuration register, which
+ * @param[in] mask Value written to the MASK configuration register, which
  *		       controls which bits in CTL0 are writable.
  *
- * @param Data Value written to the CTL0 configuration register.
+ * @param[in] Data Value written to the CTL0 configuration register.
  *
  * @return
  *	- XFPGA_SUCCESS if successful
@@ -559,13 +560,13 @@ END:
 /**
  * This function reads back CRAM frame data for a given FAR address via PCAP.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
- * @param ReadbackAddr Address of the buffer to store readback data.
+ * @param[out] ReadbackAddr Address of the buffer to store readback data.
  *
- * @param NumFrames Number of 32-bit words to read back.
+ * @param[in] NumFrames Number of 32-bit words to read back.
  *
- * @param FarAddr Frame Address Register value identifying which
+ * @param[in] FarAddr Frame Address Register value identifying which
  *			  CRAM frame to read.
  *
  * @return
@@ -608,7 +609,7 @@ END:
 /*****************************************************************************/
 /** This function provides the status of the PL programming interface
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
  * @return Status of the PL programming interface
  *
@@ -641,7 +642,7 @@ END:
 #ifdef XFPGA_GET_VERSION_INFO
 /** This function is used to read xilfpga library version info.
  *
- * @param Version xilfpga library version to read
+ * @param[out] Version xilfpga library version to read
  *
  * @return
  *      - XFPGA_SUCCESS if, successful
@@ -671,9 +672,9 @@ END:
 /**
  * This function is used to Get xilfpga component supported feature list
  *
- * @param InstancePtr Pointer to the XFpga structure
+ * @param[in] InstancePtr Pointer to the XFpga structure
  *
- * 		  FeatureList xilfpga library supported feature list to read
+ * @param[out] FeatureList xilfpga library supported feature list to read
  *
  * @return
  *      - XFPGA_SUCCESS if, successful
@@ -715,17 +716,17 @@ END:
 /**
  * @cond nocomments
  *
- * @brief This function is used to validate the bitstream parameters.
+ * @brief validate the bitstream parameters.
  *
- * @param InstancePtr Pointer to the XFpga structure.
+ * @param[in] InstancePtr Pointer to the XFpga structure.
  *
- * @param BitstreamImageAddr Linear memory bitstream image base address
+ * @param[in] BitstreamImageAddr Linear memory bitstream image base address
  *
- * @param KeyAddr Aes key address which is used for decryption.
+ * @param[in] KeyAddr Aes key address which is used for decryption.
  *
- * @param Size Used to store size of bitstream image.
+ * @param[in] Size Used to store size of bitstream image.
  *
- * @param Flags Flags are used to specify the type of bitstream file.
+ * @param[in] Flags Flags are used to specify the type of bitstream file.
  *
  * @return
  *      - XFPGA_SUCCESS on success

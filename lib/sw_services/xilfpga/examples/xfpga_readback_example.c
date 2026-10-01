@@ -7,13 +7,10 @@
 /**
  * @file  xfpga_readback_example.c
  *
- *
  * This example prints out the fpga configuration data.
  *
  * This example assumes that there is a UART Device or STDIO Device in the
  * hardware system.
- *
- * @note		None.
  *
  * MODIFICATION HISTORY:
  *
@@ -56,11 +53,11 @@
 static int XFpga_ReadExample(XFpga *InstancePtr);
 /**
  * @brief Print bitstream data
- * @param NumFrames Number of frames to print
+ * @param[in] NumFrames Number of frames to print
  */
 void PrintBitStream(u32 NumFrames);
 /************************** Variable Definitions *****************************/
-u32 readback_buffer[WORDS_PER_FRAME*FRAMES + PAD_FRAMES];
+u32 readback_buffer[WORDS_PER_FRAME*FRAMES + PAD_FRAMES]; /**< Buffer to store readback data from PL. */
 
 /*****************************************************************************/
 /**
@@ -108,13 +105,12 @@ int main(void)
  *
  * This function reads the fpga configuration data.
  *
- * @param	InstancePtr is a pointer to the XFpga instance.
+ * @param[in] InstancePtr is a pointer to the XFpga instance.
  *
  * @return
  *		- XST_SUCCESS if successful
  *		- XST_FAILURE if unsuccessful
  *
- * @note		None.
  *****************************************************************************/
 static int XFpga_ReadExample(XFpga *InstancePtr)
 {
