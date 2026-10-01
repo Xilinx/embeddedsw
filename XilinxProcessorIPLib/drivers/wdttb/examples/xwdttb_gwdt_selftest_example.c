@@ -7,13 +7,10 @@
 /*****************************************************************************/
 /**
 * @file xwdttb_gwdt_selftest_example.c
+* @brief Demonstrates the self-test of the Generic Watchdog Timer.
 *
-* This file contains an example for  using the Generic Watchdog Timer
-* hardware and driver
-*
-* @note
-*
-* None
+* This file contains an example of using the Generic Watchdog Timer
+* hardware and driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -23,6 +20,7 @@
 * 1.0   sne   02/04/19 Initial release
 * 5.7   sb    07/12/23 Added support for system device-tree flow.
 * 5.12  vlt   12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13  vn    09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 *****************************************************************************/
@@ -39,7 +37,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID
+#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID /**< WDTTB device ID. */
 #endif
 /**************************** Type Definitions *******************************/
 
@@ -55,18 +53,17 @@ int GWdtTbSelfTestExample(UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
-XWdtTb GWatchdog; /* The instance of the WatchDog Timer  */
+XWdtTb GWatchdog; /**< The instance of the WatchDog Timer. */
 /*****************************************************************************/
-/*
- * Main function to call the example.This function is not included if the
- * example is generated from the TestAppGen test tool.
+/**
+ * @brief Calls the GWDT self-test example from the main function.
  *
+ * This function is not included if the example is generated from the
+ * TestAppGen test tool.
  *
  * @return
  *               - XST_SUCCESS if successful.
  *               - XST_FAILURE if unsuccessful.
- *
- * @note         None.
  *
  ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -94,14 +91,15 @@ int main(void)
 #endif
 /*****************************************************************************/
 /**
- * This function does a minimal test on Generic watchdog timer device and
- * driver as a design example. The purpose of this function is to illustrate
- * how to use the XwdtTb component.
+ * @brief Runs a minimal test on the Generic watchdog timer device and driver.
+ *
+ * The purpose of this function is to illustrate how to use the XWdtTb
+ * component.
  *
  * @if SDT
- * @param        BaseAddress contains the base address of the device
+ * @param[in]    BaseAddress Base address of the device.
  * @else
- * @param        DeviceId is the XPAR_<WDTTB_instance>_DEVICE_ID value from
+ * @param[in]    DeviceId XPAR_<WDTTB_instance>_DEVICE_ID value from
  *               xparameters.h.
  * @endif
  *
@@ -109,11 +107,10 @@ int main(void)
  *               - XST_SUCCESS if successful.
  *               - XST_FAILURE if unsuccessful.
  *
- * @note         In XSCT/classic flow, DeviceId is used to look up the device
- *               configuration.
+ * @note         In XSCT/classic flow, the example uses DeviceId to look up
+ *               the device configuration.
  *
  ****************************************************************************/
-
 #ifndef SDT
 int GWdtTbSelfTestExample(u16 DeviceId)
 #else

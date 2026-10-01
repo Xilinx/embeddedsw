@@ -8,8 +8,7 @@
 /**
 *
 * @file xwdttb.c
-* @addtogroup wdttb_api WDTTB APIs
-* @{
+* @brief Implements the required functions of the XWdtTb driver.
 *
 * This section contains the required functions of the XWdtTb driver.
 * See xwdttb.h for a description of the driver.
@@ -81,10 +80,15 @@
 * 5.9  ht    05/15/23 Port XWdtTb_Initialize() to SDT flow
 * 5.12 vlt   12/18/25 Update Doxygen comments to include SDT flow details.
 * 5.13 vn    08/26/26 Fix Doxygen warnings
+* 5.13 vn    09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdttb_api WDTTB APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -100,15 +104,12 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 /**
 *
-* Enables window Watchdog Timer feature.
+* @brief Enables window Watchdog Timer feature.
 *
-* @param       InstancePtr Pointer to the XWdtTb instance to be
-*              worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
-* @return      None.
-*
-* @note        This will generate the first kick and start first window. This
-*              auto clears MWC bit to make address space read only.
+* @note          Generates the first kick and starts the first window. This
+*                auto clears the MWC bit to make the address space read only.
 *
 ******************************************************************************/
 static inline void XWdtTb_EnableWinWdt(XWdtTb *InstancePtr)
@@ -130,14 +131,11 @@ static inline void XWdtTb_EnableWinWdt(XWdtTb *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Enables generic Watchdog Timer feature.
+* @brief Enables generic Watchdog Timer feature.
 *
-* @param        InstancePtr Pointer to the XWdtTb instance to be
-*               worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
-* @return       None.
-*
-* @note         This will start the first window of generic Watchdog timer.
+* @note          Starts the first window of generic Watchdog timer.
 *
 ******************************************************************************/
 static inline void XWdtTb_EnableGenericWdt(XWdtTb *InstancePtr)
@@ -152,16 +150,15 @@ static inline void XWdtTb_EnableGenericWdt(XWdtTb *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Disables generic Watchdog Timer feature.
+* @brief Disables generic Watchdog Timer feature.
 *
-* @param        InstancePtr Pointer to the XWdtTb instance to be
-*               worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
 * @return
-*               - XST_SUCESS, if  Generic  WDT feature is disabled.
-*               - XST_FAILURE, if Generic  WDT feature is not disabled.
+*                - XST_SUCCESS if Generic WDT feature is disabled.
+*                - XST_FAILURE if Generic WDT feature is not disabled.
 *
-* @note         This will disable generic Watchdog Timer.
+* @note          Disables generic Watchdog Timer.
 *
 ******************************************************************************/
 static inline s32 XWdtTb_DisableGenericWdt(XWdtTb *InstancePtr)
@@ -185,26 +182,23 @@ static inline s32 XWdtTb_DisableGenericWdt(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Initializes the AXI timebase Watchdog Timer core.
 *
-* Initializes the AXI timebase Watchdog Timer core. This function
-* must be called prior to using the core. Initialization of the core includes
-* setting up the instance data and ensuring the hardware is in a quiescent
-* state.
+* This function must be called prior to using the core. Initialization of the
+* core includes setting up the instance data and ensuring the hardware is in a
+* quiescent state.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		worked on.
-* @param	CfgPtr Points to the configuration structure associated with
-*		the AXI timebase Watchdog Timer core.
-* @param	EffectiveAddr Base address of the device. If address
-*		translation is being used, then this parameter must reflect the
-*		virtual base address. Otherwise, the physical address should be
-*		used.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
+* @param[in]     CfgPtr Pointer to the configuration structure of the AXI
+*                timebase Watchdog Timer core.
+* @param[in]     EffectiveAddr Base address of the device. If address
+*                translation is being used, then this parameter must reflect
+*                the virtual base address. Otherwise, use the physical
+*                address.
 *
 * @return
 *		- XST_SUCCESS if initialization was successful.
 *		- XST_DEVICE_IS_STARTED if the device has already been started.
-*
 *
 ******************************************************************************/
 s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
@@ -264,30 +258,28 @@ s32 XWdtTb_CfgInitialize(XWdtTb *InstancePtr, const XWdtTb_Config *CfgPtr,
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Initializes a specific legacy/window watchdog timer/timebase instance.
 *
-* Initializes a specific legacy/window watchdog timer/timebase instance/driver.
 * This function must be called before other functions of the driver are called.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	DeviceId Unique ID of the device controlled by this
-*		XWdtTb instance. Passing in a device id associates the generic
-*		XWdtTb instance to a specific device, as chosen by the caller
-*		or application developer.
+* @param[in]     DeviceId Unique ID of the device controlled by this XWdtTb
+*                instance. Passing in a device ID associates the generic XWdtTb
+*                instance with a specific device, as chosen by the caller or
+*                application developer.
 * @endif
 *
 * @return
-*		- XST_SUCCESS if initialization was successful
-*		- XST_DEVICE_IS_STARTED if the device has already been started
+*		- XST_SUCCESS if initialization was successful.
+*		- XST_DEVICE_IS_STARTED if the device has already been started.
 *		- XST_DEVICE_NOT_FOUND if the configuration for device ID/
-*		BaseAddress was not found
+*		BaseAddress was not found.
 *
-* @note		In XSCT/classic flow, DeviceId is used to look up the device
-*		configuration.
+* @note          In XSCT/classic flow, the driver uses DeviceId to look up the
+*                device configuration.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -335,12 +327,9 @@ End:
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Starts the legacy or window watchdog timer.
 *
-* Starts the legacy or window watchdog timer.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
 * @note
 *		- For legacy, the timebase is reset to 0 when the Watchdog
@@ -378,16 +367,15 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Disables the legacy or window watchdog timer.
 *
-* Disables the legacy or window watchdog timer.
+* The caller is responsible for disconnecting the interrupt handler of the
+* watchdog timer from the interrupt source, typically an interrupt controller.
+* The caller is also responsible for disabling the interrupt in the interrupt
+* controller.
 *
-* It is the caller's responsibility to disconnect the interrupt handler
-* of the watchdog timer from the interrupt source, typically an interrupt
-* controller, and disable the interrupt in the interrupt controller.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		worked on.
 * @return
 *		- XST_SUCCESS if the legacy/window watchdog was stopped
 *		successfully.
@@ -397,8 +385,8 @@ void XWdtTb_Start(XWdtTb *InstancePtr)
 *
 * @note
 *		- For legacy, the hardware configuration controls this
-*		functionality. If it is not allowed by the hardware the
-*		failure will be returned and the timer will continue without
+*		functionality. If the hardware does not allow it, the function
+*		returns failure and the timer continues without
 *		interruption.
 *
 ******************************************************************************/
@@ -432,22 +420,21 @@ s32 XWdtTb_Stop(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Checks whether the watchdog timer has expired or is in window two.
 *
-* Checks if the legacy watchdog timer has expired or window
-* watchdog timer either in second window or not in second window.
-* This function is used for polled mode in legacy watchdog timer.
+* Checks if the legacy watchdog timer has expired, or whether the window
+* watchdog timer is in the second window.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* Use this function for polled mode in legacy watchdog timer.
+*
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-
+*
 * @return
 *		- TRUE, if the legacy watchdog timer has expired or window
 *		watchdog timer is not in second window.
 *		- FALSE if the legacy watchdog is not expired or window
 *		watchdog is in second window.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
@@ -503,19 +490,14 @@ u32 XWdtTb_IsWdtExpired(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
-* @brief
+* @brief Checks if the generic watchdog timer first window has expired.
 *
-* Checks if the generic watchdog timer has first window expired
-* or not.
-*
-*
-* @param        InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]    InstancePtr Pointer to the XWdtTb instance to be
 *               worked on.
-
+*
 * @return
 *               - TRUE, if the generic watchdog timer first window has expired.
-*               - FALSE if the generic watchdog is not expired first window.
-*
+*               - FALSE if the generic watchdog first window has not expired.
 *
 ******************************************************************************/
 u32 XWdtTb_IsGenericWdtFWExpired(const XWdtTb *InstancePtr)
@@ -538,15 +520,13 @@ u32 XWdtTb_IsGenericWdtFWExpired(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Restarts the legacy or window watchdog timer.
 *
-* Restarts the legacy or window watchdog timer. An application
-* needs to call this function periodically to keep the timer from asserting
-* the reset output.
+* An application needs to call this function periodically to keep the timer
+* from asserting the reset output.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
 *
 ******************************************************************************/
 void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
@@ -603,11 +583,9 @@ void XWdtTb_RestartWdt(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
-* @brief
+* @brief Keeps the window Watchdog Timer always enabled.
 *
-* This function keeps window Watchdog Timer always enabled.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note		This must be called before Window WDT is enabled. Once Window
@@ -632,11 +610,9 @@ void XWdtTb_AlwaysEnable(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
-* @brief
+* @brief Clears the events that are present after system reset.
 *
-* Clears event(s) that present after system reset.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note		Event can be cleared by applying reset to the core followed
@@ -673,13 +649,10 @@ void XWdtTb_ClearLastEvent(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Clears the window watchdog reset pending.
 *
-* Clears the window watchdog reset pending.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
 *
 ******************************************************************************/
 void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr)
@@ -701,13 +674,10 @@ void XWdtTb_ClearResetPending(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Clears window watchdog timer interrupt (WINT) bit.
 *
-* Clears window watchdog timer interrupt (WINT) bit.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-*
 *
 ******************************************************************************/
 void XWdtTb_IntrClear(const XWdtTb *InstancePtr)
@@ -747,14 +717,14 @@ void XWdtTb_IntrClear(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the byte count for the second window interrupt point.
 *
-* Sets byte count to determine the interrupt assertion point
-* in the second window configuration.
+* The byte count determines the interrupt assertion point in the second
+* window configuration.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-* @param	ByteCount Specifies the selected byte count value to be set in
+* @param[in]	ByteCount Specifies the selected byte count value to be set in
 *		the second window configuration.
 *
 * @note
@@ -786,17 +756,13 @@ void XWdtTb_SetByteCount(const XWdtTb *InstancePtr, u32 ByteCount)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Returns the selected byte count in the second window configuration.
 *
-* Provides byte count value of the selected byte count in the
-* second window configuration.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return	Byte count value of the selected byte count in the second
 *		window configuration.
-*
 *
 ******************************************************************************/
 u32 XWdtTb_GetByteCount(const XWdtTb *InstancePtr)
@@ -812,14 +778,14 @@ u32 XWdtTb_GetByteCount(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the byte segment for the second window interrupt point.
 *
-* Sets byte segment selection to determine the interrupt
-* assertion point in the second window configuration.
+* The byte segment selection determines the interrupt assertion point in the
+* second window configuration.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-* @param	ByteSegment Specifies the byte segment selected.
+* @param[in]	ByteSegment Specifies the byte segment selected.
 *		- 0 = Second window byte 0 selected.
 *		- 1 = Second window byte 1 selected.
 *		- 2 = Second window byte 2 selected.
@@ -855,12 +821,9 @@ void XWdtTb_SetByteSegment(const XWdtTb *InstancePtr, u32 ByteSegment)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Returns byte segment selection in the second window configuration.
 *
-* Provides byte segment selection in the second window
-* configuration.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return	Byte segment selection value as
@@ -868,7 +831,6 @@ void XWdtTb_SetByteSegment(const XWdtTb *InstancePtr, u32 ByteSegment)
 *		- 1 = Second window byte 1 selected.
 *		- 2 = Second window byte 2 selected.
 *		- 3 = Second window byte 3 selected.
-*
 *
 ******************************************************************************/
 u32 XWdtTb_GetByteSegment(const XWdtTb *InstancePtr)
@@ -884,11 +846,9 @@ u32 XWdtTb_GetByteSegment(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Enables Second Sequence Timer (SST) function.
 *
-* Enables Second Sequence Timer(SST) function.
-*
-* @param	InstancePtr is a pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note
@@ -919,11 +879,9 @@ void XWdtTb_EnableSst(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Disables Second Sequence Timer (SST) function.
 *
-* Disables Second Sequence Timer(SST) function.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note		This function must be called before Window WDT start/enable or
@@ -949,11 +907,9 @@ void XWdtTb_DisableSst(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Enables Program Sequence Monitor (PSM) function.
 *
-* Enables Program Sequence Monitor(PSM) function.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note
@@ -986,11 +942,9 @@ void XWdtTb_EnablePsm(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Disables Program Sequence Monitor (PSM) function.
 *
-* Disables Program Sequence Monitor (PSM) function.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note		This function must be called before Window WDT start/enable or
@@ -1016,12 +970,9 @@ void XWdtTb_DisablePsm(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Enables Fail Counter (FC) function.
 *
-* Enables Fail Counter(FC) function.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
 * @note
 *		- This function must be called before Window WDT start/enable
@@ -1054,15 +1005,12 @@ void XWdtTb_EnableFailCounter(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Disables Fail Counter (FC) function.
 *
-* Disables Fail Counter (FC) function.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		worked on.
-*
-* @note		This function must be called before Window WDT start/enable or
-*		after Window WDT stop/disable.
+* @note          This function must be called before Window WDT start/enable
+*                or after Window WDT stop/disable.
 *
 ******************************************************************************/
 void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr)
@@ -1086,12 +1034,9 @@ void XWdtTb_DisableFailCounter(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Provides extra safeguard against unintentional clear of WEN bit.
 *
-* Provides extra safeguard against unintentional clear of WEN
-* bit.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note		This function must be called before Window WDT start/enable or
@@ -1117,11 +1062,9 @@ void XWdtTb_EnableExtraProtection(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Enables unintentional clear of WEN bit.
 *
-* Enables unintentional clear of WEN bit.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @note		This function must be called before Window WDT start/enable or
@@ -1147,18 +1090,15 @@ void XWdtTb_DisableExtraProtection(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the count value for the first and second window.
 *
-* Sets the count value for the first and second window.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-* @param	FirstWinCount Specifies the first window count value.
-* @param	SecondWinCount Specifies the second window count value.
+* @param[in]	FirstWinCount Specifies the first window count value.
+* @param[in]	SecondWinCount Specifies the second window count value.
 *
-* @note
-*		This function must be called before Window WDT start/enable
-*		or after Window WDT stop/disable.
+* @note		This function must be called before Window WDT
+*		start/enable or after Window WDT stop/disable.
 *		- For first window, it is recommended that minimum non-zero
 *		value should be 15 or more.
 *		- For second window, minimum value should be sufficiently large
@@ -1186,17 +1126,16 @@ void XWdtTb_SetWindowCount(const XWdtTb *InstancePtr, u32 FirstWinCount,
 }
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the GWDT compare and offset register count values.
 *
-* Sets the count value for the GWDT_Compare_value_reg0 ,GWDT_Compare_value_reg1 &
-* GWDT_Offset_regs .
+* Sets the count value for the GWDT_Compare_value_reg0,
+* GWDT_Compare_value_reg1, and GWDT_Offset_regs.
 *
-* @param     InstancePtr Pointer to the XWdtTb instance to be
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
-* @param     GWOR_config  Specifies the GWDT_Offset_reg count value.
+* @param[in] GWOR_config Specifies the GWDT_Offset_reg count value.
 *
-* @note
-*            This function must be called before Window WDT start/enable
+* @note      This function must be called before Window WDT start/enable
 *            or after Window WDT stop/disable.
 *
 ******************************************************************************/
@@ -1210,15 +1149,12 @@ void XWdtTb_SetGenericWdtWindow(const XWdtTb *InstancePtr, u32 GWOR_config)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the count value for the GWDT_Offset_regs.
 *
-* This function sets the count value for the GWDT_Offset_regs .
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be worked on.
+* @param[in] MilliSeconds GWDT count value in milliseconds.
 *
-* @param     InstancePtr pointer to the XWdtTb instance to be worked on.
-* @param     MilliSeconds GWDT count value in milliseconds.
-*
-* @note
-*            This function must be called before Window WDT start/enable
+* @note      This function must be called before Window WDT start/enable
 *            or after Window WDT stop/disable.
 *
 ******************************************************************************/
@@ -1238,19 +1174,16 @@ void XWdtTb_SetGenericWdtWindowTimeOut(const XWdtTb *InstancePtr, u32 MilliSecon
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Programs the width of Watchdog Timer.
 *
-* Programs the width of Watchdog Timer.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		    worked on.
-* @param	width Width of the Watchdog Timer.
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be worked on.
+* @param[in]	width Width of the Watchdog Timer.
 *
 * @return
-*		- XST_SUCESS, if window mode is disabled and the width is
+*		- XST_SUCCESS, if window mode is disabled and the width is
 *		  programmed correctly.
 *		- XST_FAILURE, if Window mode is enabled or if the width is
-*                  not in the range of 8-31
+*		  not in the range of 8-31.
 *
 * @note
 *		- This function is applicable only when the window mode is
@@ -1278,16 +1211,14 @@ u32 XWdtTb_ProgramWDTWidth(const XWdtTb *InstancePtr, u32 width)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Generates responses based on input token in QA mode.
 *
-* This routine generates responses based on input token in QA mode
+* @param[in]	TokenVal Token value read from TVAL.
+* @param[in]	AnsByteCnt Byte on which response is generated.
+* @param[in]	TokenFdbk Token feedback value read from TFR.
 *
-* @param	TokenVal  Token value read from TVAL
-* @param	AnsByteCnt  Byte on which response is generated
-* @param	TokenFdbk  Token feedback value read from TFR
-*
-* @return	Response byte (calculated based on logic given WWDT architecture)
-*
+* @return	Response byte (calculated based on logic given WWDT
+*		architecture).
 *
 ******************************************************************************/
 u8 XWdtTb_GenAnswer(u8 TokenVal, u8 AnsByteCnt, u8 TokenFdbk)

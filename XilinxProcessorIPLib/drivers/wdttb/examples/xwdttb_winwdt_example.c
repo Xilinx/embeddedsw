@@ -7,14 +7,11 @@
 /*****************************************************************************/
 /**
 * @file xwdttb_winwdt_example.c
+* @brief Demonstrates the XWdtTb driver with window feature in polled mode.
 *
 * This file contains a design example using the Watchdog Timer Timebase
-* (XWdtTb) driver with window feature. The WDTTB core will be generated either
+* (XWdtTb) driver with window feature. The WDTTB core is generated either
 * in legacy or window feature.
-*
-* @note
-*
-* None
 *
 * MODIFICATION HISTORY:
 *
@@ -32,6 +29,7 @@
 * 5.10  ht   10/28/24 Fix compilation warnings in SDT flow peripheral tests.
 * 5.11  bkv  07/08/25 Fixed GCC Warning.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -49,41 +47,46 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** WDTTB device ID. */
 #define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
 #endif
 
-/*
+/** @name Window WDT feature enables
  * These constants are user modifiable to enable or disable Secondary Sequence
  * Timer (SST), Program Sequence Monitor (PSM), Fail Counter (FC) and Window
  * WDT protection. They are all enabled by default.
+ * @{
  */
-#define WDTTB_EN_SST		0
-#define WDTTB_EN_PSM		0
-#define WDTTB_EN_FC             0
-#define WDTTB_EN_WDP		0
+#define WDTTB_EN_SST		0 /**< Enables Second Sequence Timer. */
+#define WDTTB_EN_PSM		0 /**< Enables Program Sequence Monitor. */
+#define WDTTB_EN_FC             0 /**< Enables Fail Counter. */
+#define WDTTB_EN_WDP		0 /**< Enables Window WDT protection. */
+/** @} */
 
-/*
+/**
  * This constant is used as Task Status Register (TSR) value for additional
  * check when PSM is enabled.
  */
 #define WDTTB_TSR_VAL		'W'
 
-/*
+/** @name Window WDT configuration values
  * These constants are user modifiable and provide values to configure Window
  * Watchdog Timer.
  * 1. First Window Count
  * 2. Second Window Count
  * 3. Selected Byte Count
  * 4. Byte Segment Selection
+ * @{
  */
-#define WDTTB_FW_COUNT		31		/**< Number of clock cycles for
-						  *  first window */
-#define WDTTB_SW_COUNT		0x01110000	/**< Number of clock cycles for
-						  *  second window */
-#define WDTTB_BYTE_COUNT	154		/**< Selected byte count */
-#define WDTTB_BYTE_SEGMENT	2		/**< Byte segment selected */
-#define WDTTB_SST_COUNT     0x00011000      /**< Number of clock cycles for
-                                                      Second sequence Timer */
+/** Number of clock cycles for first window. */
+#define WDTTB_FW_COUNT		31
+/** Number of clock cycles for second window. */
+#define WDTTB_SW_COUNT		0x01110000
+#define WDTTB_BYTE_COUNT	154		/**< Selected byte count. */
+#define WDTTB_BYTE_SEGMENT	2		/**< Byte segment selected. */
+/** Number of clock cycles for Second sequence Timer. */
+#define WDTTB_SST_COUNT     0x00011000
+/** @} */
 /**************************** Type Definitions *******************************/
 
 
@@ -100,20 +103,18 @@ int WinWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-/* The instance of the Watchdog Time Base */
-XWdtTb WindowWatchdogTimebase;
+XWdtTb WindowWatchdogTimebase; /**< The instance of the Watchdog Time Base. */
 
 /*****************************************************************************/
 /**
-* Main function to call the example.This function is not included if the
-* example is generated from the TestAppGen test tool.
+* @brief Calls the Window WDT example from the main function.
 *
+* This function is not included if the example is generated from the
+* TestAppGen test tool.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -143,8 +144,7 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* This function tests the functioning of the TimeBase WatchDog Timer module
-* with window feature in the polled mode.
+* @brief Tests the TimeBase WatchDog Timer with window feature in polled mode.
 *
 * In window, this function polls interrupt programmed point in second window,
 * checks the interrupt bit is set. If the bit is set clears the bit and restart
@@ -155,10 +155,10 @@ int main(void)
 * because it waits for the watchdog timer to expire.
 *
 * @if SDT
-* @param	WdtTbInstancePtr is a pointer to the instance of XWdtTb driver.
-* @param	BaseAddress contains the base address of the device
+* @param[in]	WdtTbInstancePtr Pointer to the instance of XWdtTb driver.
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
+* @param[in]	DeviceId XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
@@ -166,8 +166,8 @@ int main(void)
 *		- XST_SUCCESS, in window, there is no bad event.
 *		- XST_FAILURE, otherwise.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note		In XSCT/classic flow, the example uses DeviceId to
+*		look up the device configuration.
 *
 ****************************************************************************/
 #ifndef SDT

@@ -5,20 +5,20 @@
 /*****************************************************************************/
 /**
 *
-* @file xwdttb_winwdt_intr_example.c
+* @file xwdttb_winwdt_qamode_example.c
+* @brief Demonstrates the Q&A mode of the Window Watchdog Timer.
 *
 * This file contains an example that demonstrates Q&A functionality of the
 * Window Watchdog.
 *
 * @note
-*
 * This example assumes that the reset output of the WdtTb device is not
-* connected to the reset of the processor. This example will not return
+* connected to the reset of the processor. This example does not return
 * if the interrupts are not working.
 *
+* <pre>
 * MODIFICATION HISTORY:
 *
-* <pre>
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 5.6   asa  01/13/23 First release of Q&A mode example.
@@ -26,6 +26,7 @@
 * 5.7   sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 5.13  vn   08/26/26 Fix Doxygen warnings
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -54,44 +55,53 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/** @name XPAR parameter mappings
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 
 #ifndef SDT
-#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID
+#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID /**< WDTTB device ID. */
 
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID         XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID         XPAR_INTC_0_DEVICE_ID /**< INTC device ID. */
+/** WDTTB interrupt ID. */
 #define WDTTB_IRPT_INTR         XPAR_INTC_0_WDTTB_0_VEC_ID
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID         XPAR_SCUGIC_SINGLE_DEVICE_ID
 #ifdef VERSAL_NET
-#define WDTTB_IRPT_INTR       XPS_FPD_WWDT_2_INT_ID
+#define WDTTB_IRPT_INTR       XPS_FPD_WWDT_2_INT_ID /**< WDTTB interrupt ID. */
 #elif defined(versal)
-#define WDTTB_IRPT_INTR       XPS_LPD_WWDT_0_INT_ID
+#define WDTTB_IRPT_INTR       XPS_LPD_WWDT_0_INT_ID /**< WDTTB interrupt ID. */
 #else
+/** WDTTB interrupt ID. */
 #define WDTTB_IRPT_INTR       XPAR_FABRIC_WDTTB_0_VEC_ID
 #endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
+/** @} */
 
-/*
+/** @name Q&A mode window configuration values
  * First window clock cycles count should be high enough to ensure
  * 3 answer bytes are calculated and written back.
+ * @{
  */
-#define WIN_WDT_FW_COUNT		0x1C00000 /* First window clock cycles */
-#define WIN_WDT_SW_COUNT		0x1C00000 /* Second window clock cycles */
+/** First window clock cycles. */
+#define WIN_WDT_FW_COUNT		0x1C00000
+/** Second window clock cycles. */
+#define WIN_WDT_SW_COUNT		0x1C00000
 
-#define WIN_WDT_SBC_COUNT		150		/* Selected byte count */
-#define WIN_WDT_BSS_COUNT		2		/* Byte segment selected */
+#define WIN_WDT_SBC_COUNT		150 /**< Selected byte count. */
+#define WIN_WDT_BSS_COUNT		2 /**< Byte segment selected. */
 
-#define WIN_WDT_TOKEN_SEED		0x8
-#define WIN_WDT_FEEDBACK		0x2
-/*
+#define WIN_WDT_TOKEN_SEED		0x8 /**< Token seed value. */
+#define WIN_WDT_FEEDBACK		0x2 /**< Token feedback value. */
+/** @} */
+/**
  * Number of iterations should be high enough to ensure that FCV (fail counter
  * value) is decremented to zero and the watchdog is successfully disabled after
  * the example.
@@ -102,13 +112,17 @@
 /**************************** Type Definitions *******************************/
 
 #ifndef SDT
+/** @name Interrupt controller definitions
+ * @{
+ */
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC			XIntc
-#define INTC_HANDLER		XIntc_InterruptHandler
+#define INTC			XIntc /**< Interrupt controller type. */
+#define INTC_HANDLER		XIntc_InterruptHandler /**< INTC handler. */
 #else
-#define INTC			XScuGic
-#define INTC_HANDLER		XScuGic_InterruptHandler
+#define INTC			XScuGic /**< Interrupt controller type. */
+#define INTC_HANDLER		XScuGic_InterruptHandler /**< INTC handler. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
+/** @} */
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -137,27 +151,22 @@ static void WinWdtQAModeDisableIntrSystem(INTC *IntcInstancePtr,
 
 /************************** Variable Definitions *****************************/
 
-XWdtTb WdtTbInstance;	/* Instance of Time Base WatchDog Timer */
+XWdtTb WdtTbInstance;	/**< Instance of Time Base WatchDog Timer. */
 #ifndef SDT
-INTC IntcInstance;	/* Instance of the Interrupt Controller */
+INTC IntcInstance;	/**< Instance of the Interrupt Controller. */
 #endif
 
-static volatile int WdtExpired;
+static volatile int WdtExpired; /**< Flag set when the WDT expires. */
 
-/*****************************************************************************/
 /*****************************************************************************/
 /**
-* Main function to call the WdtTb (Window Watchdog) QA Mode Example.
-*
+* @brief Calls the Window Watchdog QA mode example from the main function.
 *
 * @return
-*		- XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
 *
-* @note		None.
-*
 ******************************************************************************/
-
 int main(void)
 {
 	int Status;
@@ -186,11 +195,11 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function demonstrates the functioning of the Window Watchdog QA mode.
+* @brief Demonstrates the functioning of the Window Watchdog QA mode.
 *
 * This function sets up WWDT in QA mode, enables interrupt subsystem. It
 * programs the first (closed) and second (window) and sets up an interrupt to
-* raise an interrupt in the open window
+* raise an interrupt in the open window.
 * In the closed window the function writes three correct responses to the
 * relevant Token_Resp register. Once the interrupt is received in the open
 * window, it writes the 4th correct response to the Token_resp register.
@@ -198,29 +207,28 @@ int main(void)
 *
 * This function assumes that the reset output of the Window Watchdog Timer
 * is not connected to the reset of the processor. The function allows the
-* Window Watchdog Timer to timeout such that a reset will occur if it is
+* Window Watchdog Timer to timeout such that a reset occurs if it is
 * connected.
 *
-* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
+* @param[in,out] WdtTbInstancePtr Pointer to the instance of WdtTb driver.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the INTC
-*		driver.
-* @param	WdtTbDeviceId is the Device ID of the WdtTb Device and is
-*		typically XPAR_<WDTTB_instance>_DEVICE_ID value from
-*		xparameters.h.
-* @param	WdtTbIntrId is the Interrupt Id of the WatchDog and is
-*		typically XPAR_<INTC_instance>_<WDTTB_instance>_WDT_
-*		INTERRUPT_VEC_ID value from xparameters.h.
+* @param[in,out] IntcInstancePtr Pointer to the instance of the INTC driver.
+* @param[in]     WdtTbDeviceId Device ID of the WdtTb Device, typically the
+*                XPAR_<WDTTB_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]     WdtTbIntrId Interrupt ID of the WatchDog, typically
+*                the XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*                value in xparameters.h.
 * @endif
 *
 * @return
 *		- XST_SUCCESS if interrupt example run successfully.
 *		- XST_FAILURE, if reset has occurred.
 *
-* @note        In XSCT/classic flow, WdtTbDeviceId and WdtTbIntrId are used to
-*              look up the device configuration and set up interrupt handling.
+* @note          In XSCT/classic flow, the example uses WdtTbDeviceId and
+*                WdtTbIntrId to look up the device configuration and set up
+*                interrupt handling.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -412,25 +420,22 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that WDT interrupt can occur
-* for the WdtTb. This function is application specific since the actual
-* system may or may not have an interrupt controller. The WdtTb device could be
-* directly connected to a processor without an interrupt controller. The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system so the WDT interrupt can occur.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc
-*		driver.
-* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
-* @param	WdtTbIntrId is the Interrupt Id of the WDT interrupt and is
-*		typically
-*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
-*		value from xparameters.h.
+* This function is application specific since the actual
+* system may or may not have an interrupt controller. The WdtTb device could be
+* directly connected to a processor without an interrupt controller. Modify
+* this function to fit the application.
+*
+* @param[in,out] IntcInstancePtr Pointer to the instance of the Intc driver.
+* @param[in]     WdtTbInstancePtr Pointer to the instance of WdtTb driver.
+* @param[in]     WdtTbIntrId Interrupt ID of the WDT interrupt, typically
+*                the XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*                value in xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int WinWdtQAModeSetupIntrSystem(INTC *IntcInstancePtr,
@@ -532,15 +537,12 @@ static int WinWdtQAModeSetupIntrSystem(INTC *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is the Interrupt handler for the WDT Interrupt of the
-* WdtTb device. It is called when reached to the interrupt programmed point
-* and is called from an interrupt context.
+* @brief Handles the WDT interrupt of the WdtTb device.
 *
-* @param	CallBackRef is a pointer to the callback reference.
+* This handler runs in interrupt context when the timer reaches the
+* interrupt programmed point.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallBackRef Pointer to the callback reference.
 *
 ******************************************************************************/
 static void WinWdtQAModeIntrHandler(void *CallBackRef)
@@ -555,16 +557,12 @@ static void WinWdtQAModeIntrHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the WdtTb.
+* @brief Disables the interrupts that occur for the WdtTb.
 *
-* @param	IntcInstancePtr is the pointer to the instance of INTC driver.
-* @param	WdtTbIntrId is the WDT Interrupt Id and is typically
-*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
-*		value from xparameters.h.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] IntcInstancePtr Pointer to the instance of INTC driver.
+* @param[in]     WdtTbIntrId WDT Interrupt ID, typically
+*                the XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*                value in xparameters.h.
 *
 ******************************************************************************/
 #ifndef SDT

@@ -1,15 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XWDTTB_CONFIG_H
+#define XWDTTB_CONFIG_H
 
 /*****************************************************************************/
 /**
 *
 * @file xwdttb_config.h
-* @addtogroup wdttb_api WDTTB APIs
-* @{
+* @brief Declares the window and timebase WDT helper functions.
 *
 * The xwdttb_config.h file contains the required functions of the XWdtTb driver.
 * See xwdttb.h for a description of the driver.
@@ -20,14 +22,15 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 5.0   sne  11/19/19 First release
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+/** @addtogroup wdttb_api WDTTB APIs
+ * @{
+ */
 /***************************** Include Files *********************************/
-/** @cond INTERNAL */
-#ifndef XWDTTB_CONFIG_H                /**< prevent circular inclusions */
-#define XWDTTB_CONFIG_H                /**< by using protection macros */
 
 #include "xwdttb.h"
 
@@ -37,6 +40,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
+/** @cond INTERNAL */
 /*
  * Required functions in xwdttb_help.c
  */
@@ -44,11 +48,11 @@ extern "C" {
 s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr);
 void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr);
 s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr);
+/** @endcond */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* end of protection macro */
-/** @endcond */
 /** @} */
+#endif /* end of protection macro */

@@ -7,13 +7,10 @@
 /*****************************************************************************/
 /**
 * @file xwdttb_low_level_example.c
+* @brief Demonstrates the low-level macros of the XWdtTb driver.
 *
 * This file contains a design example using the low-level driver macros of
 * the Watchdog Timer Timebase driver. These macros are found in xwdttb_l.h.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -38,6 +35,7 @@
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 5.12  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                     to support 64-bit addressing.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
 
@@ -55,7 +53,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define WDTTB_BASEADDR  XPAR_WDTTB_0_BASEADDR
+#define WDTTB_BASEADDR  XPAR_WDTTB_0_BASEADDR /**< WDTTB base address. */
 #endif
 
 
@@ -78,14 +76,11 @@ int XWdtTb_LowLevelExample(UINTPTR WdtTbBaseAddress);
 
 /*****************************************************************************/
 /**
-* Main function to call the Wdttb low level example.
-*
+* @brief Calls the WDTTB low level example from the main function.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -113,9 +108,11 @@ int main(void)
 
 /*****************************************************************************/
 /**
+* @brief Tests the watchdog timer timebase device using low-level macros.
+*
 * This function assumes that the reset output of the watchdog timer
 * timebase device is not connected to the reset of the processor. The function
-* allows the watchdog timer to timeout such that a reset will occur if it is
+* allows the watchdog timer to timeout such that a reset occurs if it is
 * connected. This also assumes the interrupt output is not connected to an
 * interrupt input.
 *
@@ -124,13 +121,12 @@ int main(void)
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the watchdog timer to expire.
 *
-* @param	WdtTbBaseAddress contains the base address of the device
+* @param[in]	WdtTbBaseAddress Base address of the device.
 *
 * @return
 *		- XST_SUCCESS if WRS bit is not set in next two subsequent
 *		timer expiry state.
 *		- XST_FAILURE, otherwise.
-*@note		None.
 *
 ****************************************************************************/
 #ifndef SDT

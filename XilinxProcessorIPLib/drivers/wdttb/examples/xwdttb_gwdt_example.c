@@ -7,12 +7,10 @@
 /*****************************************************************************/
 /**
 * @file xwdttb_gwdt_example.c
-* This file contains a example for  using the Generic Watchdog Timer
-* hardware and driver
+* @brief Demonstrates the Generic Watchdog Timer in polled mode.
 *
-* @note
-*
-* None
+* This file contains an example for using the Generic Watchdog Timer
+* hardware and driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -27,6 +25,7 @@
 * 5.10  ht    10/28/24 Fix compilation warnings in SDT flow peripheral tests.
 * 5.11  bkv   07/08/25 Fixed GCC Warnings.
 * 5.12  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13  vn  09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -44,7 +43,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID
+#define WDTTB_DEVICE_ID         XPAR_WDTTB_0_DEVICE_ID /**< WDTTB device ID. */
 #endif
 /**************************** Type Definitions *******************************/
 
@@ -61,20 +60,19 @@ int GWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
-XWdtTb GWatchdog;       /* The instance of the WatchDog Time Base */
-#define WDTPSV_GWOR_COUNT     0x00110000U  /*Generic Watchdog offset value*/
+XWdtTb GWatchdog;       /**< The instance of the WatchDog Time Base. */
+#define WDTPSV_GWOR_COUNT     0x00110000U /**< Generic Watchdog offset value. */
 
 /*****************************************************************************/
-/*
- * Main function to call the example.This function is not included if the
- * example is generated from the TestAppGen test tool.
+/**
+ * @brief Calls the Generic Watchdog Timer example from the main function.
  *
+ * This function is not included if the example is generated from the
+ * TestAppGen test tool.
  *
  * @return
  *               - XST_SUCCESS if successful.
  *               - XST_FAILURE if unsuccessful.
- *
- * @note         None.
  *
  ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -103,29 +101,28 @@ int main(void)
 
 /*****************************************************************************/
 /**
- *This function tests the functioning of the Generic watch dog Timer Feature
- * in Polled mode
- * In this function polls up to First window completion, once we reached to
- * generic_wdt_interrupt  point it will Refresh.
- * In this function once we reach to Second window time out point
- * It means generating generic_wdt_reset ,We are going to Refresh.
+ * @brief Tests the Generic Watchdog Timer feature in polled mode.
+ *
+ * The function polls until the first window completes, and refreshes the
+ * timer at the generic_wdt_interrupt point. It also refreshes the timer at
+ * the second window timeout point, where generic_wdt_reset is generated.
  *
  * @if SDT
- * @param        WdtTbInstancePtr is a pointer to the instance of XWdtTb driver.
- * @param        BaseAddress contains the base address of the device
+ * @param[in]    WdtTbInstancePtr Pointer to the instance of XWdtTb driver.
+ * @param[in]    BaseAddress Base address of the device.
  * @else
- * @param        DeviceId is the XPAR_<WDTPSV_instance>_DEVICE_ID value from
- *                xparameters.h.
+ * @param[in]    DeviceId Device ID value XPAR_<WDTPSV_instance>_DEVICE_ID
+ *               from xparameters.h.
  * @endif
+ *
  * @return
  *               - XST_SUCCESS, in window, there is no bad event.
  *               - XST_FAILURE, otherwise.
  *
- * @note         In XSCT/classic flow, DeviceId is used to look up the device
- *               configuration.
+ * @note         In XSCT/classic flow, the example uses DeviceId to look up
+ *               the device configuration.
  *
  ****************************************************************************/
-
 #ifndef SDT
 int GWdtTbExample(u16 DeviceId)
 #else

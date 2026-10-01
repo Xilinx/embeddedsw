@@ -1,19 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2005 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef WDDTB_HEADER_H
+#define WDDTB_HEADER_H
 
 /*****************************************************************************/
 /**
 * @file wdttb_header.h
 *
+* @brief Declares prototypes for the WDTTB driver examples.
+*
 * This header file contains the include files used to run the TestApp of
 * the Watchdog Timer.
-*
-* @note
-*
-* None
 *
 * <pre>
 *
@@ -24,12 +25,11 @@
 * 2.00a ktn  10/22/09 Updated to use the HAL processor APIs/macros.
 * 4.5   nsk  08/07/19 Fix warnings while generating testapp
 * 5.9   ht   07/22/24 Add support for peripheral tests in SDT flow.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-#ifndef WDDTB_HEADER_H		/* prevent circular inclusions */
-#define WDDTB_HEADER_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,6 +39,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 
+/** @cond INTERNAL */
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC			XIntc
@@ -65,6 +66,7 @@ int WinWdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 int WinWdtIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 int WdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 #endif
+/** @endcond */
 
 #ifdef __cplusplus
 }

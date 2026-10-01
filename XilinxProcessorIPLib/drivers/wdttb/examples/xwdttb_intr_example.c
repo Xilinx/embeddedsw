@@ -8,15 +8,15 @@
 /**
 *
 * @file xwdttb_intr_example.c
+* @brief Demonstrates the TimeBase Watchdog Timer in interrupt mode.
 *
 * This file contains a design example using the TimeBase Watchdog Timer Device
 * (WdtTb) driver and hardware device using interrupt mode (for the WDT
 * interrupt).
 *
 * @note
-*
 * This example assumes that the reset output of the WdtTb device is not
-* connected to the reset of the processor. This example will not return
+* connected to the reset of the processor. This example does not return
 * if the interrupts are not working.
 *
 * <pre>
@@ -43,6 +43,7 @@
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 5.13  vn   08/26/26 Fix Doxygen warnings.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -77,29 +78,41 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** @name XPAR parameter mappings
+ * @{
+ */
 #ifndef TESTAPP_GEN
+/** WDTTB device ID. */
 #define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID /**< INTC device ID. */
+/** WDTTB interrupt ID. */
 #define WDTTB_IRPT_INTR		XPAR_INTC_0_WDTTB_0_WDT_INTERRUPT_VEC_ID
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** WDTTB interrupt ID. */
 #define WDTTB_IRPT_INTR		XPAR_FABRIC_WDTTB_0_VEC_ID
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #endif
+/** @} */
 
 
 /**************************** Type Definitions *******************************/
 
+/** @name Interrupt controller definitions
+ * @{
+ */
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC		XIntc /**< Interrupt controller type. */
+#define INTC_HANDLER	XIntc_InterruptHandler /**< INTC handler. */
 #else
-#define INTC		XScuGic
-#define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC		XScuGic /**< Interrupt controller type. */
+#define INTC_HANDLER	XScuGic_InterruptHandler /**< INTC handler. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
+/** @} */
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -132,24 +145,21 @@ static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr,
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
-XWdtTb WdtTbInstance;            /* Instance of Time Base WatchDog Timer */
+XWdtTb WdtTbInstance;            /**< Instance of Time Base WatchDog Timer. */
 #ifndef SDT
-INTC IntcInstance;              /* Instance of the Interrupt Controller */
+INTC IntcInstance;              /**< Instance of the Interrupt Controller. */
 #endif
 #endif
 
-static volatile int WdtExpired;
+static volatile int WdtExpired; /**< Flag set when the WDT expires. */
 
 /*****************************************************************************/
 /**
-* Main function to call the WdtTb interrupt example.
-*
+* @brief Calls the WdtTb interrupt example from the main function.
 *
 * @return
-*		- XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -183,8 +193,9 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function tests the functioning of the TimeBase WatchDog Timer module
-* in the Interrupt mode (for the WDT interrupt).
+* @brief Tests the TimeBase WatchDog Timer module in interrupt mode.
+*
+* The test uses the WDT interrupt.
 *
 * After one expiration of the WDT timeout interval, an interrupt is generated
 * and the WDT state bit is set to one in the status register. If the state bit
@@ -195,28 +206,29 @@ int main(void)
 *
 * This function assumes that the reset output of the WdtTb device is not
 * connected to the reset of the processor. The function allows the watchdog
-* timer to timeout such that a reset will occur if it is connected.
+* timer to timeout such that a reset occurs if it is connected.
 *
-* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
+* @param[in,out] WdtTbInstancePtr Pointer to the instance of WdtTb driver.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the INTC driver.
-* @param	WdtTbDeviceId is the Device ID of the WdtTb Device and is
-*		typically XPAR_<WDTTB_instance>_DEVICE_ID value from
-*		xparameters.h.
-* @param	WdtTbIntrId is the Interrupt Id of the WatchDog and is typically
-*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
-*		value from xparameters.h.
+* @param[in,out] IntcInstancePtr Pointer to the instance of the INTC driver.
+* @param[in]     WdtTbDeviceId Device ID of the WdtTb Device, typically the
+*                XPAR_<WDTTB_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]     WdtTbIntrId Interrupt ID of the WatchDog, typically
+*                the XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*                value in xparameters.h.
 * @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
 *
-* @note        -In XSCT/classic flow, WdtTbDeviceId and WdtTbIntrId are used to
-*               look up the device configuration and set up interrupt handling.
-* 	       -This example will not return if the interrupts are not working.
+* @note          - In XSCT/classic flow, the example uses WdtTbDeviceId and
+*                  WdtTbIntrId to look up the device configuration and set up
+*                  interrupt handling.
+*                - This example does not return if the interrupts are not
+*                  working.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -347,24 +359,22 @@ int WdtTbIntrExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that WDT interrupt can occur
-* for the WdtTb. This function is application specific since the actual
-* system may or may not have an interrupt controller. The WdtTb device could be
-* directly connected to a processor without an interrupt controller. The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system so the WDT interrupt can occur.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc driver.
-* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
-* @param	WdtTbIntrId is the Interrupt Id of the WDT interrupt and is
-*		typically
-*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
-*		value from xparameters.h.
+* This function is application specific since the actual
+* system may or may not have an interrupt controller. The WdtTb device could be
+* directly connected to a processor without an interrupt controller. Modify
+* this function to fit the application.
+*
+* @param[in,out] IntcInstancePtr Pointer to the instance of the Intc driver.
+* @param[in]     WdtTbInstancePtr Pointer to the instance of WdtTb driver.
+* @param[in]     WdtTbIntrId Interrupt ID of the WDT interrupt, typically
+*                the XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*                value in xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
@@ -482,18 +492,14 @@ static int WdtTbSetupIntrSystem(INTC *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is the Interrupt handler for the WDT Interrupt of the
-* WdtTb device. It is called on the expiration of the WDT period and is called
-* from an interrupt context.
+* @brief Handles the WDT interrupt of the WdtTb device.
+*
+* This handler runs in interrupt context on the expiration of the WDT period.
 *
 * This function provides an example of how to handle WDT interrupt of the
 * WdtTb device.
 *
-* @param	CallBackRef is a pointer to the callback function.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallBackRef Pointer to the callback function.
 *
 ******************************************************************************/
 static void WdtTbIntrHandler(void *CallBackRef)
@@ -515,16 +521,12 @@ static void WdtTbIntrHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the WdtTb.
+* @brief Disables the interrupts that occur for the WdtTb.
 *
-* @param	IntcInstancePtr is the pointer to the instance of INTC driver.
-* @param	WdtTbIntrId is the WDT Interrupt Id and is typically
-*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
-*		value from xparameters.h.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] IntcInstancePtr Pointer to the instance of INTC driver.
+* @param[in]     WdtTbIntrId WDT Interrupt ID, typically
+*                the XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*                value in xparameters.h.
 *
 ******************************************************************************/
 static void WdtTbDisableIntrSystem(INTC *IntcInstancePtr, u16 WdtTbIntrId)

@@ -7,13 +7,10 @@
 /*****************************************************************************/
 /**
 * @file xwdttb_selftest_example.c
+* @brief Demonstrates the self-test of the Watchdog Timer Timebase.
 *
-* This file contains a example for  using the Watchdog Timer Timebase
-* hardware and driver
-*
-* @note
-*
-* None
+* This file contains an example of using the Watchdog Timer Timebase
+* hardware and driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -33,6 +30,7 @@
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.9	ht   07/22/24 Add support for peripheral tests in SDT flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -50,7 +48,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define TIMEBASE_WDT_DEVICE_ID  XPAR_WDTTB_0_DEVICE_ID
+#define TIMEBASE_WDT_DEVICE_ID  XPAR_WDTTB_0_DEVICE_ID /**< WDTTB device ID. */
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -69,19 +67,18 @@ int WdtTbSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XWdtTb WatchdogTimebaseInstance; /* The instance of the WatchDog Time Base */
+XWdtTb WatchdogTimebaseInstance; /**< The instance of the WatchDog Time Base. */
 
 /*****************************************************************************/
 /**
-* Main function to call the example.This function is not included if the
-* example is generated from the TestAppGen test tool.
+* @brief Calls the WDTTB self-test example from the main function.
 *
+* This function is not included if the example is generated from the
+* TestAppGen test tool.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -111,24 +108,24 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the watchdog timer timebase device and
-* driver as a design example.  The purpose of this function is to illustrate
-* how to use the XWdtTb component.
+* @brief Runs a minimal test on the watchdog timer timebase device and driver.
+*
+* The purpose of this function is to illustrate how to use the XWdtTb
+* component.
 *
 * This function assumes that the reset output of the watchdog timer
 * timebase device is not connected to the reset of the processor. The function
-* allows the watchdog timer to timeout such that a reset will occur if it is
-* connected.  It the interrupt output is connected to an interrupt input, the
-* user must handle the interrupts appropriately.
+* allows the watchdog timer to timeout such that a reset occurs if it is
+* connected. If the interrupt output is connected to an interrupt input, the
+* application must handle the interrupts appropriately.
 *
 * This function may require some time (seconds or even minutes) to execute
 * because it waits for the watchdog timer to expire.
 *
-*
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
+* @param[in]	DeviceId XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
@@ -136,8 +133,8 @@ int main(void)
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note		In XSCT/classic flow, the example uses DeviceId to
+*		look up the device configuration.
 *
 ****************************************************************************/
 #ifndef SDT

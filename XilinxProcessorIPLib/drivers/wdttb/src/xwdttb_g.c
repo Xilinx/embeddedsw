@@ -1,6 +1,6 @@
 /*****************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xwdttb_g.c
-* @addtogroup wdttb_api WDTTB APIs
-* @{
+* @brief Defines the configuration table of the XWdtTb driver.
 *
 * The xwdttb_g.c file contains the required functions of the XWdtTb driver.
 * See xwdttb.h for a description of the driver.
@@ -24,10 +23,15 @@
 * 4.4   sne  03/04/19 Added support for versal
 * 4.5	sne  09/27/19 Added common configuration structure for
 *		      AXI Timebase WDT and WWWDT.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdttb_api WDTTB APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
@@ -38,8 +42,8 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Variable Definitions *****************************/
-/*
-* The configuration table for devices
+/**
+* @brief Defines the configuration table for devices.
 */
 
 XWdtTb_Config XWdtTb_ConfigTable[] =

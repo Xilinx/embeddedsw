@@ -8,15 +8,15 @@
 /**
 *
 * @file xwdttb_gwdt_intr_example.c
+* @brief Demonstrates the Generic Watchdog Timer in interrupt mode.
 *
 * This file contains a design example using the Generic Watchdog Timer Device
 * (Gwdt) driver and hardware device using interrupt mode (for the GWDT
 * interrupt).
 *
 * @note
-*
 * This example assumes that the reset output of the GWDT device is not
-* connected to the reset of the processor. This example will not return
+* connected to the reset of the processor. This example does not return
 * if the interrupts are not working.
 *
 * <pre>
@@ -31,6 +31,7 @@
 * 5.7   sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 5.13  vn   08/26/26 Fix Doxygen warnings.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
@@ -51,23 +52,26 @@
 #include "xinterrupt_wrap.h"
 #endif
 /************************** Constant Definitions *****************************/
-/*
+/** @name XPAR parameter mappings
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are only defined here such that a user can easily
  * change all the needed parameters in one place.
+ * @{
  */
 #ifndef SDT
 #ifndef TESTAPP_GEN
-#define INTC		XScuGic
-#define GWDT_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
+#define INTC		XScuGic /**< Interrupt controller type. */
+#define GWDT_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID /**< GWDT device ID. */
 #ifdef VERSAL_NET
-#define GWDT_INTR_VEC_ID       XPS_FPD_GWDT_2_INT_ID
+#define GWDT_INTR_VEC_ID       XPS_FPD_GWDT_2_INT_ID /**< GWDT interrupt ID. */
 #elif defined(versal)
-#define GWDT_INTR_VEC_ID        XPS_LPD_GWDT_0_INT_ID
+#define GWDT_INTR_VEC_ID        XPS_LPD_GWDT_0_INT_ID /**< GWDT interrupt ID. */
 #endif
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #endif
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -91,23 +95,20 @@ static void GWdtDisableIntrSystem(XScuGic *IntcInstancePtr,
 #endif
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
-XWdtTb GWdtInstance;		/* Instance of Generic WatchDog Timer */
+XWdtTb GWdtInstance;		/**< Instance of Generic WatchDog Timer. */
 #ifndef SDT
-INTC IntcInstance;		/* Instance of the Interrupt Controller */
+INTC IntcInstance;		/**< Instance of the Interrupt Controller. */
 #endif
 #endif
-static volatile int GWdtExpired;
-#define WDTPSV_GWOR_COUNT     0x00110000U  /*Generic Watchdog offset value*/
+static volatile int GWdtExpired; /**< Flag set when the GWDT expires. */
+#define WDTPSV_GWOR_COUNT     0x00110000U /**< Generic Watchdog offset value. */
 /*****************************************************************************/
 /**
-* Main function to call the Generic Wdt interrupt example.
-*
+* @brief Calls the Generic WDT interrupt example from the main function.
 *
 * @return
-*		- XST_SUCCESS if successful
+*		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -137,45 +138,47 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function tests the functioning of the Generic WatchDog Timer module
-* in the Interrupt mode (for the gwdt_ws0 interrupt).
+* @brief Tests the Generic WatchDog Timer module in interrupt mode.
 *
-* After one expiration of the GWDT timeout interval, an interrupt is generated
-* and the GWS[1] state bit is set to one in the Generic Watchdog Control and
-* Status Register register.
-* If the system can attempt to take corrective action that includes refreshing
-* the watchdog within the second watch period. If the refresh is successful,
+* The test uses the gwdt_ws0 interrupt.
+*
+* After one expiration of the GWDT timeout interval, an interrupt is generated.
+* The GWS[1] state bit is also set to one in the Generic Watchdog Control and
+* Status Register.
+*
+* The system can attempt corrective action, including refreshing the watchdog
+* within the second watch period. If the refresh is successful,
 * the system returns to the previous normal operation. If it fails, then the
 * second watch period expires and a second signal is generated.
-* A GWDT reset sets the GWS[2] reset status bit in the status register so that
-* the application code can determine if the last system reset was a WDT reset.
+*
+* A GWDT reset sets the GWS[2] reset status bit in the status register. The
+* application code can then determine if the last system reset was a WDT reset.
 *
 * This function assumes that the reset output of the GWDT device is not
 * connected to the reset of the processor. The function allows the watchdog
-* timer to timeout such that a reset will occur if it is connected.
+* timer to timeout such that a reset occurs if it is connected.
 *
-* @param	GWdtInstancePtr is a pointer to the instance of WdtTb driver.
+* @param[in,out] GWdtInstancePtr Pointer to the instance of WdtTb driver.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the XScuGic
-*		driver.
-* @param	GWdtDeviceId is the Device ID of the GWDT Device and is
-*		typically XPAR_<GWDT_instance>_DEVICE_ID value from
-*		xparameters.h.
-* @param	GWdtIntrId is the Interrupt Id of the WatchDog and is typically
-*		XPAR_<FABRIC_instance>_<GWDT_instance>_INTERRUPT_VEC_ID
-*		value from xparameters.h.
+* @param[in,out] IntcInstancePtr Pointer to the instance of the XScuGic driver.
+* @param[in]     GWdtDeviceId Device ID of the GWDT Device, typically the
+*                XPAR_<GWDT_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]     GWdtIntrId Interrupt ID of the WatchDog, typically the
+*                XPAR_<FABRIC_instance>_<GWDT_instance>_INTERRUPT_VEC_ID value
+*                from xparameters.h.
 * @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
 *
-* @note        -In XSCT/classic flow, GWdtDeviceId and GWdtIntrId are used to
-*               look up the device configuration and set up interrupt handling.
-*
-*              -This example will not return if the interrupts are not working.
+* @note          - In XSCT/classic flow, the example uses GWdtDeviceId and
+*                  GWdtIntrId to look up the device configuration and set up
+*                  interrupt handling.
+*                - This example does not return if the interrupts are not
+*                  working.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -283,24 +286,22 @@ int WdtTbIntrExample(XWdtTb *GWdtInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function setups the interrupt system such that WDT interrupt can occur
-* for the WdtTb. This function is application specific since the actual
-* system may or may not have an interrupt controller. The WdtTb device could be
-* directly connected to a processor without an interrupt controller. The
-* user should modify this function to fit the application.
+* @brief Sets up the interrupt system so the WDT interrupt can occur.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the Intc driver.
-* @param	WdtTbInstancePtr is a pointer to the instance of WdtTb driver.
-* @param	WdtTbIntrId is the Interrupt Id of the WDT interrupt and is
-*		typically
-*		XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
-*		value from xparameters.h.
+* This function is application specific since the actual
+* system may or may not have an interrupt controller. The WdtTb device could be
+* directly connected to a processor without an interrupt controller. Modify
+* this function to fit the application.
+*
+* @param[in,out] IntcInstancePtr Pointer to the instance of the Intc driver.
+* @param[in]     GWdtInstancePtr Pointer to the instance of WdtTb driver.
+* @param[in]     GWdtIntrId Interrupt ID of the WDT interrupt, typically
+*                the XPAR_<INTC_instance>_<WDTTB_instance>_WDT_INTERRUPT_VEC_ID
+*                value in xparameters.h.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE, otherwise.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int GWdtSetupIntrSystem(XScuGic *IntcInstancePtr,
@@ -371,18 +372,14 @@ static int GWdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is the Interrupt handler for the GWDT Interrupt of the
-* GWdt device. It is called on the expiration of the WDT period and is called
-* from an interrupt context.
+* @brief Handles the GWDT interrupt of the GWdt device.
+*
+* This handler runs in interrupt context on the expiration of the WDT period.
 *
 * This function provides an example of how to handle GWDT interrupt of the
 * GWdt device.
 *
-* @param	CallBackRef is a pointer to the callback function.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallBackRef Pointer to the callback function.
 *
 ******************************************************************************/
 static void GWdtIntrHandler(void *CallBackRef)
@@ -404,15 +401,10 @@ static void GWdtIntrHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the device.
+* @brief Disables the interrupts that occur for the device.
 *
-* @param	IntcInstancePtr is the pointer to the instance of XScuGic
-*		driver.
-* @param	GWdtIntrId is the Interrupt Id for the device.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] IntcInstancePtr Pointer to the instance of XScuGic driver.
+* @param[in]     GWdtIntrId Interrupt ID for the device.
 *
 ******************************************************************************/
 static void GWdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 GWdtIntrId)

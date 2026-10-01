@@ -1,15 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XWDTTB_L_H
+#define XWDTTB_L_H
 
 /*****************************************************************************/
 /**
 *
 * @file xwdttb_l.h
-* @addtogroup wdttb_api WDTTB APIs
-* @{
+* @brief Provides the low-level identifiers and functions of the XWdtTb driver.
 *
 * The xwdttb_l.h header file contains identifiers and basic driver functions (or
 * macros) that can be used to access the device.
@@ -33,13 +35,14 @@
 *                     Removed extra include files.
 *                     Moved constant and macro definitions to xwdttb_hw.h file.
 * 4.3   srm  01/30/18 Added doxygen tags
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
 
-/** @cond INTERNAL */
-#ifndef XWDTTB_L_H		/**< prevent circular inclusions */
-#define XWDTTB_L_H		/**< by using protection macros */
+/** @addtogroup wdttb_api WDTTB APIs
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -67,6 +70,5 @@ extern "C" {
 }
 #endif
 
-#endif
-/** @endcond */
 /** @} */
+#endif

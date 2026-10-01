@@ -8,8 +8,7 @@
 /**
 *
 * @file xwdttb_selftest.c
-* @addtogroup wdttb_api WDTTB APIs
-* @{
+* @brief Implements the self-test function of the XWdtTb driver.
 *
 * The xwdttb_selftest.c file contains diagnostic self-test functions for the
 * XWdtTb component.
@@ -46,21 +45,30 @@
 * 5.0	sne  03/09/20 Fixed MISRA-C violations.
 * 5.7	sb   07/12/23 Added support for system device-tree flow.
 * 5.12  vlt  01/28/26 Fixed codespell issues.
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdttb_api WDTTB APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
 #include "xwdttb.h"
 
 /************************** Constant Definitions *****************************/
-#define XWT_MAX_SELFTEST_LOOP_COUNT	0x00010000U /**< Loopt count */
-#define XWT_FW_COUNT			0x0U	    /**< Fist Window count */
-#define XWT_SW_COUNT			0x10000U    /**< Second window count */
+/** @name Self-test configuration values
+ * @{
+ */
+#define XWT_MAX_SELFTEST_LOOP_COUNT	0x00010000U /**< Loop count. */
+#define XWT_FW_COUNT			0x0U	    /**< First Window count. */
+#define XWT_SW_COUNT			0x10000U    /**< Second window count. */
 #define XWT_GWOR_COUNT			0x00001000U /**< Generic Watchdog
-						     * Offset Register */
+						     * Offset Register. */
+/** @} */
 /**************************** Type Definitions *******************************/
 
 
@@ -75,26 +83,24 @@
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Runs a self-test on the timebase or window if enabled.
 *
-* This function runs a self-test on the timebase or window if enabled. Timebase
-* test verifies that the timebase is incrementing. The watchdog timer is not
-* tested due to the time required to wait for the watchdog timer to expire. The
-* time consumed by this test is dependent on the system clock and the
-* configuration of the dividers in for the input clock of the timebase.
+* Timebase test verifies that the timebase is incrementing. The watchdog timer
+* is not tested due to the time required to wait for the watchdog timer to
+* expire. The time consumed by this test is dependent on the system clock and
+* the configuration of the dividers for the input clock of the timebase.
 *
 * Window test verifies that the windowing feature does not generate bad event
 * after enabling window feature with first and second window count. It disables
 * window feature immediately.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return
 *		- XST_SUCCESS if self-test was successful.
 *		- XST_WDTTB_TIMER_FAILED if the timebase is not incrementing.
-*		- XST_FAILURE if self-test was failed.
-*
+*		- XST_FAILURE if self-test failed.
 *
 ******************************************************************************/
 s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr)

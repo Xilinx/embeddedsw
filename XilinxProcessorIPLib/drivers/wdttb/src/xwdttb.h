@@ -4,14 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XWDTTB_H
+#define XWDTTB_H
+
 /*****************************************************************************/
 /**
 *
 * @file xwdttb.h
 * @addtogroup wdttb_api WDTTB APIs
 * @{
-* @details
-
+* @brief Provides the main header file for the XWdtTb watchdog timer driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -107,13 +109,11 @@
 * 5.10  ht   04/01/25 Add MaxCountWidth, SstCountWidth in XWdtTb_Config to both
 * 		      the flows as it is required for Axi Timebase WDT.
 * 5.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details
+* 5.13  vn   09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XWDTTB_H		/* prevent circular inclusions */
-#define XWDTTB_H		/**< by using protection macros */
 
 /***************************** Include Files *********************************/
 
@@ -132,68 +132,69 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains enumeration of different events in basic mode.
+ * @brief Enumerates the different events in basic mode.
  */
 typedef enum {
-	XWDTTB_NO_BAD_EVENT = 0,	/**< No bad event */
+	XWDTTB_NO_BAD_EVENT = 0,	/**< No bad event. */
 	XWDTTB_RS_KICK_EVENT,		/**< Restart kick or disable attempt in
-					  *  first window */
-	XWDTTB_TSR_MM_EVENT,		/**< TSR mismatch */
-	XWDTTB_SEC_WIN_EVENT		/**< Second window overflow */
+					 * first window. */
+	XWDTTB_TSR_MM_EVENT,		/**< TSR mismatch. */
+	XWDTTB_SEC_WIN_EVENT		/**< Second window overflow. */
 } XWdtTb_Event;
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID of the device */
+	u16 DeviceId;		/**< Unique ID of the device. */
 #else
-	char *Name;             /**< Name of the device */
+	char *Name;             /**< Name of the device. */
 #endif
-	UINTPTR BaseAddr;	/**< Base address of the device */
-	u32 EnableWinWdt;	/**< Flag for Window WDT enable */
-	u32 MaxCountWidth;	/**< Maximum width of first timer */
-	u32 SstCountWidth;	/**< Maximum width of Second Sequence Timer */
+	UINTPTR BaseAddr;	/**< Base address of the device. */
+	u32 EnableWinWdt;	/**< Flag for Window WDT enable. */
+	u32 MaxCountWidth;	/**< Maximum width of first timer. */
+	u32 SstCountWidth;	/**< Maximum width of Second Sequence Timer. */
 #ifndef SDT
-	u32 IsPl;		/**< IsPl, 1= AXI Timebase ,0= WWDT  */
+	u32 IsPl;		/**< IsPl, 1 = AXI Timebase, 0 = WWDT. */
 #endif
-	u32 Clock;		/**< Watchdog Clock Frequency */
+	u32 Clock;		/**< Watchdog Clock Frequency. */
 #ifdef SDT
-	u16 IntrId[4];          /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 IntrId[4];          /**< Bits[11:0] Interrupt-id Bits[15:12] trigger
+				 * type and level flags. */
+	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address. */
 #endif
 } XWdtTb_Config;
 
 /**
- * The XWdtTb driver instance data. The user is required to allocate a
- * variable of this type for every watchdog/timer device in the system.
- * A pointer to a variable of this type is then passed to the driver API
- * functions.
+ * @brief Stores the XWdtTb driver instance data.
+ *
+ * Allocate a variable of this type for every watchdog/timer device in the
+ * system. A pointer to a variable of this type is then passed to the driver
+ * API functions.
  */
 typedef struct {
-	XWdtTb_Config Config;	/**< Hardware Configuration */
-	u32 IsReady;		/**< Device is initialized and ready */
-	u32 IsStarted;		/**< Device watchdog timer is running */
-	u32 EnableFailCounter;	/**< Fail counter, 0 = Disable, 1 = Enable */
-	u32 EnableWinMode;      /**<Enable Window WDT Method,0= DIsable,1=Enable*/
+	XWdtTb_Config Config;	/**< Hardware Configuration. */
+	u32 IsReady;		/**< Device is initialized and ready. */
+	u32 IsStarted;		/**< Device watchdog timer is running. */
+	u32 EnableFailCounter;	/**< Fail counter, 0 = Disable, 1 = Enable. */
+	u32 EnableWinMode;      /**< Enable Window WDT Method, 0 = Disable,
+				 * 1 = Enable. */
 } XWdtTb;
 
 /************************** Variable Definitions *****************************/
-extern XWdtTb_Config XWdtTb_ConfigTable[];	/**< Configuration table */
+extern XWdtTb_Config XWdtTb_ConfigTable[];	/**< Configuration table. */
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /*****************************************************************************/
 /**
-* @brief
+* @brief Returns the current contents of the timebase.
 *
-* Returns the current contents of the timebase.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return	The contents of the timebase.
-*
 *
 ******************************************************************************/
 static inline u32 XWdtTb_GetTbValue(const XWdtTb *InstancePtr)
@@ -208,22 +209,17 @@ static inline u32 XWdtTb_GetTbValue(const XWdtTb *InstancePtr)
 }
 /*****************************************************************************/
 /**
-* @brief
+* @brief Controls read/write access to the complete Window WDT register space.
 *
-* Controls the read/write access to the complete Window WDT
-* register space.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
-* @param	AccessMode Specifies a value that needs to be used to provide
+* @param[in]	AccessMode Specifies a value that needs to be used to provide
 *		read/write access to the register space.
 *		- 1 = Window WDT register space is writable.
 *		- 0 = Window WDT register space is read only.
 *
-* @return	None.
-*
 * @note		When register space is set read only, writes to any register
-*		are ignored and does not lead to good or bad event generation.
+*		are ignored and do not lead to good or bad event generation.
 *
 ******************************************************************************/
 static inline void XWdtTb_SetRegSpaceAccessMode(const XWdtTb *InstancePtr,
@@ -241,17 +237,14 @@ static inline void XWdtTb_SetRegSpaceAccessMode(const XWdtTb *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Returns whether the Window WDT register space is read only or writable.
 *
-* Provides Window WDT register space read only or writable.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return
 *		- 1 = Window WDT register space is writable.
 *		- 0 = Window WDT register space is read only.
-*
 *
 ******************************************************************************/
 static inline u32 XWdtTb_GetRegSpaceAccessMode(const XWdtTb *InstancePtr)
@@ -269,14 +262,12 @@ static inline u32 XWdtTb_GetRegSpaceAccessMode(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Returns the last bad event, which is readable even after system reset.
 *
-* Provides the last bad event and read even after system reset.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	One of the enumeration value described in XWdtTb_Event.
+* @return	One of the enumeration values described in XWdtTb_Event.
 *
 * @note		Event can be read after a system reset to determine if the
 *		reset was caused by a watchdog timeout.
@@ -295,18 +286,16 @@ static inline u32 XWdtTb_GetLastEvent(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Returns the fail counter value.
 *
-* Provides fail count value.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return	Fail counter value. The default value is 5.
 *
 * @note
 *		- When fail counter is enabled, it gets incremented for every
-*		bad event unless 7 or decrement ed for every good event unless
+*		bad event unless 7 or decremented for every good event unless
 *		0. If fail counter is 7 and another bad event happens, reset is
 *		generated.
 *		- When fail counter is disabled, bad event leads to reset.
@@ -326,18 +315,17 @@ static inline u32 XWdtTb_GetFailCounter(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Checks whether a reset is pending after the SST counter starts.
 *
-* States that whether the reset is pending or not when Secondary
-* Sequence Timer(SST) counter has started.
+* Checks whether the reset is pending when the Secondary Sequence Timer
+* (SST) counter has started.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return
 *		- 1 = window watchdog reset is pending.
 *		- 0 = window watchdog reset is not pending.
-*
 *
 ******************************************************************************/
 static inline u32 XWdtTb_IsResetPending(const XWdtTb *InstancePtr)
@@ -353,12 +341,12 @@ static inline u32 XWdtTb_IsResetPending(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Checks whether the window watchdog timer reached its interrupt point.
 *
-* States that whether window watchdog timer has reached at the
-* interrupt programmed point in second window.
+* Checks whether the window watchdog timer has reached the interrupt
+* programmed point in the second window.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return
@@ -366,7 +354,6 @@ static inline u32 XWdtTb_IsResetPending(const XWdtTb *InstancePtr)
 *		programmed point in second window.
 *		- 0 = when window watchdog timer did not reach at the
 *		 interrupt programmed point in second window.
-*
 *
 ******************************************************************************/
 static inline u32 XWdtTb_GetIntrStatus(const XWdtTb *InstancePtr)
@@ -382,18 +369,14 @@ static inline u32 XWdtTb_GetIntrStatus(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Indicates wrong configuration when second window count is set to zero.
 *
-* States wrong configuration when second window count is set to
-* zero.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
 * @return
 *		- 1 = if second window count is set to zero.
 *		- 0 = if second window count is not set to zero.
-*
 *
 ******************************************************************************/
 static inline u32 XWdtTb_IsWrongCfg(const XWdtTb *InstancePtr)
@@ -409,25 +392,19 @@ static inline u32 XWdtTb_IsWrongCfg(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the count value for the Second Sequence Timer window.
 *
-* Sets the count value for the  Second Sequence Timer window.
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
-* @param     SST_window_config Specifies the first window count value.
+* @param[in] SST_window_config Specifies the first window count value.
 *
-* @return    None.
-*
-* @note
-*            This function must be called before Window WDT start/enable
+* @note      This function must be called before Window WDT start/enable
 *            or after Window WDT stop/disable.
-*            - For SSTWR window, This option provides additional time to software
-*              by delaying the inevitable wwdt_reset assertion/generation by
-*              SC count delay
+*            - For SSTWR window, this option provides additional time to
+*              software by delaying the inevitable wwdt_reset
+*              assertion/generation by SC count delay.
 *
 ******************************************************************************/
-
 static inline void XWdtTb_SetSSTWindow(const XWdtTb *InstancePtr, u32 SST_window_config)
 {
 	/* Verify arguments. */
@@ -440,19 +417,16 @@ static inline void XWdtTb_SetSSTWindow(const XWdtTb *InstancePtr, u32 SST_window
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Configures the WDT mode.
 *
-* Sets configure WDT mode.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
+* @param[in]     Mode Specifies the GWDT or WWDT. 0 for GWDT and 1 for WWDT.
 *
-* @param     InstancePtr Pointer to the XWdtTb instance to be
-*            worked on.
-* @param     Mode Specifies the GWDT or WWDT. 0 for GWDT and 1 for WWDT.
-*
-* @return    -XST_SUCESS, if Mode with in the range.
-*			 -XST_FAILURE,if Mode is out side of range.
+* @return
+*                - XST_SUCCESS if Mode is within the range.
+*                - XST_FAILURE if Mode is outside of the range.
 *
 ******************************************************************************/
-
 static inline u32 XWdtTb_ConfigureWDTMode(XWdtTb *InstancePtr, u32 Mode)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -467,15 +441,11 @@ static inline u32 XWdtTb_ConfigureWDTMode(XWdtTb *InstancePtr, u32 Mode)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Starts the Q&A mode sequence.
 *
-* Starts the Q&A mode sequence.
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
-* @param     Value Specifies the value to be written to token resp register.
-*
-* @return    None
+* @param[in] Value Specifies the value to be written to token resp register.
 *
 ******************************************************************************/
 static inline void XWdtTb_StartQASequence(XWdtTb *InstancePtr, u32 Value)
@@ -486,16 +456,12 @@ static inline void XWdtTb_StartQASequence(XWdtTb *InstancePtr, u32 Value)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the first feedback value for the TFR.
 *
-* Sets the first feedback value for the TFR .
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be worked on.
+* @param[in] Feedback Feedback to be programmed.
 *
-* @param     InstancePtr Pointer to the XWdtTb instance to be worked on.
-* @param     Feedback Feedback to be programmed.
-* @return    None.
-*
-* @note
-*            This function must be called before Window WDT QA start/enable
+* @note      This function must be called before Window WDT QA start/enable
 *            or after Window WDT QA stop/disable.
 *
 ******************************************************************************/
@@ -509,11 +475,9 @@ static inline void XWdtTb_SetFeedbackVal(XWdtTb *InstancePtr, u32 Feedback)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Reads the Token Feedback Register to return the feedback value.
 *
-* Reads the Token Feedback Register to return the feedback value.
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
 *
 * @return    Feedback value programmed in TFR register.
@@ -529,11 +493,9 @@ static inline u32 XWdtTb_GetFeedbackVal(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Reads the ESR Register to return the token value.
 *
-* Reads the ESR Register to return the token value.
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
 *
 * @return    Token value from ESR.
@@ -548,16 +510,12 @@ static inline u32 XWdtTb_GetTokenVal(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Sets the seed value for the TFR.
 *
-* Sets the seed value for the TFR .
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be worked on.
+* @param[in] SeedValue Used for Input of Seed.
 *
-* @param     InstancePtr Pointer to the XWdtTb instance to be worked on.
-* @param     SeedValue Used for Input of Seed.
-* @return    None.
-*
-* @note
-*            This function must be called before Window WDT QA start/enable
+* @note      This function must be called before Window WDT QA start/enable
 *            or after Window WDT QA stop/disable.
 *
 ******************************************************************************/
@@ -573,11 +531,9 @@ static inline void XWdtTb_SetSeedValue(const XWdtTb *InstancePtr,
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Returns TRUE if the watchdog is in second window.
 *
-* Returns true if the watchdog is in second window.
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
 *
 * @return    TRUE if in second window, otherwise FALSE.
@@ -596,16 +552,11 @@ static inline u32 XWdtTb_InSecondWindow(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Updates the Token Resp Register (TRR) with the given answer value.
 *
-* Updates the Token Resp Register (TRR) with the answer value
-* provided from user.
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be
 *            worked on.
-* @param     Ans Value to be programmed.
-*
-* @return    None
+* @param[in] Ans Value to be programmed.
 *
 ******************************************************************************/
 static inline void XWdtTb_UpdateAnsByte(XWdtTb *InstancePtr, u32 Ans)
@@ -616,15 +567,12 @@ static inline void XWdtTb_UpdateAnsByte(XWdtTb *InstancePtr, u32 Ans)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Reads the Answer byte count from the ESR register.
 *
-* Reads the Answer byte count from the ESR register.
-*
-* @param	InstancePtr Pointer to the XWdtTb instance to be
+* @param[in]	InstancePtr Pointer to the XWdtTb instance to be
 *		worked on.
 *
-* @return	Answer count value
-*
+* @return	Answer count value.
 *
 ******************************************************************************/
 static inline u32 XWdtTb_GetAnsByteCnt(const XWdtTb *InstancePtr)
@@ -636,12 +584,9 @@ static inline u32 XWdtTb_GetAnsByteCnt(const XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Enables the Q&A mode by writing the Func_Ctrl register.
 *
-* Enables the Q&A mode by writing Func_Ctrl register .
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be worked on.
-* @return    None.
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
 ******************************************************************************/
 static inline void XWdtTb_EnableQAMode(XWdtTb *InstancePtr)
@@ -655,12 +600,9 @@ static inline void XWdtTb_EnableQAMode(XWdtTb *InstancePtr)
 
 /*****************************************************************************/
 /**
-* @brief
+* @brief Disables the Q&A mode by writing the Func_Ctrl register.
 *
-* Disables the Q&A mode by writing Func_Ctrl register .
-*
-* @param     InstancePtr Pointer to the XWdtTb instance to be worked on.
-* @return    None.
+* @param[in] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
 ******************************************************************************/
 static inline void XWdtTb_DisableQAMode(XWdtTb *InstancePtr)
@@ -734,5 +676,5 @@ s32 XWdtTb_SelfTest(const XWdtTb *InstancePtr);
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

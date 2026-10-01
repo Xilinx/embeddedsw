@@ -8,8 +8,7 @@
 /**
 *
 * @file xwdttb_sinit.c
-* @addtogroup wdttb_api WDTTB APIs
-* @{
+* @brief Implements the static initialization method of the XWdtTb driver.
 *
 * The xwdttb_sinit.c file contains static initialization method for AXI
 * Timebase Window Watchdog Timer core.
@@ -26,9 +25,14 @@
 * 5.7  sb  07/12/23 Added support for system device-tree flow.
 * 5.12 vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * 5.13 vn  08/26/26 Fix Doxygen warnings
+* 5.13 vn  09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdttb_api WDTTB APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -55,22 +59,23 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration by unique device ID/BaseAddress.
+*
 * The XWdtTb_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]    DeviceId Unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xwdttb.h for the
 *               definition of XWdtTb_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note         In XSCT/classic flow, DeviceId is used to look up the device
+*               configuration.
 *
 ******************************************************************************/
 #ifndef SDT

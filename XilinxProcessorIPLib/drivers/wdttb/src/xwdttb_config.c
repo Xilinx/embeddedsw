@@ -8,8 +8,7 @@
 /**
 *
 * @file xwdttb_config.c
-* @addtogroup wdttb_api WDTTB APIs
-* @{
+* @brief Implements the window and timebase WDT helper functions.
 *
 * The xwdttb_config.c file contains the required functions of the XWdtTb driver.
 * See xwdttb.h for a description of the driver.
@@ -22,10 +21,16 @@
 * 5.0	sne  11/19/19 First release
 * 5.7	sb   09/13/23 Fix MISRA-C violation 10.4
 * 5.13 vn  08/26/26 Fix Doxygen warnings
+* 5.13 vn  09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup wdttb_api WDTTB APIs
+ * @{
+ */
+
 /***************************** Include Files *********************************/
 
 #include "xwdttb.h"
@@ -43,18 +48,17 @@
 /************************** Variable Definitions *****************************/
 /**
 *
-* Disables window Watchdog Timer feature.
+* @brief Disables window Watchdog Timer feature.
 *
-* @param	InstancePtr Pointer to the XWdtTb instance to be
-*		worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
 * @return
-*		- XST_SUCESS, if Window WDT feature is disabled.
+*		- XST_SUCCESS, if Window WDT feature is disabled.
 *		- XST_FAILURE, if Window WDT feature is not disabled.
 *
 * @note
 *		- Disabling watchdog in first window duration is considered as
-*		bade event. It can only be disabled in the second window
+*		bad event. It can only be disabled in the second window
 *		duration.
 *		- If fail counter is enabled, watchdog can be disabled only
 *		when fail counter is zero.
@@ -159,12 +163,11 @@ s32 XWdtTb_DisableWinWdt(XWdtTb *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Enables timebase Watchdog Timer feature.
+* @brief Enables timebase Watchdog Timer feature.
 *
-* @param        InstancePtr Pointer to the XWdtTb instance to be
-*               worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
-* @note         This will start the timebase watchdog timer.
+* @note          Starts the timebase watchdog timer.
 *
 *****************************************************************************/
 void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr)
@@ -199,15 +202,13 @@ void XWdtTb_EnableTimebaseWdt(XWdtTb *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Disables timebase Watchdog Timer feature.
+* @brief Disables timebase Watchdog Timer feature.
 *
-* @param        InstancePtr Pointer to the XWdtTb instance to be
-*               worked on.
+* @param[in,out] InstancePtr Pointer to the XWdtTb instance to be worked on.
 *
 * @return
-*               - XST_SUCESS, if  Timebase  WDT feature is disabled.
-*               - XST_FAILURE, if Timebase  WDT feature is not disabled.
-*
+*                - XST_SUCCESS if Timebase WDT feature is disabled.
+*                - XST_FAILURE if Timebase WDT feature is not disabled.
 *
 *****************************************************************************/
 s32 XWdtTb_DisableTimebaseWdt(XWdtTb *InstancePtr)

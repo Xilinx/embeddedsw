@@ -7,13 +7,10 @@
 /*****************************************************************************/
 /**
 * @file  xwdttb_example.c
+* @brief Demonstrates XWdtTb driver usage in polled mode.
 *
 * This file contains a design example using the Watchdog Timer Timebase driver
 * (XWdtTb) and hardware device.
-*
-* @note
-*
-* None.
 *
 * MODIFICATION HISTORY:
 *
@@ -38,6 +35,7 @@
 * 5.10  ht  10/28/24  Fix compilation warnings in SDT flow peripheral tests.
 * 5.11  bkv 08/29/25  Fixed GCC Warning.
 * 5.12  vlt 12/18/25  Update Doxygen comments to include SDT flow details.
+* 5.13  vn  09/30/26  Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
 
@@ -54,6 +52,7 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** WDTTB device ID. */
 #define WDTTB_DEVICE_ID		XPAR_WDTTB_0_DEVICE_ID
 #endif
 
@@ -74,18 +73,15 @@ int WdtTbExample(XWdtTb *WdtTbInstancePtr, UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XWdtTb WatchdogTimebase; /* Instance of WatchDog Timer Base */
+XWdtTb WatchdogTimebase; /**< Instance of WatchDog Timer Base. */
 
 /*****************************************************************************/
 /**
-* Main function to call the Wdttb driver example.
-*
+* @brief Calls the WDTTB driver example from the main function.
 *
 * @return
 *		- XST_SUCCESS if example ran successfully.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -113,8 +109,7 @@ int main(void)
 #endif
 /*****************************************************************************/
 /**
-* This function tests the functioning of the TimeBase WatchDog Timer module
-* in the polled mode.
+* @brief Tests the TimeBase WatchDog Timer module in polled mode.
 *
 * After one expiration of the WDT timeout interval, the WDT state bit is set to
 * one in the status register. If the state bit is not cleared (by writing a 1 to
@@ -128,10 +123,10 @@ int main(void)
 * because it waits for the watchdog timer to expire.
 *
 * @if SDT
-* @param	WdtTbInstancePtr is a pointer to the instance of XWdtTb driver.
-* @param	BaseAddress contains the base address of the device
+* @param[in]	WdtTbInstancePtr Pointer to the instance of XWdtTb driver.
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the XPAR_<WDTB_instance>_DEVICE_ID value from
+* @param[in]	DeviceId XPAR_<WDTB_instance>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
@@ -140,8 +135,8 @@ int main(void)
 *		timer expiry state.
 *		- XST_FAILURE otherwise.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note		In XSCT/classic flow, the example uses DeviceId to
+*		look up the device configuration.
 *
 ****************************************************************************/
 #ifndef SDT
