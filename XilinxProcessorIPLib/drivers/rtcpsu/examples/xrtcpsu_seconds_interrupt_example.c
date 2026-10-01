@@ -8,16 +8,16 @@
 /**
 *
 * @file	xrtcpsu_seconds_interrupt_example.c
+* @brief Demonstrates the XRtcPsu seconds feature in interrupt mode.
 *
-* This file contains an seconds example using the XRtcPsu driver in interrupt
+* This file contains a seconds example using the XRtcPsu driver in interrupt
 * mode.
 *
-*
 * @note
-* In the example,if interrupts are not working it may hang.
+* In the example, if interrupts are not working, it may hang.
 *
-* MODIFICATION HISTORY:
 * <pre>
+* MODIFICATION HISTORY:
 * Ver   Who    Date     Changes
 * ----- ------ -------- ----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
@@ -28,6 +28,7 @@
 * 1.15  ht  12/13/24 Fix C++ compilation warnings and errors in SDT flow.
 * 1.17  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
 * 1.18  vn  07/30/26 Fix Doxygen warnings
+* 1.18  vn  09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 ****************************************************************************/
 
@@ -51,15 +52,21 @@
  */
 
 #ifndef SDT
-#define RTC_DEVICE_ID         XPAR_XRTCPSU_0_DEVICE_ID
+/** @name Device and interrupt IDs
+ * @{
+ */
+#define RTC_DEVICE_ID         XPAR_XRTCPSU_0_DEVICE_ID /**< RTC device ID. */
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** RTC seconds interrupt ID. */
 #define RTC_SEC_INT_IRQ_ID	XPAR_XRTCPSU_SECONDS_INTR
+/** @} */
 #endif
 
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define REPETATIONS 2
+#define REPETATIONS 2 /**< Number of seconds events to wait for. */
 
 /************************** Function Prototypes *****************************/
 
@@ -79,22 +86,19 @@ void Handler(void *CallBackRef, u32 Event);
 
 /************************** Variable Definitions ***************************/
 
-XRtcPsu RtcPsu;		/* Instance of the RTC Device */
+XRtcPsu RtcPsu;		/**< Instance of the RTC Device. */
 #ifndef SDT
-XScuGic InterruptController;	/* Instance of the Interrupt Controller */
+XScuGic InterruptController;	/**< Instance of the Interrupt Controller. */
 #endif
-volatile u32 Seconds = 0;
+volatile u32 Seconds = 0;	/**< Count of seconds events generated. */
 
 
 /**************************************************************************/
 /**
 *
-* Main function to call the RTC Seconds interrupt example.
+* @brief Calls the RTC Seconds interrupt example.
 *
-*
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note		None
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 **************************************************************************/
 #ifndef TESTAPP_GEN
@@ -122,30 +126,32 @@ int main(void)
 /**************************************************************************/
 /**
 *
-* This function does a minimal test on the Rtc device and driver as a
-* design example. The purpose of this function is to illustrate
-* how to seconds feature is available in the XRtcPsu driver.
+* @brief Runs a minimal test on the RTC device and driver as a design
+* example.
 *
-* This function shows the seconds interrupt feature..
+* The purpose of this function is to illustrate how to use the seconds
+* feature available in the XRtcPsu driver.
 *
-* @param	RtcInstPtr is a pointer to the instance of the RTC driver
-*		which is going to be connected to the interrupt controller.
+* This function shows the seconds interrupt feature.
+*
+* @param[out]	RtcInstPtr Pointer to the instance of the RTC driver
+*		that is connected to the interrupt controller.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	IntcInstPtr is a pointer to the instance of the ScuGic driver.
-* @param	DeviceId is the device Id of the RTC device and is typically
+* @param[out]	IntcInstPtr Pointer to the instance of the ScuGic driver.
+* @param[in]	DeviceId Device ID of the RTC device, typically the
 *		XPAR_<RTCPSU_instance>_DEVICE_ID value from xparameters.h.
-* @param	RtcIntrId is the interrupt Id and is typically
+* @param[in]	RtcIntrId Interrupt ID, typically the
 *		XPAR_<RTCPSU_instance>_INTR value from xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
-* @note       - In XSCT/classic flow, DeviceId is used to look up the device
-*             configuration.
-*             - In this function ,if interrupts are not working it may never
-*             return.
+* @note         - In XSCT/classic flow, the driver uses DeviceId to look up the
+*		  device configuration.
+*		- This function may never return if interrupts are not
+*		  working.
 *
 **************************************************************************/
 #ifndef SDT
@@ -224,18 +230,17 @@ int RtcPsuSecondsIntrExample(XRtcPsu *RtcInstPtr, UINTPTR BaseAddress)
 /**************************************************************************/
 /**
 *
-* This function is the handler which performs processing to handle interrupt
-* events from the device.  It is called from an interrupt context. so the
-* amount of processing should be minimal.
+* @brief Handles interrupt events from the device.
+*
+* It is called from an interrupt context, so the amount of processing must
+* be minimal.
 *
 * This handler provides an example of how to handle interrupt data for the
 * device and is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver,
-*		in this case it is the instance pointer for the XRtcPsu driver.
-* @param	Event contains the specific kind of event that has occurred.
-*
-* @note		None.
+* @param[in]	CallBackRef Callback reference from the driver. In this
+*		case it is the instance pointer for the XRtcPsu driver.
+* @param[in]	Event Specific kind of event that has occurred.
 *
 ***************************************************************************/
 void Handler(void *CallBackRef, u32 Event)
@@ -251,20 +256,18 @@ void Handler(void *CallBackRef, u32 Event)
 /*****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
-* RTC. This function is application-specific. The user should modify this
-* function to fit the application.
+* @brief Sets up the interrupt system so interrupts can occur for the RTC.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC.
-* @param	RtcInstancePtr contains a pointer to the instance of the RTC
-*		driver which is going to be connected to the interrupt
-*		controller.
-* @param	RtcIntrId is the interrupt Id and is typically
-*		XPAR_<XRTCPSU_instance>_INTR value from xparameters.h.
+* This function is application-specific. Modify this function to fit the
+* application.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @param[in,out] IntcInstancePtr Pointer to the instance of the INTC.
+* @param[in]	 RtcInstancePtr Pointer to the instance of the RTC
+*		 driver that is connected to the interrupt controller.
+* @param[in]	 RtcIntrId Interrupt ID, typically the
+*		 XPAR_<XRTCPSU_instance>_INTR value defined in xparameters.h.
 *
-* @note		None.
+* @return	 XST_SUCCESS if successful, or XST_FAILURE otherwise.
 *
 ****************************************************************************/
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,

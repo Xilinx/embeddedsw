@@ -8,6 +8,7 @@
 /**
 *
 * @file     xrtcpsu_seconds_polled_example.c
+* @brief Demonstrates the XRtcPsu seconds feature in polled mode.
 *
 * This file contains an example using the XRtcPsu driver in polled mode.
 *
@@ -16,13 +17,14 @@
 * @note
 * If the device does not work properly, the example may hang.
 *
-* MODIFICATION HISTORY:
 * <pre>
+* MODIFICATION HISTORY:
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
 * 1.13  ht  06/21/23 Added support for system device-tree flow.
 * 1.17  vlt 12/18/25 Update Doxygen comments to include SDT flow details.
+* 1.18  vn  09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 ******************************************************************************/
@@ -41,13 +43,14 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** RTC device ID. */
 #define RTC_DEVICE_ID              XPAR_XRTCPSU_0_DEVICE_ID
 #endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define REPETATIONS 10
+#define REPETATIONS 10 /**< Number of seconds events to wait for. */
 
 /************************** Function Prototypes ******************************/
 
@@ -58,17 +61,14 @@ int RtcPsuSecondsPolledExample(UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
-XRtcPsu Rtc_Psu;		/* Instance of the RTC Device */
+XRtcPsu Rtc_Psu;		/**< Instance of the RTC Device. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Rtc Seconds Polled mode example.
-*
+* @brief Calls the RTC Seconds Polled mode example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -98,23 +98,22 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal Seconds test on the XRtcPsu device in polled mode.
+* @brief Runs a minimal Seconds test on the XRtcPsu device in polled mode.
 *
 * This function checks the new second reporting feature of the RTC.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique device id from hardware build.
+* @param[in]	DeviceId Unique device ID from hardware build.
 * @endif
 *
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
-*
-* @note       - In XSCT/classic flow, DeviceId is used to look up the device
-*             configuration.
-*             - This function polls the RTC, it may hang if the hardware is
-*             not working correctly.
+* @note         - In XSCT/classic flow, the driver uses DeviceId to look up the
+*		  device configuration.
+*		- This function polls the RTC, so it may hang if the hardware
+*		  is not working correctly.
 *
 ****************************************************************************/
 #ifndef SDT

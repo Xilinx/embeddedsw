@@ -8,13 +8,10 @@
 /**
 *
 * @file xrtcpsu_sinit.c
-* @addtogroup rtcpsu Overview
-* @{
+* @brief Implements static initialization for the XRtcPsu RTC driver.
 *
 * This file contains the implementation of the XRtcPsu driver's static
 * initialization functionality.
-*
-* @note		None.
 *
 * <pre>
 *
@@ -33,9 +30,14 @@
 * 1.13  ht     06/22/23 Added support for system device-tree flow.
 * 1.17  vlt    12/16/25 Update Doxygen comments to include SDT flow details.
 *       vlt    01/30/26 Fixed codespell errors.
+* 1.18  vn     09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup rtcpsu Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -58,22 +60,24 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device ID or
+* base address.
+*
 * The XRtcPsu_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xrtcpsu.h for the
 *               definition of XRtcPsu_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note         In XSCT/classic flow, the driver uses DeviceId to look up
+*               the device configuration.
 *
 ******************************************************************************/
 #ifndef SDT

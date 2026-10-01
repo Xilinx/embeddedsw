@@ -4,30 +4,36 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XRTC_H_
+#define XRTC_H_
+
 /*****************************************************************************/
 /**
  * @file xrtcpsu.h
  * @addtogroup rtcpsu Overview
  * @{
+ * @brief Provides the main header file for the XRtcPsu RTC driver.
+ *
  * @details
  *
- * The Xilinx RTC driver component.  This component supports the Xilinx
- * RTC Controller. RTC Core and RTC controller are the two main important sub-
- * components for this RTC module. RTC core can run even in the battery powered
- * domain when the power from auxiliary source is down.Because of this, RTC core
- * latches the calibration,programmed time.This core interfaces with the crystal
- * oscillator and maintains current time in seconds.Calibration circuitry
- * calculates a second with maximum 1 PPM inaccuracy using a crystal oscillator
- * with arbitrary static inaccuracy. Core also responsible to maintain control
+ * The Xilinx RTC driver component supports the Xilinx RTC Controller. RTC
+ * Core and RTC controller are the two main important sub-components for this
+ * RTC module.
+ *
+ * RTC core can run even in the battery powered domain when the power from
+ * auxiliary source is down. Because of this, RTC core latches the calibration
+ * and programmed time. This core interfaces with the crystal oscillator and
+ * maintains current time in seconds. Calibration circuitry calculates a second
+ * with maximum 1 PPM inaccuracy using a crystal oscillator with arbitrary
+ * static inaccuracy. The core is also responsible for maintaining the control
  * value used by the oscillator and power switching circuitry.
  *
- * RTC controller includes an APB interface responsible for register access with
- * in controller and core.It contains alarm generation logic including the alarm
- * register to hold alarm time in seconds.Interrupt management using Interrupt
- * status, Interrupt mask, Interrupt enable, Interrupt disable registers are
- * included to manage alarm and seconds interrupts.Address
- * Slave error interrupts
- * are not being handled by this driver component.
+ * RTC controller includes an APB interface responsible for register access
+ * within the controller and core. It contains alarm generation logic including
+ * the alarm register to hold alarm time in seconds. Interrupt status, Interrupt
+ * mask, Interrupt enable, and Interrupt disable registers manage the alarm and
+ * seconds interrupts. This driver component does not handle Address Slave error
+ * interrupts.
  *
  * This driver supports the following features:
  * - Setting the RTC time.
@@ -36,7 +42,7 @@
  *
  * <b>Initialization & Configuration</b>
  *
- * The XRtcPsu_Config structure is used by the driver to configure itself.
+ * The driver uses the XRtcPsu_Config structure to configure itself.
  * Fields inside this structure are properties of XRtcPsu based on its hardware
  * build.
  *
@@ -46,13 +52,13 @@
  *
  *	- XRtcPsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a
  *	configuration structure provided by the caller. If running in a system
- *	with address translation, the parameter EffectiveAddr should be the
+ *	with address translation, the parameter EffectiveAddr must be the
  *	virtual address.
  *
  * <b>Interrupts</b>
  *
- * The driver defaults to no interrupts at initialization such that interrupts
- * must be enabled if desired. An interrupt is generated for one of the
+ * The driver defaults to no interrupts at initialization, so enable
+ * interrupts if required. An interrupt is generated for one of the
  * following conditions.
  *
  * - Alarm is generated.
@@ -61,12 +67,12 @@
  * The application can control which interrupts are enabled using the
  * XRtcPsu_SetInterruptMask() function.
  *
- * In order to use interrupts, it is necessary for the user to connect the
- * driver interrupt handler, XRtcPsu_InterruptHandler(), to the interrupt
- * system of the application. A separate handler should be provided by the
- * application to communicate with the interrupt system, and conduct
- * application specific interrupt handling. An application registers its own
- * handler through the XRtcPsu_SetHandler() function.
+ * To use interrupts, connect the driver interrupt handler,
+ * XRtcPsu_InterruptHandler(), to the interrupt system of the application.
+ * The application provides a separate handler to communicate with the
+ * interrupt system and conduct application-specific interrupt handling. An
+ * application registers its own handler through the XRtcPsu_SetHandler()
+ * function.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -104,13 +110,10 @@
  * 1.13  ht	06/22/23 Added support for system device-tree flow.
  * 1.17  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
  * 1.17  ht     01/19/26 Add 3 macros (EPOCH_YEAR, EPOCH_WDAY, IS_LEAP_YEAR).
+ * 1.18  vn     09/30/26 Align Doxygen comments with AMD standards
  * </pre>
  *
  ******************************************************************************/
-
-
-#ifndef XRTC_H_			/**< prevent circular inclusions */
-#define XRTC_H_			/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -129,122 +132,147 @@ extern "C" {
 /** @name Callback events
  *
  * These constants specify the handler events that an application can handle
- * using its specific handler function. Note that these constants are not bit
- * mask, so only one event can be passed to an application at a time.
+ * using its specific handler function. These constants are not bit masks, so
+ * only one event can be passed to an application at a time.
  *
  * @{
  */
-#define XRTCPSU_EVENT_ALARM_GEN		1U /**< Alarm generated event */
-#define XRTCPSU_EVENT_SECS_GEN		2U /**< A new second generated event */
+/** Alarm generated event. */
+#define XRTCPSU_EVENT_ALARM_GEN		1U
+#define XRTCPSU_EVENT_SECS_GEN		2U /**< A new second generated event. */
 /** @} */
 
+/** Separate mask for the crystal oscillator enable bit. */
 #define XRTCPSU_CRYSTAL_OSC_EN		((u32)1 << XRTC_CTL_OSC_SHIFT)
-/**< Separate Mask for Crystal oscillator bit Enable */
 
 /**************************** Type Definitions *******************************/
 
 /******************************************************************************/
 /**
- * This data type defines a handler that an application defines to communicate
- * with interrupt system to retrieve state information about an application.
+ * @brief Defines the application handler type for interrupt events.
  *
- * @param	CallBackRef is a callback reference passed in by the upper layer
- *		when setting the handler, and is passed back to the upper layer
+ * An application uses this handler type to communicate with the interrupt
+ * system to retrieve state information about the application.
+ *
+ * @param[in]	CallBackRef Callback reference passed in by the upper layer
+ *		when setting the handler, and passed back to the upper layer
  *		when the handler is called. It is used to find the device driver
  *		instance.
- * @param	Event contains one of the event constants indicating events that
+ * @param[in]	Event One of the event constants indicating events that
  *		have occurred.
  *
  ******************************************************************************/
 typedef void (*XRtcPsu_Handler) (void *CallBackRef, u32 Event);
 
 /**
- * This typedef contains configuration information for a device.
+ * @brief Holds the configuration information for a device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID of device */
+	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;             /**< Name of the device */
+	char *Name;		/**< Name of the device. */
 #endif
-	UINTPTR BaseAddr;	/**< Register base address */
+	UINTPTR BaseAddr;	/**< Register base address. */
 #ifdef SDT
 	u16 IntrId[2];          /**< Bits[11:0] Interrupt-id Bits[15:12]
-				 * trigger type and level flags */
+				 * trigger type and level flags. */
 	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-				 * Parent base address */
+				 * Parent base address. */
 #endif
 } XRtcPsu_Config;
 
 /**
- * The XRtcPsu driver instance data. The user is required to allocate a
- * variable of this type for the RTC device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Stores the XRtcPsu driver instance data.
+ *
+ * Allocate a variable of this type for the RTC device in the system. A
+ * pointer to a variable of this type is then passed to the driver API
+ * functions.
  */
 typedef struct {
-	XRtcPsu_Config RtcConfig;	/**< Device configuration */
-	u32 IsReady;			/**< Device is initialized and ready */
-	u32 PeriodicAlarmTime;		/**< Alarm timer */
-	u8 IsPeriodicAlarm;		/**< Alarm Interrupt Information */
-	u32 OscillatorFreq;		/**< Device Oscillator Freq */
-	u32 CalibrationValue;		/**< Device Calibration Value */
-	XRtcPsu_Handler Handler;	/**< Handler Information */
+	XRtcPsu_Config RtcConfig;	/**< Device configuration. */
+	u32 IsReady;			/**< Device is initialized and ready. */
+	u32 PeriodicAlarmTime;		/**< Alarm timer. */
+	u8 IsPeriodicAlarm;		/**< Alarm Interrupt Information. */
+	u32 OscillatorFreq;		/**< Device Oscillator Freq. */
+	u32 CalibrationValue;		/**< Device Calibration Value. */
+	XRtcPsu_Handler Handler;	/**< Handler Information. */
 	void *CallBackRef;		/**< Callback reference for
-					  * event handler
-					  */
-	u32 TimeUpdated;		/**< Time */
-	u32 CurrTimeUpdated;		/**< Current Time */
+					 * event handler. */
+	u32 TimeUpdated;		/**< Time. */
+	u32 CurrTimeUpdated;		/**< Current Time. */
 } XRtcPsu;
 
 /**
- * This typedef contains DateTime format structure.
+ * @brief Describes the DateTime format structure.
  */
 typedef struct {
-	u32 Year;	/**< Year */
-	u32 Month;	/**< Month */
-	u32 Day;	/**< Day */
-	u32 Hour;	/**< Hour */
-	u32 Min;	/**< Minute */
-	u32 Sec;	/**< Second */
-	u32 WeekDay;	/**< Week Day */
+	u32 Year;	/**< Year. */
+	u32 Month;	/**< Month. */
+	u32 Day;	/**< Day. */
+	u32 Hour;	/**< Hour. */
+	u32 Min;	/**< Minute. */
+	u32 Sec;	/**< Second. */
+	u32 WeekDay;	/**< Week Day. */
 } XRtcPsu_DT;
 
 
 /************************* Variable Definitions ******************************/
 
+/**
+ * @brief Holds the configuration entry for each RTC PS instance.
+ */
 extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/* Unix epoch constants */
-#define EPOCH_YEAR	1970U	/**< Unix epoch year (1970-01-01 00:00:00 UTC) */
-#define EPOCH_WDAY	4U	/**< Weekday of epoch (0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat) */
-
-/**
- * Check if a year is a leap year using complete Gregorian calendar rules:
- * - Divisible by 4: leap year
- * - Exception: Divisible by 100: not a leap year
- * - Exception to exception: Divisible by 400: leap year
- * Examples: 2000 (leap), 2004 (leap), 2100 (not leap)
+/** @name Unix epoch constants
+ * @{
  */
+#define EPOCH_YEAR	1970U /**< Unix epoch year (1970-01-01 00:00:00 UTC). */
+/** Weekday of epoch (0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat). */
+#define EPOCH_WDAY	4U
+/** @} */
+
+/****************************************************************************/
+/**
+ * @brief Checks if a year is a leap year using complete Gregorian calendar
+ * rules.
+ *
+ * - Divisible by 4: leap year.
+ * - Exception: Divisible by 100: not a leap year.
+ * - Exception to exception: Divisible by 400: leap year.
+ *
+ * Examples: 2000 (leap), 2004 (leap), 2100 (not leap).
+ *
+ * @param[in]	year Year to check.
+ *
+ * @return	1 if the year is a leap year, otherwise 0.
+ *
+ * @note	C-style signature:
+ *		int IS_LEAP_YEAR(u32 year)
+ *
+ *****************************************************************************/
 #define IS_LEAP_YEAR(year) \
 	(((year) % 4U == 0U) && (((year) % 100U != 0U) || ((year) % 400U == 0U)))
 
-#define XRTC_CALIBRATION_VALUE 0x7FFFU	/**< Calibration value */
-#define XRTC_TYPICAL_OSC_FREQ 32768U	/**< Oscillator frequency */
+/** @name Default calibration settings
+ * @{
+ */
+#define XRTC_CALIBRATION_VALUE 0x7FFFU	/**< Calibration value. */
+#define XRTC_TYPICAL_OSC_FREQ 32768U	/**< Oscillator frequency. */
+/** @} */
 
 /****************************************************************************/
 /**
  *
- * This macro updates the current time of RTC device.
+ * @brief Updates the current time of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
- * @param	Time is the desired time for RTC in seconds.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
+ * @param[in]	Time Desired time for RTC in seconds.
  *
- * @return	None.
- *
- * @note	C-Style signature:
- *		void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
+ * @note	C-style signature:
+ *		void XRtcPsu_WriteSetTime(XRtcPsu *InstancePtr, u32 Time)
  *
  *****************************************************************************/
 #define XRtcPsu_WriteSetTime(InstancePtr, Time) \
@@ -254,14 +282,15 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro returns the last set time of RTC device. Whenever a reset
- * happens, the last set time will be zeroth day first sec.
+ * @brief Returns the last set time of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * Whenever a reset happens, the last set time is the zeroth day first sec.
+ *
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
  *
  * @return	The last set time in seconds.
  *
- * @note		C-Style signature:
+ * @note	C-style signature:
  *		u32 XRtcPsu_GetLastSetTime(XRtcPsu  *InstancePtr)
  *
  *****************************************************************************/
@@ -272,13 +301,13 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro returns the calibration value of RTC device.
+ * @brief Returns the calibration value of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
  *
  * @return	Calibration value for RTC.
  *
- * @note	C-Style signature:
+ * @note	C-style signature:
  *		u32 XRtcPsu_GetCalibration(XRtcPsu  *InstancePtr)
  *
  *****************************************************************************/
@@ -288,13 +317,13 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro returns the current time of RTC device.
+ * @brief Returns the current time of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
  *
- * @return	Current Time. This current time will be in seconds.
+ * @return	Current Time. This current time is in seconds.
  *
- * @note	C-Style signature:
+ * @note	C-style signature:
  *		u32 XRtcPsu_ReadCurrentTime(XRtcPsu  *InstancePtr)
  *
  *****************************************************************************/
@@ -304,16 +333,14 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro sets the control register value of RTC device.
+ * @brief Sets the control register value of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
- * @param	Value is the desired control register value for RTC.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
+ * @param[in]	Value Desired control register value for RTC.
  *
- * @return	None.
- *
- * @note	C-Style signature:
- *		void XRtcPsu_SetControlRegister(XRtcPsu  *InstancePtr,
- *					u32 Value)
+ * @note	C-style signature:
+ *		void
+ *		XRtcPsu_SetControlRegister(XRtcPsu *InstancePtr, u32 Value)
  *
  *****************************************************************************/
 #define XRtcPsu_SetControlRegister(InstancePtr, Value) \
@@ -323,13 +350,13 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro returns the safety check register value of RTC device.
+ * @brief Returns the safety check register value of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
  *
  * @return	Safety check register value.
  *
- * @note	C-Style signature:
+ * @note	C-style signature:
  *		u32 XRtcPsu_GetSafetyCheck(XRtcPsu  *InstancePtr)
  *
  *****************************************************************************/
@@ -339,14 +366,12 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro sets the safety check register value of RTC device
+ * @brief Sets the safety check register value of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
- * @param	Value is a safety check value to be written in register.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
+ * @param[in]	Value Safety check value to be written in register.
  *
- * @return	None.
- *
- * @note	C-Style signature:
+ * @note	C-style signature:
  *		void XRtcPsu_SetSafetyCheck(XRtcPsu  *InstancePtr, u32 Value)
  *
  *****************************************************************************/
@@ -357,14 +382,12 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro resets the alarm register
+ * @brief Resets the alarm register.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
  *
- * @return	None.
- *
- * @note		C-Style signature:
- *		u32 XRtcPsu_ResetAlarm(XRtcPsu  *InstancePtr)
+ * @note	C-style signature:
+ *		void XRtcPsu_ResetAlarm(XRtcPsu *InstancePtr)
  *
  *****************************************************************************/
 #define XRtcPsu_ResetAlarm(InstancePtr) \
@@ -374,13 +397,13 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
 /****************************************************************************/
 /**
  *
- * This macro rounds off the given number
+ * @brief Rounds off the given number.
  *
- * @param	Number is the one that needs to be rounded off..
+ * @param[in]	Number Number that needs to be rounded off.
  *
  * @return	The rounded off value of the input number.
  *
- * @note		C-Style signature:
+ * @note	C-style signature:
  *		u32 XRtcPsu_RoundOff(float Number)
  *
  *****************************************************************************/
@@ -425,5 +448,6 @@ XRtcPsu_Config *XRtcPsu_LookupConfig(UINTPTR BaseAddress);
 }
 #endif
 
-#endif /* XRTC_H_ */
 /** @} */
+
+#endif /* XRTC_H_ */

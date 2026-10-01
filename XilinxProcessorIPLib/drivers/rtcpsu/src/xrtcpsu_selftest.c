@@ -8,8 +8,7 @@
 /**
 *
 * @file xrtcpsu_selftest.c
-* @addtogroup rtcpsu Overview
-* @{
+* @brief Implements the self-test function of the XRtcPsu driver.
 *
 * This file contains the self-test functions for the XRtcPsu driver.
 *
@@ -27,9 +26,14 @@
 *                       Literal value requires a U suffix,Casting operation to a pointer
 *                       Array has no bounds specified,Logical conjunctions need brackets.
 * 1.17  vlt    01/30/26 Fixed codespell errors.
+* 1.18  vn     09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup rtcpsu Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -54,17 +58,18 @@
 /****************************************************************************/
 /**
 *
-* This function runs a self-test on the driver and hardware device. This self
-* test writes reset value into safety check register and read backs the same.
-* If mismatch offers, returns the failure.
+* @brief Runs a self-test on the driver and hardware device.
 *
-* @param	InstancePtr is a pointer to the XRtcPsu instance
+* This self-test writes the reset value into the safety check register and
+* reads back the same. If a mismatch occurs, it returns failure.
+*
+* @param[in]	InstancePtr Pointer to the XRtcPsu instance.
 *
 * @return
-*		 - XST_SUCCESS if the test was successful
+*		- XST_SUCCESS if the test was successful.
+*		- XST_FAILURE if the read-back value does not match.
 *
 * @note
-*
 * This function can hang if the hardware is not functioning properly.
 *
 ******************************************************************************/

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xrtcpsu_g.c
-* @addtogroup rtcpsu Overview
-* @{
+* @brief Provides the configuration table for RTC PS devices.
 *
 * This file contains a configuration table that specifies the configuration
 * of CAN devices in the system.
@@ -20,9 +19,14 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -------------------------------------------------------
 * 1.00  kvn  04/21/15 First release.
+* 1.18  vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup rtcpsu Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -44,7 +48,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for RTC device
+ * @brief Holds the configuration information for the RTC device
  * in the system.
  */
 XRtcPsu_Config XRtcPsu_ConfigTable[XPAR_XRTCPSU_NUM_INSTANCES] = {

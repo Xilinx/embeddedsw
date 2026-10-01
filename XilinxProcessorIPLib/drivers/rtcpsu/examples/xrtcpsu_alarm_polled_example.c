@@ -8,6 +8,7 @@
 /**
 *
 * @file     xrtcpsu_alarm_polled_example.c
+* @brief Demonstrates the XRtcPsu alarm feature in polled mode.
 *
 * This file contains an example using the XRtcPsu driver in polled mode.
 *
@@ -16,14 +17,15 @@
 * @note
 * If the device does not work properly, the example may hang.
 *
-* MODIFICATION HISTORY:
 * <pre>
+* MODIFICATION HISTORY:
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
 * 1.13  ht  06/21/23 Added support for system device-tree flow.
 * 1.17  vlt    12/16/25 Update Doxygen comments to include SDT flow details.
 * 1.17  ht  01/19/26 Fix the printf comment to use EPOCH time as reference.
+* 1.18  vn  09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 ******************************************************************************/
@@ -42,13 +44,14 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** RTC device ID. */
 #define RTC_DEVICE_ID              XPAR_XRTCPSU_0_DEVICE_ID
 #endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define ALARM_PERIOD 10U
+#define ALARM_PERIOD 10U /**< Alarm period in seconds. */
 
 /************************** Function Prototypes ******************************/
 #ifndef SDT
@@ -59,17 +62,14 @@ int RtcPsuAlarmPolledExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XRtcPsu Rtc_Psu;		/* Instance of the RTC Device */
+XRtcPsu Rtc_Psu;		/**< Instance of the RTC Device. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Rtc Alarm Polled mode example.
+* @brief Calls the RTC Alarm Polled mode example.
 *
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE
-*
-* @note		None
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -99,22 +99,22 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal Alarm test on the XRtcPsu device in polled mode.
+* @brief Runs a minimal Alarm test on the XRtcPsu device in polled mode.
 *
 * This function sets one time alarm from the current time to a specified time.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique device id from hardware build.
+* @param[in]	DeviceId Unique device ID from hardware build.
 * @endif
 *
-* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful
+* @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
-* @note       - In XSCT/classic flow, DeviceId is used to look up the device
-*             configuration.
-*             - This function polls the RTC, it may hang if the hardware is
-*             not working correctly.
+* @note         - In XSCT/classic flow, the driver uses DeviceId to look up the
+*		  device configuration.
+*		- This function polls the RTC, so it may hang if the hardware
+*		  is not working correctly.
 *
 ****************************************************************************/
 #ifndef SDT

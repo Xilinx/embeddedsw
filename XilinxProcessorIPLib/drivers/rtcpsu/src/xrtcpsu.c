@@ -8,14 +8,10 @@
 /**
  *
  * @file xrtcpsu.c
- * @addtogroup rtcpsu Overview
- * @{
+ * @brief Implements the core functions of the XRtcPsu RTC driver.
  *
  * Functions in this file are the minimum required functions for the XRtcPsu
  * driver. See xrtcpsu.h for a detailed description of the driver.
- *
- * @note	None.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -49,9 +45,14 @@
  * 1.17  ht	01/19/26 Modify XRtcPsu_SecToDateTime, XRtcPsu_DateTimeToSec to
  *                       use 1970-01-01 as reference.
  * 1.18  vn     07/30/26 Fix Doxygen warnings
+ * 1.18  vn     09/30/26 Align Doxygen comments with AMD standards
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup rtcpsu Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -66,6 +67,7 @@
 
 /************************** Variable Definitions *****************************/
 
+/** Number of days in each month of a non-leap year. */
 static const u32 DaysInMonth[] = {31, 28, 31, 30, 31,
 				  30, 31, 31, 30, 31, 30, 31
 				 };
@@ -77,22 +79,21 @@ static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event);
 /*****************************************************************************/
 /**
  *
- * This function initializes a XRtcPsu instance/driver.
+ * @brief Initializes an XRtcPsu instance/driver.
  *
  * The initialization entails:
  * - Initialize all members of the XRtcPsu structure.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
- * @param	ConfigPtr points to the XRtcPsu device configuration structure.
- * @param	EffectiveAddr is the device base address in the virtual memory
- *		address space. If the address translation is not used then the
- *		physical address is passed.
- *		Unexpected errors may occur if the address mapping is changed
- *		after this function is invoked.
+ * @param[in,out] InstancePtr Pointer to the XRtcPsu instance.
+ * @param[in]     ConfigPtr Pointer to the XRtcPsu device configuration
+ *		  structure.
+ * @param[in]     EffectiveAddr Device base address in the virtual memory
+ *		  address space. If the address translation is not used,
+ *		  the physical address is passed.
+ *		  Unexpected errors may occur if the address mapping is
+ *		  changed after this function is invoked.
  *
- * @return	XST_SUCCESS always.
- *
- * @note		None.
+ * @return        XST_SUCCESS in all cases.
  *
  ******************************************************************************/
 s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
@@ -162,16 +163,13 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 /****************************************************************************/
 /**
  *
- * This function is a stub handler that is the default handler such that if the
- * application has not set the handler when interrupts are enabled, this
- * function will be called.
+ * @brief Acts as the default stub handler for the driver.
  *
- * @param	CallBackRef is unused by this function.
- * @param	Event is unused by this function.
+ * If the application has not set the handler when interrupts are enabled,
+ * the driver calls this function.
  *
- * @return	None.
- *
- * @note		None.
+ * @param[in]	CallBackRef Unused by this function.
+ * @param[in]	Event Unused by this function.
  *
  *****************************************************************************/
 static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
@@ -187,12 +185,10 @@ static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
 /****************************************************************************/
 /**
  *
- * This function sets the RTC time by writing into rtc write register.
+ * @brief Sets the RTC time by writing into the RTC write register.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
- * @param	Time that should be updated into RTC write register.
- *
- * @note		None.
+ * @param[in,out] InstancePtr Pointer to the XRtcPsu instance.
+ * @param[in]     Time Time to be updated into the RTC write register.
  *
  *****************************************************************************/
 void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
@@ -213,13 +209,11 @@ void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
 /****************************************************************************/
 /**
  *
- * This function gets the current RTC time.
+ * @brief Returns the current RTC time.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * @param[in,out] InstancePtr Pointer to the XRtcPsu instance.
  *
- * @return	RTC Current time.
- *
- * @note		None.
+ * @return        RTC current time.
  *
  *****************************************************************************/
 u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
@@ -270,14 +264,12 @@ u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 /****************************************************************************/
 /**
  *
- * This function sets the alarm value of RTC device.
+ * @brief Sets the alarm value of the RTC device.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance
- * @param	Alarm is the desired alarm time for RTC.
- * @param	Periodic says whether the alarm need to set at periodic
- *		Intervals or a one-time alarm.
- *
- * @note		None.
+ * @param[in,out] InstancePtr Pointer to the XRtcPsu instance.
+ * @param[in]     Alarm Desired alarm time for RTC.
+ * @param[in]     Periodic Indicates whether the alarm is set at periodic
+ *		  intervals or as a one-time alarm.
  *
  *****************************************************************************/
 void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
@@ -300,24 +292,25 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
 /****************************************************************************/
 /**
  *
- * This function translates time in seconds to a YEAR:MON:DAY HR:MIN:SEC
- * format and saves it in the DT structure variable.
- * It also reports the weekday.
+ * @brief Translates time in seconds to a YEAR:MON:DAY HR:MIN:SEC format.
  *
- * @param	Seconds is the time value that has to be shown in DateTime
+ * Saves the translated time in the DT structure variable. It also reports
+ * the weekday.
+ *
+ * @param[in]	Seconds Time value that has to be shown in DateTime
  *		format.
- * @param	dt is the DateTime format variable that stores the translated
+ * @param[out]	dt DateTime format variable that stores the translated
  *		time.
  *
  * @note	This API uses Unix epoch (1970-01-01 00:00:00 UTC) as reference.
- *		Supports years from 1970 to 2106 (unsigned 32-bit limit).
- *
+ *		It supports years from 1970 to 2106 (unsigned 32-bit limit).
+ *		<br><br>
  *		WEEKDAY CONVENTION:
  *		WeekDay field follows POSIX standard:
- *		  0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday,
- *		  4=Thursday, 5=Friday, 6=Saturday
+ *		0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday,
+ *		5=Friday, 6=Saturday.
  *		1970-01-01 (epoch) was Thursday, so WeekDay = 4.
- *
+ *		<br><br>
  *		For u32 input, overflow is impossible. Maximum timestamp
  *		(0xFFFFFFFF) correctly converts to 2106-02-07 06:28:15.
  *
@@ -378,10 +371,12 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 /****************************************************************************/
 /**
  *
- * This function translates time in YEAR:MON:DAY HR:MIN:SEC format to
- * seconds since Unix epoch (1970-01-01 00:00:00 UTC).
+ * @brief Translates time in YEAR:MON:DAY HR:MIN:SEC format to seconds.
  *
- * @param	dt is a pointer to a DateTime format structure variable
+ * The result is the number of seconds since Unix epoch
+ * (1970-01-01 00:00:00 UTC).
+ *
+ * @param[in]	dt Pointer to a DateTime format structure variable
  *		of time that has to be converted to seconds.
  *
  * @return	Seconds value since Unix epoch (1970-01-01).
@@ -434,27 +429,27 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 /****************************************************************************/
 /**
  *
- * This function calculates the calibration value depending on the actual
- * realworld time and also helps in deriving new calibration value if
- * the user wishes to change his oscillator frequency. TimeReal should be
- * the accurate reference time in seconds since Unix epoch (1970-01-01
- * 00:00:00 UTC). This matches standard internet time sources (NTP, GPS, etc.)
- * and can be used directly without conversion.
+ * @brief Calculates the calibration value depending on the actual real-world
+ * time.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
- * @param	TimeReal is the actual realworld time in seconds since Unix
- *		epoch (1970-01-01). This can be obtained from network time
- *		protocols (NTP) or other accurate time sources. The value
- *		must be greater than the RTC's current time for calibration
- *		to work correctly.
+ * It also helps in deriving a new calibration value if the application
+ * changes the oscillator frequency. TimeReal must be the accurate reference
+ * time in seconds since Unix epoch (1970-01-01 00:00:00 UTC). This matches
+ * standard internet time sources (NTP, GPS, and so on) and can be used
+ * directly without conversion.
  *
- * @param	CrystalOscFreq is the Oscillator new frequency.
- *		If using the typical 32768Hz crystal, then input
- *		the same frequency value.
+ * @param[in,out] InstancePtr Pointer to the XRtcPsu instance.
+ * @param[in]     TimeReal Actual real-world time in seconds since Unix
+ *		  epoch (1970-01-01). You can obtain it from network time
+ *		  protocols (NTP) or other accurate time sources. The
+ *		  value must be greater than the current time of the RTC for
+ *		  calibration to work correctly.
+ * @param[in]     CrystalOscFreq New oscillator frequency. If using the
+ *		  typical 32768Hz crystal, input the same frequency value.
  *
- * @note	After calculating the calibration register value,
- *		user / application must call CfgInitialize API again
- *		to apply the new calibration into effect.
+ * @note          After calculating the calibration register value, the
+ *		  application must call the CfgInitialize API again to apply
+ *		  the new calibration into effect.
  *
  *****************************************************************************/
 void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
@@ -510,15 +505,17 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr, u32 TimeReal,
 /****************************************************************************/
 /**
  *
- * This function returns the seconds event status by reading
- * interrupt status register.
+ * @brief Returns the seconds event status by reading the interrupt status
+ * register.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
  *
- * @return	Returns 1 if a new second event is generated.Else 0..
+ * @return
+ *		- 1 if a new second event is generated.
+ *		- 0 otherwise.
  *
- * @note		This API is used in polled mode operation of RTC.
- *			This also clears interrupt status seconds bit.
+ * @note	Use this API in polled mode operation of RTC.
+ *		This also clears the interrupt status seconds bit.
  *
  *****************************************************************************/
 u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
@@ -541,15 +538,17 @@ u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr)
 /****************************************************************************/
 /**
  *
- * This function returns the alarm event status by reading
- * interrupt status register.
+ * @brief Returns the alarm event status by reading the interrupt status
+ * register.
  *
- * @param	InstancePtr is a pointer to the XRtcPsu instance.
+ * @param[in]	InstancePtr Pointer to the XRtcPsu instance.
  *
- * @return	Returns 1 if the alarm event is generated.Else 0.
+ * @return
+ *		- 1 if the alarm event is generated.
+ *		- 0 otherwise.
  *
- * @note	This API is used in polled mode operation of RTC.
- *		This also clears interrupt status alarm bit.
+ * @note	Use this API in polled mode operation of RTC.
+ *		This also clears the interrupt status alarm bit.
  *
  *****************************************************************************/
 u32 XRtcPsu_IsAlarmEventGenerated(XRtcPsu *InstancePtr)
