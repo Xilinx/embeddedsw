@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -83,7 +83,7 @@ done:
  ****************************************************************************/
 XStatus XPm_CCIXEnEvent(u32 PowerId)
 {
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	XStatus Status = XST_FAILURE;
 	const XPm_CpmDomain *Cpm;
 	u32 RegAddr;
@@ -149,7 +149,7 @@ done:
 XStatus XPm_DirectPwrUp(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	Payload[0] = PSM_API_DIRECT_PWR_UP;
 	Payload[1] = DeviceId;
@@ -180,7 +180,7 @@ done:
 XStatus XPm_DirectPwrDwn(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 
 	Payload[0] = PSM_API_DIRECT_PWR_DWN;
 	Payload[1] = DeviceId;
