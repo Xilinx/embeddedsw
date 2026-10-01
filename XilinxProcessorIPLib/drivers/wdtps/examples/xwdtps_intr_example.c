@@ -28,6 +28,7 @@
 * 3.6	sb	   06/27/23 Added support for system device-tree flow.
 * 3.9   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 3.10  vn     09/30/26 Align Doxygen comments with AMD standards
+* 3.10  vn     10/01/26 Fix GCC Warnings
 *
 * </pre>
 *
@@ -490,6 +491,8 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 ******************************************************************************/
 static void WdtIntrHandler(void *CallBackRef)
 {
+	(void)CallBackRef;
+
 	/*
 	 * WDT timed out and interrupt occurred, let main test loop know.
 	 */
