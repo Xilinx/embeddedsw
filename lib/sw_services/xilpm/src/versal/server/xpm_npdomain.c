@@ -27,7 +27,8 @@
  * Bounds used by XPmNpDomain_MemIcInit() to validate node type vs. index:
  *  - NMU (type 0x0): [0x00–0x35] and [0x68–0x93]
  *  - NSU (type 0x1): [0x36–0x67] and [0x94–0x9B]
- *  - NPS (type 0x2): [0x9C–0x102]
+ *  - NPS (type 0x2): [0x9C–0x130]
+ *  - XBR4X2 (type 0x3): [0x131–0x138]
  * @{
  */
 #define XPM_NODEIDX_MONITOR_SYSMON_NPD_MIN	XPM_NODEIDX_MONITOR_SYSMON_NPD_0
@@ -39,6 +40,8 @@
 #define XPM_NODEIDX_MEMIC_NMU_MIN2		XPM_NODEIDX_MEMIC_NMU_54   /**< NMU range #2: inclusive min (0x68) */
 #define XPM_NODEIDX_MEMIC_NMU_MAX2		XPM_NODEIDX_MEMIC_NMU_97   /**< NMU range #2: inclusive max (0x93) */
 #define XPM_NODEIDX_MEMIC_NPS_MIN		XPM_NODEIDX_MEMIC_NPS_0    /**< NPS range: inclusive min (0x9C) */
+#define XPM_NODEIDX_MEMIC_NPS_MAX		XPM_NODEIDX_MEMIC_NPS_148  /**< NPS range: inclusive max (0x130) */
+#define XPM_NODEIDX_MEMIC_XBR4X2_MIN		XPM_NODEIDX_MEMIC_XBR4X2_0 /**< XBR4X2 range: inclusive min (0x131) */
 /** @} */
 
 static u32 IsCrypto = 0U;
@@ -244,6 +247,8 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 */
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
 			if ( (0U == NpdMemIcAddresses[i]) || (((u32)XPM_NODETYPE_MEMIC_NPS) ==
+				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT)) ||
+				(((u32)XPM_NODETYPE_MEMIC_XBR4X2) ==
 				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 				continue;
 			}
@@ -354,6 +359,9 @@ static void Clear_ScanClearErr(void){
 		 } else if(Type == (u32)XPM_NODETYPE_MEMIC_NPS) {
 			XPm_RMW32(MemIcAddr + NOC2_NPS_0_REG_ISR_OFFSET,
 					NOC2_NPS_0_REG_ISR_SCAN_CLR_MASK, NOC2_NPS_0_REG_ISR_SCAN_CLR_MASK);
+		} else if(Type == (u32)XPM_NODETYPE_MEMIC_XBR4X2) {
+			XPm_RMW32(MemIcAddr + NOC2_XBR4X2_0_REG_ISR_OFFSET,
+					NOC2_XBR4X2_0_REG_ISR_SCAN_CLR_ERR_MASK, NOC2_XBR4X2_0_REG_ISR_SCAN_CLR_ERR_MASK);
 		} else {
 			/* to avoid MISRA violation */
 		}
@@ -543,7 +551,8 @@ static void TriggerMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLen
 		    (((u32)XPM_NODEIDX_MEMIC_NSU_MIN2 <= i) &&
 		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX2 >= i)) ||
 		    (0U == NpdMemIcAddresses[i]) ||
-			(((u32)XPM_NODETYPE_MEMIC_NPS) == ((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
+			(((u32)XPM_NODETYPE_MEMIC_NPS) == ((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT)) ||
+			(((u32)XPM_NODETYPE_MEMIC_XBR4X2) == ((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 			continue;
 		}
 		MemIcAddr = NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK;
@@ -579,6 +588,8 @@ static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrL
 	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
 		/*TODO: Recognise NPS nodes using node type from node structure*/
 		if ((0U == NpdMemIcAddresses[i]) || (((u32)XPM_NODETYPE_MEMIC_NPS) ==
+				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT)) ||
+				(((u32)XPM_NODETYPE_MEMIC_XBR4X2) ==
 				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 			continue;
 		}
@@ -629,6 +640,8 @@ static XStatus IsMemClearPass(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
 		/*TODO: Recognise NPS nodes using node type from node structure*/
 		if ((0U == NpdMemIcAddresses[i]) || (((u32)XPM_NODETYPE_MEMIC_NPS) ==
+				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT)) ||
+				(((u32)XPM_NODETYPE_MEMIC_XBR4X2) ==
 				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 			continue;
 		}
@@ -1005,7 +1018,8 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	/* Validate the valid MEMIC types and index is within overall MEMIC bounds */
 	if ((((u32)XPM_NODETYPE_MEMIC_SLAVE != Type) &&
 	    ((u32)XPM_NODETYPE_MEMIC_MASTER != Type) &&
-	    ((u32)XPM_NODETYPE_MEMIC_NPS != Type)) ||
+	    ((u32)XPM_NODETYPE_MEMIC_NPS != Type) &&
+	    ((u32)XPM_NODETYPE_MEMIC_XBR4X2 != Type)) ||
 	    ((u32)XPM_NODEIDX_MEMIC_MAX <= Idx)) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
@@ -1027,13 +1041,20 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 			goto done;
 		}
 	} else if ((u32)XPM_NODETYPE_MEMIC_NPS == Type) {
+		/* NPS nodes: single contiguous range 0x9C to 0x130. */
+		if ((Idx < (u32)XPM_NODEIDX_MEMIC_NPS_MIN) ||
+		    (Idx > (u32)XPM_NODEIDX_MEMIC_NPS_MAX)) {
+			DbgErr = XPM_INT_ERR_INVALID_PARAM;
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+	} else if ((u32)XPM_NODETYPE_MEMIC_XBR4X2 == Type) {
 		/*
-		 * NPS nodes: single contiguous range 0x9C to 0x102.
-		 * Upper bound is not checked here because the entry guard
-		 * already ensures Idx < XPM_NODEIDX_MEMIC_MAX (0x103),
-		 * and the last NPS index (0x102) is MEMIC_MAX - 1.
+		 * XBR4X2 nodes: single contiguous range 0x131 to 0x138.
+		 * Upper bound is covered by the entry guard
+		 * (Idx < XPM_NODEIDX_MEMIC_MAX).
 		 */
-		if (Idx < (u32)XPM_NODEIDX_MEMIC_NPS_MIN) {
+		if (Idx < (u32)XPM_NODEIDX_MEMIC_XBR4X2_MIN) {
 			DbgErr = XPM_INT_ERR_INVALID_PARAM;
 			Status = XST_INVALID_PARAM;
 			goto done;
