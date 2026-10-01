@@ -8,17 +8,17 @@
 /**
 *
 * @file xcan_polled_example.c
+* @brief Demonstrates polled-mode use of the XCan driver.
 *
 * Contains an example of how to use the XCan driver directly. The example here
 * shows using the driver/device in polled mode.
 *
 * @note
-*
-* The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
-* are setup such that CAN baud rate equals 40Kbps, assuming that the
-* the CAN clock frequency is 24MHz. The user needs to modify these values
-* based on the desired baud rate and the CAN clock frequency. For more
-* information see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.
+* The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are set
+* up for a CAN baud rate of 40Kbps. This setting assumes a CAN clock frequency
+* of 24MHz. Modify these values based on the desired baud rate and the CAN clock
+* frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1
+* specifications.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,6 +37,7 @@
 * 3.12  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.13  vn   07/30/26 Fix Doxygen warnings
 * 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -54,21 +55,19 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define CAN_DEVICE_ID	XPAR_CAN_0_DEVICE_ID
+#define CAN_DEVICE_ID	XPAR_CAN_0_DEVICE_ID /**< Device ID. */
 #else
-#define XCAN_BASEADDRESS	XPAR_CAN_0_BASEADDR
+#define XCAN_BASEADDRESS	XPAR_CAN_0_BASEADDR /**< CAN base address. */
 #endif
 
-/*
+/**
  * Maximum CAN frame length in words.
  */
 #define XCAN_MAX_FRAME_SIZE_IN_WORDS (XCAN_MAX_FRAME_SIZE / sizeof(u32))
 
-#define FRAME_DATA_LENGTH 		8  /* Frame Data field length */
+#define FRAME_DATA_LENGTH 		8	/**< Frame Data field length. */
 
-/*
- * Message Id Constant.
- */
+/** Message Id Constant. */
 #define TEST_MESSAGE_ID			1024
 
 /*
@@ -78,11 +77,19 @@
  * based on the desired baud rate and the CAN clock frequency. For more
  * information see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.
  */
+/** @name Baud Rate Prescaler and Bit Timing Register values
+ * @{
+ */
+/** Baud Rate Prescaler Register (BRPR) value. */
 #define TEST_BRPR_BAUD_PRESCALAR	29
 
+/** Bit Timing Register (BTR) synchronization jump width. */
 #define TEST_BTR_SYNCJUMPWIDTH		3
+/** Bit Timing Register (BTR) second time segment. */
 #define TEST_BTR_SECOND_TIMESEGMENT	2
+/** Bit Timing Register (BTR) first time segment. */
 #define TEST_BTR_FIRST_TIMESEGMENT	15
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -108,12 +115,11 @@ static int RecvFrame(XCan *InstancePtr);
  * that they are not on the stack.
  * These buffers need to be 32-bit aligned
  */
-static u32 TxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS];
-static u32 RxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS];
+static u32 TxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS]; /**< Frame to send. */
+static u32 RxFrame[XCAN_MAX_FRAME_SIZE_IN_WORDS]; /**< Frame received. */
 
 #if !(defined (SDT) && defined (TESTAPP_GEN))
-/* Driver instance */
-static XCan Can;
+static XCan Can; /**< Driver instance. */
 #endif
 
 
@@ -162,19 +168,19 @@ int main(void)
 * frame, receives the same Can frame, and verifies the frame contents.
 *
 * @if SDT
-* @param[in]	CanPtr is a pointer to the XCan instance.
-* @param[in]	BaseAddress contains the base address of the device.
+* @param[in]    CanPtr Pointer to the XCan instance.
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param[in]	DeviceId is the XPAR_CAN_<instance_num>_DEVICE_ID value from
+* @param[in]    DeviceId XPAR_CAN_<instance_num>_DEVICE_ID value from
 *		xparameters.h.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise driver-specific error code.
 *
-* @note        - In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
-*              - If the device is not working correctly, this function may
-*              enter an infinite loop and will never return to the caller.
+* @note         - In XSCT/classic flow, DeviceId is used to look up the device
+*                 configuration.
+*               - If the device is not working correctly, this function may
+*                 enter an infinite loop and never returns to the caller.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -250,12 +256,11 @@ int XCanPolledExample(XCan *CanPtr, UINTPTR BaseAddress)
 *
 * @brief Sends a CAN frame.
 *
-* @param[in]	InstancePtr is a pointer to the driver instance.
+* @param[in]    InstancePtr Pointer to the driver instance.
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
 * @note
-*
 * This function waits until TX FIFO has room for at least one frame before
 * sending a frame. So this function may block if the hardware is not built
 * correctly.
@@ -303,12 +308,11 @@ static int SendFrame(XCan *InstancePtr)
 *
 * @brief Receives a CAN frame and verifies its contents.
 *
-* @param[in]	InstancePtr is a pointer to the driver instance.
+* @param[in]    InstancePtr Pointer to the driver instance.
 *
 * @return	XST_SUCCESS if successful, a driver-specific return code if not.
 *
 * @note
-*
 * This function waits until RX FIFO becomes not empty before reading a frame
 * from it. So this function may block if the hardware is not built
 * correctly.

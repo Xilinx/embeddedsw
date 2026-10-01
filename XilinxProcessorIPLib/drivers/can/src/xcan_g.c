@@ -8,8 +8,6 @@
 /**
 *
 * @file xcan_g.c
-* @addtogroup can Overview
-* @{
 * @brief Defines the CAN device configuration table.
 *
 * This file contains a configuration table that specifies the configuration
@@ -24,9 +22,14 @@
 * 1.10a mta  05/13/07 Updated to new coding style
 * 3.8   ht   12/13/23 Added support for ECC.
 * 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup can Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -48,8 +51,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each CAN device
- * in the system.
+ * @brief Holds configuration information for each CAN device in the system.
  */
 XCan_Config XCan_ConfigTable[XPAR_XCAN_NUM_INSTANCES] = {
 	{

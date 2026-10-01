@@ -4,8 +4,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-#ifndef XCAN_H			/* prevent circular inclusions */
-#define XCAN_H			/* by using protection macros */
+#ifndef XCAN_H
+#define XCAN_H
 
 /*****************************************************************************/
 /**
@@ -13,9 +13,11 @@
 * @file xcan.h
 * @addtogroup can Overview
 * @{
+* @brief Declares the driver API for the Xilinx CAN controller.
+*
 * @details
 *
-* The Xilinx CAN driver.  This driver supports the Xilinx CAN Controller.
+* The Xilinx CAN driver. This driver supports the Xilinx CAN Controller.
 *
 * The CAN Controller supports the following features:
 *   - Confirms to the ISO 11898-1, CAN 2.0A and CAN 2.0B standards.
@@ -38,37 +40,36 @@
 *
 * <b>Driver Description</b>
 *
-* The device driver enables higher layer software (for example, an application) to
-* communicate to the CAN. The driver handles transmission and reception of
+* The device driver enables higher layer software (for example, an application)
+* to communicate to the CAN. The driver handles transmission and reception of
 * CAN frames, as well as configuration of the controller. The driver is simply a
 * pass-through mechanism between a protocol stack and the CAN. A single device
 * driver can support multiple CANs.
 *
-* Since the driver is a simple pass-through mechanism between a protocol stack
-* and the CAN, no assembly or disassembly of CAN frames is done at the
-* driver-level. This assumes that the protocol stack passes a correctly
-* formatted CAN frame to the driver for transmission, and that the driver
-* does not validate the contents of an incoming frame
+* Because the driver is a simple pass-through mechanism between a protocol stack
+* and the CAN, it does no assembly or disassembly of CAN frames. The driver
+* assumes that the protocol stack passes a correctly formatted CAN frame to it
+* for transmission. The driver does not validate the contents of an incoming
+* frame.
 *
 * <b>Operation Modes</b>
 *
 * The CAN controller supports the following modes of operation:
 *   - <b>Configuration Mode</b>: In this mode the CAN timing parameters and
 *     Baud Rate Pre-scalar parameters can be changed. In this mode the CAN
-*     controller loses synchronization with the CAN bus and drives a
-*     constant recessive bit on the bus line. The Error Counter Register are
-*     reset. The CAN controller does not receive or transmit any messages even
-*     if there are pending transmit requests from the TX FIFO or the TX High
-*     Priority Buffer. the Storage FIFOs and the CAN configuration registers
-*     are still accessible.
+*     controller loses synchronization with the CAN bus and drives a constant
+*     recessive bit on the bus line. The Error Counter Register are reset. The
+*     CAN controller does not receive or transmit messages, even with pending
+*     transmit requests from the TX FIFO or the TX High Priority Buffer. The
+*     Storage FIFOs and the CAN configuration
+*     registers are still accessible.
 *   - <b>Normal Mode</b>:In Normal Mode the CAN controller participates in bus
 *     communication, by transmitting and receiving messages.
 *   - <b>Sleep Mode</b>: In Sleep Mode the CAN Controller does not transmit any
 *     messages. However, if any other node transmits a message, then the CAN
-*     Controller receives the transmitted message and exits from Sleep Mode.
-*     If there are new transmission requests from either the TX FIFO or the
-*     TX High Priority Buffer when the CAN Controller is in Sleep Mode, these
-*     requests are not serviced, and the CAN Controller continues to remain in
+*     Controller receives the transmitted message and exits from Sleep Mode. The
+*     CAN Controller does not service new transmission requests from the TX FIFO
+*     or the TX High Priority Buffer in Sleep Mode. The controller remains in
 *     Sleep Mode. Interrupts are generated when the CAN controller enters Sleep
 *     mode or Wakes up from Sleep mode.
 *   - <b>Loop Back Mode</b>: In Loop Back mode, the CAN controller transmits a
@@ -81,8 +82,7 @@
 *
 * <b>Buffer Alignment</b>
 *
-* It is important to note that frame buffers passed to the driver must be
-* 32-bit aligned.
+* Frame buffers passed to the driver must be 32-bit aligned.
 *
 * <b>Receive Address Filtering</b>
 *
@@ -92,7 +92,7 @@
 * The incoming Identifier is masked with the bits in the Acceptance Filter Mask
 * Register. This value is compared with the result of masking the bits in the
 * Acceptance Filter ID Register with the Acceptance Filter Mask Register. If
-* both these values are equal, the message will be stored in the RX FIFO.
+* both these values are equal, the message is stored in the RX FIFO.
 *
 * Acceptance Filtering is performed by each of the defined acceptance filters.
 * If the incoming identifier passes through any acceptance filter then the
@@ -105,26 +105,26 @@
 * <b>Interrupts</b>
 *
 * The driver has no dependencies on the interrupt controller. The driver
-* provides an interrupt handler. User of this driver needs to provide
-* callback functions. An interrupt handler example is available with
+* provides an interrupt handler. The application must provide callback
+* functions. An interrupt handler example is available with
 * the driver.
 *
 * <b>Virtual Memory</b>
 *
 * This driver supports Virtual Memory. The RTOS is responsible for calculating
-* the correct device base address in Virtual Memory space and invoking function
-* XCan_VmInitialize(), instead of XCan_Initialize(), to initialize the device
-* at first.
+* the correct device base address in Virtual Memory space. The RTOS then invokes
+* XCan_VmInitialize(), instead of XCan_Initialize(), to initialize the device at
+* first.
 *
 * <b>Threads</b>
 *
-* This driver is not thread safe.  Any needs for threads or thread mutual exclusion
-* must be satisfied by the layer above this driver.
+* This driver is not thread safe. Any needs for threads or thread mutual
+* exclusion must be satisfied by the layer above this driver.
 *
 * <b>Device Reset</b>
 *
 * Bus Off interrupt that can occur in the device requires a device reset. The
-* user is responsible for resetting the device and re-configuring it
+* application is responsible for resetting the device and re-configuring it
 * based on its needs (the driver does not save the current configuration). When
 * integrating into an RTOS, these reset and re-configure obligations are
 * taken care of by the OS adapter software if it exists for that RTOS.
@@ -132,9 +132,9 @@
 * <b>Device Configuration</b>
 *
 * The device can be configured in various ways during the FPGA implementation
-* process.  Configuration parameters are stored in the xcan_g.c files.
+* process. Configuration parameters are stored in the xcan_g.c files.
 * A table is defined where each entry contains configuration information
-* for a CAN device.  This information includes such things as the base address
+* for a CAN device. This information includes such things as the base address
 * of the memory-mapped device, and the number of acceptance filters.
 *
 * <b>Asserts</b>
@@ -142,11 +142,11 @@
 * Asserts are used within all Xilinx drivers to enforce constraints on argument
 * values. Asserts can be turned off on a system-wide basis by defining, at
 * compile time, the NDEBUG identifier. By default, asserts are turned on and it
-* is recommended that users leave asserts on during development.
+* is recommended that you leave asserts on during development.
 *
 * <b>Building the driver</b>
 *
-* The XCan driver is composed of several source files. This allows the user to
+* The XCan driver is composed of several source files. This allows you to
 * build and link only those parts of the driver that are necessary.
 * <br><br>
 *
@@ -180,6 +180,7 @@
 * 3.8   ht   12/13/23 Added support for ECC.
 * 3.12  vlt  12/30/25 Update Doxygen comments to include SDT flow details.
 * 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -198,19 +199,20 @@ extern "C" {
 /** @name CAN operation modes
  *  @{
  */
-#define XCAN_MODE_CONFIG	0x00000001 /**< Configuration mode */
-#define XCAN_MODE_NORMAL	0x00000002 /**< Normal mode */
-#define XCAN_MODE_LOOPBACK	0x00000004 /**< Loop Back mode */
-#define XCAN_MODE_SLEEP		0x00000008 /**< Sleep mode */
+#define XCAN_MODE_CONFIG	0x00000001 /**< Configuration mode. */
+#define XCAN_MODE_NORMAL	0x00000002 /**< Normal mode. */
+#define XCAN_MODE_LOOPBACK	0x00000004 /**< Loop Back mode. */
+#define XCAN_MODE_SLEEP		0x00000008 /**< Sleep mode. */
 /** @} */
 
 /** @name Callback identifiers used as parameters to XCan_SetHandler()
  *  @{
  */
-#define XCAN_HANDLER_SEND   1 /**< Handler type for frame sending interrupt */
-#define XCAN_HANDLER_RECV   2 /**< Handler type for frame reception interrupt */
-#define XCAN_HANDLER_ERROR  3 /**< Handler type for error interrupt */
-#define XCAN_HANDLER_EVENT  4 /**< Handler type for all other interrupts */
+#define XCAN_HANDLER_SEND   1 /**< Handler type for frame sending interrupt. */
+/** Handler type for frame reception interrupt. */
+#define XCAN_HANDLER_RECV   2
+#define XCAN_HANDLER_ERROR  3 /**< Handler type for error interrupt. */
+#define XCAN_HANDLER_EVENT  4 /**< Handler type for all other interrupts. */
 /** @} */
 
 /**************************** Type Definitions *******************************/
@@ -218,21 +220,23 @@ extern "C" {
 /**
  * @brief CAN device configuration structure.
  *
- * This typedef contains configuration information for a device.
+ * Holds configuration information for a device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID  of device */
+	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;		/**< Unique name of the device */
+	char *Name;		/**< Unique name of the device. */
 #endif
-	UINTPTR BaseAddress;	/**< Register base address */
-	u8 NumOfAcceptFilters;	/**< Number of Acceptance Filters */
+	UINTPTR BaseAddress;	/**< Register base address. */
+	u8 NumOfAcceptFilters;	/**< Number of Acceptance Filters. */
 #ifdef SDT
-	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u16 IntrId;		/**< Bits[11:0] Interrupt-id Bits[15:12] trigger
+				 * type and level flags. */
+	UINTPTR IntrParent;	/**< Bit[0] Interrupt parent type Bit[64/32:1]
+				 * Parent base address. */
 #endif
-	u8 EnableECC;		/**< ECC is enabled or disabled */
+	u8 EnableECC;		/**< ECC is enabled or disabled. */
 } XCan_Config;
 
 /******************************************************************************/
@@ -240,7 +244,7 @@ typedef struct {
 *
 * @brief Callback type for frame sending and reception interrupts.
 *
-* @param[in]	CallBackRef is a callback reference passed in by the upper layer
+* @param[in]    CallBackRef Callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
 *
@@ -252,12 +256,12 @@ typedef void (*XCan_SendRecvHandler) (void *CallBackRef);
 *
 * @brief Callback type for error interrupt.
 *
-* @param[in]	CallBackRef is a callback reference passed in by the upper layer
+* @param[in]    CallBackRef Callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
-* @param[in]	ErrorMask is a bit mask indicating the cause of the error. Its
-*		value equals 'OR'ing one or more XCAN_ESR_* values defined in
-*		xcan_l.h
+* @param[in]    ErrorMask Bit mask indicating the cause of the error. Its
+*               value equals the bitwise OR of one or more XCAN_ESR_*
+*               values defined in xcan_l.h.
 *
 ******************************************************************************/
 typedef void (*XCan_ErrorHandler) (void *CallBackRef, u32 ErrorMask);
@@ -270,11 +274,12 @@ typedef void (*XCan_ErrorHandler) (void *CallBackRef, u32 ErrorMask);
 * Callback type for all kinds of interrupts except sending frame interrupt,
 * receiving frame interrupt, and error interrupt.
 *
-* @param[in]	CallBackRef is a callback reference passed in by the upper layer
+* @param[in]    CallBackRef Callback reference passed in by the upper layer
 *		when setting the callback functions, and passed back to the
 *		upper layer when the callback is invoked.
-* @param[in]	Mask is a bit mask indicating the pending interrupts. Its value
-*		equals 'OR'ing one or more XCAN_IXR_* defined in xcan_l.h
+* @param[in]    Mask Bit mask indicating the pending interrupts. Its value
+*               equals the bitwise OR of one or more XCAN_IXR_* defined in
+*               xcan_l.h.
 *
 ******************************************************************************/
 typedef void (*XCan_EventHandler) (void *CallBackRef, u32 Mask);
@@ -282,60 +287,53 @@ typedef void (*XCan_EventHandler) (void *CallBackRef, u32 Mask);
 /**
  * @brief CAN driver instance data structure.
  *
- * The XCan driver instance data. The user is required to allocate a
+ * The XCan driver instance data. The application must allocate a
  * variable of this type for every CAN device in the system. A pointer
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	UINTPTR BaseAddress;	/**< Device Base address */
-	u32 IsReady;		/**< Device is initialized and ready */
-	u8 NumOfAcceptFilters;  /**< Number of Acceptance Filters */
+	UINTPTR BaseAddress;		/**< Device Base address. */
+	u32 IsReady;			/**< Device is initialized and ready. */
+	u8 NumOfAcceptFilters;		/**< Number of Acceptance Filters. */
 
-	u8 EnableECC;		/**< ECC is enabled or disabled */
+	u8 EnableECC;			/**< ECC is enabled or disabled. */
 
-	/**< Callback for TXOK interrupt */
 	XCan_SendRecvHandler SendHandler;
+					/**< Callback for TXOK interrupt. */
 
-	/**< This will be passed to the TXOK interrupt callback */
-	void *SendRef;
+	void *SendRef;			/**< Reference passed to the TXOK
+					 * interrupt callback. */
 
-	/**< Callback for RXOK/RXNEMP interrupts */
 	XCan_SendRecvHandler RecvHandler;
+					/**< Callback for RXOK/RXNEMP
+					 * interrupts. */
 
-	/**< This will be passed to the RXOK/RXNEMP interrupt callback */
-	void *RecvRef;
+	void *RecvRef;			/**< Reference passed to the RXOK/RXNEMP
+					 * interrupt callback. */
 
-	/**< Callback for ERROR interrupt */
-	XCan_ErrorHandler ErrorHandler;
+	XCan_ErrorHandler ErrorHandler;	/**< Callback for ERROR interrupt. */
 
-	/**< This will be passed to the ERROR interrupt callback */
-	void *ErrorRef;
+	void *ErrorRef;			/**< Reference passed to the ERROR
+					 * interrupt callback. */
 
-	/**< Callback for RXOFLW/RXUFLW/TXBFLL/TXFLL/Wakeup/Sleep/Bus off/ARBLST
-	 *  interrupts
-	 */
-	XCan_EventHandler EventHandler;
+	XCan_EventHandler EventHandler;	/**< Callback for RXOFLW/RXUFLW/TXBFLL/
+					 * TXFLL/Wakeup/Sleep/Bus off/ARBLST
+					 * interrupts. */
 
-	/**< This will be passed to the EventHandler callback */
-	void *EventRef;
+	void *EventRef;			/**< Reference passed to the
+					 * EventHandler callback. */
 
-	/**< TXTLFIFO 2bit ECC count */
-	u64 ecc_2bit_txtlfifo_cnt;
+	u64 ecc_2bit_txtlfifo_cnt;	/**< TXTLFIFO 2bit ECC count. */
 
-	/**< TXTLFIFO 1bit ECC count */
-	u64 ecc_1bit_txtlfifo_cnt;
+	u64 ecc_1bit_txtlfifo_cnt;	/**< TXTLFIFO 1bit ECC count. */
 
-	/**< TXOLFIFO 2bit ECC count */
-	u64 ecc_2bit_txolfifo_cnt;
+	u64 ecc_2bit_txolfifo_cnt;	/**< TXOLFIFO 2bit ECC count. */
 
-	/**< TXOLFIFO 1bit ECC count */
-	u64 ecc_1bit_txolfifo_cnt;
+	u64 ecc_1bit_txolfifo_cnt;	/**< TXOLFIFO 1bit ECC count. */
 
-	/**< RXFIFO 2bit ECC count */
-	u64 ecc_2bit_rxfifo_cnt;
+	u64 ecc_2bit_rxfifo_cnt;	/**< RXFIFO 2bit ECC count. */
 
-	/**< RXFIFO 1bit ECC count */
-	u64 ecc_1bit_rxfifo_cnt;
+	u64 ecc_1bit_rxfifo_cnt;	/**< RXFIFO 1bit ECC count. */
 } XCan;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -345,7 +343,7 @@ typedef struct {
 *
 * @brief Checks if the transmission is complete.
 *
-* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if the transmission is done (completed).
@@ -365,7 +363,7 @@ typedef struct {
 *
 * @brief Checks if the transmission FIFO is full.
 *
-* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if TX FIFO is full.
@@ -385,7 +383,7 @@ typedef struct {
 *
 * @brief Checks if the Transmission High Priority Buffer is full.
 *
-* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if TX High Priority Buffer is full.
@@ -405,7 +403,7 @@ typedef struct {
 *
 * @brief Checks if the receive FIFO is empty.
 *
-* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if RX FIFO is empty.
@@ -432,13 +430,13 @@ typedef struct {
 * AFIR and AFMR for a filter are changeable only after the filter is disabled
 * and this routine returns FALSE.
 *
-* @param[in]	InstancePtr is a pointer to the XCan instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCan instance to be worked on.
 *
 * @return
 *		- TRUE if the device is busy and NOT ready to accept writes to
-*		AFIR and AFMR.
+*                 AFIR and AFMR.
 *		- FALSE if the device is ready to accept writes to AFIR and
-*		AFMR.
+*                 AFMR.
 *
 * @note		C-Style signature:
 *		int XCan_IsAcceptFilterBusy(XCan *InstancePtr);
@@ -454,12 +452,12 @@ typedef struct {
 *
 * @brief Calculates CAN message identifier value given identifier field values.
 *
-* @param[in]	StandardId contains Standard Message ID value.
-* @param[in]	SubRemoteTransReq contains Substitute Remote Transmission
+* @param[in]    StandardId Contains Standard Message ID value.
+* @param[in]    SubRemoteTransReq Contains Substitute Remote Transmission
 *		Request value.
-* @param[in]	IdExtension contains Identifier Extension value.
-* @param[in]	ExtendedId contains Extended Message ID value.
-* @param[in]	RemoteTransReq contains Remote Transmission Request value.
+* @param[in]    IdExtension Contains Identifier Extension value.
+* @param[in]    ExtendedId Contains Extended Message ID value.
+* @param[in]    RemoteTransReq Contains Remote Transmission Request value.
 *
 * @return	Message Identifier value.
 *
@@ -467,7 +465,7 @@ typedef struct {
 *		u32 XCan_CreateIdValue(u32 StandardId, u32 SubRemoteTransReq,
 *					u32 IdExtension, u32 ExtendedId,
 *					u32 RemoteTransReq);
-*
+*               <br><br>
 * 		Read the CAN specification for meaning of each parameter.
 *
 *****************************************************************************/
@@ -484,13 +482,13 @@ typedef struct {
 *
 * @brief Calculates value for Data Length Code register.
 *
-* @param[in]	DataLengCode indicates Data Length Code value.
+* @param[in]    DataLengCode Indicates Data Length Code value.
 *
 * @return	Value that can be assigned to Data Length Code register.
 *
 * @note		C-Style signature:
 *		u32 XCan_CreateDlcValue(u32 DataLengCode);
-*
+*               <br><br>
 * 		Read the CAN specification for meaning of Data Length Code.
 *
 *****************************************************************************/
