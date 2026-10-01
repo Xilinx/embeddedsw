@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -269,7 +269,7 @@ done:
 XStatus XPm_GetPsmToPlmEventAddr(void)
 {
 	XStatus Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	u32 Response[RESPONSE_ARG_CNT] = {0};
 
 	Payload[0] = PSM_API_GET_PSM_TO_PLM_EVENT_ADDR;

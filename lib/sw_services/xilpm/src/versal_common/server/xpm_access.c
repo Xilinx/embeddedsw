@@ -720,7 +720,7 @@ XStatus XPm_ReadAccessForwarding(u32 BaseAddress, u32 Offset, u32 *DataIn)
 	}
 
 	/* construct IPI Payload for read command */
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	Payload[0] = PSM_API_READ_ACCESS;
 	Payload[1] = RegAddress;
 
@@ -768,7 +768,7 @@ XStatus XPm_MaskWriteAccessForwarding(u32 BaseAddress, u32 Offset, u32 Mask, u32
 	}
 
 	/* construct IPI Payload for mask write command */
-	u32 Payload[PAYLOAD_ARG_CNT];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0};
 	Payload[0] = PSM_API_MASK_WRITE_ACCESS;
 	Payload[1] = RegAddress;
 	Payload[2] = Mask;
