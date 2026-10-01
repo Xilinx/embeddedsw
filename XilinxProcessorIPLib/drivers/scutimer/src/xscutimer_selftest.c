@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * ----- --- -------- ---------------------------------------------
 * 1.00a nm  03/10/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+* 2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -30,7 +31,7 @@
 
 /************************** Constant Definitions *****************************/
 
-#define XSCUTIMER_SELFTEST_VALUE	0xA55AF00FU
+#define XSCUTIMER_SELFTEST_VALUE	0xA55AF00FU /**< Test value written to load register during self-test */
 
 /**************************** Type Definitions *******************************/
 
@@ -48,13 +49,11 @@
 * value read back matches the value written and restores the control register
 * and the timer load register.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @return
 *		- XST_SUCCESS if self-test was successful.
 *		- XST_FAILURE if self test was not successful.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XScuTimer_SelfTest(XScuTimer *InstancePtr)

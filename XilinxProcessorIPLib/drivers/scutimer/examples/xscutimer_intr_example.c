@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,6 @@
 *
 * This file contains a design example using the Cortex A9 Scu Private
 * Timer and the driver (XScuTimer) using interrupts.
-*
-* @note		None.
 *
 * <pre>
 *
@@ -26,6 +24,7 @@
 * 2.6   ml   12/07/23 Make TimerExpired as a static variable.
 * 2.8   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +56,7 @@
 #endif
 #endif
 
+/** Timer load value for interrupt example. */
 #define TIMER_LOAD_VALUE	0xFFFF
 
 /**************************** Type Definitions *******************************/
@@ -84,9 +84,9 @@ static void TimerDisableIntrSystem(XScuGic *IntcInstancePtr, u16 TimerIntrId);
 /************************** Variable Definitions *****************************/
 
 #ifndef TESTAPP_GEN
-XScuTimer TimerInstance;	/* Cortex A9 Scu Private Timer Instance */
+XScuTimer TimerInstance;	/**< Cortex A9 Scu Private Timer Instance */
 #ifndef SDT
-XScuGic IntcInstance;		/* Interrupt Controller Instance */
+XScuGic IntcInstance;		/**< Interrupt Controller Instance */
 #endif
 #endif
 
@@ -100,11 +100,7 @@ static volatile int TimerExpired;
 /**
 * Main function to call the Cortex A9 Scu Private Timer interrupt example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -141,15 +137,15 @@ int main(void)
 * and hardware using interrupts.
 *
 * @if SDT
-* @param	TimerInstancePtr is a pointer to the instance of XScuTimer
+* @param[in]	TimerInstancePtr is a pointer to the instance of XScuTimer
 *		driver.
-* @param	BaseAddress is the base address of the XScuTimer device.
+* @param[in]	BaseAddress is the base address of the XScuTimer device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of XScuGic driver.
-* @param	TimerInstancePtr is a pointer to the instance of XScuTimer
+* @param[in]	IntcInstancePtr is a pointer to the instance of XScuGic driver.
+* @param[in]	TimerInstancePtr is a pointer to the instance of XScuTimer
 *		driver.
-* @param	TimerDeviceId is the Device ID of the XScuTimer device.
-* @param	TimerIntrId is the Interrupt Id of the XScuTimer device.
+* @param[in]	TimerDeviceId is the Device ID of the XScuTimer device.
+* @param[in]	TimerIntrId is the Interrupt Id of the XScuTimer device.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -272,14 +268,12 @@ int ScuTimerIntrExample(XScuTimer *TimerInstancePtr,	UINTPTR BaseAddress)
 * This function sets up the interrupt system such that interrupts can occur
 * for the device.
 *
-* @param	IntcInstancePtr is a pointer to the instance of XScuGic driver.
-* @param	TimerInstancePtr is a pointer to the instance of XScuTimer
+* @param[in]	IntcInstancePtr is a pointer to the instance of XScuGic driver.
+* @param[in]	TimerInstancePtr is a pointer to the instance of XScuTimer
 *		driver.
-* @param	TimerIntrId is the Interrupt Id of the XScuTimer device.
+* @param[in]	TimerIntrId is the Interrupt Id of the XScuTimer device.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 static int TimerSetupIntrSystem(XScuGic *IntcInstancePtr,
@@ -359,11 +353,7 @@ static int TimerSetupIntrSystem(XScuGic *IntcInstancePtr,
 * Timer device. It is called on the expiration of the timer counter in
 * interrupt context.
 *
-* @param	CallBackRef is a pointer to the callback function.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallBackRef is a callback reference pointing to the XScuTimer instance.
 *
 ******************************************************************************/
 static void TimerIntrHandler(void *CallBackRef)
@@ -392,13 +382,9 @@ static void TimerIntrHandler(void *CallBackRef)
 *
 * This function disables the interrupts that occur for the device.
 *
-* @param	IntcInstancePtr is the pointer to the instance of XScuGic
+* @param[in]	IntcInstancePtr is the pointer to the instance of XScuGic
 *		driver.
-* @param	TimerIntrId is the Interrupt Id for the device.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	TimerIntrId is the Interrupt Id for the device.
 *
 ******************************************************************************/
 static void TimerDisableIntrSystem(XScuGic *IntcInstancePtr, u16 TimerIntrId)

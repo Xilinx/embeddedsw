@@ -1,11 +1,15 @@
 /******************************************************************************
 * Copyright (C) 2011 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+* @file scutimer_header.h
+* @brief Contains prototypes for the scutimer example test functions.
+*/
 
-#ifndef SCUTIMER_HEADER_H		/* prevent circular inclusions */
-#define SCUTIMER_HEADER_H		/* by using protection macros */
+#ifndef SCUTIMER_HEADER_H
+#define SCUTIMER_HEADER_H
 
 #ifdef __cplusplus
 extern "C" {

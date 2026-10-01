@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,8 +12,6 @@
 * (XScuTimer) and hardware timer device. This test assumes Auto Reload mode is
 * not enabled.
 *
-* @note		None.
-*
 * MODIFICATION HISTORY:
 *
 *<pre>
@@ -24,6 +22,7 @@
 * 2.5   dp   09/08/23 Update example to stop timer at the end of the test
 * 2.8   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 *</pre>
 ******************************************************************************/
 
@@ -43,6 +42,7 @@
 #ifndef SDT
 #define TIMER_DEVICE_ID		XPAR_XSCUTIMER_0_DEVICE_ID
 #endif
+/** Timer load value for polled mode example. */
 #define TIMER_LOAD_VALUE	0xFF
 
 /**************************** Type Definitions *******************************/
@@ -57,18 +57,14 @@ int ScuTimerPolledExample(XScuTimer *TimerInstancePtr, UINTPTR BaseAddress);
 #endif
 /************************** Variable Definitions *****************************/
 
-XScuTimer Timer;		/* Cortex A9 SCU Private Timer Instance */
+XScuTimer Timer;		/**< Cortex A9 SCU Private Timer Instance */
 
 /*****************************************************************************/
 /**
 *
 * Main function to call the Scu Private Timer polled mode example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -104,10 +100,10 @@ int main(void)
 * The purpose of this function is to illustrate how to use the XScuTimer driver.
 *
 * @if SDT
-* @param	TimerInstancePtr is a pointer to the XScuTimer instance
-* @param	BaseAddress is the base address of the device
+* @param[in]	TimerInstancePtr is a pointer to the XScuTimer instance
+* @param[in]	BaseAddress is the base address of the device
 * @else
-* @param	DeviceId is the unique device id of the device.
+* @param[in]	DeviceId is the unique device id of the device.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.

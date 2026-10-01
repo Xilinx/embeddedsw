@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,7 +21,7 @@
 *
 * <b> Initialization and Configuration </b>
 *
-* The device driver enables higher layer software (e.g., an application) to
+* The device driver enables higher layer software (for example, an application) to
 * communicate with the Timer.
 *
 * XScuTimer_CfgInitialize() API is used to initialize the Timer. The
@@ -84,11 +84,12 @@
 *                    incremental builds, it would help to reduce compilation
 *                    time.
 * 2.5   dp   07/11/23 Add support for system device tree flow
+* 2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
-#ifndef XSCUTIMER_H		/* prevent circular inclusions */
-#define XSCUTIMER_H		/* by using protection macros */
+#ifndef XSCUTIMER_H
+#define XSCUTIMER_H
 
 /***************************** Include Files *********************************/
 
@@ -111,7 +112,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;	/**< Unique ID of device */
 #else
-	char *Name;
+	char *Name; /**< Unique name of the device */
 #endif
 	u32 BaseAddr;	/**< Base address of the device */
 #ifdef XIL_INTERRUPT
@@ -139,7 +140,7 @@ typedef struct {
 *
 * Check if the timer has expired.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @return
 *		- TRUE if the timer has expired.
@@ -161,9 +162,7 @@ typedef struct {
 * Re-start the timer. This macro will read the timer load register
 * and writes the same value to load register to update the counter register.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @note		C-style signature:
 *		void XScuTimer_RestartTimer(XScuTimer *InstancePtr)
@@ -181,10 +180,8 @@ typedef struct {
 * timer counter register with the new value. This macro can be used to
 * change the time-out value.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-* @param	Value is the count to be loaded in to the load register.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	Value is the count to be loaded in to the load register.
 *
 * @note		C-style signature:
 *		void XScuTimer_LoadTimer(XScuTimer *InstancePtr, u32 Value)
@@ -200,7 +197,7 @@ typedef struct {
 * Returns the current timer counter register value. It can be called at any
 * time.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @return	Contents of the timer counter register.
 *
@@ -217,9 +214,7 @@ typedef struct {
 *
 * Enable auto-reload mode.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @note		C-style signature:
 *		void XScuTimer_EnableAutoReload(XScuTimer *InstancePtr)
@@ -237,9 +232,7 @@ typedef struct {
 *
 * Disable auto-reload mode.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @note		C-style signature:
 *		void XScuTimer_DisableAutoReload(XScuTimer *InstancePtr)
@@ -257,9 +250,7 @@ typedef struct {
 *
 * Enable the Timer interrupt.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @note		C-style signature:
 *		void XScuTimer_EnableInterrupt(XScuTimer *InstancePtr)
@@ -277,9 +268,7 @@ typedef struct {
 *
 * Disable the Timer interrupt.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @note		C-style signature:
 *		void XScuTimer_DisableInterrupt(XScuTimer *InstancePtr)
@@ -297,12 +286,12 @@ typedef struct {
 *
 * This function reads the interrupt status.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
-* @return	None.
+* @return	Contents of the timer interrupt status register.
 *
 * @note		C-style signature:
-*		void XScuTimer_GetInterruptStatus(XScuTimer *InstancePtr)
+*		u32 XScuTimer_GetInterruptStatus(XScuTimer *InstancePtr)
 *
 ******************************************************************************/
 #define XScuTimer_GetInterruptStatus(InstancePtr)			\
@@ -314,9 +303,7 @@ typedef struct {
 *
 * This function clears the interrupt status.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @note		C-style signature:
 *		void XScuTimer_ClearInterruptStatus(XScuTimer *InstancePtr)
@@ -356,5 +343,5 @@ u8 XScuTimer_GetPrescaler(XScuTimer *InstancePtr);
 }
 #endif
 
-#endif	/* end of protection macro */
+#endif	/**< end of protection macro */
 /** @} */

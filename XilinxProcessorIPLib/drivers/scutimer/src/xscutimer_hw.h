@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,11 +26,12 @@
 *		     the xstatus.h of the standalone BSP during the
 *		     libgen.
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+* 2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
-#ifndef XSCUTIMER_HW_H		/* prevent circular inclusions */
-#define XSCUTIMER_HW_H		/* by using protection macros */
+#ifndef XSCUTIMER_HW_H
+#define XSCUTIMER_HW_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,7 +53,7 @@ extern "C" {
 #define XSCUTIMER_CONTROL_OFFSET	0x08U /**< Timer Control Register */
 #define XSCUTIMER_ISR_OFFSET		0x0CU /**< Timer Interrupt
 						  Status Register */
-/* @} */
+/** @} */
 
 /** @name Timer Control register
  * This register bits control the prescaler, Intr enable,
@@ -61,11 +62,12 @@ extern "C" {
  */
 
 #define XSCUTIMER_CONTROL_PRESCALER_MASK	0x0000FF00U /**< Prescaler */
+/** Bit shift for the prescaler field in the timer control register. */
 #define XSCUTIMER_CONTROL_PRESCALER_SHIFT	8U
 #define XSCUTIMER_CONTROL_IRQ_ENABLE_MASK	0x00000004U /**< Intr enable */
 #define XSCUTIMER_CONTROL_AUTO_RELOAD_MASK	0x00000002U /**< Auto-reload */
 #define XSCUTIMER_CONTROL_ENABLE_MASK		0x00000001U /**< Timer enable */
-/* @} */
+/** @} */
 
 /** @name Interrupt Status register
  * This register indicates the Timer counter register has reached zero.
@@ -73,7 +75,7 @@ extern "C" {
  */
 
 #define XSCUTIMER_ISR_EVENT_FLAG_MASK		0x00000001U /**< Event flag */
-/*@}*/
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -86,10 +88,8 @@ extern "C" {
 * timer counter register with the new value. This macro can be used to
 * change the time-out value.
 *
-* @param	BaseAddr is the base address of the scu timer.
-* @param	Value is the count to be loaded in to the load register.
-*
-* @return	None.
+* @param[in]	BaseAddr is the base address of the scu timer.
+* @param[in]	Value is the count to be loaded in to the load register.
 *
 * @note		C-style signature:
 *		void XScuTimer_SetLoadReg(u32 BaseAddr, u32 Value)
@@ -103,7 +103,7 @@ extern "C" {
 *
 * Returns the current timer load register value.
 *
-* @param	BaseAddr is the base address of the scu timer.
+* @param[in]	BaseAddr is the base address of the scu timer.
 *
 * @return	Contents of the timer load register.
 *
@@ -119,10 +119,8 @@ extern "C" {
 *
 * Write to the timer counter register.
 *
-* @param	BaseAddr is the base address of the scu timer.
-* @param	Value is the count to be loaded in to the counter register.
-*
-* @return	None.
+* @param[in]	BaseAddr is the base address of the scu timer.
+* @param[in]	Value is the count to be loaded in to the counter register.
 *
 * @note		C-style signature:
 *		void XScuTimer_SetCounterReg(u32 BaseAddr, u32 Value)
@@ -136,7 +134,7 @@ extern "C" {
 *
 * Returns the current timer counter register value.
 *
-* @param	BaseAddr is the base address of the scu timer.
+* @param[in]	BaseAddr is the base address of the scu timer.
 *
 * @return	Contents of the timer counter register.
 *
@@ -154,10 +152,8 @@ extern "C" {
 * timer counter register with the new value. This macro can be used to
 * change the time-out value.
 *
-* @param	BaseAddr is the base address of the scu timer.
-* @param	Value is the count to be loaded in to the load register.
-*
-* @return	None.
+* @param[in]	BaseAddr is the base address of the scu timer.
+* @param[in]	Value is the count to be loaded in to the load register.
 *
 * @note		C-style signature:
 *		void XScuTimer_SetControlReg(u32 BaseAddr, u32 Value)
@@ -171,7 +167,7 @@ extern "C" {
 *
 * Returns the current timer load register value.
 *
-* @param	BaseAddr is the base address of the scu timer.
+* @param[in]	BaseAddr is the base address of the scu timer.
 *
 * @return	Contents of the timer load register.
 *
@@ -187,10 +183,8 @@ extern "C" {
 *
 * Write to the timer counter register.
 *
-* @param	BaseAddr is the base address of the scu timer.
-* @param	Value is the count to be loaded in to the counter register.
-*
-* @return	None.
+* @param[in]	BaseAddr is the base address of the scu timer.
+* @param[in]	Value is the count to be loaded in to the counter register.
 *
 * @note		C-style signature:
 *		void XScuTimer_SetIntrReg(u32 BaseAddr, u32 Value)
@@ -204,7 +198,7 @@ extern "C" {
 *
 * Returns the current timer counter register value.
 *
-* @param	BaseAddr is the base address of the scu timer.
+* @param[in]	BaseAddr is the base address of the scu timer.
 *
 * @return	Contents of the timer counter register.
 *
@@ -220,8 +214,8 @@ extern "C" {
 *
 * Read from the given Timer register.
 *
-* @param	BaseAddr is the base address of the device
-* @param	RegOffset is the register offset to be read
+* @param[in]	BaseAddr is the base address of the device
+* @param[in]	RegOffset is the register offset to be read
 *
 * @return	The 32-bit value of the register
 *
@@ -237,11 +231,9 @@ extern "C" {
 *
 * Write to the given Timer register.
 *
-* @param	BaseAddr is the base address of the device
-* @param	RegOffset is the register offset to be written
-* @param	Data is the 32-bit value to write to the register
-*
-* @return	None.
+* @param[in]	BaseAddr is the base address of the device
+* @param[in]	RegOffset is the register offset to be written
+* @param[in]	Data is the 32-bit value to write to the register
 *
 * @note		C-style signature:
 *		void XScuTimer_WriteReg(u32 BaseAddr, u32 RegOffset, u32 Data)
@@ -258,5 +250,5 @@ extern "C" {
 }
 #endif
 
-#endif	/* end of protection macro */
+#endif	/**< end of protection macro */
 /** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 2.5   dp  07/11/23 Add Support for system device tree flow
 * 2.8   bdk 12/08/25 Updated comments to support SDT flow for Doxygen
 *                    documentation.
+* 2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -56,9 +57,9 @@ extern XScuTimer_Config XScuTimer_ConfigTable[];
 * The table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param	BaseAddr contains the base address of the device
+* @param[in]	BaseAddr contains the base address of the device
 * @else
-* @param	DeviceId is the unique device ID of the device being looked up.
+* @param[in]	DeviceId is the unique device ID of the device being looked up.
 * @endif
 *
 * @return	A pointer to the configuration table entry corresponding to the

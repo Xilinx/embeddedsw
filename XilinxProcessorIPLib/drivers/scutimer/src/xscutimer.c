@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * 1.00a nm  03/10/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
 * 2.5   dp   07/11/23 Add Support for system device tree flow
+* 2.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -46,17 +47,15 @@
 * Initialize a specific timer instance/driver. This function  must be called
 * before other functions of the driver are called.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-* @param	ConfigPtr points to the XScuTimer configuration structure.
-* @param	EffectiveAddress is the base address for the device. It could be
+* @param[in,out]	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	ConfigPtr points to the XScuTimer configuration structure.
+* @param[in]	EffectiveAddress is the base address for the device. It could be
 *		a virtual address if address translation is supported in the
 *		system, otherwise it is the physical address.
 *
 * @return
 *		- XST_SUCCESS if initialization was successful.
 *		- XST_DEVICE_IS_STARTED if the device has already been started.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
@@ -109,11 +108,7 @@ s32 XScuTimer_CfgInitialize(XScuTimer *InstancePtr,
 *
 * Start the timer.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 ******************************************************************************/
 void XScuTimer_Start(XScuTimer *InstancePtr)
@@ -151,11 +146,7 @@ void XScuTimer_Start(XScuTimer *InstancePtr)
 *
 * Stop the timer.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 ******************************************************************************/
 void XScuTimer_Stop(XScuTimer *InstancePtr)
@@ -193,12 +184,8 @@ void XScuTimer_Stop(XScuTimer *InstancePtr)
 *
 * This function sets the prescaler bits in the timer control register.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
-* @param	PrescalerValue is a 8 bit value that sets the prescaler to use.
-*
-* @return	None
-*
-* @note		None
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	PrescalerValue is a 8 bit value that sets the prescaler to use.
 *
 ****************************************************************************/
 void XScuTimer_SetPrescaler(XScuTimer *InstancePtr, u8 PrescalerValue)
@@ -238,11 +225,9 @@ void XScuTimer_SetPrescaler(XScuTimer *InstancePtr, u8 PrescalerValue)
 *
 * This function returns the current prescaler value.
 *
-* @param	InstancePtr is a pointer to the XScuTimer instance.
+* @param[in]	InstancePtr is a pointer to the XScuTimer instance.
 *
 * @return	The prescaler value.
-*
-* @note		None.
 *
 ****************************************************************************/
 u8 XScuTimer_GetPrescaler(XScuTimer *InstancePtr)
