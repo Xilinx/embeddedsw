@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -122,7 +122,6 @@
 * 	u32	4 bytes / 1 word
 * 	u64	8 bytes / double word
 *
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -154,76 +153,73 @@
 * 3.21  ml   04/03/25 Added a global structure to store all handlers in a table.
 * 3.23  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 3.24  ml    09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XTTCPS_H		/* prevent circular inclusions */
-#define XTTCPS_H		/* by using protection macros */
-
+#ifndef XTTCPS_H
+#define XTTCPS_H
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-
 #include "xttcps_hw.h"
 #include "xstatus.h"
 
 /*****************************************************************************/
-typedef void (*XTtcPs_StatusHandler) (const void *CallBackRef, u32 StatusEvent);
+typedef void (*XTtcPs_StatusHandler)(const void *CallBackRef, u32 StatusEvent);
 
 
 /************************** Constant Definitions *****************************/
 
-
 /*
  * Maximum Value for interval counter
  */
- #if defined(ARMA9)
- #define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFU
- #else
- #define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFFFFFU
- #endif
+#if defined(ARMA9)
+#define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFU	/**< Maximum interval count for 16-bit mode. */
+#else
+#define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFFFFFU	/**< Maximum interval count for 32-bit mode. */
+#endif
 
-#define XTTCPS_NUM_COUNTERS	1U
+#define XTTCPS_NUM_COUNTERS	1U			/**< Number of counters represented by one driver instance. */
 /** @name Configuration options
  *
  * Options for the device. Each of the options is bit field, so more than one
  * options can be specified.
  *
  * @{
- */
-#define XTTCPS_OPTION_EXTERNAL_CLK	0x00000001U 	/**< External clock source */
+*/
+#define XTTCPS_OPTION_EXTERNAL_CLK	0x00000001U 	/**< External clock source. */
 #define XTTCPS_OPTION_CLK_EDGE_NEG	0x00000002U	/**< Clock on trailing edge for
-						     external clock*/
-#define XTTCPS_OPTION_INTERVAL_MODE	0x00000004U	/**< Interval mode */
-#define XTTCPS_OPTION_DECREMENT		0x00000008U	/**< Decrement the counter */
-#define XTTCPS_OPTION_MATCH_MODE	0x00000010U	/**< Match mode */
-#define XTTCPS_OPTION_WAVE_DISABLE	0x00000020U 	/**< No waveform output */
-#define XTTCPS_OPTION_WAVE_POLARITY	0x00000040U	/**< Waveform polarity */
+						     external clock. */
+#define XTTCPS_OPTION_INTERVAL_MODE	0x00000004U	/**< Interval mode. */
+#define XTTCPS_OPTION_DECREMENT		0x00000008U	/**< Decrement the counter. */
+#define XTTCPS_OPTION_MATCH_MODE	0x00000010U	/**< Match mode. */
+#define XTTCPS_OPTION_WAVE_DISABLE	0x00000020U 	/**< No waveform output. */
+#define XTTCPS_OPTION_WAVE_POLARITY	0x00000040U	/**< Waveform polarity. */
 #define COUNTER_BASE_ADDRESS_MASK       0xFFFFFFF0U	/**< Mask to detect main
-							     TTC node */
-/*@}*/
+							     TTC node. */
+/** @} */
 /**************************** Type Definitions *******************************/
 
 /**
  * This typedef contains configuration information for the device.
- */
+*/
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;	  /**< Unique ID for device */
+	u16 DeviceId;	  /**< Unique ID for device. */
 #else
-	char *Name;
+	char *Name;		/**< Unique name for device (SDT mode). */
 #endif
-	u32 BaseAddress;  /**< Base address for device */
-	u32 InputClockHz; /**< Input clock frequency */
+	u32 BaseAddress;  /**< Base address for device. */
+	u32 InputClockHz; /**< Input clock frequency. */
 #if !defined(SDT) && defined(XIL_INTERRUPT)
-	u32 IntrId;
-	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u32 IntrId;		/**< Interrupt ID for the device. */
+	UINTPTR IntrParent;		/**< Interrupt parent: Bit[0] type, Bits[64/32:1] base address. */
 #elif defined(SDT)
-	u32 IntrId[XTTCPS_NUM_COUNTERS];		/** Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
-	UINTPTR IntrParent;		/** Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
+	u32 IntrId[XTTCPS_NUM_COUNTERS];		/**< Interrupt ID array: Bits[11:0] ID, Bits[15:12] flags. */
+	UINTPTR IntrParent;		/**< Interrupt parent: Bit[0] type, Bits[64/32:1] base address. */
 #endif
 } XTtcPs_Config;
 
@@ -232,107 +228,103 @@ typedef struct {
  * variable of this type for each PS timer/counter device in the system. A
  * pointer to a variable of this type is then passed to various driver API
  * functions.
- */
+*/
 typedef struct {
-	XTtcPs_Config Config;	/**< Configuration structure */
-	u32 IsReady;		/**< Device is initialized and ready */
-	XTtcPs_StatusHandler StatusHandler;
-	void *StatusRef;	/**< Callback reference for status handler */
+	XTtcPs_Config Config;	/**< Configuration structure. */
+	u32 IsReady;		/**< Device is initialized and ready. */
+	XTtcPs_StatusHandler StatusHandler;	/**< Interrupt status callback function. */
+	void *StatusRef;	/**< Callback reference for status handler. */
 } XTtcPs;
 
 typedef struct {
-       XTtcPs_StatusHandler StatusHandler; /**< Interrupt Handler */
-       void* StatusRef;
+	XTtcPs_StatusHandler StatusHandler; /**< Interrupt Handler. */
+	void *StatusRef;	/**< Callback reference for the status handler. */
 } XTtcPs_StatusHandlerTableEntry;
 
 /**
  * This typedef contains interval count and Match register value
- */
+*/
 #if defined(ARMA9)
-typedef u16 XInterval;
-typedef u16 XMatchRegValue;
+typedef u16 XInterval; /**< Interval count type for ARM A9 (16-bit). */
+typedef u16 XMatchRegValue; /**< Match register value type for ARM A9 (16-bit). */
 #else
-typedef u32 XInterval;
-typedef u32 XMatchRegValue;
+typedef u32 XInterval; /**< Interval count type (32-bit). */
+typedef u32 XMatchRegValue; /**< Match register value type (32-bit). */
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*
  * Internal helper macros
  */
+/** Read a TTC register using the instance base address */
 #define InstReadReg(InstancePtr, RegOffset) \
-    (Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)(RegOffset)))
+	(Xil_In32(((InstancePtr)->Config.BaseAddress) + (u32)(RegOffset)))
 
+/** Write a TTC register using the instance base address */
 #define InstWriteReg(InstancePtr, RegOffset, Data) \
-    (Xil_Out32(((InstancePtr)->Config.BaseAddress) + (u32)(RegOffset), (u32)(Data)))
+	(Xil_Out32(((InstancePtr)->Config.BaseAddress) + (u32)(RegOffset), (u32)(Data)))
 
 /*****************************************************************************/
 /**
 *
-* This function starts the counter/timer without resetting the counter value.
+* @brief Starts the counter/timer without resetting the counter value.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-*
-* @return	None
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XTtcPs_Start(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
 #define XTtcPs_Start(InstancePtr)	\
-		InstWriteReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET,	\
-		(InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) &	\
-		 ~XTTCPS_CNT_CNTRL_DIS_MASK))
+	InstWriteReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET,	\
+		     (InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) &	\
+		      ~XTTCPS_CNT_CNTRL_DIS_MASK))
 
 /*****************************************************************************/
 /**
 *
-* This function stops the counter/timer. This macro may be called at any time
-* to stop the counter. The counter holds the last value until it is reset,
-* restarted or enabled.
+* @brief Stops the counter/timer.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
+* This macro may be called at any time to stop the counter. The counter holds
+* the last value until it is reset, restarted or enabled.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @return	None
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XTtcPs_Stop(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
-#define XTtcPs_Stop(InstancePtr)		\
-		InstWriteReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET,	\
-		(InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) |	\
-		 XTTCPS_CNT_CNTRL_DIS_MASK))
+#define XTtcPs_Stop(InstancePtr)	\
+	InstWriteReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET,	\
+		     (InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) |	\
+		      XTTCPS_CNT_CNTRL_DIS_MASK))
 
 /*****************************************************************************/
 /**
 *
-* This function checks whether the timer counter has already started.
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance
+* @brief Checks whether the timer counter has already started.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance
 *
 * @return	Non-zero if the device has started, '0' otherwise.
 *
-* @note		C-style signature:
+* @note		C-Style signature:
 *		int XTtcPs_IsStarted(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
 #define XTtcPs_IsStarted(InstancePtr) \
-     ((InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) & \
-       XTTCPS_CNT_CNTRL_DIS_MASK) == 0U)
+	((InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) & \
+	  XTTCPS_CNT_CNTRL_DIS_MASK) == 0U)
 
 /*****************************************************************************/
 /**
 *
-* This function returns the current 16-bit counter value. It may be called at
-* any time.
+* @brief Returns the current counter value.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
+* It may be called at any time.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
 * @return	zynq:16 bit counter value.
 *           zynq ultrascale+mpsoc:32 bit counter value.
 *
-* @note		C-style signature:
+* @note		C-Style signature:
 *		zynq: u16 XTtcPs_GetCounterValue(XTtcPs *InstancePtr)
 *       zynq ultrascale+mpsoc: u32 XTtcPs_GetCounterValue(XTtcPs *InstancePtr)
 *
@@ -342,43 +334,39 @@ typedef u32 XMatchRegValue;
  * ttc supports 16 bit counter for zynq
  */
 #define XTtcPs_GetCounterValue(InstancePtr) \
-		(u16)InstReadReg((InstancePtr), XTTCPS_COUNT_VALUE_OFFSET)
+	(u16)InstReadReg((InstancePtr), XTTCPS_COUNT_VALUE_OFFSET)
 #else
 /*
  * ttc supports 32 bit counter for zynq ultrascale+mpsoc
  */
 #define XTtcPs_GetCounterValue(InstancePtr) \
-               InstReadReg((InstancePtr), XTTCPS_COUNT_VALUE_OFFSET)
+	InstReadReg((InstancePtr), XTTCPS_COUNT_VALUE_OFFSET)
 #endif
 
 /*****************************************************************************/
 /**
 *
-* This function sets the interval value to be used in interval mode.
+* @brief Sets the interval value to be used in interval mode.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	Value is the interval value to be set in the interval register.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	Value is the 16-bit value to be set in the interval register.
-*
-* @return	None
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XTtcPs_SetInterval(XTtcPs *InstancePtr, XInterval Value)
 *
 ****************************************************************************/
 #define XTtcPs_SetInterval(InstancePtr, Value)	\
-		InstWriteReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET, (Value))
+	InstWriteReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET, (Value))
 
 /*****************************************************************************/
 /**
 *
-* This function gets the interval value from the interval register.
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance.
+* @brief Gets the interval value from the interval register.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
 * @return	zynq:16 bit interval value.
 *           zynq ultrascale+mpsoc:32 bit interval value.
 *
-* @note		C-style signature:
+* @note		C-Style signature:
 *		zynq: u16 XTtcPs_GetInterval(XTtcPs *InstancePtr)
 *       zynq ultrascale+mpsoc: u32 XTtcPs_GetInterval(XTtcPs *InstancePtr)
 *
@@ -388,118 +376,102 @@ typedef u32 XMatchRegValue;
  * ttc supports 16 bit interval counter for zynq
  */
 #define XTtcPs_GetInterval(InstancePtr) \
-		(u16)InstReadReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET)
+	(u16)InstReadReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET)
 #else
 /*
  * ttc supports 32 bit interval counter for zynq ultrascale+mpsoc
  */
 #define XTtcPs_GetInterval(InstancePtr) \
-		InstReadReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET)
+	InstReadReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET)
 #endif
 /*****************************************************************************/
 /**
 *
-* This macro resets the count register. It may be called at any time. The
-* counter is reset to either 0 or 0xFFFF, or the interval value, depending on
-* the increment/decrement mode. The state of the counter, as started or
-* stopped, is not affected by calling reset.
+* @brief Resets the count register.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
+* It may be called at any time. The counter is reset to either 0 or 0xFFFF, or
+* the interval value, depending on the increment/decrement mode. The state of
+* the counter, as started or stopped, is not affected by calling reset.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @return	None
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		void XTtcPs_ResetCounterValue(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
 #define XTtcPs_ResetCounterValue(InstancePtr) \
-		InstWriteReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET,	\
-		(InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) | \
-		 (u32)XTTCPS_CNT_CNTRL_RST_MASK))
+	InstWriteReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET,	\
+		     (InstReadReg((InstancePtr), XTTCPS_CNT_CNTRL_OFFSET) | \
+		      (u32)XTTCPS_CNT_CNTRL_RST_MASK))
 
 /*****************************************************************************/
 /**
 *
-* This function enables the interrupts.
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	InterruptMask defines which interrupt should be enabled.
+* @brief Enables the interrupts.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	InterruptMask defines which interrupt should be enabled.
 *		Constants are defined in xttcps_hw.h as XTTCPS_IXR_*.
 *		This is a bit mask, all set bits will be enabled, cleared bits
 *		will not be disabled.
 *
-* @return	None.
-*
-* @note
-* C-style signature:
+* @note		C-Style signature:
 *	void XTtcPs_EnableInterrupts(XTtcPs *InstancePtr, u32 InterruptMask)
 *
 ******************************************************************************/
-#define XTtcPs_EnableInterrupts(InstancePtr, InterruptMask)		\
-		InstWriteReg((InstancePtr), XTTCPS_IER_OFFSET,		\
-		(InstReadReg((InstancePtr), XTTCPS_IER_OFFSET) |	\
-		 (InterruptMask)))
+#define XTtcPs_EnableInterrupts(InstancePtr, InterruptMask)	\
+	InstWriteReg((InstancePtr), XTTCPS_IER_OFFSET,	\
+		     (InstReadReg((InstancePtr), XTTCPS_IER_OFFSET) |	\
+		      (InterruptMask)))
 
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts.
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	InterruptMask defines which interrupt should be disabled.
+* @brief Disables the interrupts.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	InterruptMask defines which interrupt should be disabled.
 *		Constants are defined in xttcps_hw.h as XTTCPS_IXR_*.
 *		This is a bit mask, all set bits will be disabled, cleared bits
 *		will not be disabled.
 *
-* @return	None.
-*
-* @note
-* C-style signature:
+* @note		C-Style signature:
 *	void XTtcPs_DisableInterrupts(XTtcPs *InstancePtr, u32 InterruptMask)
 *
 ******************************************************************************/
 #define XTtcPs_DisableInterrupts(InstancePtr, InterruptMask) \
-		InstWriteReg((InstancePtr), XTTCPS_IER_OFFSET,	\
-		(InstReadReg((InstancePtr), XTTCPS_IER_OFFSET) &	\
-		 ~(InterruptMask)))
+	InstWriteReg((InstancePtr), XTTCPS_IER_OFFSET,	\
+		     (InstReadReg((InstancePtr), XTTCPS_IER_OFFSET) &	\
+		      ~(InterruptMask)))
 
 /*****************************************************************************/
 /**
 *
-* This function reads the interrupt status.
+* @brief Reads the interrupt status.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
+* @return	The current interrupt status register value. Reading the register
+*		clears all pending interrupt status bits (read-to-clear behavior).
 *
-* @return	None.
-*
-* @note		C-style signature:
+* @note		C-Style signature:
 *		u32 XTtcPs_GetInterruptStatus(XTtcPs *InstancePtr)
 *
 ******************************************************************************/
-#define XTtcPs_GetInterruptStatus(InstancePtr)	 \
-		InstReadReg((InstancePtr), XTTCPS_ISR_OFFSET)
+#define XTtcPs_GetInterruptStatus(InstancePtr) \
+	InstReadReg((InstancePtr), XTTCPS_ISR_OFFSET)
 
 /*****************************************************************************/
 /**
 *
-* This function clears the interrupt status.
+* @brief Clears all pending interrupt status bits by reading the status register.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	InterruptMask is retained for API compatibility and is ignored.
+*		The macro clears all pending bits by reading the read-to-clear ISR.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	InterruptMask defines which interrupt should be cleared.
-*		Constants are defined in xttcps_hw.h as XTTCPS_IXR_*.
-*		This is a bit mask, all set bits will be cleared, cleared bits
-*		will not be cleared.
-*
-* @return	None.
-*
-* @note
-* C-style signature:
+* @note		C-Style signature:
 *	void XTtcPs_ClearInterruptStatus(XTtcPs *InstancePtr, u32 InterruptMask)
 *
 ******************************************************************************/
 #define XTtcPs_ClearInterruptStatus(InstancePtr, InterruptMask) \
-		(void) 	InterruptMask; \
-		InstReadReg((InstancePtr), XTTCPS_ISR_OFFSET)
+	(void)	InterruptMask; \
+	InstReadReg((InstancePtr), XTTCPS_ISR_OFFSET)
 
 
 /************************** Function Prototypes ******************************/
@@ -517,7 +489,7 @@ XTtcPs_Config *XTtcPs_LookupConfig(u32 BaseAddress);
  * Required functions, in xttcps.c
  */
 s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr,
-         XTtcPs_Config * ConfigPtr, u32 EffectiveAddr);
+			 XTtcPs_Config * ConfigPtr, u32 EffectiveAddr);
 
 u32 XTtcPs_Release(XTtcPs *InstancePtr);
 void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Value);
@@ -527,7 +499,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue);
 u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr);
 
 void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
-        XInterval *Interval, u8 *Prescaler);
+				 XInterval *Interval, u8 *Prescaler);
 
 /*
  * Functions for options, in file xttcps_options.c
@@ -541,11 +513,11 @@ u32 XTtcPs_GetOptions(XTtcPs *InstancePtr);
 s32 XTtcPs_SelfTest(XTtcPs *InstancePtr);
 u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr);
 void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
-		XTtcPs_StatusHandler FuncPointer);
+			     XTtcPs_StatusHandler FuncPointer);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* end of protection macro */
 /** @} */
+#endif /* end of protection macro */

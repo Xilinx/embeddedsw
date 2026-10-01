@@ -1,20 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
+*
 * @file  xttcps_rtc_example.c
 *
 * This example uses one timer/counter to make a real time clock. The number of
 * minutes and seconds is displayed on the console.
 *
-*
-* @note
-*
-* <pre>
+* @note		<pre>
 * MODIFICATION HISTORY:
 *
 * Ver  Who    Date     Changes
@@ -37,6 +35,7 @@
 * 3.22 ml     07/14/25 Fixed GCC warnings.
 * 3.23 bdk    12/08/25 Updated comments to support SDT flow for Doxygen
 *                      documentation.
+* 3.24 ml     09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *</pre>
 ******************************************************************************/
 
@@ -68,7 +67,7 @@
 #define TTC_TICK_INTR_ID	XPAR_XTTCPS_0_INTR
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #else
-#define TTC_TICK_BASEADDR   XPAR_XTTCPS_0_BASEADDR
+#define TTC_TICK_BASEADDR   XPAR_XTTCPS_0_BASEADDR /**< Base address of TTC tick timer. */
 #endif
 
 /*
@@ -76,17 +75,17 @@
  * PWM_DELTA_DUTY is critical to the running time of the test. Smaller values
  * make the test run longer.
  */
-#define	TICK_TIMER_FREQ_HZ	100  /* Tick timer counter's output frequency */
+#define	TICK_TIMER_FREQ_HZ	100  /**< Tick timer output frequency in Hz. */
 
-#define TICKS_PER_CHANGE_PERIOD	TICK_TIMER_FREQ_HZ /* Tick signals per update */
-#define XTTCPS_SW_TIMEOUT_VAL	180 /* wait for 3 minutes */
+#define TICKS_PER_CHANGE_PERIOD	TICK_TIMER_FREQ_HZ /**< Number of ticks per update period. */
+#define XTTCPS_SW_TIMEOUT_VAL	180 /**< Software timeout value in seconds. */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u32 OutputHz;	/* Output frequency */
-	XInterval Interval;	/* Interval value */
-	u8 Prescaler;	/* Prescaler value */
-	u16 Options;	/* Option settings */
+	u32 OutputHz;  /**< Output frequency */
+	XInterval Interval;	/**< Interval value */
+	u8 Prescaler;  /**< Prescaler value */
+	u16 Options;  /**< Option settings */
 } TmrCntrSetup;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -94,7 +93,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
-static int TmrRtcInterruptExample(void);  /* Main test */
+static int TmrRtcInterruptExample(void);  /**< Main test */
 
 /* Set up routines for timer counters */
 #ifndef SDT
@@ -102,8 +101,7 @@ static int SetupTimer(int DeviceID);
 #else
 static int SetupTimer(u32 BaseAddr);
 #endif
-static int SetupTicker(void);
-/* Interleaved interrupt test for both timer counters */
+static int SetupTicker(void);  /**< Sets up the ticker timer. */
 static int WaitForDutyCycleFull(void);
 
 #ifndef SDT
@@ -113,17 +111,17 @@ static void TickHandler(void *CallBackRef, u32 StatusEvent);
 
 /************************** Variable Definitions *****************************/
 
-static XTtcPs TtcPsInst;  /* Timer counter instance */
+static XTtcPs TtcPsInst;  /**< Timer counter instance */
 
 static TmrCntrSetup SettingsTable=
 	{TICK_TIMER_FREQ_HZ, 0, 0, 0};	/* Ticker timer counter initial setup,
 						only output freq */
 
-XScuGic InterruptController;  	/* Interrupt controller instance */
+XScuGic InterruptController;  /**< Interrupt controller instance */
 
-static u8 ErrorCount;		/* Errors seen at interrupt time */
-static volatile u8 UpdateFlag;	/* Flag to update the seconds counter */
-static u32 TickCount;		/* Ticker interrupts between seconds change */
+static u8 ErrorCount;  /**< Errors seen at interrupt time */
+static volatile u8 UpdateFlag;  /**< Flag to update the seconds counter */
+static u32 TickCount;  /**< Ticker interrupts between seconds change */
 
 
 /*****************************************************************************/
@@ -131,13 +129,9 @@ static u32 TickCount;		/* Ticker interrupts between seconds change */
 *
 * This is the main function that calls the TTC RTC interrupt example.
 *
-* @param	None
-*
 * @return
 *		- XST_SUCCESS to indicate Success
 *		- XST_FAILURE to indicate a Failure.
-*
-* @note		None.
 *
 *****************************************************************************/
 int main(void)
@@ -159,9 +153,6 @@ int main(void)
 /**
 *
 * This is the main function of the interrupt example.
-*
-*
-* @param	None.
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
@@ -214,8 +205,6 @@ static int TmrRtcInterruptExample(void)
 *
 * This function sets up the Ticker timer.
 *
-* @param	None
-*
 * @return	XST_SUCCESS if everything sets up well, XST_FAILURE otherwise.
 *
 *****************************************************************************/
@@ -261,6 +250,7 @@ int SetupTicker(void)
 
 	XTtcPs_SetStatusHandler(TtcPsTick, TtcPsTick,
 				 (XTtcPs_StatusHandler) TickHandler);
+
 	/*
 	 * Enable the interrupt for the Timer counter
 	 */
@@ -301,9 +291,6 @@ int SetupTicker(void)
 * interrupts have happened to the ticker timer counter, a flag, UpdateFlag,
 * is set to true.
 *
-*
-* @param	None
-*
 * @return	XST_SUCCESS if duty cycle successfully reaches beyond 100,
 * 		otherwise XST_FAILURE.
 *
@@ -312,10 +299,6 @@ int WaitForDutyCycleFull(void)
 {
 	u32 seconds;
 	u32 PollCount = XTTCPS_SW_TIMEOUT_VAL;
-
-	/*
-	 * Initialize some variables used by the interrupts and in loops.
-	 */
 
 	ErrorCount = 0;
 	seconds = 0;
@@ -356,16 +339,14 @@ int WaitForDutyCycleFull(void)
 /****************************************************************************/
 /**
 *
-* This function sets up a timer counter device, using the information in its
-* setup structure.
-*  . initialize device
-*  . set options
-*  . set interval and prescaler value for given output frequency.
+* @brief Sets up a timer counter device from its setup structure.
 *
+* . initialize device . set options . set interval and prescaler value for
+* given output frequency.
 * @if SDT
-* @param	BaseAddr is the base address of the device
+* @param[in]	BaseAddr is the base address of the device
 * @else
-* @param	DeviceID is the unique ID for the device.
+* @param[in]	DeviceID is the unique ID for the device.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -433,6 +414,7 @@ int SetupTimer(u32 BaseAddr)
 }
 
 /****************************************************************************/
+#ifndef SDT
 /**
 *
 * This function setups the interrupt system such that interrupts can occur.
@@ -441,14 +423,12 @@ int SetupTimer(u32 BaseAddr)
 * processor without an interrupt controller.  The user should modify this
 * function to fit the application.
 *
-* @param	IntcDeviceID is the unique ID of the interrupt controller
-* @param	IntcInstacePtr is a pointer to the interrupt controller
-*		instance.
+* @param[in] IntcDeviceID is the unique ID of the interrupt controller.
+* @param[in] IntcInstancePtr is a pointer to the interrupt controller instance.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 *****************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(u16 IntcDeviceID,
 				    XScuGic *IntcInstancePtr)
 {
@@ -498,10 +478,9 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 * This handler provides an example of how to handle data for the TTC and
 * is application specific.
 *
-* @param	CallBackRef contains a callback reference from the driver, in
+* @param[in]	CallBackRef contains a callback reference from the driver, in
 *		this case it is the instance pointer for the TTC driver.
-*
-* @return	None.
+* @param[in]	StatusEvent is the status event indicating the type of interrupt.
 *
 *****************************************************************************/
 static void TickHandler(void *CallBackRef, u32 StatusEvent)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,8 +50,7 @@
 *
 * Runs a self-test on the driver/device.
 *
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
 * @return
 *

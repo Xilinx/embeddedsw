@@ -1,21 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
+*
 * @file  xttcps_low_level_example.c
 *
 * This file contains a design example using the Triple Timer Counter hardware
 * and driver in  polled mode.
 *
 * The example generates a square wave output on the waveform out pin.
-*
-* @note
-*
-* None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -31,6 +28,7 @@
 * 3.18 ml     03/06/24 Added support for system device-tree flow.
 * 3.21 vmt    03/28/25 Fixed signedness warning by explicitly casting to u8.
 * 3.22 ml     07/14/25 Fixed GCC warnings.
+* 3.23 ml     09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *</pre>
 ******************************************************************************/
 
@@ -49,25 +47,23 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define PCLK_FREQ_HZ		XPAR_XTTCPS_0_CLOCK_HZ /* Input freq */
+#define PCLK_FREQ_HZ		XPAR_XTTCPS_0_CLOCK_HZ /**< Peripheral clock frequency in Hz. */
 #else
-#define PCLK_FREQ_HZ        XPAR_XTTCPS_0_CLOCK_FREQ /* Input freq */
+#define PCLK_FREQ_HZ        XPAR_XTTCPS_0_CLOCK_FREQ /**< Peripheral clock frequency in Hz. */
 #endif
 
-#define TTC_NUM_DEVICES		2
+#define TTC_NUM_DEVICES		2 /**< Number of TTC devices used. */
 
-#define TABLE_OFFSET		6
-#define MAX_LOOP_COUNT		0xFF
+#define TABLE_OFFSET		6 /**< Offset into the settings table. */
+#define MAX_LOOP_COUNT		0xFF /**< Maximum loop count for test iterations. */
 
 /**************************** Type Definitions *******************************/
 
 typedef struct {
 	u32 OutputHz;		/* The frequency the timer should output on the
 				   waveout pin */
-	u8 OutputDutyCycle;	/* The duty cycle of the output wave as a
-				   percentage */
-	u8 PrescalerValue;	/* Value of the prescaler in the Count Control
-				   register */
+	u8 OutputDutyCycle;	/**< Duty cycle of the output wave as a percentage. */
+	u8 PrescalerValue;	/**< Prescaler value in the Count Control register. */
 } TmrCntrSetup;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -132,19 +128,15 @@ static TmrCntrSetup SettingsTable[] = {
 
 };
 
-#define SETTINGS_TABLE_SIZE  (sizeof(SettingsTable)/sizeof(TmrCntrSetup))
+#define SETTINGS_TABLE_SIZE  (sizeof(SettingsTable)/sizeof(TmrCntrSetup)) /**< Number of entries in the settings table. */
 
 /*****************************************************************************/
 /**
 *
 * This function is the main function of the Timer/Counter example.
 *
-* @param	None
-*
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
-*
-* @note		None.
 *
 *****************************************************************************/
 int main(void)
@@ -172,8 +164,7 @@ int main(void)
 * the low level driver as a design example.  The purpose of this function is
 * to illustrate how to use the XTtcPs low level driver.
 *
-*
-* @param	SettingsTableOffset is an offset into the settings table. This
+* @param[in]	SettingsTableOffset is an offset into the settings table. This
 *		allows multiple counter setups to be kept and swapped easily.
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate

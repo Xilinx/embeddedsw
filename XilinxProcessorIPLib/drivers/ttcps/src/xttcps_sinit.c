@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,12 +22,12 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.23  bdk    12/08/25 Updated comments to support SDT flow for Doxygen
 *                       documentation.
+* 3.24  ml     09/16/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-
 #include "xttcps.h"
 #ifndef SDT
 #include "xparameters.h"
@@ -43,9 +43,9 @@
 
 /************************** Variable Definitions *****************************/
 #ifndef SDT
-extern XTtcPs_Config XTtcPs_ConfigTable[XPAR_XTTCPS_NUM_INSTANCES];
+	extern XTtcPs_Config XTtcPs_ConfigTable[XPAR_XTTCPS_NUM_INSTANCES];
 #else
-extern XTtcPs_Config XTtcPs_ConfigTable[];
+	extern XTtcPs_Config XTtcPs_ConfigTable[];
 #endif
 
 /*****************************************************************************/
@@ -55,16 +55,15 @@ extern XTtcPs_Config XTtcPs_ConfigTable[];
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress contains the base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId contains the unique ID of the device.
 * @endif
 *
-* @return
-* A pointer to the configuration found or NULL if the specified device ID/BaseAddress
+* @return	A pointer to the configuration found or NULL if the specified device ID/BaseAddress
 * was not found. See xttcps.h for the definition of XTtcPs_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
+* @note		  In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.
 *
 ******************************************************************************/
@@ -91,7 +90,7 @@ XTtcPs_Config *XTtcPs_LookupConfig(u32 BaseAddress)
 
 	for (Index = 0U; XTtcPs_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XTtcPs_ConfigTable[Index].BaseAddress == BaseAddress) ||
-		     !BaseAddress) {
+		    !BaseAddress) {
 			CfgPtr = &XTtcPs_ConfigTable[Index];
 			break;
 		}

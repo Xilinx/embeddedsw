@@ -54,9 +54,9 @@
  * expansion of the options.
  */
 typedef struct {
-	u32 Option;
-	u32 Mask;
-	u32 Register;
+	u32 Option;    /**< TTC option flag. */
+	u32 Mask;      /**< Register bit mask for the option. */
+	u32 Register;  /**< TTC register offset for the option. */
 } OptionsMap;
 
 static OptionsMap TmrCtrOptionsTable[] = {
@@ -91,15 +91,15 @@ static OptionsMap TmrCtrOptionsTable[] = {
 };
 
 #define XTTCPS_NUM_TMRCTR_OPTIONS (sizeof(TmrCtrOptionsTable) / \
-				   sizeof(OptionsMap))
+				   sizeof(OptionsMap)) /**< Number of entries in TmrCtrOptionsTable. */
 
 /*****************************************************************************/
 /**
 *
 * This function sets the options for the TTC device.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	Options contains the specified options to be set. This is a bit
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	Options contains the specified options to be set. This is a bit
 *		mask where a 1 means to turn the option on, and a 0 means to
 *		turn the option off. One or more bit values may be contained
 *		in the mask. See the bit definitions named XTTCPS_*_OPTION in
@@ -109,14 +109,13 @@ static OptionsMap TmrCtrOptionsTable[] = {
 *		- XST_SUCCESS if options are successfully set.
 *		- XST_FAILURE if any of the options are unknown.
 *
-* @note		None
-*
 ******************************************************************************/
 s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 {
 	u32 CountReg;
 	u32 ClockReg;
 	u32 Index;
+
 	/*
 	 * Validate input arguments and in case of error conditions assert.
 	 */
@@ -159,18 +158,13 @@ s32 XTtcPs_SetOptions(XTtcPs *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
-* This function gets the settings for the options for the TTC device.
+* @brief Gets the settings for the options for the TTC device.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @return
-*
-* The return u32 contains the specified options that are set. This is a bit
-* mask where a '1' means the option is on, and a'0' means the option is off.
-* One or more bit values may be contained in the mask. See the bit definitions
-* named XTTCPS_*_OPTION in the file xttcps.h.
-*
-* @note		None.
+* @return Bitmask of the enabled options. Each bit corresponds to an
+*         XTTCPS_*_OPTION flag in xttcps.h; a set bit means the option
+*         is active.
 *
 ******************************************************************************/
 u32 XTtcPs_GetOptions(XTtcPs *InstancePtr)

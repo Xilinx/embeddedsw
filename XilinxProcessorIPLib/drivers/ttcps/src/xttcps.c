@@ -29,15 +29,15 @@
 *                       32 bit interval count for zynq ultrascale+mpsoc
 * 3.5   srm    10/06/17 Updated XTtcPs_GetMatchValue and XTtcPs_SetMatchValue
 *                       APIs to use correct match register width for zynq
-*                       (i.e. 16 bit) and zynq ultrascale+mpsoc (i.e. 32 bit).
+*                       (that is 16 bit) and zynq ultrascale+mpsoc (that is 32 bit).
 *                       It fixes CR# 986617
 * 3.6   srm    04/25/18 Corrected the Match register initialization in
 						XTtcPs_CfgInitialize API.
 * 3.7   mus    09/20/18 Modified XTtcPs_CalcIntervalFromFreq API to use
 *						XTTCPS_MAX_INTERVAL_COUNT instead of hardcoding
-*						MAX interval count to 16 bit value(i.e.65532),
+*						MAX interval count to 16 bit value(that is 65532),
 *						which is incorrect for  zynq ultrascale+mpsoc
-*						(i.e. max interval count is 32 bit).
+*						(that is max interval count is 32 bit).
 * 3.10  aru    05/06/19 Added assert check for driver instance and freq
 *			parameter in  XTtcPs_CalcIntervalFromFreq().
 * 3.10  aru    05/30/19 Added interrupt handler to clear ISR
@@ -119,6 +119,7 @@ static u32 GetTtcNodeAddress(u16 DeviceId)
 #endif
 #endif
 
+/** @brief Get the instance table index corresponding to a given base address. */
 static u32 GetIndexFromBaseAddr(u32 BaseAddress) {
         u32 Index;
 
@@ -145,10 +146,10 @@ static u32 GetIndexFromBaseAddr(u32 BaseAddress) {
 *  - All Interrupts disabled
 *  - Output waveforms disabled
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	ConfigPtr is a reference to a structure containing information
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	ConfigPtr is a reference to a structure containing information
 *		about a specific TTC device.
-* @param	EffectiveAddr is the device base address in the virtual memory
+* @param[in]	EffectiveAddr is the device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -157,9 +158,7 @@ static u32 GetIndexFromBaseAddr(u32 BaseAddress) {
 *		ConfigPtr->BaseAddress for this parameter, passing the physical
 *		address instead.
 *
-* @return
-*
-* 		- XST_SUCCESS if the initialization is successful.
+* @return	- XST_SUCCESS if the initialization is successful.
 *		- XST_DEVICE_IS_STARTED if the device is started. It must be
 *		  stopped to re-initialize.
 *
@@ -250,6 +249,7 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 		 * stop the timer before configuring
 		 */
 		XTtcPs_Stop(InstancePtr);
+
 		/*
 		 * Reset the count control register to it's default value.
 		 */
@@ -315,14 +315,12 @@ static u32 CheckTtcNodeState(u16 TtcNodeId)
 /*****************************************************************************/
 /**
 *
-* This routine releases resources of XTtcPs instance/driver.
+* @brief Releases resources of XTtcPs instance/driver.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @param	None
 * @return	- XST_SUCCESS if node release was successful
 *		- XST_FAILURE if node release was fail, Node won't be released
 *		  if any other counter/counters in that TTC in use.
-*
-* @note		None.
 *
 ******************************************************************************/
 u32 XTtcPs_Release(XTtcPs *InstancePtr)
@@ -380,26 +378,20 @@ u32 XTtcPs_Release(XTtcPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function is used to set the match registers. There are three match
-* registers.
+* @brief Sets the match registers.
 *
-* The match 0 register is special. If the waveform output mode is enabled, the
-* waveform will change polarity when the count matches the value in the match 0
-* register. The polarity of the waveform output can also be set using the
-* XTtcPs_SetOptions() function.
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	MatchIndex is the index to the match register to be set.
+* There are three match registers. The match 0 register is special. If the
+* waveform output mode is enabled, the waveform will change polarity when the
+* count matches the value in the match 0 register. The polarity of the waveform
+* output can also be set using the XTtcPs_SetOptions() function.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	MatchIndex is the index to the match register to be set.
 *		    Valid values are: 0 - 2.
-* @param	Value is the 16-bit value to be set in the match register.
+* @param[in]	Value is the value to be set in the match register.
 *           Valid Values are: (For Zynq):
 *                             0 - ((2^16)-1)
 *                             (For Zynq UltraScale + MpSoc) and Versal:
 *                             0 - ((2^32) - 1)
-*
-* @return	None
-*
-* @note		None
 *
 ****************************************************************************/
 void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Value)
@@ -421,17 +413,14 @@ void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Val
 /*****************************************************************************/
 /**
 *
-* This function is used to get the value of the match registers. There are
-* three match registers.
+* @brief Gets the value of the match registers.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	MatchIndex is the index to the match register to be set.
-*           There are three match registers are there.
+* There are three match registers.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	MatchIndex is the index of the match register to read.
 *		    Valid values are: 0 - 2.
 *
 * @return	The match register value
-*
-* @note		None
 *
 ****************************************************************************/
 XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
@@ -454,11 +443,9 @@ XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 /*****************************************************************************/
 /**
 *
-* This function sets the prescaler enable bit and if needed sets the prescaler
-* bits in the control register.
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	PrescalerValue is a number from 0-16 that sets the prescaler
+* @brief Configures the prescaler enable bit and value in the control register.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	PrescalerValue is a number from 0-16 that sets the prescaler
 *		    to use.
 *		    If the parameter is 0 - 15, use a prescaler on the clock of
 *		    2^(PrescalerValue+1), or 2-65536.
@@ -466,10 +453,6 @@ XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex)
 *		    prescaler.
 *
 *		    Valid values are: 0 - 15
-*
-* @return	None
-*
-* @note		None
 *
 ****************************************************************************/
 void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
@@ -514,25 +497,22 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue)
 /*****************************************************************************/
 /**
 *
-* This function gets the input clock prescaler
+* @brief Gets the input clock prescaler.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-*
-* <pre>
 * @return	The value(n) from which the prescalar value is calculated
 *		    as 2^(n+1). Some example values are given below :
 *
+* <pre>
 * 	Value		Prescaler
 * 	0		2
 * 	1		4
 * 	N		2^(n+1)
 * 	15		65536
 * 	16		1
-*
-*           Valid values are: 0 - 16
 * </pre>
 *
-* @note		None.
+*           Valid values are: 0 - 16
 *
 ****************************************************************************/
 u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
@@ -568,21 +548,16 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function calculates the interval value as well as the prescaler value
-* for a given frequency.
-*
-* @param	InstancePtr is a pointer to the XTtcPs instance.
-* @param	Freq is the requested output frequency for the device.
+* @brief Calculates the interval and prescaler values for a given frequency.
+* @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+* @param[in]	Freq is the requested output frequency for the device.
 *           valid values are: 1 - (2^32)-1
-* @param	Interval is the interval value for the given frequency,
+* @param[out]	Interval is the interval value for the given frequency,
 *		    it is the output value for this function.
-* @param	Prescaler is the prescaler value for the given frequency,
+* @param[out]	Prescaler is the prescaler value for the given frequency,
 *		    it is the output value for this function.
 *
-* @return	None.
-*
-* @note
-*  Upon successful calculation for the given frequency, Interval and Prescaler
+* @note		Upon successful calculation for the given frequency, Interval and Prescaler
 *  carry the settings for the timer counter; Upon unsuccessful calculation,
 *  Interval and Prescaler are set to 0xFF(FF) for their maximum values to
 *  signal the caller of failure. Therefore, caller needs to check the return
@@ -664,13 +639,11 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
  * Handles interrupts by resetting the counter value
  * and clearing the status register
  *
- * @param	InstancePtr is a pointer to the XTtcPs instance.
+ * @param[in]	InstancePtr is a pointer to the XTtcPs instance.
  *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if index not found within the config table.
- *
- * @note	None.
  *
  ******************************************************************************/
 
@@ -717,19 +690,16 @@ u32 XTtcPs_InterruptHandler(XTtcPs *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Sets the status callback function, the status handler, which the driver
+ * @brief Sets the status callback function, the status handler, which the driver
  * calls when it encounters conditions that should be reported to upper
  * layer software. The handler executes in an interrupt context, so it must
  * minimize the amount of processing performed. One of the following status
  * events is passed to the status handler.
  *
- * </pre>
- * @param	InstancePtr is a pointer to the XTtcPs instance.
- * @param	CallBackRef is the upper layer callback reference passed back
+ * @param[in]	InstancePtr is a pointer to the XTtcPs instance.
+ * @param[in]	CallBackRef is the upper layer callback reference passed back
  *		when the callback function is invoked.
- * @param	FuncPointer is the pointer to the callback function.
- *
- * @return	None.
+ * @param[in]	FuncPointer is the pointer to the callback function.
  *
  * @note
  *
@@ -741,6 +711,7 @@ void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
 			     XTtcPs_StatusHandler FuncPointer)
 {
 	u32 Index;
+
 	/*
 	 * Validate input arguments and in case of error conditions assert.
 	 */
@@ -761,12 +732,8 @@ void XTtcPs_SetStatusHandler(XTtcPs *InstancePtr, void *CallBackRef,
  * This is a stub for the status callback. The stub is here in case the upper
  * layers forget to set the handler.
  *
- * @param	CallBackRef is a pointer to the upper layer callback reference
- * @param	StatusEvent is the event that just occurred.
- *
- * @return	None.
- *
- * @note	None.
+ * @param[in]	CallBackRef is a pointer to the upper layer callback reference
+ * @param[in]	StatusEvent is the event that just occurred.
  *
  ******************************************************************************/
 static void StubStatusHandler(const void *CallBackRef, u32 StatusEvent)
