@@ -39,6 +39,7 @@
 #ifdef XASU_PLEXT_ENABLE
 
 #include "xasufw_hw.h"
+#include "xasufw_memvalidation.h"
 #include "xasufw_modules.h"
 #include "xasufw_resourcemanager.h"
 #include "xasufw_status.h"
@@ -465,6 +466,9 @@ END:
  * 	  channel WaitForDone.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  *	- XASUFW_DMA_RESOURCE_ALLOCATION_FAILED, if DMA pointer is not allocated.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID of the requesting channel is invalid.
+ * 	- An error code from XAsufw_ValidateMemRegnAccess, if a client buffer is not accessible to
+ * 	  the requesting subsystem.
  *
  *************************************************************************************************/
 static s32 XAsufw_PlExtOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -472,6 +476,7 @@ static s32 XAsufw_PlExtOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_AesParams *ParamsPtr = (const XAsu_AesParams *)ReqBuf->Arg;
 	XAsufw_Dma *DmaPtr = XAsufw_PlExtModule.AsuDmaPtr;
+	u32 SubsystemId = XASUFW_INVALID_SUBSYS_ID;
 
 	if (DmaPtr == NULL) {
 		Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;
@@ -485,6 +490,21 @@ static s32 XAsufw_PlExtOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_PLEXT_WINDOW_NOT_CONFIGURED;
 		goto END;
 	}
+
+	/** Get the subsystem ID of the channel on which the request arrived. */
+	SubsystemId = XAsu_GetSubsysIdFromIpiMask(ReqId >> XASUFW_IPI_BITMASK_SHIFT);
+	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Validate the client provided key object, input and output buffers. */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, ParamsPtr->KeyObjectAddr,
+		sizeof(XAsu_AesKeyObject));
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, ParamsPtr->InputDataAddr,
+		ParamsPtr->DataLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, ParamsPtr->OutputDataAddr,
+		ParamsPtr->DataLen);
 
 	/** Validate the input parameters. */
 	Status = XAsufw_PlExtValidateParams(ParamsPtr);

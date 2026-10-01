@@ -317,6 +317,8 @@ u32 XLms_OtsCoeff(u8 const* const Arr, const u32 ArrayIndex, const u32 w)
 * @return
 *	-	XASUFW_SUCCESS - Valid type is passed, and parameters are assigned
 *	-	XASUFW_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR - If buffer length is 0
+*	-	XASUFW_LMS_INVALID_PARAM - If 'Array' or 'Checksum' is NULL, or 'w' is not a defined
+*		Winternitz width
 *
 **************************************************************************************************/
 s32 XLms_OtsComputeChecksum(const u8* const Array, const u32 ArrayLen, const u32 w, const u32 ls,
@@ -325,9 +327,21 @@ s32 XLms_OtsComputeChecksum(const u8* const Array, const u32 ArrayLen, const u32
 
 	s32 Status = XASUFW_FAILURE;
 	u32 Sum = 0x0U;
-	u32 MaxDigitValue = XLMS_BIT_MASK(w);
+	u32 MaxDigitValue;
 	u32 MaxIndex = 0U;
 	u32 Index;
+
+	/** Checked first, since the error paths below write through it. */
+	if (Checksum == NULL) {
+		Status = XASUFW_LMS_INVALID_PARAM;
+		goto END;
+	}
+
+	if (Array == NULL) {
+		Status = XASUFW_LMS_INVALID_PARAM;
+		*Checksum = 0x0;
+		goto END;
+	}
 
 	if (0U == ArrayLen) {
 		Status = XASUFW_LMS_OTS_CHECKSUM_BUFF_INVALID_LEN_ERROR;
@@ -335,6 +349,15 @@ s32 XLms_OtsComputeChecksum(const u8* const Array, const u32 ArrayLen, const u32
 		goto END;
 	}
 
+	/** w must divide 8; any other width underflows the shift in XLms_OtsCoeff. */
+	if ((w != (u32)XLMS_OTS_W1) && (w != (u32)XLMS_OTS_W2) && (w != (u32)XLMS_OTS_W4) &&
+		(w != (u32)XLMS_OTS_W8)) {
+		Status = XASUFW_LMS_INVALID_PARAM;
+		*Checksum = 0x0;
+		goto END;
+	}
+
+	MaxDigitValue = XLMS_BIT_MASK(w);
 	MaxIndex = (ArrayLen * XLMS_BITS_PER_BYTE)/w;
 
 	for (Index = 0U; Index < MaxIndex; Index++) {

@@ -492,7 +492,15 @@ s32 X509_BuildUserCfg(const XAsu_X509CertFields *CertFields, X509_UserCfg *UserC
 		goto END;
 	}
 
+	/** Clear first, so a rejected call leaves nothing from an earlier one. */
+	Status = Xil_SMemSet(UserCfg, sizeof(X509_UserCfg), 0U, sizeof(X509_UserCfg));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		goto END;
+	}
+
 	/** Validate the subject name. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = X509_ValidateName(&CertFields->Subject);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_SUBJECT_FIELD_FAIL);
@@ -512,14 +520,6 @@ s32 X509_BuildUserCfg(const XAsu_X509CertFields *CertFields, X509_UserCfg *UserC
 	Status = X509_ValidateValidity(&CertFields->Validity);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_GEN_VALIDITY_FIELD_FAIL);
-		goto END;
-	}
-
-	/** Clear the user configuration before it is filled with the DER encoded fields. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = Xil_SMemSet(UserCfg, sizeof(X509_UserCfg), 0U, sizeof(X509_UserCfg));
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
 		goto END;
 	}
 

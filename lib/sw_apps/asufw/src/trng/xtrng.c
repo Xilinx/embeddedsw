@@ -947,7 +947,14 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if requested bytes of random number is generated successfully.
+ * 	- XASUFW_TRNG_INVALID_PARAM, if RandomBuf is NULL.
  * 	- XASUFW_TRNG_INVALID_RANDOM_BYTES_SIZE, if size of random buffer is invalid.
+ * 	- XASUFW_TRNG_INVALID_STATE, if the TRNG core is not instantiated.
+ * 	- XASUFW_TRNG_UNHEALTHY_STATE, if a TRNG health test has failed.
+ * 	- XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT, if no random number becomes available in the
+ * 		TRNG FIFO within the timeout.
+ * 	- XASUFW_TRNG_INVALID_RANDOM_NUMBER, if the number of bytes copied does not match the
+ * 		requested size.
  * 	- XASUFW_FAILURE, if there is any failure.
  *
  * @note	The maximum size allowed is 510 Bytes.This limitation is kept to support RSA
@@ -967,6 +974,12 @@ s32 XTrng_GetRandomNumbers(u8 *RandomBuf, u32 Size)
 	u8 *BufAddr = RandomBuf;
 	u8 LocalBuf[XTRNG_SEC_STRENGTH_IN_BYTES];
 	u32 Loop;
+
+	/** Validate the buffer. */
+	if (RandomBuf == NULL) {
+		Status = XASUFW_TRNG_INVALID_PARAM;
+		goto END;
+	}
 
 	/** Validate the size. */
 	if (Size > XTRNG_MAX_RANDOM_BYTES_ALLOWED) {
