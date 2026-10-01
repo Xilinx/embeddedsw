@@ -10,8 +10,6 @@
 /**
 *
 * @file xaxis_switch_hw.h
-* @addtogroup axis_switch Overview
-* @{
 *
 * @brief Hardware definition file for the AXI4-Stream Switch register interface.
 *
@@ -30,9 +28,14 @@
 * 1.00  sha 01/28/15 Initial release.
 * 1.9   vn  07/30/26 Fix Doxygen warnings
 * 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+* 1.9  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 *****************************************************************************/
+
+/** @addtogroup axis_switch Overview
+ * @{
+ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,19 +51,18 @@ extern "C" {
 *
 * @{
 */
-#define XAXIS_SCR_CTRL_OFFSET		0x000	/**< Control Register offset */
-#define XAXIS_SCR_MI_MUX_START_OFFSET	0x040	/**< Start of MI MUX Register
-						  *  offset */
-#define XAXIS_SCR_MI_MUX_END_OFFSET	0x07C	/**< End of MI MUX Register
-						  *  offset */
+#define XAXIS_SCR_CTRL_OFFSET		0x000	/**< Control Register offset. */
+/** Start of MI MUX Register offset. */
+#define XAXIS_SCR_MI_MUX_START_OFFSET	0x040
+/** End of MI MUX Register offset. */
+#define XAXIS_SCR_MI_MUX_END_OFFSET	0x07C
 
 /** @} */
 
 /** @name MI MUX Control register mask
 * @{
 */
-#define XAXIS_SCR_CTRL_REG_UPDATE_MASK	0x02	/**< Register Update
-						  *  mask */
+#define XAXIS_SCR_CTRL_REG_UPDATE_MASK	0x02	/**< Register Update mask. */
 /** @} */
 
 /** @brief Defines MI MUX register masks.
@@ -69,9 +71,9 @@ extern "C" {
 * Applicable for MI[0...15] registers.
 * @{
 */
-#define XAXIS_SCR_MI_X_MUX_MASK		0x0F		/**< MI MUX mask */
-#define XAXIS_SCR_MI_X_DISABLE_MASK	0x80000000	/**< MI Disable mask */
-#define XAXIS_SCR_MI_X_DISABLE_SHIFT	31	/**< MI Disable shift */
+#define XAXIS_SCR_MI_X_MUX_MASK		0x0F /**< MI MUX mask. */
+#define XAXIS_SCR_MI_X_DISABLE_MASK	0x80000000	/**< MI Disable mask. */
+#define XAXIS_SCR_MI_X_DISABLE_SHIFT	31	/**< MI Disable shift. */
 /** @} */
 
 /**************************** Type Definitions *******************************/
@@ -83,8 +85,8 @@ extern "C" {
 * @name Register access macro definition
 * @{
 */
-#define XAxisScr_In32		Xil_In32	/**< Input Operations */
-#define XAxisScr_Out32		Xil_Out32	/**< Output Operations */
+#define XAxisScr_In32		Xil_In32	/**< Input Operations. */
+#define XAxisScr_Out32		Xil_Out32	/**< Output Operations. */
 
 /*****************************************************************************/
 /**
@@ -94,9 +96,9 @@ extern "C" {
 * width, only the least significant data is read from the register.
 * The most significant data reads as 0.
 *
-* @param[in]	BaseAddress is the base address of the XAxis_Switch core
+* @param[in]    BaseAddress Base address of the XAxis_Switch core
 *		instance.
-* @param[in]	RegOffset is the register offset of the register (defined at
+* @param[in]    RegOffset Register offset of the register (defined at
 *		the top of this file).
 *
 * @return	The 32-bit value of the register.
@@ -115,11 +117,11 @@ extern "C" {
 * Performs a 32-bit write. If the component is implemented in a smaller
 * width, only the least significant data is written.
 *
-* @param[in]	BaseAddress is the base address of the XAxis_Switch core
+* @param[in]    BaseAddress Base address of the XAxis_Switch core
 *		instance.
-* @param[in]	RegOffset is the register offset of the register (defined at
+* @param[in]    RegOffset Register offset of the register (defined at
 *		the top of this file) to be written.
-* @param[in]	Data is the 32-bit value to write into the register.
+* @param[in]    Data 32-bit value to write into the register.
 *
 * @note		C-style signature:
 *		void XAxisScr_WriteReg(u32 BaseAddress, u32 RegOffset,

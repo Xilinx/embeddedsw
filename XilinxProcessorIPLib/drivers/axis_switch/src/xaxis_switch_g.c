@@ -8,8 +8,6 @@
 /**
 *
 * @file xaxis_switch_g.c
-* @addtogroup axis_switch Overview
-* @{
 *
 * @brief Auto-generated configuration table for the AXI4-Stream Switch core.
 *
@@ -22,9 +20,14 @@
 *                   config table parameters. Modified copyright header.
 *                   Added doxygen tag and modification history.
 * 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+* 1.9  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup axis_switch Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 

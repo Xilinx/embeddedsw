@@ -22,6 +22,7 @@
 * 1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 1.9  vn   07/30/26 Fix Doxygen warnings
 * 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+* 1.9  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -35,8 +36,8 @@
 
 /**
 * The following constants map to the XPAR parameters created in the
-* xparameters.h file. They are defined here such that a user can easily
-* change all the needed parameters in one place.
+* xparameters.h file. They are defined here so that you can easily change all
+* the needed parameters in one place.
 */
 #ifndef SDT
 #define XAXIS_SWITCH_DEVICE_ID		XPAR_AXIS_SWITCH_0_DEVICE_ID
@@ -58,7 +59,7 @@ int AxisSwitch_Example(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XAxis_Switch AxisSwitch;	/**< Instance of the AXI4-Stream Switch core */
+XAxis_Switch AxisSwitch;	/**< Instance of the AXI4-Stream Switch core. */
 
 /************************** Function Definitions *****************************/
 
@@ -97,9 +98,9 @@ int main()
 * @brief Demonstrates the use of AXI4-Stream Switch driver functions.
 *
 * @if SDT
-* @param[in]	BaseAddress contains the base address of the device.
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param[in]	DeviceId is the unique device id of the AXI4-Stream Switch
+* @param[in]    DeviceId Unique device id of the AXI4-Stream Switch
 *		core.
 * @endif
 *

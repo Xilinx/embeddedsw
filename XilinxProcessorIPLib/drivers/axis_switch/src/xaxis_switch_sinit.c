@@ -8,8 +8,6 @@
 /**
 *
 * @file xaxis_switch_sinit.c
-* @addtogroup axis_switch Overview
-* @{
 *
 * @brief Static initialization method for the AXI4-Stream Switch Control
 * Router core.
@@ -25,10 +23,15 @@
 * 1.2   ms  02/20/17 Fixed compilation warning. This is a fix for CR-969126.
 * 1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+* 1.9  vn   09/30/26 Update Doxygen comments to AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup axis_switch Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -40,6 +43,7 @@
 /************************** Constant Definitions *****************************/
 
 #ifndef XPAR_XAXIS_SWITCH_NUM_INSTANCES
+/** AXI4-Stream Switch instances. */
 #define XPAR_XAXIS_SWITCH_NUM_INSTANCES			0
 #endif
 
@@ -66,9 +70,9 @@
 * device in the system.
 *
 * @if SDT
-* @param[in]	BaseAddress contains the base address of the device.
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param[in]	DeviceId contains the unique ID of the device.
+* @param[in]    DeviceId Unique ID of the device.
 * @endif
 *
 * @return	A pointer to the configuration found or NULL if the

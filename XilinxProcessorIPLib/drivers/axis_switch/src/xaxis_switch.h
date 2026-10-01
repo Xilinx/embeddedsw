@@ -12,7 +12,8 @@
 * @file xaxis_switch.h
 * @addtogroup axis_switch Overview
 * @{
-* @brief AXI4-Stream Switch Control Router driver header file.
+* @brief Defines the AXI4-Stream Switch Control Router driver API.
+*
 * @details
 *
 * Provides the main header for the AXI4-Stream Switch Control Router
@@ -21,7 +22,7 @@
 *
 * <b>Core Features </b>
 *
-* For a full description of AXI4-Stream Switch Control Router, please see the
+* For a full description of AXI4-Stream Switch Control Router, see the
 * hardware specification.
 *
 * <b>Software Initialization & Configuration</b>
@@ -77,6 +78,7 @@
 * 1.4   sd   02/09/20 Updated makefile for parallel execution.
 * 1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
 * 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+* 1.9  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -103,15 +105,15 @@ extern "C" {
 */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< DeviceId is the unique ID of the AXI4-
-				  *  Stream Switch core */
+	u16 DeviceId;		/**< Unique ID of the AXI4-Stream Switch
+				 * core. */
 #else
-	char *Name;             /**< Name of the device */
+	char *Name;		/**< Name of the device. */
 #endif
-	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
-				  *  of the core's registers */
-	u8 MaxNumSI;		/**< Maximum number of Slave interfaces */
-	u8 MaxNumMI;		/**< Maximum number of Master interfaces */
+	UINTPTR BaseAddress;	/**< Physical base address of the core
+				 * registers. */
+	u8 MaxNumSI;		/**< Maximum number of slave interfaces. */
+	u8 MaxNumMI;		/**< Maximum number of master interfaces. */
 } XAxis_Switch_Config;
 
 /**
@@ -120,9 +122,9 @@ typedef struct {
 * An instance must be allocated for each core in use.
 */
 typedef struct {
-	XAxis_Switch_Config Config;	/**< Hardware Configuration */
+	XAxis_Switch_Config Config;	/**< Hardware configuration. */
 	u32 IsReady;			/**< Core and the driver instance are
-					  *  initialized */
+					 * initialized. */
 } XAxis_Switch;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -131,7 +133,7 @@ typedef struct {
 /**
 * @brief Enables register updates.
 *
-* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]    InstancePtr Pointer to the XAxis_Switch core instance.
 *
 * @note		C-style signature:
 *		void XAxisScr_RegUpdateEnable(XAxis_Switch *InstancePtr)
@@ -148,7 +150,7 @@ typedef struct {
 /**
 * @brief Disables register updates.
 *
-* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]    InstancePtr Pointer to the XAxis_Switch core instance.
 *
 * @note		C-style signature:
 *		void XAxisScr_RegUpdateDisable(XAxis_Switch *InstancePtr)

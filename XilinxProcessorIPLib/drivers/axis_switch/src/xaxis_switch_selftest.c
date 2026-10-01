@@ -8,8 +8,6 @@
 /**
 *
 * @file xaxis_switch_selftest.c
-* @addtogroup axis_switch Overview
-* @{
 *
 * @brief Self test function for the AXI4-Stream Switch Control Router core.
 *
@@ -20,9 +18,14 @@
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
 * 1.9  vn   09/08/26 Align Doxygen comments with AMD standards
+* 1.9  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup axis_switch Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -49,7 +52,7 @@
 /**
 * @brief Performs self test on AXI4-Stream Switch core registers.
 *
-* @param[in]	InstancePtr is a pointer to the XAxis_Switch core instance.
+* @param[in]    InstancePtr Pointer to the XAxis_Switch core instance.
 *
 * @return	TRUE if self test passed, FALSE otherwise.
 *
