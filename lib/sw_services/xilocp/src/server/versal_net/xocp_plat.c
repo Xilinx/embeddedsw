@@ -18,6 +18,7 @@
 * 1.6   tvp  05/16/25 Initial release
 *       tvp  09/13/25 Moved XOcp_ReadSecureConfig from xocp.c to platform file
 * 1.7   rmv  01/30/26 Refactor OCP library
+* 1.8   tvp  10/01/26 Read boot mode disable from eFuse cache instead of PMC_LOCAL
 *
 * </pre>
 *
@@ -76,8 +77,8 @@ XOcp_RegSpace* XOcp_GetRegSpace(void)
  **************************************************************************************************/
 void XOcp_ReadSecureConfig(XOcp_SecureConfig* EfuseConfig)
 {
-	EfuseConfig->BootmodeDis = XPlmi_In32(XOCP_PMC_LOCAL_BOOT_MODE_DIS) &
-			XOCP_PMC_LOCAL_BOOT_MODE_DIS_FULLMASK;
+	EfuseConfig->BootmodeDis = XPlmi_In32(XOCP_EFUSE_CACHE_BOOT_MODE_DIS) &
+			XOCP_EFUSE_CACHE_BOOT_MODE_DIS_MASK;
 	EfuseConfig->BootEnvCtrl = XPlmi_In32(XOCP_EFUSE_CACHE_BOOT_ENV_CTRL);
 	EfuseConfig->IpDisable1 = XPlmi_In32(XOCP_EFUSE_CACHE_IP_DISABLE_1);
 	EfuseConfig->SecMisc1 = XPlmi_In32(XOCP_EFUSE_CACHE_SECURITY_MISC_1);

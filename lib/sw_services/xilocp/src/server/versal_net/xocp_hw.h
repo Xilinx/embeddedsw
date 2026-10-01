@@ -18,6 +18,7 @@
 * 1.6   tvp  05/16/25 Initial release
 * 1.7   rmv  01/30/26 Refactor OCP library
 *       rpu  02/18/26 Fixed Doxygen warnings
+* 1.8   tvp  10/01/26 Read boot mode disable from eFuse cache instead of PMC_LOCAL
 * </pre>
 *
 ***************************************************************************************************/
@@ -239,7 +240,7 @@ extern "C" {
 #define XOCP_PMC_TAP_DAP_SECURITY_OFFSET		(0xF11B000CU) /**< DAP security register address */
 
 #define XOCP_EFUSE_CACHE_BOOT_ENV_CTRL			(0xF1250094U) /**< Boot environmental register address */
-#define XOCP_PMC_LOCAL_BOOT_MODE_DIS			(0xF00441D0U) /**< Boot mode register address */
+#define XOCP_EFUSE_CACHE_BOOT_MODE_DIS			(0xF1250238U) /**< Boot mode disable eFuse cache address */
 #define XOCP_EFUSE_CACHE_MISC_CTRL			(0xF12500A0U) /**< MISC control register address */
 #define XOCP_EFUSE_CACHE_ANLG_TRIM_3			(0xF1250010U) /**< Analog Trim3 register address */
 #define XOCP_EFUSE_CACHE_IP_DISABLE_0			(0xF1250018U) /**< IP disable 0 register address */
@@ -255,7 +256,7 @@ extern "C" {
 #define XOCP_CAHER_1_MEASURED_MASK			(0x00000F00U) /**< HNIC DIS| DDR XTS export | HNIC DDR export | DDR XTS GCM DIS */
 #define XOCP_DEC_ONLY_MEASURED_MASK			(0x0000FFFFU) /**< Decrypt only mask */
 #define XOCP_SEC_CTRL_MEASURED_MASK			(0x03FF001FU) /**< Security control measured mask */
-#define XOCP_PMC_LOCAL_BOOT_MODE_DIS_FULLMASK		(0x0000FFFFU) /**< PMC local disable mask */
+#define XOCP_EFUSE_CACHE_BOOT_MODE_DIS_MASK		(0x0000FFFFU) /**< Boot mode disable bits [15:0] */
 #define XOCP_MISC_CTRL_MEASURED_MASK			(0xE018C100U) /**< MISC control mask */
 #define XOCP_DME_FIPS_MEASURED_MASK			(0xFF00000FU) /**< DME FIPS mask */
 #define XOCP_IP_DISABLE0_MEASURED_MASK			(0xF0000F04U) /**< IP disable mask */
