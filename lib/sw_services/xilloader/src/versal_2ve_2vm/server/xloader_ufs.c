@@ -24,6 +24,7 @@
 * 2.4   gnr 02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in UFS release
 *       pre 09/04/2026 Added XLoader_UfsReadDdrCalibData for calib data restore
+*       pre 09/26/2026 Fail UFS copy when f_read returns fewer bytes than requested
 *
 * </pre>
 *
@@ -222,7 +223,8 @@ END:
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_SC_F_LSEEK on f_seek fail.
- * 			- XLOADER_ERR_UFS_F_READ if reading from UFS card fails.
+ * 			- XLOADER_ERR_UFS_F_READ if reading from UFS fails or fewer
+ * 			  bytes are read than requested.
  * 			- XLOADER_ERR_DMA_XFER if DMA transfer fails.
  *
  *****************************************************************************/
@@ -239,7 +241,11 @@ int XLoader_UfsCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		goto END;
 	}
 
-	/** - Verify whether you can access the source address. */
+	/**
+	 * - Seek to the source offset. FatFs clips an offset past end of file
+	 * to the file size and still returns FR_OK, so the bytes read are
+	 * checked after each f_read.
+	 */
 	Rc = f_lseek(&FFil, (FSIZE_t)SrcAddr);
 	if (Rc != FR_OK) {
 		XLoader_Printf(DEBUG_INFO, "UFS: Unable to seek to 0x%0x%08x\n",
@@ -264,6 +270,18 @@ int XLoader_UfsCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_UFS_F_READ\n\r");
 			goto END;
 		}
+		/**
+		 * f_read returns FR_OK at end of file and reports a short transfer
+		 * in Br. Fail so the unread tail is not left as success.
+		 */
+		if ((u32)Br != Length) {
+			XLoader_Printf(DEBUG_GENERAL,
+					"UFS: f_read short, requested 0x%x got 0x%x\r\n",
+					Length, (u32)Br);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_READ,
+					(int)FR_DENIED);
+			goto END;
+		}
 	}
 	else {
 		while(Length > 0U) {
@@ -279,6 +297,18 @@ int XLoader_UfsCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 				XLoader_Printf(DEBUG_GENERAL, "UFS: f_read returned %d\r\n", Rc);
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_READ, (int)Rc);
 				XLoader_Printf(DEBUG_GENERAL, "XLOADER_ERR_UFS_F_READ\n\r");
+				goto END;
+			}
+			/**
+			 * f_read returns FR_OK at end of file and reports a short
+			 * transfer in Br. Fail before DMA so stale PMCRAM is not copied.
+			 */
+			if ((u32)Br != TrfLen) {
+				XLoader_Printf(DEBUG_GENERAL,
+						"UFS: f_read short, requested 0x%x got 0x%x\r\n",
+						TrfLen, (u32)Br);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_READ,
+						(int)FR_DENIED);
 				goto END;
 			}
 			Status = XPlmi_DmaXfr((u64)XPLMI_PMCRAM_BASEADDR,
@@ -563,6 +593,13 @@ int XLoader_UfsReadDdrCalibData(const char *FileName, u32 DestAddr)
 	if (Rc != FR_OK) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_READ, (int)Rc);
 		XLoader_Printf(DEBUG_INFO, "UFS calib: f_read failed %d\r\n", Rc);
+		goto END;
+	}
+	if ((u32)Br != XLOADER_CALIBDATA_SIZE_BYTES) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UFS_F_READ, (int)FR_DENIED);
+		XLoader_Printf(DEBUG_INFO,
+				"UFS calib: f_read short, requested 0x%x got 0x%x\r\n",
+				XLOADER_CALIBDATA_SIZE_BYTES, (u32)Br);
 		goto END;
 	}
 	Status = XST_SUCCESS;
