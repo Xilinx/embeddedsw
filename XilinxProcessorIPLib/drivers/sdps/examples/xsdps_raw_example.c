@@ -8,12 +8,10 @@
 /**
 *
 * @file xsdps_raw_example.c
+* @brief Tests read and write transfers on the SD/eMMC interface.
 *
-* This example is used to test read and write transfers on SD/eMMC interface.
-*
-* Please note that running this example will modify the card contents and
-* file system information will be erased in the card. Card will need to be
-* re-formatted.
+* Running this example modifies the card contents and erases the file system
+* information in the card. The card needs to be re-formatted.
 *
 * Modify the offset and Size macros to test different SD memory offset and
 * size.
@@ -27,6 +25,7 @@
 * 3.10	mn  09/17/20 Fix sector offset issue with Non-HCS SD cards
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
 * 4.7   vn     07/30/26 Fix Doxygen warnings
+* 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 *</pre>
 *
@@ -49,29 +48,26 @@ static int SdpsRawTest(void);
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 DestinationAddress[10 * 1024];
+u8 DestinationAddress[10 * 1024];	/**< Buffer for the read data. */
 #pragma data_alignment = 32
-u8 SourceAddress[10 * 1024];
+u8 SourceAddress[10 * 1024];	/**< Buffer for the write data. */
 #else
+/** Buffer for the read data. */
 u8 DestinationAddress[10 * 1024] __attribute__ ((aligned(32)));
+/** Buffer for the write data. */
 u8 SourceAddress[10 * 1024] __attribute__ ((aligned(32)));
 #endif
 
-#define TEST 7
-/* Number of SD blocks to test */
-#define NUM_BLOCKS 16
-/* Sector offset to test */
-#define SECTOR_OFFSET 204800
+#define TEST 7	/**< Base value of the test data pattern. */
+#define NUM_BLOCKS 16	/**< Number of SD blocks to test. */
+#define SECTOR_OFFSET 204800	/**< Sector offset to test. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the SD example.
-*
+* @brief Calls the SD example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 int main(void)
@@ -95,11 +91,9 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function performs the SD Raw Read/ Write Test.
+* @brief Performs the SD Raw Read/ Write Test.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None
 *
 ******************************************************************************/
 static int SdpsRawTest(void)

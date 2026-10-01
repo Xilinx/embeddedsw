@@ -8,11 +8,8 @@
 /**
 *
 * @file xsdps_sinit.c
-* @addtogroup sdps_api SDPS APIs
-* @{
-*
-* The file contains the implementation of the static initialization
-* functionality of the XSdPs component.
+* @brief Implements the static initialization functionality of the XSdPs
+* component.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -26,10 +23,16 @@
 * 4.6   vlt    12/18/25 Update Doxygen comments to include SDT flow details.
 * 4.6   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup sdps_api SDPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xstatus.h"
@@ -48,22 +51,24 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration based on the unique device
+* ID/BaseAddress.
+*
 * The XSdPs_ConfigTable[] contains the configuration info for each device in
 * the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Unique ID of the device.
 * @endif
 *
 * @return       A pointer to the configuration found or NULL if the specified
 *               device ID/BaseAddress was not found. See xsdps.h for the
 *               definition of XSdPs_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note        In XSCT/classic flow, the device configuration is looked up
+*              by DeviceId.
 *
 ******************************************************************************/
 #ifndef SDT

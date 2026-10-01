@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,8 @@
 /**
 *
 * @file xsdps_g.c
-* @addtogroup sdps_api SDPS APIs
-* @{
-*
-* The xsdps_g.c file contains a configuration table that specifies the
-* configuration of SD devices in the system.
+* @brief Provides the configuration table that specifies the configuration
+* of SD devices in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,10 +19,16 @@
 * 1.00a hk/sg  10/17/13 Initial release
 * 3.6   mn     07/06/18 Add initialization macros in sdps
 *       mn     07/13/18 Add initializer macro for HasEMIO
+* 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup sdps_api SDPS APIs
+* @{
+*/
 
 
 
@@ -33,7 +36,7 @@
 #include "xsdps.h"
 
 /**
- * The configuration table for devices
+ * @brief Holds the configuration table for the SD devices in the system.
  */
 
 XSdPs_Config XSdPs_ConfigTable[] =

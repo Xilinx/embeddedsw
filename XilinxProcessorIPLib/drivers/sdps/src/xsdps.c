@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,8 @@
 /**
 *
 * @file xsdps.c
-* @addtogroup sdps_api SDPS APIs
-* @{
+* @brief Implements the interface functions of the XSdPs driver.
 *
-* Contains the interface functions of the XSdPs driver.
 * See xsdps.h for a detailed description of the device and driver.
 *
 * <pre>
@@ -93,10 +91,16 @@
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
 * 4.3   ap     11/29/23 Add support for Sanitize feature.
 * 4.5   sk     10/28/25 Update IsCacheCoherent logic to include EL1_NS mode.
+* 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup sdps_api SDPS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsdps_core.h"
@@ -111,29 +115,29 @@
 /*****************************************************************************/
 /**
 *
-* @brief
-* Initializes a specific XSdPs instance so that the driver is ready to use.
+* @brief Initializes a specific XSdPs instance so that the driver is ready to
+* use.
 *
-*
-* @param	InstancePtr Pointer to the XSdPs instance.
-* @param	ConfigPtr Reference to a structure containing information
-*		about a specific SD device. This function initializes an
-*		InstancePtr object for a specific device specified by the
+* @param[in,out]	InstancePtr Pointer to the XSdPs instance.
+* @param[in]	ConfigPtr Reference to a structure containing information
+*		about a specific SD device. The InstancePtr object is
+*		initialized for a specific device specified by the
 *		contents of Configuration.
-* @param	EffectiveAddr Device base address in the virtual memory
+* @param[in]	EffectiveAddr Device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
-*		unchanged once this function is invoked. Unexpected errors may
-*		occur if the address mapping changes after this function is
-*		called. If address translation is not used, use
-*		ConfigPtr->Config. BaseAddress for this device.
+*		unchanged once the instance is initialized. Unexpected errors
+*		may occur if the address mapping changes after the
+*		initialization. If address translation is not used, use
+*		ConfigPtr->BaseAddress for this device.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		It must be stopped to re-initialize.
+*		- XST_FAILURE if host reset or initialization fails.
 *
-* @note		This function initializes the host controller.
+* @note		Initializes the host controller.
 *		Initial clock of 400 KHz is set.
 *		Voltage of 3.3 V is selected as that is supported by host.
 *		Interrupts status is enabled and signal disabled by default.
@@ -224,11 +228,9 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* @brief
-* Initializes Card with Identification mode sequence
+* @brief Initializes the card with the identification mode sequence.
 *
-*
-* @param	InstancePtr Pointer to the instance to be worked on.
+* @param[in,out]	InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 * 		- XST_SUCCESS if initialization was successful
@@ -237,7 +239,6 @@ RETURN_PATH:
 * 			b) There is no card inserted
 * 			c) One of the steps (commands) in the
 *			   initialization cycle failed
-*
 *
 ******************************************************************************/
 s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
@@ -296,14 +297,13 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Performs SD read in polled mode.
+* @brief Performs SD read in polled mode.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	Arg Address passed by the user that is to be sent as
+* @param[in,out]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Arg Address passed by the user that is to be sent as
 * 		argument along with the command.
-* @param	BlkCnt Block count passed by the user.
-* @param	Buff Pointer to the data buffer for a DMA transfer.
+* @param[in]	BlkCnt Block count passed by the user.
+* @param[out]	Buff Pointer to the data buffer for a DMA transfer.
 *
 * @return
 * 		- XST_SUCCESS if initialization was successful
@@ -367,14 +367,13 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Performs SD write in polled mode.
+* @brief Performs SD write in polled mode.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	Arg Address passed by the user that is to be sent as
+* @param[in,out]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	Arg Address passed by the user that is to be sent as
 * 		argument along with the command.
-* @param	BlkCnt Block count passed by the user.
-* @param	Buff Pointer to the data buffer for a DMA transfer.
+* @param[in]	BlkCnt Block count passed by the user.
+* @param[in]	Buff Pointer to the data buffer for a DMA transfer.
 *
 * @return
 * 		- XST_SUCCESS if initialization was successful
@@ -429,14 +428,14 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
-* @brief
-* API to idle the SDIO Interface.
+* @brief Idles the SDIO interface.
 *
+* @param[in]	InstancePtr Pointer to the XSdPs instance.
 *
-* @param	InstancePtr Pointer to the XSdPs instance.
-*
-* @return	None
-*
+* @return
+*		- XST_SUCCESS if the SDIO interface is idled.
+*		- XST_FAILURE if the bus does not become idle or the reset
+*		fails.
 *
 ******************************************************************************/
 s32 XSdPs_Idle(XSdPs *InstancePtr)
@@ -479,12 +478,11 @@ RETURN_PATH:
 }
 /*****************************************************************************/
 /**
-* @brief
-* Performs Erase operation on the given address range.
+* @brief Performs Erase operation on the given address range.
 *
-* @param	InstancePtr Pointer to the instance to be worked on.
-* @param	StartAddr Address of the first write block to be erased.
-* @param	EndAddr Address of the last write block of the continuous
+* @param[in,out]	InstancePtr Pointer to the instance to be worked on.
+* @param[in]	StartAddr Address of the first write block to be erased.
+* @param[in]	EndAddr Address of the last write block of the continuous
 *           range to be erased.
 *
 * @return
@@ -558,10 +556,9 @@ RETURN_PATH:
 
 /*****************************************************************************/
 /**
-* @brief
-* Performs Sanitize operation on the unmapped user address range.
+* @brief Performs Sanitize operation on the unmapped user address range.
 *
-* @param        InstancePtr Pointer to the instance to be worked on.
+* @param[in]        InstancePtr Pointer to the instance to be worked on.
 *
 * @return
 *               - XST_SUCCESS if Sanitize is successful

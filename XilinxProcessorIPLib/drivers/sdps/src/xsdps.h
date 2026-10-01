@@ -4,14 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef SDPS_H_
+#define SDPS_H_
+
 /*****************************************************************************/
 /**
 *
 * @file xsdps.h
-* @addtogroup sdps_api SDPS APIs
+* @addtogroup sdps Overview
 * @{
-* @details
-*
+* @brief Provides the interface of the XSdPs SD/eMMC host controller driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -106,14 +108,11 @@
 * 4.6   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
 * 4.6   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
 *                       to support 64-bit addressing.
+* 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
-
-
-#ifndef SDPS_H_
-#define SDPS_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -185,7 +184,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds the configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
@@ -215,7 +214,7 @@ typedef struct {
 } XSdPs_Config;
 
 /**
- * ADMA2 32-Bit descriptor table
+ * @brief Describes an entry of the ADMA2 32-bit descriptor table.
  */
 #ifdef __ICCARM__
 #pragma pack(push,1)
@@ -233,7 +232,7 @@ __attribute__((__packed__))XSdPs_Adma2Descriptor32;
 #endif
 
 /**
- * ADMA2 64-Bit descriptor table
+ * @brief Describes an entry of the ADMA2 64-bit descriptor table.
  */
 #ifdef __ICCARM__
 #pragma pack(push,1)
@@ -250,9 +249,11 @@ typedef struct {
 #endif
 
 /**
- * The XSdPs driver instance data. The user is required to allocate a
- * variable of this type for every SD device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Holds the XSdPs driver instance data.
+ *
+ * The user is required to allocate a variable of this type for every SD
+ * device in the system. A pointer to a variable of this type is then passed
+ * to the driver API functions.
  */
 typedef struct {
 	XSdPs_Config Config;	/**< Configuration structure */
@@ -276,9 +277,9 @@ typedef struct {
 	u32 ITapDelay;		/**< Input Tap Delay */
 	u64 Dma64BitAddr;	/**< 64 Bit DMA Address */
 	u16 TransferMode;	/**< Transfer Mode */
-	u32 SlcrBaseAddr;	/**< SLCR base address*/
-	u8  IsBusy;			/**< Busy Flag*/
-	u32 BlkSize;		/**< Block Size*/
+	u32 SlcrBaseAddr;	/**< SLCR base address. */
+	u8  IsBusy;			/**< Busy flag. */
+	u32 BlkSize;		/**< Block size. */
 	u8  IsTuningDone;	/**< Flag to indicate HS200 tuning complete */
 	XSdPs_Adma2Descriptor32 Adma2_DescrTbl32[32] __attribute__ ((aligned(32)));	/**< ADMA descriptor table 32 Bit */
 	XSdPs_Adma2Descriptor64 Adma2_DescrTbl64[32] __attribute__ ((aligned(32)));	/**< ADMA descriptor table 64 Bit */
@@ -295,20 +296,20 @@ typedef struct {
  * other platforms.
  */
 #ifdef versal
-#define SD_HS_MODE_ENABLE	0
+#define SD_HS_MODE_ENABLE	0	/**< SD HS mode disabled for Versal. */
 #else
-#define SD_HS_MODE_ENABLE	1
+#define SD_HS_MODE_ENABLE	1	/**< SD HS mode enabled. */
 #endif
 /** @} */
 
 /**
- * Enable eMMC HS400 mode for Versal Net platform
+ * Enables eMMC HS400 mode for the Versal Net platform.
  */
 #define ENABLE_HS400_MODE
 
 /************************** Variable Definitions *****************************/
 /**
- * XSdPs Configuration Table
+ * @brief Holds the configuration table for each SDPS instance.
  */
 #ifndef SDT
 extern XSdPs_Config XSdPs_ConfigTable[XPAR_XSDPS_NUM_INSTANCES];
@@ -351,5 +352,5 @@ s32 XSdPs_Sanitize(XSdPs *InstancePtr);
 }
 #endif
 
-#endif /* SD_H_ */
+#endif /* SDPS_H_ */
 /** @} */

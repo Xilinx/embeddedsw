@@ -1,19 +1,21 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef SD_HW_H_
+#define SD_HW_H_
 
 /*****************************************************************************/
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps_api SDPS APIs
-* @{{
+* @brief Provides the identifiers and basic hardware access macros of the
+* SDPS driver.
 *
-* The xsdps_hw.h header file contains the identifiers and basic HW access driver
-* functions (or  macros) that can be used to access the device. Other driver
-* functions are defined in xsdps.h.
+* The identifiers and basic HW access driver functions (or macros) can be used
+* to access the device. Other driver functions are defined in xsdps.h.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -48,14 +50,18 @@
 * 4.2   ro     06/12/23 Added support for system device-tree flow.
 * 4.3   ap     11/29/23 Add support for Sanitize feature.
 * 4.3   ap     12/22/23 Add support to read custom HS400 tap delay value from design for eMMC.
+* 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
 
+/**
+* @addtogroup sdps_api SDPS APIs
+* @{
+*/
+
 /** @cond INTERNAL */
-#ifndef SD_HW_H_
-#define SD_HW_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -256,7 +262,7 @@ extern "C" {
  * Read/Write except Fixed_to_0 bit (Read only)
  *
  * <b> Normal and Error Interrupt Signal Enable Register </b>
- * This register is used to select which interrupt status is
+ * This register selects which interrupt status is
  * indicated to the Host System as the interrupt.
  * Read/Write except Fixed_to_0 bit (Read only)
  *
@@ -321,8 +327,8 @@ extern "C" {
 
 /** @name Transfer Mode and Command Register
  *
- * The Transfer Mode register is used to control the data transfers and
- * Command register is used for command generation
+ * The Transfer Mode register controls the data transfers and
+ * Command register generates commands.
  * Read/Write except for reserved bits.
  * @{
  */
@@ -443,7 +449,6 @@ extern "C" {
 #define XSDPS_CAP_SPI_MODE_MASK		0x20000000U /**< SPI mode */
 #define XSDPS_CAP_SPI_BLOCK_MODE_MASK	0x40000000U /**< SPI block mode */
 
-
 /* Spec 3.0 */
 #define XSDPS_CAPS_ASYNC_INTR_MASK	0x20000000U /**< Async Interrupt
 							support */
@@ -516,7 +521,6 @@ extern "C" {
 							Capability at 3.3V */
 /** @} */
 
-
 /** @name Force Event for Auto CMD Error Status Register
  *
  * This register is write only register which contains
@@ -535,8 +539,6 @@ extern "C" {
 #define XSDPS_FE_AUTO_CMD_CNI_ERR_MASK	0x0080U /**< Command not issued by
 							Auto CMD12 Error */
 /** @} */
-
-
 
 /** @name Force Event for Error Interrupt Status Register
  *
@@ -957,35 +959,44 @@ extern "C" {
 #define EXT_CSD_CMD_SET_SECURE          (1U<<1)
 #define EXT_CSD_CMD_SET_CPSECURE        (1U<<2)
 
-#define EXT_CSD_CARD_TYPE_26    	(1U<<0)  /* Card can run at 26MHz */
-#define EXT_CSD_CARD_TYPE_52    	(1U<<1)  /* Card can run at 52MHz */
-#define EXT_CSD_CARD_TYPE_MASK  	0x3FU    /* Mask out reserved bits */
-#define EXT_CSD_CARD_TYPE_DDR_1_8V	(1U<<2)   /* Card can run at 52MHz */
+#define EXT_CSD_CARD_TYPE_26    	(1U<<0)  /**< Card can run at 26MHz. */
+#define EXT_CSD_CARD_TYPE_52    	(1U<<1)  /**< Card can run at 52MHz. */
+#define EXT_CSD_CARD_TYPE_MASK  	0x3FU    /**< Mask out reserved bits. */
+#define EXT_CSD_CARD_TYPE_DDR_1_8V	(1U<<2)   /**< Card can run at 52MHz. */
 /* DDR mode @1.8V or 3V I/O */
-#define EXT_CSD_CARD_TYPE_DDR_1_2V	(1U<<3)   /* Card can run at 52MHz */
+#define EXT_CSD_CARD_TYPE_DDR_1_2V	(1U<<3)   /**< Card can run at 52MHz. */
 /* DDR mode @1.2V I/O */
 #define EXT_CSD_CARD_TYPE_DDR_52	(EXT_CSD_CARD_TYPE_DDR_1_8V  \
 	| EXT_CSD_CARD_TYPE_DDR_1_2V)
-#define EXT_CSD_CARD_TYPE_SDR_1_8V      (1U<<4)  /* Card can run at 200MHz */
-#define EXT_CSD_CARD_TYPE_SDR_1_2V      (1U<<5)  /* Card can run at 200MHz */
+#define EXT_CSD_CARD_TYPE_SDR_1_8V      (1U<<4)  /**< Card can run at 200MHz. */
+#define EXT_CSD_CARD_TYPE_SDR_1_2V      (1U<<5)  /**< Card can run at 200MHz. */
 /* SDR mode @1.2V I/O */
 #define EXT_CSD_BUS_WIDTH_BYTE			183U
-#define EXT_CSD_BUS_WIDTH_1_BIT			0U	/* Card is in 1 bit mode */
-#define EXT_CSD_BUS_WIDTH_4_BIT			1U	/* Card is in 4 bit mode */
-#define EXT_CSD_BUS_WIDTH_8_BIT			2U	/* Card is in 8 bit mode */
-#define EXT_CSD_BUS_WIDTH_DDR_4_BIT		5U	/* Card is in 4 bit DDR mode */
-#define EXT_CSD_BUS_WIDTH_DDR_8_BIT		6U	/* Card is in 8 bit DDR mode */
+/** Card is in 1 bit mode. */
+#define EXT_CSD_BUS_WIDTH_1_BIT			0U
+/** Card is in 4 bit mode. */
+#define EXT_CSD_BUS_WIDTH_4_BIT			1U
+/** Card is in 8 bit mode. */
+#define EXT_CSD_BUS_WIDTH_8_BIT			2U
+/** Card is in 4 bit DDR mode. */
+#define EXT_CSD_BUS_WIDTH_DDR_4_BIT		5U
+/** Card is in 8 bit DDR mode. */
+#define EXT_CSD_BUS_WIDTH_DDR_8_BIT		6U
 
 #define EXT_CSD_HS_TIMING_BYTE		185U
 #define EXT_CSD_HS_TIMING_DEF		0U
-#define EXT_CSD_HS_TIMING_HIGH		1U	/* Card is in high speed mode */
-#define EXT_CSD_HS_TIMING_HS200		2U	/* Card is in HS200 mode */
-#define EXT_CSD_HS_TIMING_HS400		3U	/* Card is in HS200 mode */
+/** Card is in high speed mode. */
+#define EXT_CSD_HS_TIMING_HIGH		1U
+#define EXT_CSD_HS_TIMING_HS200		2U	/**< Card is in HS200 mode. */
+#define EXT_CSD_HS_TIMING_HS400		3U	/**< Card is in HS400 mode. */
 
 #define EXT_CSD_RST_N_FUN_BYTE		162U
-#define EXT_CSD_RST_N_FUN_TEMP_DIS	0U	/* RST_n signal is temporarily disabled */
-#define EXT_CSD_RST_N_FUN_PERM_EN	1U	/* RST_n signal is permanently enabled */
-#define EXT_CSD_RST_N_FUN_PERM_DIS	2U	/* RST_n signal is permanently disabled */
+/** RST_n signal is temporarily disabled. */
+#define EXT_CSD_RST_N_FUN_TEMP_DIS	0U
+/** RST_n signal is permanently enabled. */
+#define EXT_CSD_RST_N_FUN_PERM_EN	1U
+/** RST_n signal is permanently disabled. */
+#define EXT_CSD_RST_N_FUN_PERM_DIS	2U
 
 #define XSDPS_EXT_CSD_CMD_SET		0U
 #define XSDPS_EXT_CSD_SET_BITS		1U
@@ -1064,7 +1075,6 @@ extern "C" {
 #define XSDPS_CARD_SDIO		3U	/**< SDIO card */
 #define XSDPS_CARD_SDCOMBO	4U	/**< SDCOMBO card */
 #define XSDPS_CHIP_EMMC		5U	/**< EMMC chip */
-
 
 /**
  *@name ADMA2 Descriptor related definitions
@@ -1309,16 +1319,17 @@ extern "C" {
 
 /****************************************************************************/
 /**
-* Reads a register.
+* @brief Reads a 64-bit register.
 *
-* @param	InstancePtr Pointer to the sdps instance.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to the target register.
+* @param[in]	InstancePtr Pointer to the XSdPs instance.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
 *
-* @return	The value read from the register.
+* @return	The 64-bit value read from the register.
 *
-* @note		C-Style signature:
-*		    u32 XSdPs_ReadReg(XSdPs *InstancePtr. s32 RegOffset)
+* @note
+* C-style signature
+*	u64 XSdPs_ReadReg64(XSdPs *InstancePtr, s32 RegOffset)
 *
 ******************************************************************************/
 #define XSdPs_ReadReg64(InstancePtr, RegOffset) \
@@ -1326,18 +1337,17 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Writes to a register.
+* @brief Writes to a 64-bit register.
 *
-* @param	InstancePtr Pointer to the sdps instance.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to target register.
-* @param	RegisterValue Value to be written to the register.
+* @param[in]	InstancePtr Pointer to the XSdPs instance.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
+* @param[in]	RegisterValue Value to be written to the register.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		    void XSdPs_WriteReg(XSdPs *InstancePtr, s32 RegOffset,
-*		    u64 RegisterValue)
+* @note
+* C-style signature
+*	void XSdPs_WriteReg64(XSdPs *InstancePtr, s32 RegOffset,
+*		u64 RegisterValue)
 *
 ******************************************************************************/
 #define XSdPs_WriteReg64(InstancePtr, RegOffset, RegisterValue) \
@@ -1346,16 +1356,17 @@ extern "C" {
 
 /****************************************************************************/
 /**
-* Reads a register.
+* @brief Reads a 32-bit register.
 *
-* @param	BaseAddress Contains the base address of the device.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to the target register.
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
 *
 * @return	The value read from the register.
 *
-* @note		C-Style signature:
-*		    u32 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
+* @note
+* C-style signature
+*	u32 XSdPs_ReadReg(UINTPTR BaseAddress, int RegOffset)
 *
 ******************************************************************************/
 #define XSdPs_ReadReg(BaseAddress, RegOffset) \
@@ -1363,18 +1374,17 @@ extern "C" {
 
 /***************************************************************************/
 /**
-* Writes to a register.
+* @brief Writes to a 32-bit register.
 *
-* @param	BaseAddress Contains the base address of the device.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to target register.
-* @param	RegisterValue Value to be written to the register.
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
+* @param[in]	RegisterValue Value to be written to the register.
 *
-* @return	None.
-*
-* @note		C-Style signature:
-*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		    u32 RegisterValue)
+* @note
+* C-style signature
+*	void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
+*		u32 RegisterValue)
 *
 ******************************************************************************/
 #define XSdPs_WriteReg(BaseAddress, RegOffset, RegisterValue) \
@@ -1382,16 +1392,13 @@ extern "C" {
 
 /****************************************************************************/
 /**
-* Reads a register.
+* @brief Reads a 16-bit register.
 *
-* @param	BaseAddress Contains the base address of the device.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to the target register.
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
 *
-* @return	The value read from the register.
-*
-* @note		C-Style signature:
-*		    u16 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
+* @return	The 16-bit value read from the register.
 *
 ******************************************************************************/
 static INLINE u16 XSdPs_ReadReg16(UINTPTR BaseAddress, u8 RegOffset)
@@ -1409,18 +1416,12 @@ static INLINE u16 XSdPs_ReadReg16(UINTPTR BaseAddress, u8 RegOffset)
 
 /***************************************************************************/
 /**
-* Writes to a register.
+* @brief Writes to a 16-bit register.
 *
-* @param	BaseAddress Contains the base address of the device.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to target register.
-* @param	RegisterValue Value to be written to the register.
-*
-* @return	None.
-*
-* @note		C-Style signature:
-*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		    u16 RegisterValue)
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
+* @param[in]	RegisterValue Value to be written to the register.
 *
 ******************************************************************************/
 
@@ -1440,16 +1441,13 @@ static INLINE void XSdPs_WriteReg16(UINTPTR BaseAddress, u8 RegOffset, u16 Regis
 
 /****************************************************************************/
 /**
-* Reads a register.
+* @brief Reads an 8-bit register.
 *
-* @param	BaseAddress Contains the base address of the device.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to the target register.
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
 *
-* @return	The value read from the register.
-*
-* @note		C-Style signature:
-*		    u8 XSdPs_ReadReg(UINTPTR BaseAddress. int RegOffset)
+* @return	The 8-bit value read from the register.
 *
 ******************************************************************************/
 static INLINE u8 XSdPs_ReadReg8(UINTPTR BaseAddress, u8 RegOffset)
@@ -1466,18 +1464,12 @@ static INLINE u8 XSdPs_ReadReg8(UINTPTR BaseAddress, u8 RegOffset)
 }
 /***************************************************************************/
 /**
-* Writes to a register.
+* @brief Writes to an 8-bit register.
 *
-* @param	BaseAddress Contains the base address of the device.
-* @param	RegOffset Contains the offset from the 1st register of the
-*		device to target register.
-* @param	RegisterValue Value to be written to the register.
-*
-* @return	None.
-*
-* @note		C-Style signature:
-*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		    u8 RegisterValue)
+* @param[in]	BaseAddress Base address of the device.
+* @param[in]	RegOffset Offset from the 1st register of the device to the
+*		target register.
+* @param[in]	RegisterValue Value to be written to the register.
 *
 ******************************************************************************/
 static INLINE void XSdPs_WriteReg8(UINTPTR BaseAddress, u8 RegOffset, u8 RegisterValue)
@@ -1495,15 +1487,15 @@ static INLINE void XSdPs_WriteReg8(UINTPTR BaseAddress, u8 RegOffset, u8 Registe
 }
 /***************************************************************************/
 /**
-* Macro to get present status register.
+* @brief Gets the present status register.
 *
-* @param	BaseAddress Contains the base address of the device.
+* @param[in]	BaseAddress Base address of the device.
 *
-* @return	None.
+* @return	The value of the present state register.
 *
-* @note		C-Style signature:
-*		    void XSdPs_WriteReg(UINTPTR BaseAddress, int RegOffset,
-*		    u8 RegisterValue)
+* @note
+* C-style signature
+*	u32 XSdPs_GetPresentStatusReg(UINTPTR BaseAddress)
 *
 ******************************************************************************/
 #define XSdPs_GetPresentStatusReg(BaseAddress) \
@@ -1516,7 +1508,7 @@ static INLINE void XSdPs_WriteReg8(UINTPTR BaseAddress, u8 RegOffset, u8 Registe
 #ifdef __cplusplus
 }
 #endif
+/** @endcond */
 
 #endif /* SD_HW_H_ */
-/** @endcond */
 /** @} */

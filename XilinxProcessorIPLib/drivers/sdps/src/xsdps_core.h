@@ -1,19 +1,20 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef SDPS_INCLUDE_H_
+#define SDPS_INCLUDE_H_
 
 /*****************************************************************************/
 /**
 *
 * @file xsdps_core.h
-* @addtogroup sdps_api SDPS APIs
-* @{
+* @brief Declares the internal core functions of the SDPS driver.
 *
-* The xsdps_core.h header file contains the identifiers and basic hardware access driver
-* functions (or  macros) that can be used to access the device. Other driver
-* functions are defined in xsdps.h.
+* These prototypes are shared by the SDPS driver sources. The public interface
+* is declared in xsdps.h.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,13 +29,17 @@
 * 4.0   sk     02/25/22 Add support for eMMC5.1.
 * 4.1   sa     01/06/23 Include xil_util.h in this file.
 * 4.2   ap     08/09/23 Add XSdPs_SetTapDelay APIs.
+* 4.7   tb     10/01/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
 
+/**
+* @addtogroup sdps_api SDPS APIs
+* @{
+*/
+
 /** @cond INTERNAL */
-#ifndef SDPS_INCLUDE_H_
-#define SDPS_INCLUDE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -126,7 +131,7 @@ void XSdps_Smc(XSdPs *InstancePtr, u32 RegOffset, u32 Mask, u32 Val);
 #ifdef __cplusplus
 }
 #endif
+/** @endcond */
 
 #endif
-/** @endcond */
 /** @} */
