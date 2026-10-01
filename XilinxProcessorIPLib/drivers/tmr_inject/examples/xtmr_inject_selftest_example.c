@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
+* 1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 ******************************************************************************/
 
@@ -39,8 +40,10 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
+/** Device ID of the TMR Inject device. */
 #define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_DEVICE_ID
 #else
+/** Base address of the TMR Inject device. */
 #define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_BASEADDR
 #endif
 
@@ -60,7 +63,7 @@ int TMR_InjectSelfTestExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XTMR_Inject TMR_Inject;	/* Instance of the TMR_Inject device */
+XTMR_Inject TMR_Inject;	/**< Instance of the TMR_Inject device */
 
 /*****************************************************************************/
 /**
@@ -68,11 +71,7 @@ XTMR_Inject TMR_Inject;	/* Instance of the TMR_Inject device */
 * Main function to call the example. This function is not included if the
 * example is generated from the TestAppGen test tool.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -103,13 +102,14 @@ int main(void)
 * design example. The purpose of this function is to illustrate
 * how to use the XTMR_Inject component.
 *
-*
-* @param	DeviceId is the XPAR_<tmr_inject_instance>_DEVICE_ID value from
+* @if SDT
+* @param[in]	BaseAddress is the base address of the TMR Inject device.
+* @else
+* @param[in]	DeviceId is the XPAR_<tmr_inject_instance>_DEVICE_ID value from
 *		xparameters.h.
+* @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 #ifndef SDT

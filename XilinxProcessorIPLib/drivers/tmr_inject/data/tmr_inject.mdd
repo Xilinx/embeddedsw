@@ -13,6 +13,8 @@
 #                          incremental builds. It would help to reduce
 #                          compilation time.
 # 1.6      sa     01/06/23 Added support for Microblaze RISC-V processor
+# 1.9      ml     10/01/26 Fix doxygen 1.15.0 and compliance checker
+#                          warnings
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -22,7 +24,7 @@ BEGIN driver tmr_inject
   OPTION supported_peripherals = (tmr_inject);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.8;
+  OPTION VERSION = 1.9;
   OPTION NAME = tmr_inject;
 
 END driver

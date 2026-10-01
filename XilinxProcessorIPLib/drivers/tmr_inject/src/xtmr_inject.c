@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 1.6   asa  07/27/23 Updated to fix compilation error while
 *                     initializing xtmr_inject_addr.
 *
+* 1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -64,6 +65,16 @@ static UINTPTR xtmr_inject_addr;
 })
 
 #else
+/**
+ * @brief Perform XOR operation on data and mask using inline assembly.
+ *
+ * Executes an XOR instruction at a known address (xtmr_inject_instr) so the
+ * fault-injection hardware can target that specific instruction.
+ *
+ * @param[in] data  Input data value.
+ * @param[in] mask  XOR mask value.
+ * @return Result of XOR operation.
+ */
 #define xor(data, mask) ({		\
   u32 _rval;				\
   __asm__ __volatile__ (		\
@@ -80,10 +91,12 @@ static UINTPTR xtmr_inject_addr;
 
 /************************** Function Prototypes *****************************/
 
+/** @cond INTERNAL */
 static __attribute__ ((noinline, noclone)) u32 injectmask(u32 value, u32 mask)
 {
   return xor(value ^ mask, mask);
 }
+/** @endcond */
 
 
 /****************************************************************************/
@@ -96,14 +109,14 @@ static __attribute__ ((noinline, noclone)) u32 injectmask(u32 value, u32 mask)
 * interrupt. The baudrate and format of the data are fixed in the hardware
 * at hardware build time.
 *
-* @param	InstancePtr is a pointer to the XTMR_Inject instance.
-* @param	Config is a reference to a structure containing information
+* @param[out]	InstancePtr is a pointer to the XTMR_Inject instance.
+* @param[in]	Config is a reference to a structure containing information
 *		about a specific TMR Inject device. This function initializes
 *		an InstancePtr object for a specific device specified by the
 *		contents of Config. This function can initialize multiple
 *		instance objects with the use of multiple calls giving different
 *		Config information on each call.
-* @param 	EffectiveAddr is the device base address in the virtual memory
+* @param[in] 	EffectiveAddr is the device base address in the virtual memory
 *		address space. The caller is responsible for keeping the address
 *		mapping from EffectiveAddr to the device physical base address
 *		unchanged once this function is invoked. Unexpected errors may
@@ -115,7 +128,6 @@ static __attribute__ ((noinline, noclone)) u32 injectmask(u32 value, u32 mask)
 * @return
 * 		- XST_SUCCESS if everything starts up as expected.
 *
-* @note		The Config pointer argument is not used by this function,
 *		but is provided to keep the function signature consistent
 *		with other drivers.
 *
@@ -170,11 +182,9 @@ int XTMR_Inject_CfgInitialize(XTMR_Inject *InstancePtr,
 *
 * This function enables fault injection for the indicated CPU.
 *
-* @param	InstancePtr is a pointer to the XTMR_Inject instance.
-* @param	CpuId is the CPU ID of the CPU where faults are to be injected.
-*               Must be 1 to 3.
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XTMR_Inject instance.
+* @param[in]	CpuId is the CPU ID of the CPU where faults are to be injected.
+*               Must be 1 to 2.
 *
 *****************************************************************************/
 void XTMR_Inject_Enable(XTMR_Inject *InstancePtr, u8 CpuId)
@@ -201,9 +211,7 @@ void XTMR_Inject_Enable(XTMR_Inject *InstancePtr, u8 CpuId)
 *
 * This function disables fault injection.
 *
-* @param	InstancePtr is a pointer to the XTMR_Inject instance.
-*
-* @note		None.
+* @param[in]	InstancePtr is a pointer to the XTMR_Inject instance.
 *
 *****************************************************************************/
 void XTMR_Inject_Disable(XTMR_Inject *InstancePtr)
@@ -232,14 +240,12 @@ void XTMR_Inject_Disable(XTMR_Inject *InstancePtr)
 * as well as output on an AXI Stream.</li>
 < </ul>
 *
-* @param	InstancePtr is a pointer to the XTMR_Inject instance.
-* @param	Value is the memory or register address, oro the data.
-* @param	Bit is the bit where the fault is injected. Must be 0 to 31.
+* @param[in]	InstancePtr is a pointer to the XTMR_Inject instance.
+* @param[in]	Value is the memory or register address, or the data.
+* @param[in]	Bit is the bit where the fault is injected. Must be 0 to 31.
 *
 * @return	Either the unchanged value, or value with the fault injected
 *               for the CPU set up for fault injection.
-*
-* @note		None.
 *
 *****************************************************************************/
 u32 XTMR_Inject_InjectBit(XTMR_Inject *InstancePtr, u32 Value, u8 Bit)
@@ -266,15 +272,13 @@ u32 XTMR_Inject_InjectBit(XTMR_Inject *InstancePtr, u32 Value, u8 Bit)
 * LMB, as well as output on an AXI Stream.</li>
 < </ul>
 *
-* @param	InstancePtr is a pointer to the XTMR_Inject instance.
-* @param	Value is the memory or register address, oro the data.
-* @param	Mask defines the bits where faults are injected. A fault is
+* @param[in]	InstancePtr is a pointer to the XTMR_Inject instance.
+* @param[in]	Value is the memory or register address, or the data.
+* @param[in]	Mask defines the bits where faults are injected. A fault is
 *               injected for every bit in the mask set to 1.
 *
 * @return	Either the unchanged value, or value with the faults injected
 *               for the CPU set up for fault injection.
-*
-* @note		None.
 *
 *****************************************************************************/
 u32 XTMR_Inject_InjectMask(XTMR_Inject *InstancePtr, u32 Value, u32 Mask)

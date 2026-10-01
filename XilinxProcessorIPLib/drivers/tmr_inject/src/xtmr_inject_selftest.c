@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -56,14 +57,12 @@
 * device is still in its reset state, but has been initialized with the
 * Initialize function.
 *
-* @param	InstancePtr is a pointer to the XTMR_Inject instance.
+* @param[in]	InstancePtr is a pointer to the XTMR_Inject instance.
 *
 * @return
 * 		- XST_SUCCESS if the self-test was successful.
 * 		- XST_FAILURE if the self-test failed, the status register
 *			value was not correct
-*
-* @note		None.
 *
 ******************************************************************************/
 int XTMR_Inject_SelfTest(XTMR_Inject *InstancePtr)

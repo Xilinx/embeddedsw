@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *                     from xparameters.h. Previously it was defined as
 *                     XPAR_TMRINJECT_0_BASEADDR.
 * 1.7   adk  04/04/25 Ported example to the SDT flow.
+* 1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 ******************************************************************************/
 
@@ -44,6 +45,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+/** Base address of the TMR Inject device. */
 #define TMRINJECT_BASEADDR	   XPAR_TMR_INJECT_0_BASEADDR
 
 
@@ -65,11 +67,7 @@ int TMRInjectLowLevelExample(u32 TMRInjectBaseAddress);
 *
 * Main function to call the example.
 *
-* @param	None.
-*
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 int main(void)
@@ -97,13 +95,11 @@ int main(void)
 * This function does a minimal test on the TMRInject device using the low-level
 * driver macros and functions.
 *
-* @param	TMRInjectBaseAddress is the base address of the TMRInject device
+* @param[in]	TMRInjectBaseAddress is the base address of the TMRInject device
 *		and is the XPAR_<TMRINJECT_instance>_BASEADDR value from
 *		xparameters.h.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 int TMRInjectLowLevelExample(u32 TMRInjectBaseAddress)

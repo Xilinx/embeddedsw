@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+* 1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -52,12 +53,10 @@
 * TmrInjectConfigTable contains the configuration info for each device in the
 * system.
 *
-* @param	DeviceId is the unique device ID to match on.
+* @param[in]	DeviceId is the unique device ID to match on.
 *
 * @return	A pointer to the configuration data for the device, or
 *		NULL if no match was found.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -76,6 +75,19 @@ XTMR_Inject_Config *XTMR_Inject_LookupConfig(u16 DeviceId)
 	return CfgPtr;
 }
 #else
+/****************************************************************************/
+/**
+*
+* Looks up the device configuration based on the base address. The table
+* XTMR_Inject_ConfigTable contains the configuration info for each device
+* in the system.
+*
+* @param[in]	BaseAddr is the base address of the device to match on.
+*
+* @return	A pointer to the configuration data for the device, or
+*		NULL if no match was found.
+*
+******************************************************************************/
 XTMR_Inject_Config *XTMR_Inject_LookupConfig(UINTPTR BaseAddr)
 {
 	XTMR_Inject_Config *CfgPtr = NULL;
@@ -92,13 +104,14 @@ XTMR_Inject_Config *XTMR_Inject_LookupConfig(UINTPTR BaseAddr)
 }
 #endif
 
+#ifndef SDT
 /****************************************************************************/
 /**
 *
-* Initialize a XTMR_Inject instance.
+* Initialize an XTMR_Inject instance.
 *
-* @param	InstancePtr is a pointer to the XTMR_Inject instance.
-* @param	DeviceId is the unique id of the device controlled by this
+* @param[out]	InstancePtr is a pointer to the XTMR_Inject instance.
+* @param[in]	DeviceId is the unique id of the device controlled by this
 *		XTMR_Inject instance.  Passing in a device id associates the
 *		generic XTMR_Inject instance to a specific device, as chosen by
 *		the caller or application developer.
@@ -108,12 +121,23 @@ XTMR_Inject_Config *XTMR_Inject_LookupConfig(UINTPTR BaseAddr)
 * 		- XST_DEVICE_NOT_FOUND if the device is not found in the
 *			configuration table.
 *
-* @note		None.
-*
 *****************************************************************************/
-#ifndef SDT
 int XTMR_Inject_Initialize(XTMR_Inject *InstancePtr, u16 DeviceId)
 #else
+/****************************************************************************/
+/**
+*
+* Initialize an XTMR_Inject instance.
+*
+* @param[out]	InstancePtr is a pointer to the XTMR_Inject instance.
+* @param[in]	BaseAddr is the base address of the device.
+*
+* @return
+* 		- XST_SUCCESS if everything starts up as expected.
+* 		- XST_DEVICE_NOT_FOUND if the device is not found in the
+*			configuration table.
+*
+*****************************************************************************/
 int XTMR_Inject_Initialize(XTMR_Inject *InstancePtr, UINTPTR BaseAddr)
 #endif
 {

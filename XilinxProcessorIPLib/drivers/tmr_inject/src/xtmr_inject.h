@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -58,12 +58,13 @@
 * 1.5   adk  27/12/22 Updated addtogroup tag.
 * 1.6   adk  03/07/23 Added support for system device-tree flow.
 * 1.6   adk  08/09/23 Fixed the -Wunused-parameter warning in the driver.
+* 1.9   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
 
-#ifndef XTMR_INJECT_H /* prevent circular inclusions */
-#define XTMR_INJECT_H /* by using protection macros */
+#ifndef XTMR_INJECT_H
+#define XTMR_INJECT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,7 +77,7 @@ extern "C" {
 #include "xstatus.h"
 
 /************************** Constant Definitions ****************************/
-#define XTI_STANDARD_LMB_WIDTH		32U
+#define XTI_STANDARD_LMB_WIDTH		32U /**< Standard LMB data bus width in bits */
 /**************************** Type Definitions ******************************/
 
 /**
@@ -86,7 +87,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID  of device */
 #else
-	char *Name;
+	char *Name; /**< Unique name of the device */
 #endif
 	UINTPTR RegBaseAddr;	/**< Register base address */
 	u8  MagicByte;		/**< Magic Byte parameter */
@@ -100,8 +101,8 @@ typedef struct {
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	UINTPTR RegBaseAddress;		/* Base address of registers */
-	u32 IsReady;			/* Device is initialized and ready */
+	UINTPTR RegBaseAddress;		/**< Base address of registers */
+	u32 IsReady;			/**< Device is initialized and ready */
 	u8  MagicByte;			/**< Magic byte parameter */
 
 	u32 Address;			/**< Address value (AIR) */
