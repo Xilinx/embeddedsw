@@ -866,9 +866,12 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	 */
 	if ((u8)XPM_DEVSTATE_INITIALIZING != PlDevice->Device.Node.State) {
 		const XPm_PlDevice *Parent = PlDevice->Parent;
+		/*
+		 * Status is left untouched here; the DDRMC lookup below relies on
+		 * it to tell whether a local DDRMC matched.
+		 */
 		while (NULL != Parent) {
 			if ((u8)XPM_DEVSTATE_INITIALIZING == Parent->Device.Node.State) {
-				Status = XST_SUCCESS;
 				break;
 			}
 			Parent = Parent->Parent;
