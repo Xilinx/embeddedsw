@@ -90,6 +90,9 @@
 * 						   This will indicate PMU to start  RPU run mode check
 * 						   This change is to address CR#1052625.
 * 1.23 Trinendra 04/22/2026 Added SDT Support
+* 1.24 Bala	   09/30/2026  Updates arguments checking in function
+* 						   XStl_OcmErrInjHook
+* 						   This change is to address CR#1275571
 * </pre>
 *
 ******************************************************************************/
@@ -377,7 +380,7 @@ void XStl_OcmErrInjHook(void)
 	u32 *ArgListPtr = NULL;
 
 	XStl_printf("\nIn XStl_OcmErrInjHook\r\n");
-	if(XStl_PmuStlHooks[XSTL_ID_CLK_ERRINJ].ArgListPtr != NULL) {
+	if(XStl_PmuStlHooks[XSTL_ID_OCM_ERRINJ].ArgListPtr != NULL) {
 		ArgListPtr = XStl_PmuStlHooks[XSTL_ID_OCM_ERRINJ].ArgListPtr;
 	}
 	if((XStl_InstanceStr *)ArgListPtr[0] != NULL) {
