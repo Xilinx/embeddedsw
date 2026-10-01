@@ -8,10 +8,9 @@
 /**
 *
 * @file xscuwdt.c
-* @addtogroup Overview
-* @{
 *
-* Contains the implementation of interface functions of the XScuWdt driver.
+* @brief Implements the interface functions of the XScuWdt driver.
+*
 * See xscuwdt.h for a description of the driver.
 *
 * <pre>
@@ -23,9 +22,14 @@
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
 * 2.5   asa 07/18/23 Made updates for workflow decoupling flow.
 * 2.8   vn  07/30/26 Fix Doxygen warnings
+* 2.8   vn  09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -44,20 +48,21 @@
 /****************************************************************************/
 /**
 *
-* Initialize a specific watchdog timer instance/driver. This function
-* must be called before other functions of the driver are called.
+* @brief Initializes a specific watchdog timer instance/driver.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
-* @param	ConfigPtr is the config structure.
-* @param	EffectiveAddress is the base address for the device. It could be
-*		a virtual address if address translation is supported in the
-*		system, otherwise it is the physical address.
+* Call this function before calling other functions of the driver.
+*
+* @param[in,out] InstancePtr Pointer to the XScuWdt instance.
+* @param[in]     ConfigPtr Config structure.
+* @param[in]     EffectiveAddress Base address for the device. It can be a
+*                virtual address if the system supports address translation.
+*                Otherwise, it is the physical address.
 *
 * @return
 *		- XST_SUCCESS if initialization was successful.
 *		- XST_DEVICE_IS_STARTED if the device has already been started.
 *
-* @note		This function enables the watchdog mode.
+* @note          This function enables watchdog mode.
 *
 ******************************************************************************/
 s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
@@ -109,14 +114,13 @@ s32 XScuWdt_CfgInitialize(XScuWdt *InstancePtr,
 /****************************************************************************/
 /**
 *
-* Start the watchdog counter of the device.
+* @brief Starts the watchdog counter of the device.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
+* @param[in,out] InstancePtr Pointer to the XScuWdt instance.
 *
-* @note		User needs to select the appropriate mode (watchdog/timer)
-*		before using this API.
-*		See XScuWdt_SetWdMode/XScuWdt_SetTimerMode macros in
-*		xscuwdt.h.
+* @note          Select the appropriate mode (watchdog/timer) before using
+*                this API. See XScuWdt_SetWdMode/XScuWdt_SetTimerMode macros
+*                in xscuwdt.h.
 *
 ******************************************************************************/
 void XScuWdt_Start(XScuWdt *InstancePtr)
@@ -152,11 +156,9 @@ void XScuWdt_Start(XScuWdt *InstancePtr)
 /****************************************************************************/
 /**
 *
-* Stop the watchdog timer.
+* @brief Stops the watchdog timer.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
-*
-* @note		None.
+* @param[in,out] InstancePtr Pointer to the XScuWdt instance.
 *
 ******************************************************************************/
 void XScuWdt_Stop(XScuWdt *InstancePtr)

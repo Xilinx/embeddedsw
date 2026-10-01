@@ -8,12 +8,12 @@
 /**
 * @file  xscuwdt_polled_example.c
 *
-* This file contains a design example using the Xilinx SCU Private Watchdog
-* Timer driver (XScuWdt) and hardware device in watchdog mode.  This test
-* illustrates how to initialize the watchdog device and restart it periodially
-* to avoid the assertion of the WDRESETREQ pin.
+* @brief Demonstrates the XScuWdt driver in watchdog mode.
 *
-* @note		None.
+* This file contains a design example using the Xilinx SCU Private Watchdog
+* Timer driver (XScuWdt) and hardware device in watchdog mode.
+* This test illustrates how to initialize the watchdog device and restart it
+* periodically to avoid the assertion of the WDRESETREQ pin.
 *
 * MODIFICATION HISTORY:
 *
@@ -25,6 +25,7 @@
 *                     Interrupt wrapper support has also been added.
 * 2.5   dp   09/08/23 Update example to stop wdt at end of the test
 * 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
+* 2.8   vn   09/30/26 Align Doxygen comments with AMD standards
 *</pre>
 ******************************************************************************/
 
@@ -37,18 +38,22 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
+ * @name Device parameters
  * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are only defined here such that a user can easily
- * change all the needed parameters in one place.
+ * xparameters.h file. They are defined here so that you can change all the
+ * needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** SCU watchdog timer device ID. */
 #define WDT_DEVICE_ID		XPAR_SCUWDT_0_DEVICE_ID
 #else
-#define SCUWDT_BASEADDRESS  XPAR_XSCUWDT_0_BASEADDR
+#define SCUWDT_BASEADDRESS  XPAR_XSCUWDT_0_BASEADDR /**< WDT base address. */
 #endif
+/** @} */
 
-#define WDT_LOAD_VALUE		0xFFFF0000
+#define WDT_LOAD_VALUE		0xFFFF0000 /**< Watchdog load value. */
 
 /**************************** Type Definitions *******************************/
 
@@ -64,17 +69,14 @@ int ScuWdtPolledExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XScuWdt Watchdog;		/* Cortex SCU Private WatchDog Timer Instance */
+XScuWdt Watchdog; /**< Cortex SCU Private WatchDog Timer Instance. */
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Scu Priver Wdt polled mode example.
-*
+* @brief Calls the Scu Private Wdt polled mode example.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -107,19 +109,18 @@ int main(void)
 
 /*****************************************************************************/
 /**
-* This function does a minimal test on the watchdog timer device and driver.
-* The purpose of this function is to illustrate how to use the XScuWdt driver.
+* @brief Runs a minimal test on the watchdog timer device and driver.
 *
-* @param	WdtInstancePtr is a pointer to the instance of XScuWdt driver.
+* This function illustrates how to use the XScuWdt driver.
+*
+* @param[out]	WdtInstancePtr Pointer to the instance of XScuWdt driver.
 * @if SDT
-* @param	BaseAddress contains the base address of the device.
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId is the unique device id of the device.
+* @param[in]	DeviceId Unique device ID of the device.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ****************************************************************************/
 #ifndef SDT

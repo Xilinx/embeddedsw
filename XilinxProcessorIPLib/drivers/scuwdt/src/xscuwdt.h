@@ -4,12 +4,17 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XSCUWDT_H
+#define XSCUWDT_H
+
 /****************************************************************************/
 /**
 *
 * @file xscuwdt.h
 * @addtogroup Overview
 * @{
+* @brief Defines the interface of the XScuWdt SCU watchdog timer driver.
+*
 * @details
 *
 * The Xilinx SCU watchdog timer driver (XScuWdt) supports the Xilinx SCU private
@@ -22,14 +27,15 @@
 *
 * The watchdog counter register is a down counter and starts decrementing when
 * the watchdog is started.
-* In watchdog mode, when the counter reaches 0, the Reset flag is set in the
-* Reset status register and the WDRESETREQ pin is asserted, causing a system
-* reset. The Reset flag is not reset by normal processor reset and is cleared
-* when written with a value of 1. This enables the user to differentiate a
-* normal reset and a reset caused by watchdog time-out. The user needs to call
-* XScuWdt_RestartWdt() periodically, to avoid the watchdog from being timed-out.
 *
-* The IsWdtExpired function can be used to check if the watchdog was the cause
+* In watchdog mode, when the counter reaches 0, the Reset flag is set in the
+* Reset status register. The WDRESETREQ pin is then asserted, causing a system
+* reset. The Reset flag is not reset by normal processor reset and is cleared
+* when written with a value of 1. This enables the application to differentiate
+* a normal reset and a reset caused by watchdog time-out. The application must
+* call XScuWdt_RestartWdt() periodically to keep the watchdog from timing out.
+*
+* Use the IsWdtExpired function to check if the watchdog was the cause
 * of the last reset. In this situation, call Initialize then call IsWdtExpired.
 * If the result is true, watchdog timeout caused the last system reset. The
 * application then needs to clear the Reset flag.
@@ -43,21 +49,20 @@
 *
 * <b> Initialization and Configuration </b>
 *
-* The device driver enables higher layer software (e.g., an application) to
-* communicate with the Watchdog Timer.
+* The device driver enables higher layer software (for example, an application)
+* to communicate with the Watchdog Timer.
 *
-* XScuWdt_CfgInitialize() API is used to initialize the Watchdog Timer. The
-* user needs to first call the XScuWdt_LookupConfig() API which returns
-* the Configuration structure pointer which is passed as a parameter to
-* the XScuWdt_CfgInitialize() API.
+* The XScuWdt_CfgInitialize() API initializes the Watchdog Timer. First call
+* the XScuWdt_LookupConfig() API, which returns the Configuration structure
+* pointer. Pass this pointer as a parameter to the XScuWdt_CfgInitialize() API.
 *
 * <b>Interrupts</b>
 *
 * The SCU Watchdog Timer supports interrupts in Timer mode.
 *
-* This driver does not provide a Interrupt Service Routine (ISR) for the device.
-* It is the responsibility of the application to provide one if needed. Refer to
-* the interrupt example provided with this driver for details on using the
+* This driver does not provide an Interrupt Service Routine (ISR) for the
+* device. The application is responsible for providing one if needed. Refer
+* to the interrupt example provided with this driver for details on using the
 * Timer in interrupt mode.
 *
 * <b> Virtual Memory </b>
@@ -74,13 +79,13 @@
 *
 * Asserts are used within all Xilinx drivers to enforce constraints on argument
 * values. Asserts can be turned off on a system-wide basis by defining, at
-* compile time, the NDEBUG identifier. By default, asserts are turned on and it
-* is recommended that users leave asserts on during development.
+* compile time, the NDEBUG identifier. By default, asserts are turned on. Leave
+* asserts on during development.
 *
 * <b> Building the driver </b>
 *
-* The XScuWdt driver is composed of several source files. This allows the user
-* to build and link only those parts of the driver that are necessary.
+* The XScuWdt driver is composed of several source files. This allows building
+* and linking only the parts of the driver that are necessary.
 *
 * <br><br>
 *
@@ -111,10 +116,9 @@
 *                    decoupling flow.
 * 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
 *       vlt  01/27/26 Fixed codespell issues.
+* 2.8   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 ******************************************************************************/
-#ifndef XSCUWDT_H		/**< prevent circular inclusions */
-#define XSCUWDT_H		/**< by using protection macros */
 
 /***************************** Include Files *********************************/
 
@@ -130,46 +134,49 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Holds configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID of device */
+	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;		/**< Unique name of the device */
+	char *Name;		/**< Unique name of the device. */
 #endif
-	UINTPTR BaseAddr;	/**< Register base address */
+	UINTPTR BaseAddr;	/**< Register base address. */
 #ifdef SDT
 	u32 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
-				  * trigger type and level flags */
+				 * trigger type and level flags. */
 	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-				  * Parent base address */
+				 * Parent base address. */
 #endif
 } XScuWdt_Config;
 
 /**
- * The XScuWdt driver instance data. The user is required to allocate a
- * variable of this type for every watchdog/timer device in the system.
- * A pointer to a variable of this type is then passed to the driver API
- * functions.
+ * @brief Stores the XScuWdt driver instance data.
+ *
+ * Allocate a variable of this type for every watchdog/timer device in the
+ * system. A pointer to a variable of this type is then passed to the driver
+ * API functions.
  */
 typedef struct {
-	XScuWdt_Config Config;/**< Hardware Configuration */
-	u32 IsReady;		/**< Device is initialized and ready */
-	u32 IsStarted;		/**< Device watchdog timer is running */
+	XScuWdt_Config Config;	/**< Hardware configuration. */
+	u32 IsReady;		/**< Device is initialized and ready. */
+	u32 IsStarted;		/**< Device watchdog timer is running. */
 } XScuWdt;
 
 /************************** Variable Definitions *****************************/
+/**
+ * @brief Holds the configuration entry for each SCU watchdog timer instance.
+ */
 extern XScuWdt_Config XScuWdt_ConfigTable[];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /****************************************************************************/
 /**
 *
-* This function is used to check if the watchdog has timed-out and the last
-* reset was caused by the watchdog reset.
+* @brief Checks if the watchdog has timed out and caused the last reset.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @return
 *		- TRUE if the watchdog has expired.
@@ -187,10 +194,9 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* This function is used to check if the watchdog counter has reached 0 in timer
-* mode.
+* @brief Checks if the watchdog counter has reached 0 in timer mode.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @return
 *		- TRUE if the watchdog has expired.
@@ -208,14 +214,14 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Re-start the watchdog timer. This macro will read the watchdog load register
-* and write the same value to load register to update the counter register.
-* An application needs to call this function periodically to keep the watchdog
-* from asserting the WDRESETREQ reset request output pin.
+* @brief Restarts the watchdog timer.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
+* This macro reads the watchdog load register and writes the same value to the
+* load register to update the counter register. An application must call this
+* function periodically to keep the watchdog from asserting the WDRESETREQ
+* reset request output pin.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @note		C-style signature:
 *		void XScuWdt_RestartWdt(XScuWdt *InstancePtr)
@@ -229,14 +235,13 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Write to the watchdog timer load register. This will also update the
-* watchdog counter register with the new value. This macro can be used to
-* change the time-out value.
+* @brief Writes to the watchdog timer load register.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
-* @param	Value is the value to be written to the Watchdog Load register.
+* This also updates the watchdog counter register with the new value. Use this
+* macro to change the time-out value.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
+* @param[in]	Value Value to write to the Watchdog Load register.
 *
 * @note		C-style signature:
 *		void XScuWdt_LoadWdt(XScuWdt *InstancePtr, u32 Value)
@@ -249,12 +254,11 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Put the watchdog timer in Watchdog mode by setting the WD mode bit of the
-* Watchdog control register.
+* @brief Puts the watchdog timer in Watchdog mode.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
+* This macro sets the WD mode bit of the Watchdog control register.
 *
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @note		C-style signature:
 *		void XScuWdt_SetWdMode(XScuWdt *InstancePtr)
@@ -270,15 +274,15 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Put the watchdog timer in Timer mode by writing 0x12345678 and 0x87654321
-* successively to the Watchdog Disable Register.
+* @brief Puts the watchdog timer in Timer mode.
+*
+* This macro writes 0x12345678 and 0x87654321 successively to the Watchdog
+* Disable Register.
 * The software must write 0x12345678 and 0x87654321 successively to the
 * Watchdog Disable Register so that the watchdog mode bit in the Watchdog
 * Control Register is set to zero.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
-*
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @note		C-style signature:
 *		void XScuWdt_SetTimerMode(XScuWdt *InstancePtr)
@@ -297,14 +301,14 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Get the contents of the watchdog control register.
+* @brief Gets the contents of the watchdog control register.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @return	Contents of the watchdog control register.
 *
 * @note		C-style signature:
-		u32 XScuWdt_GetControlReg(XScuWdt *InstancePtr)
+*		u32 XScuWdt_GetControlReg(XScuWdt *InstancePtr)
 *
 ******************************************************************************/
 #define XScuWdt_GetControlReg(InstancePtr)				\
@@ -314,16 +318,13 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Write to the watchdog control register.
+* @brief Writes to the watchdog control register.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
-* @param	ControlReg is the value to be written to the watchdog control
-*		register.
-*
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
+* @param[in]	ControlReg Value to write to the watchdog control register.
 *
 * @note		C-style signature:
-		void XScuWdt_SetControlReg(XScuWdt *InstancePtr, u32 ControlReg)
+*		void XScuWdt_SetControlReg(XScuWdt *InstancePtr, u32 ControlReg)
 *
 ******************************************************************************/
 #define XScuWdt_SetControlReg(InstancePtr, ControlReg)			\
@@ -333,11 +334,9 @@ extern XScuWdt_Config XScuWdt_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Enable auto-reload mode.
+* @brief Enables auto-reload mode.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
-*
-* @return	None.
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @note		C-style signature:
 *		void XScuWdt_EnableAutoReload(XScuWdt *InstancePtr)
@@ -379,5 +378,5 @@ void XScuWdt_Stop(XScuWdt *InstancePtr);
 }
 #endif
 
-#endif	/* end of protection macro */
 /** @} */
+#endif	/* end of protection macro */

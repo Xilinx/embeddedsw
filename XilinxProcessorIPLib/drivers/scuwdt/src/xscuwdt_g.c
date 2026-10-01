@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,8 +8,7 @@
 /**
 *
 * @file xscuwdt_g.c
-* @addtogroup Overview
-* @{
+* @brief Provides the configuration table for SCU watchdog timer devices.
 *
 * This file contains a table that specifies the configuration of the SCU
 * watchdog timer devices in the system. Each device should have an entry
@@ -22,9 +21,14 @@
 * ----- --- -------- ---------------------------------------------
 * 1.00a sdm 01/15/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+* 2.8   vn  09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -42,8 +46,9 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each watchdog timer
- * device in the system.
+ * @brief Holds configuration information for each watchdog timer device.
+ *
+ * The table has one entry for each watchdog timer device in the system.
  */
 XScuWdt_Config XScuWdt_ConfigTable[XPAR_XSCUWDT_NUM_INSTANCES] = {
 	{

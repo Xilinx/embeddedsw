@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,10 +8,8 @@
 /**
 *
 * @file xscuwdt_selftest.c
-* @addtogroup Overview
-* @{
 *
-* Contains diagnostic self-test functions for the XScuWdt driver.
+* @brief Contains diagnostic self-test functions for the XScuWdt driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,9 +19,14 @@
 * 1.00a sdm 01/15/10 First release
 * 2.1 	sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
 * 2.6 	ht  06/03/24 Fix HIS_COMF violations
+* 2.8   vn  09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -42,19 +45,18 @@
 /****************************************************************************/
 /**
 *
-* Run a self-test on the WDT. This test stops the watchdog, writes a value to
-* the watchdog load register, starts the watchdog and verifies that the value
-* read from the counter register is less that the value written to the load
-* register. It then restores the control register and the watchdog load
-* register.
+* @brief Runs a self-test on the WDT.
 *
-* @param	InstancePtr is a pointer to the XScuWdt instance.
+* This test stops the watchdog and writes a value to the watchdog load
+* register. It then starts the watchdog and verifies the value read from the
+* counter register is less than the value written to the load register. It
+* then restores the control register and the watchdog load register.
+*
+* @param[in]	InstancePtr Pointer to the XScuWdt instance.
 *
 * @return
 *		- XST_SUCCESS if self-test was successful.
 *		- XST_FAILURE if the WDT is not decrementing.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 XScuWdt_SelfTest(XScuWdt *InstancePtr)

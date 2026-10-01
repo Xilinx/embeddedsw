@@ -8,11 +8,8 @@
 /**
 *
 * @file xscuwdt_sinit.c
-* @addtogroup Overview
-* @{
 *
-* This file contains method for static initialization (compile-time) of the
-* driver.
+* @brief Implements static (compile-time) initialization of the XScuWdt driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,10 +22,15 @@
 *                    workflow decoupling flow.
 * 2.6 	ht  06/03/24 Fix HIS_COMF violations.
 * 2.7   vlt 12/29/25 Update Doxygen comments to include SDT flow details.
+* 2.8   vn  09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -48,22 +50,23 @@
 /*****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief Looks up the device configuration by unique device ID or base address.
+*
 * The XScuWdt_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DeviceId Unique ID of the device.
 * @endif
 *
-* @return    A pointer to the configuration found or NULL if the specified
-*            device ID/BaseAddress was not found. See xscuwdt.h for the
-*            definition of XScuWdt_Config.
+* @return	A pointer to the configuration found, or NULL if the specified
+*		device ID or base address was not found. See xscuwdt.h
+*		for the definition of XScuWdt_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note         In the XSCT/classic flow, the driver uses DeviceId to look up
+*		the device configuration.
 *
 ******************************************************************************/
 #ifndef SDT

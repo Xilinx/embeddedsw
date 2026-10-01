@@ -9,10 +9,10 @@
 *
 * @file xscuwdt_intr_example.c
 *
+* @brief Demonstrates the XScuWdt driver in Timer mode using interrupts.
+*
 * This file contains a design example using the Xilinx SCU Private Watchdog
 * Timer driver (XScuWdt) and hardware in Timer mode using interrupts.
-*
-* @note		None.
 *
 * <pre>
 *
@@ -27,6 +27,7 @@
 * 2.5   dp   09/08/23 Update example to stop wdt at end of the test
 * 2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
 * 2.7   ht   02/10/26 Fix unused parameter warnings.
+* 2.8   vn   09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -45,21 +46,30 @@
 
 /************************** Constant Definitions *****************************/
 
-/*
+/**
+ * @name Device parameters
  * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are only defined here such that a user can easily
- * change all the needed parameters in one place.
+ * xparameters.h file. They are defined here so that you can change all the
+ * needed parameters in one place.
+ * @{
  */
 #ifndef SDT
+/** SCU watchdog timer device ID. */
 #define WDT_DEVICE_ID		XPAR_SCUWDT_0_DEVICE_ID
+/** Interrupt controller device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define WDT_IRPT_INTR		XPAR_SCUWDT_INTR
+#define WDT_IRPT_INTR		XPAR_SCUWDT_INTR /**< WDT interrupt ID. */
 #else
-#define SCUWDT_BASEADDRESS  XPAR_XSCUWDT_0_BASEADDR
+#define SCUWDT_BASEADDRESS  XPAR_XSCUWDT_0_BASEADDR /**< WDT base address. */
 #endif
+/** @} */
 
-#define HANDLER_CALLED		0xFFFFFFFF
-#define WDT_LOAD_VALUE		0xFF
+/** @name Test values
+ * @{
+ */
+#define HANDLER_CALLED		0xFFFFFFFF /**< Handler called flag value. */
+#define WDT_LOAD_VALUE		0xFF /**< Watchdog load value. */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -83,21 +93,19 @@ static void WdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 WdtIntrId);
 #endif
 /************************** Variable Definitions *****************************/
 
-XScuWdt WdtInstance;		/* Cortex SCU Private WatchDog Timer Instance */
+XScuWdt WdtInstance; /**< Cortex SCU Private WatchDog Timer Instance. */
 #ifndef SDT
-XScuGic IntcInstance;		/* Interrupt Controller Instance */
+XScuGic IntcInstance;		/**< Interrupt Controller Instance. */
 #endif
-volatile u32 HandlerCalled;	/* flag is set when timeout interrupt occurs */
+/** Flag that is set when a timeout interrupt occurs. */
+volatile u32 HandlerCalled;
 
 /*****************************************************************************/
 /**
 *
-* Main function to call the Scu Private Wdt interrupt example.
-*
+* @brief Calls the Scu Private Wdt interrupt example.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
@@ -130,25 +138,22 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function tests the functioning of the Scu Private WDT driver and hardware
-* in Timer mode using interrupts.
+* @brief Tests the Scu Private WDT driver and hardware in Timer mode.
 *
-* After one expiration of the timeout interval, an interrupt is generated and
-* the Event flag bit is set in the watchdog interrupt status register.
+* The test uses interrupts. After one expiration of the timeout interval, an
+* interrupt is generated and the Event flag bit is set in the watchdog
+* interrupt status register.
 *
-* @param	WdtInstancePtr is a pointer to the instance of XScuWdt driver.
+* @param[out]    WdtInstancePtr Pointer to the instance of XScuWdt driver.
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param	IntcInstancePtr is a pointer to the instance of the XScuGic
-*		driver.
-* @param	WdtDeviceId is the Device ID of the XScuWdt device.
-* @param	WdtIntrId is the Interrupt Id of the XScuWdt device.
+* @param[in,out] IntcInstancePtr Pointer to the instance of the XScuGic driver.
+* @param[in]     WdtDeviceId Device ID of the XScuWdt device.
+* @param[in]     WdtIntrId Interrupt ID of the XScuWdt device.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return        XST_SUCCESS if successful; otherwise, XST_FAILURE.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -339,17 +344,13 @@ int ScuWdtIntrExample(XScuWdt *WdtInstancePtr, UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function sets up the interrupt system such that interrupts can occur
-* for the device.
+* @brief Sets up the interrupt system so interrupts can occur for the device.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the XScuGic
-*		driver.
-* @param	WdtInstancePtr is a pointer to the instance of XScuWdt driver.
-* @param	WdtIntrId is the Interrupt Id of the XScuWdt device.
+* @param[in,out] IntcInstancePtr Pointer to the instance of the XScuGic driver.
+* @param[in]     WdtInstancePtr Pointer to the instance of XScuWdt driver.
+* @param[in]     WdtIntrId Interrupt ID of the XScuWdt device.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
+* @return        XST_SUCCESS if successful; otherwise, XST_FAILURE.
 *
 ******************************************************************************/
 static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
@@ -422,15 +423,12 @@ static int WdtSetupIntrSystem(XScuGic *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function is the Interrupt handler for the WDT Interrupt of the
-* Wdt device. It is called on the expiration of the timer counter in
-* interrupt context.
+* @brief Handles the WDT interrupt of the Wdt device.
 *
-* @param	CallBackRef is a pointer to the callback function.
+* This handler runs in interrupt context on the expiration of the timer
+* counter.
 *
-* @return	None.
-*
-* @note		None.
+* @param[in]	CallBackRef Pointer to the callback function.
 *
 ******************************************************************************/
 static void WdtIntrHandler(void *CallBackRef)
@@ -446,15 +444,10 @@ static void WdtIntrHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the device.
+* @brief Disables the interrupts that occur for the device.
 *
-* @param	IntcInstancePtr is the pointer to the instance of XScuGic
-*		driver.
-* @param	WdtIntrId is the Interrupt Id for the device.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in,out] IntcInstancePtr Pointer to the instance of XScuGic driver.
+* @param[in]     WdtIntrId Interrupt ID for the device.
 *
 ******************************************************************************/
 static void WdtDisableIntrSystem(XScuGic *IntcInstancePtr, u16 WdtIntrId)
