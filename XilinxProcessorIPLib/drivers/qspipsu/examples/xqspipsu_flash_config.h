@@ -3,19 +3,19 @@
 * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XQSPIPSU_FLASH_CONFIG_H_
+#define XQSPIPSU_FLASH_CONFIG_H_
+
 /*****************************************************************************/
 /**
 *
 * @file xqspipsu_flash_config.h
-*
+* @brief Provides the flash configuration table and defines for the examples.
 *
 * This file contains flash configuration table and flash related defines.
-* This file should be included in the example files and compiled along with
-* the examples (*.c).
-*
-* @note
-*
-* None.
+* Include this file in the example files and compile it along with the
+* examples (*.c).
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -37,13 +37,11 @@
 * 1.20  sb  09/13/24 Updated examples to configure correct baud rate value
 *       zm  07/15/26 Add support for Macronix flash mx25u25635f.
 * 1.24  vn  08/26/26 Fix Doxygen warnings.
+* 1.24  tb  09/30/26 Align Doxygen comments with AMD standards
 *
 *</pre>
 *
  ******************************************************************************/
-
-#ifndef XQSPIPSU_FLASH_CONFIG_H_		/* prevent circular inclusions */
-#define XQSPIPSU_FLASH_CONFIG_H_		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,145 +55,185 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/*
- * The following constants define the commands which may be sent to the Flash
- * device.
+/**
+ * @name Flash commands
+ * Defines the commands which may be sent to the Flash device.
+ * @{
  */
-#define WRITE_STATUS_CMD	0x01
-#define WRITE_CMD		0x02
-#define READ_CMD		0x03
-#define WRITE_DISABLE_CMD	0x04
+#define WRITE_STATUS_CMD	0x01 /**< Write status register command. */
+#define WRITE_CMD		0x02 /**< Page program command. */
+#define READ_CMD		0x03 /**< Normal read command. */
+#define WRITE_DISABLE_CMD	0x04 /**< Write disable command. */
+/** Read status register command. */
 #define READ_STATUS_CMD		0x05
-#define WRITE_ENABLE_CMD	0x06
+#define WRITE_ENABLE_CMD	0x06 /**< Write enable command. */
+/** Volatile write enable command. */
 #define VOLATILE_WRITE_ENABLE_CMD	0x50
-#define QUAD_MODE_ENABLE_BIT	0x06
-#define FAST_READ_CMD		0x0B
-#define DUAL_READ_CMD		0x3B
-#define QUAD_READ_CMD		0x6B
-#define BULK_ERASE_CMD		0xC7
-#define	SEC_ERASE_CMD		0xD8
-#define READ_ID			0x9F
+#define QUAD_MODE_ENABLE_BIT	0x06 /**< Quad mode enable bit. */
+#define FAST_READ_CMD		0x0B /**< Fast read command. */
+#define DUAL_READ_CMD		0x3B /**< Dual output fast read command. */
+#define QUAD_READ_CMD		0x6B /**< Quad output fast read command. */
+#define BULK_ERASE_CMD		0xC7 /**< Bulk erase command. */
+#define	SEC_ERASE_CMD		0xD8 /**< Sector erase command. */
+#define READ_ID			0x9F /**< Read ID command. */
+/** Read configuration register command. */
 #define READ_CONFIG_CMD		0x35
-#define READ_CONFIG_REG_CMD	0x15	/**< Macronix Read Configuration Register (RDCR) */
+/** Macronix Read Configuration Register (RDCR). */
+#define READ_CONFIG_REG_CMD	0x15
+/** Write configuration register command. */
 #define WRITE_CONFIG_CMD	0x01
-#define ENTER_4B_ADDR_MODE	0xB7
-#define EXIT_4B_ADDR_MODE	0xE9
-#define EXIT_4B_ADDR_MODE_ISSI	0x29
-#define READ_ANY_REG_CMD	0x65
-#define WRITE_ANY_REG_CMD	0x71
-/* 4-byte address opcodes */
-#define READ_CMD_4B			0x13
-#define FAST_READ_CMD_4B		0x0C
-#define DUAL_READ_CMD_4B		0x3C
-#define QUAD_READ_CMD_4B		0x6C
-#define WRITE_CMD_4B			0x12
-#define SEC_ERASE_CMD_4B		0xDC
-
-#define BANK_REG_RD		0x16
-#define BANK_REG_WR		0x17
-/* Bank register is called Extended Address Register in Micron */
-#define EXTADD_REG_RD		0xC8
-#define EXTADD_REG_WR		0xC5
-#define	DIE_ERASE_CMD		0xC4
-#define READ_FLAG_STATUS_CMD	0x70
-
-#define WRITE_STATUS_REG_2_CMD	0x31
-#define READ_STATUS_REG_2_CMD	0x35
-#define WB_QUAD_MODE_ENABLE_BIT	0x01
-
-/*
- * The following constants define the offsets within a FlashBuffer data
- * type for each kind of data.  Note that the read data offset is not the
- * same as the write data because the QSPIPSU driver is designed to allow full
- * duplex transfers such that the number of bytes received is the number
- * sent and received.
+#define ENTER_4B_ADDR_MODE	0xB7 /**< Enter 4-byte address mode command. */
+#define EXIT_4B_ADDR_MODE	0xE9 /**< Exit 4-byte address mode command. */
+#define EXIT_4B_ADDR_MODE_ISSI	0x29 /**< ISSI exit 4-byte address mode. */
+#define READ_ANY_REG_CMD	0x65 /**< Read any register command. */
+#define WRITE_ANY_REG_CMD	0x71 /**< Write any register command. */
+/** @} */
+/**
+ * @name 4-byte address commands
+ * Defines the 4-byte address opcodes.
+ * @{
  */
-#define COMMAND_OFFSET		0 /* Flash instruction */
-#define ADDRESS_1_OFFSET	1 /* MSB byte of address to read or write */
-#define ADDRESS_2_OFFSET	2 /* Middle byte of address to read or write */
-#define ADDRESS_3_OFFSET	3 /* LSB byte of address to read or write */
-#define ADDRESS_4_OFFSET	4 /* LSB byte of address to read or write
-				   * when 4 byte address
-				   */
-#define MODE_BITS_OFFSET	5 /* Mode bits (CYPRESS_ID_BYTE0 only)*/
-#define DATA_OFFSET		5 /* Start of Data for Read/Write */
-#define DUMMY_OFFSET		4 /* Dummy byte offset for fast, dual and quad
-				   * reads
-				   */
-#define DUMMY_SIZE		1 /* Number of dummy bytes for fast, dual and
-				   * quad reads
-				   */
-#define DUMMY_CLOCKS		8 /* Number of dummy bytes for fast, dual and
-				   * quad reads
-				   */
-#define RD_ID_SIZE		4 /* Read ID command + 3 bytes ID response */
-#define BULK_ERASE_SIZE		1 /* Bulk Erase command size */
-#define SEC_ERASE_SIZE		4 /* Sector Erase command + Sector address */
-#define BANK_SEL_SIZE		2 /* BRWR or EARWR command + 1 byte bank
-				   * value
-				   */
-#define RD_CFG_SIZE		2 /* 1 byte Configuration register + RD CFG
-				   * command
-				   */
-#define WR_CFG_SIZE		3 /* WRR command + 1 byte each Status and
-				   * Config Reg
-				   */
-#define DIE_ERASE_SIZE	4	/* Die Erase command + Die address */
+#define READ_CMD_4B			0x13 /**< 4-byte read command. */
+#define FAST_READ_CMD_4B		0x0C /**< 4-byte fast read command. */
+#define DUAL_READ_CMD_4B		0x3C /**< 4-byte dual read command. */
+#define QUAD_READ_CMD_4B		0x6C /**< 4-byte quad read command. */
+/** 4-byte page program command. */
+#define WRITE_CMD_4B			0x12
+/** 4-byte sector erase command. */
+#define SEC_ERASE_CMD_4B		0xDC
+/** @} */
 
-/*
- * The following constants specify the extra bytes which are sent to the
- * Flash on the QSPIPSu interface, that are not data, but control information
- * which includes the command and address
+/**
+ * @name Bank register and die commands
+ * Defines the bank register, die erase, and flag status commands. The bank
+ * register is called Extended Address Register in Micron.
+ * @{
+ */
+#define BANK_REG_RD		0x16 /**< Bank register read command. */
+#define BANK_REG_WR		0x17 /**< Bank register write command. */
+#define EXTADD_REG_RD		0xC8 /**< Extended address read command. */
+#define EXTADD_REG_WR		0xC5 /**< Extended address write command. */
+#define	DIE_ERASE_CMD		0xC4 /**< Die erase command. */
+#define READ_FLAG_STATUS_CMD	0x70 /**< Read flag status register command. */
+/** @} */
+
+/**
+ * @name Status register 2 commands
+ * Defines the status register 2 commands and the Winbond quad enable bit.
+ * @{
+ */
+#define WRITE_STATUS_REG_2_CMD	0x31 /**< Write status register 2 command. */
+#define READ_STATUS_REG_2_CMD	0x35 /**< Read status register 2 command. */
+/** Winbond quad mode enable bit. */
+#define WB_QUAD_MODE_ENABLE_BIT	0x01
+/** @} */
+
+/**
+ * @name Flash buffer offsets and sizes
+ * Defines the offsets within a FlashBuffer data type for each kind of data.
+ * The read data offset is not the same as the write data offset. The QSPIPSU
+ * driver allows full duplex transfers, so the number of bytes received is
+ * the number sent and received.
+ * @{
+ */
+#define COMMAND_OFFSET		0 /**< Flash instruction. */
+#define ADDRESS_1_OFFSET	1 /**< MSB byte of address to read or write. */
+/** Middle byte of address to read or write. */
+#define ADDRESS_2_OFFSET	2
+#define ADDRESS_3_OFFSET	3 /**< LSB byte of address to read or write. */
+#define ADDRESS_4_OFFSET	4 /**< LSB byte of address to read or write
+				   * when 4-byte address.
+				   */
+#define MODE_BITS_OFFSET	5 /**< Mode bits (CYPRESS_ID_BYTE0 only). */
+#define DATA_OFFSET		5 /**< Start of Data for Read/Write. */
+#define DUMMY_OFFSET		4 /**< Dummy byte offset for fast, dual and quad
+				   * reads.
+				   */
+#define DUMMY_SIZE		1 /**< Number of dummy bytes for fast, dual and
+				   * quad reads.
+				   */
+#define DUMMY_CLOCKS		8 /**< Number of dummy bytes for fast, dual and
+				   * quad reads.
+				   */
+#define RD_ID_SIZE		4 /**< Read ID command + 3 bytes ID response. */
+#define BULK_ERASE_SIZE		1 /**< Bulk Erase command size. */
+#define SEC_ERASE_SIZE		4 /**< Sector Erase command + Sector address. */
+#define BANK_SEL_SIZE		2 /**< BRWR or EARWR command + 1 byte bank
+				   * value.
+				   */
+#define RD_CFG_SIZE		2 /**< 1 byte Configuration register + RD CFG
+				   * command.
+				   */
+#define WR_CFG_SIZE		3 /**< WRR command + 1 byte each Status and
+				   * Config Reg.
+				   */
+#define DIE_ERASE_SIZE	4	/**< Die Erase command + Die address. */
+/** @} */
+
+/**
+ * Specifies the extra bytes which are sent to the Flash on the QSPIPSU
+ * interface. These bytes are not data, but control information which
+ * includes the command and address.
  */
 #define OVERHEAD_SIZE		4
 
-/*
- * Base address of Flash1
+/**
+ * Base address of Flash1.
  */
 #define FLASH1BASE 0x0000000
 
-/*
- * Sixteen MB
+/**
+ * Sixteen MB.
  */
 #define SIXTEENMB 0x1000000
 
-/*
- * Die size 128 MB
+/**
+ * Die size 128 MB.
  */
 #define DIE_SIZE_128MB 0x8000000
 
-/*
- * status/configuration register volatile address offset
+/**
+ * @name Volatile register address offsets
+ * Defines the status/configuration register volatile address offsets.
+ * @{
  */
-#define REG_SR1V_ADDR_OFFSET 0x00800000
-#define REG_CR1V_ADDR_OFFSET 0x00800002
+#define REG_SR1V_ADDR_OFFSET 0x00800000 /**< Status register 1 offset. */
+#define REG_CR1V_ADDR_OFFSET 0x00800002 /**< Configuration register 1 offset. */
+/** @} */
 
-/*
- * status/configuration register nonvolatile address offset
+/**
+ * @name Nonvolatile register address offsets
+ * Defines the status/configuration register nonvolatile address offsets.
+ * @{
  */
-#define REG_SR1N_ADDR_OFFSET 0x00000000
-#define REG_CR1N_ADDR_OFFSET 0x00000002
+#define REG_SR1N_ADDR_OFFSET 0x00000000 /**< Status register 1 offset. */
+#define REG_CR1N_ADDR_OFFSET 0x00000002 /**< Configuration register 1 offset. */
+/** @} */
 
-/*
- * Mask for quad enable bit in Flash configuration register
+/**
+ * Mask for quad enable bit in Flash configuration register.
  */
 #define FLASH_QUAD_EN_MASK 0x02
 
-#define FLASH_SRWD_MASK 0x80
+#define FLASH_SRWD_MASK 0x80 /**< Status register write disable mask. */
 
-/*
- * Bank mask
+/**
+ * Bank mask.
  */
 #define BANKMASK 0xF000000
 
-/*
- * Bus width
+/**
+ * @name Bus width
+ * Defines the bus width values.
+ * @{
  */
-#define BUSWIDTH_SINGLE	0
-#define BUSWIDTH_DOUBLE	1
+#define BUSWIDTH_SINGLE	0 /**< Single bus width. */
+#define BUSWIDTH_DOUBLE	1 /**< Double bus width. */
+/** @} */
 
-/*
- * Identification of Flash
+/**
+ * @name Flash manufacturer IDs
+ * Identification of Flash.
  * Micron:
  * Byte 0 is Manufacturer ID;
  * Byte 1 is first byte of Device ID - 0xBB or 0xBA
@@ -206,43 +244,48 @@ extern "C" {
  * Byte 1 is Device ID - Memory Interface type - 0x20 or 0x02
  * Byte 2 is second byte of Device ID describes flash size:
  * 128Mbit : 0x18; 256Mbit : 0x19; 512Mbit : 0x20
+ * @{
  */
-#define MICRON_ID_BYTE0		0x20
-#define SPANSION_ID_BYTE0	0x01
-#define CYPRESS_ID_BYTE0	0x34
-#define WINBOND_ID_BYTE0	0xEF
-#define MACRONIX_ID_BYTE0	0xC2
-#define ISSI_ID_BYTE0		0x9D
+#define MICRON_ID_BYTE0		0x20 /**< Micron manufacturer ID. */
+#define SPANSION_ID_BYTE0	0x01 /**< Spansion manufacturer ID. */
+#define CYPRESS_ID_BYTE0	0x34 /**< Cypress manufacturer ID. */
+#define WINBOND_ID_BYTE0	0xEF /**< Winbond manufacturer ID. */
+#define MACRONIX_ID_BYTE0	0xC2 /**< Macronix manufacturer ID. */
+#define ISSI_ID_BYTE0		0x9D /**< ISSI manufacturer ID. */
+/** @} */
 
-/**< Maximum delay count */
-#define MAX_DELAY_CNT	1000000000U
+#define MAX_DELAY_CNT	1000000000U /**< Maximum delay count. */
 
 /**************************** Type Definitions *******************************/
 
+/**
+ * @brief Describes the geometry of a supported flash device.
+ */
 typedef struct {
-	u32 jedec_id;	/* JEDEC ID */
+	u32 jedec_id;		/**< JEDEC ID. */
 
-	u32 SectSize;		/* Individual sector size or combined sector
-				 * size in case of parallel config
+	u32 SectSize;		/**< Individual sector size or combined sector
+				 * size in case of parallel config.
 				 */
-	u32 NumSect;		/* Total no. of sectors in one/two
-				 * flash devices
+	u32 NumSect;		/**< Total number of sectors in one/two
+				 * flash devices.
 				 */
-	u32 PageSize;		/* Individual page size or
+	u32 PageSize;		/**< Individual page size or
 				 * combined page size in case of parallel
-				 * config
+				 * config.
 				 */
-	u32 NumPage;		/* Total no. of pages in one/two flash
-				 * devices
+	u32 NumPage;		/**< Total number of pages in one/two flash
+				 * devices.
 				 */
-	u32 FlashDeviceSize;	/* This is the size of one flash device
+	u32 FlashDeviceSize;	/**< Size of one flash device,
 				 * NOT the combination of both devices,
-				 * if present
+				 * if present.
 				 */
-	u8 NumDie;		/* No. of die forming a single flash */
+	u8 NumDie;		/**< Number of dies forming a single flash. */
 } FlashInfo;
 
 /************************** Variable Definitions *****************************/
+/** Flash configuration table for the supported flash parts. */
 FlashInfo Flash_Config_Table[] = {
 	/* Spansion */
 	/*s25fl064l*/
@@ -682,6 +725,19 @@ FlashInfo Flash_Config_Table[] = {
 	}
 };
 
+/*****************************************************************************/
+/**
+*
+* @brief Finds the flash configuration table index for a flash JEDEC ID.
+*
+* @param[in]    ReadId JEDEC ID read from the flash device.
+* @param[out]   FCTIndex Pointer to the flash configuration table index.
+*
+* @return
+*		- XST_SUCCESS if the JEDEC ID is found in the table.
+*		- XST_FAILURE if the JEDEC ID is not found in the table.
+*
+******************************************************************************/
 static INLINE u32 CalculateFCTIndex(u32 ReadId, u32 *FCTIndex)
 {
 	u32 Index;
@@ -697,6 +753,16 @@ static INLINE u32 CalculateFCTIndex(u32 ReadId, u32 *FCTIndex)
 	return XST_FAILURE;
 }
 
+/*****************************************************************************/
+/**
+*
+* @brief Calculates the clock prescaler for a baud rate divisor.
+*
+* @param[in]    BaudRateDiv Baud rate divisor.
+*
+* @return	Clock prescaler value.
+*
+******************************************************************************/
 static INLINE u8 CalculatePreScaler(u8 BaudRateDiv)
 {
 	u8 PreScaler = 0;

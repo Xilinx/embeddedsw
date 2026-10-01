@@ -4,6 +4,8 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XQSPIPSU_H_
+#define XQSPIPSU_H_
 
 /*****************************************************************************/
 /**
@@ -11,8 +13,9 @@
  * @file xqspipsu.h
  * @addtogroup qspipsu_api QSPIPSU APIs
  * @{
- * @details
+ * @brief Provides the QSPIPSU driver API, data types, and constants.
  *
+ * @details
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -132,13 +135,11 @@
  * 1.23 vlt 12/16/25 Update Doxygen comments to include SDT flow details.
  * 1.23 vlt 03/14/26 Updated BaseAddress type from u32 to UINTPTR
  *                   to support 64-bit addressing.
+ * 1.24 tb  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
-
-#ifndef XQSPIPSU_H_		/**< prevent circular inclusions */
-#define XQSPIPSU_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -157,20 +158,22 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
- * The handler data type allows the user to define a callback function to
- * handle the asynchronous processing for the QSPIPSU device. The application
- * using this driver is expected to define a handler of this type to support
- * interrupt driven mode. The handler executes in an interrupt context, so
- * only minimal processing should be performed.
+ * @brief Defines the status callback type for the QSPIPSU device.
  *
- * @param	CallBackRef Callback reference passed in by the upper
+ * The handler data type defines a callback function that handles the
+ * asynchronous processing for the QSPIPSU device. The application using this
+ * driver defines a handler of this type to support interrupt-driven mode. The
+ * handler executes in an interrupt context, so it must perform only minimal
+ * processing.
+ *
+ * @param[in]   CallBackRef Callback reference passed in by the upper
  *		layer when setting the callback functions, and passed back to
  *		the upper layer when the callback is invoked. Its type is
  *		not important to the driver, so it is a void pointer.
- * @param	StatusEvent Holds one or more status events that have occurred.
+ * @param[in]   StatusEvent Holds one or more status events that have occurred.
  *		See XQspiPsu_SetStatusHandler() for details on the status
  *		events that can be passed in the callback.
- * @param	ByteCount Indicates how many bytes of data were successfully
+ * @param[in]   ByteCount Indicates how many bytes of data were successfully
  *		transferred. This may be less than the number of bytes
  *		requested if the status event indicates an error.
  */
@@ -178,194 +181,277 @@ typedef void (*XQspiPsu_StatusHandler) (const void *CallBackRef, u32 StatusEvent
 					u32 ByteCount);
 
 /**
- * This typedef contains configuration information for a flash message.
+ * @brief Stores the configuration information for a flash message.
  */
 typedef struct {
-	u8 *TxBfrPtr;	/**< Tx Buffer pointer */
-	u8 *RxBfrPtr;	/**< Rx Buffer pointer */
-	u32 ByteCount;	/**< Byte Count */
-	u32 BusWidth;	/**< Bus Width */
-	u32 Flags;	/**< Flags */
-	u8 PollData;	/**< Poll Data */
-	u32 PollTimeout;/**< Poll Timeout */
-	u8 PollStatusCmd; /**< Poll Status command */
-	u8 PollBusMask;	  /**< Poll Bus mask */
-	u64 RxAddr64bit;  /**< 64 bit Rx address */
-	u8 Xfer64bit;	  /**< 64 bit Tx address */
+	u8 *TxBfrPtr;	  /**< Tx Buffer pointer. */
+	u8 *RxBfrPtr;	  /**< Rx Buffer pointer. */
+	u32 ByteCount;	  /**< Byte Count. */
+	u32 BusWidth;	  /**< Bus Width. */
+	u32 Flags;	  /**< Flags. */
+	u8 PollData;	  /**< Poll Data. */
+	u32 PollTimeout;  /**< Poll Timeout. */
+	u8 PollStatusCmd; /**< Poll Status command. */
+	u8 PollBusMask;	  /**< Poll Bus mask. */
+	u64 RxAddr64bit;  /**< 64-bit Rx address. */
+	u8 Xfer64bit;	  /**< 64-bit Tx address. */
 } XQspiPsu_Msg;
 
 /**
- * This typedef contains configuration information for the device.
+ * @brief Stores the configuration information for the device.
  */
 typedef struct {
 #ifndef SDT
-	u16 DeviceId;		/**< Unique ID  of device */
+	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;             /**< Name of the device */
+	char *Name;             /**< Name of the device. */
 #endif
-	UINTPTR BaseAddress;	/**< Base address of the device */
-	u32 InputClockHz;	/**< Input clock frequency */
-	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode */
-	u8  BusWidth;		/**< Bus width available on board */
-	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
+	UINTPTR BaseAddress;	/**< Base address of the device. */
+	u32 InputClockHz;	/**< Input clock frequency. */
+	u8  ConnectionMode;	/**< Single, Stacked and Parallel mode. */
+	u8  BusWidth;		/**< Bus width available on board. */
+	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not. */
 #ifdef SDT
 	u16 IntrId;             /**< Bits[11:0] Interrupt-id Bits[15:12]
-                                * trigger type and level flags */
+				 * trigger type and level flags. */
 	UINTPTR IntrParent;     /**< Bit[0] Interrupt parent type Bit[64/32:1]
-                                * Parent base address */
+				 * Parent base address. */
 #endif
 #if defined  (XCLOCKING) || defined (SDT)
-	u32 RefClk;		/**< Input clocks */
+	u32 RefClk;		/**< Input clocks. */
 #endif
-	u8 IsFbClock;		/**< Describes whether Feed Back clock or not */
-	u8 BaudRateDiv;		/**< Baud rate divisor to set QSPI clock */
+	u8 IsFbClock;		/**< Describes whether Feed Back clock or
+				 * not.
+				 */
+	u8 BaudRateDiv;		/**< Baud rate divisor to set QSPI clock. */
 } XQspiPsu_Config;
 
 /**
- * The XQspiPsu driver instance data. The user is required to allocate a
- * variable of this type for every QSPIPSU device in the system. A pointer
- * to a variable of this type is then passed to the driver API functions.
+ * @brief Stores the XQspiPsu driver instance data.
+ *
+ * Allocate a variable of this type for every QSPIPSU device in the system. A
+ * pointer to a variable of this type is then passed to the driver API
+ * functions.
  */
 typedef struct {
-	XQspiPsu_Config Config;	 /**< Configuration structure */
-	u32 IsReady;		 /**< Device is initialized and ready */
+	XQspiPsu_Config Config;	/**< Configuration structure. */
+	u32 IsReady;		/**< Device is initialized and ready. */
 
-	u8 *SendBufferPtr;	 /**< Buffer to send (state) */
-	u8 *RecvBufferPtr;	 /**< Buffer to receive (state) */
-	u64 RecvBuffer;		 /**< Buffer Address to receive (state) */
-	u8 *GenFifoBufferPtr;	 /**< Gen FIFO entries */
-	s32 TxBytes;	 /**< Number of bytes to transfer (state) */
-	s32 RxBytes;	 /**< Number of bytes left to transfer(state) */
-	s32 GenFifoEntries;	 /**< Number of Gen FIFO entries remaining */
-	volatile u32 IsBusy;		 /**< A transfer is in progress (state) */
-	u32 ReadMode;		 /**< DMA or IO mode */
-	u32 GenFifoCS;		/**< Gen FIFO chip selection */
-	u32 GenFifoBus;		/**< Gen FIFO bus */
-	s32 NumMsg;		/**< Number of messages */
-	s32 MsgCnt;		/**< Message Count */
-	s32 IsUnaligned;	/**< Unaligned information */
-	u8 IsManualstart;	/**< Manual start information */
-	XQspiPsu_Msg *Msg;	/**< Message */
-	XQspiPsu_StatusHandler StatusHandler;	/**< Status Handler */
-	void *StatusRef;	/**< Callback reference for status handler */
+	u8 *SendBufferPtr;	/**< Buffer to send (state). */
+	u8 *RecvBufferPtr;	/**< Buffer to receive (state). */
+	u64 RecvBuffer;		/**< Buffer Address to receive (state). */
+	u8 *GenFifoBufferPtr;	/**< Gen FIFO entries. */
+	s32 TxBytes;		/**< Number of bytes to transfer (state). */
+	s32 RxBytes;		/**< Number of bytes left to transfer
+				 * (state).
+				 */
+	s32 GenFifoEntries;	/**< Number of Gen FIFO entries remaining. */
+	volatile u32 IsBusy;	/**< A transfer is in progress (state). */
+	u32 ReadMode;		/**< DMA or IO mode. */
+	u32 GenFifoCS;		/**< Gen FIFO chip selection. */
+	u32 GenFifoBus;		/**< Gen FIFO bus. */
+	s32 NumMsg;		/**< Number of messages. */
+	s32 MsgCnt;		/**< Message Count. */
+	s32 IsUnaligned;	/**< Unaligned information. */
+	u8 IsManualstart;	/**< Manual start information. */
+	XQspiPsu_Msg *Msg;	/**< Message. */
+	XQspiPsu_StatusHandler StatusHandler;
+				/**< Status Handler. */
+	void *StatusRef;	/**< Callback reference for status handler. */
 } XQspiPsu;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**
+ * @name Flash device geometry
  * Definitions for Intel, STM, Winbond and Spansion Serial Flash Device
  * geometry.
+ * @{
  */
-#define BYTES256_PER_PAGE	256U		/**< 256 Bytes per Page */
-#define BYTES512_PER_PAGE	512U		/**< 512 Bytes per Page */
-#define BYTES1024_PER_PAGE	1024U		/**< 1024 Bytes per Page */
-#define PAGES16_PER_SECTOR	16U		/**< 16 Pages per Sector */
-#define PAGES128_PER_SECTOR	128U		/**< 128 Pages per Sector */
-#define PAGES256_PER_SECTOR	256U		/**< 256 Pages per Sector */
-#define PAGES512_PER_SECTOR	512U		/**< 512 Pages per Sector */
-#define PAGES1024_PER_SECTOR	1024U		/**< 1024 Pages per Sector */
-#define NUM_OF_SECTORS2		2U		/**< 2 Sectors */
-#define NUM_OF_SECTORS4		4U		/**< 4 Sectors */
-#define NUM_OF_SECTORS8		8U		/**< 8 Sector */
-#define NUM_OF_SECTORS16	16U		/**< 16 Sectors */
-#define NUM_OF_SECTORS32	32U		/**< 32 Sectors */
-#define NUM_OF_SECTORS64	64U		/**< 64 Sectors */
-#define NUM_OF_SECTORS128	128U		/**< 128 Sectors */
-#define NUM_OF_SECTORS256	256U		/**< 256 Sectors */
-#define NUM_OF_SECTORS512	512U		/**< 512 Sectors */
-#define NUM_OF_SECTORS1024	1024U		/**< 1024 Sectors */
-#define NUM_OF_SECTORS2048	2048U		/**< 2048 Sectors */
-#define NUM_OF_SECTORS4096	4096U		/**< 4096 Sectors */
-#define NUM_OF_SECTORS8192	8192U		/**< 8192 Sectors */
-#define SECTOR_SIZE_64K		0X10000U	/**< 64K Sector */
-#define SECTOR_SIZE_128K	0X20000U	/**< 128K Sector */
-#define SECTOR_SIZE_256K	0X40000U	/**< 256K Sector */
-#define SECTOR_SIZE_512K	0X80000U	/**< 512K Sector */
+#define BYTES256_PER_PAGE	256U		/**< 256 Bytes per Page. */
+#define BYTES512_PER_PAGE	512U		/**< 512 Bytes per Page. */
+#define BYTES1024_PER_PAGE	1024U		/**< 1024 Bytes per Page. */
+#define PAGES16_PER_SECTOR	16U		/**< 16 Pages per Sector. */
+#define PAGES128_PER_SECTOR	128U		/**< 128 Pages per Sector. */
+#define PAGES256_PER_SECTOR	256U		/**< 256 Pages per Sector. */
+#define PAGES512_PER_SECTOR	512U		/**< 512 Pages per Sector. */
+#define PAGES1024_PER_SECTOR	1024U		/**< 1024 Pages per Sector. */
+#define NUM_OF_SECTORS2		2U		/**< 2 Sectors. */
+#define NUM_OF_SECTORS4		4U		/**< 4 Sectors. */
+#define NUM_OF_SECTORS8		8U		/**< 8 Sectors. */
+#define NUM_OF_SECTORS16	16U		/**< 16 Sectors. */
+#define NUM_OF_SECTORS32	32U		/**< 32 Sectors. */
+#define NUM_OF_SECTORS64	64U		/**< 64 Sectors. */
+#define NUM_OF_SECTORS128	128U		/**< 128 Sectors. */
+#define NUM_OF_SECTORS256	256U		/**< 256 Sectors. */
+#define NUM_OF_SECTORS512	512U		/**< 512 Sectors. */
+#define NUM_OF_SECTORS1024	1024U		/**< 1024 Sectors. */
+#define NUM_OF_SECTORS2048	2048U		/**< 2048 Sectors. */
+#define NUM_OF_SECTORS4096	4096U		/**< 4096 Sectors. */
+#define NUM_OF_SECTORS8192	8192U		/**< 8192 Sectors. */
+#define SECTOR_SIZE_64K		0X10000U	/**< 64K Sector. */
+#define SECTOR_SIZE_128K	0X20000U	/**< 128K Sector. */
+#define SECTOR_SIZE_256K	0X40000U	/**< 256K Sector. */
+#define SECTOR_SIZE_512K	0X80000U	/**< 512K Sector. */
+/** @} */
 
+/** @name Read modes
+ * @{
+ */
+#define XQSPIPSU_READMODE_DMA	0x0U	/**< DMA read mode. */
+#define XQSPIPSU_READMODE_IO	0x1U	/**< IO read mode. */
+/** @} */
 
-#define XQSPIPSU_READMODE_DMA	0x0U	/**< DMA read mode */
-#define XQSPIPSU_READMODE_IO	0x1U	/**< IO read mode */
+/** @name Flash chip select options
+ * @{
+ */
+#define XQSPIPSU_SELECT_FLASH_CS_LOWER	0x1U	/**< Select lower flash. */
+#define XQSPIPSU_SELECT_FLASH_CS_UPPER	0x2U	/**< Select upper flash. */
+#define XQSPIPSU_SELECT_FLASH_CS_BOTH	0x3U	/**< Select both flash. */
+/** @} */
 
-#define XQSPIPSU_SELECT_FLASH_CS_LOWER	0x1U	/**< Select lower flash */
-#define XQSPIPSU_SELECT_FLASH_CS_UPPER	0x2U	/**< Select upper flash */
-#define XQSPIPSU_SELECT_FLASH_CS_BOTH	0x3U	/**< Select both flash */
+/** @name Flash bus select options
+ * @{
+ */
+/** Select lower bus flash. */
+#define XQSPIPSU_SELECT_FLASH_BUS_LOWER	0x1U
+/** Select upper bus flash. */
+#define XQSPIPSU_SELECT_FLASH_BUS_UPPER	0x2U
+#define XQSPIPSU_SELECT_FLASH_BUS_BOTH	0x3U	/**< Select both bus flash. */
+/** @} */
 
-#define XQSPIPSU_SELECT_FLASH_BUS_LOWER	0x1U	/**< Select lower bus flash */
-#define XQSPIPSU_SELECT_FLASH_BUS_UPPER	0x2U	/**< Select upper bus flash */
-#define XQSPIPSU_SELECT_FLASH_BUS_BOTH	0x3U	/**< Select both bus flash */
+/** @name SPI modes
+ * @{
+ */
+#define XQSPIPSU_SELECT_MODE_SPI	0x1U	/**< Select SPI mode. */
+#define XQSPIPSU_SELECT_MODE_DUALSPI	0x2U	/**< Select dual SPI mode. */
+#define XQSPIPSU_SELECT_MODE_QUADSPI	0x4U	/**< Select quad SPI mode. */
+/** @} */
 
-#define XQSPIPSU_SELECT_MODE_SPI	0x1U	/**< Select SPI mode */
-#define XQSPIPSU_SELECT_MODE_DUALSPI	0x2U	/**< Select dual SPI mode */
-#define XQSPIPSU_SELECT_MODE_QUADSPI	0x4U	/**< Select quad SPI mode */
+/** @name Generic FIFO chip select timing
+ * @{
+ */
+/** Chip select setup in GENFIFO. */
+#define XQSPIPSU_GENFIFO_CS_SETUP	0x05U
+/** Chip select hold in GENFIFO. */
+#define XQSPIPSU_GENFIFO_CS_HOLD	0x04U
+/** @} */
 
-#define XQSPIPSU_GENFIFO_CS_SETUP	0x05U	/**< Chip select setup in GENFIO */
-#define XQSPIPSU_GENFIFO_CS_HOLD	0x04U	/**< Chip select hold in GENFIFO */
-
-#define XQSPIPSU_CLK_ACTIVE_LOW_OPTION	0x2U	/**< Clk Active low option */
-#define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U	/**< Clk phase 1 option */
-#define XQSPIPSU_MANUAL_START_OPTION	0x8U	/**< Manual start option */
+/** @name Configuration options
+ * @{
+ */
+#define XQSPIPSU_CLK_ACTIVE_LOW_OPTION	0x2U	/**< Clock active low option. */
+#define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U	/**< Clock phase 1 option. */
+#define XQSPIPSU_MANUAL_START_OPTION	0x8U	/**< Manual start option. */
 #if !defined (versal)
-#define XQSPIPSU_LQSPI_MODE_OPTION	0x20U	/**< LQSPI mode option */
+#define XQSPIPSU_LQSPI_MODE_OPTION	0x20U	/**< LQSPI mode option. */
 
-#define XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB	1U /**< LQSPI less Than 16 MB */
+/** LQSPI less than 16 MB. */
+#define XQSPIPSU_LQSPI_LESS_THEN_SIXTEENMB	1U
 #endif
+/** @} */
 
-#define XQSPIPSU_GENFIFO_EXP_START	0x100U /**< Genfifo start */
+#define XQSPIPSU_GENFIFO_EXP_START	0x100U /**< Generic FIFO start. */
 
-#define XQSPIPSU_DMA_BYTES_MAX		0x10000000U /**< DMA bytes max */
+#define XQSPIPSU_DMA_BYTES_MAX		0x10000000U /**< Maximum DMA bytes. */
 
-#define XQSPIPSU_CLK_PRESCALE_2		0x00U	/**< Clock prescale 2 */
-#define XQSPIPSU_CLK_PRESCALE_4		0x01U	/**< Clock prescale 4 */
-#define XQSPIPSU_CLK_PRESCALE_8		0x02U	/**< Clock prescale 8 */
-#define XQSPIPSU_CLK_PRESCALE_16	0x03U	/**< Clock prescale 16 */
-#define XQSPIPSU_CLK_PRESCALE_32	0x04U	/**< Clock prescale 32 */
-#define XQSPIPSU_CLK_PRESCALE_64	0x05U	/**< Clock prescale 64 */
-#define XQSPIPSU_CLK_PRESCALE_128	0x06U	/**< Clock prescale 128 */
-#define XQSPIPSU_CLK_PRESCALE_256	0x07U	/**< Clock prescale 256 */
-#define XQSPIPSU_CR_PRESC_MAXIMUM	7U	/**< Prescale max */
+/** @name Clock prescaler values
+ * @{
+ */
+#define XQSPIPSU_CLK_PRESCALE_2		0x00U /**< Clock prescale 2. */
+#define XQSPIPSU_CLK_PRESCALE_4		0x01U /**< Clock prescale 4. */
+#define XQSPIPSU_CLK_PRESCALE_8		0x02U /**< Clock prescale 8. */
+#define XQSPIPSU_CLK_PRESCALE_16	0x03U	/**< Clock prescale 16. */
+#define XQSPIPSU_CLK_PRESCALE_32	0x04U	/**< Clock prescale 32. */
+#define XQSPIPSU_CLK_PRESCALE_64	0x05U	/**< Clock prescale 64. */
+#define XQSPIPSU_CLK_PRESCALE_128	0x06U	/**< Clock prescale 128. */
+#define XQSPIPSU_CLK_PRESCALE_256	0x07U	/**< Clock prescale 256. */
+#define XQSPIPSU_CR_PRESC_MAXIMUM	7U	/**< Prescale max. */
+/** @} */
 
-#define XQSPIPSU_CONNECTION_MODE_SINGLE		0U /**< Single mode connection */
-#define XQSPIPSU_CONNECTION_MODE_STACKED	1U /**< Stacked mode connection */
-#define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U /**< Parallel mode connection */
+/** @name Connection modes
+ * @{
+ */
+/** Single mode connection. */
+#define XQSPIPSU_CONNECTION_MODE_SINGLE		0U
+/** Stacked mode connection. */
+#define XQSPIPSU_CONNECTION_MODE_STACKED	1U
+/** Parallel mode connection. */
+#define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U
+/** @} */
 
-/*QSPI Frequencies*/
-#define XQSPIPSU_FREQ_37_5MHZ 37500000U	/**< Frequency 375 Mhz */
-#define XQSPIPSU_FREQ_40MHZ 40000000U	/**< Frequency 40 Mhz */
-#define XQSPIPSU_FREQ_100MHZ 100000000U	/**< Frequency 100 Mhz */
-#define XQSPIPSU_FREQ_150MHZ 150000000U	/**< Frequency 150 Mhz */
-
-/* Add more flags as required */
-#define XQSPIPSU_MSG_FLAG_STRIPE	0x1U /**< Stripe Msg flag */
-#define XQSPIPSU_MSG_FLAG_RX		0x2U /**< Rx Msg flag */
-#define XQSPIPSU_MSG_FLAG_TX		0x4U /**< Tx Msg flag */
-#define XQSPIPSU_MSG_FLAG_POLL		0x8U /**< POLL Msg flag */
-
-#define XQSPIPSU_RXADDR_OVER_32BIT	0x100000000U /**< Rx address over 32 bit */
-
-#define XQSPIPSU_SET_WP		1 /**< GQSPI configuration to toggle WP of flash */
+/** @name QSPI frequencies
+ * @{
+ */
+#define XQSPIPSU_FREQ_37_5MHZ 37500000U	/**< Frequency 37.5 MHz. */
+#define XQSPIPSU_FREQ_40MHZ 40000000U	/**< Frequency 40 MHz. */
+#define XQSPIPSU_FREQ_100MHZ 100000000U	/**< Frequency 100 MHz. */
+#define XQSPIPSU_FREQ_150MHZ 150000000U	/**< Frequency 150 MHz. */
+/** @} */
 
 /**
- * select QSPI controller
+ * @name Message flags
+ * Add more flags as required.
+ * @{
+ */
+#define XQSPIPSU_MSG_FLAG_STRIPE	0x1U /**< Stripe Msg flag. */
+#define XQSPIPSU_MSG_FLAG_RX		0x2U /**< Rx Msg flag. */
+#define XQSPIPSU_MSG_FLAG_TX		0x4U /**< Tx Msg flag. */
+#define XQSPIPSU_MSG_FLAG_POLL		0x8U /**< POLL Msg flag. */
+/** @} */
+
+/** Rx address over 32 bits. */
+#define XQSPIPSU_RXADDR_OVER_32BIT	0x100000000U
+
+/** GQSPI configuration to toggle WP of flash. */
+#define XQSPIPSU_SET_WP		1
+
+/**
+ * @brief Selects the QSPI controller.
+ *
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]   Mask Controller select mask.
+ *
+ * @note	C-style signature:
+ *		void XQspiPsu_Select(XQspiPsu *InstancePtr, u32 Mask)
  */
 #define XQspiPsu_Select(InstancePtr, Mask)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 		       XQSPIPSU_SEL_OFFSET, (Mask))
 
 /**
- * Enable QSPI Controller
+ * @brief Enables the QSPI controller.
+ *
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
+ *
+ * @note	C-style signature:
+ *		void XQspiPsu_Enable(XQspiPsu *InstancePtr)
  */
 #define XQspiPsu_Enable(InstancePtr)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 		       XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK)
 
 /**
- * Disable QSPI controller  */
+ * @brief Disables the QSPI controller.
+ *
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
+ *
+ * @note	C-style signature:
+ *		void XQspiPsu_Disable(XQspiPsu *InstancePtr)
+ */
 #define XQspiPsu_Disable(InstancePtr)	\
 	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + \
 		       XQSPIPSU_EN_OFFSET, 0x0U)
 
 /**
- * Read Configuration register of LQSPI Controller
+ * @brief Reads the configuration register of the LQSPI controller.
+ *
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
+ *
+ * @return	Value of the LQSPI configuration register.
+ *
+ * @note	C-style signature:
+ *		u32 XQspiPsu_GetLqspiConfigReg(XQspiPsu *InstancePtr)
  */
 #if !defined (versal)
 #define XQspiPsu_GetLqspiConfigReg(InstancePtr)	\
@@ -376,13 +462,9 @@ typedef struct {
 /*****************************************************************************/
 /**
  *
- * Enables the manual start option.
+ * @brief Enables the manual start option.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
  *
  ******************************************************************************/
 static inline void XQspiPsu_ManualStartEnable(XQspiPsu *InstancePtr)
@@ -405,13 +487,9 @@ static inline void XQspiPsu_ManualStartEnable(XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Writes the GENFIFO entry to assert CS.
+ * @brief Writes the GENFIFO entry to assert CS.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
  *
  ******************************************************************************/
 static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr)
@@ -437,13 +515,9 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(const XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Writes the GENFIFO entry to de-assert CS.
+ * @brief Writes the GENFIFO entry to de-assert CS.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
  *
  ******************************************************************************/
 static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
@@ -469,17 +543,14 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Stub for the status callback. The stub is here in case the upper
- * layers forget to set the handler.
+ * @brief Provides a stub for the status callback.
  *
- * @param	CallBackRef Pointer to the upper layer callback reference
- * @param	StatusEvent Event that just occurred.
- * @param	ByteCount Number of bytes transferred up until the event
+ * The stub is here in case the upper layers forget to set the handler.
+ *
+ * @param[in]   CallBackRef Pointer to the upper layer callback reference.
+ * @param[in]   StatusEvent Event that just occurred.
+ * @param[in]   ByteCount Number of bytes transferred up until the event
  *		occurred.
- *
- * @return	None.
- *
- * @note	None.
  *
  ******************************************************************************/
 static inline void StubStatusHandler(const void *CallBackRef, u32 StatusEvent,
@@ -533,8 +604,7 @@ void XQspiPsu_Idle(const XQspiPsu *InstancePtr);
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each QSPIPSU device
- * in the system.
+ * @brief Holds the configuration for each QSPIPSU device in the system.
  */
 #ifndef SDT
 extern XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES];
@@ -547,5 +617,5 @@ extern XQspiPsu_Config XQspiPsu_ConfigTable[];
 #endif
 
 
-#endif /* XQSPIPSU_H_ */
 /** @} */
+#endif /* XQSPIPSU_H_ */

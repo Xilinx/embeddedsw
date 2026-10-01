@@ -9,11 +9,10 @@
 /**
  *
  * @file xqspipsu.c
- * @addtogroup qspipsu_api QSPIPSU APIs
- * @{
+ * @brief Implements the core transfer functions of the QSPIPSU driver.
  *
  * This file implements the functions required to use the QSPIPSU hardware to
- * perform a transfer. These are accessible to the user via xqspipsu.h.
+ * perform a transfer. Applications access these functions through xqspipsu.h.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -88,10 +87,15 @@
  * 1.22 sb  10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
  *      zm  06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  * 1.24 vn  08/26/26 Fix Doxygen warnings.
+ * 1.24 tb  09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
+
+/** @addtogroup qspipsu_api QSPIPSU APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -100,7 +104,7 @@
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
-#define MAX_DELAY_CNT	1000000000U	/**< Max delay count */
+#define MAX_DELAY_CNT	1000000000U	/**< Maximum delay count. */
 
 /**************************** Type Definitions *******************************/
 
@@ -113,28 +117,25 @@
 /*****************************************************************************/
 /**
  *
- * Initializes a specific XQspiPsu instance as such the driver is ready to use.
+ * @brief Initializes an XQspiPsu instance so that the driver is ready to use.
  *
- *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	ConfigPtr Reference to a structure containing information
- *		about a specific QSPIPSU device. This function initializes an
- *		InstancePtr object for a specific device specified by the
- *		contents of Config.
- * @param	EffectiveAddr Device base address in the virtual memory
- *		address space. The caller is responsible for keeping the address
- *		mapping from EffectiveAddr to the device physical base address
- *		unchanged once this function is invoked. Unexpected errors may
- *		occur if the address mapping changes after this function is
- *		called. If address translation is not used, use
- *		ConfigPtr->Config. BaseAddress for this device.
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]     ConfigPtr Reference to a structure containing information
+ *		  about a specific QSPIPSU device. This function initializes an
+ *		  InstancePtr object for a specific device specified by the
+ *		  contents of Config.
+ * @param[in]     EffectiveAddr Device base address in the virtual memory
+ *		  address space. The caller is responsible for keeping the
+ *		  address mapping from EffectiveAddr to the device physical base
+ *		  address unchanged once this function is invoked. Unexpected
+ *		  errors may occur if the address mapping changes after this
+ *		  function is called. If address translation is not used, use
+ *		  ConfigPtr->BaseAddress for this device.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_DEVICE_IS_STARTED if the device is already started.
- *		It must be stopped to re-initialize.
- *
- * @note	None.
+ *		  - XST_SUCCESS if successful.
+ *		  - XST_DEVICE_IS_STARTED if the device is already started.
+ *		    It must be stopped to re-initialize.
  *
  ******************************************************************************/
 s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
@@ -206,15 +207,15 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr,
 /*****************************************************************************/
 /**
  *
+ * @brief Pauses the DMA stream and memory write operations.
+ *
  * Stops the transfer of data to internal DST FIFO from stream interface and
  * also stops the issuing of new write commands to memory.
  *
- * By calling this API, any ongoing Dma transfers will be paused and DMA will
- * not issue AXI write commands to memory
+ * Calling this API pauses any ongoing DMA transfers, and the DMA does not
+ * issue AXI write commands to memory.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- *
- * @note	None.
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
  *
  ******************************************************************************/
 void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
@@ -244,15 +245,15 @@ void XQspiPsu_Idle(const XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Resets the QSPIPSU device. Reset must only be called after the driver has
- * been initialized. Any data transfer that is in progress is aborted.
+ * @brief Resets the QSPIPSU device.
+ *
+ * Reset must only be called after the driver has been initialized. Any data
+ * transfer that is in progress is aborted.
  *
  * The upper layer software is responsible for re-configuring (if necessary)
  * and restarting the QSPIPSU device after the reset.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- *
- * @note	None.
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
  *
  ******************************************************************************/
 void XQspiPsu_Reset(XQspiPsu *InstancePtr)
@@ -273,11 +274,9 @@ void XQspiPsu_Reset(XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Aborts a transfer in progress.
+ * @brief Aborts a transfer in progress.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- *
- * @note	None.
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
  *
  ******************************************************************************/
 void XQspiPsu_Abort(XQspiPsu *InstancePtr)
@@ -358,16 +357,14 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This is the handler for polling functionality of controller. It reads data
- * from RXFIFO, since when data from the flash device (status data) matched
- * with configured value in poll_cfg, then controller writes the matched data
- * into RXFIFO.
+ * @brief Handles the polling functionality of the controller.
  *
+ * Reads data from the RXFIFO. When the data from the flash device (status
+ * data) matches the value configured in poll_cfg, the controller writes the
+ * matched data into the RXFIFO.
  *
- * @param       InstancePtr Pointer to the XQspiPsu instance.
- * @param       StatusReg Interrupt status Register value.
- *
- * @note	None.
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]     StatusReg Interrupt status Register value.
  *
  ******************************************************************************/
 void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg)
@@ -411,19 +408,19 @@ void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg)
 /*****************************************************************************/
 /**
  *
- * Performs a transfer on the bus in polled mode. The messages
- * passed are all transferred on the bus between one CS assert and de-assert.
+ * @brief Performs a transfer on the bus in polled mode.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	NumMsg Number of messages to be transferred.
+ * The messages passed are all transferred on the bus between one CS assert
+ * and de-assert.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in]     NumMsg Number of messages to be transferred.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if transfer fails.
- *		- XST_DEVICE_BUSY if a transfer is already in progress.
- *
- * @note	None.
+ *		  - XST_SUCCESS if successful.
+ *		  - XST_FAILURE if transfer fails.
+ *		  - XST_DEVICE_BUSY if a transfer is already in progress.
  *
  ******************************************************************************/
 s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -498,20 +495,19 @@ END:
 /*****************************************************************************/
 /**
  *
- * Initiates a transfer on the bus and enables interrupts.
- * The transfer is completed by the interrupt handler. The messages passed are
- * all transferred on the bus between one CS assert and de-assert.
+ * @brief Initiates a transfer on the bus and enables interrupts.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	NumMsg Number of messages to be transferred.
+ * The interrupt handler completes the transfer. The messages passed are all
+ * transferred on the bus between one CS assert and de-assert.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in]     NumMsg Number of messages to be transferred.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if transfer fails.
- *		- XST_DEVICE_BUSY if a transfer is already in progress.
- *
- * @note	None.
+ *		  - XST_SUCCESS if successful.
+ *		  - XST_FAILURE if transfer fails.
+ *		  - XST_DEVICE_BUSY if a transfer is already in progress.
  *
  ******************************************************************************/
 s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -591,15 +587,15 @@ END:
 /*****************************************************************************/
 /**
  *
- * Handles interrupt based transfers by acting on GENFIFO and DMA interurpts.
+ * @brief Handles interrupt-based transfers.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
+ * Acts on the GENFIFO and DMA interrupts.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if transfer fails.
- *
- * @note	None.
+ *		  - XST_SUCCESS if successful.
+ *		  - XST_FAILURE if transfer fails.
  *
  ******************************************************************************/
 s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
@@ -631,11 +627,12 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Sets the status callback function, the status handler, which the driver
- * calls when it encounters conditions that should be reported to upper
- * layer software. The handler executes in an interrupt context, so it must
- * minimize the amount of processing performed. One of the following status
- * events is passed to the status handler.
+ * @brief Sets the status callback function.
+ *
+ * The driver calls the status handler when it encounters conditions that
+ * should be reported to upper layer software. The handler executes in an
+ * interrupt context, so it must minimize the amount of processing performed.
+ * One of the following status events is passed to the status handler.
  *
  * <pre>
  *
@@ -652,14 +649,14 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
  *				but the receive data register/FIFO was full.
  *
  * </pre>
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	CallBackRef Upper layer callback reference passed back
- *		when the callback function is invoked.
- * @param	FuncPointer Pointer to the callback function.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]     CallBackRef Upper layer callback reference passed back
+ *		  when the callback function is invoked.
+ * @param[in]     FuncPointer Pointer to the callback function.
  *
  * @note
- *
- * The handler is called within interrupt context, so it should do its work
+ * The handler is called within interrupt context, so it must do its work
  * quickly and queue potentially time-consuming work to a task-level thread.
  *
  ******************************************************************************/
@@ -677,16 +674,14 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 
 /*****************************************************************************/
 /**
- * @brief
- * Enables/disables Write Protect pin on the flash parts.
+ * @brief Enables or disables the Write Protect pin on the flash parts.
  *
- * @param	InstancePtr Pointer to the QSPIPSU driver component to use.
+ * @param[in]   InstancePtr Pointer to the QSPIPSU driver component to use.
+ * @param[in]   Toggle Value of the GPIO pin.
  *
- * @param	Toggle Value of the GPIO pin
- *
- * @note	By default, the Write Protect pin as per the QSPI controller is driven High
- *		which means no write protection. Calling this function once
- *		will enable the protection.
+ * @note	By default, the QSPI controller drives the Write Protect pin
+ *		High, which means no write protection. Calling this function
+ *		once enables the protection.
  *
  ******************************************************************************/
 void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle)
@@ -713,21 +708,18 @@ void XQspiPsu_WriteProtectToggle(const XQspiPsu *InstancePtr, u32 Toggle)
 /*****************************************************************************/
 /**
 *
-* Starts a DMA transfer.
+* @brief Starts a DMA transfer.
 *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	NumMsg Number of messages to be transferred.
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in]     NumMsg Number of messages to be transferred.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if ByteCount is greater than
- *		  XQSPIPSU_DMA_BYTES_MAX.
- *		- XST_DEVICE_BUSY if a transfer is already in progress.
+ *		  - XST_SUCCESS if successful.
+ *		  - XST_FAILURE if ByteCount is greater than
+ *		    XQSPIPSU_DMA_BYTES_MAX.
+ *		  - XST_DEVICE_BUSY if a transfer is already in progress.
  *
- * @note	None.
- *
-*
 ******************************************************************************/
 s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			      u32 NumMsg)
@@ -809,15 +801,13 @@ s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 /*****************************************************************************/
 /**
 *
-* Checks for DMA transfer complete.
+* @brief Checks for DMA transfer complete.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
+* @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
 *
 * @return
-*		- XST_SUCCESS if DMA transfer complete.
-*		- XST_FAILURE if DMA transfer is not completed.
-*
-* @note		None.
+*		 - XST_SUCCESS if DMA transfer complete.
+*		 - XST_FAILURE if DMA transfer is not completed.
 *
 ******************************************************************************/
 s32 XQspiPsu_CheckDmaDone(XQspiPsu *InstancePtr)

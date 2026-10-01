@@ -8,11 +8,11 @@
 /**
 *
 * @file xqspipsu_options.c
-* @addtogroup qspipsu_api QSPIPSU APIs
-* @{
+* @brief Implements the option, clock, and flash configuration functions.
 *
-* The xqspipsu_options.c file implement functions to configure the QSPIPSU component,
-* specifically some optional settings, clock and flash related information.
+* The xqspipsu_options.c file implements functions to configure the QSPIPSU
+* component, specifically some optional settings, clock and flash related
+* information.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,10 +52,15 @@
 * 1.18 sb  09/11/23 Fix MISRA-C violation 10.1.
 * 1.18 sb  09/11/23 Fix MISRA-C violation 2.2 and 2.6.
 * 1.24 vn  08/26/26 Fix Doxygen warnings.
+* 1.24 tb  09/30/26 Align Doxygen comments with AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup qspipsu_api QSPIPSU APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -72,15 +77,17 @@
 /************************** Variable Definitions *****************************/
 
 /**
- * Create the table of options which are processed to get/set the device
- * options. These options are table driven to allow easy maintenance and
- * expansion of the options.
+ * @brief Maps a device option to its configuration register mask.
+ *
+ * The driver processes a table of these options to get/set the device
+ * options. The table-driven options allow easy maintenance and expansion.
  */
 typedef struct {
-	u32 Option;	/**< Get/Set the device option */
-	u32 Mask;	/**< Mask */
+	u32 Option;	/**< Device option to get or set. */
+	u32 Mask;	/**< Configuration register mask for the option. */
 } OptionsMap;
 
+/** Table of device options and their configuration register masks. */
 static OptionsMap OptionsTable[] = {
 	{XQSPIPSU_CLK_ACTIVE_LOW_OPTION, XQSPIPSU_CFG_CLK_POL_MASK},
 	{XQSPIPSU_CLK_PHASE_1_OPTION, XQSPIPSU_CFG_CLK_PHA_MASK},
@@ -91,28 +98,31 @@ static OptionsMap OptionsTable[] = {
 };
 
 /**
- * Number of options in option table
+ * Number of options in the option table.
  */
 #define XQSPIPSU_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
 
 /*****************************************************************************/
 /**
 *
-* Sets the options for the QSPIPSU device driver.The options
-* control how the device behaves relative to the QSPIPSU bus. The device must be
-* idle rather than busy transferring data before setting these device options.
+* @brief Sets the options for the QSPIPSU device driver.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
-* @param	Options Contains the specified options to be set. This is a bit
-*		mask where a 1 indicates the option should be turned ON and
-*		a 0 indicates no action. One or more bit values may be
-*		contained in the mask. See the bit definitions named
-*		XQSPIPSU_*_OPTIONS in the file xqspipsu.h.
+* The options control how the device behaves relative to the QSPIPSU bus.
+* The device must be idle rather than busy transferring data before setting
+* these device options.
+*
+* @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+* @param[in]     Options Contains the specified options to be set. This is a bit
+*		 mask where a 1 indicates the option should be turned ON and
+*		 a 0 indicates no action. One or more bit values may be
+*		 contained in the mask. See the bit definitions named
+*		 XQSPIPSU_*_OPTIONS in the file xqspipsu.h.
 *
 * @return
-*		- XST_SUCCESS if options are successfully set.
-*		- XST_DEVICE_BUSY if the device is currently transferring data.
-*		The transfer must complete or be aborted before setting options.
+*		 - XST_SUCCESS if options are successfully set.
+*		 - XST_DEVICE_BUSY if the device is currently transferring data.
+*		   The transfer must complete or be aborted before setting
+*		   options.
 *
 * @note
 * This function is not thread-safe.
@@ -196,21 +206,24 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
-* Resets the options for the QSPIPSU device driver. The options
-* control how the device behaves relative to the QSPIPSU bus. The device must be
-* idle rather than busy transferring data before setting these device options.
+* @brief Resets the options for the QSPIPSU device driver.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
-* @param	Options Contains the specified options to be set. This is a bit
-*		mask where a 1 indicates the option should be turned OFF and
-*		a 0 indicates no action. One or more bit values may be
-*		contained in the mask. See the bit definitions named
-*		XQSPIPSU_*_OPTIONS in the file xqspipsu.h.
+* The options control how the device behaves relative to the QSPIPSU bus.
+* The device must be idle rather than busy transferring data before setting
+* these device options.
+*
+* @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+* @param[in]     Options Contains the specified options to be set. This is a bit
+*		 mask where a 1 indicates the option should be turned OFF and
+*		 a 0 indicates no action. One or more bit values may be
+*		 contained in the mask. See the bit definitions named
+*		 XQSPIPSU_*_OPTIONS in the file xqspipsu.h.
 *
 * @return
-*		- XST_SUCCESS if options are successfully set.
-*		- XST_DEVICE_BUSY if the device is currently transferring data.
-*		The transfer must complete or be aborted before setting options.
+*		 - XST_SUCCESS if options are successfully set.
+*		 - XST_DEVICE_BUSY if the device is currently transferring data.
+*		   The transfer must complete or be aborted before setting
+*		   options.
 *
 * @note
 * This function is not thread-safe.
@@ -266,18 +279,16 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 /*****************************************************************************/
 /**
 *
-* Gets the options for the QSPIPSU device. The options control how
-* the device behaves relative to the QSPIPSU bus.
+* @brief Gets the options for the QSPIPSU device.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
+* The options control how the device behaves relative to the QSPIPSU bus.
 *
-* @return
+* @param[in]    InstancePtr Pointer to the XQspiPsu instance.
 *
-* Options contains the specified options currently set. This is a bit value
-* where a 1 means the option is on, and a 0 means the option is off.
-* See the bit definitions named XQSPIPSU_*_OPTIONS in file xqspipsu.h.
-*
-* @note		None.
+* @return	Options contains the specified options currently set. This is a
+*		bit value where a 1 means the option is on, and a 0 means the
+*		option is off. See the bit definitions named XQSPIPSU_*_OPTIONS
+*		in file xqspipsu.h.
 *
 ******************************************************************************/
 u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr)
@@ -306,21 +317,18 @@ u32 XQspiPsu_GetOptions(const XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Configures the clock according to the prescaler passed.
+* @brief Configures the clock according to the prescaler passed.
 *
-*
-* @param	InstancePtr Pointer to the XQspiPsu instance.
-* @param	Prescaler Clock prescaler to be set.
+* @param[in]    InstancePtr Pointer to the XQspiPsu instance.
+* @param[in]    Prescaler Clock prescaler to be set.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
-*		It must be stopped to re-initialize.
+*		  It must be stopped to re-initialize.
 *		- XST_FAILURE if Prescaler value is less than FreqDiv when
-*		feedback clock is not enabled.
-*
-* @note		None.
+*		  feedback clock is not enabled.
 *
 ******************************************************************************/
 s32 XQspiPsu_SetClkPrescaler(const XQspiPsu *InstancePtr, u8 Prescaler)
@@ -384,18 +392,19 @@ END:
 /*****************************************************************************/
 /**
 *
-* Used to tell the QSPIPSU driver the hardware flash
-* configuration being used. This API should be called at least once in the
-* application. If desired, it can be called multiple times when switching
-* between communicating to different flash devices/using different configs.
+* @brief Sets the hardware flash configuration used by the QSPIPSU driver.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
-* @param	FlashCS  Flash Chip Select.
-* @param	FlashBus  Flash Bus (Upper, Lower or Both).
+* Call this API at least once in the application. It can also be called
+* multiple times when switching between different flash devices or
+* configurations.
 *
-* @note		If this function is not called at least once in the application,
-*		the driver assumes there is a single flash connected to the
-*		lower bus and CS line.
+* @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+* @param[in]     FlashCS Flash Chip Select.
+* @param[in]     FlashBus Flash Bus (Upper, Lower or Both).
+*
+* @note          If the application never calls this function, the driver
+*		 assumes a single flash connected to the lower bus and CS
+*		 line.
 *
 ******************************************************************************/
 void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
@@ -457,18 +466,21 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 /*****************************************************************************/
 /**
 *
-* Sets the Read mode for the QSPIPSU device driver. The device
-* must be idle rather than busy transferring data before setting Read mode
-* options.
+* @brief Sets the Read mode for the QSPIPSU device driver.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
-* @param	Mode Contains the specified Mode to be set. See the
-* 		bit definitions named XQSPIPSU_READMODE_* in the file xqspipsu.h.
+* The device must be idle rather than busy transferring data before setting
+* Read mode options.
+*
+* @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+* @param[in]     Mode Contains the specified Mode to be set. See the
+*		 bit definitions named XQSPIPSU_READMODE_* in the file
+*		 xqspipsu.h.
 *
 * @return
-*		- XST_SUCCESS if options are successfully set.
-*		- XST_DEVICE_BUSY if the device is currently transferring data.
-*		The transfer must complete or be aborted before setting Mode.
+*		 - XST_SUCCESS if options are successfully set.
+*		 - XST_DEVICE_BUSY if the device is currently transferring data.
+*		   The transfer must complete or be aborted before setting
+*		   Mode.
 *
 * @note
 * This function is not thread-safe.
@@ -521,12 +533,13 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 /*****************************************************************************/
 /**
 *
-* Sets the Write Protect and Hold options for the QSPIPSU device
-* driver. The device must be idle rather than busy transferring data before
-* setting Write Protect and Hold options.
+* @brief Sets the Write Protect and Hold options for the QSPIPSU device driver.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
-* @param	Value Value of the WP_HOLD bit in configuration register
+* The device must be idle rather than busy transferring data before setting
+* Write Protect and Hold options.
+*
+* @param[in]    InstancePtr Pointer to the XQspiPsu instance.
+* @param[in]    Value Value of the WP_HOLD bit in configuration register.
 *
 * @note
 * This function is not thread-safe. This function can only be used with single

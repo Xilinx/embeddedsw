@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,10 @@
 /**
 *
 * @file xqspipsu_g.c
-* @addtogroup qspipsu_api QSPIPSU APIs
-* @{
+* @brief Provides the configuration table for QSPIPSU devices.
 *
-* The xqspipsu_g.c contains a configuration table that specifies the configuration of
-* QSPIPSU devices in the system.
+* The xqspipsu_g.c file contains a configuration table that specifies the
+* configuration of QSPIPSU devices in the system.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +21,14 @@
 * 1.0   hk  08/21/14 First release
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
 * 1.8	tjs 07/09/18 Fixed gcc warnings. (CR#1006336).
+* 1.24  tb  09/30/26 Align Doxygen comments with AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup qspipsu_api QSPIPSU APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -46,7 +50,7 @@
 /************************** Variable Prototypes ******************************/
 
 /**
- * This table contains configuration information for each QSPIPSU device
+ * @brief Holds the configuration information for each QSPIPSU device
  * in the system.
  */
 XQspiPsu_Config XQspiPsu_ConfigTable[XPAR_XQSPIPSU_NUM_INSTANCES] = {

@@ -4,21 +4,23 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XQSPIPSU_CONTROL_H_
+#define XQSPIPSU_CONTROL_H_
 
 /*****************************************************************************/
 /**
  *
  * @file xqspipsu_control.h
- * @addtogroup qspipsu_api QSPIPSU APIs
- * @{
+ * @brief Declares the intermediate control functions of the QSPIPSU driver.
  *
- * The xqspipsu_control.h file is the header file for the implementation of QSPIPSU driver.
+ * The xqspipsu_control.h file is the header file for the implementation of
+ * the QSPIPSU driver.
  * Generic QSPI interface allows for communication to any QSPI slave device.
  * GQSPI contains a GENFIFO into which the bus transfers required are to be
  * pushed with appropriate configuration. The controller provides TX and RX
  * FIFOs and a DMA to be used for RX transfers. The controller executes each
- * GENFIFO entry noting the configuration and places data on the bus as required
- *
+ * GENFIFO entry noting the configuration and places data on the bus as
+ * required.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -34,14 +36,17 @@
  *                      XQspiPsu_IntrRecvData and XQspiPsu_IntrDummyDataTransfer.
  *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  *        zm   06/30/26 Extend the XPS_SYS_CTRL_BASEADDR macro for ARMR5, __aarch64__(non-versal) platforms.
+ * 1.24   tb   09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  *
  ******************************************************************************/
 
+/** @addtogroup qspipsu_api QSPIPSU APIs
+ * @{
+ */
+
 /** @cond INTERNAL */
-#ifndef XQSPIPSU_CONTROL_H_		/**< prevent circular inclusions */
-#define XQSPIPSU_CONTROL_H_		/**< by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -56,18 +61,25 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)
-#define TAPDLY_BYPASS_VALVE_40MHZ 0x01U
-#define TAPDLY_BYPASS_VALVE_100MHZ 0x01U
-#define USE_DLY_LPBK  0x01U
-#define USE_DATA_DLY_ADJ 0x01U
-#define DATA_DLY_ADJ_DLY 0X02U
-#define LPBK_DLY_ADJ_DLY0 0X02U
-#define LPBK_DLY_ADJ_DLY1 0X02U
+/**
+ * @name Tap delay settings
+ * Defines the tap delay configuration values.
+ * @{
+ */
+#define TAPDLY_BYPASS_VALVE_40MHZ 0x01U /**< Tap delay bypass at 40 MHz. */
+#define TAPDLY_BYPASS_VALVE_100MHZ 0x01U /**< Tap delay bypass at 100 MHz. */
+#define USE_DLY_LPBK  0x01U /**< Enables the loopback delay. */
+#define USE_DATA_DLY_ADJ 0x01U /**< Enables the data delay adjustment. */
+#define DATA_DLY_ADJ_DLY 0X02U /**< Data delay adjustment value. */
+#define LPBK_DLY_ADJ_DLY0 0X02U /**< Loopback delay adjustment value 0. */
+#define LPBK_DLY_ADJ_DLY1 0X02U /**< Loopback delay adjustment value 1. */
+/** @} */
 #endif
 
 #if (defined (ARMR5) || defined (__aarch64__) || defined (__MICROBLAZE__) || defined (__riscv)) && !defined (versal)
 #ifndef XPS_SYS_CTRL_BASEADDR
-#define XPS_SYS_CTRL_BASEADDR   0xFF180000U     /**< System controller Baseaddress */
+/** System controller base address. */
+#define XPS_SYS_CTRL_BASEADDR   0xFF180000U
 #endif
 #endif
 /************************** Function Prototypes ******************************/
@@ -118,6 +130,6 @@ s32 XQspipsu_Calculate_Tapdelay(const XQspiPsu *InstancePtr, u8 Prescaler);
 #endif
 
 
-#endif /* XQSPIPSU_CONTROL_H_ */
 /** @endcond */
 /** @} */
+#endif /* XQSPIPSU_CONTROL_H_ */

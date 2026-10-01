@@ -9,11 +9,11 @@
 /**
  *
  * @file xqspipsu_hw.c
- * @addtogroup qspipsu_api QSPIPSU APIs
- * @{
+ * @brief Implements the FIFO and DMA access functions of the QSPIPSU driver.
  *
- * The xqspipsu_hw.c contains functions to reads RXFifo, writes TXFifo and setup
- * RX DMA operation used by xqspipsu_control.c and xqspipsu_lowlevel.c files.
+ * The xqspipsu_hw.c file contains functions that read the RX FIFO, write the
+ * TX FIFO, and set up the RX DMA operation. The xqspipsu_control.c and
+ * xqspipsu_lowlevel.c files use these functions.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -32,9 +32,14 @@
  * 1.22   sb   10/24/25 Added cache invalidate when EL1_NONSECURE is not defined.
  *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  * 1.24   vn   08/26/26 Fix Doxygen warnings.
+ * 1.24   tb   09/30/26 Align Doxygen comments with AMD standards
  *
  * </pre>
  ******************************************************************************/
+
+/** @addtogroup qspipsu_api QSPIPSU APIs
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -58,14 +63,14 @@
 /*****************************************************************************/
 /**
  *
+ * @brief Fills the TX FIFO while there is room and bytes remain to transmit.
+ *
  * Fills the TX FIFO as long as there is room in the FIFO or the bytes required
  * to be transmitted.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	Size Number of bytes to be transmitted.
- *
- * @note	None.
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in]     Size Number of bytes to be transmitted.
  *
  ******************************************************************************/
 void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)
@@ -110,13 +115,12 @@ void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg, u32 Size)
 /*****************************************************************************/
 /**
  *
- * Checks the TX buffer in the message and setup the
- * TX FIFO as required.
+ * @brief Checks the TX buffer in the message and sets up the TX FIFO.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
+ * Sets up the TX FIFO as required.
  *
- * @note	None.
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
  *
  ******************************************************************************/
 void XQspiPsu_TXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
@@ -136,12 +140,10 @@ void XQspiPsu_TXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 /*****************************************************************************/
 /**
  *
- * Sets up the RX DMA operation.
+ * @brief Sets up the RX DMA operation.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- *
- * @note	None.
+ * @param[in]     InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
  *
  ******************************************************************************/
 void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
@@ -195,13 +197,12 @@ void XQspiPsu_SetupRxDma(const XQspiPsu *InstancePtr,
 /*****************************************************************************/
 /**
  *
- * Sets up the RX DMA operation on a 32-bit Machine
- * For 64-bit DMA transfers.
+ * @brief Sets up the RX DMA operation for 64-bit DMA transfers.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
+ * Sets up the RX DMA operation on a 32-bit machine for 64-bit DMA transfers.
  *
- * @note	None.
+ * @param[in]     InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
  *
  ******************************************************************************/
 void XQspiPsu_Setup64BRxDma(const XQspiPsu *InstancePtr,
@@ -244,18 +245,17 @@ void XQspiPsu_Setup64BRxDma(const XQspiPsu *InstancePtr,
 /*****************************************************************************/
 /**
  *
- * Reads remaining bytes after the completion of a DMA transfer
- * using I/O mode.
+ * @brief Switches to I/O mode to read the bytes left after a DMA transfer.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
+ * Reads remaining bytes after the completion of a DMA transfer using I/O
+ * mode.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
  *
  * @return
- *		- XST_SUCCESS if successful.
- *		- XST_FAILURE if transfer fails.
- *		- XST_DEVICE_BUSY if a transfer is already in progress.
- *
- * @note	None.
+ *		  - TRUE if I/O mode is set to read the remaining bytes.
+ *		  - FALSE if no bytes remain.
  *
  ******************************************************************************/
 u32 XQspiPsu_SetIOMode(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
@@ -284,12 +284,12 @@ u32 XQspiPsu_SetIOMode(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 /*****************************************************************************/
 /**
  *
- * Checks the RX buffers in the message and setup the
- * RX DMA as required.
+ * @brief Checks the RX buffers in the message and sets up the RX DMA.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
+ * Sets up the RX DMA as required.
  *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
  *
  ******************************************************************************/
 void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
@@ -315,14 +315,14 @@ void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 /*****************************************************************************/
 /**
  *
- * Checks the TX/RX buffers in the message and setups up the
- * GENFIFO entries, TX FIFO, or RX DMA as required.
+ * @brief Checks the TX/RX buffers in the message and sets up the transfer.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	GenFifoEntry Pointer to the variable in which GENFIFO mask
- *		is returned to calling function
+ * Sets up the GENFIFO entries, TX FIFO, or RX DMA as required.
  *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in,out] GenFifoEntry Pointer to the variable in which GENFIFO mask
+ *		  is returned to calling function.
  *
  ******************************************************************************/
 void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -392,13 +392,14 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 /*****************************************************************************/
 /**
  *
- * Writes the data length to GENFIFO entries to be
- * transmitted or received.
+ * @brief Writes the data length to GENFIFO entries.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	GenFifoEntry Pointer to the variable in which GENFIFO mask is returned to the calling function.
+ * Writes the data length to GENFIFO entries to be transmitted or received.
  *
+ * @param[in]     InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]     Msg Pointer to the structure containing transfer data.
+ * @param[in,out] GenFifoEntry Pointer to the variable in which GENFIFO mask
+ *		  is returned to the calling function.
  *
  ******************************************************************************/
 void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -460,13 +461,12 @@ void XQspiPsu_GenFifoEntryDataLen(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 /*****************************************************************************/
 /**
  *
- * Creates Poll configuration register data to write
+ * @brief Creates the poll configuration register data to write.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]   FlashMsg Pointer to the structure containing transfer data.
  *
- * @param	FlashMsg Pointer to the structure containing transfer data.
- *
- * @return	None
+ * @return	Poll configuration register data.
  *
  ******************************************************************************/
 u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
@@ -500,11 +500,11 @@ u32 XQspiPsu_CreatePollDataConfig(const XQspiPsu *InstancePtr,
 /*****************************************************************************/
 /**
  *
- * Selects SPI mode - x1 or x2 or x4.
+ * @brief Selects SPI mode - x1 or x2 or x4.
  *
- * @param	SpiMode spi or dual or quad.
+ * @param[in]   SpiMode SPI or dual or quad.
+ *
  * @return	Mask to set desired SPI mode in GENFIFO entry.
- *
  *
  ******************************************************************************/
 u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
@@ -539,11 +539,12 @@ u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 /*****************************************************************************/
 /**
  *
- * Enables and initializes DMA Mode, set little endain, disable poll timeout,
- * clears prescalar bits and reset thresholds.
+ * @brief Enables and initializes DMA mode with the default configuration.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
+ * Enables and initializes DMA mode, sets little endian, disables poll
+ * timeout, clears prescaler bits, and resets thresholds.
  *
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
  *
  ******************************************************************************/
 void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr)
@@ -603,12 +604,11 @@ void XQspiPsu_SetDefaultConfig(XQspiPsu *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Reads the specified number of bytes from RX FIFO
+ * @brief Reads the specified number of bytes from RX FIFO.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	Size Number of bytes to be read.
- *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in]     Size Number of bytes to be read.
  *
  ******************************************************************************/
 void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,	XQspiPsu_Msg *Msg, s32 Size)
@@ -648,12 +648,11 @@ void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,	XQspiPsu_Msg *Msg, s32 Size)
 /*****************************************************************************/
 /**
  *
- * Reads data from RXFifo in I/O mode.
+ * @brief Reads data from RX FIFO in I/O mode.
  *
- * @param	InstancePtr Pointer to the XQspiPsu instance.
- * @param	Msg Pointer to the structure containing transfer data.
- * @param	StatusReg Interrupt status Register value.
- *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in]     StatusReg Interrupt status Register value.
  *
  ******************************************************************************/
 void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
@@ -690,18 +689,21 @@ void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 /*****************************************************************************/
 /**
 *
-* Sets the Tapdelay values for the QSPIPSU device driver.The device
-* must be idle rather than busy transferring data before setting Tapdelay.
+* @brief Sets the Tapdelay values for the QSPIPSU device driver.
 *
-* @param	InstancePtr Pointer to the XQspiPsu instance.
-* @param	TapdelayBypss Contains the IOU_TAPDLY_BYPASS register value.
-* @param	LPBKDelay Contains the GQSPI_LPBK_DLY_ADJ register value.
-* @param	Datadelay Contains the QSPI_DATA_DLY_ADJ register value.
+* The device must be idle rather than busy transferring data before setting
+* Tapdelay.
+*
+* @param[in]    InstancePtr Pointer to the XQspiPsu instance.
+* @param[in]    TapdelayBypass Contains the IOU_TAPDLY_BYPASS register value.
+* @param[in]    LPBKDelay Contains the GQSPI_LPBK_DLY_ADJ register value.
+* @param[in]    Datadelay Contains the QSPI_DATA_DLY_ADJ register value.
 *
 * @return
 *		- XST_SUCCESS if options are successfully set.
 *		- XST_DEVICE_BUSY if the device is currently transferring data.
-*		The transfer must complete or be aborted before setting TapDelay.
+*		  The transfer must complete or be aborted before setting
+*		  TapDelay.
 *
 * @note
 * This function is not thread-safe.
