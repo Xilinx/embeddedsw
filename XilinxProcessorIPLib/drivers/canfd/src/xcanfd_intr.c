@@ -8,8 +8,7 @@
 /**
 *
 * @file xcanfd_intr.c
-* @addtogroup canfd Overview
-* @{
+* @brief Implements interrupt handling functions for the XCanFd driver.
 *
 * This file contains functions related to CAN interrupt handling.
 *
@@ -31,9 +30,14 @@
 * 2.12  vlt  01/27/26 Fixed codespell issues
 * 2.13  vn   07/30/26 Fix Doxygen warnings
 * 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 2.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup canfd Overview
+ * @{
+ */
 
 
 /***************************** Include Files *********************************/
@@ -57,16 +61,16 @@
 
 /****************************************************************************/
 /**
-* @brief Enables interrupt(s).
+* @brief Enables one or more interrupts.
 *
 * Use the XCANFD_IXR_* constants defined in xcanfd_hw.h to create the
 * bit-mask to enable interrupts.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to enable. Bit positions of 1 will be
-*		enabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by OR'ing XCANFD_IXR_* bits defined in
-*		xcanfd_hw.h.
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to enable. Bit positions of 1 are
+*               enabled. Bit positions of 0 keep the previous setting.
+*               This mask is formed as a bitwise OR of XCANFD_IXR_* bits
+*               defined in xcanfd_hw.h.
 *
 *****************************************************************************/
 void XCanFd_InterruptEnable(XCanFd *InstancePtr, u32 Mask)
@@ -86,13 +90,13 @@ void XCanFd_InterruptEnable(XCanFd *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* @brief Enables TxBuffer Ready Request interrupt(s).
+* @brief Enables one or more TxBuffer Ready Request interrupts.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to enable. Bit positions of 1 will be
-*		enabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by OR'ing XCANFD_IETRS_OFFSET* bits
-*		defined in xcanfd_hw.h.
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to enable. Bit positions of 1 are
+*               enabled. Bit positions of 0 keep the previous setting.
+*               Form this mask by bitwise-ORing XCANFD_TXBUFFER*_RDY_RQT_MASK
+*               values defined in xcanfd_hw.h.
 *
 *****************************************************************************/
 void XCanFd_InterruptEnable_ReadyRqt(XCanFd *InstancePtr, u32 Mask)
@@ -111,13 +115,13 @@ void XCanFd_InterruptEnable_ReadyRqt(XCanFd *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* @brief Enables TxBuffer Cancellation interrupt(s).
+* @brief Enables one or more TxBuffer Cancellation interrupts.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to enable. Bit positions of 1 will be
-*		enabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by OR'ing XCANFD_IETCS_OFFSET* bits
-*		defined in xcanfd_hw.h.
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to enable. Bit positions of 1 are
+*               enabled. Bit positions of 0 keep the previous setting.
+*               Form this mask by bitwise-ORing XCANFD_TXBUFFER*_CANCEL_RQT_MASK
+*               values defined in xcanfd_hw.h.
 *
 *****************************************************************************/
 void XCanFd_InterruptEnable_CancelRqt(XCanFd *InstancePtr, u32 Mask)
@@ -136,13 +140,13 @@ void XCanFd_InterruptEnable_CancelRqt(XCanFd *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* @brief Disables TxBuffer Ready Request interrupt(s).
+* @brief Disables one or more TxBuffer Ready Request interrupts.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to disable. Bit positions of 1 will be
-*		disabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by AND'ing XCANFD_IETRS_OFFSET* bits
-*		defined in xcanfd_hw.h.
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to disable. Bit positions of 1 are
+*               disabled. Bit positions of 0 keep the previous setting.
+*               Form this mask by bitwise-ORing XCANFD_TXBUFFER*_RDY_RQT_MASK
+*               values defined in xcanfd_hw.h.
 *
 *****************************************************************************/
 void XCanFd_InterruptDisable_ReadyRqt(XCanFd *InstancePtr, u32 Mask)
@@ -161,13 +165,13 @@ void XCanFd_InterruptDisable_ReadyRqt(XCanFd *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* @brief Disables TxBuffer Cancel Request interrupt(s).
+* @brief Disables one or more TxBuffer Cancel Request interrupts.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to disable. Bit positions of 1 will be
-*		disabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by AND'ing XCANFD_IETCS_OFFSET* bits
-*		defined in xcanfd_hw.h.
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to disable. Bit positions of 1 are
+*               disabled. Bit positions of 0 keep the previous setting.
+*               Form this mask by bitwise-ORing XCANFD_TXBUFFER*_CANCEL_RQT_MASK
+*               values defined in xcanfd_hw.h.
 *
 *****************************************************************************/
 void XCanFd_InterruptDisable_CancelRqt(XCanFd *InstancePtr, u32 Mask)
@@ -186,14 +190,13 @@ void XCanFd_InterruptDisable_CancelRqt(XCanFd *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* @brief Enables RxBuffer Full interrupt(s) in MailBox Mode.
+* @brief Enables one or more RxBuffer Full interrupts in MailBox Mode.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to enable. Bit positions of 1 will be
-*		enabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by AND'ing XCANFD_RXBFLL*_OFFSET bits
-*		defined in xcanfd_hw.h.
-* @param[in]	RxBuffNumber has two values:
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to enable. Bit positions of 1 are
+*               enabled. Bit positions of 0 keep the previous setting.
+*               Each set bit selects the corresponding Rx buffer interrupt.
+* @param[in]    RxBuffNumber Has two values:
 *		if 0 -> Access RxBufferFull0 Reg,
 *		else -> Access RxBufferFull1 Reg.
 *
@@ -226,14 +229,13 @@ void XCanFd_InterruptEnable_RxBuffFull(XCanFd *InstancePtr,
 
 /****************************************************************************/
 /**
-* @brief Disables RxBuffer Full interrupt(s) in MailBox Mode.
+* @brief Disables one or more RxBuffer Full interrupts in MailBox Mode.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to disable. Bit positions of 1 will be
-*		disabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by AND'ing XCANFD_RXBFLL*_OFFSET bits
-*		defined in xcanfd_hw.h.
-* @param[in]	RxBuffNumber has two values:
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to disable. Bit positions of 1 are
+*               disabled. Bit positions of 0 keep the previous setting.
+*               Each set bit selects the corresponding Rx buffer interrupt.
+* @param[in]    RxBuffNumber Has two values:
 *		if 0 -> Access RxBufferFull0 Reg,
 *		else -> Access RxBufferFull1 Reg.
 *
@@ -268,16 +270,16 @@ void XCanFd_InterruptDisable_RxBuffFull(XCanFd *InstancePtr,
 
 /****************************************************************************/
 /**
-* @brief Disables interrupt(s).
+* @brief Disables one or more interrupts.
 *
 * Use the XCANFD_IXR_* constants defined in xcanfd_hw.h to create the
-* bit-mask to disable interrupt(s).
+* bit-mask to disable interrupts.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to disable. Bit positions of 1 will be
-*		disabled. Bit positions of 0 will keep the previous setting.
-*		This mask is formed by OR'ing XCANFD_IXR_* bits defined in
-*		xcanfd_hw.h.
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to disable. Bit positions of 1 are
+*               disabled. Bit positions of 0 keep the previous setting.
+*               This mask is formed as a bitwise OR of XCANFD_IXR_* bits
+*               defined in xcanfd_hw.h.
 *
 *****************************************************************************/
 void XCanFd_InterruptDisable(XCanFd *InstancePtr, u32 Mask)
@@ -297,16 +299,16 @@ void XCanFd_InterruptDisable(XCanFd *InstancePtr, u32 Mask)
 
 /****************************************************************************/
 /**
-* @brief Clears interrupt(s).
+* @brief Clears one or more interrupts.
 *
-* Every bit set in Interrupt Status Register indicates that a specific type
-* of interrupt is occurring, and this function clears one or more interrupts
-* by writing a bit mask to Interrupt Clear Register.
+* Every bit set in Interrupt Status Register indicates that a specific type of
+* interrupt is occurring. This function clears one or more interrupts by writing
+* a bit mask to Interrupt Clear Register.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Mask is the mask to clear. Bit positions of 1 will be
-*		cleared. Bit positions of 0 will not change the previous
-*		interrupt status. This mask is formed by OR'ing
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Mask Mask to clear. Bit positions of 1 are
+*               cleared. Bit positions of 0 do not change the previous
+*               interrupt status. This mask is formed as a bitwise OR of
 *		XCANFD_IXR_* bits defined in xcanfd_hw.h.
 *
 *****************************************************************************/
@@ -338,7 +340,7 @@ void XCanFd_InterruptClear(XCanFd *InstancePtr, u32 Mask)
 * during initialization phase. An example delivered with this driver
 * demonstrates how this could be done.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance that just
+* @param[in]    InstancePtr Pointer to the XCanFd instance that just
 *		interrupted.
 *
 ******************************************************************************/
@@ -451,17 +453,17 @@ void XCanFd_IntrHandler(void *InstancePtr)
 * XCANFD_HANDLER_EVENT       Any other kind of interrupt is occurring.
 * </pre>
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	HandlerType specifies which handler is to be attached.
-* @param[in]	CallBackFunc is the address of the callback function.
-* @param[in]	CallBackRef is a user data item that will be passed to the
-*		callback function when it is invoked.
+* @param[in,out] InstancePtr Pointer to the XCanFd instance.
+* @param[in]     HandlerType Specifies which handler is to be attached.
+* @param[in]     CallBackFunc Address of the callback function.
+* @param[in]     CallBackRef User data item that is passed to the
+*                callback function when it is invoked.
 *
-* @return	- XST_SUCCESS when handler is installed.
-*		- XST_INVALID_PARAM when HandlerType is invalid.
+* @return        - XST_SUCCESS when handler is installed.
+*                - XST_INVALID_PARAM when HandlerType is invalid.
 *
-* @note		Invoking this function for a handler that already has been
-*		installed replaces it with the new handler.
+* @note          Invoking this function for a handler that already has been
+*                installed replaces it with the new handler.
 *
 ******************************************************************************/
 int XCanFd_SetHandler(XCanFd *InstancePtr, u32 HandlerType,

@@ -8,8 +8,6 @@
 /**
 *
 * @file xcanfd_sinit.c
-* @addtogroup canfd Overview
-* @{
 * @brief Static initialization functionality for the XCanFd driver.
 *
 * This file contains the implementation of the XCanFd driver's static
@@ -28,10 +26,15 @@
 * 2.12  vlt    11/05/25 Add 64-bit Addressing Support.
 * 2.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
 * 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 2.13  vn   09/30/26 Update Doxygen comments to AMD standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup canfd Overview
+ * @{
+ */
 /***************************** Include Files *********************************/
 
 #include "xcanfd.h"
@@ -57,9 +60,9 @@
 * in the system.
 *
 * @if SDT
-* @param[in]	BaseAddress contains the base address of the device.
+* @param[in]    BaseAddress Base address of the device.
 * @else
-* @param[in]	DeviceId contains the unique ID of the device.
+* @param[in]    DeviceId Unique ID of the device.
 * @endif
 *
 * @return	A pointer to the configuration found or NULL if the specified

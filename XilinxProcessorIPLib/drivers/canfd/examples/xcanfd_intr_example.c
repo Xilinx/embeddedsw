@@ -9,20 +9,19 @@
 *
 * @file xcanfd_intr_example.c
 *
-* Contains an example of how to use the XCan driver directly.  The example here
-* shows using the driver/device in interrupt mode.
+* @brief Demonstrates using the XCanFd driver and device directly in interrupt
+* mode.
 *
 * @note
-*
-* This code assumes that Xilinx interrupt controller (XIntc) is used in the
-* system to forward the CAN device interrupt output to the processor and no
-* operating system is being used.
-*
-* The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
-* are setup such that CAN baud rate equals 40Kbps, assuming that the
-* the CAN clock is 24MHz. The user needs to modify these values based on
-* the desired baud rate and the CAN clock frequency. For more information
-* see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.
+* This code assumes that the Xilinx interrupt controller (XIntc) forwards the
+* CAN device interrupt output to the processor. It also assumes that no
+* operating system is used.
+* <br><br>
+* The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are set
+* up for a CAN baud rate of 40Kbps. This setting assumes a CAN clock of 24MHz.
+* Modify these values based on the desired baud rate and the CAN clock
+* frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1
+* specifications.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -51,6 +50,7 @@
 * 2.12  vlt  01/27/26 Fixed codespell issues
 * 2.13  vn   07/30/26 Fix Doxygen warnings
 * 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 2.13  vn   09/30/26 Update Doxygen comments to AMD standards
 *
 * </pre>
 *
@@ -83,39 +83,44 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+/** @name XPAR parameter mappings
+ * @{
+ */
 #ifndef SDT
+/** Device ID. */
 #define CANFD_DEVICE_ID		XPAR_CANFD_0_DEVICE_ID
 #endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID /**< INTC device ID. */
+/** CAN interrupt vector ID. */
 #define CAN_INTR_VEC_ID	XPAR_INTC_0_CANFD_0_VEC_ID
 #else
+/** INTC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #ifdef XPAR_CANFD_ISPS
+/** CAN interrupt vector ID. */
 #define CAN_INTR_VEC_ID	XPAR_XCANPS_0_INTR
 #else
+/** CAN interrupt vector ID. */
 #define CAN_INTR_VEC_ID	XPAR_FABRIC_CANFD_0_VEC_ID
 #endif
 #endif /* XPAR_INTC_0_DEVICE_ID */
+/** @} */
 #else
-#define XCANFD_BASEADDRESS XPAR_XCANFD_0_BASEADDR
+#define XCANFD_BASEADDRESS XPAR_XCANFD_0_BASEADDR /**< CAN FD base address. */
 #endif
 
-/* Maximum CAN frame length in Bytes */
+/** Maximum CAN frame length in Bytes. */
 #define XCANFD_MAX_FRAME_SIZE_IN_BYTES 72
 
-/* Frame Data field length */
-#define FRAME_DATA_LENGTH	64
+#define FRAME_DATA_LENGTH	64 /**< Frame Data field length. */
 
-/* Message Id Constant */
-#define TEST_MESSAGE_ID		1024
+#define TEST_MESSAGE_ID		1024 /**< Message Id Constant. */
 
-/* Data length code */
-#define TEST_CANFD_DLC 15
+#define TEST_CANFD_DLC 15			       /**< Data length code. */
 
-/* Mail Box Mask */
-#define TEST_MAILBOX_MASK 0xFFFFFFFF
+#define TEST_MAILBOX_MASK 0xFFFFFFFF		       /**< Mail Box Mask. */
 
 /*
  * The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
@@ -124,29 +129,54 @@
  * the desired baud rate and the CAN clock frequency. For more information
  * see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.
  */
+/** @name Baud Rate Prescaler and Bit Timing Register values
+ * @{
+ */
+/** Baud Rate Prescaler Register (BRPR) value. */
 #define TEST_BRPR_BAUD_PRESCALAR	29
 
+/** Bit Timing Register (BTR) synchronization jump width. */
 #define TEST_BTR_SYNCJUMPWIDTH		3
+/** Bit Timing Register (BTR) second time segment. */
 #define TEST_BTR_SECOND_TIMESEGMENT	2
+/** Bit Timing Register (BTR) first time segment. */
 #define TEST_BTR_FIRST_TIMESEGMENT	15
+/** @} */
 
+/** @name Fast Baud Rate Prescaler and Fast Bit Timing Register values
+ * @{
+ */
+/** Fast Baud Rate Prescaler Register (F_BRPR) value. */
 #define TEST_FBRPR_BAUD_PRESCALAR	29
 
+/** Fast Bit Timing Register (F_BTR) synchronization jump width. */
 #define TEST_FBTR_SYNCJUMPWIDTH		3
+/** Fast Bit Timing Register (F_BTR) second time segment. */
 #define TEST_FBTR_SECOND_TIMESEGMENT	2
+/** Fast Bit Timing Register (F_BTR) first time segment. */
 #define TEST_FBTR_FIRST_TIMESEGMENT	15
-#define MAX_TIMEOUT 			100
+/** @} */
+/** @name Timeout values
+ * @{
+ */
+#define MAX_TIMEOUT 			100 /**< Maximum timeout count. */
+/** Maximum sleep time in microseconds. */
 #define MAX_USLEEP_VAL                  10*1000
+/** @} */
 
+/** @name Interrupt controller definitions
+ * @{
+ */
 #ifndef SDT
 #ifdef XPAR_INTC_0_DEVICE_ID
-#define INTC		XIntc
-#define INTC_HANDLER	XIntc_InterruptHandler
+#define INTC		XIntc /**< Interrupt controller type. */
+#define INTC_HANDLER	XIntc_InterruptHandler /**< Interrupt handler. */
 #else
-#define INTC		XScuGic
-#define INTC_HANDLER	XScuGic_InterruptHandler
+#define INTC		XScuGic /**< Interrupt controller type. */
+#define INTC_HANDLER	XScuGic_InterruptHandler /**< Interrupt handler. */
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #endif
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -171,28 +201,24 @@ static void EventHandler(void *CallBackRef, u32 Mask);
 
 
 /************************** Variable Definitions *****************************/
-/* Allocate an instance of the XCan driver */
-static XCanFd  CanFd;
+static XCanFd  CanFd; /**< Instance of the XCanFd driver. */
 
 /*
  * Buffers to hold frames to send and receive. These are declared as global so
  * that they are not on the stack.
  * These buffers need to be 32-bit aligned
  */
-static u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES];
-static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES];
+static u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< Frame to send. */
+static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< Frame received. */
 
-/* Asynchronous error occurred */
-static volatile int LoopbackError;
-/* Received a frame */
-static volatile int RecvDone;
-/* Frame was sent successfully */
-static volatile int SendDone;
+static volatile int LoopbackError;	/**< Asynchronous error occurred. */
+static volatile int RecvDone;		/**< Received a frame. */
+static volatile int SendDone;		/**< Frame was sent successfully. */
 
 /*****************************************************************************/
 /**
 *
-* This function is the main function of the Can interrupt example.
+* @brief Runs the CAN FD interrupt-mode example as the application entry point.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
@@ -217,20 +243,21 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* The main entry point for showing the XCan driver in interrupt mode.
+* @brief Shows the XCanFd driver in interrupt mode as the main entry point.
+*
 * The example configures the device for internal loopback mode, then
 * sends a CAN frame and receives the same CAN frame.
 *
 * @if SDT
-* @param[in]	BaseAddress contains the CAN device base address.
+* @param[in]    BaseAddress CAN device base address.
 * @else
-* @param[in]	DeviceId contains the CAN device ID.
+* @param[in]    DeviceId CAN device ID.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise driver-specific error code.
 *
 * @note 	If the device is not working correctly, this function may enter
-*		an infinite loop and will never return to the caller.
+*               an infinite loop and never returns to the caller.
 *
 ******************************************************************************/
 #ifndef SDT
@@ -244,7 +271,7 @@ static int XCanFdIntrExample(UINTPTR BaseAddress)
 	XCanFd *CanFdInstPtr = &CanFd;
 	XCanFd_Config *ConfigPtr;
 
-	/**< Initialize the XCan driver */
+	/* Initialize the XCanFd driver */
 #ifndef SDT
 	ConfigPtr = XCanFd_LookupConfig(DeviceId);
 #else
@@ -340,15 +367,15 @@ static int XCanFdIntrExample(UINTPTR BaseAddress)
 /*****************************************************************************/
 /**
 *
-* This function configures CAN device.
+* @brief Configures the CAN FD device for the interrupt-mode example.
 *
-* @param[in]	InstancePtr is a pointer to the driver instance
+* @param[in]    InstancePtr Pointer to the driver instance.
 *
 * @note		If the CAN device is not working correctly, this function may
-*		enter an infinite loop and will never return to the caller.
+*               enter an infinite loop and never returns to the caller.
 *		basically this configures BRPR,BTR in both Arbitration and
-*		Data phase. also configures Acceptance filters(in SequentialMode)
-*		or RxBuffers(in Mailbox).
+*               Data phase. also configures Acceptance filters(in
+*               SequentialMode) or RxBuffers(in Mailbox).
 *
 ******************************************************************************/
 static void Config(XCanFd *InstancePtr)
@@ -402,9 +429,12 @@ static void Config(XCanFd *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Send a CAN frame.
+* @brief Sends a CAN frame.
 *
-* @param[in]	InstancePtr is a pointer to the driver instance.
+* @param[in,out] InstancePtr Pointer to the driver instance.
+*
+* @return        XST_SUCCESS if successful, a driver-specific return code if
+*                not.
 *
 ******************************************************************************/
 static int SendFrame(XCanFd *InstancePtr)
@@ -453,10 +483,11 @@ static int SendFrame(XCanFd *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle confirmation of
-* transmit events when in interrupt mode.
+* @brief Handles confirmation of transmit events when in interrupt mode.
 *
-* @param[in]	CallBackRef is the callback reference passed from the interrupt
+* This callback function is called from the interrupt handler.
+*
+* @param[in]    CallBackRef Callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
 *
 * @note		This function is called by the driver within interrupt context.
@@ -473,11 +504,13 @@ static void SendHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle frames received in
-* interrupt mode.  This function is called once per frame received.
+* @brief Handles frames received in interrupt mode.
+*
+* This callback function is called from the interrupt handler once per frame
+* received.
 * The driver's receive function is called to read the frame from RX FIFO.
 *
-* @param[in]	CallBackRef is the callback reference passed from the interrupt
+* @param[in]    CallBackRef Callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the device instance.
 *
 * @note		This function is called by the driver within interrupt context.
@@ -491,7 +524,7 @@ static void RecvHandler(void *CallBackRef)
 	u8 *FramePtr;
 	u32 Dlc;
 
-	/**< Check for the design 1 - MailBox 0 - Sequential */
+	/* Check for the design 1 - MailBox 0 - Sequential */
 	if (XCANFD_GET_RX_MODE(CanPtr) == 1) {
 		Status = XCanFd_Recv_Mailbox(CanPtr, RxFrame);
 	} else {
@@ -535,14 +568,16 @@ static void RecvHandler(void *CallBackRef)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle error interrupt.
-* Error code read from Error Status register is passed into this function
+* @brief Handles the error interrupt.
 *
-* @param[in]	CallBackRef is the callback reference passed from the interrupt
+* This callback function is called from the interrupt handler. Error code read
+* from Error Status register is passed into this function.
+*
+* @param[in]    CallBackRef Callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
-* @param[in]	ErrorMask is a bit mask indicating the cause of the error. Its
-*		value equals 'OR'ing one or more XCANFD_ESR_* defined in
-*		xcanfd_l.h
+* @param[in]    ErrorMask Bit mask indicating the cause of the error. Its
+*               value equals the bitwise OR of one or more XCANFD_ESR_*
+*               defined in xcanfd_l.h.
 *
 * @note		This function is called by the driver within interrupt context.
 *
@@ -609,8 +644,10 @@ static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 /*****************************************************************************/
 /**
 *
-* Callback function (called from interrupt handler) to handle the following
-* interrupts:
+* @brief Handles the event interrupts.
+*
+* This callback function is called from the interrupt handler to handle the
+* following interrupts:
 *   - XCANFD_IXR_BSOFF_MASK:  Bus Off Interrupt
 *   - XCANFD_IXR_RXOFLW_MASK: RX FIFO Overflow Interrupt
 *   - XCANFD_IXR_RXUFLW_MASK: RX FIFO Underflow Interrupt
@@ -621,13 +658,13 @@ static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 *   - XCANFD_IXR_ARBLST_MASK: Arbitration Lost Interrupt
 *   - XCANFD_IXR_TSCNT_OFLW_MASK : Timestamp Counter Overflow Interrupt
 *
-* Please feel free to change this function to meet specific application needs.
+* Change this function to meet specific application needs.
 *
-* @param[in]	CallBackRef is the callback reference passed from the interrupt
+* @param[in]    CallBackRef Callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
-* @param[in]	IntrMask is a bit mask indicating pending interrupts. Its value
-*		equals 'OR'ing one or more of the XCANFD_IXR_*_MASK value(s)
-*		mentioned above.
+* @param[in]    IntrMask Bit mask indicating pending interrupts. Its value
+*               equals the bitwise OR of one or more of the XCANFD_IXR_*_MASK
+*               values mentioned above.
 *
 * @note		This function is called by the driver within interrupt context.
 *
@@ -717,13 +754,14 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 /*****************************************************************************/
 /**
 *
-* This function sets up the interrupt system so interrupts can occur for the
-* CAN. This function is application-specific since the actual system may or
-* may not have an interrupt controller.  The CAN could be directly connected
-* to a processor without an interrupt controller.  The user should modify this
-* function to fit the application.
+* @brief Sets up the interrupt system so interrupts can occur for the CAN.
 *
-* @para		InstancePtr is a pointer to the instance of the CAN
+* This function is application-specific since the actual system may or
+* may not have an interrupt controller. The CAN could be directly connected
+* to a processor without an interrupt controller. Modify this function to fit
+* the application.
+*
+* @param[in]    InstancePtr Pointer to the instance of the CAN
 *		which is going to be connected to the interrupt controller.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.

@@ -8,8 +8,6 @@
 /**
 *
 * @file xcanfd_config.c
-* @addtogroup canfd Overview
-* @{
 * @brief CAN Configuration Register access related functions.
 *
 * Functions in this file are CAN Configuration Register access related.
@@ -30,9 +28,15 @@
 *		      prescalar value properly CR# 1016013
 * 2.13  vn   07/30/26 Fix Doxygen warnings
 * 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 2.13  vn   09/30/26 Update Doxygen comments to AMD standards
 *
 * </pre>
+*
 ******************************************************************************/
+
+/** @addtogroup canfd Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -61,11 +65,11 @@
 * Mode. Call XCanFd_EnterMode() to enter Configuration Mode before
 * using this function.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
-* @param[in]	Prescaler is the value to set. Valid values are from 0 to 255.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
+* @param[in]    Prescaler Value to set. Valid values are from 0 to 255.
 *
 * @return	- XST_SUCCESS if the Baud Rate Prescaler value is set
-*		successfully.
+*                 successfully.
 *		- XST_FAILURE if CAN device is not in Configuration Mode.
 *
 ******************************************************************************/
@@ -96,7 +100,7 @@ int XCanFd_SetBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler)
 * to generate the quantum clock needed for sampling and synchronization.
 * Read the device specification for details.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
 *
 * @return	Current used Baud Rate Prescaler value. The value's range is
 *		from 0 to 255.
@@ -128,18 +132,18 @@ u8 XCanFd_GetBaudRatePrescaler(XCanFd *InstancePtr)
 * Call XCanFd_EnterMode() to enter Configuration Mode before using this
 * function.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
-* @param[in]	SyncJumpWidth is the Synchronization Jump Width value to set.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
+* @param[in]    SyncJumpWidth Synchronization Jump Width value to set.
 *		Valid values are from 0 to 3.
-* @param[in]	TimeSegment2 is the Time Segment 2 value to set. Valid values
+* @param[in]    TimeSegment2 Time Segment 2 value to set. Valid values
 *		are from 0 to 7.
-* @param[in]	TimeSegment1 is the Time Segment 1 value to set. Valid values
+* @param[in]    TimeSegment1 Time Segment 1 value to set. Valid values
 *		are from 0 to 15.
 *
 * @return	- XST_SUCCESS if the Bit time is set successfully.
 *		- XST_FAILURE if CAN device is not in Configuration Mode.
 *		- XST_INVALID_PARAM if any value of SyncJumpWidth, TimeSegment2
-*		and TimeSegment1 is invalid.
+*                 and TimeSegment1 is invalid.
 *
 ******************************************************************************/
 int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
@@ -182,12 +186,12 @@ int XCanFd_SetBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 * value of each of these fields is one more than the value read. Read the
 * device specification for details.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
-* @param[in]	SyncJumpWidth [out] stores the Synchronization Jump Width value.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
+* @param[out]   SyncJumpWidth Synchronization Jump Width value.
 *		Its value ranges from 0 to 3.
-* @param[in]	TimeSegment2 [out] stores the Time Segment 2 value.
+* @param[out]   TimeSegment2 Time Segment 2 value.
 *		Its value ranges from 0 to 7.
-* @param[in]	TimeSegment1 [out] stores the Time Segment 1 value.
+* @param[out]   TimeSegment1 Time Segment 1 value.
 *		Its value ranges from 0 to 15.
 *
 ******************************************************************************/
@@ -221,11 +225,11 @@ void XCanFd_GetBitTiming(XCanFd *InstancePtr, u8 *SyncJumpWidth,
 * Mode. Call XCanFd_EnterMode() to enter Configuration Mode before
 * using this function.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
-* @param[in]	Prescaler is the value to set. Valid values are from 1 to 256.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
+* @param[in]    Prescaler Value to set. Valid values are from 1 to 256.
 *
 * @return	- XST_SUCCESS if the Baud Rate Prescaler value is set
-*		successfully.
+*                 successfully.
 *		- XST_FAILURE if CAN device is not in Configuration Mode.
 *
 ******************************************************************************/
@@ -261,7 +265,7 @@ int XCanFd_SetFBaudRatePrescaler(XCanFd *InstancePtr, u8 Prescaler)
 * to generate the quantum clock needed for sampling and synchronization.
 * Read the device specification for details.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
 *
 * @return	Current used Baud Rate Prescaler value. The value's range is
 *		from 1 to 256.
@@ -293,18 +297,18 @@ u8 XCanFd_GetFBaudRatePrescaler(XCanFd *InstancePtr)
 * Call XCanFd_EnterMode() to enter Configuration Mode before using this
 * function.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
-* @param[in]	SyncJumpWidth is the Synchronization Jump Width value to set.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
+* @param[in]    SyncJumpWidth Synchronization Jump Width value to set.
 *		Valid values are from 0 to 3.
-* @param[in]	TimeSegment2 is the Time Segment 2 value to set. Valid values
+* @param[in]    TimeSegment2 Time Segment 2 value to set. Valid values
 *		are from 0 to 7.
-* @param[in]	TimeSegment1 is the Time Segment 1 value to set. Valid values
+* @param[in]    TimeSegment1 Time Segment 1 value to set. Valid values
 *		are from 0 to 15.
 *
 * @return	- XST_SUCCESS if the Bit time is set successfully.
 *		- XST_FAILURE if CAN device is not in Configuration Mode.
 *		- XST_INVALID_PARAM if any value of SyncJumpWidth, TimeSegment2
-*		and TimeSegment1 is invalid.
+*                 and TimeSegment1 is invalid.
 *
 ******************************************************************************/
 int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
@@ -346,12 +350,12 @@ int XCanFd_SetFBitTiming(XCanFd *InstancePtr, u8 SyncJumpWidth,
 * value of each of these fields is one more than the value read. Read the
 * device specification for details.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
-* @param[in]	SyncJumpWidth [out] stores the Synchronization Jump Width value.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
+* @param[out]   SyncJumpWidth Synchronization Jump Width value.
 *		Its value ranges from 0 to 3.
-* @param[in]	TimeSegment2 [out] stores the Time Segment 2 value.
+* @param[out]   TimeSegment2 Time Segment 2 value.
 *		Its value ranges from 0 to 7.
-* @param[in]	TimeSegment1 [out] stores the Time Segment 1 value.
+* @param[out]   TimeSegment1 Time Segment 1 value.
 *		Its value ranges from 0 to 15.
 *
 ******************************************************************************/
@@ -383,7 +387,7 @@ void XCanFd_GetFBitTiming(XCanFd *InstancePtr, u8 *SyncJumpWidth,
 * transmits CAN FD Frames with Nominal Bit Rate.
 * Read the device specification for details.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
 *
 ******************************************************************************/
 void XCanFd_SetBitRateSwitch_EnableNominal(XCanFd *InstancePtr)
@@ -409,12 +413,12 @@ void XCanFd_SetBitRateSwitch_EnableNominal(XCanFd *InstancePtr)
 *
 * Read the device specification for details.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
+* @param[in]    InstancePtr Pointer to the XCanFd instance to be worked on.
 *
-* @note		if we set BRSD bit in Mode Select Register then CAN Controller
-*		transmits CAN FD Frames with Nominal Bit Rate. else with
-*		configured bit rate(As specified in Data phase BRPR and BTR
-*		Registers.
+* @note         If the BRSD bit is set in Mode Select Register, the CAN
+*               Controller transmits CAN FD Frames with Nominal Bit Rate.
+*               Otherwise it uses the configured bit rate as specified in the
+*               Data phase BRPR and BTR Registers.
 *
 ******************************************************************************/
 void XCanFd_SetBitRateSwitch_DisableNominal(XCanFd *InstancePtr)
@@ -437,13 +441,13 @@ void XCanFd_SetBitRateSwitch_DisableNominal(XCanFd *InstancePtr)
 /**
 * @brief Sets the Rx Full threshold in the Watermark Interrupt Register.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Threshold is the threshold to be set. The valid values are
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Threshold Threshold to be set. The valid values are
 *		from 1 to 63.
 *
 * @return	- XST_FAILURE if the CAN device is not in Configuration Mode.
 *		- XST_SUCCESS if the Rx Full threshold is set in Watermark
-*		Interrupt Register.
+*                 Interrupt Register.
 *
 * @note		The threshold can only be set when the CAN device is in the
 *		configuration mode.
@@ -481,17 +485,17 @@ u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, s8 Threshold)
 * @brief Sets the Rx Full threshold for FIFO 1 in the Watermark
 *		Interrupt Register.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Threshold is the threshold to be set. The valid values are
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Threshold Threshold to be set. The valid values are
 *		from 1 to 63.
 *
 * @return	- XST_FAILURE if the CAN device is not in Configuration Mode.
 *		- XST_SUCCESS if the Rx Full threshold is set in Watermark
-*		Interrupt Register.
+*                 Interrupt Register.
 *
 * @note		The threshold can only be set when the CAN device is in the
-*			configuration mode.This API is meant to be used with IP with
-*			CanFD 2.0 spec support only.
+*               configuration mode. This API is meant to be used with IP with
+*               CanFD 2.0 spec support only.
 *
 *****************************************************************************/
 u32 XCanFd_SetRxIntrWatermarkFifo1(XCanFd *InstancePtr, s8 Threshold)
@@ -525,17 +529,17 @@ u32 XCanFd_SetRxIntrWatermarkFifo1(XCanFd *InstancePtr, s8 Threshold)
 * @brief Sets the TX Events Full threshold in the Watermark Interrupt
 *		Register.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	Threshold is the threshold to be set. The valid values are
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    Threshold Threshold to be set. The valid values are
 *		from 1 to 31.
 *
 * @return	- XST_FAILURE if the CAN device is not in Configuration Mode.
 *		- XST_SUCCESS if the Rx Full threshold is set in Watermark
-*		Interrupt Register.
+*                 Interrupt Register.
 *
 * @note		The threshold can only be set when the CAN device is in the
-*			configuration mode, This API is meant to be used with IP with
-*			CanFD 2.0 spec support only.
+*               configuration mode. This API is meant to be used with IP with
+*               CanFD 2.0 spec support only.
 *
 *****************************************************************************/
 u32 XCanFd_SetTxEventIntrWatermark(XCanFd *InstancePtr, u8 Threshold)
@@ -568,16 +572,16 @@ u32 XCanFd_SetTxEventIntrWatermark(XCanFd *InstancePtr, u8 Threshold)
 * @brief Sets the Receive filter partition in the Watermark Interrupt
 *		Register.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance.
-* @param[in]	FilterPartition is Filter Mask number, valid values are 0 to 31.
+* @param[in]    InstancePtr Pointer to the XCanFd instance.
+* @param[in]    FilterPartition Filter Mask number, valid values are 0 to 31.
 *
 * @return	- XST_FAILURE if the CAN device is not in Configuration Mode.
 *		- XST_SUCCESS if the Rx Full threshold is set in Watermark
-*		Interrupt Register.
+*                 Interrupt Register.
 *
 * @note		The RX filter partition can only be set when the CAN device is
-*			in the configuration mode, This API is meant to be used with IP
-*			with CanFD 2.0 spec support only.
+*               in the configuration mode. This API is meant to be used with IP
+*               with CanFD 2.0 spec support only.
 *
 *****************************************************************************/
 u32 XCanFd_SetRxFilterPartition(XCanFd *InstancePtr, u8 FilterPartition)

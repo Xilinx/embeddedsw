@@ -8,8 +8,6 @@
 /**
 *
 * @file xcanfd_selftest.c
-* @addtogroup canfd Overview
-* @{
 * @brief Diagnostic self-test function for the XCanFd driver.
 *
 * This file contains a diagnostic self-test function for the XCanFd driver.
@@ -31,10 +29,15 @@
 * 2.12  vlt  01/27/26 Fixed codespell issues
 * 2.13  vn   09/08/26 Fix Doxygen comments to comply with AMD standards.
 * 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 2.13  vn   09/30/26 Update Doxygen comments to AMD standards
 *
 * </pre>
 *
 *****************************************************************************/
+
+/** @addtogroup canfd Overview
+ * @{
+ */
 
 /***************************** Include Files ********************************/
 
@@ -43,7 +46,7 @@
 
 /************************** Constant Definitions ****************************/
 
-#define XCANFD_MAX_FRAME_SIZE_IN_BYTES 72 /**< Maximum Frame size */
+#define XCANFD_MAX_FRAME_SIZE_IN_BYTES 72 /**< Maximum Frame size. */
 
 /**************************** Type Definitions ******************************/
 
@@ -52,55 +55,66 @@
 /************************** Variable Definitions ****************************/
 
 /* Buffers to hold frames to send and receive. */
-static u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< TxFrame Buffer */
-static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< RxFrame Buffer */
+static u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< TxFrame Buffer. */
+static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]; /**< RxFrame Buffer. */
 
 /************************** Function Prototypes *****************************/
 
 /* Message Id Constant. */
-#define TEST_MESSAGE_ID	1024	/**< Message id */
+#define TEST_MESSAGE_ID	1024	/**< Message id. */
 
 /* CAN Dlc Value */
-#define TEST_CANFD_DLC	8	/**< DLC Value */
+#define TEST_CANFD_DLC	8	/**< DLC Value. */
 
 /* CAN FD FilterIndex Value */
-#define TEST_MAIL_BOX_MASK 0xFFFFFFFFU	/**< Mailbox Filter Index Value */
+#define TEST_MAIL_BOX_MASK 0xFFFFFFFFU	   /**< Mailbox Filter Index Value. */
 
-#define TEST_BRPR_BAUD_PRESCALAR	29 /**< Baud Rate Prescalar */
+/** @name Baud Rate Prescaler and Bit Timing Register values
+ * @{
+ */
+#define TEST_BRPR_BAUD_PRESCALAR	29 /**< Baud Rate Prescalar. */
 
-#define TEST_BTR_SYNCJUMPWIDTH		3  /**< Synchronization Jump Width */
-#define TEST_BTR_SECOND_TIMESEGMENT	2  /**< Time Segment 2 */
-#define TEST_BTR_FIRST_TIMESEGMENT	15 /**< Time Segment 1 */
+#define TEST_BTR_SYNCJUMPWIDTH		3  /**< Synchronization Jump Width. */
+#define TEST_BTR_SECOND_TIMESEGMENT	2  /**< Time Segment 2. */
+#define TEST_BTR_FIRST_TIMESEGMENT	15 /**< Time Segment 1. */
+/** @} */
 
-#define TEST_FBRPR_BAUD_PRESCALAR	29 /**< Baud Rate Prescalar for canfd */
+/** @name Fast Baud Rate Prescaler and Fast Bit Timing Register values
+ * @{
+ */
+/** Baud Rate Prescalar for canfd. */
+#define TEST_FBRPR_BAUD_PRESCALAR	29
 
-#define TEST_FBTR_SYNCJUMPWIDTH		3  /**< Synchronization Jump Width for Canfd */
-#define TEST_FBTR_SECOND_TIMESEGMENT	2  /**< Time Segment 2 for Canfd */
-#define TEST_FBTR_FIRST_TIMESEGMENT	15 /**< Time Segment 1 for Canfd */
+/** Synchronization Jump Width for Canfd. */
+#define TEST_FBTR_SYNCJUMPWIDTH		3
+#define TEST_FBTR_SECOND_TIMESEGMENT	2  /**< Time Segment 2 for Canfd. */
+#define TEST_FBTR_FIRST_TIMESEGMENT	15 /**< Time Segment 1 for Canfd. */
+/** @} */
 
 /**
 * @brief Runs a self-test on the CAN driver/device.
 *
-* The test resets the device, sets up the Loop Back mode, sends a standard
-* frame, receives the frame, verifies the contents, and resets the device
-* again.
+* The test resets the device and sets up the Loop Back mode. It then sends a
+* standard frame, receives the frame, verifies the contents, and resets the
+* device again.
 *
 * Note that this is a destructive test in that resets of the device are
 * performed. Refer to the device specification for the device status
 * after the reset operation.
 *
-* @param[in]	InstancePtr is a pointer to the XCanFd instance to be worked on.
+* @param[in,out] InstancePtr Pointer to the XCanFd instance to be worked on.
 *
-* @return	- XST_SUCCESS if the self-test passed, that is, the frame
-*		received via the internal loop back has the same contents as the
-*		sent frame.
-*		- XST_FAILURE otherwise.
+* @return        - XST_SUCCESS if the self-test passed, that is, the frame
+*                  received via the internal loop back has the same contents as
+*                  the sent frame.
+*                - XST_FAILURE otherwise.
 *
-* @note		If the CAN device does not work properly, this function may enter an
-* 		infinite loop and will never return to the caller.
-* 		<br><br>
-* 		If XST_FAILURE is returned, the device is not reset so that the caller could
-* 		have a chance to check reason(s) causing the failure.
+* @note          If the CAN device does not work properly, this function may
+*                enter an infinite loop and never returns to the caller.
+*                <br><br>
+*                If XST_FAILURE is returned, the device is not reset so that
+*                the caller could have a chance to check the reasons causing
+*                the failure.
 *
 ******************************************************************************/
 int XCanFd_SelfTest(XCanFd *InstancePtr)

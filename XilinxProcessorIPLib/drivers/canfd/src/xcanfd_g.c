@@ -6,8 +6,10 @@
 
 /**
  * @file xcanfd_g.c
- * @brief Configuration table for XCanFd devices.
- * @addtogroup canfd Overview
+ * @brief Defines the configuration table for XCanFd devices.
+ */
+
+/** @addtogroup canfd Overview
  * @{
  */
 
@@ -15,7 +17,7 @@
 #include "xcanfd.h"
 
 /**
- * @brief Configuration table for devices.
+ * @brief Defines the configuration table for CANFD devices.
  */
 XCanFd_Config XCanFd_ConfigTable[] =
 {
