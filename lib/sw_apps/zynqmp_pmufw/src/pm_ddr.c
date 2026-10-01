@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022-2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -1186,7 +1186,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 					continue;
 				}
 			}
-#if XPAR_PSU_DDRC_0_HAS_ECC
+#if defined(XPAR_PSU_DDRC_0_HAS_ECC) && (XPAR_PSU_DDRC_0_HAS_ECC != 0)
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(8U),
 						      DDRPHY_DXGSR0_DPLOCK,
 						      PM_DDR_POLL_PERIOD);

@@ -250,7 +250,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PMU_IOMODULE_IRQ_PENDING_PIT2_MASK, &XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_PIT1_MASK, &XPfw_Pit1Handler},
 	{PMU_IOMODULE_IRQ_PENDING_PIT0_MASK, &XPfw_NullHandler},
-	{PMU_IOMODULE_IRQ_PENDING_CSU_PMU_SEC_LOCK_MASK, XPfw_NullHandler}
+	{PMU_IOMODULE_IRQ_PENDING_CSU_PMU_SEC_LOCK_MASK, &XPfw_NullHandler}
 };
 
 void XPfw_InterruptInit(void)

@@ -482,7 +482,8 @@ static void PmForcePowerdown(const PmMaster *const master,
 		PmProc* proc = (PmProc*)nodePtr->derived;
 		power = (PmPower*)proc->node.parent;
 		/* Master can't force off its proc. */
-		if (proc->master->nid == master->nid) {
+		if ((NULL != proc->master) &&
+		    (proc->master->nid == master->nid)) {
 			status = XST_PM_NO_ACCESS;
 			goto done;
 		}
@@ -1775,7 +1776,9 @@ static void PmProcRpuForceDownFix(PmProc* const proc)
 		}
 	}
 	proc->node.currState = PM_PROC_STATE_FORCEDOFF;
-	proc->master->state = PM_MASTER_STATE_KILLED;
+	if (NULL != proc->master) {
+		proc->master->state = PM_MASTER_STATE_KILLED;
+	}
 }
 
 /**
