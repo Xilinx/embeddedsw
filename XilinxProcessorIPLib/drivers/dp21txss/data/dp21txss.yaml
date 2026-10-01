@@ -17,6 +17,7 @@ properties:
         - enum:
           - xlnx,v-dp-txss2-1.1
           - xlnx,v-dp-txss2-1.0
+          - xlnx,v-dp-txss2-2.0
   reg:
     description: Physical base address and DisplayPort Transmitter Subsystem register map
 
