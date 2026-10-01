@@ -8,8 +8,6 @@
 /**
 *
 * @file xcanps_sinit.c
-* @addtogroup canps Overview
-* @{
 * @brief Implements static initialization for the XCanPs CAN driver.
 *
 * This file contains the implementation of the XCanPs driver's static
@@ -30,9 +28,14 @@
 * 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * 			support 64-bit addressing.
 
+* 3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup canps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -53,7 +56,8 @@
 /*****************************************************************************/
 /**
 *
-* @brief Looks up the device configuration based on the unique device ID or base address.
+* @brief Looks up the device configuration based on the unique device ID or
+* base address.
 *
 * The XCanPs_ConfigTable[] contains the configuration info for each device in
 * the system.
@@ -64,9 +68,9 @@
 * @param[in]   DeviceId Contains the unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the specified
-*               device ID or base address was not found. See xcanps.h for the
-*               definition of XCanPs_Config.
+* @return      A pointer to the configuration found or NULL if the specified
+*              device ID or base address was not found. See xcanps.h for the
+*              definition of XCanPs_Config.
 *
 * @note        In XSCT/classic flow, DeviceId is used to look up the device
 *              configuration.

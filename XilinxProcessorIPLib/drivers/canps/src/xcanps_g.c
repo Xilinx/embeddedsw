@@ -8,8 +8,6 @@
 /**
 *
 * @file xcanps_g.c
-* @addtogroup canps Overview
-* @{
 * @brief Provides the configuration table for CAN PS devices.
 *
 * This file contains a configuration table that specifies the configuration
@@ -24,9 +22,14 @@
 * 2.00  hk   22/01/14 Added check for picking second instance
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup canps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 

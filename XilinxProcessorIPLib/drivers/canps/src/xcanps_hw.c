@@ -8,8 +8,6 @@
 /**
 *
 * @file xcanps_hw.c
-* @addtogroup canps Overview
-* @{
 * @brief Implements the hardware reset sequence for the CAN PS interface.
 *
 * This file contains the implementation of the CAN PS interface reset sequence.
@@ -25,9 +23,14 @@
 * 3.7	ht   06/28/23 Added support for system device-tree flow.
 * 3.13  vn   07/30/26 Fix Doxygen warnings
 * 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
+
+/** @addtogroup canps Overview
+ * @{
+ */
 
 /***************************** Include Files *********************************/
 
@@ -59,7 +62,7 @@
 * The CAN device enters Configuration Mode immediately after this function
 * returns.
 *
-* @param[in]   BaseAddr is the base address of the interface.
+* @param[in]   BaseAddr Base address of the interface.
 *
 ******************************************************************************/
 void XCanPs_ResetHw(UINTPTR BaseAddr)

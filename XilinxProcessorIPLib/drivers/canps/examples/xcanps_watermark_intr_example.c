@@ -12,11 +12,11 @@
 * @brief Demonstrates XCanPs driver usage with Rx watermark interrupts.
 *
 * @note
-* The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
-* are setup such that CAN baud rate equals 40Kbps, assuming that the
-* the CAN clock is 24MHz. The user needs to modify these values based on
-* the desired bau rate and the CAN clock frequency. For more information
-* see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.
+* The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are set
+* up for a CAN baud rate of 40Kbps. This setting assumes a CAN clock of 24MHz.
+* Modify these values based on the desired baud rate and the CAN clock
+* frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1
+* specifications.
 *
 * <pre>
 *
@@ -31,6 +31,7 @@
 * 3.10  ht     12/13/24 Fix C++ compilation errors and warnings in SDT flow.
 * 3.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
 * 3.13  vn   09/08/26 Align Doxygen comments with AMD standards
+* 3.13  vn   09/30/26 Update Doxygen comments to AMD standards
 * </pre>
 *
 ******************************************************************************/
@@ -54,25 +55,28 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+/** @name XPAR parameter mappings
+ * @{
+ */
 #ifndef SDT
-#define CAN_DEVICE_ID		XPAR_XCANPS_0_DEVICE_ID
+#define CAN_DEVICE_ID		XPAR_XCANPS_0_DEVICE_ID /**< Device ID. */
+/** INTC device ID. */
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+/** CAN interrupt vector ID. */
 #define CAN_INTR_VEC_ID		XPAR_XCANPS_0_INTR
 #endif
+/** @} */
 
-/*
+/**
  * Maximum CAN frame length in words.
  */
 #define XCANPS_MAX_FRAME_SIZE_IN_WORDS (XCANPS_MAX_FRAME_SIZE / sizeof(u32))
 
-#define FRAME_DATA_LENGTH	8 /* Frame Data field length */
+#define FRAME_DATA_LENGTH	8	/**< Frame Data field length. */
 
-#define TEST_THRESHOLD		25 /* This is Rx FIFO WaterMark Threshold */
+#define TEST_THRESHOLD		25 /**< This is Rx FIFO WaterMark Threshold. */
 
-/*
- * Message Id Constant.
- */
-#define TEST_MESSAGE_ID		2000
+#define TEST_MESSAGE_ID		2000	/**< Message Id Constant. */
 
 /*
  * The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR)
@@ -87,9 +91,16 @@
  * These values are for a 40 Kbps baudrate assuming the CAN input clock
  * frequency is 24 MHz.
  */
+/** @name Bit Timing Register values
+ * @{
+ */
+/** Bit Timing Register (BTR) synchronization jump width. */
 #define TEST_BTR_SYNCJUMPWIDTH		3
+/** Bit Timing Register (BTR) second time segment. */
 #define TEST_BTR_SECOND_TIMESEGMENT	2
+/** Bit Timing Register (BTR) first time segment. */
 #define TEST_BTR_FIRST_TIMESEGMENT	15
+/** @} */
 
 /*
  * The Baud rate Prescalar value in the Baud Rate Prescaler Register
@@ -98,6 +109,7 @@
  * This value is for a 40 Kbps baudrate assuming the CAN input clock frequency
  * is 24 MHz.
  */
+/** Baud Rate Prescaler Register (BRPR) value. */
 #define TEST_BRPR_BAUD_PRESCALAR	29
 
 /**************************** Type Definitions *******************************/
@@ -134,9 +146,10 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 
 /************************** Variable Definitions *****************************/
 
-static XCanPs CanInstance;   /**< Instance of the Can driver */
+static XCanPs CanInstance;   /**< Instance of the Can driver. */
 #ifndef SDT
-static XScuGic IntcInstance; /* Instance of the Interrupt Controller driver */
+/** Instance of the Interrupt Controller driver. */
+static XScuGic IntcInstance;
 #endif
 
 /*
@@ -144,17 +157,17 @@ static XScuGic IntcInstance; /* Instance of the Interrupt Controller driver */
  * that they are not on the stack.
  * These buffers need to be 32-bit aligned
  */
-static u32 TxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
-static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS];
+static u32 TxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS]; /**< Frame to send. */
+static u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS]; /**< Frame received. */
 
 /*
  * Shared variables used to test the callbacks.
  */
-static volatile  int LoopbackError;	/* Asynchronous error occurred */
-static volatile  int RecvDone;		/* Received a frame */
-static volatile  int SendDone;		/* Frame was sent successfully */
+static volatile  int LoopbackError;	/**< Asynchronous error occurred. */
+static volatile  int RecvDone;		/**< Received a frame. */
+static volatile  int SendDone;		/**< Frame was sent successfully. */
 
-static u8 TestDataOffset;	/**< Test Data value added to the CAN data */
+static u8 TestDataOffset;	/**< Test Data value added to the CAN data. */
 
 /****************************************************************************/
 /**
@@ -196,28 +209,29 @@ int main(void)
 *
 * @brief Demonstrates XCanPs driver operation with Rx watermark interrupts.
 *
-* The example configures the device for internal loop back mode, then
-* sends multiple CAN frames and receives the same number of CAN frames
-* using the Rx Watermark Interrupt.
+* The example configures the device for internal loop back mode. It then sends
+* multiple CAN frames and receives the same number of CAN frames using the Rx
+* Watermark Interrupt.
 *
-* @param[in]   CanInstPtr is a pointer to the instance of the CAN driver which
-*		is going to be connected to the interrupt controller.
+* @param[out]    CanInstPtr Pointer to the instance of the CAN driver which
+*                is going to be connected to the interrupt controller.
 * @if SDT
-* @param[in]   BaseAddress contains the base address of the device
+* @param[in]     BaseAddress Base address of the device.
 * @else
-* @param[in]   IntcInstPtr is a pointer to the instance of the ScuGic driver.
-* @param[in]   CanDeviceId is the device Id of the CAN device and is typically
-*		XPAR_<CANPS_instance>_DEVICE_ID value from xparameters.h.
-* @param[in]   CanIntrId is the interrupt Id and is typically
-*		XPAR_<CANPS_instance>_INTR value from xparameters.h.
+* @param[in,out] IntcInstPtr Pointer to the instance of the ScuGic driver.
+* @param[in]     CanDeviceId Device Id of the CAN device and is typically
+*                XPAR_<CANPS_instance>_DEVICE_ID value from xparameters.h.
+* @param[in]     CanIntrId Interrupt Id and is typically
+*                XPAR_<CANPS_instance>_INTR value from xparameters.h.
 * @endif
 *
-* @return	XST_SUCCESS if successful, otherwise driver-specific error code.
+* @return        XST_SUCCESS if successful, otherwise driver-specific error
+*                code.
 *
-* @note	      - In XSCT/classic flow, DeviceId is used to look up the device
-*               configuration.
-*	      - If the device is not working correctly, this function may enter
-*		an infinite loop and will never return to the caller.
+* @note          - In XSCT/classic flow, DeviceId is used to look up the
+*                  device configuration.
+*                - If the device is not working correctly, this function may
+*                  enter an infinite loop and never returns to the caller.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -370,10 +384,10 @@ int CanPsWatermarkIntrExample(XCanPs *CanInstPtr,
 * Sets the Baud Rate Prescaler Register (BRPR), Bit Timing Register (BTR),
 * and RXFIFO Watermark Interrupt Register (RXWIR).
 *
-* @param[in]   InstancePtr is a pointer to the driver instance.
+* @param[in]    InstancePtr Pointer to the driver instance.
 *
 * @note		If the CAN device is not working correctly, this function may
-*		enter an infinite loop and will never return to the caller.
+*               enter an infinite loop and never returns to the caller.
 *
 ******************************************************************************/
 static void Config(XCanPs *InstancePtr)
@@ -406,7 +420,7 @@ static void Config(XCanPs *InstancePtr)
 *
 * @brief Sends a CAN frame.
 *
-* @param[in]   InstancePtr is a pointer to the driver instance.
+* @param[in,out] InstancePtr Pointer to the driver instance.
 *
 ******************************************************************************/
 static void SendFrame(XCanPs *InstancePtr)
@@ -451,14 +465,14 @@ static void SendFrame(XCanPs *InstancePtr)
 *
 * @brief Reads received CAN frames from the FIFO.
 *
-* @param[in]   InstancePtr is a pointer to the driver instance.
+* @param[in]   InstancePtr Pointer to the driver instance.
 *
 * @return
-*		- XST_SUCCESS if all the CAN Frames are received and the
-*		data is the same as that was sent.
-*		- XST_FAILURE if the required number of CAN frames have not
-*		been received or if the Received Data is not the same as the
-*		data that was sent.
+*              - XST_SUCCESS if all the CAN Frames are received and the
+*                data is the same as that was sent.
+*              - XST_FAILURE if the required number of CAN frames are not
+*                received, or if the received data is not the same as the sent
+*                data.
 *
 ******************************************************************************/
 static int ReceiveData(XCanPs *InstancePtr)
@@ -529,7 +543,7 @@ static int ReceiveData(XCanPs *InstancePtr)
 *
 * @brief Handles transmit completion callbacks.
 *
-* @param[in]   CallBackRef is the callback reference passed from the interrupt
+* @param[in]    CallBackRef Callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the driver instance.
 *
 * @note		This function is called by the driver within interrupt context.
@@ -555,7 +569,7 @@ static void SendHandler(void *CallBackRef)
 *
 * This function is called once all the frames are received.
 *
-* @param[in]   CallBackRef is the callback reference passed from the interrupt
+* @param[in]    CallBackRef Callback reference passed from the interrupt
 *		handler, which in our case is a pointer to the device instance.
 *
 * @note		This function is called by the driver within interrupt context.
@@ -580,13 +594,13 @@ static void RecvHandler(void *CallBackRef)
 *
 * Error code read from Error Status register is passed into this function.
 *
-* @param[in]   CallBackRef is the callback reference passed from the interrupt
-*		handler, which in our case is a pointer to the driver instance.
-* @param[in]   ErrorMask is a bit mask indicating the cause of the error.
-*		Its value equals 'OR'ing one or more XCANPS_ESR_* defined in
-*		xcanps_hw.h
+* @param[in]   CallBackRef Callback reference passed from the interrupt
+*              handler, which in our case is a pointer to the driver instance.
+* @param[in]   ErrorMask Bit mask indicating the cause of the error.
+*              Its value is a bitwise OR of one or more XCANPS_ESR_* values
+*              defined in xcanps_hw.h.
 *
-* @note		This function is called by the driver within interrupt context.
+* @note        This function is called by the driver within interrupt context.
 *
 ******************************************************************************/
 static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
@@ -646,16 +660,16 @@ static void ErrorHandler(void *CallBackRef, u32 ErrorMask)
 *   - XCANPS_IXR_SLP_MASK:    Sleep Interrupt
 *   - XCANPS_IXR_ARBLST_MASK: Arbitration Lost Interrupt
 *
-* @param[in]   CallBackRef is the callback reference passed from the
-*		interrupt Handler, which in our case is a pointer to the
-*		driver instance.
-* @param[in]   IntrMask is a bit mask indicating pending interrupts.
-*		Its value equals 'OR'ing one or more of the XCANPS_IXR_*_MASK
-*		value(s) mentioned above.
+* @param[in]   CallBackRef Callback reference passed from the
+*              interrupt Handler, which in our case is a pointer to the
+*              driver instance.
+* @param[in]   IntrMask Bit mask indicating pending interrupts.
+*              Its value is a bitwise OR of one or more of the
+*              XCANPS_IXR_*_MASK values mentioned above.
 *
-* @note		This function is called by the driver within interrupt context.
-*		This function needs to be changed to meet specific application
-*		needs.
+* @note        This function is called by the driver within interrupt context.
+*              This function needs to be changed to meet specific application
+*              needs.
 *
 ******************************************************************************/
 static void EventHandler(void *CallBackRef, u32 IntrMask)
@@ -733,13 +747,13 @@ static void EventHandler(void *CallBackRef, u32 IntrMask)
 * to a processor without an interrupt controller. Modify this
 * function to fit the application.
 *
-* @param[in]   IntcInstancePtr is a pointer to the instance of ScuGic driver.
-* @param[in]   CanInstancePtr contains a pointer to the instance of the CAN
-*		which is going to be connected to the interrupt controller.
-* @param[in]   CanIntrId is the interrupt Id and is typically
-*		XPAR_<CANPS_instance>_INTR value from xparameters.h.
+* @param[in,out] IntcInstancePtr Pointer to the instance of ScuGic driver.
+* @param[in]     CanInstancePtr Pointer to the instance of the CAN
+*                which is going to be connected to the interrupt controller.
+* @param[in]     CanIntrId Interrupt Id and is typically
+*                XPAR_<CANPS_instance>_INTR value from xparameters.h.
 *
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+* @return        XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 ****************************************************************************/
 static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
@@ -749,7 +763,8 @@ static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	int Status;
 
 #ifndef TESTAPP_GEN
-	XScuGic_Config *IntcConfig; /**< Instance of the interrupt controller */
+	/** Instance of the interrupt controller. */
+	XScuGic_Config *IntcConfig;
 
 	Xil_ExceptionInit();
 
