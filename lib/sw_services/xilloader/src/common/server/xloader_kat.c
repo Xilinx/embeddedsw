@@ -16,6 +16,9 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- ----------------------------------------------------------------------------
 * 2.4	rpu  04/15/2026 First release
+* 2.5   rama 09/21/2026 Added XLoader_RsaKat, XLoader_EccKat, XLoader_AuthKat, and
+*                       XLoader_LmsKat, consolidated from the platform-specific
+*                       xloader_plat_secure.c files and from xloader_auth_enc.c
 * </pre>
 *
 ***************************************************************************************************/
@@ -34,6 +37,9 @@
 #include "xsecure_plat_kat.h"
 #endif
 #include "xsecure_resourcehandling.h"
+#ifndef PLM_RSA_EXCLUDE
+#include "xsecure_error.h"
+#endif
 /************************** Constant Definitions **************************************************/
 
 /**************************** Type Definitions ****************************************************/
@@ -210,6 +216,248 @@ int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
 
 	Status = XST_SUCCESS;
 
+END:
+	return Status;
+}
+
+#ifndef PLM_RSA_EXCLUDE
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_NET)
+/**************************************************************************************************/
+/**
+* @brief	This function runs the KAT for RSA PSS verification
+*
+* @return
+* 		- XST_SUCCESS on success and error code on failure
+*
+***************************************************************************************************/
+static int XLoader_RsaPssSignVeirfyKat(void) {
+	XSecure_Rsa *RsaInstance = XSecure_GetRsaInstance();
+	u32 *RsaModulus = XSecure_GetKatRsaModulus();
+	u32 *RsaModExt = XSecure_GetKatRsaModExt();
+	u32 RsaPubExp = XSECURE_KAT_RSA_PUB_EXP;
+	u8 *MsgHash = XSecure_GetKatSha3ExpHash();
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+	volatile int SStatus = XST_FAILURE;
+	static u32 RsaPssSign[XSECURE_RSA_2048_SIZE_WORDS] = {
+		0xD5B0D757U, 0xB402678AU, 0xD846E353U, 0xE615E8BDU,
+		0x08000C3EU, 0x0D2BE166U, 0x8ADCA321U, 0xC0653B5BU,
+		0xBC9CF06AU, 0x17232DA6U, 0x08124662U, 0xC58F1095U,
+		0x9D3ABD1AU, 0x3EB117CBU, 0xE1B702AAU, 0x11267C5FU,
+		0x74AEE03EU, 0x20AE3E4AU, 0x584CB9D0U, 0x201B42D7U,
+		0xEE21C763U, 0x2E93CF7FU, 0x874C4496U, 0x94A3782EU,
+		0x94B084C8U, 0x411698A1U, 0xE64E2B78U, 0x906CC80EU,
+		0x8B76DD72U, 0x25F1E9C0U, 0xEDA7E18BU, 0x277C7905U,
+		0xAD014078U, 0x0F4C0DB8U, 0x6A01665DU, 0x80BEE426U,
+		0xF295C6A2U, 0xF3EFB25DU, 0x7255C0BAU, 0x41D3927BU,
+		0x939251B3U, 0x49C59DD2U, 0x616F0890U, 0x230B31C0U,
+		0x10A0EC9BU, 0x661EC873U, 0x132DD504U, 0xBDADB525U,
+		0x4D7387D8U, 0x8C4E967AU, 0x681936A0U, 0xB4CE964FU,
+		0xE632A6C2U, 0xD57C6294U, 0xAD3C1BD8U, 0xCE326E0DU,
+		0x27CE58D3U, 0xE975377DU, 0x1F3007D2U, 0x27F80607U,
+		0xF7E9821AU, 0x9A61ECCFU, 0xB1EA8EDCU, 0x989E39B0U
+	};
+
+	Status = XSecure_RsaInitialize(RsaInstance, (u8 *)RsaModulus,
+		(u8 *)RsaModExt, (u8 *)&RsaPubExp);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_RsaPssSignVerify,
+			(u8*)MsgHash, RsaInstance, (u8*)RsaPssSign, XSECURE_RSA_2048_KEY_SIZE);
+	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+		Status = (int)XSECURE_RSA_KAT_PSS_SIGN_VER_ERROR;
+		XPlmi_Printf(DEBUG_GENERAL,"RSA Pss sign verification KAT failed with status:%02x",
+			Status);
+	}
+END:
+	SStatus = Xil_SMemSet(RsaInstance, sizeof(XSecure_Rsa), 0U, sizeof(XSecure_Rsa));
+	if (Status == XST_SUCCESS) {
+		Status = SStatus;
+	}
+
+	return Status;
+}
+#endif
+
+/**************************************************************************************************/
+/**
+* @brief	This function runs the KAT for RSA
+*
+* @return
+* 		- XST_SUCCESS on success and error code on failure
+*
+***************************************************************************************************/
+int XLoader_RsaKat(void) {
+	int Status = XST_FAILURE;
+
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_NET)
+	Status = XLoader_RsaPssSignVeirfyKat();
+#else
+	Status = XSecure_RsaPublicEncryptKat();
+#endif
+
+	return Status;
+}
+#endif /* PLM_RSA_EXCLUDE */
+
+#ifndef PLM_ECDSA_EXCLUDE
+/**************************************************************************************************/
+/**
+* @brief	This function runs the KAT for ECDSA sign verification
+*
+* @param	CrvClass is the elliptic curve class (prime/binary) for which KAT is to be run
+*
+* @return
+* 		- XST_SUCCESS on success and error code on failure
+*
+***************************************************************************************************/
+int XLoader_EccKat(XSecure_EllipticCrvClass CrvClass)
+{
+	return XSecure_EllipticVerifySignKat(CrvClass);
+}
+#endif /* PLM_ECDSA_EXCLUDE */
+
+/*****************************************************************************/
+/**
+* @brief	This function runs RSA or Ecdsa KAT based on pdi
+*
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance
+*
+* @return
+* 			- XST_SUCCESS on success.
+* 			- XLOADER_SEC_INVALID_AUTH on invalid authentication type.
+* 			- XLOADER_ERR_RSA_NOT_ENABLED if RSA is not enabled.
+* 			- XLOADER_ERR_ECDSA_NOT_ENABLED if ECDSA is not enabled.
+*
+******************************************************************************/
+int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
+	u32 AuthType;
+	u32 AuthKatMask;
+	u32 AuthKatStatus = 0U;
+	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
+#ifndef PLM_ECDSA_EXCLUDE
+	XSecure_EllipticCrvClass CrvClass = XSECURE_ECC_PRIME;
+#endif
+
+	/** Get the Authentication type. */
+#ifndef VERSAL_2VP_P
+	if (SecurePtr->AuthJtagMessagePtr != NULL) {
+		AuthType = XLoader_GetAuthPubAlgo(&(SecurePtr->AuthJtagMessagePtr->AuthHdr));
+	}
+	else {
+		AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	}
+#else
+	if (SecurePtr->AuthJtagMessagePtr != NULL) {
+		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, XIL_SIGNED_ZERO);
+		goto END;
+	}
+
+	AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+#endif
+
+	if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+		AuthKatMask = XPLMI_SECURE_RSA_KAT_MASK;
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+		AuthKatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK;
+#ifndef PLM_ECDSA_EXCLUDE
+		CrvClass = XSECURE_ECC_PRIME;
+#endif
+	}
+	else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+		AuthKatMask = XPLMI_SECURE_ECC_SIGN_VERIFY_SHA3_384_KAT_MASK;
+#if !defined(PLM_ECDSA_EXCLUDE) && defined(XSECURE_ECC_SUPPORT_NIST_P521)
+		CrvClass = XSECURE_ECC_PRIME;
+#endif
+	}
+	else {
+		/* Not supported */
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
+
+	if (SecurePtr->AuthJtagMessagePtr == NULL) {
+		/** - Update KAT status based on the user configuration. */
+		XLoader_ClearKatOnPPDI(SecurePtr->PdiPtr, AuthKatMask);
+		AuthKatStatus = SecurePtr->PdiPtr->PlmKatStatus & AuthKatMask;
+	}
+
+	/**
+	 * - Skip running the KAT for ECDSA or RSA if it is already run.
+	 * KAT will be run only when the CYRPTO_KAT_EN bits in eFUSE are set.
+	 * If KAT fails device will go into a secure lockdown state.
+	 * For AUTH JTAG KAT will be run every time when request is made.
+	 */
+	if (AuthKatStatus == 0U) {
+		if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+#ifndef PLM_RSA_EXCLUDE
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+					XLoader_RsaKat);
+#else
+			XPlmi_Printf(DEBUG_INFO, "RSA code is excluded\n\r");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, XIL_SIGNED_ZERO);
+			goto END;
+#endif
+
+		}
+		else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) {
+#ifndef PLM_ECDSA_EXCLUDE
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+					XLoader_EccKat, CrvClass);
+#else
+                        XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
+                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
+                        goto END;
+#endif
+		}
+		else if (AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521) {
+#ifndef PLM_ECDSA_EXCLUDE
+#ifdef XSECURE_ECC_SUPPORT_NIST_P521
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XLOADER_ERR_KAT_FAILED, Status, StatusTmp,
+					XLoader_EccKat, CrvClass);
+#else
+			XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
+                        Status = XLoader_UpdateMinorErr(XLOADER_SEC_CURVE_NOT_SUPPORTED, 0U);
+                        goto END;
+#endif
+#else
+                        XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
+                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
+                        goto END;
+#endif
+		}
+		else {
+			/* Not supported */
+			XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+			Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+			goto END;
+		}
+		if (Status != XST_SUCCESS) {
+			if (AuthType == XLOADER_PUB_STRENGTH_RSA_4096) {
+				XPlmi_Printf(DEBUG_INFO, "RSA KAT Failed\n\r");
+			}
+			else {
+				XPlmi_Printf(DEBUG_INFO, "ECDSA KAT Failed\n\r");
+			}
+			XPLMI_STATUS_GLITCH_DETECT(Status);
+			goto END;
+		}
+		if (SecurePtr->AuthJtagMessagePtr == NULL) {
+			SecurePtr->PdiPtr->PlmKatStatus |= AuthKatMask;
+			/* Update KAT status */
+			XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
+		}
+	}
+#if (defined(PLM_RSA_EXCLUDE) && defined(PLM_ECDSA_EXCLUDE))
+	(void)StatusTmp;
+#endif
+	Status = XST_SUCCESS;
 END:
 	return Status;
 }
@@ -499,6 +747,61 @@ int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
 		XPlmi_UpdateKatStatus(SecurePtr->PdiPtr->PlmKatStatus);
 	}
 	Status = XST_SUCCESS;
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function runs LMS KAT's
+*
+* @param	SecurePtr is pointer to the XLoader_SecureParams instance
+* @param	AuthType is public algorithm type
+*
+* @return
+* 		- XST_SUCCESS on success.
+* 		- XLOADER_ERR_LMS_HSS_GET_DMA if DMA instance acquire fails for HSS variant.
+* 		- XLOADER_ERR_LMS_GET_DMA if DMA instance acquire fails for LMS variant.
+* 		- XLOADER_SEC_KAT_FAILED_ERROR if any LMS KAT fails.
+*
+******************************************************************************/
+int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType)
+{
+	int Status = XST_FAILURE;
+
+	if (SecurePtr->SignHashAlgo == XSECURE_SHAKE_256) {
+		/**
+		 * - If LMS signature algorithm is SHAKE,
+		 * run Shake256 KAT prior and then LMS_HSS or LMS KATs
+		 */
+		Status = XLoader_Shake256Kat(SecurePtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
+			Status = XLoader_HssShake256Kat(SecurePtr);
+		}
+		else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
+			Status = XLoader_LmsShake256Kat(SecurePtr);
+		}
+	}
+	else if (SecurePtr->SignHashAlgo == XSECURE_SHA2_256) {
+		/**
+		 * - If LMS signature algorithm is SHA2-256,
+		 * run Sha2-256 KAT prior and then LMS_HSS or LMS KATs
+		 */
+		Status = XLoader_Sha2256Kat(SecurePtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
+			Status = XLoader_HssSha256Kat(SecurePtr);
+		}
+		else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
+			Status = XLoader_LmsSha2256Kat(SecurePtr);
+		}
+	}
+
 END:
 	return Status;
 }

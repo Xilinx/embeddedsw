@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   tvp  07/07/25 Initial release
+* 2.4   rama 09/21/26 Removed XLoader_RsaKat, consolidated into xloader_kat.c
 *
 * </pre>
 *
@@ -107,22 +108,6 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 }
 
 #ifndef PLM_RSA_EXCLUDE
-/**************************************************************************************************/
-/**
- * @brief	This function runs the KAT for RSA
- *
- * @return
- * 		- XST_SUCCESS on success and error code on failure
- *
- **************************************************************************************************/
-int XLoader_RsaKat(void) {
-	int Status = XST_FAILURE;
-
-	Status = XSecure_RsaPublicEncryptKat();
-
-	return Status;
-}
-
 /**************************************************************************************************/
 /**
  * @brief	This function converts a non-negative integer to an octet string of a specified

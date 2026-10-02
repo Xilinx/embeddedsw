@@ -20,6 +20,7 @@
 * 2.4   tvp 03/24/26 Add support for obfuscated key
 * 2.5   dc  09/01/26 Enabled DAP device state change scheduler task and used
 *                    DAP_SECURITY gate state for device-state detection
+* 2.6   rama 09/21/26 Removed XLoader_RsaKat, consolidated into xloader_kat.c
 *
 * </pre>
 *
@@ -274,22 +275,6 @@ END:
 }
 
 #ifndef PLM_RSA_EXCLUDE
-/**************************************************************************************************/
-/**
- * @brief	This function runs the KAT for RSA
- *
- * @return
- * 		- XST_SUCCESS on success and error code on failure
- *
- **************************************************************************************************/
-int XLoader_RsaKat(void) {
-	int Status = XST_FAILURE;
-
-	Status = XSecure_RsaPublicEncryptKat();
-
-	return Status;
-}
-
 /**************************************************************************************************/
 /**
  * @brief	This function converts a non-negative integer to an octet string of a specified

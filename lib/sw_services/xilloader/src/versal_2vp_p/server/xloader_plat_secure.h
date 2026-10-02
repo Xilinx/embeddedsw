@@ -20,6 +20,8 @@
 *       rpu 04/22/26 Moved Versal_2vp_p efuse ppk register addresses to xloader_secure.h
 * 2.5   sri 08/24/26 Added XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR
 *       dc  09/01/26 Enabled DAP device state change scheduler task
+*       rama 09/21/26 Removed XLoader_RsaKat declaration, consolidated into xloader_kat.h
+*
 * </pre>
 *
 ***************************************************************************************************/
@@ -190,7 +192,6 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
 #ifndef XSECURE_RSA_EXCLUDE
-int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr, u8 * Out, u32 OutLen, u8 *Input);
 #endif
 

@@ -17,6 +17,8 @@
 *       har  09/08/25 Added XLoader_UpdateCfgLimitCount()
 *       rpu  09/08/25 Removed Configuration Limiter functions
 * 2.4   vss  02/01/26 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
+* 2.5   rama 09/21/26 Removed XLoader_RsaKat declaration, consolidated into xloader_kat.h
+*
 * </pre>
 *
 ***************************************************************************************************/
@@ -185,7 +187,6 @@ static inline int XLoader_AddDeviceStateChangeToScheduler(void)
 u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 #ifndef XSECURE_RSA_EXCLUDE
-int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr, u8 * Out, u32 OutLen, u8 *Input);
 #endif
 

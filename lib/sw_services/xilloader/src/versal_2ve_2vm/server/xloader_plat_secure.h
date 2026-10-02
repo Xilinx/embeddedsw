@@ -38,6 +38,7 @@
 *       har  10/16/2025 Added XLOADER_BBRAM_CL_MODE_SHIFT macro
 * 2.4   vss  02/01/2026 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
 *       gnr  02/09/2026 Moved versal_2ve_2vm server files to dedicated server folder
+* 2.5   rama 09/21/2026 Removed XLoader_RsaKat declaration, consolidated into xloader_kat.h
 *
 * </pre>
 *
@@ -222,7 +223,6 @@ int XLoader_CheckDeviceStateChange(void *Arg);
 int XLoader_UpdateCfgLimitCount(u32 UpdateFlag);
 int XLoader_CheckAndUpdateCfgLimit(u32 BootPhase);
 #ifndef PLM_RSA_EXCLUDE
-int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u8 * Out, u32 OutLen, u8 *Input);
 #endif

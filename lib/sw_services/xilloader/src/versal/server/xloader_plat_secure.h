@@ -232,9 +232,6 @@ static inline int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 /************************** Function Prototypes ******************************/
 u32 XLoader_GetKekSrc(void);
 int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
-#ifndef XSECURE_RSA_EXCLUDE
-int XLoader_RsaKat(void);
-#endif
 
 /************************** Variable Definitions *****************************/
 

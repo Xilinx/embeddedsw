@@ -35,6 +35,8 @@
 *       kpt  02/08/2024 Added support to update secure state when DAP state is changed
 *       kpt  03/15/2024 Updated RSA KAT to use 2048-bit key
 * 2.4   abh  10/09/2025 Fixed MISRA-C violations
+* 2.5   rama 09/21/2026 Removed XLoader_RsaKat and XLoader_RsaPssSignVeirfyKat,
+*                       consolidated into xloader_kat.c
 *
 * </pre>
 *
@@ -71,9 +73,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-#ifndef PLM_RSA_EXCLUDE
-static int XLoader_RsaPssSignVeirfyKat(void);
-#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -231,23 +230,6 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 	return Status;
 }
 
-#ifndef PLM_RSA_EXCLUDE
-/*****************************************************************************/
-/**
-* @brief    This function runs the KAT for RSA
-*
-* @return   XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-int XLoader_RsaKat(void) {
-	int Status = XST_FAILURE;
-
-	Status = XLoader_RsaPssSignVeirfyKat();
-
-	return Status;
-}
-#endif
-
 /******************************************************************************/
 /**
 * @brief        This function checks the JTAG device state change.
@@ -298,63 +280,6 @@ END:
 }
 
 #ifndef PLM_RSA_EXCLUDE
-/*****************************************************************************/
-/**
-* @brief    This function runs the KAT for RSA PSS verification
-*
-* @return   XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-static int XLoader_RsaPssSignVeirfyKat(void) {
-	XSecure_Rsa *RsaInstance = XSecure_GetRsaInstance();
-	u32 *RsaModulus = XSecure_GetKatRsaModulus();
-	u32 *RsaModExt = XSecure_GetKatRsaModExt();
-	u32 RsaPubExp = XSECURE_KAT_RSA_PUB_EXP;
-	u8 *MsgHash = XSecure_GetKatSha3ExpHash();
-	volatile int Status = XST_FAILURE;
-	volatile int StatusTmp = XST_FAILURE;
-	volatile int SStatus = XST_FAILURE;
-	static u32 RsaPssSign[XSECURE_RSA_2048_SIZE_WORDS] = {
-		0xD5B0D757U, 0xB402678AU, 0xD846E353U, 0xE615E8BDU,
-		0x08000C3EU, 0x0D2BE166U, 0x8ADCA321U, 0xC0653B5BU,
-		0xBC9CF06AU, 0x17232DA6U, 0x08124662U, 0xC58F1095U,
-		0x9D3ABD1AU, 0x3EB117CBU, 0xE1B702AAU, 0x11267C5FU,
-		0x74AEE03EU, 0x20AE3E4AU, 0x584CB9D0U, 0x201B42D7U,
-		0xEE21C763U, 0x2E93CF7FU, 0x874C4496U, 0x94A3782EU,
-		0x94B084C8U, 0x411698A1U, 0xE64E2B78U, 0x906CC80EU,
-		0x8B76DD72U, 0x25F1E9C0U, 0xEDA7E18BU, 0x277C7905U,
-		0xAD014078U, 0x0F4C0DB8U, 0x6A01665DU, 0x80BEE426U,
-		0xF295C6A2U, 0xF3EFB25DU, 0x7255C0BAU, 0x41D3927BU,
-		0x939251B3U, 0x49C59DD2U, 0x616F0890U, 0x230B31C0U,
-		0x10A0EC9BU, 0x661EC873U, 0x132DD504U, 0xBDADB525U,
-		0x4D7387D8U, 0x8C4E967AU, 0x681936A0U, 0xB4CE964FU,
-		0xE632A6C2U, 0xD57C6294U, 0xAD3C1BD8U, 0xCE326E0DU,
-		0x27CE58D3U, 0xE975377DU, 0x1F3007D2U, 0x27F80607U,
-		0xF7E9821AU, 0x9A61ECCFU, 0xB1EA8EDCU, 0x989E39B0U
-	};
-
-	Status = XSecure_RsaInitialize(RsaInstance, (u8 *)RsaModulus,
-		(u8 *)RsaModExt, (u8 *)&RsaPubExp);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_RsaPssSignVerify,
-			(u8*)MsgHash, RsaInstance, (u8*)RsaPssSign, XSECURE_RSA_2048_KEY_SIZE);
-	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-		Status = (int)XSECURE_RSA_KAT_PSS_SIGN_VER_ERROR;
-		XPlmi_Printf(DEBUG_GENERAL,"RSA Pss sign verification KAT failed with status:%02x",
-			Status);
-	}
-END:
-	SStatus = Xil_SMemSet(RsaInstance, sizeof(XSecure_Rsa), 0U, sizeof(XSecure_Rsa));
-	if (Status == XST_SUCCESS) {
-		Status = SStatus;
-	}
-
-	return Status;
-}
-
 /*****************************************************************************/
 /**
  * @brief	Mask generation function with SHA3.

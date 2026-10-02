@@ -35,6 +35,8 @@
 *                       XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK macro
 * 2.3   rpu  09/05/2025 Removed Configuration Limiter functions
 * 2.4   vss  02/01/2026 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
+* 2.5   rama 09/21/2026 Removed XLoader_RsaKat declaration, consolidated into xloader_kat.h
+*
 * </pre>
 *
 *
@@ -190,7 +192,6 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr);
 int XLoader_AddDeviceStateChangeToScheduler(void);
 int XLoader_CheckDeviceStateChange(void *Arg);
 #ifndef PLM_RSA_EXCLUDE
-int XLoader_RsaKat(void);
 int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	u8 * Out, u32 OutLen, u8 *Input);
 #endif

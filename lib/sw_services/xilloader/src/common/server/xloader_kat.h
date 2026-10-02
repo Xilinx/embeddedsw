@@ -16,6 +16,9 @@
 * Ver   Who  Date       Changes
 * ----- ---- ---------- ----------------------------------------------------------------------------
 * 2.4	rpu  04/15/2026 First release
+* 2.5   rama 09/21/2026 Added declarations for XLoader_RsaKat, XLoader_EccKat,
+*                       XLoader_AuthKat, and XLoader_LmsKat
+*
 * </pre>
 *
 * @note
@@ -47,6 +50,13 @@ int XLoader_Sha3Kat(XilPdi *PdiPtr);
 void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
 #ifndef PLM_SECURE_EXCLUDE
 int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr);
+#ifndef PLM_RSA_EXCLUDE
+int XLoader_RsaKat(void);
+#endif
+#ifndef PLM_ECDSA_EXCLUDE
+int XLoader_EccKat(XSecure_EllipticCrvClass CrvClass);
+#endif
+int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr);
 int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr);
@@ -54,6 +64,7 @@ int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr);
 int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr);
 int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr);
 int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr);
+int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType);
 #endif
 #endif /* PLM_SECURE_EXCLUDE */
 

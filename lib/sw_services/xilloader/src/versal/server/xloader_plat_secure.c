@@ -40,6 +40,7 @@
 *       ng   02/01/2024 u8 variables optimization
 *       sk   03/13/24 Fixed doxygen comments format
 * 2.4   vss  02/01/2026 Updated PPK revoke error logic.
+* 2.5   rama 09/21/2026 Removed XLoader_RsaKat, consolidated into xloader_kat.c
 *
 * </pre>
 *
@@ -126,24 +127,6 @@ int XLoader_AesObfusKeySelect(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)
 	/* Obfuscated Key is not supported in Versal */
 	return XLoader_UpdateMinorErr(XLOADER_SEC_AES_KEK_DEC, 0);
 }
-
-#ifndef PLM_RSA_EXCLUDE
-/*****************************************************************************/
-/**
-* @brief    This function runs the KAT for RSA
-*
-* @return
-* 			- XST_SUCCESS on success and error code on failure
-*
-******************************************************************************/
-int XLoader_RsaKat(void) {
-	int Status = XST_FAILURE;
-
-	Status = XSecure_RsaPublicEncryptKat();
-
-	return Status;
-}
-#endif
 #endif/* END OF PLM_SECURE_EXCLUDE */
 /*****************************************************************************/
 /**

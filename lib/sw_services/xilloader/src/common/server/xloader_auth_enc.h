@@ -76,6 +76,8 @@
 *       sri  04/24/26 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
 *       sri  08/14/26 Exported XLoader_AuthNCopyHashBlock and updated CopyHashBlock for Versal_2Ve_2Vm client HashBlock validation
 *       vss  09/09/26 Added ECDSA P-521 HashBlock key size for VERSAL_2VP_P
+*       rama 09/21/26 Moved XLoader_AuthKat and XLoader_LmsKat declarations to
+*                     xloader_kat.h
 *
 * </pre>
 *
@@ -935,14 +937,12 @@ int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
 int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
 int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr, u8 *SignBuff, u32 SignatureLen,
 	u8 *KeyAddr, u32 KeyLen, u8 *Data, u32 DataLen);
-int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType);
 #endif
 int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 	u8 *Hash, XLoader_AuthKey *AuthKey, u8 *Signature);
 int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);
 int XLoader_VerifyRevokeId(u32 RevokeId);
 #endif
-int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
 
 #ifdef __cplusplus
 }
