@@ -9,10 +9,6 @@
  * @file ttcps.c
  * @addtogroup xiltimer_api XilTimer APIs
  * @{
- * @details
- *
- * This file contains the definitions for ttcps sleep implementation.
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -31,7 +27,8 @@
  * 2.4   vmt   08/20/26 Added weak sleep and tick timer instance variables.
  * 2.4   vmt   09/01/26 Added XTimer_TtcTickIntervalHz() so TTC tick rates can
  *			be programmed in Hz.
- *</pre>
+ *  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+*</pre>
  *
  *@note
  *****************************************************************************/
@@ -101,7 +98,7 @@ static void XTickTimer_ReleaseTickTimer(XTimer *InstancePtr);
 /**
  * Initialize the scutimer Sleep Instance
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
  */
@@ -119,7 +116,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 /**
  * Initialize the scutimer Tick Instance
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
  */
@@ -142,8 +139,9 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 /**
  * Initialize the TtcPs Instance
  *
- * @param	BaseAddress is the Scutimer Instance baseaddress to be
- * 		worked on
+ * @param[in] BaseAddress identifies the TTC instance by base address in SDT
+ * 		builds or by device ID in non-SDT builds.
+ * @param[out] TtcPsInstPtr is a pointer to the XTtcPs instance to initialize
  *
  * @return	XST_SUCCESS if initialization was successful
  * 		XST_FAILURE in case of failure
@@ -178,10 +176,8 @@ static u32 XTimer_TtcInit(UINTPTR BaseAddress,
 /**
  * This function implements the interrupt callback handler
  *
- * @param  CallBackRef is Pointer to the XTimer instance
- * @param  StatusEvent is the status event
- *
- * @return	None
+ * @param[in] CallBackRef is Pointer to the XTimer instance
+ * @param[in] StatusEvent is the status event
  *
  ****************************************************************************/
 void XTtc_CallbackHandler(void *CallBackRef, u32 StatusEvent)
@@ -196,10 +192,8 @@ void XTtc_CallbackHandler(void *CallBackRef, u32 StatusEvent)
 /**
  * This function configures the ttcps tick interval from a frequency
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  FreqHz is the required tick frequency in Hz
- *
- * @return None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] FreqHz is the required tick frequency in Hz
  *
  * @note   The frequency is passed unchanged to XTtcPs_CalcIntervalFromFreq(),
  *	   so rates that are not exact divisors of 1000 are programmed as
@@ -233,10 +227,8 @@ static void XTimer_TtcTickIntervalHz(XTimer *InstancePtr, u32 FreqHz)
 /**
  * This function configures the ttcps tick interval
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval in milliseconds
- *
- * @return None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] Delay is the delay interval in milliseconds
  *
  ****************************************************************************/
 static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay)
@@ -250,10 +242,8 @@ static void XTimer_TtcTickInterval(XTimer *InstancePtr, u32 Delay)
 /**
  * This function implements the tick interrupt handler
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Priority - Priority for the interrupt
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] Priority - Priority for the interrupt
  *
  ****************************************************************************/
 static void XTimer_TtcSetIntrHandler(XTimer *InstancePtr, u8 Priority)
@@ -276,9 +266,7 @@ static void XTimer_TtcSetIntrHandler(XTimer *InstancePtr, u8 Priority)
 /**
  * This function implements the stop functionality for the tick timer
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
  *
  ****************************************************************************/
 static void XTickTimer_TtcStop(XTimer *InstancePtr)
@@ -293,9 +281,7 @@ static void XTickTimer_TtcStop(XTimer *InstancePtr)
 /**
  * This function implements the release functionality for the tick timer
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return      None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
  *
  ****************************************************************************/
 static void XTickTimer_ReleaseTickTimer(XTimer *InstancePtr)
@@ -310,9 +296,7 @@ static void XTickTimer_ReleaseTickTimer(XTimer *InstancePtr)
 /**
  * This function clears the tick interrupt status
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
  *
  ****************************************************************************/
 static void XTickTimer_ClearTtcInterrupt(XTimer *InstancePtr)
@@ -329,11 +313,9 @@ static void XTickTimer_ClearTtcInterrupt(XTimer *InstancePtr)
 /**
  * This function configures the sleep interval using ttcps
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  delay is the delay interval
- * @param  DelayType is the XTimer_DelayType
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] delay is the delay interval
+ * @param[in] DelayType is the XTimer_DelayType
  *
  ****************************************************************************/
 static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
@@ -370,9 +352,7 @@ static void XTimer_TtcModifyInterval(XTimer *InstancePtr, u32 delay,
 /**
  * This function implements the stop functionality for the sleep timer
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
  *
  ****************************************************************************/
 static void XSleepTimer_TtcStop(XTimer *InstancePtr)
@@ -386,12 +366,8 @@ static void XSleepTimer_TtcStop(XTimer *InstancePtr)
 /**
  * Get the time from the TtcPS Counter Register.
  *
- * @param	Xtime_Global: Pointer to the 64-bit location which will be
+ * @param[out] Xtime_Global: Pointer to the 64-bit location which will be
  * 		updated with the current timer value.
- *
- * @return	None.
- *
- * @note		None.
  *
  ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
@@ -407,5 +383,7 @@ void XTime_GetTime(XTime *Xtime_Global)
 	}
 
 	*Xtime_Global = XTtcPs_GetCounterValue(TtcPsInstPtr);
-}/*@}*/
+}
 #endif
+
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -9,11 +9,6 @@
  * @file microblaze_sleep.c
  * @addtogroup xiltimer_api XilTimer APIs
  * @{
- * @details
- *
- * This file contains the definitions for sleep implementation using microblaze
- * processor instructions.
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -23,7 +18,8 @@
  * 1.1 	adk      08/08/22 Added doxygen tags.
  * 1.3  adk      26/04/23 XGet_CpuFreq() API is defined in the system
  * 			  device-tree flow, update ifdef check for the same.
- *</pre>
+ *  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+*</pre>
  *
  *@note
  *****************************************************************************/
@@ -45,7 +41,7 @@ static u32 MBFreq;
 /**
  * Initialize the microblaze sleep timer
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
  */
@@ -68,11 +64,9 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
  * This function configures the sleep interval using microblaze processor
  * instructions
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval
- * @param  DelayType is the XTimer_DelayType
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] delay is the delay interval
+ * @param[in] DelayType is the XTimer_DelayType
  *
  ****************************************************************************/
 static void XMicroblaze_ModifyInterval(XTimer *InstancePtr, u32 delay,
@@ -107,7 +101,7 @@ static void XMicroblaze_ModifyInterval(XTimer *InstancePtr, u32 delay,
 /*****************************************************************************/
 /**
 * @brief	Sets variable which stores Microblaze frequency value
-* @param	Val - Frequency value to be set
+* @param[in] Val - Frequency value to be set
 * @return	XST_SUCCESS - If frequency updated successfully
 * 			XST_INVALID_PARAM - If specified frequency value is not valid
 *
@@ -143,7 +137,7 @@ u32 Xil_GetMBFrequency(void)
 /**
  * Initialize the microblaze Tick Instance
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
  */
@@ -157,3 +151,5 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 	return XST_SUCCESS;
 }
 #endif
+
+/** @} */

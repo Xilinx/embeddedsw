@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -9,11 +9,6 @@
  * @file globaltimer_sleep_zynq.c
  * @addtogroup xiltimer_api XilTimer APIs
  * @{
- * @details
- *
- * This file contains the definitions for sleep implementation using
- * global timer.
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -21,7 +16,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0  adk	 24/11/21 Initial release.
  * 1.1	adk      08/08/22 Added doxygen tags.
- *</pre>
+ *  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
+*</pre>
  *
  *@note
  *****************************************************************************/
@@ -49,7 +45,7 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 /**
  * Initialize the global timer sleep timer
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
  */
@@ -66,9 +62,8 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 /**
  * Start the Global Timer
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[in] InstancePtr is a pointer to the XTimer Instance
  *
- * @return	None
  */
 /****************************************************************************/
 static void XGlobalTimer_Start(XTimer *InstancePtr)
@@ -91,11 +86,9 @@ static void XGlobalTimer_Start(XTimer *InstancePtr)
 /**
  * This function configures the sleep interval using global timer
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval
- * @param  DelayType is the XTimer_DelayType
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] delay is the delay interval
+ * @param[in] DelayType is the XTimer_DelayType
  *
  ****************************************************************************/
 static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
@@ -132,12 +125,8 @@ static void XGlobalTimer_ModifyInterval(XTimer *InstancePtr, u32 delay,
 /**
  * Get the time from the Global Timer counter.
  *
- * @param	Xtime_Global: Pointer to the 64-bit location which will be
+ * @param[out] Xtime_Global: Pointer to the 64-bit location which will be
  * 		updated with the current timer value.
- *
- * @return	None.
- *
- * @note		None.
  *
  ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
@@ -145,7 +134,7 @@ void XTime_GetTime(XTime *Xtime_Global)
 	u32 low;
 	u32 high;
 
-	/* Reading Global Timer Counter Register */
+	/**< Reading Global Timer Counter Register */
 	do
 	{
 		high = Xil_In32(GLOBAL_TMR_BASEADDR + GTIMER_COUNTER_UPPER_OFFSET);
@@ -162,10 +151,10 @@ void XTime_GetTime(XTime *Xtime_Global)
 /**
  * Initialize the global timer Tick Instance
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
- */
+	 */
 /****************************************************************************/
 u32 XilTickTimer_Init(XTimer *InstancePtr)
 {
@@ -176,3 +165,5 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 	return XST_SUCCESS;
 }
 #endif
+
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,8 +12,6 @@
 *
 * This file contains the sleep API's.
 * @{
-* @details
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -32,6 +30,7 @@
 *                         timer instance variables.
 *  2.4  vmt      09/01/26 Added XTimer_SetIntervalHz() to configure the tick
 *                         interval from frequency.
+*  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 ******************************************************************************/
 
@@ -41,7 +40,7 @@
 #include "xiltimer.h"
 
 /****************************  Constant Definitions  *************************/
-XTimer TimerInst;
+XTimer TimerInst; /**< Global XTimer instance for timer operations. */
 #ifdef XSLEEPTIMER_INSTANCE
 __attribute__((weak)) UINTPTR XSleepTimer_Instance = XSLEEPTIMER_INSTANCE;
 #endif
@@ -55,11 +54,7 @@ void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType);
 *
 * This API gives delay in sec
 *
-* @param            seconds Delay time in seconds
-*
-* @return           none
-*
-* @note             none
+* @param[in]        seconds Delay time in seconds
 *
 *****************************************************************************/
 void sleep(unsigned int seconds) {
@@ -71,11 +66,7 @@ void sleep(unsigned int seconds) {
 *
 * This API gives delay in msec
 *
-* @param            mseconds Delay time in milliseconds
-*
-* @return           none
-*
-* @note             none
+* @param[in]        mseconds Delay time in milliseconds
 *
 *****************************************************************************/
 void msleep(unsigned long mseconds) {
@@ -87,11 +78,7 @@ void msleep(unsigned long mseconds) {
 *
 * This API gives delay in usec
 *
-* @param            useconds Delay time in microseconds
-*
-* @return           none
-*
-* @note             none
+* @param[in]        useconds Delay time in microseconds
 *
 *****************************************************************************/
 void usleep(unsigned long useconds) {
@@ -101,11 +88,10 @@ void usleep(unsigned long useconds) {
 /****************************************************************************/
 /**
 *
-* This API contains common delay implementation using library API's.
+* This API contains common delay implementation using library APIs.
 *
-* @return           none
-*
-* @note             none
+* @param[in]        delay Delay time value.
+* @param[in]        DelayType Unit of delay (seconds, milliseconds, microseconds).
 *
 *****************************************************************************/
 void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType) {
@@ -122,8 +108,6 @@ void XilTimer_Sleep(unsigned long delay, XTimer_DelayType DelayType) {
 *
 * This API initializes the xiltimer library through constructor.
 *
-* @return           none
-*
 *****************************************************************************/
 void __attribute__ ((constructor)) xtimerinit()
 {
@@ -137,12 +121,10 @@ void __attribute__ ((constructor)) xtimerinit()
 * This routine installs an asynchronous callback function for the given
 * FuncPtr.
 *
-* @param	FuncPtr is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in]	FuncPtr is the address of the callback function.
+* @param[in]	CallBackRef is a user data item that will be passed to the
 * 		callback function when it is invoked.
-* @param        Priority - Priority for the interrupt
-*
-* @return	None
+* @param[in]    Priority - Priority for the interrupt
 *
 *****************************************************************************/
 void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
@@ -165,10 +147,6 @@ void XTimer_SetHandler(XTimer_TickHandler FuncPtr, void *CallBackRef,
 *
 * This API releases the timer instance.
 *
-* @return           none
-*
-* @note             none
-*
 *****************************************************************************/
 void XTimer_ReleaseTickTimer(void)
 {
@@ -185,11 +163,7 @@ void XTimer_ReleaseTickTimer(void)
 *
 * This API sets the elapse interval for the timer instance.
 *
-* @param            delay Delay time in milliseconds
-*
-* @return           none
-*
-* @note             none
+* @param[in]        delay Delay time in milliseconds
 *
 *****************************************************************************/
 void XTimer_SetInterval(unsigned long delay)
@@ -207,7 +181,7 @@ void XTimer_SetInterval(unsigned long delay)
 * This API configures the tick interval from a frequency in Hz, instead of
 * whole milliseconds.
 *
-* @param            FreqHz Required tick frequency in Hz
+* @param[in] FreqHz Required tick frequency in Hz
 *
 * @note             If the selected tick timer does not implement
 *                   XTimer_TickIntervalHz, this API uses Delay = 1000 /
@@ -237,10 +211,6 @@ void XTimer_SetIntervalHz(u32 FreqHz)
 *
 * This API clears the interrupt status of the tick timer instance.
 *
-* @return           none
-*
-* @note             none
-*
 *****************************************************************************/
 void XTimer_ClearTickInterrupt( void )
 {
@@ -249,4 +219,6 @@ void XTimer_ClearTickInterrupt( void )
 	InstancePtr = &TimerInst;
 	if (InstancePtr->XTickTimer_ClearInterrupt)
 		InstancePtr->XTickTimer_ClearInterrupt(InstancePtr);
-}/*@}*/
+}
+
+/** @} */

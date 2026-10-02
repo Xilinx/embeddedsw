@@ -9,10 +9,6 @@
  * @file scutimer.c
  * @addtogroup xiltimer_api XilTimer APIs
  * @{
- * @details
- *
- * This file contains the definitions for scutimer implementation.
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -30,6 +26,7 @@
  *  2.0  ml    28/03/24 Added description to fix doxygen warnings
  *  2.4  vmt   08/20/26 Added weak sleep and tick timer instance variables.
  *  2.4  vmt   09/24/26 Added SCU timer tick configuration from frequency.
+ *  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  *</pre>
  *
  *@note
@@ -70,7 +67,7 @@ static void XTickTimer_ClearScutimerInterrupt(XTimer *InstancePtr);
 /**
  * Initialize the scutimer Sleep Instance
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
  */
@@ -88,7 +85,7 @@ u32 XilSleepTimer_Init(XTimer *InstancePtr)
 /**
  * Initialize the scutimer Tick Instance
  *
- * @param	InstancePtr is a pointer to the XTimer Instance
+ * @param[out] InstancePtr is a pointer to the XTimer Instance
  *
  * @return	XST_SUCCESS always
  */
@@ -108,10 +105,10 @@ u32 XilTickTimer_Init(XTimer *InstancePtr)
 /**
  * Initialize the Scutimer Instance
  *
- * @param	InstancePtr is a pointer to the instance to be worked on
- * @param	BaseAddress is the Scutimer Instance baseaddress to be
+ * @param[in] InstancePtr is a pointer to the instance to be worked on
+ * @param[in] BaseAddress is the Scutimer Instance baseaddress to be
  * 		worked on
- * @param	ScuTimerInstPtr is a pointer to the XScuTimer Instance
+ * @param[out] ScuTimerInstPtr is a pointer to the XScuTimer Instance
  *
  * @return	XST_SUCCESS if initialization was successful
  * 		XST_FAILURE in case of failure
@@ -142,9 +139,7 @@ static u32 XTimer_ScutimerInit(XTimer *InstancePtr, UINTPTR BaseAddress,
 /**
  * This function implements the interrupt callback handler
  *
- * @param  CallBackRef is Pointer to the XTimer instance
- *
- * @return	None
+ * @param[in] CallBackRef is Pointer to the XTimer instance
  *
  ****************************************************************************/
 void XScutimer_CallbackHandler(void *CallBackRef)
@@ -160,10 +155,8 @@ void XScutimer_CallbackHandler(void *CallBackRef)
 /**
  * This function configures the scutimer tick interval from a frequency
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  FreqHz is the required tick frequency in Hz
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] FreqHz is the required tick frequency in Hz
  *
  ****************************************************************************/
 static void XTimer_ScutimerTickIntervalHz(XTimer *InstancePtr, u32 FreqHz)
@@ -195,10 +188,8 @@ static void XTimer_ScutimerTickIntervalHz(XTimer *InstancePtr, u32 FreqHz)
 /**
  * This function configures the scutimer tick interval
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval in milliseconds
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] Delay is the delay interval in milliseconds
  *
  ****************************************************************************/
 static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
@@ -213,10 +204,8 @@ static void XTimer_ScutimerTickInterval(XTimer *InstancePtr, u32 Delay)
 /**
  * This function implements the tick interrupt handler
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Priority - Priority for the interrupt
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] Priority - Priority for the interrupt
  *
  ****************************************************************************/
 static void XTimer_ScutimerSetIntrHandler(XTimer *InstancePtr, u8 Priority)
@@ -233,9 +222,7 @@ static void XTimer_ScutimerSetIntrHandler(XTimer *InstancePtr, u8 Priority)
 /**
  * This function implements the stop functionality for the tick timer
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
  *
  ****************************************************************************/
 static void XTickTimer_ScutimerStop(XTimer *InstancePtr)
@@ -249,9 +236,7 @@ static void XTickTimer_ScutimerStop(XTimer *InstancePtr)
 /**
  * This function clears the tick interrupt status
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
  *
  ****************************************************************************/
 static void XTickTimer_ClearScutimerInterrupt(XTimer *InstancePtr)
@@ -267,11 +252,9 @@ static void XTickTimer_ClearScutimerInterrupt(XTimer *InstancePtr)
 /**
  * This function configures the sleep interval using scutimer
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- * @param  Delay is the delay interval
- * @param  DelayType is the XTimer_DelayType
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
+ * @param[in] delay is the delay interval
+ * @param[in] DelayType is the XTimer_DelayType
  *
  ****************************************************************************/
 static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
@@ -336,9 +319,7 @@ static void XTimer_ScutimerModifyInterval(XTimer *InstancePtr, u32 delay,
 /**
  * This function implements the stop functionality for the sleep timer
  *
- * @param  InstancePtr is Pointer to the XTimer instance
- *
- * @return	None
+ * @param[in] InstancePtr is Pointer to the XTimer instance
  *
  ****************************************************************************/
 static void XSleepTimer_ScutimerStop(XTimer *InstancePtr)
@@ -352,12 +333,8 @@ static void XSleepTimer_ScutimerStop(XTimer *InstancePtr)
 /**
  * Get the time from the Scutimer Counter Register.
  *
- * @param	Xtime_Global: Pointer to the 64-bit location which will be
+ * @param[out] Xtime_Global: Pointer to the 64-bit location which will be
  * 		updated with the current timer value.
- *
- * @return	None.
- *
- * @note		None.
  *
  ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
@@ -375,3 +352,5 @@ void XTime_GetTime(XTime *Xtime_Global)
 	*Xtime_Global = XScuTimer_GetCounterValue(ScuTimerInstPtr);
 }
 #endif
+
+/** @} */

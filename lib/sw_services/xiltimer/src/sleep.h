@@ -1,7 +1,7 @@
 /******************************************************************************
 *
 * Copyright (C) 2021 Xilinx, Inc. All rights reserved.
-* Copyright (C) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
@@ -21,6 +21,7 @@
 *  1.2  adk	 22/12/22 Fixed doxygen style and indentation issues.
 *  2.1  adk      11/09/24 Added missing prototype for msleep() API.
 *
+*  2.5  ml    09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -45,18 +46,16 @@ extern "C" {
 * If the timeout is not a multiple of 100us, it waits for a timeout of
 * the next usec value which is a multiple of 100us.
 *
-* @param            IO_func - accessor function to read the register contents.
+* @param[in] IO_func - accessor function to read the register contents.
 *                   Depends on the register width.
-* @param            ADDR - Address to be polled
-* @param            VALUE - variable to read the value
-* @param            COND - Condition to checked (usually involves VALUE)
-* @param            TIMEOUT_US - timeout in micro seconds
+* @param[in] ADDR - Address to be polled
+* @param[out] VALUE - variable to receive the read value
+* @param[in] COND - Condition to check (usually involves VALUE)
+* @param[in] TIMEOUT_US - timeout in micro seconds
 *
 * @return
 *		    - 0 - when the condition is met
 *		    - 1 - when the condition is not met till the timeout period
-*
-* @note             none
 *
 *****************************************************************************/
 #define Xil_poll_timeout(IO_func, ADDR, VALUE, COND, TIMEOUT_US) \
