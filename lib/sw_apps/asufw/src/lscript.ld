@@ -140,7 +140,7 @@ SECTIONS
  * needs the patterns widened to cover it.
  */
 __overlay_window_start = ORIGIN(tmr_ram_overlay_win_Mem);
-OVERLAY __overlay_window_start : NOCROSSREFS AT (ORIGIN(ddr_overlay_store_Mem))
+OVERLAY __overlay_window_start : NOCROSSREFS
 {
    .overlay_lms
    {
@@ -246,18 +246,11 @@ OVERLAY __overlay_window_start : NOCROSSREFS AT (ORIGIN(ddr_overlay_store_Mem))
    }
 
    /*
-    * Add other algorithms above this block. The ECC image must remain the last
-    * algorithm because its LOADADDR + SIZEOF defines the end of the text overlay
-    * store LMA (__overlay_store_text_window_end). Adding an algorithm after it
-    * would require reworking that computation.
-    */
-
-   /*
-    * Algorithm Last - ECC text. This image holds every elliptic curve operation, whichever
-    * core it runs on: the dedicated P-256/P-384 ECC core, the curve operations layered on the
-    * RSA core (xrsa_ecc, xrsa_eccinfo) and ECIES. ECIES belongs here because its only
-    * cryptographic dependency is those curve operations, and NOCROSSREFS forbids it from
-    * calling into this image from another one.
+    * ECC text. This image holds every elliptic curve operation, whichever core it runs on:
+    * the dedicated P-256/P-384 ECC core, the curve operations layered on the RSA core
+    * (xrsa_ecc, xrsa_eccinfo) and ECIES. ECIES belongs here because its only cryptographic
+    * dependency is those curve operations, and NOCROSSREFS forbids it from calling into this
+    * image from another one.
     *
     * The ECDSA routines from the prebuilt libxilasu_mbv.a join them, selected by symbol
     * namespace because LTO dissolves that archive's object identity. The entry points are
@@ -276,7 +269,7 @@ OVERLAY __overlay_window_start : NOCROSSREFS AT (ORIGIN(ddr_overlay_store_Mem))
       *(.text.Ecdsa_CDH_Q*)
       . = ALIGN(_OVERLAY_IMG_ALIGN);
    }
-} > tmr_ram_overlay_win_Mem
+} > tmr_ram_overlay_win_Mem AT> ddr_overlay_store_Mem
 
 __overlay_lms_txt_size = SIZEOF(.overlay_lms);
 __overlay_mldsa_txt_size = SIZEOF(.overlay_mldsa);
@@ -290,8 +283,6 @@ __overlay_window_size = MAX(MAX(MAX(MAX(MAX(MAX(__overlay_ecc_txt_size, __overla
                             __overlay_lms_txt_size), __overlay_mldsa_txt_size),
                             __overlay_mlkem_txt_size), __overlay_slhdsa_txt_size),
                             __overlay_keyvault_txt_size);
-
-__overlay_store_text_window_end = LOADADDR(.overlay_ecc) + SIZEOF(.overlay_ecc);
 
 .text : {
    . = ALIGN(2048);
@@ -570,7 +561,7 @@ __global_pointer$ = MIN(__sdata_start + 0x800, MAX(__data_start + 0x800, __bss_e
 _end = .;
 
 __overlay_data_window_start = ORIGIN(tmr_ram_overlay_data_Mem);
-OVERLAY __overlay_data_window_start : NOCROSSREFS AT (__overlay_store_text_window_end)
+OVERLAY __overlay_data_window_start : NOCROSSREFS
 {
    .overlay_lms_data
    {
@@ -635,14 +626,7 @@ OVERLAY __overlay_data_window_start : NOCROSSREFS AT (__overlay_store_text_windo
       . = ALIGN(_OVERLAY_IMG_ALIGN);
    }
 
-   /*
-    * Add other algorithms above this block. The ECC image must remain the last
-    * algorithm because its LOADADDR + SIZEOF defines the end of the data overlay
-    * store LMA (__overlay_store_data_window_end). Adding an algorithm after it
-    * would require reworking that computation.
-    */
-
-   /* Algorithm Last - ECC data */
+   /* ECC data */
    .overlay_ecc_data
    {
       *(.overlay_ecc_data)
@@ -666,7 +650,7 @@ OVERLAY __overlay_data_window_start : NOCROSSREFS AT (__overlay_store_text_windo
       "*ecies/xecies*.o*"(.bss .bss.*)
       . = ALIGN(_OVERLAY_IMG_ALIGN);
    }
-} > tmr_ram_overlay_data_Mem
+} > tmr_ram_overlay_data_Mem AT> ddr_overlay_store_Mem
 
 __overlay_lms_data_size = SIZEOF(.overlay_lms_data);
 __overlay_lms_img_size = SIZEOF(.overlay_lms) + SIZEOF(.overlay_lms_data);
@@ -696,7 +680,6 @@ __overlay_data_window_size = MAX(MAX(MAX(MAX(MAX(MAX(__overlay_ecc_data_size,
                              __overlay_rsa_data_size), __overlay_lms_data_size),
                              __overlay_mldsa_data_size), __overlay_mlkem_data_size),
                              __overlay_slhdsa_data_size), __overlay_keyvault_data_size);
-__overlay_store_data_window_end = LOADADDR(.overlay_ecc_data) + SIZEOF(.overlay_ecc_data);
 
 /*
  * Only one image occupies the window at a time, so the window is sized by the largest image
@@ -753,50 +736,4 @@ ASSERT(__crypto_aux_buf_end <=
 ASSERT(__crypto_aux_buf_start == __crypto_shared_pool_end,
       "crypto auxiliary buffer must directly follow the shared pool; alignment padding would put the reservation above XASUFW_CRYPTO_AUX_BUF_ADDR in xasufw_memory.h")
 
-/*
- * The overlay store boundaries are computed assuming ECC is the last overlay in the store.
- * Enforce that no overlay image extends past its store boundary, so an overlay added after
- * ECC cannot overlap the store or run off its end.
- *
- * Each check is skipped when the image is empty. An algorithm turned off in the BSP contributes
- * no input sections, and the linker discards the empty output section, after which LOADADDR no
- * longer resolves to a position inside the store and the comparison would fail on an image that
- * is not there. ECC needs no guard: it is the anchor both boundaries are derived from.
- */
-ASSERT(SIZEOF(.overlay_rsa) == 0 ||
-       __overlay_store_text_window_end >= LOADADDR(.overlay_rsa) + SIZEOF(.overlay_rsa),
-       "overlay text store truncated by .overlay_rsa; ECC text must remain last")
-ASSERT(SIZEOF(.overlay_lms) == 0 ||
-       __overlay_store_text_window_end >= LOADADDR(.overlay_lms) + SIZEOF(.overlay_lms),
-       "overlay text store truncated by .overlay_lms; ECC text must remain last")
-ASSERT(SIZEOF(.overlay_mldsa) == 0 ||
-       __overlay_store_text_window_end >= LOADADDR(.overlay_mldsa) + SIZEOF(.overlay_mldsa),
-       "overlay text store truncated by .overlay_mldsa; ECC text must remain last")
-ASSERT(SIZEOF(.overlay_mlkem) == 0 ||
-       __overlay_store_text_window_end >= LOADADDR(.overlay_mlkem) + SIZEOF(.overlay_mlkem),
-       "overlay text store truncated by .overlay_mlkem; ECC text must remain last")
-ASSERT(SIZEOF(.overlay_slhdsa) == 0 ||
-       __overlay_store_text_window_end >= LOADADDR(.overlay_slhdsa) + SIZEOF(.overlay_slhdsa),
-       "overlay text store truncated by .overlay_slhdsa; ECC text must remain last")
-ASSERT(SIZEOF(.overlay_keyvault) == 0 ||
-       __overlay_store_text_window_end >= LOADADDR(.overlay_keyvault) + SIZEOF(.overlay_keyvault),
-       "overlay text store truncated by .overlay_keyvault; ECC text must remain last")
-ASSERT(SIZEOF(.overlay_rsa_data) == 0 ||
-       __overlay_store_data_window_end >= LOADADDR(.overlay_rsa_data) + SIZEOF(.overlay_rsa_data),
-       "overlay data store truncated by .overlay_rsa_data; ECC data must remain last")
-ASSERT(SIZEOF(.overlay_lms_data) == 0 ||
-       __overlay_store_data_window_end >= LOADADDR(.overlay_lms_data) + SIZEOF(.overlay_lms_data),
-       "overlay data store truncated by .overlay_lms_data; ECC data must remain last")
-ASSERT(SIZEOF(.overlay_mldsa_data) == 0 ||
-       __overlay_store_data_window_end >= LOADADDR(.overlay_mldsa_data) + SIZEOF(.overlay_mldsa_data),
-       "overlay data store truncated by .overlay_mldsa_data; ECC data must remain last")
-ASSERT(SIZEOF(.overlay_mlkem_data) == 0 ||
-       __overlay_store_data_window_end >= LOADADDR(.overlay_mlkem_data) + SIZEOF(.overlay_mlkem_data),
-       "overlay data store truncated by .overlay_mlkem_data; ECC data must remain last")
-ASSERT(SIZEOF(.overlay_slhdsa_data) == 0 ||
-       __overlay_store_data_window_end >= LOADADDR(.overlay_slhdsa_data) + SIZEOF(.overlay_slhdsa_data),
-       "overlay data store truncated by .overlay_slhdsa_data; ECC data must remain last")
-
-ASSERT(__overlay_store_data_window_end - ORIGIN(ddr_overlay_store_Mem) <= _OVERLAY_STORE_SIZE,
-       "overlay images do not fit in the DDR overlay store (_OVERLAY_STORE_SIZE)")
 }
