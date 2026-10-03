@@ -111,6 +111,7 @@
  * 1.17  vlt    12/30/25 Update Doxygen comments to include SDT flow details.
  * 1.17  ht     01/19/26 Add 3 macros (EPOCH_YEAR, EPOCH_WDAY, IS_LEAP_YEAR).
  * 1.18  vn     09/30/26 Align Doxygen comments with AMD standards
+ * 1.18  vn     10/03/26 Fix MISRA C:2025 Rule 12.1 violation in IS_LEAP_YEAR.
  * </pre>
  *
  ******************************************************************************/
@@ -254,7 +255,8 @@ extern XRtcPsu_Config XRtcPsu_ConfigTable[];
  *
  *****************************************************************************/
 #define IS_LEAP_YEAR(year) \
-	(((year) % 4U == 0U) && (((year) % 100U != 0U) || ((year) % 400U == 0U)))
+	((((year) % 4U) == 0U) && \
+	 ((((year) % 100U) != 0U) || (((year) % 400U) == 0U)))
 
 /** @name Default calibration settings
  * @{
