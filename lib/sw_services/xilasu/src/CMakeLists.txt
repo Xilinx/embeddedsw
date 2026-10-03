@@ -94,6 +94,58 @@ if(XILASU_IS_ASU)
       message(FATAL_ERROR "Enable any supported curve for ECIES to be enabled")
     endif()
   endif()
+
+  # Error out if a feature needs an engine that is turned off. Collect all conflicts first.
+  set(_asu_engine_conflicts "")
+
+  if(NOT XILASU_rsa_ecc_support)
+    foreach(dep IN ITEMS ecies keywrap provision ocp rsa_padding
+                         rsa_keygen_2048 rsa_keygen_3072 rsa_keygen_4096 cavp)
+      if(XILASU_${dep}_support)
+        list(APPEND _asu_engine_conflicts
+             "  XILASU_${dep}_support requires XILASU_rsa_ecc_support")
+      endif()
+    endforeach()
+
+    # Every curve other than P-256 and P-384 is implemented only on the RSA core.
+    foreach(curve IN ITEMS ecc_p192 ecc_p224 ecc_p521 ecc_bp_p256 ecc_bp_p320
+                           ecc_bp_p384 ecc_bp_p512 ecc_p25519 ecc_p448)
+      if(XILASU_${curve}_support)
+        list(APPEND _asu_engine_conflicts
+             "  XILASU_${curve}_support requires XILASU_rsa_ecc_support")
+      endif()
+    endforeach()
+  endif()
+
+  # The ECC counter measures are implemented in the dedicated ECC core only.
+  if((NOT XILASU_ecc_support) AND XILASU_ecc_cm_mode_support)
+    list(APPEND _asu_engine_conflicts
+         "  XILASU_ecc_cm_mode_support requires XILASU_ecc_support")
+  endif()
+
+  # P-256 and P-384 run on either core.
+  if((NOT XILASU_rsa_ecc_support) AND (NOT XILASU_ecc_support))
+    foreach(curve IN ITEMS ecc_p256 ecc_p384)
+      if(XILASU_${curve}_support)
+        list(APPEND _asu_engine_conflicts
+             "  XILASU_${curve}_support requires XILASU_ecc_support or XILASU_rsa_ecc_support")
+      endif()
+    endforeach()
+  endif()
+
+  # Without the dedicated ECC core, the ECC module is qualified by the P-256 KAT on the RSA
+  # core, so that curve has to be built.
+  if(XILASU_rsa_ecc_support AND (NOT XILASU_ecc_support) AND (NOT XILASU_ecc_p256_support))
+    list(APPEND _asu_engine_conflicts
+         "  XILASU_rsa_ecc_support without XILASU_ecc_support requires XILASU_ecc_p256_support")
+  endif()
+
+  if(_asu_engine_conflicts)
+    string(REPLACE ";" "\n" _asu_engine_conflict_text "${_asu_engine_conflicts}")
+    message(FATAL_ERROR
+      "ASUFW crypto engine configuration conflicts:\n${_asu_engine_conflict_text}\n"
+      "Turn the listed options off, or turn the required engine on.")
+  endif()
 endif()
 
 # Generated here, after the dependency-enforcement blocks above, so a force-enabled flag is reflected in this same configure.

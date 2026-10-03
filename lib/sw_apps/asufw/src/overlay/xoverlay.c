@@ -40,17 +40,21 @@
 /************************************ Type Definitions *******************************************/
 
 /********************************** Variable Definitions *****************************************/
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 extern char __load_start_overlay_ecc[];		/**< LMA of the ECC overlay image */
 extern char __load_start_overlay_ecc_data[];	/**< LMA of the ECC overlay data image */
 extern char __overlay_ecc_img_size[];		/**< Size of the ECC overlay image */
 extern char __overlay_ecc_txt_size[];		/**< Size of the ECC overlay text image */
 extern char __overlay_ecc_data_size[];		/**< Size of the ECC overlay data image */
+#endif
 
+#ifdef XASU_RSA_ECC_ENABLE
 extern char __load_start_overlay_rsa[];		/**< LMA of the RSA overlay image */
 extern char __load_start_overlay_rsa_data[];	/**< LMA of the RSA overlay data image */
 extern char __overlay_rsa_img_size[];		/**< Size of the RSA overlay image */
 extern char __overlay_rsa_txt_size[];		/**< Size of the RSA overlay text image */
 extern char __overlay_rsa_data_size[];		/**< Size of the RSA overlay data image */
+#endif
 
 #ifdef XASU_LMS_ENABLE
 extern char __load_start_overlay_lms[];		/**< LMA of the LMS overlay image */
@@ -110,11 +114,14 @@ extern char __overlay_data_window_size[];	/**< Size of the data overlay window *
 static u32 ActiveAlgoId = XOVERLAY_ALGO_INVALID;	/**< Currently loaded overlay algorithm */
 
 /************************************ Function Prototypes ****************************************/
+#ifdef XASU_ECC_ENABLE
 static s32 XOverlay_EccOnLoad(void);
+#endif
 
 /********************************** Constant Definitions *****************************************/
 /** Overlay image catalog, one entry per supported algorithm. */
 static const XOverlay_CatalogEntry Catalog[] = {
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 	{
 		.AlgoId = XOVERLAY_ALGO_ECC,
 		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_ecc,
@@ -122,8 +129,15 @@ static const XOverlay_CatalogEntry Catalog[] = {
 		.ImgSize = (u32)(UINTPTR)__overlay_ecc_img_size,
 		.TxtSize = (u32)(UINTPTR)__overlay_ecc_txt_size,
 		.DataSize = (u32)(UINTPTR)__overlay_ecc_data_size,
+#ifdef XASU_ECC_ENABLE
 		.OnLoad = XOverlay_EccOnLoad,
+#else
+		/* No dedicated ECC core to re-initialize. */
+		.OnLoad = NULL,
+#endif
 	},
+#endif
+#ifdef XASU_RSA_ECC_ENABLE
 	{
 		.AlgoId = XOVERLAY_ALGO_RSA,
 		.ImgLma = (const void *)(UINTPTR)__load_start_overlay_rsa,
@@ -133,6 +147,7 @@ static const XOverlay_CatalogEntry Catalog[] = {
 		.DataSize = (u32)(UINTPTR)__overlay_rsa_data_size,
 		.OnLoad = NULL,
 	},
+#endif
 #ifdef XASU_LMS_ENABLE
 	{
 		.AlgoId = XOVERLAY_ALGO_LMS,
@@ -364,6 +379,7 @@ END:
  *	- Error code from the ECC initialize routine, otherwise.
  *
  *************************************************************************************************/
+#ifdef XASU_ECC_ENABLE
 static s32 XOverlay_EccOnLoad(void)
 {
 	CREATE_VOLATILE(Status, XASUFW_INVALID_PARAM);
@@ -372,6 +388,7 @@ static s32 XOverlay_EccOnLoad(void)
 
 	return Status;
 }
+#endif /* XASU_ECC_ENABLE */
 
 /*************************************************************************************************/
 /**

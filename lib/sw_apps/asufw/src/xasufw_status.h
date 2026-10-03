@@ -1038,7 +1038,7 @@ enum {
 						image header fails. */
 	XASUFW_PROVISION_KEKS_ENCRYPT_FAIL, /**< 0x2ACU - Error when wrapping the secrets of any
 						chunk fails. */
-	XASUFW_ECIES_CMAC_KDF_FAILURE = 0x2ADU, /**< 0x2ADU - Error when ECIES CMAC-KDF
+	XASUFW_ECIES_CMAC_KDF_FAILURE, /**< 0x2ADU - Error when ECIES CMAC-KDF
 							operation fails. */
 	XASUFW_SLHDSA_PWCT_SIGN_GEN_FAIL, /**< 0x2AEU - Sign generation failure in SLH-DSA PWCT */
 	XASUFW_SLHDSA_PWCT_SIGN_VER_FAIL, /**< 0x2AFU - Sign verification failure in SLH-DSA PWCT */
@@ -1046,6 +1046,8 @@ enum {
 						cannot be written to the client output buffer */
 	XASUFW_SLHDSA_SIG_IN_DMA_FAILED, /**< 0x2B1U - Error when the SLH-DSA signature to verify
 						cannot be read into the signature scratch */
+	XASUFW_FEATURE_NOT_SUPPORTED, /**< 0x2B2U - Error when a request needs a crypto engine
+							that this build does not have */
 
 	/* Additional status success codes */
 	XASUFW_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate

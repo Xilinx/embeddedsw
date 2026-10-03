@@ -208,7 +208,7 @@ int main(void)
 	 * scheduler without blocking the main firmware operations.
 	 * In case of failure, continue booting.
 	 */
-#ifdef XASU_KEYMANAGER_ENABLE
+#if defined(XASU_KEYMANAGER_ENABLE) && defined(XASU_RSA_ECC_ENABLE)
 	if (XKeyManager_IsAsuVaultCreated() == XASU_STATUS_PASS) {
 		Status = XAsufw_CreateRsaKeyPairGenTask();
 		if (XASUFW_SUCCESS != Status) {
@@ -374,17 +374,21 @@ static s32 XAsufw_ModulesInit(void)
 		goto END;
 	}
 
+#ifdef XASU_RSA_ECC_ENABLE
 	/** RSA module initialization. */
 	Status = XAsufw_RsaInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+#endif
 
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 	/** ECC module initialization. */
 	Status = XAsufw_EccInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+#endif
 
 	/** AES module initialization. */
 	Status = XAsufw_AesInit();

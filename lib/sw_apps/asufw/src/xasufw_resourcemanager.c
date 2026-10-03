@@ -323,6 +323,7 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 					Status = XASUFW_RESOURCE_UNAVAILABLE;
 				}
 				break;
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 			case XASUFW_ECC_RESOURCE_MASK:
 				Resource = XAsufw_GetEccMaskResourceId(ReqBuf);
 				if (Resource == XASUFW_INVALID) {
@@ -330,6 +331,10 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 					goto END;
 				}
 				break;
+			case XASUFW_RSA_SHA_RESOURCE_MASK:
+				Resource = XAsufw_GetRsaShaMaskResourceId(ReqBuf);
+				break;
+#endif /* XASU_ECC_ENABLE || XASU_RSA_ECC_ENABLE */
 			case XASUFW_RSA_RESOURCE_MASK:
 				Resource = XASUFW_RSA;
 				break;
@@ -350,9 +355,6 @@ s32 XAsufw_CheckResourceAvailability(XAsufw_ResourcesRequired Resources, u32 Req
 				break;
 			case XASUFW_KEYWRAP_RESOURCE_MASK:
 				Resource = XASUFW_KEYWRAP;
-				break;
-			case XASUFW_RSA_SHA_RESOURCE_MASK:
-				Resource = XAsufw_GetRsaShaMaskResourceId(ReqBuf);
 				break;
 			case XASUFW_KEYMANAGER_RESOURCE_MASK:
 				Resource = XASUFW_KEYMANAGER;

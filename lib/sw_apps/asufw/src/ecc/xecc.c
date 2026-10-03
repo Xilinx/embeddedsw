@@ -46,6 +46,7 @@
 #include "xasu_shainfo.h"
 #include "xasufw_perf.h"
 
+#ifdef XASU_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVES_SUPPORTED		(2U) /**< Curves P-256 and P-384 are supported for ECC engine */
 #define XECC_TIMEOUT_MAX		(5000U) /**< ECC done timeout of 5ms */
@@ -1073,4 +1074,5 @@ static s32 XEcc_InputValidate(XEcc *InstancePtr, u32 CurveType, u32 CurveLen)
 END:
 	return Status;
 }
+#endif /* XASU_ECC_ENABLE */
 /** @} */

@@ -7,6 +7,8 @@
 
 #cmakedefine    XASU_TRNG_ENABLE_DRBG_MODE
 #cmakedefine    XASU_PERF_MEASUREMENT_ENABLE
+#cmakedefine    XASU_RSA_ECC_ENABLE
+#cmakedefine    XASU_ECC_ENABLE
 #cmakedefine    XASU_AES_CM_ENABLE
 #cmakedefine    XASU_ECC_CM_ENABLE
 #cmakedefine    XASU_HMAC_ENABLE

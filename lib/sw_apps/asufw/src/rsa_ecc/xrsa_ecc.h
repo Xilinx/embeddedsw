@@ -47,6 +47,7 @@ extern "C" {
 #include "xasufw_dma.h"
 #include "xrsa_eccinfo.h"
 
+#ifdef XASU_RSA_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
@@ -81,6 +82,8 @@ s32 XRsa_EccGenKeyPair(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PvtK
 		       u64 PubKeyAddr);
 
 /************************************ Variable Definitions ***************************************/
+
+#endif /* XASU_RSA_ECC_ENABLE */
 
 #ifdef __cplusplus
 }

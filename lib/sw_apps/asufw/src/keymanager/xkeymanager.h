@@ -263,10 +263,12 @@ s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
 			XAsu_KeyManagerSubVaultType KeyType);
 u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase, u8 IsKeyUsed);
+#ifdef XASU_RSA_ECC_ENABLE
 s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
+#endif
 #ifdef XASU_MLDSA_ENABLE
 s32 XKeyManager_GenerateMldsaKeyPair(XAsufw_Dma *DmaPtr, XSha *Sha3Ptr,
 			const XAsu_KeyManagerPqcKeyGenParams *PqcParamsPtr, u32 *KeyIdPtr,

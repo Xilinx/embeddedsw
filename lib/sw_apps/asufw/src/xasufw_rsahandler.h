@@ -45,6 +45,7 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+#ifdef XASU_RSA_ECC_ENABLE
 /* RSA Command Structure Initialization function */
 s32 XAsufw_RsaInit(void);
 
@@ -52,6 +53,7 @@ s32 XAsufw_RsaInit(void);
 /* Add RSA key pair generation task to the scheduler */
 s32 XAsufw_CreateRsaKeyPairGenTask(void);
 #endif /* XASU_KEYMANAGER_ENABLE */
+#endif /* XASU_RSA_ECC_ENABLE */
 
 /************************************ Variable Definitions ***************************************/
 

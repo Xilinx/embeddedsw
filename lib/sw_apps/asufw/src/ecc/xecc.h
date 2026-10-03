@@ -37,7 +37,11 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xasufw_dma.h"
 #include "xecc_hw.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
 
+#ifdef XASU_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XECC_CURVE_TYPE_NIST_P256	(0x0U) /**< Curve type value for P-256 curve */
 #define XECC_CURVE_TYPE_NIST_P384	(0x1U) /**<  Curve type value for P-384 curve */
@@ -63,6 +67,8 @@ s32 XEcc_Pwct(XEcc *InstancePtr, XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen
 	u64 PrivKeyAddr, u64 PubKeyAddr);
 
 /************************************ Variable Definitions ***************************************/
+
+#endif /* XASU_ECC_ENABLE */
 
 #ifdef __cplusplus
 }

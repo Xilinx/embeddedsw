@@ -50,6 +50,7 @@
 #include "xasufw_perf.h"
 #include "xil_sutil.h"
 
+#ifdef XASU_RSA_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES		(2U)	/**< Align ECDSA curve size in bytes */
 
@@ -1706,4 +1707,5 @@ static s32 XRsa_EccEdHashCalc(XAsufw_Dma *DmaPtr, u32 CurveType, u64 DataAddr, u
 END:
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 /** @} */

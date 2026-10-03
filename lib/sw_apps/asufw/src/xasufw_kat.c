@@ -92,7 +92,9 @@ static void XAsufw_RunTrngKats(XTrng *XAsufw_TrngPtr);
 static void XAsufw_RunRsaKats(XAsufw_Dma *AsuDmaPtr);
 static s32 XAsufw_RunRsaEccKats(XAsufw_Dma *AsuDmaPtr);
 #endif /* XASU_RSA_PADDING_ENABLE */
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 static void XAsufw_RunEccKats(XAsufw_Dma *AsuDmaPtr);
+#endif /* XASU_ECC_ENABLE || XASU_RSA_ECC_ENABLE */
 static void XAsufw_RunKeywrapKats(void);
 static void RunKdfAndDependentKat(XAsufw_Dma *AsuDmaPtr);
 #if defined(XASU_MLDSA_ENABLE) || defined(XASU_MLKEM_ENABLE)
@@ -2222,6 +2224,7 @@ void XAsufw_RunCryptoKats(void)
 
 	XAsufw_RunTrngKats(XAsufw_TrngPtr);
 
+#ifdef XASU_RSA_ECC_ENABLE
 	/**
 	 * Activate the RSA overlay. It is run ahead of the ECC overlay because the curve KATs on the
 	 * RSA core only run once the RSA padding KATs have passed.
@@ -2246,7 +2249,9 @@ void XAsufw_RunCryptoKats(void)
 
 		XAsufw_RunKeywrapKats();
 	}
+#endif /* XASU_RSA_ECC_ENABLE */
 
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 	/** Activate ECC overlay. */
 	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, AsuDmaPtr);
 	if (Status != XASUFW_SUCCESS) {
@@ -2264,6 +2269,7 @@ void XAsufw_RunCryptoKats(void)
 	} else {
 		XAsufw_RunEccKats(AsuDmaPtr);
 	}
+#endif /* XASU_ECC_ENABLE || XASU_RSA_ECC_ENABLE */
 
 #ifdef XASU_LMS_ENABLE
 	/** Activate LMS overlay before running HSS KAT with SHAKE-256. */
@@ -2683,6 +2689,7 @@ END:
  *	- XASUFW_FAILURE, if any other failure.
  *
  *************************************************************************************************/
+#ifdef XASU_ECC_ENABLE
 s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 {
 	s32 Status = XASUFW_FAILURE;
@@ -2774,7 +2781,9 @@ END:
 
 	return Status;
 }
+#endif /* XASU_ECC_ENABLE */
 
+#ifdef XASU_RSA_ECC_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This function runs ECC KAT on RSA core for user specified curve. On failure,
@@ -2914,6 +2923,7 @@ END:
 
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 
 /*************************************************************************************************/
 /**
@@ -3789,6 +3799,7 @@ END:
  * 		- XASUFW_FAILURE, if any other failure happens.
  *
  *************************************************************************************************/
+#ifdef XASU_RSA_ECC_ENABLE
 s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr)
 {
 	s32 Status = XASUFW_FAILURE;
@@ -3836,6 +3847,7 @@ END_CLR:
 
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 
 #ifdef XASU_MLDSA_ENABLE
 /*************************************************************************************************/
@@ -4423,10 +4435,17 @@ static s32 XAsufw_RunRsaEccKats(XAsufw_Dma *AsuDmaPtr)
 		Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_ED448);
 #endif /* XASU_ECC_SUPPORT_EDWARD_P448 */
 		if (Status == XASUFW_SUCCESS) {
-#ifdef XASU_ECC_SUPPORT_NIST_P256
-			/** On ED448 KAT success, run ECC KAT on RSA core using P-256 curve. */
+#if defined(XASU_ECC_SUPPORT_NIST_P256) && defined(XASU_ECC_ENABLE)
+			/**
+			 * On ED448 KAT success, run ECC KAT on RSA core using P-256 curve.
+			 * This runs only when the dedicated ECC core is present, because then
+			 * XAsufw_RunEccKats qualified the module on the ECC core and the RSA core
+			 * still needs its own P-256 coverage. Without the ECC core,
+			 * XAsufw_RunEccKats already ran the RSA-core P-256 KAT, so it is not
+			 * repeated here.
+			 */
 			Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_P256);
-#endif /* XASU_ECC_SUPPORT_NIST_P256 */
+#endif /* XASU_ECC_SUPPORT_NIST_P256 && XASU_ECC_ENABLE */
 		}
 	}
 
@@ -4441,26 +4460,50 @@ static s32 XAsufw_RunRsaEccKats(XAsufw_Dma *AsuDmaPtr)
  * @param	AsuDmaPtr	Pointer to the ASU DMA instance.
  *
  *************************************************************************************************/
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 static void XAsufw_RunEccKats(XAsufw_Dma *AsuDmaPtr)
 {
 	s32 Status = XASUFW_FAILURE;
 
+#ifdef XASU_ECC_ENABLE
 	/** Run ECC sign generation and verification KAT on ECC core for P-256 curve. */
 	Status = XAsufw_EccCoreKat(AsuDmaPtr);
+#elif defined(XASU_ECC_SUPPORT_NIST_P256)
+	/** Without the dedicated core, the P-256 KAT on the RSA core qualifies the module. */
+	Status = XAsufw_RsaEccKat(AsuDmaPtr, XASU_ECC_NIST_P256);
+#endif /* XASU_ECC_ENABLE */
+
 	if (Status == XASUFW_SUCCESS) {
-		/** On ECC core KAT success, mark ECC module KAT as passed in RTCA area. */
+		/** On KAT success, mark ECC module KAT as passed in RTCA area. */
 		XASUFW_SET_KAT_PASSED(XASU_MODULE_ECC_ID);
-#ifdef XASU_RSA_PADDING_ENABLE
-		if (XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID)) {
-			Status = XAsufw_RunRsaEccKats(AsuDmaPtr);
-			if (Status == XASUFW_SUCCESS) {
-				/** On all RSA-ECC KATs success, mark RSA module KAT as passed in RTCA area. */
-				XASUFW_SET_KAT_PASSED(XASU_MODULE_RSA_ID);
-			}
-		}
-#endif /* XASU_RSA_PADDING_ENABLE */
+	} else {
+		/**
+		 * On KAT failure, mark ECC module KAT as failed in RTCA area and disable the ECC,
+		 * ECIES and OCP resources.
+		 */
+		XASUFW_MARK_KAT_FAILED(XASU_MODULE_ECC_ID);
+		XAsufw_DisableResource(XASUFW_ECC);
+		XAsufw_DisableResource(XASUFW_ECIES);
+		XAsufw_DisableResource(XASUFW_OCP);
 	}
+
+#ifdef XASU_RSA_PADDING_ENABLE
+	/**
+	 * The curves on the RSA core stay in service when the dedicated core fails its KAT, so
+	 * the RSA-core curve KATs run on the RSA module result alone. Without the dedicated
+	 * core, a failed P-256 KAT above has already marked the RSA module as failed.
+	 */
+	if (XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID)) {
+		Status = XASUFW_FAILURE;
+		Status = XAsufw_RunRsaEccKats(AsuDmaPtr);
+		if (Status == XASUFW_SUCCESS) {
+			/** On RSA-ECC KATs success, mark RSA module KAT as passed in RTCA area. */
+			XASUFW_SET_KAT_PASSED(XASU_MODULE_RSA_ID);
+		}
+	}
+#endif /* XASU_RSA_PADDING_ENABLE */
 }
+#endif /* XASU_ECC_ENABLE || XASU_RSA_ECC_ENABLE */
 
 /*************************************************************************************************/
 /**

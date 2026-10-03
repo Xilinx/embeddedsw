@@ -50,6 +50,7 @@
 #include "xkeymanager.h"
 #include "xasu_sharedmem.h"
 
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
@@ -57,11 +58,14 @@
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static XAsufw_Resource XAsufw_GetEccCurveResource(u32 CurveType);
 static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#ifdef XASU_RSA_ECC_ENABLE
 static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif /* XASU_RSA_ECC_ENABLE */
 static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 #ifdef XASU_ENABLE_CAVP_SUPPORT
@@ -70,6 +74,42 @@ static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands array */
+
+/*************************************************************************************************/
+/**
+ * @brief	This function selects the crypto core that serves a given curve.
+ *
+ * @param	CurveType	ECC curve type.
+ *
+ * @return
+ * 	- XASUFW_ECC, if the curve runs on the dedicated ECC core.
+ * 	- XASUFW_RSA, if the curve runs on the RSA core.
+ * 	- XASUFW_INVALID, if no core in this build can serve the curve.
+ *
+ * @note	P-256 and P-384 use the dedicated ECC core when the device has one. All other
+ *		curves use the RSA core, as do P-256 and P-384 without the dedicated core.
+ *
+ *************************************************************************************************/
+static XAsufw_Resource XAsufw_GetEccCurveResource(u32 CurveType)
+{
+	XAsufw_Resource Resource = XASUFW_INVALID;
+
+#ifdef XASU_ECC_ENABLE
+	if ((CurveType == XASU_ECC_NIST_P256) || (CurveType == XASU_ECC_NIST_P384)) {
+		Resource = XASUFW_ECC;
+	}
+#else
+	(void)CurveType;
+#endif /* XASU_ECC_ENABLE */
+
+#ifdef XASU_RSA_ECC_ENABLE
+	if (Resource == XASUFW_INVALID) {
+		Resource = XASUFW_RSA;
+	}
+#endif /* XASU_RSA_ECC_ENABLE */
+
+	return Resource;
+}
 
 /*************************************************************************************************/
 /**
@@ -89,8 +129,13 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenSign),
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccVerifySign),
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccKat),
+#ifdef XASU_RSA_ECC_ENABLE
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhGenSharedSecret),
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhKat),
+#else
+		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+		[XASU_ECDH_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(NULL),
+#endif /* XASU_RSA_ECC_ENABLE */
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenPubKey),
 #ifdef XASU_ENABLE_CAVP_SUPPORT
 		[XASU_ECC_VAL_PUBKEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccValidatePubKey),
@@ -102,9 +147,10 @@ s32 XAsufw_EccInit(void)
 	 * For XASU_ECC_GEN_SIGNATURE_CMD_ID, XASU_ECC_VERIFY_SIGNATURE_CMD_ID and
 	 * XASU_ECC_GEN_PUBKEY_CMD_ID, XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC
 	 * or RSA core based on the curve type received.
-	 * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
-	 * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
-	 * availability of RSA core.
+	 * For XASU_ECC_KAT_CMD_ID, XASUFW_ECC_RESOURCE_MASK checks for the availability of the core
+	 * that serves P-256, which is the ECC core when the build has one and the RSA core
+	 * otherwise. When the build has the RSA core, XASUFW_RSA_RESOURCE_MASK also checks for its
+	 * availability, because the KAT tests the requested curve on the RSA core as well.
 	 */
 	static XAsufw_ResourcesRequired XAsufw_EccResourcesBuf[XASU_ECC_MAX_CMDS] = {
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
@@ -114,12 +160,16 @@ s32 XAsufw_EccInit(void)
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK |
 		XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
-		XASUFW_RSA_RESOURCE_MASK | XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK |
-		XASUFW_OVERLAY_RESOURCE_MASK,
+#ifdef XASU_RSA_ECC_ENABLE
+		XASUFW_RSA_RESOURCE_MASK |
+#endif /* XASU_RSA_ECC_ENABLE */
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+#ifdef XASU_RSA_ECC_ENABLE
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+#endif /* XASU_RSA_ECC_ENABLE */
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK |
 		XASUFW_OVERLAY_RESOURCE_MASK,
@@ -135,8 +185,14 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECC_GEN_SIGNATURE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_GEN_SIGNATURE_CMD_ID),
 		[XASU_ECC_VERIFY_SIGNATURE_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_VERIFY_SIGNATURE_CMD_ID),
 		[XASU_ECC_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_KAT_CMD_ID),
+#ifdef XASU_RSA_ECC_ENABLE
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECDH_SHARED_SECRET_CMD_ID),
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECDH_KAT_CMD_ID),
+#else
+		[XASU_ECDH_SHARED_SECRET_CMD_ID] =
+			XASUFW_ALL_IPI_NO_ACCESS(XASU_ECDH_SHARED_SECRET_CMD_ID),
+		[XASU_ECDH_KAT_CMD_ID] = XASUFW_ALL_IPI_NO_ACCESS(XASU_ECDH_KAT_CMD_ID),
+#endif /* XASU_RSA_ECC_ENABLE */
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_GEN_PUBKEY_CMD_ID),
 #ifdef XASU_ENABLE_CAVP_SUPPORT
 		[XASU_ECC_VAL_PUBKEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_VAL_PUBKEY_CMD_ID),
@@ -182,7 +238,9 @@ END:
 static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
+#ifdef XASU_RSA_ECC_ENABLE
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+#endif /* XASU_RSA_ECC_ENABLE */
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
 	/** Allocate DMA resource for ECC module commands except for Get_Info command. */
@@ -199,9 +257,12 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsufw_AllocateResource(ResourceId, ResourceId, ReqId);
 	XAsufw_AllocateResource(XASUFW_TRNG, ResourceId, ReqId);
 	XAsufw_AllocateResource(XASUFW_OVERLAY, ResourceId, ReqId);
-	if (CmdId == XASU_ECC_KAT_CMD_ID) {
+#ifdef XASU_RSA_ECC_ENABLE
+	/** The KAT command exercises the RSA core in addition to the core it was allocated. */
+	if ((CmdId == XASU_ECC_KAT_CMD_ID) && (ResourceId != XASUFW_RSA)) {
 		XAsufw_AllocateResource(XASUFW_RSA, ResourceId, ReqId);
 	}
+#endif /* XASU_RSA_ECC_ENABLE */
 
 	/** Activate ECC overlay. */
 	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, XAsufw_EccModule.AsuDmaPtr);
@@ -228,6 +289,7 @@ END:
  * 	- XASUFW_SUCCESS, if sign generation operation is successful.
  * 	- XASUFW_ECC_EPHEMERAL_KEY_GEN_FAIL, if TRNG fails to generate random number.
  * 	- XASUFW_ECC_GEN_SIGN_OPERATION_FAIL, if generate signature operation fails.
+ * 	- XASUFW_FEATURE_NOT_SUPPORTED, if no core in this build serves the requested curve.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
@@ -235,12 +297,14 @@ END:
 static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 SubSystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_EccKeyObject EccKeyObj;
+
+	/** Select the core that serves the curve, which the resource handler has allocated. */
+	ResourceId = XAsufw_GetEccCurveResource(EccParamsPtr->Key.CurveType);
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccParams);
@@ -248,12 +312,6 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Copy key object from request */
 	EccKeyObj = EccParamsPtr->Key;
 
-	if ((EccKeyObj.CurveType == XASU_ECC_NIST_P256) ||
-		(EccKeyObj.CurveType == XASU_ECC_NIST_P384)) {
-		ResourceId = XASUFW_ECC;
-	} else {
-		ResourceId = XASUFW_RSA;
-	}
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -287,17 +345,26 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Generate signature using core API XEcc_GenerateSignature or XRsa_EccGenerateSignature
-	 * based on curve type.
+	 * based on the core selected for the curve.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_GenerateSignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+#ifdef XASU_ECC_ENABLE
+		Status = XEcc_GenerateSignature(XEcc_GetInstance(XASU_XECC_0_DEVICE_ID),
+				XAsufw_EccModule.AsuDmaPtr,
 				EccKeyObj.CurveType, EccKeyObj.KeyLen, EccKeyObj.KeyAddr,
 				NULL, EccParamsPtr->DigestAddr,	EccParamsPtr->DigestLen,
 				EccParamsPtr->SignAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_ECC_ENABLE */
 	} else {
+#ifdef XASU_RSA_ECC_ENABLE
 		Status = XRsa_EccGenerateSignature(XAsufw_EccModule.AsuDmaPtr, EccKeyObj.CurveType,
 			EccKeyObj.KeyLen, EccKeyObj.KeyAddr, NULL, EccParamsPtr->DigestAddr,
 			EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_RSA_ECC_ENABLE */
 	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECC_GEN_SIGN_OPERATION_FAIL);
@@ -323,6 +390,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if sign verification operation is successful.
  * 	- XASUFW_ECC_VERIFY_SIGN_OPERATION_FAIL, if verify signature operation fails.
+ * 	- XASUFW_FEATURE_NOT_SUPPORTED, if no core in this build serves the requested curve.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
@@ -330,12 +398,14 @@ END:
 static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 SubSystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_EccKeyObject EccKeyObj;
+
+	/** Select the core that serves the curve, which the resource handler has allocated. */
+	ResourceId = XAsufw_GetEccCurveResource(EccParamsPtr->Key.CurveType);
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccParams);
@@ -343,12 +413,6 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Copy key object from request */
 	EccKeyObj = EccParamsPtr->Key;
 
-	if ((EccKeyObj.CurveType == XASU_ECC_NIST_P256) ||
-		(EccKeyObj.CurveType == XASU_ECC_NIST_P384)) {
-		ResourceId = XASUFW_ECC;
-	} else {
-		ResourceId = XASUFW_RSA;
-	}
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -368,7 +432,8 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE,
 			XASU_ECC_PUB_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			Status = XAsufw_UpdateErrorStatus(Status,
+							  XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
 		}
 	}
@@ -382,17 +447,26 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Verify signature using core API XEcc_VerifySignature or XRsa_EccVerifySignature
-	 * based on curve type.
+	 * based on the core selected for the curve.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_VerifySignature(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+#ifdef XASU_ECC_ENABLE
+		Status = XEcc_VerifySignature(XEcc_GetInstance(XASU_XECC_0_DEVICE_ID),
+				XAsufw_EccModule.AsuDmaPtr,
 				EccKeyObj.CurveType, EccKeyObj.KeyLen, EccKeyObj.KeyAddr,
 				EccParamsPtr->DigestAddr, EccParamsPtr->DigestLen,
 				EccParamsPtr->SignAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_ECC_ENABLE */
 	} else {
+#ifdef XASU_RSA_ECC_ENABLE
 		Status = XRsa_EccVerifySignature(XAsufw_EccModule.AsuDmaPtr, EccKeyObj.CurveType,
 				EccKeyObj.KeyLen, EccKeyObj.KeyAddr, EccParamsPtr->DigestAddr,
 				EccParamsPtr->DigestLen, EccParamsPtr->SignAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_RSA_ECC_ENABLE */
 	}
 
 	if (Status != XASUFW_SUCCESS) {
@@ -419,6 +493,7 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if public key generation operation is successful.
  * 	- XASUFW_ECC_GEN_PUB_KEY_OPERATION_FAIL, if generate public key operation fails.
+ * 	- XASUFW_FEATURE_NOT_SUPPORTED, if no core in this build serves the requested curve.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
  *
@@ -426,12 +501,14 @@ END:
 static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 SubSystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_EccKeyObject EccPvtKeyObj;
+
+	/** Select the core that serves the curve, which the resource handler has allocated. */
+	ResourceId = XAsufw_GetEccCurveResource(EccParamsPtr->PvtKey.CurveType);
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccKeyParams);
@@ -439,12 +516,6 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Copy key object from request */
 	EccPvtKeyObj = EccParamsPtr->PvtKey;
 
-	if ((EccPvtKeyObj.CurveType == XASU_ECC_NIST_P256) ||
-		(EccPvtKeyObj.CurveType == XASU_ECC_NIST_P384)) {
-		ResourceId = XASUFW_ECC;
-	} else {
-		ResourceId = XASUFW_RSA;
-	}
 	/** Get subsystem ID from IPI mask. */
 	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -475,15 +546,24 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Generate the public key using core API XEcc_GeneratePublicKey or XRsa_EccGeneratePubKey
-	 * based on curve type.
+	 * based on the core selected for the curve.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_GeneratePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+#ifdef XASU_ECC_ENABLE
+		Status = XEcc_GeneratePublicKey(XEcc_GetInstance(XASU_XECC_0_DEVICE_ID),
+				XAsufw_EccModule.AsuDmaPtr,
 				EccPvtKeyObj.CurveType, EccPvtKeyObj.KeyLen,
 				EccPvtKeyObj.KeyAddr, EccParamsPtr->PubKeyAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_ECC_ENABLE */
 	} else {
+#ifdef XASU_RSA_ECC_ENABLE
 		Status = XRsa_EccGeneratePubKey(XAsufw_EccModule.AsuDmaPtr, EccPvtKeyObj.CurveType,
 			EccPvtKeyObj.KeyLen, EccPvtKeyObj.KeyAddr, EccParamsPtr->PubKeyAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_RSA_ECC_ENABLE */
 	}
 
 	if (Status != XASUFW_SUCCESS) {
@@ -510,6 +590,7 @@ END:
  *
  * @return
  * 	- XASUFW_SUCCESS, if public key validation operation is successful.
+ * 	- XASUFW_FEATURE_NOT_SUPPORTED, if no core in this build serves the requested curve.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- XASUFW_INVALID_PARAM, if any argument is invalid.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
@@ -518,18 +599,13 @@ END:
 static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
 	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 	u32 SubSystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
-	if ((EccParamsPtr->PvtKey.CurveType == XASU_ECC_NIST_P256) ||
-		(EccParamsPtr->PvtKey.CurveType == XASU_ECC_NIST_P384)) {
-		ResourceId = XASUFW_ECC;
-	} else {
-		ResourceId = XASUFW_RSA;
-	}
+	/** Select the core that serves the curve, which the resource handler has allocated. */
+	ResourceId = XAsufw_GetEccCurveResource(EccParamsPtr->PvtKey.CurveType);
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccKeyParams);
@@ -547,14 +623,23 @@ static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Validate the public key using core API XEcc_ValidatePublicKey or XRsa_EccValidatePubKey
-	 * based on curve type.
+	 * based on the core selected for the curve.
 	 */
 	if (ResourceId == XASUFW_ECC) {
-		Status = XEcc_ValidatePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+#ifdef XASU_ECC_ENABLE
+		Status = XEcc_ValidatePublicKey(XEcc_GetInstance(XASU_XECC_0_DEVICE_ID),
+				XAsufw_EccModule.AsuDmaPtr,
 				EccParamsPtr->PvtKey.CurveType, EccParamsPtr->PvtKey.KeyLen, EccParamsPtr->PubKeyAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_ECC_ENABLE */
 	} else {
+#ifdef XASU_RSA_ECC_ENABLE
 		Status = XRsa_EccValidatePubKey(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->PvtKey.CurveType,
 			EccParamsPtr->PvtKey.KeyLen, EccParamsPtr->PubKeyAddr);
+#else
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+#endif /* XASU_RSA_ECC_ENABLE */
 	}
 
 END:
@@ -583,6 +668,7 @@ END:
  *	- XASUFW_INVALID_PARAM, if any argument is invalid.
  *
  *************************************************************************************************/
+#ifdef XASU_RSA_ECC_ENABLE
 static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
@@ -655,7 +741,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 					   XASUFW_WORD_LEN_IN_BYTES);
 	}
 
-	/** Generate shared secret using public key and private key based on curve type. */
+	/** Generate shared secret using public key and private key. ECDH runs on the RSA core. */
 	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, PvtKeyObj.CurveType,
 					PvtKeyObj.KeyLen, PvtKeyObj.KeyAddr,
 					PubKeyObj.KeyAddr, EcdhParamsPtr->SharedSecretAddr,
@@ -673,10 +759,13 @@ END:
 
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 
 /*************************************************************************************************/
 /**
- * @brief	This function performs Known Answer Tests (KATs) utilizing both ECC and RSA cores.
+ * @brief	This function performs Known Answer Tests (KATs) on the ECC crypto cores of the
+ *		build. With the dedicated ECC core, the P-256 KAT runs on it first. With the RSA
+ *		core, the KAT for the requested curve then runs on the RSA core.
  *
  * @param	ReqBuf	Pointer to XAsu_ReqBuf structure.
  * @param	ReqId	Request Unique ID.
@@ -684,6 +773,10 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if KAT is successful.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal release resource is requested.
+ * 	- XASUFW_FEATURE_NOT_SUPPORTED, if the build has only the dedicated ECC core and a curve
+ * 	  other than P-256 is requested.
+ * 	- XASUFW_INVALID_PARAM, if the build has the RSA core and the requested curve is not
+ * 	  P-256, Ed25519 or Ed448.
  * 	- Error code from XAsufw_EccCoreKat or XAsufw_RsaEccKat, if any failure occurs.
  *
  *************************************************************************************************/
@@ -691,21 +784,44 @@ static s32 XAsufw_EccKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	const u32 CurveType = *((const u32 *)ReqBuf->Arg);
+	XAsufw_Resource ResourceId = XAsufw_GetEccCurveResource(XASU_ECC_NIST_P256);
 
-	(void)ReqBuf;
-
-	/** Perform KAT on P-256 curve using ECC core. */
-	Status = XAsufw_EccCoreKat(XAsufw_EccModule.AsuDmaPtr);
-	if (Status != XASUFW_SUCCESS) {
+#ifdef XASU_RSA_ECC_ENABLE
+	/**
+	 * The RSA core KAT has vectors for P-256, Ed25519 and Ed448 only, and a failed RSA core
+	 * KAT disables the RSA core, so any other requested curve is rejected before the KAT.
+	 */
+	if ((CurveType != XASU_ECC_NIST_P256) && (CurveType != XASU_ECC_NIST_ED25519) &&
+	    (CurveType != XASU_ECC_NIST_ED448)) {
+		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}
+#else
+	/** The ECC core KAT covers P-256 only, so any other requested curve cannot be tested. */
+	if (CurveType != XASU_ECC_NIST_P256) {
+		Status = XASUFW_FEATURE_NOT_SUPPORTED;
+		goto END;
+	}
+#endif /* XASU_RSA_ECC_ENABLE */
 
+#ifdef XASU_ECC_ENABLE
+	/** Perform KAT on P-256 curve using ECC core. */
+	Status = XAsufw_EccCoreKat(XAsufw_EccModule.AsuDmaPtr);
+#ifdef XASU_RSA_ECC_ENABLE
+	/** On ECC core KAT success, perform KAT on the requested curve using RSA core. */
+	if (Status == XASUFW_SUCCESS) {
+		Status = XASUFW_FAILURE;
+		Status = XAsufw_RsaEccKat(XAsufw_EccModule.AsuDmaPtr, (u8)CurveType);
+	}
+#endif /* XASU_RSA_ECC_ENABLE */
+#else
 	/** Perform KAT on the requested curve using RSA core. */
 	Status = XAsufw_RsaEccKat(XAsufw_EccModule.AsuDmaPtr, (u8)CurveType);
+#endif /* XASU_ECC_ENABLE */
 
 END:
 	/** Release resources. */
-	if (XAsufw_ReleaseResource(XASUFW_ECC, ReqId) != XASUFW_SUCCESS) {
+	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
 	XAsufw_EccModule.AsuDmaPtr = NULL;
@@ -726,6 +842,7 @@ END:
  *		- Error codes from XAsufw_P256EcdhKat, if any operation fails.
  *
  *************************************************************************************************/
+#ifdef XASU_RSA_ECC_ENABLE
 static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
@@ -743,6 +860,7 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 
 /*************************************************************************************************/
 /**
@@ -750,9 +868,9 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * For XASU_ECC_GEN_SIGNATURE_CMD_ID, XASU_ECC_VERIFY_SIGNATURE_CMD_ID and XASU_ECC_GEN_PUBKEY_CMD_ID,
  * 	- XASUFW_ECC_RESOURCE_MASK checks for the availability of ECC or RSA core based on the
  *	  curve type received.
- * For XASU_ECC_KAT_CMD_ID, both RSA and ECC cores are required. So, XASUFW_ECC_RESOURCE_MASK
- * checks for the availability of ECC core and XASUFW_RSA_RESOURCE_MASK checks for the
- * availability of RSA core.
+ * For XASU_ECC_KAT_CMD_ID, XASUFW_ECC_RESOURCE_MASK checks for the availability of the core
+ * that serves P-256, which is the ECC core when the build has one and the RSA core otherwise.
+ * When the build has the RSA core, XASUFW_RSA_RESOURCE_MASK also checks for its availability.
  * Only the ECC module needs this resolution, because only its commands pick the core from the
  * requested curve. Every other module runs its curve operations on the RSA core and names
  * XASUFW_RSA_RESOURCE_MASK directly.
@@ -761,7 +879,7 @@ static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  *
  * @return
  *	- ECC or RSA resource ID, for a command of the ECC module.
- *	- XASUFW_INVALID, for a command of any other module.
+ *	- XASUFW_INVALID, if no core in this build serves the requested curve or command.
  *
  *************************************************************************************************/
 XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
@@ -780,17 +898,21 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 			CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->Key.CurveType;
 		}
 
-		if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
+		if ((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
 		    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID) ||
 		    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) ||
-		    (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) &&
-		    ((CurveType == XASU_ECC_NIST_P256) ||
-		    (CurveType == XASU_ECC_NIST_P384))) {
-			Resource = XASUFW_ECC;
+		    (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) {
+			Resource = XAsufw_GetEccCurveResource(CurveType);
 		} else if (CmdId == XASU_ECC_KAT_CMD_ID) {
-			Resource = XASUFW_ECC;
+			/** The ECC core KAT runs on P-256, so it follows that curve's core. */
+			Resource = XAsufw_GetEccCurveResource(XASU_ECC_NIST_P256);
 		} else {
+			/** ECDH runs on the RSA core for every curve. */
+#ifdef XASU_RSA_ECC_ENABLE
 			Resource = XASUFW_RSA;
+#else
+			Resource = XASUFW_INVALID;
+#endif /* XASU_RSA_ECC_ENABLE */
 		}
 	} else {
 		Resource = XASUFW_INVALID;
@@ -838,4 +960,5 @@ XAsufw_Resource XAsufw_GetRsaShaMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 
 	return Resource;
 }
+#endif /* XASU_ECC_ENABLE || XASU_RSA_ECC_ENABLE */
 /** @} */

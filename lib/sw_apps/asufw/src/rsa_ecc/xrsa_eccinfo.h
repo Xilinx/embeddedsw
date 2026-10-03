@@ -39,7 +39,11 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "Ecdsa.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
 
+#ifdef XASU_RSA_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 
 /** This typedef is used to know the prime and binary curve values. */
@@ -55,6 +59,8 @@ extern EcdsaCrvInfo XRsa_EccCrvsDb[];
 
 /************************************* Function Prototypes ***************************************/
 u32 XRsa_EccCrvsGetCount(void);
+
+#endif /* XASU_RSA_ECC_ENABLE */
 
 #ifdef __cplusplus
 }

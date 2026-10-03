@@ -509,7 +509,10 @@
 #define XASU_AES_CM_ENABLE
 #define XASU_ECC_CM_ENABLE
 
-/* Enable/disable for HMAC,KDF,ECIES,Keywrap,RSA padding schemes, OCP and KeyManager */
+/* Enable/disable for RSA, ECC, HMAC,KDF,ECIES,Keywrap,RSA padding schemes, OCP and KeyManager */
+#define XASU_RSA_ECC_ENABLE /**< Macro to enable/disable the RSA engine, which also runs every
+				ECC curve */
+#define XASU_ECC_ENABLE /**< Macro to enable/disable the dedicated P-256/P-384 ECC core */
 #define XASU_HMAC_ENABLE
 #define XASU_KDF_ENABLE
 #define XASU_ECIES_ENABLE
@@ -579,6 +582,89 @@
 
 /**< Macro to enable/disable support of EDWARD P-448 curve */
 #define XASU_ECC_SUPPORT_EDWARD_P448
+
+/* Error out if a feature needs an engine that is turned off. */
+#ifndef XASU_RSA_ECC_ENABLE
+#ifdef XASU_ECIES_ENABLE
+#error "XASU_ECIES_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_KEYWRAP_ENABLE
+#error "XASU_KEYWRAP_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_PROVISION_ENABLE
+#error "XASU_PROVISION_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_OCP_ENABLE
+#error "XASU_OCP_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_RSA_PADDING_ENABLE
+#error "XASU_RSA_PADDING_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_RSA_2048_KEYGEN_ENABLE
+#error "XASU_RSA_2048_KEYGEN_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_RSA_3072_KEYGEN_ENABLE
+#error "XASU_RSA_3072_KEYGEN_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_RSA_4096_KEYGEN_ENABLE
+#error "XASU_RSA_4096_KEYGEN_ENABLE requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ENABLE_CAVP_SUPPORT
+#error "XASU_ENABLE_CAVP_SUPPORT requires XASU_RSA_ECC_ENABLE."
+#endif
+/* Every curve other than P-256 and P-384 is implemented only on the RSA core. */
+#ifdef XASU_ECC_SUPPORT_NIST_P192
+#error "XASU_ECC_SUPPORT_NIST_P192 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_NIST_P224
+#error "XASU_ECC_SUPPORT_NIST_P224 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_NIST_P521
+#error "XASU_ECC_SUPPORT_NIST_P521 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P256
+#error "XASU_ECC_SUPPORT_BRAINPOOL_P256 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P320
+#error "XASU_ECC_SUPPORT_BRAINPOOL_P320 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P384
+#error "XASU_ECC_SUPPORT_BRAINPOOL_P384 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_BRAINPOOL_P512
+#error "XASU_ECC_SUPPORT_BRAINPOOL_P512 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_EDWARD_P25519
+#error "XASU_ECC_SUPPORT_EDWARD_P25519 requires XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_EDWARD_P448
+#error "XASU_ECC_SUPPORT_EDWARD_P448 requires XASU_RSA_ECC_ENABLE."
+#endif
+#endif /* !XASU_RSA_ECC_ENABLE */
+
+/* The ECC counter measures are implemented in the dedicated ECC core only. */
+#if !defined(XASU_ECC_ENABLE) && defined(XASU_ECC_CM_ENABLE)
+#error "XASU_ECC_CM_ENABLE requires XASU_ECC_ENABLE."
+#endif
+
+/* P-256 and P-384 run on either core. */
+#if !defined(XASU_ECC_ENABLE) && !defined(XASU_RSA_ECC_ENABLE)
+#ifdef XASU_ECC_SUPPORT_NIST_P256
+#error "XASU_ECC_SUPPORT_NIST_P256 requires XASU_ECC_ENABLE or XASU_RSA_ECC_ENABLE."
+#endif
+#ifdef XASU_ECC_SUPPORT_NIST_P384
+#error "XASU_ECC_SUPPORT_NIST_P384 requires XASU_ECC_ENABLE or XASU_RSA_ECC_ENABLE."
+#endif
+#endif /* !XASU_ECC_ENABLE && !XASU_RSA_ECC_ENABLE */
+
+/*
+ * Without the dedicated ECC core, the ECC module is qualified by the P-256 KAT on the RSA core,
+ * so that curve has to be built.
+ */
+#if defined(XASU_RSA_ECC_ENABLE) && !defined(XASU_ECC_ENABLE) && \
+	!defined(XASU_ECC_SUPPORT_NIST_P256)
+#error "XASU_RSA_ECC_ENABLE without XASU_ECC_ENABLE requires XASU_ECC_SUPPORT_NIST_P256."
+#endif
 
 /* Platform specific definitions */
 #ifndef VERSAL_2VE_2VM

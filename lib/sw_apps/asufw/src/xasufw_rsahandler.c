@@ -49,6 +49,7 @@
 #include "xil_util.h"
 #include "xasufw_memory.h"
 
+#ifdef XASU_RSA_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 #ifdef XASU_KEYMANAGER_ENABLE
 #define XRSA_KEY_GEN_POLL_INTERVAL	(100U)	/**< Key gen task poll interval in ms */
@@ -1167,4 +1168,5 @@ s32 XAsufw_CreateRsaKeyPairGenTask(void)
 	return Status;
 }
 #endif /* XASU_KEYMANAGER_ENABLE */
+#endif /* XASU_RSA_ECC_ENABLE */
 /** @} */

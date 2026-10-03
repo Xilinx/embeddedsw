@@ -83,6 +83,7 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+#ifdef XASU_RSA_ECC_ENABLE
 /* RSA CRT Operation function */
 s32 XRsa_CrtOp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyParamAddr,
 	       u32 *OutDataLenPtr);
@@ -104,6 +105,8 @@ s32 XRsa_PubExp(XAsufw_Dma *DmaPtr, const XAsu_RsaParams *RsaParamsPtr, u64 KeyP
 s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize);
 
 /************************************ Variable Definitions ***************************************/
+
+#endif /* XASU_RSA_ECC_ENABLE */
 
 #ifdef __cplusplus
 }

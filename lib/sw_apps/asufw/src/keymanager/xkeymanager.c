@@ -44,6 +44,11 @@
 #include "xkeymanager.h"
 #include "xasu_keymanager_common.h"
 #include "xasufw_util.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#else
+#include "xparameters.h"
+#endif
 #include "xasufw_status.h"
 #include "xasufw_debug.h"
 #include "xtrng.h"
@@ -1405,6 +1410,8 @@ END:
 	return Status;
 }
 
+/* Both key pair generators run on the RSA core, the ECC one included. */
+#ifdef XASU_RSA_ECC_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	Generate an RSA key pair and optionally export it via DMA.
@@ -1720,6 +1727,7 @@ END_CLR:
 END:
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 
 #ifdef XASU_MLDSA_ENABLE
 /*************************************************************************************************/
@@ -6538,13 +6546,15 @@ END:
  *		- XASUFW_SUCCESS, if the image is active and the KAT has passed.
  *		- XASUFW_OVERLAY_ACTIVATE_FAIL, if the image cannot be loaded.
  *		- XASUFW_KEYMANAGER_KAT_FAILED, if the KAT has not passed.
+ *		- XASUFW_FEATURE_NOT_SUPPORTED, if the build has no RSA core to sign with.
  *
- * @note	The KAT reaches the ECC core, which lives in this image, so it can only run once
- *		the image is active.
+ * @note	The header is signed on the RSA core, so the KAT is run on the RSA core. The ECC
+ *		operations live in this image, so the KAT can only run once the image is active.
  *
  *************************************************************************************************/
 static s32 XKeyManager_ActivateSignatureImage(XAsufw_Dma *DmaPtr)
 {
+#ifdef XASU_RSA_ECC_ENABLE
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** ECC lives in an overlay image, so it has to be resident before a signature is made. */
@@ -6555,20 +6565,26 @@ static s32 XKeyManager_ActivateSignatureImage(XAsufw_Dma *DmaPtr)
 	}
 
 	/** The image is new to this boot, so its KAT is run once before it is trusted. */
-	if (XASUFW_IS_KAT_PASSED(XASU_MODULE_ECC_ID) == FALSE) {
+	if (XASUFW_IS_KAT_PASSED(XASU_MODULE_RSA_ID) == FALSE) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-		Status = XAsufw_EccCoreKat(DmaPtr);
+		Status = XAsufw_RsaEccKat(DmaPtr, (u8)XASU_ECC_NIST_P256);
 		if (XASUFW_SUCCESS != Status) {
 			Status = XASUFW_KEYMANAGER_KAT_FAILED;
 			goto END;
 		}
-		XASUFW_SET_KAT_PASSED(XASU_MODULE_ECC_ID);
+		XASUFW_SET_KAT_PASSED(XASU_MODULE_RSA_ID);
 	}
 
 	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
+#else
+	/* The header is signed with P-384 ECDSA on the RSA core. */
+	(void)DmaPtr;
+
+	return XASUFW_FEATURE_NOT_SUPPORTED;
+#endif
 }
 
 /*************************************************************************************************/

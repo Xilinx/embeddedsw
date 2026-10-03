@@ -51,6 +51,21 @@ endif()
 
 # Server configuration options are applicable only for ASU processor
 if(XILASU_IS_ASU)
+    # Crypto engines present on the device. XILASU_rsa_ecc_support is the RSA engine, which
+    # also runs every ECC curve. XILASU_ecc_support is the dedicated ECC core, which runs only
+    # P-256 and P-384. The ECC module is built with either engine.
+    option(XILASU_rsa_ecc_support
+        "Enables/Disables the RSA engine, which also runs every ECC curve, in ASUFW." ON)
+    if(XILASU_rsa_ecc_support)
+        set(XASU_RSA_ECC_ENABLE " ")
+    endif()
+
+    option(XILASU_ecc_support
+        "Enables/Disables the dedicated P-256/P-384 ECC core in ASUFW." ON)
+    if(XILASU_ecc_support)
+        set(XASU_ECC_ENABLE " ")
+    endif()
+
     option(XILASU_aes_cm_mode_support "Enables/Disables counter measure mode for AES." ON)
     if(XILASU_aes_cm_mode_support)
         set(XASU_AES_CM_ENABLE " ")

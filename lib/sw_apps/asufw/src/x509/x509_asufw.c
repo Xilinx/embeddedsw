@@ -41,6 +41,9 @@
 #include "xsha_hw.h"
 #include "xasu_def.h"
 
+/* Certificates are signed with P-384 ECDSA on the RSA core. */
+#ifdef XASU_RSA_ECC_ENABLE
+
 /************************************ Constant Definitions ***************************************/
 
 /************************************** Type Definitions *****************************************/
@@ -205,4 +208,5 @@ static s32 X509_ShaDigest(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBu
 END:
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 /** @} */

@@ -94,11 +94,15 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resour
 s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr);
 s32 XAsufw_RsaPssSignGenAndVerifOpKat(XAsufw_Dma *AsuDmaPtr);
 #endif
+#ifdef XASU_ECC_ENABLE
 s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr);
+#endif
+#ifdef XASU_RSA_ECC_ENABLE
 s32 XAsufw_RsaEccKat(XAsufw_Dma *AsuDmaPtr, u8 CurveType);
+s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr);
+#endif
 s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode);
 s32 XAsufw_AesDpaCmKat(XAsufw_Dma *AsuDmaPtr);
-s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr);
 #ifdef XASU_HMAC_ENABLE
 s32 XAsufw_HmacOperationKat(XAsufw_Dma *AsuDmaPtr);
 #endif

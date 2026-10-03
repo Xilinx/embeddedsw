@@ -44,6 +44,7 @@
 #include "xasufw_perf.h"
 #include "xasufw_memory.h"
 
+#ifdef XASU_RSA_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 /* Ensure the RSA parameters fit within the crypto algorithm data block. */
 _Static_assert(XRSA_MAX_PARAM_SIZE_IN_BYTES <= XASUFW_CRYPTO_ALGO_DATA_BLOCK_SIZE,
@@ -1324,4 +1325,5 @@ END:
 
 	return Status;
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 /** @} */

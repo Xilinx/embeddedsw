@@ -38,10 +38,14 @@
 #define OVERLAY_SECTION(name)	__attribute__((section(name)))	/**< Place a symbol into the named
 								linker section */
 
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 #define XOVERLAY_ECC_HDR	OVERLAY_SECTION(".overlay_ecc.header")		/**< ECC overlay
 										header section */
+#endif
+#ifdef XASU_RSA_ECC_ENABLE
 #define XOVERLAY_RSA_HDR	OVERLAY_SECTION(".overlay_rsa.header")		/**< RSA overlay
 										header section */
+#endif
 #ifdef XASU_LMS_ENABLE
 #define XOVERLAY_LMS_HDR	OVERLAY_SECTION(".overlay_lms.header")		/**< LMS overlay
 										header section */
@@ -65,13 +69,17 @@
 #endif
 
 /********************************** Variable Definitions *****************************************/
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 extern char __overlay_ecc_img_size[];	/**< Size of the ECC overlay image */
 extern char __overlay_ecc_txt_size[];	/**< Size of the ECC overlay text image */
 extern char __overlay_ecc_data_size[];	/**< Size of the ECC overlay data image */
+#endif
 
+#ifdef XASU_RSA_ECC_ENABLE
 extern char __overlay_rsa_img_size[];	/**< Size of the RSA overlay image */
 extern char __overlay_rsa_txt_size[];	/**< Size of the RSA overlay text image */
 extern char __overlay_rsa_data_size[];	/**< Size of the RSA overlay data image */
+#endif
 
 #ifdef XASU_LMS_ENABLE
 extern char __overlay_lms_img_size[];	/**< Size of the LMS overlay image */
@@ -102,6 +110,7 @@ extern char __overlay_keyvault_txt_size[];	/**< Size of the key vault overlay te
 extern char __overlay_keyvault_data_size[];	/**< Size of the key vault overlay data image */
 #endif
 
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 /**< ECC overlay header */
 XOVERLAY_ECC_HDR
 const XOverlay_Header XEcc_OverlayHeader = {
@@ -112,7 +121,9 @@ const XOverlay_Header XEcc_OverlayHeader = {
 	.TxtSize = (u32)(UINTPTR)__overlay_ecc_txt_size,
 	.DataSize = (u32)(UINTPTR)__overlay_ecc_data_size,
 };
+#endif
 
+#ifdef XASU_RSA_ECC_ENABLE
 /**< RSA overlay header */
 XOVERLAY_RSA_HDR
 const XOverlay_Header XRsa_OverlayHeader = {
@@ -123,6 +134,7 @@ const XOverlay_Header XRsa_OverlayHeader = {
 	.TxtSize = (u32)(UINTPTR)__overlay_rsa_txt_size,
 	.DataSize = (u32)(UINTPTR)__overlay_rsa_data_size,
 };
+#endif
 
 #ifdef XASU_LMS_ENABLE
 /**< LMS overlay header */

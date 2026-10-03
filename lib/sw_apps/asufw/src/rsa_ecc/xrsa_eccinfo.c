@@ -35,6 +35,7 @@
 #include "xparameters.h"
 #include "xasu_eccinfo.h"
 
+#ifdef XASU_RSA_ECC_ENABLE
 /************************************ Constant Definitions ***************************************/
 #ifdef XASU_ECC_SUPPORT_NIST_P521
 static const u8 XRsa_EccP521D0[] = {
@@ -1887,4 +1888,5 @@ u32 XRsa_EccCrvsGetCount(void)
 {
 	return sizeof(XRsa_EccCrvsDb) / sizeof(EcdsaCrvInfo);
 }
+#endif /* XASU_RSA_ECC_ENABLE */
 /** @} */

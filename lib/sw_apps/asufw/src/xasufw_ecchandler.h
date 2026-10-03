@@ -43,9 +43,11 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+#if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 s32 XAsufw_EccInit(void);
 XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf);
 XAsufw_Resource XAsufw_GetRsaShaMaskResourceId(const XAsu_ReqBuf *ReqBuf);
+#endif /* XASU_ECC_ENABLE || XASU_RSA_ECC_ENABLE */
 
 /************************************ Variable Definitions ***************************************/
 
