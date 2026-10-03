@@ -8,11 +8,7 @@
 /**
 *
 * @file xnandpsu_sinit.c
-* @addtogroup Overview
-* @{
-*
-* The implementation of the XNandPsu driver's static initialization
-* functionality.
+* @brief Implements the static initialization of the XNandPsu driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,9 +18,15 @@
 * 1.0   nm     05/06/2014  First release
 * 1.12  akm    06/27/23    Update the driver to support for system device-tree flow.
 * 1.16  vlt    12/15/25    Update Doxygen comments to include SDT flow details.
+* 1.17  tb     10/01/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup nandpsu_api NANDPSU APIs
+* @{
+*/
 
 /***************************** Include Files ********************************/
 #include "xstatus.h"
@@ -47,22 +49,25 @@ extern XNandPsu_Config XNandPsu_ConfigTable[];
 /****************************************************************************/
 /**
 *
-* Looks up the device configuration based on the unique device ID/BaseAddress.
+* @brief	Looks up the device configuration based on the unique device ID
+*		or base address.
+*
 * The XNandPsu_ConfigTable[] contains the configuration info for each device
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	DeviceId contains the unique ID of the device
+* @param[in]	DevID Unique ID of the device.
 * @endif
 *
-* @return       A pointer to the configuration found or NULL if the
-*               specified device ID/BaseAddress was not found. See
-*               xnandpsu.h for the definition of XNandPsu_Config.
+* @return	Pointer to the configuration found, or NULL if the specified
+*		device ID or base address is not found. See xnandpsu.h for
+*		the definition of XNandPsu_Config.
 *
-* @note        In XSCT/classic flow, DeviceId is used to look up the device
-*              configuration.
+* @note	In the XSCT/Classic flow, DevID selects the device
+*		configuration. In the system device-tree flow, BaseAddress
+*		selects it.
 *
 ******************************************************************************/
 #ifndef SDT

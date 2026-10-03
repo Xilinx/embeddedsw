@@ -4,16 +4,16 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XNANDPSU_H
+#define XNANDPSU_H
+
 /*****************************************************************************/
 /**
 *
 * @file xnandpsu.h
-* @addtogroup Overview
+* @addtogroup nandpsu Overview
 * @{
-* @details
-*
-* This file implements a driver to support Arasan NAND controller
-* present in Zynq Ultrascale Mp.
+* @brief Declares the Arasan NAND controller driver for Zynq UltraScale+ MPSoC.
 *
 * <b>Driver Initialization</b>
 *
@@ -38,8 +38,8 @@
 * and not the other way around. To change a cell back to a logic 1, the
 * entire block containing that cell must be erased. When a block is erased
 * all bytes contain the value 0xFF. The number of times a block can be
-* erased is finite. Eventually the block will wear out and will no longer
-* be capable of erasure. As of this writing, the typical flash block can
+* erased is finite. Eventually the block wears out and is no longer
+* capable of erasure. As of this writing, the typical flash block can
 * be erased 100,000 or more times.
 *
 * The jobs done by this driver typically are:
@@ -71,10 +71,10 @@
 * only after the erase operation is completed successfully or an error is
 * reported.
 *
-* @note		Driver has been renamed to nandpsu after change in
+* @note		The driver name changed to nandpsu after the change in
 *		naming convention.
 *
-* This driver is intended to be RTOS and processor independent. It works with
+* The driver is intended to be RTOS and processor independent. It works with
 * physical addresses only. Any needs for dynamic memory management, threads,
 * mutual exclusion, virtual memory, cache control, or HW write protection
 * management must be satisfied by the layer above this driver.
@@ -162,13 +162,11 @@
 * 1.16  vlt    12/30/25    Update Doxygen comments to include SDT flow details.
 * 1.16  vlt    03/14/26    Updated BaseAddress type from u32 to UINTPTR
 *                          to support 64-bit addressing.
+* 1.17  tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
-
-#ifndef XNANDPSU_H		/* prevent circular inclusions */
-#define XNANDPSU_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -187,7 +185,7 @@ extern "C" {
 #endif
 /************************** Constant Definitions *****************************/
 
-#define XNANDPSU_DEBUG
+#define XNANDPSU_DEBUG	/**< Enables the driver debug messages. */
 
 #define XNANDPSU_MAX_TARGETS		1U	/**< ce_n0, ce_n1 */
 #define XNANDPSU_MAX_PKT_SIZE		0x7FFU	/**< Max packet size */
@@ -210,20 +208,27 @@ extern "C" {
 #define XNANDPSU_MAX_LUNS		8U	/**< Max number of LUNs */
 #define XNANDPSU_MAX_PAGES_PER_BLOCK	512U 	/**< Max number pages per block */
 
+/** Timeout count for polling the interrupt status. */
 #define XNANDPSU_INTR_POLL_TIMEOUT	0xF000000U
 
+/** Clock frequency for the SDR data interface (100 MHz). */
 #define XNANDPSU_SDR_CLK		((u16)100U * (u16)1000U * (u16)1000U)
+/** Clock frequency for NVDDR timing mode 0 (20 MHz). */
 #define XNANDPSU_NVDDR_CLK_0		((u16)20U * (u16)1000U * (u16)1000U)
+/** Clock frequency for NVDDR timing mode 1 (33 MHz). */
 #define XNANDPSU_NVDDR_CLK_1		((u16)33U * (u16)1000U * (u16)1000U)
+/** Clock frequency for NVDDR timing mode 2 (50 MHz). */
 #define XNANDPSU_NVDDR_CLK_2		((u16)50U * (u16)1000U * (u16)1000U)
+/** Clock frequency for NVDDR timing mode 3 (66 MHz). */
 #define XNANDPSU_NVDDR_CLK_3		((u16)66U * (u16)1000U * (u16)1000U)
+/** Clock frequency for NVDDR timing mode 4 (83 MHz). */
 #define XNANDPSU_NVDDR_CLK_4		((u16)83U * (u16)1000U * (u16)1000U)
+/** Clock frequency for NVDDR timing mode 5 (100 MHz). */
 #define XNANDPSU_NVDDR_CLK_5		((u16)100U * (u16)1000U * (u16)1000U)
 
-#define XNANDPSU_MAX_TIMING_MODE	5
+#define XNANDPSU_MAX_TIMING_MODE	5	/**< Maximum timing mode. */
 /**
- * The XNandPsu_Config structure contains configuration information for NAND
- * controller.
+ * @brief Holds the configuration information for the NAND controller.
  */
 typedef struct {
 #ifndef SDT
@@ -239,7 +244,7 @@ typedef struct {
 } XNandPsu_Config;
 
 /**
- * The XNandPsu_DataInterface enum contains flash operating mode.
+ * @brief Lists the flash data interface (operating) modes.
  */
 typedef enum {
 	XNANDPSU_SDR = 0U,		/**< Single Data Rate */
@@ -247,25 +252,25 @@ typedef enum {
 } XNandPsu_DataInterface;
 
 /**
- * XNandPsu_TimingMode enum contains timing modes.
+ * @brief Lists the flash timing modes.
  */
 typedef enum {
-	XNANDPSU_SDR0 = 0U,
-	XNANDPSU_SDR1,
-	XNANDPSU_SDR2,
-	XNANDPSU_SDR3,
-	XNANDPSU_SDR4,
-	XNANDPSU_SDR5,
-	XNANDPSU_NVDDR0,
-	XNANDPSU_NVDDR1,
-	XNANDPSU_NVDDR2,
-	XNANDPSU_NVDDR3,
-	XNANDPSU_NVDDR4,
-	XNANDPSU_NVDDR5
+	XNANDPSU_SDR0 = 0U,	/**< SDR timing mode 0. */
+	XNANDPSU_SDR1,		/**< SDR timing mode 1. */
+	XNANDPSU_SDR2,		/**< SDR timing mode 2. */
+	XNANDPSU_SDR3,		/**< SDR timing mode 3. */
+	XNANDPSU_SDR4,		/**< SDR timing mode 4. */
+	XNANDPSU_SDR5,		/**< SDR timing mode 5. */
+	XNANDPSU_NVDDR0,	/**< NVDDR timing mode 0. */
+	XNANDPSU_NVDDR1,	/**< NVDDR timing mode 1. */
+	XNANDPSU_NVDDR2,	/**< NVDDR timing mode 2. */
+	XNANDPSU_NVDDR3,	/**< NVDDR timing mode 3. */
+	XNANDPSU_NVDDR4,	/**< NVDDR timing mode 4. */
+	XNANDPSU_NVDDR5		/**< NVDDR timing mode 5. */
 } XNandPsu_TimingMode;
 
 /**
- * The XNandPsu_SWMode enum contains the driver operating mode.
+ * @brief Lists the driver operating modes.
  */
 typedef enum {
 	XNANDPSU_POLLING = 0,		/**< Polling */
@@ -273,7 +278,7 @@ typedef enum {
 } XNandPsu_SWMode;
 
 /**
- * The XNandPsu_DmaMode enum contains the controller MDMA mode.
+ * @brief Lists the controller DMA modes.
  */
 typedef enum {
 	XNANDPSU_PIO = 0,		/**< PIO Mode */
@@ -282,17 +287,17 @@ typedef enum {
 } XNandPsu_DmaMode;
 
 /**
- * The XNandPsu_EccMode enum contains ECC functionality.
+ * @brief Lists the ECC modes.
  */
 typedef enum {
-	XNANDPSU_NONE = 0,
-	XNANDPSU_HWECC,
-	XNANDPSU_EZNAND,
-	XNANDPSU_ONDIE
+	XNANDPSU_NONE = 0,	/**< No ECC. */
+	XNANDPSU_HWECC,		/**< Controller hardware ECC. */
+	XNANDPSU_EZNAND,	/**< EZ-NAND ECC. */
+	XNANDPSU_ONDIE		/**< On-die ECC. */
 } XNandPsu_EccMode;
 
 /**
- * Bad block table descriptor
+ * @brief Describes the bad block table descriptor.
  */
 typedef struct {
 	u32 PageOffset[XNANDPSU_MAX_TARGETS];
@@ -308,7 +313,7 @@ typedef struct {
 } XNandPsu_BbtDesc;
 
 /**
- * Bad block pattern
+ * @brief Describes the bad block pattern.
  */
 typedef struct {
 	u32 Options;		/**< Options to search the bad block pattern */
@@ -318,10 +323,12 @@ typedef struct {
 } XNandPsu_BadBlockPattern;
 
 /**
- * The XNandPsu_Geometry structure contains the ONFI geometry information.
+ * @brief Holds the ONFI geometry information.
+ *
+ * The members from BytesPerPage to EccCodeWordSize hold the parameter page
+ * information. The remaining members hold driver specific information.
  */
 typedef struct {
-	/* Parameter page information */
 	u32 BytesPerPage;	/**< Number of bytes per page */
 	u16 SpareBytesPerPage;	/**< Number of spare bytes per page */
 	u32 PagesPerBlock;	/**< Number of pages per block */
@@ -332,7 +339,6 @@ typedef struct {
 	u8 NumBitsPerCell;	/**< Number of bits per cell (Hamming/BCH) */
 	u8 NumBitsECC;		/**< Number of bits ECC correctability */
 	u32 EccCodeWordSize;	/**< ECC codeword size */
-	/* Driver specific information */
 	u32 BlockSize;		/**< Block size */
 	u32 NumTargetPages;	/**< Total number of pages in a Target */
 	u32 NumTargetBlocks;	/**< Total number of blocks in a Target */
@@ -344,54 +350,56 @@ typedef struct {
 } XNandPsu_Geometry;
 
 /**
- * The XNandPsu_Features structure contains the ONFI features information.
+ * @brief Holds the ONFI features information.
  */
 typedef struct {
-	u32 NvDdr;
-	u32 EzNand;
-	u32 OnDie;
-	u32 ExtPrmPage;
+	u32 NvDdr;		/**< NVDDR data interface support. */
+	u32 EzNand;		/**< EZ-NAND support. */
+	u32 OnDie;		/**< On-die ECC support. */
+	u32 ExtPrmPage;		/**< Extended parameter page support. */
 } XNandPsu_Features;
 
 /**
- * The XNandPsu_EccMatrix structure contains ECC features information.
+ * @brief Holds the ECC features information for a page size.
  */
 typedef struct {
-	u16 PageSize;
-	u16 CodeWordSize;
-	u8 NumEccBits;
-	u8 IsBCH;
-	u16 EccAddr;
-	u16 EccSize;
+	u16 PageSize;		/**< Page size in bytes. */
+	u16 CodeWordSize;	/**< ECC codeword size. */
+	u8 NumEccBits;		/**< Number of ECC correctable bits. */
+	u8 IsBCH;		/**< ECC type, Hamming or BCH. */
+	u16 EccAddr;		/**< ECC address. */
+	u16 EccSize;		/**< ECC size in bytes. */
 } XNandPsu_EccMatrix;
 
 /**
- * The XNandPsu_EccCfg structure contains ECC configuration.
+ * @brief Holds the ECC configuration.
  */
 typedef struct {
-	u16 EccAddr;
-	u16 EccSize;
-	u16 CodeWordSize;
-	u8 NumEccBits;
-	u8 IsBCH;
+	u16 EccAddr;		/**< ECC address. */
+	u16 EccSize;		/**< ECC size in bytes. */
+	u16 CodeWordSize;	/**< ECC codeword size. */
+	u8 NumEccBits;		/**< Number of ECC correctable bits. */
+	u8 IsBCH;		/**< BCH ECC in use (1) or Hamming ECC (0). */
 } XNandPsu_EccCfg;
 
 /**
- * The XNandPsu structure contains the driver instance data. The user is
- * required to allocate a variable of this type for the NAND controller.
- * A pointer to a variable of this type is then passed to the driver API
- * functions.
+ * @brief Holds the driver instance data.
+ *
+ * The user is required to allocate a variable of this type for the NAND
+ * controller. A pointer to a variable of this type is then passed to the
+ * driver API functions. The BbtDesc, BbtMirrorDesc, BbPattern, Bbt and
+ * FlashBbt members hold the bad block table definitions.
  */
 #ifdef __ICCARM__
 #pragma pack(push, 1)
 #endif
 typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
-	XNandPsu_Config Config;
+	XNandPsu_Config Config;	/**< Configuration information. */
 	u32 Ecc_Stat_PerPage_flips;	/**< Ecc Correctable Error Counter for Current Page */
 	u32 Ecc_Stats_total_flips;     /**< Total Ecc Errors Corrected */
-	XNandPsu_DataInterface DataInterface;
-	XNandPsu_TimingMode TimingMode;
+	XNandPsu_DataInterface DataInterface;	/**< Flash data interface. */
+	XNandPsu_TimingMode TimingMode;	/**< Flash timing mode. */
 	XNandPsu_SWMode Mode;		/**< Driver operating mode */
 	XNandPsu_DmaMode DmaMode;	/**< MDMA mode enabled/disabled */
 	XNandPsu_EccMode EccMode;	/**< ECC Mode */
@@ -402,9 +410,9 @@ typedef struct {
 	u8 PartialDataBuf[XNANDPSU_MAX_PAGE_SIZE];	/**< Partial read/write buffer */
 #pragma pack(pop)
 #else
+	/** Partial read/write buffer, aligned to 64 bytes. */
 	u8 PartialDataBuf[XNANDPSU_MAX_PAGE_SIZE] __attribute__ ((aligned(64)));
 #endif
-	/* Bad block table definitions */
 	XNandPsu_BbtDesc BbtDesc;	/**< Bad block table descriptor */
 	XNandPsu_BbtDesc BbtMirrorDesc;	/**< Mirror BBT descriptor */
 	XNandPsu_BadBlockPattern BbPattern;	/**< Bad block pattern to
@@ -418,16 +426,16 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This macro sets the bitmask in the register.
+ * @brief Sets the bitmask in the register.
  *
- * @param	InstancePtr is a pointer to the XNandPsu instance of the
+ * @param[in]	InstancePtr Pointer to the XNandPsu instance of the
  *		controller.
- * @param	RegOffset is the register offset.
- * @param	BitMask is the bitmask.
+ * @param[in]	RegOffset Register offset.
+ * @param[in]	BitMask Bitmask to set.
  *
- * @note	C-style signature:
- *		void XNandPsu_SetBits(XNandPsu *InstancePtr, u32 RegOffset,
- *							u32 BitMask)
+ * @note
+ * C-style signature
+ *	void XNandPsu_SetBits(XNandPsu *InstancePtr, u32 RegOffset, u32 BitMask)
  *
  *****************************************************************************/
 #define XNandPsu_SetBits(InstancePtr, RegOffset, BitMask)		\
@@ -438,16 +446,16 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This macro clears the bitmask in the register.
+ * @brief Clears the bitmask in the register.
  *
- * @param	InstancePtr is a pointer to the XNandPsu instance of the
+ * @param[in]	InstancePtr Pointer to the XNandPsu instance of the
  *		controller.
- * @param	RegOffset is the register offset.
- * @param	BitMask is the bitmask.
+ * @param[in]	RegOffset Register offset.
+ * @param[in]	BitMask Bitmask to clear.
  *
- * @note	C-style signature:
- *		void XNandPsu_ClrBits(XNandPsu *InstancePtr, u32 RegOffset,
- *							u32 BitMask)
+ * @note
+ * C-style signature
+ *	void XNandPsu_ClrBits(XNandPsu *InstancePtr, u32 RegOffset, u32 BitMask)
  *
  *****************************************************************************/
 #define XNandPsu_ClrBits(InstancePtr, RegOffset, BitMask)		\
@@ -458,17 +466,18 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This macro clears and updates the bitmask in the register.
+ * @brief Clears and updates the bitmask in the register.
  *
- * @param	InstancePtr is a pointer to the XNandPsu instance of the
+ * @param[in]	InstancePtr Pointer to the XNandPsu instance of the
  *		controller.
- * @param	RegOffset is the register offset.
- * @param	Mask is the bitmask.
- * @param	Value is the register value to write.
+ * @param[in]	RegOffset Register offset.
+ * @param[in]	Mask Bitmask to clear.
+ * @param[in]	Value Value to set in the cleared bits.
  *
- * @note	C-style signature:
- *		void XNandPsu_ReadModifyWrite(XNandPsu *InstancePtr,
- *					u32 RegOffset, u32 Mask, u32 Val)
+ * @note
+ * C-style signature
+ *	void XNandPsu_ReadModifyWrite(XNandPsu *InstancePtr, u32 RegOffset,
+ *		u32 Mask, u32 Value)
  *
  *****************************************************************************/
 #define XNandPsu_ReadModifyWrite(InstancePtr, RegOffset, Mask, Value)	\
@@ -479,14 +488,15 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This macro enables bitmask in Interrupt Signal Enable register.
+ * @brief Enables the bitmask in the Interrupt Signal Enable register.
  *
- * @param	InstancePtr is a pointer to the XNandPsu instance of the
+ * @param[in]	InstancePtr Pointer to the XNandPsu instance of the
  *		controller.
- * @param	Mask is the bitmask.
+ * @param[in]	Mask Interrupt bitmask to enable.
  *
- * @note	C-style signature:
- *		void XNandPsu_IntrSigEnable(XNandPsu *InstancePtr, u32 Mask)
+ * @note
+ * C-style signature
+ *	void XNandPsu_IntrSigEnable(XNandPsu *InstancePtr, u32 Mask)
  *
  *****************************************************************************/
 #define XNandPsu_IntrSigEnable(InstancePtr, Mask)			\
@@ -496,14 +506,15 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This macro clears bitmask in Interrupt Signal Enable register.
+ * @brief Clears the bitmask in the Interrupt Signal Enable register.
  *
- * @param	InstancePtr is a pointer to the XNandPsu instance of the
+ * @param[in]	InstancePtr Pointer to the XNandPsu instance of the
  *		controller.
- * @param	Mask is the bitmask.
+ * @param[in]	Mask Interrupt bitmask to clear.
  *
- * @note	C-style signature:
- *		void XNandPsu_IntrSigClear(XNandPsu *InstancePtr, u32 Mask)
+ * @note
+ * C-style signature
+ *	void XNandPsu_IntrSigClear(XNandPsu *InstancePtr, u32 Mask)
  *
  *****************************************************************************/
 #define XNandPsu_IntrSigClear(InstancePtr, Mask)			\
@@ -513,14 +524,15 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This macro enables bitmask in Interrupt Status Enable register.
+ * @brief Enables the bitmask in the Interrupt Status Enable register.
  *
- * @param	InstancePtr is a pointer to the XNandPsu instance of the
+ * @param[in]	InstancePtr Pointer to the XNandPsu instance of the
  *		controller.
- * @param	Mask is the bitmask.
+ * @param[in]	Mask Interrupt bitmask to enable.
  *
- * @note	C-style signature:
- *		void XNandPsu_IntrStsEnable(XNandPsu *InstancePtr, u32 Mask)
+ * @note
+ * C-style signature
+ *	void XNandPsu_IntrStsEnable(XNandPsu *InstancePtr, u32 Mask)
  *
  *****************************************************************************/
 #define XNandPsu_IntrStsEnable(InstancePtr, Mask)			\
@@ -530,11 +542,16 @@ typedef struct {
 
 /*****************************************************************************/
 /**
- * This macro checks for the ONFI ID.
+ * @brief Checks for the ONFI ID.
  *
- * @param	Buff is the buffer holding ONFI ID
+ * @param[in]	Buff Buffer holding the ONFI ID.
  *
- * @note	none.
+ * @return	Nonzero if the buffer starts with the "ONFI" signature, 0
+ *		otherwise.
+ *
+ * @note
+ * C-style signature
+ *	int IS_ONFI(u8 *Buff)
  *
  *****************************************************************************/
 #define IS_ONFI(Buff)					\
@@ -597,5 +614,5 @@ XNandPsu_Config *XNandPsu_LookupConfig(UINTPTR BaseAddress);
 }
 #endif
 
-#endif /* XNANDPSU_H end of protection macro */
+#endif /* XNANDPSU_H */
 /** @} */

@@ -6,15 +6,11 @@
 /*****************************************************************************/
 /**
 * @file xnandpsu_example.c
+* @brief Provides a design example for the NAND driver (XNandPsu).
 *
-* This file contains a design example using the NAND driver (XNandPsu).
-* This example tests the erase, read and write features of the controller.
+* The example tests the erase, read and write features of the controller.
 * The flash is erased and written. The data is read back and compared
 * with the data written for correctness.
-*
-* @note
-*
-* None.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,6 +24,7 @@
 * 1.9  akm  07/15/2021  Switch to best supported Data interface and Timing mode.
 * 1.12 akm  06/27/2023  Add support for system device-tree flow for example.
 * 1.16 vlt  12/18/25    Update Doxygen comments to include SDT flow details.
+* 1.17 tb   10/01/26    Align Doxygen comments with AMD documentation standards
 *</pre>
 *
 ******************************************************************************/
@@ -47,10 +44,10 @@
  * change all the needed parameters in one place.
  */
 #ifndef SDT
-#define NAND_DEVICE_ID		0U
+#define NAND_DEVICE_ID		0U	/**< NAND controller device ID. */
 #endif
-#define TEST_BUF_SIZE		0x8000U
-#define TEST_PAGE_START		0x2U
+#define TEST_BUF_SIZE		0x8000U	/**< Test buffer size in bytes. */
+#define TEST_PAGE_START		0x2U	/**< First flash page of the test. */
 
 /**************************** Type Definitions *******************************/
 
@@ -66,8 +63,8 @@ s32 NandReadWriteExample(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
-XNandPsu NandInstance;			/* XNand Instance */
-XNandPsu *NandInstPtr = &NandInstance;
+XNandPsu NandInstance;			/**< XNandPsu driver instance. */
+XNandPsu *NandInstPtr = &NandInstance;	/**< Pointer to the instance. */
 
 /*
  * Buffers used during read and write transactions.
@@ -76,8 +73,8 @@ XNandPsu *NandInstPtr = &NandInstance;
 #pragma pack(push, 1)
 #endif
 #ifdef __ICCARM__
-u8 ReadBuffer[TEST_BUF_SIZE];
-u8 WriteBuffer[TEST_BUF_SIZE];
+u8 ReadBuffer[TEST_BUF_SIZE];		/**< Block sized read buffer. */
+u8 WriteBuffer[TEST_BUF_SIZE];		/**< Block sized write buffer. */
 #pragma pack(pop)
 #else
 u8 ReadBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));	/**< Block sized Read buffer */
@@ -89,14 +86,11 @@ u8 WriteBuffer[TEST_BUF_SIZE] __attribute__ ((aligned(64)));	/**< Block sized wr
 /****************************************************************************/
 /**
 *
-* Main function to execute the Nand Flash read write example.
-*
+* @brief Runs the NAND flash read write example.
 *
 * @return
 *		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
-*
-* @note		None.
 *
 *****************************************************************************/
 int main(void)
@@ -128,9 +122,9 @@ Out:
 /****************************************************************************/
 /**
 *
-* This function runs a test on the NAND flash device using the basic driver
-* functions in polled mode.
-* The function does the following tasks:
+* @brief Runs a test on the NAND flash device in polled mode.
+*
+* Uses the basic driver functions and does the following tasks:
 *	- Initialize the driver.
 *	- Erase the flash.
 *	- Write data to the flash.
@@ -138,19 +132,19 @@ Out:
 *	- Compare the data read against the data Written.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in]	BaseAddress Base address of the device.
 * @else
-* @param	NandDeviceId is is the XPAR_<NAND_instance>_DEVICE_ID value
-*		from xparameters.h.
+* @param[in]	NandDeviceId XPAR_<NAND_instance>_DEVICE_ID value from
+*		xparameters.h.
 * @endif
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if failed.
 *
-* @note	       In XSCT/classic flow, DeviceId is used to look up the
-*              device configuration.
-*
+* @note	In the XSCT/classic flow, NandDeviceId selects the device
+*		configuration. In the system device-tree flow, BaseAddress
+*		selects it.
 *
 ****************************************************************************/
 #ifndef SDT

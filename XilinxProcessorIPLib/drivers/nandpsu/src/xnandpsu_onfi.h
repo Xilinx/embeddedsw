@@ -4,16 +4,14 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XNANDPSU_ONFI_H
+#define XNANDPSU_ONFI_H
+
 /*****************************************************************************/
 /**
 *
 * @file xnandpsu_onfi.h
-* @addtogroup Overview
-* @{
-*
-* This file defines all the ONFI 3.1 specific commands and values.
-*
-* @note		None
+* @brief Declares the ONFI 3.1 specific commands, values and structures.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,11 +20,15 @@
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
 * 1.4	nsk    04/10/2018  Added ICCARM compiler support.
+* 1.17  tb     10/01/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
-#ifndef XNANDPSU_ONFI_H		/* prevent circular inclusions */
-#define XNANDPSU_ONFI_H		/* by using protection macros */
+
+/**
+* @addtogroup nandpsu_api NANDPSU APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -136,7 +138,7 @@ extern "C" {
 						  address cycles */
 
 /**
- * This enum defines the ONFI 3.1 commands.
+ * @brief Lists the ONFI 3.1 commands.
  */
 enum OnfiCommandList {
 	READ = 0,				/**< Read */
@@ -155,7 +157,7 @@ enum OnfiCommandList {
 	MULTIPLANE_PAGE_PROGRAM,	/**< Multiplane Page Program */
 	PAGE_CACHE_PROGRAM,		/**< Page Cache Program */
 	COPYBACK_PROGRAM,		/**< Copyback Program */
-	MULTIPLANE_COPYBACK_PROGRAM,	/**< Multiplance Copyback Program */
+	MULTIPLANE_COPYBACK_PROGRAM,	/**< Multiplane Copyback Program */
 	SMALL_DATA_MOVE,		/**< Small Data Move */
 	CHANGE_WRITE_COLUMN,		/**< Change Write Column */
 	CHANGE_ROW_ADDR,		/**< Change Row Address */
@@ -175,12 +177,19 @@ enum OnfiCommandList {
 };
 
 /**************************** Type Definitions *******************************/
-/* Parameter page structure of ONFI 3.1 specification. */
 #ifdef __ICCARM__
 #pragma pack(push, 1)
 #endif
+/**
+ * @brief Holds the parameter page structure of the ONFI 3.1 specification.
+ *
+ * The members form the revision information and features block (Signature
+ * to Reserved1), the manufacturer information block (DeviceManufacturer to
+ * Reserved2), the memory organization block (BytesPerPage to Reserved3), the
+ * electrical parameters block (IOPinCapacitance to Reserved4) and the vendor
+ * block (VendorRevisionNum to Crc).
+ */
 typedef struct {
-	/* Revision information and features block */
 	u8 Signature[4];		/**< Parameter page signature */
 	u16 Revision;			/**< Revision Number */
 	u16 Features;			/**< Features supported */
@@ -191,13 +200,11 @@ typedef struct {
 	u16 ExtParamPageLen;		/**< Extended Parameter Page Length */
 	u8 NumOfParamPages;		/**< Number of Parameter Pages */
 	u8 Reserved1[17];		/**< Reserved (15-31) */
-	/* Manufacturer information block */
 	u8 DeviceManufacturer[12];	/**< Device manufacturer */
 	u8 DeviceModel[20];		/**< Device model */
 	u8 JedecManufacturerId;		/**< JEDEC Manufacturer ID */
 	u8 DateCode[2];			/**< Date code */
 	u8 Reserved2[13];		/**< Reserved (67-79) */
-	/* Memory organization block */
 	u32 BytesPerPage;		/**< Number of data bytes per page */
 	u16 SpareBytesPerPage;		/**< Number of spare bytes per page */
 	u32 BytesPerPartialPage;	/**< Number of data bytes per
@@ -224,7 +231,6 @@ typedef struct {
 					  attributes */
 	u8 EzNandSupport;		/**< EZ NAND support */
 	u8 Reserved3[12];		/**< Reserved (116 - 127) */
-	/* Electrical parameters block */
 	u8 IOPinCapacitance;		/**< I/O pin capacitance, maximum */
 	u16 SDRTimingMode;		/**< SDR Timing mode support */
 	u16 SDRPagecacheTimingMode;	/**< SDR Program cache timing mode */
@@ -249,7 +255,6 @@ typedef struct {
 	u8 NVDDR2Features;		/**< NVDDR2 Features */
 	u8 NVDDR2WarmupCycles;		/**< NVDDR2 Warm up Cycles */
 	u8 Reserved4[4];		/**< Reserved (160 - 163) */
-	/* Vendor block */
 	u16 VendorRevisionNum;		/**< Vendor specific revision number */
 	u8 VendorSpecific[88];		/**< Vendor specific */
 	u16 Crc;			/**< Integrity CRC */
@@ -261,20 +266,23 @@ typedef struct {
 __attribute__((packed))OnfiParamPage;
 #endif
 
-/* ONFI extended parameter page structure. */
 #ifdef __ICCARM__
 #pragma pack(push, 1)
 #endif
+/**
+ * @brief Holds the ONFI extended parameter page structure.
+ */
 typedef struct {
-	u16 Crc;
-	u8 Sig[4];
-	u8 Reserved1[10];
-	u8 Section0Type;
-	u8 Section0Len;
-	u8 Section1Type;
-	u8 Section1Len;
-	u8 ResSection[12];
-	u8 SectionData[256];
+	u16 Crc;			/**< Integrity CRC. */
+	u8 Sig[4];			/**< Extended page signature. */
+	u8 Reserved1[10];		/**< Reserved. */
+	u8 Section0Type;		/**< Section 0 type. */
+	u8 Section0Len;			/**< Section 0 length. */
+	u8 Section1Type;		/**< Section 1 type. */
+	u8 Section1Len;			/**< Section 1 length. */
+	u8 ResSection[12];		/**< Remaining section type and length
+					  fields. */
+	u8 SectionData[256];		/**< Section data. */
 #ifdef __ICCARM__
 } OnfiExtPrmPage;
 #pragma pack(pop)
@@ -282,16 +290,18 @@ typedef struct {
 } __attribute__((packed))OnfiExtPrmPage;
 #endif
 
-/* Driver extended parameter page information. */
 #ifdef __ICCARM__
 #pragma pack(push, 1)
 #endif
+/**
+ * @brief Holds the driver extended parameter page ECC information block.
+ */
 typedef struct {
-	u8 NumEccBits;
-	u8 CodeWordSize;
-	u16 MaxBadBlocks;
-	u16 BlockEndurance;
-	u16 Reserved;
+	u8 NumEccBits;			/**< Number of ECC correctable bits. */
+	u8 CodeWordSize;		/**< ECC codeword size. */
+	u16 MaxBadBlocks;		/**< Maximum bad blocks per LUN. */
+	u16 BlockEndurance;		/**< Block endurance. */
+	u16 Reserved;			/**< Reserved. */
 #ifdef __ICCARM__
 } OnfiExtEccBlock;
 #pragma pack(pop)
@@ -299,11 +309,15 @@ typedef struct {
 } __attribute__((packed))OnfiExtEccBlock;
 #endif
 
+/**
+ * @brief Describes the ONFI command format.
+ */
 typedef struct {
 	u8 Command1;			/**< Command Cycle 1 */
 	u8 Command2;			/**< Command Cycle 2 */
 } OnfiCmdFormat;
 
+/** ONFI command cycles, indexed by the OnfiCommandList enum. */
 extern const OnfiCmdFormat OnfiCmd[MAX_CMDS];
 
 /************************** Function Prototypes ******************************/
@@ -314,5 +328,5 @@ u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length);
 }
 #endif
 
-#endif /* XNANDPSU_ONFI_H end of protection macro */
+#endif /* XNANDPSU_ONFI_H */
 /** @} */

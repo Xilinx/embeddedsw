@@ -1,27 +1,29 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+#ifndef XNANDPSU_BBM_H
+#define XNANDPSU_BBM_H
 
 /*****************************************************************************/
 /**
 *
 * @file xnandpsu_bbm.h
-* @addtogroup Overview
-* @{
+* @brief Declares the Bad Block Management (BBM) interface.
 *
-* This file implements the Bad Block Management(BBM) functionality. This is
-* similar to the Bad Block Management which is a part of the MTD subsystem in
-* Linux.  The factory marked bad blocks are scanned initially and a Bad Block
-* Table(BBT) is created in the memory.  This table is also written to the flash
-* so that upon reboot, the BBT is read back from the flash and loaded into the
-* memory instead of scanning every time. The Bad Block Table(BBT) is written
-* into one of the the last four blocks in the flash memory. The last four
-* blocks are marked as Reserved so that user can't erase/program those blocks.
+* The Bad Block Management (BBM) functionality is similar to the Bad Block
+* Management which is a part of the MTD subsystem in Linux. The factory marked
+* bad blocks are scanned initially and a Bad Block Table(BBT) is created in
+* the memory. This table is also written to the flash so that upon reboot, the
+* BBT is read back from the flash and loaded into the memory instead of
+* scanning every time. The Bad Block Table(BBT) is written into one of the
+* last four blocks in the flash memory. The last four blocks are marked as
+* Reserved so that user can't erase/program those blocks.
 *
 * There are two bad block tables, a primary table and a mirror table. The
-* tables are versioned and incrementing version number is used to detect and
+* tables are versioned and an incrementing version number helps detect and
 * recover from interrupted updates. Each table is stored in a separate block,
 * beginning in the first page of that block. Only two blocks would be necessary
 * in the absence of bad blocks within the last four; the range of four provides
@@ -53,8 +55,6 @@
 * XNandPsu_IsBlockBad and take the action based on the return value. Also user
 * can update the bad block table using XNandPsu_MarkBlockBad API.
 *
-* @note		None
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -66,11 +66,15 @@
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
 * 1.13  akm    02/13/24    Update BBT writing logic.
+* 1.17  tb     10/01/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
-#ifndef XNANDPSU_BBM_H		/* prevent circular inclusions */
-#define XNANDPSU_BBM_H		/* by using protection macros */
+
+/**
+* @addtogroup nandpsu_api NANDPSU APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -136,12 +140,15 @@ extern "C" {
 							  for a Bad Block Table
 							  entry byte */
 
+/** Bad Block Table signature offset in the spare area for on-die ECC. */
 #define XNANDPSU_ONDIE_SIG_OFFSET		0x4U
+/** Bad Block Table version offset in the spare area for on-die ECC. */
 #define XNANDPSU_ONDIE_VER_OFFSET		0x14U
 
-#define XNANDPSU_BBT_VERSION_LENGTH	1U
-#define XNANDPSU_BBT_SIG_LENGTH		4U
+#define XNANDPSU_BBT_VERSION_LENGTH	1U	/**< BBT version length. */
+#define XNANDPSU_BBT_SIG_LENGTH		4U	/**< BBT signature length. */
 
+/** Length of the BBT buffer, including the signature and version. */
 #define XNANDPSU_BBT_BUF_LENGTH		((XNANDPSU_MAX_BLOCKS >> 		\
 		XNANDPSU_BBT_BLOCK_SHIFT) +	\
 		(XNANDPSU_BBT_DESC_SIG_OFFSET +	\
@@ -154,13 +161,15 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro returns the Block shift value corresponding to a Block.
+* @brief Returns the block shift value corresponding to a block.
 *
-* @param        Block is the block number.
+* @param[in]	Block Block number.
 *
-* @return       Block shift value
+* @return	Block shift value of the block in its BBT entry byte.
 *
-* @note         None.
+* @note
+* C-style signature
+*	u8 XNandPsu_BbtBlockShift(u32 Block)
 *
 *****************************************************************************/
 #define XNandPsu_BbtBlockShift(Block) \
@@ -178,5 +187,5 @@ s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block);
 }
 #endif
 
-#endif /* end of protection macro */
+#endif /* XNANDPSU_BBM_H */
 /** @} */

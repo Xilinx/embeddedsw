@@ -8,19 +8,16 @@
 /**
 *
 * @file xnandpsu.c
-* @addtogroup Overview
-* @{
+* @brief Implements the interface functions of the XNandPsu driver.
 *
-* This file contains the implementation of the interface functions for
-* XNandPsu driver. Refer to the header file xnandpsu.h for more detailed
-* information.
+* Refer to the header file xnandpsu.h for more detailed information.
 *
-* This module supports for NAND flash memory devices that conform to the
-* "Open NAND Flash Interface" (ONFI) 3.0 Specification. This modules
+* This module supports NAND flash memory devices that conform to the
+* "Open NAND Flash Interface" (ONFI) 3.0 Specification. This module
 * implements basic flash operations like read, write and erase.
 *
-* @note		Driver has been renamed to nandpsu after change in
-*		naming convention.
+* @note		The driver is named nandpsu after the change in naming
+*		convention.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -97,10 +94,16 @@
 * 1.13  akm    02/13/24    Always wrap page to device size.
 * 1.15  akm    10/28/25    Update IsCacheCoherent logic to include EL3 mode.
 * 1.17  vn     07/30/26    Fix Doxygen warnings
+*       tb     10/01/26 Align Doxygen comments with AMD documentation standards
 *
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup nandpsu_api NANDPSU APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xnandpsu.h"
@@ -109,6 +112,12 @@
 #include "xil_mem.h"
 /************************** Constant Definitions *****************************/
 
+/**
+ * @brief Holds the ECC configuration table for the supported page sizes.
+ *
+ * Each entry gives the page size, codeword size, number of ECC bits,
+ * ECC type (Hamming or BCH), ECC address and ECC size.
+ */
 static const XNandPsu_EccMatrix EccMatrix[] = {
 	/* 512 byte page */
 	{XNANDPSU_PAGE_SIZE_512, 9U, 1U, XNANDPSU_HAMMING, 0x20DU, 0x3U},
@@ -213,20 +222,24 @@ static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8 *Buf);
 /*****************************************************************************/
 /**
 *
-* This function initializes a specific XNandPsu instance. This function must
-* be called prior to using the NAND flash device to read or write any data.
+* @brief Initializes a specific XNandPsu instance.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	ConfigPtr points to XNandPsu device configuration structure.
-* @param	EffectiveAddr is the base address of NAND flash controller.
+* Call this function before using the NAND flash device to read or write any
+* data.
+*
+* @param[out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	ConfigPtr Pointer to the XNandPsu device configuration
+*		structure.
+* @param[in]	EffectiveAddr Base address of the NAND flash controller.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
+*		- XST_FAILURE if the flash initialization or the bad block
+*		  table scan fails.
 *
-* @note		The user needs to first call the XNandPsu_LookupConfig() API
-*		which returns the Configuration structure pointer which is
-*		passed as a parameter to the XNandPsu_CfgInitialize() API.
+* @note		First call the XNandPsu_LookupConfig() API, which returns the
+*		configuration structure pointer passed as a parameter to the
+*		XNandPsu_CfgInitialize() API.
 *
 ******************************************************************************/
 s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
@@ -294,15 +307,17 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function initializes the NAND flash and gets the geometry information.
+* @brief Initializes the NAND flash and gets the geometry information.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
+* Resets each target, reads the ONFI ID and parameter page, and initializes
+* the geometry, features, timing and ECC settings from the first target.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if a flash command fails, the ONFI ID does not
+*		  match, or the parameter page is not valid.
 *
 ******************************************************************************/
 static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
@@ -455,16 +470,15 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function initializes the geometry information from ONFI parameter page.
+* @brief Initializes the geometry information from the ONFI parameter page.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Param is pointer to the ONFI parameter page.
+* @param[out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Param Pointer to the ONFI parameter page.
 *
 * @return
 *               - XST_SUCCESS if successful.
-*               - XST_FAILURE if failed.
-*
-* @note		None
+*               - XST_FAILURE if a parameter page value exceeds the
+*                 driver limits.
 *
 ******************************************************************************/
 static s32 XNandPsu_InitGeometry(XNandPsu *InstancePtr, OnfiParamPage *Param)
@@ -565,15 +579,10 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function initializes the feature list from ONFI parameter page.
+* @brief Initializes the feature list from the ONFI parameter page.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Param is pointer to ONFI parameter page buffer.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Param Pointer to ONFI parameter page buffer.
 *
 ******************************************************************************/
 static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param)
@@ -589,15 +598,10 @@ static void XNandPsu_InitFeatures(XNandPsu *InstancePtr, OnfiParamPage *Param)
 /*****************************************************************************/
 /**
 *
-* This function initializes the Data Interface from ONFI parameter page.
+* @brief Initializes the data interface from the ONFI parameter page.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Param is pointer to ONFI parameter page buffer.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Param Pointer to ONFI parameter page buffer.
 *
 ******************************************************************************/
 static void XNandPsu_InitDataInterface(XNandPsu *InstancePtr, OnfiParamPage *Param)
@@ -612,15 +616,10 @@ static void XNandPsu_InitDataInterface(XNandPsu *InstancePtr, OnfiParamPage *Par
 /*****************************************************************************/
 /**
 *
-* This function initializes the Timing mode from ONFI parameter page.
+* @brief Initializes the timing mode from the ONFI parameter page.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Param is pointer to ONFI parameter page buffer.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Param Pointer to ONFI parameter page buffer.
 *
 ******************************************************************************/
 static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
@@ -645,14 +644,19 @@ static void XNandPsu_InitTimingMode(XNandPsu *InstancePtr, OnfiParamPage *Param)
 /*****************************************************************************/
 /**
 *
-* This function checks if the flash supports on-die ECC.
+* @brief Checks if the flash supports on-die ECC.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
+* Reads the JEDEC ID and, for the supported Micron on-die ECC devices,
+* enables the on-die ECC feature and sets Features.OnDie when the feature
+* reads back as set.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 * @return
-*		None
-*
-* @note		None
+*		- XST_SUCCESS if an on-die ECC flash is detected and the ECC
+*		  feature commands succeed.
+*		- XST_FAILURE if the flash is not an on-die ECC flash or a
+*		  flash command fails.
 *
 ******************************************************************************/
 static s32 XNandPsu_CheckOnDie(XNandPsu *InstancePtr)
@@ -740,11 +744,9 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function enables DMA mode of controller operation.
+* @brief Enables the DMA mode of controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @note		None
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 ******************************************************************************/
 void XNandPsu_EnableDmaMode(XNandPsu *InstancePtr)
@@ -759,11 +761,9 @@ void XNandPsu_EnableDmaMode(XNandPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function disables DMA mode of driver/controller operation.
+* @brief Disables the DMA mode of driver/controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @note		None
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 ******************************************************************************/
 void XNandPsu_DisableDmaMode(XNandPsu *InstancePtr)
@@ -778,11 +778,9 @@ void XNandPsu_DisableDmaMode(XNandPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function enables ECC mode of driver/controller operation.
+* @brief Enables the ECC mode of driver/controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @note		None
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 ******************************************************************************/
 void XNandPsu_EnableEccMode(XNandPsu *InstancePtr)
@@ -797,11 +795,9 @@ void XNandPsu_EnableEccMode(XNandPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function disables ECC mode of driver/controller operation.
+* @brief Disables the ECC mode of driver/controller operation.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @note		None
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 ******************************************************************************/
 void XNandPsu_DisableEccMode(XNandPsu *InstancePtr)
@@ -816,18 +812,17 @@ void XNandPsu_DisableEccMode(XNandPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function polls for a register bit set status till the timeout.
+* @brief Polls for a register bit set status until the timeout.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	RegOffset is the offset of register.
-* @param	Mask is the bitmask.
-* @param	Timeout is the timeout value.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	RegOffset Offset of the register.
+* @param[in]	Mask Bitmask to check.
+* @param[in]	Timeout Maximum number of polls, with a 1 microsecond delay
+*		between polls.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_SUCCESS if a bit in Mask is set before the timeout.
+*		- XST_FAILURE if the timeout expires.
 *
 ******************************************************************************/
 static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
@@ -859,16 +854,11 @@ static s32 XNandPsu_PollRegTimeout(XNandPsu *InstancePtr, u32 RegOffset,
 /*****************************************************************************/
 /**
 *
-* This function sets packet size and packet count values in packet register.
+* @brief Sets the packet size and packet count values in the packet register.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	PktSize is the packet size.
-* @param	PktCount is the packet count.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	PktSize Packet size.
+* @param[in]	PktCount Packet count.
 *
 ******************************************************************************/
 static void XNandPsu_SetPktSzCnt(XNandPsu *InstancePtr, u32 PktSize,
@@ -886,16 +876,11 @@ static void XNandPsu_SetPktSzCnt(XNandPsu *InstancePtr, u32 PktSize,
 /*****************************************************************************/
 /**
 *
-* This function sets Page and Column values in the Memory address registers.
+* @brief Sets the page and column values in the memory address registers.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Page is the page value.
-* @param	Col is the column value.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Page Page value.
+* @param[in]	Col Column value.
 *
 ******************************************************************************/
 static void XNandPsu_SetPageColAddr(XNandPsu *InstancePtr, u32 Page, u16 Col)
@@ -916,14 +901,9 @@ static void XNandPsu_SetPageColAddr(XNandPsu *InstancePtr, u32 Page, u16 Col)
 /*****************************************************************************/
 /**
 *
-* This function sets the size of page in Command Register.
+* @brief Sets the page size in the command register.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
 *
 ******************************************************************************/
 static void XNandPsu_SetPageSize(XNandPsu *InstancePtr)
@@ -963,14 +943,13 @@ static void XNandPsu_SetPageSize(XNandPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function setup the Ecc Register.
+* @brief Sets up the ECC register.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
+* Selects the ECC configuration from the ECC matrix based on the page size,
+* codeword size and number of ECC bits, and programs the ECC register and,
+* for BCH, the BCH mode in the memory address 2 register.
 *
-* @return
-*		None
-*
-* @note		None
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 ******************************************************************************/
 static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
@@ -1061,16 +1040,11 @@ static void XNandPsu_SetEccAddrSize(XNandPsu *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function setup the Ecc Spare Command Register.
+* @brief Sets up the ECC spare command register.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	SpareCmd is the spare command value.
-* @param	AddrCycles is the number of address cycles.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	SpareCmd Spare command value.
+* @param[in]	AddrCycles Number of address cycles.
 *
 ******************************************************************************/
 static void XNandPsu_SetEccSpareCmd(XNandPsu *InstancePtr, u16 SpareCmd,
@@ -1084,15 +1058,10 @@ static void XNandPsu_SetEccSpareCmd(XNandPsu *InstancePtr, u16 SpareCmd,
 /*****************************************************************************/
 /**
 *
-* This function sets the chip select value in memory address2 register.
+* @brief Sets the chip select value in the memory address 2 register.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
 *
 ******************************************************************************/
 static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target)
@@ -1110,16 +1079,14 @@ static void XNandPsu_SelectChip(XNandPsu *InstancePtr, u32 Target)
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Reset command to the flash.
+* @brief Sends the ONFI Reset command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the transfer complete event times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target)
@@ -1148,17 +1115,15 @@ static s32 XNandPsu_OnfiReset(XNandPsu *InstancePtr, u32 Target)
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Read Status command to the flash.
+* @brief Sends the ONFI Read Status command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	OnfiStatus is the ONFI status value to return.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[out]	OnfiStatus ONFI status value read from the flash.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the transfer complete event times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
@@ -1197,19 +1162,18 @@ static s32 XNandPsu_OnfiReadStatus(XNandPsu *InstancePtr, u32 Target,
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Read ID command to the flash.
+* @brief Sends the ONFI Read ID command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	IdAddr is the ID address.
-* @param	IdLen is the ID length.
-* @param	Buf is the ONFI ID value to return.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	IdAddr ID address.
+* @param[in]	IdLen ID length in bytes.
+* @param[out]	Buf Buffer that receives the ID read from the flash.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the buffer read ready or transfer complete
+*		  event times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_OnfiReadId(XNandPsu *InstancePtr, u32 Target, u8 IdAddr,
@@ -1299,17 +1263,15 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function sends the ONFI Read Parameter Page command to flash.
+* @brief Sends the ONFI Read Parameter Page command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Buf is the parameter page information to return.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[out]	Buf Buffer that receives the parameter page information.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the data transfer times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
@@ -1345,17 +1307,19 @@ static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 /*****************************************************************************/
 /**
 *
-* This function returns the length including bad blocks from a given offset and
-* length.
+* @brief Checks whether an access fits in the flash when skipping bad blocks.
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-* @param	Offset is the flash data address to read from.
-* @param	Length is number of bytes to read.
+* Walks the blocks from the given offset, counting only good blocks, until the
+* given length is covered.
+*
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Offset Flash data address to start from.
+* @param[in]	Length Number of bytes to access.
 *
 * @return
-*		- Return actual length including bad blocks.
-*
-* @note		None.
+*		- XST_SUCCESS if the length, including the skipped bad
+*		  blocks, fits within the flash device.
+*		- XST_FAILURE if the access exceeds the flash device size.
 *
 ******************************************************************************/
 static s32 XNandPsu_CalculateLength(XNandPsu *InstancePtr, u64 Offset,
@@ -1394,18 +1358,19 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function writes to the flash.
+* @brief Writes to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Offset is the starting offset of flash to write.
-* @param	Length is the number of bytes to write.
-* @param	SrcBuf is the source data buffer to write.
+* Skips the bad blocks while writing.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Offset Starting offset of the flash to write.
+* @param[in]	Length Number of bytes to write.
+* @param[in]	SrcBuf Source data buffer to write.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the write exceeds the flash size when bad
+*		  blocks are skipped, or a page program fails.
 *
 ******************************************************************************/
 s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
@@ -1509,18 +1474,19 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function reads from the flash.
+* @brief Reads from the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Offset is the starting offset of flash to read.
-* @param	Length is the number of bytes to read.
-* @param	DestBuf is the destination data buffer to fill in.
+* Skips the bad blocks while reading.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Offset Starting offset of the flash to read.
+* @param[in]	Length Number of bytes to read.
+* @param[out]	DestBuf Destination data buffer to fill in.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the read exceeds the flash size when bad
+*		  blocks are skipped, or a page read fails.
 *
 ******************************************************************************/
 s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
@@ -1624,19 +1590,22 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function erases the flash.
+* @brief Erases the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Offset is the starting offset of flash to erase.
-* @param	Length is the number of bytes to erase.
+* Skips the bad blocks while erasing.
+*
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Offset Starting offset of the flash to erase.
+* @param[in]	Length Number of bytes to erase.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
+*		- XST_FAILURE if the erase exceeds the flash size when bad
+*		  blocks are skipped, or a block erase fails.
 *
 * @note
-*		The Offset and Length should be aligned to block size boundary
-*		to get better results.
+*		Align the Offset and Length to the block size boundary to get
+*		better results.
 *
 ******************************************************************************/
 s32 XNandPsu_Erase(XNandPsu *InstancePtr, u64 Offset, u64 Length)
@@ -1724,19 +1693,17 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Program Page command to flash.
+* @brief Sends the ONFI Program Page command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Page is the page address value to program.
-* @param	Col is the column address value to program.
-* @param	Buf is the data buffer to program.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	Page Page address value to program.
+* @param[in]	Col Column address value to program.
+* @param[in]	Buf Data buffer to program.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the data transfer times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
@@ -1802,17 +1769,19 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Program Page command to flash.
+* @brief Writes the spare bytes of a page.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Page is the page address value to program.
-* @param	Buf is the data buffer to program.
+* Sends the ONFI Program Page command for the spare area. In HW ECC mode,
+* writes only the free spare bytes before and after the ECC code.
+*
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Page Page address value to program.
+* @param[in]	Buf Data buffer to program.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if no free spare bytes are available in HW ECC
+*		  mode or the data transfer fails.
 *
 ******************************************************************************/
 s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
@@ -1945,19 +1914,20 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Read Page command to flash.
+* @brief Sends the ONFI Read Page command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Page is the page address value to read.
-* @param	Col is the column address value to read.
-* @param	Buf is the data buffer to fill in.
+* In HW ECC mode, checks for ECC errors and updates the ECC error counters.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	Page Page address value to read.
+* @param[in]	Col Column address value to read.
+* @param[out]	Buf Data buffer to fill in.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the data transfer times out or a Hamming
+*		  multi-bit ECC error occurs.
 *
 ******************************************************************************/
 static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
@@ -2075,17 +2045,15 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 /*****************************************************************************/
 /**
 *
-* This function reads spare bytes from flash.
+* @brief Reads the spare bytes of a page from the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Page is the page address value to read.
-* @param	Buf is the data buffer to fill in.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Page Page address value to read.
+* @param[out]	Buf Data buffer to fill in.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the data transfer times out.
 *
 ******************************************************************************/
 s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
@@ -2146,17 +2114,15 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI block erase command to the flash.
+* @brief Sends the ONFI Block Erase command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Block is the block to erase.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	Block Block to erase.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the transfer complete event times out.
 *
 ******************************************************************************/
 s32 XNandPsu_EraseBlock(XNandPsu *InstancePtr, u32 Target, u32 Block)
@@ -2203,18 +2169,16 @@ s32 XNandPsu_EraseBlock(XNandPsu *InstancePtr, u32 Target, u32 Block)
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Get Feature command to flash.
+* @brief Sends the ONFI Get Feature command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Feature is the feature selector.
-* @param	Buf is the buffer to fill feature value.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	Feature Feature selector.
+* @param[out]	Buf Buffer to fill with the feature value.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the data transfer times out.
 *
 ******************************************************************************/
 s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
@@ -2262,18 +2226,16 @@ s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 /*****************************************************************************/
 /**
 *
-* This function sends ONFI Set Feature command to flash.
+* @brief Sends the ONFI Set Feature command to the flash.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Feature is the feature selector.
-* @param	Buf is the feature value to send.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	Feature Feature selector.
+* @param[in]	Buf Feature value to send.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the data transfer times out.
 *
 ******************************************************************************/
 s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
@@ -2324,15 +2286,12 @@ s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 /*****************************************************************************/
 /**
 *
-* This function changes clock frequency of flash controller.
+* @brief Changes the clock frequency of the flash controller.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	ClockFreq is the clock frequency to change.
+* Not implemented; the function does nothing.
 *
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	ClockFreq Clock frequency to set.
 *
 ******************************************************************************/
 static void XNandPsu_ChangeClockFreq(XNandPsu *InstancePtr, u32 ClockFreq)
@@ -2345,17 +2304,18 @@ static void XNandPsu_ChangeClockFreq(XNandPsu *InstancePtr, u32 ClockFreq)
 /*****************************************************************************/
 /**
 *
-* This function changes the data interface and timing mode.
+* @brief Changes the data interface and timing mode.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	NewIntf is the new data interface.
-* @param	NewMode is the new timing mode.
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	NewIntf New data interface.
+* @param[in]	NewMode New timing mode.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_SUCCESS if successful or if the flash is already in the
+*		  requested mode.
+*		- XST_FAILURE if the interface or timing mode is not valid, a
+*		  flash command fails, or the timing mode read back from the
+*		  flash does not match.
 *
 ******************************************************************************/
 s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
@@ -2490,21 +2450,18 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function issues change read column and reads the data into buffer
-* specified by user.
+* @brief Issues a change read column command and reads data into the buffer.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Col is the coulmn address.
-* @param	PktSize is the number of bytes to read.
-* @param	PktCount is the number of transactions to read.
-* @param	Buf is the data buffer to fill in.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	Col Column address.
+* @param[in]	PktSize Number of bytes to read.
+* @param[in]	PktCount Number of transactions to read.
+* @param[out]	Buf Data buffer to fill in.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the data transfer times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
@@ -2549,21 +2506,18 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 /*****************************************************************************/
 /**
 *
-* This function issues change read column and reads the data into buffer
-* specified by user.
+* @brief Issues a change write column command and writes data from the buffer.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
-* @param	Col is the coulmn address.
-* @param	PktSize is the number of bytes to read.
-* @param	PktCount is the number of transactions to read.
-* @param	Buf is the data buffer to fill in.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+* @param[in]	Col Column address.
+* @param[in]	PktSize Number of bytes to write.
+* @param[in]	PktCount Number of transactions to write.
+* @param[in]	Buf Data buffer to write.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_SUCCESS if successful or if PktCount is 0.
+*		- XST_FAILURE if the data transfer times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
@@ -2614,16 +2568,15 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 /*****************************************************************************/
 /**
 *
-* This function initializes extended parameter page ECC information.
+* @brief Initializes the extended parameter page ECC information.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	ExtPrm is the Extended parameter page buffer.
+* @param[out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	ExtPrm Extended parameter page buffer.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the extended ECC section is not found or its
+*		  codeword size is 0.
 *
 ******************************************************************************/
 static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm)
@@ -2666,16 +2619,14 @@ static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm)
 /*****************************************************************************/
 /**
 *
-* This function prepares command to be written into command register.
+* @brief Prepares a command and writes it into the command register.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Cmd1 is the first Onfi Command.
-* @param	Cmd2 is the second Onfi Command.
-* @param	EccState is the flag to set Ecc State.
-* @param	DmaMode is the flag to set DMA mode.
-* @param	AddrCycles is the number of Address Cycles.
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Cmd1 First ONFI command.
+* @param[in]	Cmd2 Second ONFI command.
+* @param[in]	EccState Flag to enable ECC (applies only in HW ECC mode).
+* @param[in]	DmaMode Flag to enable DMA (applies only in MDMA mode).
+* @param[in]	AddrCycles Number of address cycles.
 *
 ******************************************************************************/
 void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
@@ -2708,20 +2659,23 @@ void XNandPsu_Prepare_Cmd(XNandPsu *InstancePtr, u8 Cmd1, u8 Cmd2, u8 EccState,
 /*****************************************************************************/
 /**
 *
-* This function Read/Writes data from the nand controller.
+* @brief Reads or writes data through the NAND controller.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Buf is the data buffer.
-* @param	PktCount is the number packet chunks.
-* @param	PktSize is the size of the packet.
-* @param	Operation is 1 for write and 0 for read.
-* @param	DmaMode is 1 for Dma and 0 for PIO.
+* When DmaMode is set and the instance uses MDMA, only waits for the transfer
+* complete event. Otherwise, transfers each packet through the data port and
+* then waits for the transfer complete event.
+*
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in,out]	Buf Data buffer to write from or to read into.
+* @param[in]	PktCount Number of packet chunks.
+* @param[in]	PktSize Size of the packet.
+* @param[in]	Operation 1 for write and 0 for read.
+* @param[in]	DmaMode 1 for DMA and 0 for PIO.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_FAILURE if the buffer ready or transfer complete event
+*		  times out.
 *
 ******************************************************************************/
 static s32 XNandPsu_Data_ReadWrite(XNandPsu *InstancePtr, u8 *Buf, u32 PktCount,
@@ -2793,16 +2747,11 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function writes data to the fifo.
+* @brief Writes data to the FIFO.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Buffer is the buffer pointer.
-* @param	Size of the Buffer.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Buffer Buffer that holds the data to write.
+* @param[in]	Size Size of the buffer in bytes.
 *
 ******************************************************************************/
 static void XNandPsu_Fifo_Write(XNandPsu *InstancePtr, u8 *Buffer, u32 Size)
@@ -2819,16 +2768,11 @@ static void XNandPsu_Fifo_Write(XNandPsu *InstancePtr, u8 *Buffer, u32 Size)
 /*****************************************************************************/
 /**
 *
-* This function reads data from the fifo.
+* @brief Reads data from the FIFO.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Buf is the buffer pointer.
-* @param	Size of the Buffer.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[out]	Buf Buffer that receives the data.
+* @param[in]	Size Size of the buffer in bytes.
 *
 ******************************************************************************/
 static void XNandPsu_Fifo_Read(XNandPsu *InstancePtr, u8 *Buf, u32 Size)
@@ -2844,15 +2788,10 @@ static void XNandPsu_Fifo_Read(XNandPsu *InstancePtr, u8 *Buf, u32 Size)
 /*****************************************************************************/
 /**
 *
-* This function configures the given dma address to the controller.
+* @brief Configures the given DMA address in the controller.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Buf is the buffer pointer.
-*
-* @return
-*		None
-*
-* @note		None
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Buf Buffer whose address is programmed as the DMA address.
 *
 ******************************************************************************/
 static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8 *Buf)
@@ -2871,16 +2810,15 @@ static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8 *Buf)
 /*****************************************************************************/
 /**
 *
-* This function waits for the device ready stataus.
+* @brief Waits for the device ready status.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chipselect value.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
-*
-* @note		None
+*		- XST_SUCCESS if the device is ready and reports no failure.
+*		- XST_FAILURE if the read status command fails or the device
+*		  reports a failed operation.
 *
 ******************************************************************************/
 static s32 XNandPsu_Device_Ready(XNandPsu *InstancePtr, u32 Target)
@@ -2909,16 +2847,16 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function waits for the  transfer complete event.
+* @brief Waits for the transfer complete event.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
-*		- XST_FAILURE if failed.
+*		- XST_FAILURE if the transfer complete event times out.
 *
-* @note		Expects that transfer complete event was set before calling
-* 		this function.
+* @note		Enable the transfer complete event before calling this
+*		function.
 *
 ******************************************************************************/
 static s32 XNandPsu_WaitFor_Transfer_Complete(XNandPsu *InstancePtr)

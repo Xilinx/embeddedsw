@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,12 +8,7 @@
 /**
 *
 * @file xnandpsu_onfi.c
-* @addtogroup Overview
-* @{
-*
-* This file contains the implementation of ONFI specific functions.
-*
-* @note		None
+* @brief Implements the ONFI specific functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,9 +16,15 @@
 * Ver   Who    Date	   Changes
 * ----- ----   ----------  -----------------------------------------------
 * 1.0   nm     05/06/2014  First release
+* 1.17  tb     10/01/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup nandpsu_api NANDPSU APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xnandpsu_onfi.h"
@@ -40,16 +41,16 @@
 /*****************************************************************************/
 /**
 *
-* This function calculates ONFI parameter page CRC.
+* @brief Calculates the ONFI parameter page CRC.
 *
-* @param	ParamBuf is a pointer to the ONFI parameter page buffer.
-* @param	StartOff is the starting offset in buffer to calculate CRC.
-* @param	Length is the number of bytes for which CRC is calculated.
+* Covers the bytes from offset StartOff up to, but not including, offset
+* Length of the buffer.
 *
-* @return
-*		CRC value.
-* @note
-*		None.
+* @param[in]	ParamBuf Pointer to the ONFI parameter page buffer.
+* @param[in]	StartOff Starting offset in the buffer for the CRC.
+* @param[in]	Length End offset (exclusive) in the buffer for the CRC.
+*
+* @return	Calculated 16-bit CRC value.
 *
 ******************************************************************************/
 u32 XNandPsu_OnfiParamPageCrc(u8 *ParamBuf, u32 StartOff, u32 Length)

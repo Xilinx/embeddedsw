@@ -4,19 +4,19 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
+#ifndef XNANDPSU_HW_H
+#define XNANDPSU_HW_H
+
 /*****************************************************************************/
 /**
 *
 * @file xnandpsu_hw.h
-* @addtogroup Overview
-* @{
+* @brief Declares the registers and low-level macros of the NAND controller.
 *
-* This file contains identifiers and low-level macros/functions for the Arasan
-* NAND flash controller driver.
+* Contains identifiers and low-level macros for the Arasan NAND flash
+* controller driver.
 *
 * See xnandpsu.h for more information.
-*
-* @note		None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -29,12 +29,15 @@
 * 1.7	akm    09/03/20    Updated the Makefile to support parallel make
 * 			   execution.
 * 1.17  vn     07/30/26    Fix Doxygen warnings
+*       tb     10/01/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XNANDPSU_HW_H		/* prevent circular inclusions */
-#define XNANDPSU_HW_H		/* by using protection macros */
+/**
+* @addtogroup nandpsu_api NANDPSU APIs
+* @{
+*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -130,7 +133,7 @@ extern "C" {
 #define XNANDPSU_MEM_ADDR2_CHIP_SEL_SHIFT	30U	/**< Chip select
 							shift */
 #define XNANDPSU_MEM_ADDR2_BUS_WIDTH_SHIFT	24U	/**< Bus width shift */
-#define XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_SHIFT	25U
+#define XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_SHIFT	25U	/**< BCH mode shift. */
 /** @} */
 
 /** @name Command Register bit definitions and masks
@@ -399,14 +402,14 @@ extern "C" {
  */
 #define XNANDPSU_DMA_BUF_BND_BND_MASK		0x00000007U /**< DMA buffer
 							     boundary */
-#define XNANDPSU_DMA_BUF_BND_4K			0x0U
-#define XNANDPSU_DMA_BUF_BND_8K			0x1U
-#define XNANDPSU_DMA_BUF_BND_16K		0x2U
-#define XNANDPSU_DMA_BUF_BND_32K		0x3U
-#define XNANDPSU_DMA_BUF_BND_64K		0x4U
-#define XNANDPSU_DMA_BUF_BND_128K		0x5U
-#define XNANDPSU_DMA_BUF_BND_256K		0x6U
-#define XNANDPSU_DMA_BUF_BND_512K		0x7U
+#define XNANDPSU_DMA_BUF_BND_4K			0x0U /**< 4K boundary. */
+#define XNANDPSU_DMA_BUF_BND_8K			0x1U /**< 8K boundary. */
+#define XNANDPSU_DMA_BUF_BND_16K		0x2U /**< 16K boundary. */
+#define XNANDPSU_DMA_BUF_BND_32K		0x3U /**< 32K boundary. */
+#define XNANDPSU_DMA_BUF_BND_64K		0x4U /**< 64K boundary. */
+#define XNANDPSU_DMA_BUF_BND_128K		0x5U /**< 128K boundary. */
+#define XNANDPSU_DMA_BUF_BND_256K		0x6U /**< 256K boundary. */
+#define XNANDPSU_DMA_BUF_BND_512K		0x7U /**< 512K boundary. */
 /** @} */
 
 /** @name Slave DMA Configuration Register bit definitions and masks
@@ -441,15 +444,16 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro reads the given register.
+* @brief Reads the given register.
 *
-* @param	BaseAddress is the base address of controller registers.
-* @param	RegOffset is the register offset to be read.
+* @param[in]	BaseAddress Base address of the controller registers.
+* @param[in]	RegOffset Offset of the register to read.
 *
-* @return	The 32-bit value of the register.
+* @return	32-bit value of the register.
 *
-* @note		C-style signature:
-*		u32 XNandPsu_ReadReg(u32 BaseAddress, u32 RegOffset)
+* @note
+* C-style signature
+*	u32 XNandPsu_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 *
 *****************************************************************************/
 #define XNandPsu_ReadReg(BaseAddress, RegOffset)			\
@@ -458,16 +462,15 @@ extern "C" {
 /****************************************************************************/
 /**
 *
-* This macro writes the given register.
+* @brief Writes the given register.
 *
-* @param	BaseAddress is the the base address of controller registers.
-* @param	RegOffset is the register offset to be written.
-* @param	Data is the the 32-bit value to write to the register.
+* @param[in]	BaseAddress Base address of the controller registers.
+* @param[in]	RegOffset Offset of the register to write.
+* @param[in]	Data 32-bit value to write to the register.
 *
-* @return	None.
-*
-* @note		C-style signature:
-*		void XNandPsu_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+* @note
+* C-style signature
+*	void XNandPsu_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
 #define XNandPsu_WriteReg(BaseAddress, RegOffset, Data)			\
@@ -481,5 +484,5 @@ extern "C" {
 }
 #endif
 
-#endif /* XNANDPSU_HW_H end of protection macro */
+#endif /* XNANDPSU_HW_H */
 /** @} */

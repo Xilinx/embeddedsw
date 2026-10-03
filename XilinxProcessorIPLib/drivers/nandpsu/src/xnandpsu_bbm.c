@@ -8,13 +8,9 @@
 /**
 *
 * @file xnandpsu_bbm.c
-* @addtogroup Overview
-* @{
+* @brief Implements the Bad Block Management (BBM) functionality.
 *
-* This file implements the Bad Block Management (BBM) functionality.
 * See xnandpsu_bbm.h for more details.
-*
-* @note		None
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -36,9 +32,15 @@
 *                          local Buf array in XNandPsu_WriteBbt() and XNandPsu_ReadBbt(),
 *                          to avoid stack overflow.
 * 1.17  vn     07/30/26    Fix Doxygen warnings
+*       tb     10/01/26 Align Doxygen comments with AMD documentation standards
 * </pre>
 *
 ******************************************************************************/
+
+/**
+* @addtogroup nandpsu_api NANDPSU APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include <string.h>	/**< For Xil_MemCpy and memset */
@@ -75,10 +77,12 @@ static s32 XNandPsu_UpdateBbt(XNandPsu *InstancePtr, u32 Target);
 
 /*****************************************************************************/
 /**
-* This function initializes the Bad Block Table(BBT) descriptors with a
-* predefined pattern for searching Bad Block Table(BBT) in flash.
+* @brief Initializes the Bad Block Table (BBT) descriptors.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
+* Initializes the primary and mirror descriptors and the bad block pattern
+* with a predefined pattern for searching the Bad Block Table (BBT) in flash.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 ******************************************************************************/
 void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
@@ -163,14 +167,13 @@ void XNandPsu_InitBbtDesc(XNandPsu *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function scans the NAND flash for factory marked bad blocks and creates
-* a RAM based Bad Block Table(BBT).
+* @brief Scans the NAND flash and creates a RAM based Bad Block Table (BBT).
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
+* Scans the blocks of the target for factory marked bad blocks and records
+* them in the RAM based BBT.
 *
-* @return
-*		- NONE
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
 *
 ******************************************************************************/
 static void XNandPsu_CreateBbt(XNandPsu *InstancePtr, u32 Target)
@@ -242,11 +245,13 @@ static void XNandPsu_CreateBbt(XNandPsu *InstancePtr, u32 Target)
 
 /*****************************************************************************/
 /**
-* This function reads the Bad Block Table(BBT) if present in flash. If not it
-* scans the flash for detecting factory marked bad blocks and creates a bad
-* block table and write the Bad Block Table(BBT) into the flash.
+* @brief Reads the Bad Block Table (BBT) or creates it when absent.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
+* Reads the BBT of each target if present in flash. If not, scans the flash
+* for factory marked bad blocks, creates a BBT, writes the primary and
+* mirror BBT into the flash and marks the BBT blocks as reserved.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -312,15 +317,11 @@ Out:
 
 /*****************************************************************************/
 /**
-* This function converts the Bad Block Table(BBT) read from the flash to the
-* RAM based Bad Block Table(BBT).
+* @brief Converts the Bad Block Table (BBT) read from flash to the RAM BBT.
 *
-* @param	InstancePtr is a pointer to the XNandPsu instance.
-* @param	Buf is the buffer which contains BBT read from flash.
-* @param	Target is the chip select value.
-*
-* @return
-*		- NONE.
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Buf Buffer holding the BBT read from flash.
+* @param[in]	Target Chip select value.
 *
 ******************************************************************************/
 static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target)
@@ -338,11 +339,14 @@ static void XNandPsu_ConvertBbt(XNandPsu *InstancePtr, u8 *Buf, u32 Target)
 
 /*****************************************************************************/
 /**
-* This function searches the Bad Block Table(BBT) in flash and loads into the
-* memory based Bad Block Table(BBT).
+* @brief Searches the Bad Block Table (BBT) in flash and loads it into RAM.
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
+* Loads the latest of the primary and mirror BBT into the memory based BBT
+* and rewrites the older or missing copy in flash.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+*
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
@@ -470,11 +474,11 @@ Out:
 
 /*****************************************************************************/
 /**
-* This function searches the BBT in flash.
+* @brief Searches the BBT in flash.
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-* @param	Desc is the BBT descriptor pattern to search.
-* @param	Target is the chip select value.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in,out]	Desc BBT descriptor pattern to search.
+* @param[in]	Target Chip select value.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -543,12 +547,12 @@ Out:
 
 /*****************************************************************************/
 /**
-* This function writes Bad Block Table(BBT) from RAM to flash.
+* @brief Writes the Bad Block Table (BBT) from RAM to flash.
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-* @param	Desc is the BBT descriptor to be written to flash.
-* @param	MirrorDesc is the mirror BBT descriptor.
-* @param	Target is the chip select value.
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in,out]	Desc BBT descriptor to write to flash.
+* @param[in]	MirrorDesc Mirror BBT descriptor.
+* @param[in]	Target Chip select value.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -653,11 +657,13 @@ Out:
 
 /*****************************************************************************/
 /**
-* This function updates the primary and mirror Bad Block Table(BBT) in the
-* flash.
+* @brief Updates the primary and mirror Bad Block Table (BBT) in flash.
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-* @param	Target is the chip select value.
+* Increments the BBT version numbers before writing the tables.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Target Chip select value.
+*
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
@@ -699,12 +705,15 @@ Out:
 
 /*****************************************************************************/
 /**
-* This function marks the block containing Bad Block Table as reserved
-* and updates the BBT.
+* @brief Marks the blocks containing the Bad Block Table as reserved.
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-* @param	Desc is the BBT descriptor pointer.
-* @param	Target is the chip select value.
+* Marks the blocks as reserved and updates the BBT in flash when any block
+* changes.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Desc Pointer to the BBT descriptor.
+* @param[in]	Target Chip select value.
+*
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if fail.
@@ -757,15 +766,14 @@ Out:
 /*****************************************************************************/
 /**
 *
-* This function checks whether a block is bad or not.
+* @brief Checks whether a block is bad.
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-*
-* @param	Block is the block number.
+* @param[in]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Block Block number.
 *
 * @return
-*		- XST_SUCCESS if successful.
-*		- XST_FAILURE if fail.
+*		- XST_SUCCESS if the block is bad (factory marked or worn).
+*		- XST_FAILURE if the block is good or reserved.
 *
 ******************************************************************************/
 s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block)
@@ -796,11 +804,12 @@ s32 XNandPsu_IsBlockBad(XNandPsu *InstancePtr, u32 Block)
 
 /*****************************************************************************/
 /**
-* This function marks a block as bad in the RAM based Bad Block Table(BBT). It
-* also updates the Bad Block Table(BBT) in the flash.
+* @brief Marks a block as bad in the RAM based Bad Block Table (BBT).
 *
-* @param	InstancePtr is the pointer to the XNandPsu instance.
-* @param	Block is the block number.
+* Also updates the Bad Block Table (BBT) in the flash.
+*
+* @param[in,out]	InstancePtr Pointer to the XNandPsu instance.
+* @param[in]	Block Block number.
 *
 * @return
 *		- XST_SUCCESS if successful.
