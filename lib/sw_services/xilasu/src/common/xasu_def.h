@@ -102,7 +102,7 @@ extern "C" {
  * and NIST compliance status, for up to maximum modules in ASUFW.
  */
 typedef struct {
-	u32 Version;	/**< Version of the cryptographic algorithm */
+	u32 Version;	/**< Algorithm version. 0 means the module is not available */
 				/**< [15:0]: Algorithm minor version
 				     [31:16]: Algorithm major version */
 	u8 NistStatus;	/**< NIST compliance status of the cryptographic algorithm */

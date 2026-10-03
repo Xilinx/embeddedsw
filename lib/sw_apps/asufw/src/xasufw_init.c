@@ -59,6 +59,7 @@
 #include "xasu_sharedmem.h"
 #include "xasufw_alginfo.h"
 #include "xasufw_kat.h"
+#include "xasufw_keymanagerhandler.h"
 #include "xil_error_node.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -685,7 +686,13 @@ void XAsufw_UpdateModulesInfo(void)
 	XASUFW_INIT_CRYPTO_MODULE_INFO(OCP, XASUFW_NIST_COMPLIANT, 0U);
 #endif
 #ifdef XASU_KEYMANAGER_ENABLE
-	XASUFW_INIT_CRYPTO_MODULE_INFO(KEYMANAGER, XASUFW_NIST_COMPLIANT, 0U);
+	/**
+	 * Publish the Key Manager version only when the ASU vault was created.
+	 * Vault creation requires the CDO DDR partition.
+	 */
+	if (XKeyManager_IsAsuVaultCreated() == XASU_STATUS_PASS) {
+		XASUFW_INIT_CRYPTO_MODULE_INFO(KEYMANAGER, XASUFW_NIST_COMPLIANT, 0U);
+	}
 #endif
 #ifdef XASU_LMS_ENABLE
 	XASUFW_INIT_CRYPTO_MODULE_INFO(LMS, XASUFW_NIST_COMPLIANT, 0U);
