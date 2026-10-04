@@ -44,6 +44,7 @@
 *       rmv  01/30/2026 Renamed OCP keymanagement macro
 *       tbk  05/03/2026 Add validation for xcert remaining buffer before writing field
 *       sri  08/24/2026 Centralize SKI/AKI macros; Versal Net keeps SHA-1 via xcert_sha.h
+* 1.7   sri  10/04/2026 Add SHA3-384 signature algorithm OID support for Versal_2VP_P
 *
 * </pre>
 * @note
@@ -74,7 +75,7 @@
  * @{
  */
  /**< Object IDs used in X.509 Certificate and Certificate Signing Request */
-#ifdef VERSAL_2VP
+#if defined(VERSAL_2VP) || defined(VERSAL_2VP_P)
 static const u8 Oid_SignAlgo[]		= {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x03U, 0x0BU};
 #else
 static const u8 Oid_SignAlgo[]		= {0x06U, 0x08U, 0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x04U, 0x03U, 0x03U};
