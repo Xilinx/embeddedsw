@@ -37,7 +37,8 @@ endif()
 # Client Configuration
 # =============================================================================
 if((NOT _IS_PLM_MICROBLAZE) AND (NOT _IS_SPARTANUPLUS))
-  option(XILPUF_cache_disable "Enables/Disables Cache for XilPuf client library." ON)
+  # Cache disable option while operating in client mode
+  option(XILPUF_cache_disable "Enables/Disables Cache for XilPuf client library." OFF)
   if(XILPUF_cache_disable AND XILPUF_Mode STREQUAL "client")
     set(XPUF_CACHE_DISABLE " ")
   endif()

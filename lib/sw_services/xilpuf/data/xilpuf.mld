@@ -15,6 +15,7 @@
 # 2.6   mb   06/12/25 Updated library version for 2025.2
 # 2.7   tus  11/07/26 Updated library version for 2026.1
 # 2.8   tbk  25/06/26 Updated library version for 2026.2
+#       rama 09/17/26 Enable cache by default
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -29,5 +30,5 @@ BEGIN LIBRARY xilpuf
   OPTION VERSION = 2.8;
   OPTION NAME = xilpuf;
   PARAM name = xpuf_mode, desc = "Enables A72/R5 server and client mode support for XilPuf library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = xpuf_cache_disable, desc = "Enables/Disables Cache for XilPuf client library", type = bool, default = true;
+  PARAM name = xpuf_cache_disable, desc = "Enables/Disables Cache for XilPuf client library", type = bool, default = false;
 END LIBRARY

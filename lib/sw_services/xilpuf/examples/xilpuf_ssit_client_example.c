@@ -47,7 +47,7 @@
   * 					should be changed to
   * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.PufData")));
   *
-  * To keep things simple, by default the cache is disabled for this example
+  * By default the cache is enabled for this example
   *
   * <pre>
   * MODIFICATION HISTORY:
@@ -58,6 +58,7 @@
   * 2.5   hj   03/25/25 Remove master and slave keywords
   * 2.7   bha  01/06/26 Fixed Doxygen warnings
   *       bha  02/25/26 Removed ICCARM related code
+  * 2.8   rama 09/17/26 Enable cache by default for client example
   * </pre>
   *
   *@note
@@ -108,15 +109,18 @@
 /************************** Variable Definitions ******************************/
 #if (XPUF_WRITE_HD_IN_EFUSE || XPUF_WRITE_SEC_CTRL_BITS)
 static XNvm_EfusePufHdAddr PrgmPufHelperData
+		__attribute__ ((aligned (64U)))
 		__attribute__ ((section (".data.PrgmPufHelperData")));
 #endif
 
 static XPuf_DataAddr PufData __attribute__ ((aligned (64U)))
 					__attribute__ ((section (".data.PufData")));
-static XPuf_PufData PufArr __attribute__ ((section (".data.PufArr")));
+static XPuf_PufData PufArr __attribute__ ((aligned (64U)))
+					__attribute__ ((section (".data.PufArr")));
 static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS]
 					__attribute__ ((section (".data.FormattedBlackKey")));
-static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
+static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((aligned (64U)))
+					__attribute__ ((section (".data.Iv")));
 static const char IvStr[XNVM_MAX_SLR_NUM + 1][(XPUF_IV_LEN_IN_BYTES * 2) + 1U]
 	__attribute__ ((aligned (64U))) __attribute__ ((section (".data.IvStr"))) = {
 	XPUF_IV0,
@@ -423,11 +427,10 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 	PufData.PufIDAddr = (u64)(UINTPTR)PufArr.PufID;
 
 	xil_printf("PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
-	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-	Xil_DCacheInvalidateRange((UINTPTR)&PufData,
-			sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
 	Status = XPuf_Registration(&PufClientInstance, (u64)(UINTPTR)&PufData);
 	if (Status != XST_SUCCESS) {
@@ -488,6 +491,7 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 
+	Xil_DCacheFlushRange((UINTPTR)&PrgmPufHelperData, sizeof(PrgmPufHelperData));
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
 	if (Status != XST_SUCCESS)
 	{
@@ -517,6 +521,10 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 		PufData.AuxAddr = (u64)(UINTPTR)&PufArr.Aux;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 		xil_printf("Reading helper data from DDR\r\n");
+		if (XPUF_SYN_DATA_ADDRESS != 0U) {
+			Xil_DCacheFlushRange((UINTPTR)XPUF_SYN_DATA_ADDRESS,
+					XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
+		}
 	}
 	else if (PufData.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
 		xil_printf("Reading helper data from eFUSE\r\n");
@@ -525,7 +533,8 @@ static int XPuf_GenerateKey(XNvm_ClientInstance *InstancePtr, XMailbox *MailboxP
 		xil_printf("Invalid read option for reading helper data\r\n");
 		goto END;
 	}
-	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufArr, sizeof(PufArr));
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
 	Status = XPuf_Regeneration(&PufClientInstance, (u64)(UINTPTR)&PufData);
@@ -711,9 +720,9 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			Xil_DCacheInvalidateRange((UINTPTR)WriteAesKeys, sizeof(XNvm_EfuseAesKeys));
+			Xil_DCacheFlushRange((UINTPTR)WriteAesKeys, sizeof(XNvm_EfuseAesKeys));
 			WriteData->AesKeyAddr= (u64)(UINTPTR)WriteAesKeys;
-			Xil_DCacheInvalidateRange((UINTPTR)WriteData, sizeof(XNvm_EfuseDataAddr));
+			Xil_DCacheFlushRange((UINTPTR)WriteData, sizeof(XNvm_EfuseDataAddr));
 			Status = XNvm_EfuseWrite(InstancePtr, (u64)(UINTPTR)WriteData);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to eFuse %x\r\n", Status);
@@ -726,7 +735,7 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			Xil_DCacheInvalidateRange((UINTPTR)WriteIvs, sizeof(XNvm_EfuseIvs));
+			Xil_DCacheFlushRange((UINTPTR)WriteIvs, sizeof(XNvm_EfuseIvs));
 			Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)WriteIvs, WriteData->EnvMonDisFlag);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black IV in eFUSEs %x\r\n", Status);
@@ -735,7 +744,7 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 
 			break;
 		case XPUF_BBRAM_AES_KEY:
-			Xil_DCacheInvalidateRange((UINTPTR)FlashBlackKey, XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
+			Xil_DCacheFlushRange((UINTPTR)FlashBlackKey, XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			Status = XNvm_BbramWriteAesKey(InstancePtr, (UINTPTR)FlashBlackKey, XNVM_EFUSE_AES_KEY_LEN_IN_BYTES);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to BBRAM %x\r\n", Status);
@@ -751,9 +760,9 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			Xil_DCacheInvalidateRange((UINTPTR)WriteAesKeys, sizeof(XNvm_EfuseAesKeys));
+			Xil_DCacheFlushRange((UINTPTR)WriteAesKeys, sizeof(XNvm_EfuseAesKeys));
 			WriteData->AesKeyAddr = (u64)(UINTPTR)WriteAesKeys;
-			Xil_DCacheInvalidateRange((UINTPTR)WriteData, sizeof(XNvm_EfuseDataAddr));
+			Xil_DCacheFlushRange((UINTPTR)WriteData, sizeof(XNvm_EfuseDataAddr));
 			Status = XNvm_EfuseWrite(InstancePtr, (u64)(UINTPTR)WriteData);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to eFuse %x\r\n", Status);
@@ -769,9 +778,9 @@ static int XPuf_ProgramBlackKeynIV(XNvm_ClientInstance *InstancePtr)
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
-			Xil_DCacheInvalidateRange((UINTPTR)WriteAesKeys, sizeof(XNvm_EfuseAesKeys));
+			Xil_DCacheFlushRange((UINTPTR)WriteAesKeys, sizeof(XNvm_EfuseAesKeys));
 			WriteData->AesKeyAddr = (u64)(UINTPTR)WriteAesKeys;
-			Xil_DCacheInvalidateRange((UINTPTR)WriteData, sizeof(XNvm_EfuseDataAddr));
+			Xil_DCacheFlushRange((UINTPTR)WriteData, sizeof(XNvm_EfuseDataAddr));
 			Status = XNvm_EfuseWrite(InstancePtr, (u64)(UINTPTR)WriteData);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Error in programming Black key to eFuse %x\r\n", Status);
@@ -824,6 +833,7 @@ static int XPuf_WritePufSecCtrlBits(XNvm_ClientInstance *InstancePtr)
 	PrgmPufHelperData.EnvMonitorDis = XPUF_ENV_MONITOR_DISABLE;
 	PrgmPufHelperData.PrgmPufSecCtrlBits = TRUE;
 
+	Xil_DCacheFlushRange((UINTPTR)&PrgmPufHelperData, sizeof(PrgmPufHelperData));
 	Status = XNvm_EfuseWritePuf(InstancePtr, (u64)(UINTPTR)&PrgmPufHelperData);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Error in programming PUF Security Control bits %x\r\n", Status);

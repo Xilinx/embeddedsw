@@ -55,7 +55,7 @@
  *		   should be changed to
  *		   static XPuf_DataAddr PufData __attribute__ ((aligned (64U)) __attribute__ ((section (".sharedmemory.PufData")));
  *
- * To keep things simple, by default the cache is disabled for this example
+ * By default the cache is enabled for this example
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -63,6 +63,7 @@
  * Ver   Who   Date     Changes
  * ----- ---  -------- -------------------------------------------------------
  * 1.0   tvp  08/21/26 Initial release
+ * 2.8   rama 09/17/26 Enable cache by default for client example
  *
  * </pre>
  *
@@ -112,10 +113,12 @@
 /************************** Variable Definitions ******************************/
 static XPuf_DataAddr PufData __attribute__ ((aligned (64U)))
 					__attribute__ ((section (".data.PufData")));
-static XPuf_PufData PufArr __attribute__ ((section (".data.PufArr")));
+static XPuf_PufData PufArr __attribute__ ((aligned (64U)))
+					__attribute__ ((section (".data.PufArr")));
 static u8 FormattedBlackKey[XPUF_RED_KEY_LEN_IN_BITS]
 					__attribute__ ((section (".data.FormattedBlackKey")));
-static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
+static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((aligned (64U)))
+					__attribute__ ((section (".data.Iv")));
 
 /* shared memory allocation */
 static u8 SharedMem[XSECURE_TOTAL_SHARED_MEM] __attribute__((aligned(64U)))
@@ -263,10 +266,10 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 	PufData.RoSwapVal = PUF_RO_SWAP;
 
 	xil_printf("PUF ShutterValue : %02x \r\n", PufData.ShutterValue);
-	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
 	Status = XPuf_Registration(&PufClientInstance, (u64)(UINTPTR)&PufData);
 	if (Status != XST_SUCCESS) {
@@ -303,6 +306,10 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 		PufData.ChashAddr = (u64)(UINTPTR)&PufArr.Chash;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 		xil_printf("Reading helper data from DDR\r\n");
+		if (XPUF_SYN_DATA_ADDRESS != 0U) {
+			Xil_DCacheFlushRange((UINTPTR)XPUF_SYN_DATA_ADDRESS,
+					XPUF_SYN_LEN_IN_BYTES);
+		}
 	}
 	else if (PufData.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
 		xil_printf("Reading helper data from eFUSE cache\r\n");
@@ -312,7 +319,8 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 		goto END;
 	}
 
-	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufArr, sizeof(PufArr));
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
 	Status = XPuf_Regeneration(&PufClientInstance, (u64)(UINTPTR)&PufData);

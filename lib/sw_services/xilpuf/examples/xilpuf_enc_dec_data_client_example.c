@@ -35,6 +35,7 @@
  * 2.7   bha  01/06/26 Fixed Doxygen warnings
  *       bha  02/25/26 Removed ICCARM related code
  * 2.8   rpu  08/03/26 Updated shared memory section
+ *       rama 09/17/26 Enable cache by default for client example
  * </pre>
  * @note
  *
@@ -121,7 +122,7 @@
  * 					should be changed to
  * 	static XPuf_DataAddr PufData __attribute__ ((aligned (64)) __attribute__ ((section (".sharedmemory.PufData")));
  *
- * To keep things simple, by default the cache is disabled for this example
+ * By default the cache is enabled for this example
  *
  *****************************************************************************/
 /***************************** Include Files *********************************/
@@ -183,7 +184,8 @@
 /************************** Type Definitions *********************************/
 static XPuf_DataAddr PufData __attribute__ ((aligned (64)))
 							__attribute__ ((section (".data.PufData")));
-static XPuf_PufData PufArr __attribute__ ((section (".data.PufArr")));
+static XPuf_PufData PufArr __attribute__ ((aligned (64)))
+							__attribute__ ((section (".data.PufArr")));
 
 /* shared memory allocation */
 static u8 SharedMem[XPUF_IV_LEN_IN_BYTES + XSECURE_SHARED_MEM_SIZE] __attribute__((aligned(64)))
@@ -300,11 +302,10 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 	PufData.RoSwapVal = PUF_RO_SWAP;
 #endif
 
+	Xil_DCacheFlushRange((UINTPTR)&PufData, sizeof(PufData));
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 
 #if (XPUF_KEY_GENERATE_OPTION == XPUF_REGISTRATION)
-	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
-
 	Status = XPuf_Registration(&PufClientInstance, (u64)(UINTPTR)&PufData);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -349,6 +350,10 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 		PufData.AuxAddr = (u64)(UINTPTR)&PufArr.Aux;
 		PufData.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 		xil_printf("Reading helper data from provided address\r\n");
+		if (XPUF_SYN_DATA_ADDRESS != 0U) {
+			Xil_DCacheFlushRange((UINTPTR)XPUF_SYN_DATA_ADDRESS,
+					XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
+		}
 	}
 	else if (PufData.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
 		xil_printf("Reading helper data from eFUSE\r\n");
@@ -356,7 +361,8 @@ static int XPuf_GenerateKey(XMailbox *MailboxPtr)
 	else {
 		xil_printf("Invalid read option for reading helper data\r\n");
 	}
-	Xil_DCacheInvalidateRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufData, sizeof(PufData));
+	Xil_DCacheFlushRange((UINTPTR)&PufArr, sizeof(PufArr));
 	Xil_DCacheInvalidateRange((UINTPTR)&PufArr, sizeof(PufArr));
 	Status = XPuf_Regeneration(&PufClientInstance, (u64)(UINTPTR)&PufData);
 	if (Status != XST_SUCCESS) {
@@ -500,6 +506,9 @@ static int XPuf_VerifyDataEncDec(XMailbox *MailboxPtr)
 		goto END;
 	}
 
+	Xil_DCacheFlushRange((UINTPTR)Iv, XPUF_IV_LEN_IN_BYTES);
+	Xil_DCacheFlushRange((UINTPTR)EncData, XPUF_DATA_LEN_IN_BYTES);
+	Xil_DCacheFlushRange((UINTPTR)GcmTag, XPUF_GCM_TAG_SIZE);
 	Xil_DCacheInvalidateRange((UINTPTR)DecData, XPUF_DATA_LEN_IN_BYTES);
 
 	/* Decryption of Data */

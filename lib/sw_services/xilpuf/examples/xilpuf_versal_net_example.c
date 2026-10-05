@@ -14,6 +14,7 @@
   * To build this application, xilmailbox library must be included in BSP and
   * xilsecure must be in client mode and xilpuf in server mode.
   *
+  * By default the cache is enabled for this example
   * <pre>
   * MODIFICATION HISTORY:
   *
@@ -30,6 +31,7 @@
   * 2.7   bha   01/06/26 Fixed Doxygen warnings
   * 2.8   tvp   04/03/26 Use generic API to increment IV
   *       sri   08/05/26 Fixed issue in programming encrypted DME private key 3 into eFuses
+  *       rama  09/17/26 Enable cache by default for client example
   * </pre>
   *@note
   *
@@ -111,9 +113,21 @@ static u8 SharedMem[XSECURE_SHARED_MEM_SIZE_IN_BYTES] __attribute__((aligned(64U
 				__attribute__ ((section (".data.Data")));
 static XPuf_EncryptedData EncData __attribute__((aligned(64U))) __attribute__ ((section (".data.EncData")));
 static XPuf_DataAddr PufDataAddr __attribute__((aligned(64U))) __attribute__ ((section (".data.PufDataAddr")));
+static u32 PufId[XPUF_ID_LEN_IN_WORDS] __attribute__((aligned(64U)))
+				__attribute__ ((section (".data.PufId"))); /**< PUF ID */
+static u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS] __attribute__((aligned(64U)))
+				__attribute__ ((section (".data.SyndromeData"))); /**< PUF syndrome data */
+static u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS] __attribute__((aligned(64U)))
+				__attribute__ ((section (".data.EfuseSynData"))); /**< Trimmed data to be written in efuse */
+static u32 Chash __attribute__((aligned(64U))) __attribute__ ((section (".data.Chash"))); /**< PUF Chash */
+static u32 Aux __attribute__((aligned(64U))) __attribute__ ((section (".data.Aux"))); /**< PUF AUX data */
+static u8 GcmTag[XPUF_GCM_TAG_SIZE] __attribute__((aligned(64U)))
+				__attribute__ ((section (".data.GcmTag"))); /**< GCM tag generated during AES encryption */
 
-static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.Iv")));
-static u8 InputData[XPUF_DME_PRIV_KEY_LEN_IN_BYTES] __attribute__ ((section (".data.InputData")));
+static u8 Iv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((aligned (64U)))
+				__attribute__ ((section (".data.Iv")));
+static u8 InputData[XPUF_DME_PRIV_KEY_LEN_IN_BYTES] __attribute__ ((aligned (64U)))
+				__attribute__ ((section (".data.InputData")));
 static u8 UpdatedIv[XPUF_IV_LEN_IN_BYTES] __attribute__ ((section (".data.UpdatedIv")));
 static XPuf_EncryptedData PrgmEncData __attribute__((aligned(64U))) __attribute__ ((section (".data.PrgmEncData")));
 
@@ -244,9 +258,6 @@ static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance)
 {
 	int Status = XST_FAILURE;
 	u32 PUF_HelperData[XPUF_HD_LEN_IN_WORDS] = {0U};
-	u32 PufId[XPUF_ID_LEN_IN_WORDS] = {0U};
-	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS] = {0U};
-	u32 Chash, Aux;
 	u8 GenKekNId = XPUF_GENERATE_KEK_N_ID;
 	u8 KeyGenOption = XPUF_KEY_GENERATE_OPTION;
 
@@ -274,6 +285,10 @@ static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance)
 			Aux = XPUF_AUX;
 			PufDataAddr.SyndromeAddr = XPUF_SYN_DATA_ADDRESS;
 			xil_printf("Reading helper data from DDR\r\n");
+			if (XPUF_SYN_DATA_ADDRESS != 0U) {
+				Xil_DCacheFlushRange((UINTPTR)XPUF_SYN_DATA_ADDRESS,
+						XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES);
+			}
 		}
 		else if (PufDataAddr.ReadOption == XPUF_READ_FROM_EFUSE_CACHE) {
 			xil_printf("Reading helper data from eFUSE cache \r\n");
@@ -283,21 +298,40 @@ static int XPuf_GeneratePufKekAndId(XPuf_ClientInstance PufClientInstance)
 			goto END;
 		}
 
+		Xil_DCacheFlushRange((UINTPTR)&PufDataAddr, sizeof(PufDataAddr));
+		Xil_DCacheFlushRange((UINTPTR)&Chash, sizeof(Chash));
+		Xil_DCacheFlushRange((UINTPTR)&Aux, sizeof(Aux));
+		Xil_DCacheInvalidateRange((UINTPTR)PufId, sizeof(PufId));
+
 		Status = XPuf_Regeneration(&PufClientInstance, (u64)(UINTPTR)&PufDataAddr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Puf Regeneration failed with error:%x\r\n", Status);
 			goto END;
 		}
+		Xil_DCacheInvalidateRange((UINTPTR)PufId, sizeof(PufId));
 		xil_printf("PUF ID : ");
 		XPuf_ShowData((u8*)PufId, XPUF_ID_LEN_IN_BYTES);
 	}
 	else if (GenKekNId == TRUE && KeyGenOption == XPUF_REGISTRATION) {
 		PufDataAddr.PufOperation = XPUF_REGISTRATION;
 		PufDataAddr.SyndromeDataAddr = (u64)(UINTPTR)SyndromeData;
+		PufDataAddr.EfuseSynDataAddr = (u64)(UINTPTR)EfuseSynData;
+		Xil_DCacheFlushRange((UINTPTR)&PufDataAddr, sizeof(PufDataAddr));
+		Xil_DCacheInvalidateRange((UINTPTR)SyndromeData, sizeof(SyndromeData));
+		Xil_DCacheInvalidateRange((UINTPTR)EfuseSynData, sizeof(EfuseSynData));
+		Xil_DCacheInvalidateRange((UINTPTR)&Chash, sizeof(Chash));
+		Xil_DCacheInvalidateRange((UINTPTR)&Aux, sizeof(Aux));
+		Xil_DCacheInvalidateRange((UINTPTR)PufId, sizeof(PufId));
 		Status = XPuf_Registration(&PufClientInstance, (u64)(UINTPTR)&PufDataAddr);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
+		Xil_DCacheInvalidateRange((UINTPTR)SyndromeData, sizeof(SyndromeData));
+		Xil_DCacheInvalidateRange((UINTPTR)EfuseSynData, sizeof(EfuseSynData));
+		Xil_DCacheInvalidateRange((UINTPTR)&Chash, sizeof(Chash));
+		Xil_DCacheInvalidateRange((UINTPTR)&Aux, sizeof(Aux));
+		Xil_DCacheInvalidateRange((UINTPTR)PufId, sizeof(PufId));
 
 		xil_printf("PUF Helper data Start!!!\r\n");
 		Status = Xil_SMemCpy(PUF_HelperData, XPUF_4K_PUF_SYN_LEN_IN_BYTES,
@@ -532,7 +566,6 @@ END:
  ******************************************************************************/
 static int XPuf_EncryptData(XSecure_ClientInstance *SecureClientInstance, char* Data, u32 DataLen, u8* Iv, u8* OutputData)
 {
-	u8 GcmTag[XPUF_GCM_TAG_SIZE];
 	int Status = XST_FAILURE;
 
 	if (Xil_Strnlen(Data, (DataLen * 2U)) == (DataLen * 2U)) {
@@ -666,7 +699,7 @@ static int XPuf_PrgmUdsAndDmeEfuses(XNvm_ClientInstance *NvmClientInstance)
 			PrgmDataInWords[Index] = XPuf_ReverseByteOrder(EncDataInWords[XNVM_UDS_SIZE_IN_WORDS - 1 - Index]);
 		}
 
-		Xil_DCacheInvalidateRange((UINTPTR)PrgmData->UdsPrime, sizeof(PrgmData->UdsPrime));
+		Xil_DCacheFlushRange((UINTPTR)PrgmData->UdsPrime, sizeof(PrgmData->UdsPrime));
 
 		Status = XNvm_EfuseWriteDiceUds(NvmClientInstance, (u64)(UINTPTR)PrgmData->UdsPrime,
 			XPUF_ENV_MONITOR_DISABLE);
