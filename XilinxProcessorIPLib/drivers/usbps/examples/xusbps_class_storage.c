@@ -21,6 +21,7 @@
  * 2.4   vak  4/01/19  Fixed IAR data_alignment warnings
  * 2.10  ka   8/21/25  Fixed GCC warnings
  * 2.11  ka   01/29/26 Fix codespell errors.
+ * 2.12  sm   10/01/26 Added SendCSW() to send pass/fail command status.
  *</pre>
  ******************************************************************************/
 
@@ -44,7 +45,14 @@
 /************************** Constant Definitions *****************************/
 
 
+#define USB_CSW_SIGNATURE	0x53425355U
+#define USB_CSW_CMD_PASSED	0U
+#define USB_CSW_CMD_FAILED	1U
+
 /************************** Function Prototypes ******************************/
+
+static void SendCSW(XUsbPs *InstancePtr, USB_CBW *CBW, u32 Residue,
+		    u8 Status);
 
 /************************** Variable Definitions *****************************/
 
@@ -79,6 +87,10 @@ static USB_CBW lastCBW;
 #pragma data_alignment = 32
 /* Local transmit buffer for simple replies. */
 static u8 txBuffer[128];
+
+#pragma data_alignment = 32
+/* Command Status Wrapper buffer. */
+static USB_CSW CSW;
 #else
 static const SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
 	0x00,
@@ -102,6 +114,9 @@ static USB_CBW lastCBW ALIGNMENT_CACHELINE;
 
 /**< Local transmit buffer for simple replies. */
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
+
+/**< Command Status Wrapper buffer. */
+static USB_CSW CSW ALIGNMENT_CACHELINE;
 /** @endcond */
 #endif
 
@@ -361,4 +376,27 @@ void XUsbPs_ClassReq(XUsbPs *InstancePtr, XUsbPs_SetupData *SetupData)
 	}
 }
 
+/*****************************************************************************/
+/**
+* This function sends the Command Status Wrapper of a mass storage command
+* on bulk IN. The CSW is built in a dedicated buffer so the received CBW is
+* left intact.
+*
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] CBW is the Command Block Wrapper of the completed command.
+* @param[in] Residue is the number of requested bytes not transferred.
+* @param[in] Status is the command status, USB_CSW_CMD_PASSED or
+*		USB_CSW_CMD_FAILED.
+*
+******************************************************************************/
+static void SendCSW(XUsbPs *InstancePtr, USB_CBW *CBW, u32 Residue,
+		    u8 Status)
+{
+	CSW.dCSWSignature = USB_CSW_SIGNATURE;
+	CSW.dCSWTag = CBW->dCBWTag;
+	CSW.dCSWDataResidue = Residue;
+	CSW.bCSWStatus = Status;
+
+	XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) &CSW, sizeof(USB_CSW));
+}
 

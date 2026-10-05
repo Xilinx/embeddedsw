@@ -19,6 +19,7 @@
  * 1.00a wgr  10/10/10 First release
  *       ms   04/10/17 Modified filename tag to include the file in doxygen
  *                     examples.
+ * 2.12  sm   10/01/26 Added USB_CSW structure.
  * </pre>
  *
  ******************************************************************************/
@@ -111,6 +112,25 @@ typedef struct {
 #else
 }
 __attribute__((__packed__))USB_CBW;
+#endif
+
+#ifdef __ICCARM__
+#pragma pack(push, 1)
+#endif
+/**
+ * @brief USB Command Status Wrapper (CSW) for Bulk-Only Transport.
+ */
+typedef struct {
+	u32 dCSWSignature;    /**< CSW signature (0x53425355). */
+	u32 dCSWTag;          /**< Tag of the associated CBW. */
+	u32 dCSWDataResidue;  /**< Number of requested bytes not transferred. */
+	u8  bCSWStatus;       /**< Command status (passed/failed/phase error). */
+#ifdef __ICCARM__
+} USB_CSW;
+#pragma pack(pop)
+#else
+}
+__attribute__((__packed__))USB_CSW;
 #endif
 
 #ifdef __ICCARM__
