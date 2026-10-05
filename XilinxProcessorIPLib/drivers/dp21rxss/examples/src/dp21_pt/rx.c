@@ -454,6 +454,13 @@ void Dp21RxSs_Pt_RxNoVideoHandler(void *InstancePtr)
 
 	/* Reset CRC Test Counter in DP DPCD Space */
 	XVidFrameCrc_Reset(&VidFrameCRC_rx);
+	/*
+	 * XVidFrameCrc_Reset() does a read-modify-write on
+	 * VIDEO_FRAME_CRC_CONFIG and clears the format/mode (bit 31).
+	 * Re-apply the video format so bit 31 is preserved.
+	 */
+	XVidFrameCrc_SetVideoFormat(&VidFrameCRC_rx, VidFrameCRC_rx.Mode_422,
+			CRC_CFG_RX);
 	VidFrameCRC_rx.TEST_CRC_CNT = 0;
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 			 XDP_RX_CRC_CONFIG,
@@ -578,6 +585,13 @@ void Dp21RxSs_Pt_RxTrainingLostHandler(void *InstancePtr)
 	 * Reset CRC Test Counter in DP DPCD Space
 	 */
 	XVidFrameCrc_Reset(&VidFrameCRC_rx);
+	/*
+	 * XVidFrameCrc_Reset() does a read-modify-write on
+	 * VIDEO_FRAME_CRC_CONFIG and clears the format/mode (bit 31).
+	 * Re-apply the video format so bit 31 is preserved.
+	 */
+	XVidFrameCrc_SetVideoFormat(&VidFrameCRC_rx, VidFrameCRC_rx.Mode_422,
+			CRC_CFG_RX);
 	VidFrameCRC_rx.TEST_CRC_CNT = 0;
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_CRC_CONFIG,

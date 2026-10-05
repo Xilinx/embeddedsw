@@ -88,8 +88,12 @@ extern "C" {
 
 #define XPAR_DPTXSS_0_HDCP_ENABLE	0
 #define XPAR_DPTXSS_0_HDCP22_ENABLE	0
+#ifndef XPAR_DPRXSS_0_HDCP_ENABLE
 #define XPAR_DPRXSS_0_HDCP_ENABLE	0
+#endif
+#ifndef XPAR_DPRXSS_0_HDCP22_ENABLE
 #define XPAR_DPRXSS_0_HDCP22_ENABLE	0
+#endif
 
 #define USE_EEPROM_HDCP_KEYS
 #define ENABLE_HDCP_IN_DESIGN		(XPAR_DPTXSS_0_HDCP_ENABLE | XPAR_DPRXSS_0_HDCP_ENABLE | \
@@ -140,8 +144,8 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 * The following constants map to the names of the hardware instances.
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
-* There is only one interrupt controlled to be selected from SCUGIC and GPIO
-* INTC. INTC selection is based on INTC parameters defined xparameters.h file.
+* There is only one interrupt controller to be selected from SCUGIC and GPIO
+* INTC. INTC selection is based on INTC parameters defined in xparameters.h file.
 */
 #define XINTC_DEVICE_ID 	XPAR_INTC_0_DEVICE_ID
 #define XINTC_HANDLER 		XIntc_InterruptHandler

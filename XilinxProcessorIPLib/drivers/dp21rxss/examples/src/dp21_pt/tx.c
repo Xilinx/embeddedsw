@@ -675,8 +675,10 @@ void Dp21RxSs_Pt_TxHpdPulseHandler(void *InstancePtr)
 	 * be executed a huge number of times. Hence hpd_pulse interrupt is disabled
 	 * and then enabled when hpd_pulse function is executed
 	 */
+	/* 0x10 = HPD_PULSE masked (handled below); 0x20 = EXT_PKT_TXD kept
+	 * masked to avoid the VSC extended-packet interrupt storm. */
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-		     XDP_TX_INTERRUPT_MASK, 0xFFFFF010);
+		     XDP_TX_INTERRUPT_MASK, 0xFFFFF030);
 	hpd_pulse_con_event = 1;
 	xil_printf ("HPD Pulse..\r\n");
 }
@@ -952,10 +954,12 @@ void Dp21RxSs_Pt_TxHpdPulseCon(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttribute
 	}
 
 	/*
-	 * Mask Unused Interrupts
+	 * Mask Unused Interrupts.
+	 * Bit5 (0x20) = EXT_PKT_TXD kept masked to avoid the VSC extended-packet
+	 * interrupt storm (static VSC SDP, no per-packet servicing needed).
 	 */
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_INTERRUPT_MASK, 0xFFFFF000);
+			XDP_TX_INTERRUPT_MASK, 0xFFFFF020);
 }
 
 u32 Dp21RxSs_Pt_TxSsStart(XDpTxSs *InstancePtr,
@@ -1075,6 +1079,9 @@ u32 Dp21RxSs_Pt_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_con
 		format = XVIDC_CSF_YCRCB_422;
 	}else if(format == 2){
 		format = XVIDC_CSF_YCRCB_444;
+	}else if(format == 3){
+		/* ComponentFormat 0x3 == YCbCr 4:2:0 (carried over VSC SDP) */
+		format = XVIDC_CSF_YCRCB_420;
 	}
 
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \
@@ -1130,10 +1137,16 @@ u32 Dp21RxSs_Pt_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_con
 	}
 
 	/*
-	 * Mask unused interrupts
+	 * Mask unused interrupts.
+	 * Bit5 (0x20) = EXT_PKT_TXD: keep this MASKED. The VSC extended SDP
+	 * (used for YUV420 colorimetry) is a static packet programmed once via
+	 * XDpTxSs_SetVscExtendedPacket and re-sent by hardware every frame.
+	 * Leaving EXT_PKT_TXD unmasked causes a continuous interrupt storm
+	 * (the "ready for new packet" status is never cleared), which starves
+	 * the foreground and hangs the app after training.
 	 */
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-			XDP_TX_INTERRUPT_MASK, 0xFFFFF000);
+			XDP_TX_INTERRUPT_MASK, 0xFFFFF020);
 
 	vsync_counter = 0;
 

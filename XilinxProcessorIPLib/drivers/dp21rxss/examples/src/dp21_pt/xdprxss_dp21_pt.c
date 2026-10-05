@@ -1031,15 +1031,14 @@ u32 Dp21RxSs_Pt_PhyConfig(XVphy *InstancePtr, int LineRate, XVphy_PllType Pll,
 		return Status;
 	}
 
-#if !defined (PLATFORM_MB) && !defined (__riscv)
 	/*
 	 * GTHE4 cannot support 20G
 	 */
-	if(LineRate == XDP_TX_LINK_BW_SET_UHBR20) {
+	if((LineRate == XDP_TX_LINK_BW_SET_UHBR20) && (XPAR_XVPHY_0_TRANSCEIVER_TYPE == XVPHY_GT_TYPE_GTHE4)) {
 		xil_printf ("GTHE4 does not support 20G... skipping\r\n");
 		return Status;
 	}
-#endif
+
 	if ((LineRate == XDP_TX_LINK_BW_SET_810GBPS) ||
 		(LineRate == XDP_TX_LINK_BW_SET_540GBPS) ||
 		(LineRate == XDP_TX_LINK_BW_SET_270GBPS) ||
@@ -1100,11 +1099,17 @@ void Dp21RxSs_Pt_CalculateCRC(void)
 
 	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
 
-	if (color_mode == 2) {
-		VidFrameCRC_rx.Mode_422 = 0x1;
-	} else {
-		VidFrameCRC_rx.Mode_422 = 0x0;
-	}
+	/*
+	 * Store the actual color-format code (XVidC_ColorSpaceFormat:
+	 * RGB=0, YCbCr444=1, YCbCr422=2, YCbCr420=3) so that
+	 * XVidFrameCrc_SetVideoFormat() sets the CRC engine's 4:2:2/4:2:0
+	 * mode (VIDEO_FRAME_CRC_CONFIG bit 31) for Format 2 and 3.
+	 * Passing the old 0/1 "Mode_422" flag never satisfied the
+	 * (Format == 2 || Format == 3) condition, so bit 31 was never set.
+	 * This value is also re-applied by the RX no-video / training-lost
+	 * handlers after each CRC reset.
+	 */
+	VidFrameCRC_rx.Mode_422 = color_mode;
 
 	XVidFrameCrc_SetVideoFormat(&VidFrameCRC_rx, VidFrameCRC_rx.Mode_422, CRC_CFG_RX);
 }
@@ -1663,6 +1668,11 @@ void Dp21RxSs_Pt_FbStartWr(XDpTxSs_MainStreamAttributes Msa[4])
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[8].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+		} else if (Msa[0].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV8 semi-planar */
+			Cfmt = ColorFormats[6].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[6].StreamFormat;
 		} else {
 			Cfmt = ColorFormats[7].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
@@ -1679,6 +1689,11 @@ void Dp21RxSs_Pt_FbStartWr(XDpTxSs_MainStreamAttributes Msa[4])
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[4].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
+		} else if (Msa[0].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV10 semi-planar */
+			Cfmt = ColorFormats[10].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[10].StreamFormat;
 		} else {
 			Cfmt = ColorFormats[3].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
@@ -1749,6 +1764,11 @@ void Dp21RxSs_Pt_FbStartRd(XDpTxSs_MainStreamAttributes Msa[4])
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[8].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+		} else if (Msa[0].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV8 semi-planar */
+			Cfmt = ColorFormats[6].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[6].StreamFormat;
 		} else {
 			Cfmt = ColorFormats[7].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
@@ -1764,6 +1784,11 @@ void Dp21RxSs_Pt_FbStartRd(XDpTxSs_MainStreamAttributes Msa[4])
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[4].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
+		} else if (Msa[0].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV10 semi-planar */
+			Cfmt = ColorFormats[10].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[10].StreamFormat;
 		} else {
 			Cfmt = ColorFormats[3].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
@@ -1974,7 +1999,7 @@ u8 tx_ppc_set = 0;
 
 int Dp21RxSs_Pt_DetectResolution(XDpRxSs *InstancePtr)
 {
-	char *color;
+	char *color = "RGB";
 
 	Msa_Pt = XDpRxss_GetMsa(InstancePtr);
 
@@ -1998,6 +2023,9 @@ int Dp21RxSs_Pt_DetectResolution(XDpRxSs *InstancePtr)
 		color="YUV422";
 	} else if (Msa_Pt[0].ComponentFormat == 2) {
 		color="YUV444";
+	} else if (Msa_Pt[0].ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+		color="YUV420";
 	}
 	if (InstancePtr->link_up_trigger == 1) {
 		xil_printf("*** Resolution: %lu x %lu @ %luHz, BPC = %lu, Color = %s, (VSC %d) ***\r\n",

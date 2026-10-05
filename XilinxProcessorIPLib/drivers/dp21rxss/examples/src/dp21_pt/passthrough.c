@@ -1075,6 +1075,10 @@ void Dp21RxSs_Pt_StartTxAfterRx (void)
 	} else if(Msa_Pt[0].ComponentFormat ==
 			XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
 		user_config.user_format = XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 + 1;
+	} else if(Msa_Pt[0].ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+		/* YCbCr 4:2:0 is conveyed via the VSC SDP (ComponentFormat 0x3) */
+		user_config.user_format = XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420 + 1;
 	} else {
 		user_config.user_format = XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB + 1;
 	}
@@ -1100,6 +1104,8 @@ void Dp21RxSs_Pt_StartTxAfterRx (void)
 		XV_tpg_Set_colorFormat(&TpgInst, 0x2);
 	}else if(Msa_Pt[0].ComponentFormat == XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
 		XV_tpg_Set_colorFormat(&TpgInst, 0x1);
+	}else if(Msa_Pt[0].ComponentFormat == XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+		XV_tpg_Set_colorFormat(&TpgInst, 0x3);
 	}else{
 		XV_tpg_Set_colorFormat(&TpgInst, 0x0);
 	}
