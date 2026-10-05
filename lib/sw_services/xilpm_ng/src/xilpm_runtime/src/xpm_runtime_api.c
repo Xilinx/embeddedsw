@@ -2596,8 +2596,7 @@ done:
 }
 /****************************************************************************/
 /**
- * @brief  This function can be used by a subsystem to aborting suspend of a
- * child subsystem.
+ * @brief  This function can be used by a subsystem to abort its suspend.
  *
  * @param SubsystemId	Subsystem ID
  * @param Reason	Abort reason
@@ -2628,7 +2627,6 @@ static XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 			Status = XST_DEVICE_NOT_FOUND;
 			goto done;
 		}
-		Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 	} else {
 		PmErr("Invalid Device Id\n\r");
 		Status = XPM_PM_INVALID_NODE;
@@ -2640,6 +2638,13 @@ static XStatus XPm_AbortSuspend(const u32 SubsystemId, const u32 Reason,
 		goto done;
 	}
 
+	if (SubsystemId != XPmDevice_GetSubsystemIdOfCore(&Core->Device)) {
+		PmErr("Cross-subsystem abort suspend not allowed\n\r");
+		Status = XPM_PM_NO_ACCESS;
+		goto done;
+	}
+
+	Core->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
 	DISABLE_WFI(Core->SleepMask);
 
 	Status = XPmSubsystem_SetState(Subsystem, (u32)ONLINE);
