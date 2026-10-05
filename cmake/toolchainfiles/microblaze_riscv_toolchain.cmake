@@ -41,3 +41,6 @@ set( CMAKE_ASM_FLAGS "${TOOLCHAIN_ASM_FLAGS} ${TOOLCHAIN_DEP_FLAGS} ${APPLICATIO
 set(CMAKE_EXE_LINKER_FLAGS "" CACHE STRING "Linker flags")
 set(CMAKE_MODULE_LINKER_FLAGS "" CACHE STRING "Module Linker flags")
 set(CMAKE_SHARED_LINKER_FLAGS "" CACHE STRING "Shared Linker flags")
+# Link libm by default while allowing CMake cache overrides.
+set(CMAKE_C_STANDARD_LIBRARIES_INIT "-lm")
+set(CMAKE_CXX_STANDARD_LIBRARIES_INIT "-lm")
