@@ -22,6 +22,12 @@
  * 2.10  ka   8/21/25  Fixed GCC warnings
  * 2.11  ka   01/29/26 Fix codespell errors.
  * 2.12  sm   10/01/26 Added SendCSW() to send pass/fail command status.
+ *                     Added ValidateLbaRange() to reject out-of-range and
+ *                     handle zero-block SCSI READ(10)/WRITE(10), and
+ *                     to reject a CBW transfer length or direction that
+ *                     does not match the command.
+ *                     Added ValidateDataLen() to reject WRITE(10) data
+ *                     exceeding the command length.
  *</pre>
  ******************************************************************************/
 
@@ -48,11 +54,16 @@
 #define USB_CSW_SIGNATURE	0x53425355U
 #define USB_CSW_CMD_PASSED	0U
 #define USB_CSW_CMD_FAILED	1U
+#define USB_CBW_FLAGS_DIR_IN	0x80U
 
 /************************** Function Prototypes ******************************/
 
 static void SendCSW(XUsbPs *InstancePtr, USB_CBW *CBW, u32 Residue,
 		    u8 Status);
+static s32 ValidateLbaRange(XUsbPs *InstancePtr, USB_CBW *CBW, u32 Lba,
+			    u16 BlockCount, u8 Direction);
+static s32 ValidateDataLen(XUsbPs *InstancePtr, USB_CBW *CBW,
+			   u32 BufferLen, u32 BytesLeft);
 
 /************************** Variable Definitions *****************************/
 
@@ -135,6 +146,9 @@ void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
 {
 	USB_CBW	*CBW;
 	u32	Offset;
+	u32	Lba;
+	u16	BlockCount;
+	s32	Status;
 	static u8 *VirtFlashWritePointer = VirtFlash;
 	/* Static variables used for data transfers.*/
 	static int	rxBytesLeft;
@@ -211,14 +225,19 @@ void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
 				}
 
 			case USB_RBC_READ:
-				Offset = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->
-					       block) * VFLASH_BLOCK_SIZE;
+				Lba = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->block);
+				BlockCount = htons(((SCSI_READ_WRITE *) CBW->CBWCB)->length);
+				Status = ValidateLbaRange(InstancePtr, CBW, Lba, BlockCount,
+							  XUSBPS_EP_DIRECTION_IN);
+				if (Status != XST_SUCCESS) {
+					break;
+				}
+				Offset = Lba * VFLASH_BLOCK_SIZE;
 #ifdef CLASS_STORAGE_DEBUG
 				printf("SCSI: READ Offset 0x%08x\n", (int) Offset);
 #endif
 				XUsbPs_EpBufferSend(InstancePtr, 1, &VirtFlash[Offset],
-						    htons(((SCSI_READ_WRITE *) CBW->CBWCB)->
-							  length) * VFLASH_BLOCK_SIZE);
+						    BlockCount * VFLASH_BLOCK_SIZE);
 				/* Send Success Status */
 				CBW->dCBWSignature = 0x55534253;
 				CBW->dCBWDataTransferLength = 0;
@@ -260,17 +279,21 @@ void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
 
 
 			case USB_RBC_WRITE:
-				Offset = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->
-					       block) * VFLASH_BLOCK_SIZE;
+				Lba = htonl(((SCSI_READ_WRITE *) CBW->CBWCB)->block);
+				BlockCount = htons(((SCSI_READ_WRITE *) CBW->CBWCB)->length);
+				Status = ValidateLbaRange(InstancePtr, CBW, Lba, BlockCount,
+							  XUSBPS_EP_DIRECTION_OUT);
+				if (Status != XST_SUCCESS) {
+					break;
+				}
+				Offset = Lba * VFLASH_BLOCK_SIZE;
 #ifdef CLASS_STORAGE_DEBUG
 				printf("SCSI: WRITE Offset 0x%08x\n", (int) Offset);
 #endif
 				VirtFlashWritePointer = &VirtFlash[Offset];
 				/* Save the CBW for the DATA and STATUS phases. */
 				lastCBW = *CBW;
-				rxBytesLeft =
-					htons(((SCSI_READ_WRITE *) CBW->CBWCB)->length)
-					* VFLASH_BLOCK_SIZE;
+				rxBytesLeft = BlockCount * VFLASH_BLOCK_SIZE;
 
 				phase = USB_EP_STATE_DATA;
 				break;
@@ -321,6 +344,12 @@ void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
 	else if (USB_EP_STATE_DATA == phase) {
 		switch (lastCBW.CBWCB[0]) {
 			case USB_RBC_WRITE:
+				Status = ValidateDataLen(InstancePtr, &lastCBW, BufferLen,
+							 (u32)rxBytesLeft);
+				if (Status != XST_SUCCESS) {
+					phase = USB_EP_STATE_COMMAND;
+					break;
+				}
 				/* Copy the data we just read into the VirtFlash buffer. */
 				memcpy(VirtFlashWritePointer, BufferPtr, BufferLen);
 				VirtFlashWritePointer += BufferLen;
@@ -400,3 +429,119 @@ static void SendCSW(XUsbPs *InstancePtr, USB_CBW *CBW, u32 Residue,
 	XUsbPs_EpBufferSend(InstancePtr, 1, (u8 *) &CSW, sizeof(USB_CSW));
 }
 
+/*****************************************************************************/
+/**
+* This function validates the LBA range of a SCSI READ(10) or WRITE(10)
+* command against the virtual flash. A command whose range exceeds
+* VFLASH_NUM_BLOCKS is rejected. A command with a zero block count transfers
+* no data, so it is completed here with a good status, or rejected when the
+* host expects a data phase. A command whose CBW data transfer length or
+* direction does not match the block count and the command direction is
+* also rejected, so the data phase never runs out of step with the host.
+*
+* A rejected command fails with the whole requested data length as residue.
+* When the host expects a data phase, the endpoint of the direction given in
+* the CBW is halted first. The status is then queued on bulk IN, where the
+* controller holds it until the host clears the halt when bulk IN is the
+* stalled endpoint.
+*
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] CBW is the Command Block Wrapper of the command.
+* @param[in] Lba is the starting logical block address.
+* @param[in] BlockCount is the number of blocks to transfer.
+* @param[in] Direction is the data phase direction, XUSBPS_EP_DIRECTION_IN
+*		or XUSBPS_EP_DIRECTION_OUT.
+*
+* @return
+*		- XST_SUCCESS if the data transfer can proceed.
+*		- XST_FAILURE if the command has already been completed.
+*
+******************************************************************************/
+static s32 ValidateLbaRange(XUsbPs *InstancePtr, USB_CBW *CBW, u32 Lba,
+			    u16 BlockCount, u8 Direction)
+{
+	u8 HostDirection;
+
+	HostDirection = (CBW->bmCBWFlags & USB_CBW_FLAGS_DIR_IN) ?
+			XUSBPS_EP_DIRECTION_IN : XUSBPS_EP_DIRECTION_OUT;
+
+	if (BlockCount == 0) {
+		if (CBW->dCBWDataTransferLength != 0) {
+			XUsbPs_EpStall(InstancePtr, 1, HostDirection);
+			SendCSW(InstancePtr, CBW, CBW->dCBWDataTransferLength,
+				USB_CSW_CMD_FAILED);
+		} else {
+			SendCSW(InstancePtr, CBW, 0, USB_CSW_CMD_PASSED);
+		}
+		return XST_FAILURE;
+	} else if (Lba >= VFLASH_NUM_BLOCKS ||
+		   BlockCount > (VFLASH_NUM_BLOCKS - Lba)) {
+#ifdef CLASS_STORAGE_DEBUG
+		printf("LBA EXCEEDS DEVICE CAPACITY\r\n");
+#endif
+		if (CBW->dCBWDataTransferLength != 0) {
+			XUsbPs_EpStall(InstancePtr, 1, HostDirection);
+		}
+		SendCSW(InstancePtr, CBW, CBW->dCBWDataTransferLength,
+			USB_CSW_CMD_FAILED);
+		return XST_FAILURE;
+	} else if (CBW->dCBWDataTransferLength !=
+		   (u32)BlockCount * VFLASH_BLOCK_SIZE ||
+		   HostDirection != Direction) {
+#ifdef CLASS_STORAGE_DEBUG
+		printf("CBW TRANSFER LENGTH MISMATCH\r\n");
+#endif
+		if (CBW->dCBWDataTransferLength != 0) {
+			XUsbPs_EpStall(InstancePtr, 1, HostDirection);
+		}
+		SendCSW(InstancePtr, CBW, CBW->dCBWDataTransferLength,
+			USB_CSW_CMD_FAILED);
+		return XST_FAILURE;
+	} else {
+		return XST_SUCCESS;
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function validates the length of a bulk OUT buffer received in the
+* data phase of a SCSI WRITE(10) command against the bytes still expected
+* for the command. A buffer exceeding the remaining length is rejected before
+* it is copied to the virtual flash.
+*
+* A rejected command fails with the CBW data transfer length less the bytes
+* already copied as residue. Bulk OUT is halted first, and the status is then
+* queued on bulk IN.
+*
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] CBW is the Command Block Wrapper of the command.
+* @param[in] BufferLen is the length of the received data buffer.
+* @param[in] BytesLeft is the number of bytes still expected.
+*
+* @return
+*		- XST_SUCCESS if the buffer can be copied.
+*		- XST_FAILURE if the command has already been completed.
+*
+******************************************************************************/
+static s32 ValidateDataLen(XUsbPs *InstancePtr, USB_CBW *CBW,
+			   u32 BufferLen, u32 BytesLeft)
+{
+	u32 Copied;
+	u32 Residue;
+
+	if (BufferLen > BytesLeft) {
+#ifdef CLASS_STORAGE_DEBUG
+		printf("WRITE DATA EXCEEDS COMMAND LENGTH\r\n");
+#endif
+		Copied = (u32)htons(((SCSI_READ_WRITE *) CBW->CBWCB)->length) *
+			 VFLASH_BLOCK_SIZE - BytesLeft;
+		Residue = (CBW->dCBWDataTransferLength > Copied) ?
+			  (CBW->dCBWDataTransferLength - Copied) : 0U;
+
+		XUsbPs_EpStall(InstancePtr, 1, XUSBPS_EP_DIRECTION_OUT);
+		SendCSW(InstancePtr, CBW, Residue, USB_CSW_CMD_FAILED);
+		return XST_FAILURE;
+	}
+
+	return XST_SUCCESS;
+}
