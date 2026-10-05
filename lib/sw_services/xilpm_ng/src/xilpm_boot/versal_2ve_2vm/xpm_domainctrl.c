@@ -87,12 +87,11 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 	 * sanity check the cdo structure:
 	 * - only GPIO Type is supported for Domain Control (0x2)
 	 * - # of arguments > 3 (Domain Control Id, Type, Parent Id, ...)
-	 * - 3rd argument must be GPIO Device Node
+	 * - 3rd argument must be the PMC GPIO Device Node (always on)
 	 */
 	if ((NumArgs <= 3U) ||
 	    (XPM_DOMAIN_CONTROL_GPIO != Args[ArgIndex]) ||
-	    ((PM_DEV_GPIO != Args[ArgIndex + 1U]) &&
-	    (PM_DEV_GPIO_PMC != Args[ArgIndex + 1U]))) {
+	    (PM_DEV_GPIO_PMC != Args[ArgIndex + 1U])) {
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -108,8 +107,8 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 	 * arg5: [Length | Mode1] - Length of command for mode 1 and GPIO config for mode 1 (register offset, mask, value)
 	 *
 	 * Example:
-	 * pm_add_node 0x4534053 0x2 0x18224023 0x2 0x300 0x0040 0x100000 0x000000
-	 *					    0x301 0x0040 0x100000 0x100000
+	 * pm_add_node 0x453404F 0x2 0x1822402C 0x2 0x300 0x0040 0x800 0x000000
+	 *					    0x301 0x0040 0x800 0x800
 	*/
 	/* check whether GPIO Device Node is present in the system */
 	ArgIndex++;
@@ -117,6 +116,16 @@ XStatus XPmDomainCtrl_Init(XPm_DomainCtrl *DomainCtrl, u32 DomainCtrlId, const u
 	if (NULL == XPmDevice_GetById(DomainCtrl->GpioNodeId)) {
 		DbgErr = XPM_INT_ERR_DEVICE_INIT;
 		Status = XPM_ERR_DEVICE_INIT;
+		goto done;
+	}
+
+	/*
+	 * Request the GPIO for the PMC so it stays powered and out of reset
+	 * after all subsystems release it.
+	 */
+	Status = XPm_PmcRequestDevice(DomainCtrl->GpioNodeId);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_DEVICE_REQUEST;
 		goto done;
 	}
 
@@ -206,7 +215,8 @@ done:
  *
  * @return XST_SUCCESS after issuing a valid GPIO command; XPM_INVALID_PWRDOMAIN
  *         when @p PwrDomain is NULL; XST_INVALID_PARAM when no control object
- *         is attached or @p State is unsupported; or an error returned by
+ *         is attached or @p State is unsupported; XPM_INVALID_STATE when the
+ *         GPIO device is not running; or an error returned by
  *         XPm_GetDeviceBaseAddr() when the GPIO base address cannot be found.
  *
  * @note A successful return means the command was issued, not that the rail
@@ -216,6 +226,7 @@ XStatus XPmDomainCtrl_Control(const XPm_PowerDomain *PwrDomain, u32 State) {
 	XStatus Status = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_DomainCtrl *DomainCtrl;
+	const XPm_Device *GpioDevice;
 	u32 DomainId = 0U, BaseAddress = 0U;
 	u8 Mode;
 
@@ -233,6 +244,20 @@ XStatus XPmDomainCtrl_Control(const XPm_PowerDomain *PwrDomain, u32 State) {
 		goto done;
 	}
 	DomainId = PwrDomain->Power.Node.Id;
+
+	/*
+	 * A released GPIO is held in reset, where it takes the write below
+	 * without driving the pin, so the rail would silently never switch.
+	 */
+	GpioDevice = XPmDevice_GetById(DomainCtrl->GpioNodeId);
+	if ((NULL == GpioDevice) ||
+	    ((u8)XPM_DEVSTATE_RUNNING != GpioDevice->Node.State)) {
+		PmErr("GPIO 0x%x not running, domain 0x%x not switched\r\n",
+		      DomainCtrl->GpioNodeId, DomainId);
+		DbgErr = XPM_INT_ERR_INVALID_STATE;
+		Status = XPM_INVALID_STATE;
+		goto done;
+	}
 
 	/* Get the GPIO device base address */
 	Status = XPm_GetDeviceBaseAddr(DomainCtrl->GpioNodeId, &BaseAddress);
