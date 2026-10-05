@@ -241,6 +241,10 @@ extern "C" {
 #define XPM_INT_ERR_FPD_LPD_ISO			0x3507U
 /** Error during FPD-LPD DFX Isolation disable/enable */
 #define XPM_INT_ERR_FPD_LPD_DFX_ISO		0x3508U
+/** Error during FPD-MMI Isolation disable/enable */
+#define XPM_INT_ERR_FPD_MMI_ISO			0x3509U
+/** Error during FPD-MMI DFX Isolation disable/enable */
+#define XPM_INT_ERR_FPD_MMI_DFX_ISO		0x350AU
 
 /************************* Miscellaneous Errors ******************************/
 /************************** (0x3600) - (0x36FF) ******************************/

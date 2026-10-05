@@ -451,6 +451,9 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 {
 	XStatus Status = XST_FAILURE;
 	u32 DbgErr = (u32)XPM_INT_ERR_UNDEFINED;
+	u32 IsoVal = 0U;
+	const u32 MmiIsoMask = PSXC_LPX_SLCR_DOMAIN_ISO_CNTRL_FPD_MMI_MASK |
+			       PSXC_LPX_SLCR_DOMAIN_ISO_CNTRL_FPD_MMI_DFX_MASK;
 	const XPm_Device *AmsRoot = NULL;
 	const XPm_PsFpDomain *FpDomain = NULL;
 
@@ -532,11 +535,16 @@ XStatus XPm_PowerDwnFPD(const XPm_Node *Node)
 		goto done;
 	}
 
-	/* Isolate: FPD-MMI */
-	/* TODO: FIXME: Missing? */
-
-	/* Isolate: FPD-MMI_DFX */
-	/* TODO: FIXME: Missing? */
+	/* Isolate: FPD-MMI and FPD-MMI_DFX */
+	PmRmw32(PSXC_LPX_SLCR_DOMAIN_ISO_CNTRL, MmiIsoMask, MmiIsoMask);
+	PmIn32(PSXC_LPX_SLCR_DOMAIN_ISO_CNTRL, IsoVal);
+	if (MmiIsoMask != (IsoVal & MmiIsoMask)) {
+		PmErr("FPD-MMI isolation failed, DOMAIN_ISO_CNTRL=0x%x\r\n", IsoVal);
+		DbgErr = (0U == (IsoVal & PSXC_LPX_SLCR_DOMAIN_ISO_CNTRL_FPD_MMI_MASK)) ?
+			 XPM_INT_ERR_FPD_MMI_ISO : XPM_INT_ERR_FPD_MMI_DFX_ISO;
+		Status = XST_FAILURE;
+		goto done;
+	}
 
 	/* Assert FPD SRST before POR */
 	Status = PwrDomainRstAction(PM_RST_FPD_SRST, XPM_RST_STATE_ASSERTED);
