@@ -47,6 +47,14 @@ reserved-memory:
     no-map: 1
 
 axi:
+  # RPU0 FreeRTOS owns TTC0 (tick, freertos_timer_select) and TTC3
+  # (xiltimer sleep timer). Applied only when the Linux domain is
+  # activated (domain_access -t /domains/APU_Linux).
+  timer@ff0e0000:
+    status!linux: "disabled"
+  timer@ff110000:
+    status!linux: "disabled"
+
   libmetal_uio_desc0@99c8000:
     linux,uio-name: "libmetal-desc0"
     start: 0x99c8000
@@ -81,6 +89,11 @@ domains:
           secure: true
           el: 0x3
     os,type: linux
+    # Linux keeps every device; the !linux overrides above still apply.
+    access:
+      - dev: "*"
+    memory:
+      - "*"
     reserved-memory:
       - vdev0buffer@9888000
       - vdev0vring1@9884000
