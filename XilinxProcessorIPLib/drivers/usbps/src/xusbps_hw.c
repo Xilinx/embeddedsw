@@ -20,6 +20,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.05a kpc  10/10/10 first version
  * 2.11  ka   01/29/26 Fix codespell errors.
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -32,6 +33,7 @@
 
 
 /************************** Constant Definitions ****************************/
+/** @brief Maximum polling timeout for USB reset completion. */
 #define XUSBPS_RESET_TIMEOUT 0xFFFFF
 /**************************** Type Definitions ******************************/
 
@@ -52,11 +54,7 @@
 *	Clear the status registers
 *	Apply the reset command and wait for reset complete status
 *	Update the relevant control registers with reset values
-* @param   BaseAddress of the interface
-*
-* @return   N/A.
-*
-* @note     None.
+* @param[in] BaseAddress of the interface
 *
 ******************************************************************************/
 void XUsbPs_ResetHw(u32 BaseAddress)
@@ -78,9 +76,9 @@ void XUsbPs_ResetHw(u32 BaseAddress)
 	RegVal = XUsbPs_ReadReg(BaseAddress, XUSBPS_CMD_OFFSET);
 	/* Wait till the reset operation returns success */
 	/*
-	* FIX ME: right now no indication to the caller or user about
-	* timeout overflow
-	*/
+	 * FIX ME: right now no indication to the caller or user about
+	 * timeout overflow
+	 */
 	while ((RegVal & XUSBPS_CMD_RST_MASK) && (Timeout < XUSBPS_RESET_TIMEOUT)) {
 		RegVal = XUsbPs_ReadReg(BaseAddress, XUSBPS_CMD_OFFSET);
 		Timeout++;

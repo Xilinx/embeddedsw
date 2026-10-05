@@ -55,6 +55,7 @@ extern u8 *WrRamDiskPtr;
 /*
  * Device Descriptors
  */
+/** @brief Standard USB device descriptor for the audio function. */
 USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc = {
 	/*
 	 * USB 2.0
@@ -84,6 +85,7 @@ USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc = {
 
 #ifdef XUSBPS_UAC1
 
+/** @brief Full USB configuration descriptor set for UAC1 audio. */
 USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 	{/*
 		 * Std Config
@@ -271,6 +273,7 @@ USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 /*
  * String Descriptors
  */
+/** @brief USB audio class string descriptor table. */
 static u8 StringList[1][6][128] = {
 	{
 		"UNUSED",
@@ -285,6 +288,7 @@ static u8 StringList[1][6][128] = {
 /*
  * Configuration Descriptors
  */
+/** @brief Full USB configuration descriptor set for UAC2 audio. */
 USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 	{/*
 		 * Std Config
@@ -660,10 +664,9 @@ static u8 StringList[1][20][128] = {
  *
  * This function returns the device descriptor for the device.
  *
- * @param	InstancePtr is a pointer to the Usb_DevData instance.
- * @param	BufPtr is pointer to the buffer that is to be filled
+ * @param[out] BufPtr is pointer to the buffer that is to be filled
  *			with the descriptor.
- * @param	BufLen is the size of the provided buffer.
+ * @param[in] BufLen is the size of the provided buffer.
  *
  * @return 	Length of the descriptor in the buffer on success.
  *			0 on error.
@@ -690,10 +693,9 @@ u32 XUsbPs_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen)
  *
  * This function returns the configuration descriptor for the device.
  *
- * @param	InstancePtr is a pointer to the Usb_DevData instance.
- * @param	BufPtr is the pointer to the buffer that is to be filled with
+ * @param[out] BufPtr is the pointer to the buffer that is to be filled with
  *			the descriptor.
- * @param	BufLen is the size of the provided buffer.
+ * @param[in] BufLen is the size of the provided buffer.
  *
  * @return 	Length of the descriptor in the buffer on success.
  *			0 on error.
@@ -704,7 +706,7 @@ u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 	u8 *config;
 	u32 CfgDescLen;
 
-	/* Check buffer pointer is OK and buffer is big enough. */
+	/**< Check buffer pointer is OK and buffer is big enough. */
 	if (!BufPtr) {
 		return 0;
 	}
@@ -731,11 +733,10 @@ u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
  *
  * This function returns a string descriptor for the given index.
  *
- * @param	InstancePtr is a pointer to the Usb_DevData instance.
- * @param	BufPtr is a  pointer to the buffer that is to be filled with
+ * @param[out] BufPtr is a  pointer to the buffer that is to be filled with
  *			the descriptor.
- * @param	BufLen is the size of the provided buffer.
- * @param	Index is the index of the string for which the descriptor
+ * @param[in] BufLen is the size of the provided buffer.
+ * @param[in] Index is the index of the string for which the descriptor
  *			is requested.
  *
  * @return 	Length of the descriptor in the buffer on success.
@@ -803,12 +804,8 @@ u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index)
 /**
  * Changes State of Core to USB configured State.
  *
- * @param	InstancePtr is a pointer to the Usb_DevData instance.
- * @param	Ctrl is a pointer to the Setup packet data.
- *
- * @return	XST_SUCCESS else XST_FAILURE
- *
- * @note	None.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] ConfigIdx is the configuration index selected by the host.
  *
  *****************************************************************************/
 void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
@@ -842,12 +839,8 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
  * This function is called by Chapter9 handler when SET_CONFIGURATION command
  * is received from Host.
  *
- * @param	InstancePtr is pointer to Usb_DevData instance.
- * @param	SetupData is the setup packet received from Host.
- *
- * @return
- *		- XST_SUCCESS if successful,
- *		- XST_FAILURE if unsuccessful.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] SetupData is the setup packet received from Host.
  *
  * @note
  *		Non control endpoints must be enabled after SET_CONFIGURATION
@@ -878,8 +871,8 @@ void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
  * This function is called by Chapter9 handler when SET_CONFIGURATION command
  * or SET_INTERFACE command is received from Host.
  *
- * @param	InstancePtr is pointer to Usb_DevData instance.
- * @param	SetupData is the setup packet received from Host.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] SetupData is the setup packet received from Host.
  *
  * @note
  *		Non control endpoints must be enabled after SET_INTERFACE
@@ -1016,14 +1009,10 @@ void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 /**
  * This function sets Endpoint Interval.
  *
- * @param	InstancePtr is a private member of Usb_DevData instance.
- * @param	UsbEpnum is Endpoint Number.
- * @param	Dir is Endpoint Direction(In/Out).
- * @param	Interval is the data transfer service interval
- *
- * @return 	None.
- *
- * @note	None.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] UsbEpNum is Endpoint Number.
+ * @param[in] Dir is Endpoint Direction(In/Out).
+ * @param[in] Interval is the data transfer service interval.
  *
  ******************************************************************************/
 static void XUsbPs_SetEpInterval(XUsbPs *InstancePtr, u8 UsbEpNum, u8 Dir,
@@ -1042,14 +1031,10 @@ static void XUsbPs_SetEpInterval(XUsbPs *InstancePtr, u8 UsbEpNum, u8 Dir,
 /**
  * This function start stream.
  *
- * @param	InstancePtr is a private member of Usb_DevData instance.
- * @param	Epnum is Endpoint Number.
- * @param	Dir is Endpoint Direction(In/Out).
- * @param	BufferPtr is buffer to sent/receive
- *
- * @return 	None.
- *
- * @note	None.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] EpNum is Endpoint Number.
+ * @param[in] Dir is Endpoint Direction(In/Out).
+ * @param[in,out] BufferPtr is the buffer used to send or receive stream data.
  *
  ******************************************************************************/
 static void XUsbPs_StreamOn(XUsbPs *InstancePtr, u8 EpNum, u8 Dir,
@@ -1067,13 +1052,9 @@ static void XUsbPs_StreamOn(XUsbPs *InstancePtr, u8 EpNum, u8 Dir,
 /**
  * This function stop stream.
  *
- * @param	InstancePtr is a private member of Usb_DevData instance.
- * @param	Epnum is Endpoint Number.
- * @param	Dir is Endpoint Direction(In/Out).
- *
- * @return 	None.
- *
- * @note	None.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] EpNum is Endpoint Number.
+ * @param[in] Dir is Endpoint Direction(In/Out).
  *
  ******************************************************************************/
 static void XUsbPs_StreamOff(XUsbPs *InstancePtr, u8 EpNum, u8 Dir)
@@ -1087,15 +1068,13 @@ static void XUsbPs_StreamOff(XUsbPs *InstancePtr, u8 EpNum, u8 Dir)
 /**
  * Enable the respective Endpoint
  *
- * @param	InstancePtr is a private member of Usb_DevData instance.
- * @param	EpNum is the Endpoint Number
- * @param	Dir is the Endpoint Direction
- * @param	Maxsize is the Endpoint Max Packet size
- * @param 	Type is the Endpoint type (Control / Bulk / Intr / ISO)
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] EpNum is the Endpoint Number
+ * @param[in] Dir is the Endpoint Direction
+ * @param[in] Maxsize is the Endpoint Max Packet size
+ * @param[in] Type is the Endpoint type (Control / Bulk / Intr / ISO)
  *
  * @return	XST_SUCCESS else XST_FAILURE
- *
- * @note		None.
  *
  *****************************************************************************/
 static s32 EpEnable(XUsbPs *InstancePtr, u8 EpNum, u8 Dir, u16 Maxsize, u8 Type)

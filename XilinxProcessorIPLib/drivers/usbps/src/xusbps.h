@@ -44,7 +44,7 @@
  *   endpoint configuration is set up in the data structure, The user then
  *   needs to allocate the required amount of DMAable memory and
  *   finalize the configuration of the XUsbPs_DeviceConfig data structure,
- *   e.g. setting the DMAMemVirt and DMAMemPhys members.
+ *   for example setting the DMAMemVirt and DMAMemPhys members.
  *
  * - (c) Configuration of the DEVICE modes:
  *   In the second stage the parameters for DEVICE are configured.
@@ -55,7 +55,6 @@
  *   into these functions using the:
  *      XUsbPs_DeviceConfig data structures.
  *
- *
  * <h2>USB Device Endpoints</h2>
  *
  * The USB core supports up to 4 endpoints. Each endpoint has two directions,
@@ -65,7 +64,6 @@
  * depending on the application. Only endpoints that are actuelly used by the
  * application need to be initialized.
  * See the example code (xusbps_intr_example.c) for more information.
- *
  *
  * <h2>Interrupt Handling</h2>
  *
@@ -98,7 +96,6 @@
  * endpoint interrupts the parameters include the number of the endpoint, the
  * direction (OUT/IN) and the type of the interrupt.
  *
- *
  * <h2>Data buffer handling</h2>
  *
  * Data buffers are sent to and received from endpoint using the
@@ -115,7 +112,6 @@
  * if the buffers are from cache region then the buffer and buffer size should
  * be aligned to cache line aligned
  *
- *
  * <h3>Zero copy</h3>
  *
  * The driver uses a zero copy mechanism which imposes certain restrictions to
@@ -124,11 +120,10 @@
  * One restriction is that the user needs to release a buffer after it is done
  * processing the data in the buffer.
  *
- * Similarly, when the user sends a data buffer it MUST not re-use the buffer
+ * Similarly, when the user sends a data buffer it MUST not reuse the buffer
  * until it is notified by the driver that the buffer has been transmitted. The
  * driver will notify the user via the registered endpoint interrupt handling
  * function by sending a XUSBPS_EP_EVENT_DATA_TX event.
- *
  *
  * <h2>DMA</h2>
  *
@@ -136,7 +131,6 @@
  * is transparent to the user. Keeping the DMA handling hidden from the user
  * has the advantage that the same API can be used with USB cores that do not
  * support DMA.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -166,6 +160,7 @@
  * 			calls.
  * 2.8   pm  07/07/23 Added support for system device-tree flow.
  * 2.11  ka  01/29/26 Fix codespell errors.
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -187,6 +182,7 @@ extern "C" {
 
 /**
  * @name System hang prevention Timeout counter value.
+ * @{
  *
  * This value is used throughout the code to initialize a Timeout counter that
  * is used when hard polling a register. The ides is to initialize the Timeout
@@ -207,7 +203,8 @@ extern "C" {
  *	}
  *
  */
-#define XUSBPS_TIMEOUT_COUNTER		1000000
+#define XUSBPS_TIMEOUT_COUNTER		1000000 /**< Maximum polling-loop iteration count. */
+/** @} */
 
 
 /**
@@ -223,7 +220,7 @@ extern "C" {
  */
 #define XUSBPS_EP_DIRECTION_IN		0x01 /**< Endpoint direction IN. */
 #define XUSBPS_EP_DIRECTION_OUT		0x02 /**< Endpoint direction OUT. */
-/* @} */
+/** @} */
 
 
 /**
@@ -237,17 +234,17 @@ extern "C" {
 #define XUSBPS_EP_TYPE_ISOCHRONOUS 	2 /**< Endpoint for isochronous data */
 #define XUSBPS_EP_TYPE_BULK		3 /**< Endpoint for BULK Transfers. */
 #define XUSBPS_EP_TYPE_INTERRUPT	4 /**< Endpoint for interrupt Transfers */
-/* @} */
+/** @} */
 
 /**
  * Endpoint Max Packet Length in DeviceConfig is a coded value, ch9.6.6.
  *
  * @{
  */
-#define ENDPOINT_MAXP_LENGTH		0x400
-#define ENDPOINT_MAXP_MULT_MASK		0xC00
-#define ENDPOINT_MAXP_MULT_SHIFT	10
-/* @} */
+#define ENDPOINT_MAXP_LENGTH		0x400 /**< Endpoint max packet length value. */
+#define ENDPOINT_MAXP_MULT_MASK		0xC00 /**< Mult field mask in dQH max packet. */
+#define ENDPOINT_MAXP_MULT_SHIFT	10    /**< Mult field bit shift in dQH max packet. */
+/** @} */
 
 /**
  * @name Field names for status retrieval
@@ -257,15 +254,17 @@ extern "C" {
  */
 #define XUSBPS_EP_STS_ADDRESS		1 /**< Address of controller. */
 #define XUSBPS_EP_STS_CONTROLLER_STATE	2 /**< Current controller state. */
-/* @} */
+/** @} */
 
-/*
- * Device Speeds
+/**
+ * @name Device Speeds
+ * @{
  */
-#define		XUSBPS_SPEED_UNKNOWN			0U
-#define		XUSBPS_SPEED_LOW				1U
-#define		XUSBPS_SPEED_FULL				2U
-#define		XUSBPS_SPEED_HIGH				3U
+#define		XUSBPS_SPEED_UNKNOWN			0U /**< Speed unknown. */
+#define		XUSBPS_SPEED_LOW				1U /**< Low speed (1.5 Mbps). */
+#define		XUSBPS_SPEED_FULL				2U /**< Full speed (12 Mbps). */
+#define		XUSBPS_SPEED_HIGH				3U /**< High speed (480 Mbps). */
+/** @} */
 
 /**
  * @name USB Default alternate setting
@@ -273,17 +272,19 @@ extern "C" {
  * @{
  */
 #define XUSBPS_DEFAULT_ALT_SETTING	0 /**< The default alternate setting is 0 */
-/* @} */
+/** @} */
 
-/*
- * Device States
+/**
+ * @name Device States
+ * @{
  */
-#define		XUSBPS_STATE_ATTACHED			0U
-#define		XUSBPS_STATE_POWERED			1U
-#define		XUSBPS_STATE_DEFAULT			2U
-#define		XUSBPS_STATE_ADDRESS			3U
-#define		XUSBPS_STATE_CONFIGURED			4U
-#define		XUSBPS_STATE_SUSPENDED			5U
+#define		XUSBPS_STATE_ATTACHED			0U /**< Device attached, not powered. */
+#define		XUSBPS_STATE_POWERED			1U /**< Device powered, not enumerated. */
+#define		XUSBPS_STATE_DEFAULT			2U /**< Device in default state after reset. */
+#define		XUSBPS_STATE_ADDRESS			3U /**< Device has been assigned an address. */
+#define		XUSBPS_STATE_CONFIGURED			4U /**< Device fully configured and operational. */
+#define		XUSBPS_STATE_SUSPENDED			5U /**< Device in suspend state. */
+/** @} */
 
 /**
  * @name Endpoint event types
@@ -298,30 +299,31 @@ extern "C" {
 /**< Data frame has been received on the endpoint. */
 #define XUSBPS_EP_EVENT_DATA_TX		0x03
 /**< Data frame has been sent on the endpoint. */
-/* @} */
+/** @} */
 
 
-/*
- * Maximum packet size for endpoint, 1024
+/**
+ * @name Maximum packet size for endpoint.
  * @{
  */
 #define XUSBPS_MAX_PACKET_SIZE		1024
-/**< Maximum value can be put into the queue head */
-/* @} */
+/**< Maximum value can be put into the queue head. */
+/** @} */
 /**************************** Type Definitions *******************************/
 
 /******************************************************************************
  * This data type defines the callback function to be used for Endpoint
  * handlers.
  *
- * @param	CallBackRef is the Callback reference passed in by the upper
+ * @param[in] CallBackRef is the Callback reference passed in by the upper
  *		layer when setting the handler, and is passed back to the upper
  *		layer when the handler is called.
- * @param	EpNum is the Number of the endpoint that caused the event.
- * @param	EventType is the type of the event that occurred on the endpoint.
- * @param	Data is a pointer to user data pointer specified when callback
- *		was registered.
+ * @param[in] EpNum is the Number of the endpoint that caused the event.
+ * @param[in] EventType is the type of the event that occurred on the endpoint.
+ * @param[in] Data is event-specific data. For transmit-complete events it
+ *		points to the transmitted buffer; it is NULL for receive and setup events.
  */
+/** @brief Callback function type for endpoint event notifications. */
 typedef void (*XUsbPs_EpHandlerFunc)(void *CallBackRef,
 				     u8 EpNum, u8 EventType, void *Data);
 
@@ -329,12 +331,13 @@ typedef void (*XUsbPs_EpHandlerFunc)(void *CallBackRef,
  * This data type defines the callback function to be used for Endpoint
  * handlers.
  *
- * @param	CallBackRef is the Callback reference passed in by the upper
+ * @param[in] CallBackRef is the Callback reference passed in by the upper
  *		layer when setting the handler, and is passed back to the upper
  *		layer when the handler is called.
- * @param	RequestedBytes is the number of bytes requested to transfer.
- * @param	BytesTxed is the actual number of bytes to be transfer.
+ * @param[in] RequestedBytes is the number of bytes requested to transfer.
+ * @param[in] BytesTxed is the actual number of bytes transferred.
  */
+/** @brief Callback function type for isochronous endpoint transfer notifications. */
 typedef void (*XUsbPs_EpIsoHandlerFunc)(void *CallBackRef,
 					u32 RequestedBytes, u32 BytesTxed);
 
@@ -342,13 +345,14 @@ typedef void (*XUsbPs_EpIsoHandlerFunc)(void *CallBackRef,
  * This data type defines the callback function to be used for the general
  * interrupt handler.
  *
- * @param	CallBackRef is the Callback reference passed in by the upper
+ * @param[in] CallBackRef is the Callback reference passed in by the upper
  *		layer when setting the handler, and is passed back to the upper
  *		layer when the handler is called.
- * @param	IrqMask is the Content of the interrupt status register. This
+ * @param[in] IrqMask is the Content of the interrupt status register. This
  *		value can be used by the callback function to distinguish the
  *		individual interrupt types.
  */
+/** @brief Callback function type for general USB controller interrupt notifications. */
 typedef void (*XUsbPs_IntrHandlerFunc)(void *CallBackRef, u32 IrqMask);
 
 
@@ -358,7 +362,9 @@ typedef void (*XUsbPs_IntrHandlerFunc)(void *CallBackRef, u32 IrqMask);
  * Transfer Descriptors. The structures themselves are not used, however, the
  * types are used in the API to avoid using (void *) pointers.
  */
+/** @brief Opaque type for a USB device Queue Head (dQH) aligned buffer. */
 typedef u8	XUsbPs_dQH[XUSBPS_dQH_ALIGN];
+/** @brief Opaque type for a USB device Transfer Descriptor (dTD) aligned buffer. */
 typedef u8	XUsbPs_dTD[XUSBPS_dTD_ALIGN];
 
 
@@ -385,15 +391,14 @@ typedef struct {
 	/**< Pointer to the first buffer of the buffer list for this
 	 * endpoint. */
 
-	XUsbPs_EpHandlerFunc	HandlerFunc;
-	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc;
-	/**< Handler function for this endpoint. */
+	XUsbPs_EpHandlerFunc	HandlerFunc;    /**< Endpoint event handler function. */
+	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc; /**< Isochronous transfer handler function. */
 	void			*HandlerRef;
 	/**< User data reference for the handler. */
 	u32	RequestedBytes;	/**< RequestedBytes for transfer */
 	u32	BytesTxed;		/**< Actual Bytes transferred */
 	u8	*BufferPtr;		/**< Buffer location */
-	u8 MemAlloted;		/**< Mem alloted and data is not received */
+	u8 MemAlloted;		/**< Mem allotted and data is not received */
 	u32	Interval;		/**< Data transfer service interval */
 } XUsbPs_EpOut;
 
@@ -415,9 +420,8 @@ typedef struct {
 	XUsbPs_dTD	*dTDTail;
 	/**< Buffer to the last unsent descriptor in the list*/
 
-	XUsbPs_EpHandlerFunc	HandlerFunc;
-	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc;
-	/**< Handler function for this endpoint. */
+	XUsbPs_EpHandlerFunc	HandlerFunc;    /**< Endpoint event handler function. */
+	XUsbPs_EpIsoHandlerFunc HandlerIsoFunc; /**< Isochronous transfer handler function. */
 	void			*HandlerRef;
 	/**< User data reference for the handler. */
 	u32	RequestedBytes;	/**< RequestedBytes for transfer */
@@ -517,7 +521,7 @@ typedef struct {
 	 * The reason for having these members is that we generally try to
 	 * avoid allocating memory in the L0/L1 driver as we want to be OS
 	 * independent. In order to avoid allocating memory for this data
-	 * structure wihin L0/L1 we put it into the XUsbPs_DeviceConfig
+	 * structure within L0/L1 we put it into the XUsbPs_DeviceConfig
 	 * structure which is allocated by the caller.
 	 */
 	XUsbPs_Endpoint	Ep[XUSBPS_MAX_ENDPOINTS];
@@ -546,19 +550,22 @@ typedef struct {
 #endif
 	u32 BaseAddress;	/**< Core register base address. */
 #ifdef SDT
-	u16 IntrId;	/** Bits[11:0] Interrupt-id Bits[15:12] trigger type */
-	/** level flags */
-	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] */
+	u16 IntrId; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] Parent base address */
 #endif
 } XUsbPs_Config;
 
+/** @brief Alias of XUsbPs_Config for compatibility with common USB framework. */
 typedef XUsbPs_Config Usb_Config;
 
+/**
+ * @brief USB device runtime data maintained by the common USB framework.
+ */
 struct Usb_DevData {
-	u8 Speed;
-	u8 State;
+	u8 Speed;       /**< Current connection speed (XUSBPS_SPEED_*). */
+	u8 State;       /**< Current device state (XUSBPS_STATE_*). */
 
-	void *PrivateData;
+	void *PrivateData; /**< Pointer to driver-private instance data. */
 };
 
 /**
@@ -594,9 +601,9 @@ typedef struct {
 	u32			HandlerMask;
 	/**< User interrupt mask. Defines which interrupts will cause
 	 * the callback to be called. */
-	struct Usb_DevData *AppData;
-	u8 IsConfigDone;
-	void *data_ptr;		/* pointer for storing applications data */
+	struct Usb_DevData *AppData; /**< Pointer to device runtime data structure. */
+	u8 IsConfigDone;             /**< Flag indicating configuration is complete. */
+	void *data_ptr;              /**< Pointer for storing application-specific data. */
 } XUsbPs;
 
 
@@ -611,7 +618,7 @@ typedef struct {
 /**
  * This macro returns the current frame number.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
  *
  * @return	The current frame number.
@@ -628,7 +635,7 @@ typedef struct {
 /**
  * This macro starts the USB engine.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
  *
  * @note	C-style signature:
@@ -643,7 +650,7 @@ typedef struct {
 /**
  * This macro stops the USB engine.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
  *
  * @note	C-style signature:
@@ -658,7 +665,7 @@ typedef struct {
 /**
  * This macro forces the USB engine to be in Full Speed (FS) mode.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
  *
  * @note	C-style signature:
@@ -675,8 +682,8 @@ typedef struct {
  * This macro starts the USB Timer 0, with repeat option for period of
  * one second.
  *
- * @param	InstancePtr is a pointer to XUsbPs instance of the controller.
- * @param	Interval is the interval for Timer0 to generate an interrupt
+ * @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+ * @param[in] Interval is the interval for Timer0 to generate an interrupt
  *
  * @note	C-style signature:
  *		void XUsbPs_StartTimer0(XUsbPs *InstancePtr, u32 Interval)
@@ -697,7 +704,7 @@ typedef struct {
 /**
 * This macro stops Timer 0.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @note		C-style signature:
 *		void XUsbPs_StopTimer0(XUsbPs *InstancePtr)
@@ -712,7 +719,7 @@ typedef struct {
 /**
 * This macro reads Timer 0.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @note		C-style signature:
 *		void XUsbPs_ReadTimer0(XUsbPs *InstancePtr)
@@ -728,7 +735,7 @@ typedef struct {
 /**
 * This macro force remote wakeup on host
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @note		C-style signature:
 *  		void XUsbPs_RemoteWakeup(XUsbPs *InstancePtr)
@@ -748,10 +755,10 @@ typedef struct {
 /**
 * This macro enables the given endpoint for the given direction.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	EpNum is number of the endpoint to enable.
-* @param	Dir is direction of the endpoint (bitfield):
+* @param[in] EpNum is number of the endpoint to enable.
+* @param[in] Dir is direction of the endpoint (bitfield):
 * 			- XUSBPS_EP_DIRECTION_OUT
 * 			- XUSBPS_EP_DIRECTION_IN
 *
@@ -769,10 +776,10 @@ typedef struct {
 /**
 * This macro disables the given endpoint for the given direction.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	EpNum is the number of the endpoint to disable.
-* @param	Dir is the direction of the endpoint (bitfield):
+* @param[in] EpNum is the number of the endpoint to disable.
+* @param[in] Dir is the direction of the endpoint (bitfield):
 * 		- XUSBPS_EP_DIRECTION_OUT
 * 		- XUSBPS_EP_DIRECTION_IN
 *
@@ -791,10 +798,10 @@ typedef struct {
 * This macro stalls the given endpoint for the given direction, and flush
 * the buffers.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	EpNum is number of the endpoint to stall.
-* @param	Dir is the direction of the endpoint (bitfield):
+* @param[in] EpNum is number of the endpoint to stall.
+* @param[in] Dir is the direction of the endpoint (bitfield):
 * 			- XUSBPS_EP_DIRECTION_OUT
 * 			- XUSBPS_EP_DIRECTION_IN
 *
@@ -810,12 +817,12 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-* This macro unstalls the given endpoint for the given direction.
+* This macro clears the stall state for the given endpoint and direction.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	EpNum is the Number of the endpoint to unstall.
-* @param	Dir is the Direction of the endpoint (bitfield):
+* @param[in] EpNum is the Number of the endpoint to unstall.
+* @param[in] Dir is the Direction of the endpoint (bitfield):
 * 		- XUSBPS_EP_DIRECTION_OUT
 * 		- XUSBPS_EP_DIRECTION_IN
 *
@@ -833,10 +840,10 @@ typedef struct {
 /**
 * This macro flush an endpoint upon interface disable
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	EpNum is the number of the endpoint to flush.
-* @param	Dir is the direction of the endpoint (bitfield):
+* @param[in] EpNum is the number of the endpoint to flush.
+* @param[in] Dir is the direction of the endpoint (bitfield):
 * 			- XUSBPS_EP_DIRECTION_OUT
 * 			- XUSBPS_EP_DIRECTION_IN
 *
@@ -853,8 +860,8 @@ typedef struct {
 /**
 * This macro enables the interrupts defined by the bit mask.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	IntrMask is the Bit mask of interrupts to be enabled.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] IntrMask is the Bit mask of interrupts to be enabled.
 *
 * @note		C-style signature:
 *		void XUsbPs_IntrEnable(XUsbPs *InstancePtr, u32 IntrMask)
@@ -868,9 +875,8 @@ typedef struct {
 /**
 * This function disables the interrupts defined by the bit mask.
 *
-*
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	IntrMask is a Bit mask of interrupts to be disabled.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] IntrMask is a Bit mask of interrupts to be disabled.
 *
 * @note		C-style signature:
 * 		void XUsbPs_IntrDisable(XUsbPs *InstancePtr, u32 IntrMask)
@@ -884,8 +890,8 @@ typedef struct {
 /**
 * This macro enables the endpoint NAK interrupts defined by the bit mask.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	NakIntrMask is the Bit mask of endpoint NAK interrupts to be
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] NakIntrMask is the Bit mask of endpoint NAK interrupts to be
 *		enabled.
 * @note		C-style signature:
 * 		void XUsbPs_NakIntrEnable(XUsbPs *InstancePtr, u32 NakIntrMask)
@@ -899,8 +905,8 @@ typedef struct {
 /**
 * This macro disables the endpoint NAK interrupts defined by the bit mask.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	NakIntrMask is a Bit mask of endpoint NAK interrupts to be
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] NakIntrMask is a Bit mask of endpoint NAK interrupts to be
 *		disabled.
 *
 * @note
@@ -917,8 +923,8 @@ typedef struct {
 * This function clears the endpoint NAK interrupts status defined by the
 * bit mask.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	NakIntrMask is the Bit mask of endpoint NAK interrupts to be cleared.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] NakIntrMask is the Bit mask of endpoint NAK interrupts to be cleared.
 *
 * @note		C-style signature:
 * 		void XUsbPs_NakIntrClear(XUsbPs *InstancePtr, u32 NakIntrMask)
@@ -934,8 +940,8 @@ typedef struct {
 /**
 * This macro sets the Interrupt Threshold value in the control register
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	Threshold is the Interrupt threshold to be set.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] Threshold is the Interrupt threshold to be set.
 * 		Allowed values:
 *			- XUSBPS_CMD_ITHRESHOLD_0 - Immediate interrupt
 *			- XUSBPS_CMD_ITHRESHOLD_1 - 1 Frame
@@ -960,7 +966,7 @@ typedef struct {
 /**
 * This macro sets the Tripwire bit in the USB command register.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @note		C-style signature:
 *		void XUsbPs_SetTripwire(XUsbPs *InstancePtr)
@@ -975,7 +981,7 @@ typedef struct {
 /**
 * This macro clears the Tripwire bit in the USB command register.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @note		C-style signature:
 *		void XUsbPs_ClrTripwire(XUsbPs *InstancePtr)
@@ -990,7 +996,7 @@ typedef struct {
 /**
 * This macro checks if the Tripwire bit in the USB command register is set.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @return
 * 		- TRUE: The tripwire bit is still set.
@@ -1015,11 +1021,9 @@ typedef struct {
 /**
 * This macro sets the given bit mask in the register.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	RegOffset is the register offset to be written.
-* @param	Bits is the Bits to be set in the register
-*
-* @return	None.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] RegOffset is the register offset to be written.
+* @param[in] Bits is the Bits to be set in the register
 *
 * @note		C-style signature:
 *		void XUsbPs_SetBits(u32 BaseAddress, u32 RegOffset, u32 Bits)
@@ -1036,11 +1040,9 @@ typedef struct {
 *
 * This macro clears the given bits in the register.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	RegOffset is the register offset to be written.
-* @param	Bits are the bits to be cleared in the register
-*
-* @return	None.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] RegOffset is the register offset to be written.
+* @param[in] Bits are the bits to be cleared in the register
 *
 * @note
 * 	C-style signature:
@@ -1076,7 +1078,6 @@ void XUsbPs_DeviceReset(XUsbPs *InstancePtr);
 /**
  * DEVICE mode specific functions.
  */
-int XUsbPs_BusReset(XUsbPs *InstancePtr);
 int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address);
 
 

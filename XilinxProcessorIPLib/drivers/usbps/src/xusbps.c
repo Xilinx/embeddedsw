@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,8 +14,6 @@
  * functions for this driver. See xusbps.h for a detailed description of the
  * driver.
  *
- * @note	None.
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -24,6 +22,7 @@
  * 1.00a jz  10/10/10 First release
  * 2.1   kpc 04/28/14 Removed unused functions
  * 2.5   pm  02/20/20 Added usb state interface.
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  ******************************************************************************/
 
@@ -49,13 +48,13 @@
 * The initialization entails:
 * - Initialize all members of the XUsbPs structure.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	ConfigPtr is a pointer to a XUsbPs_Config configuration
+* @param[out] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] ConfigPtr is a pointer to a XUsbPs_Config configuration
 *		structure. This structure will contain the requested
 *		configuration for the device. Typically, this is a local
 *		structure and the content of which will be copied into the
 *		configuration structure within XUsbPs.
-* @param	VirtBaseAddress is the base address of the device. For systems
+* @param[in] VirtBaseAddress is the base address of the device. For systems
 *		with virtual memory, this address must be the virtual address
 *		of the device.
 * 		For systems that do not support virtual memory this address
@@ -103,11 +102,7 @@ int XUsbPs_CfgInitialize(XUsbPs *InstancePtr,
 *
 * This function performs device reset, device is stopped at the end.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-*
-* @return	None.
-*
-* @note 	None.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 ******************************************************************************/
 void XUsbPs_DeviceReset(XUsbPs *InstancePtr)
@@ -168,13 +163,11 @@ void XUsbPs_DeviceReset(XUsbPs *InstancePtr)
 * is complete or for a certain duration within which the reset operation is
 * expected to be completed.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @return
 *		- XST_SUCCESS Reset operation completed successfully.
 *		- XST_FAILURE Reset operation timed out.
-*
-* @note 	None.
 *
 ******************************************************************************/
 int XUsbPs_Reset(XUsbPs *InstancePtr)
@@ -237,14 +230,12 @@ int XUsbPs_Reset(XUsbPs *InstancePtr)
  * and disable this capability. When the device is reset, remote wakeup
  * signaling must be disabled.
  *
- * @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+ * @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
  *
  * @return
  *		- XST_SUCCESS if the USB device has entered Suspend mode
  *		successfully
  *		- XST_FAILURE on any error
- *
- * @note 	None.
  *
  ******************************************************************************/
 int XUsbPs_Suspend(const XUsbPs *InstancePtr)
@@ -262,13 +253,11 @@ int XUsbPs_Suspend(const XUsbPs *InstancePtr)
  If the USB controller is suspended, its operation is resumed when any
 * non-idle signaling is received on its upstream facing port.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @return
 *		- XST_SUCCESS if the USB device has Resumed successfully
 *		- XST_FAILURE on any error
-*
-* @note 	None.
 *
 ******************************************************************************/
 int XUsbPs_Resume(const XUsbPs *InstancePtr)
@@ -282,13 +271,11 @@ int XUsbPs_Resume(const XUsbPs *InstancePtr)
 /**
 * USB Assert Resume
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
 *
 * @return
 *		- XST_SUCCESS if the USB device has Resumed successfully
 *		- XST_FAILURE on any error
-*
-* @note 	None.
 *
 ******************************************************************************/
 
@@ -304,16 +291,14 @@ int XUsbPs_RequestHostResume(const XUsbPs *InstancePtr)
 * advance bit so the controller will wait for the next IN-ACK before the new
 * address takes effect.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	Address is the Address of the device.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] Address is the Address of the device.
 *
 * @return
 *		- XST_SUCCESS: Address set successfully.
 *		- XST_FAILURE: An error occurred.
-*		- XST_INVALID_PARAM: Invalid parameter passed, e.g. address
+*		- XST_INVALID_PARAM: Invalid parameter passed, for example address
 *		value too big.
-*
-* @note 	None.
 *
 *****************************************************************************/
 int XUsbPs_SetDeviceAddress(XUsbPs *InstancePtr, u8 Address)

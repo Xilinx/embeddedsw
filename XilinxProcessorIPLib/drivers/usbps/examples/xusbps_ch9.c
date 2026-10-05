@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,23 +75,21 @@ extern void XUsbPs_SetInterfaceHandler(XUsbPs *InstancePtr,
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-static u8 Response;
+static u8 Response; /**< Response buffer for USB control requests. */
 #else
-static u8 Response ALIGNMENT_CACHELINE;
+static u8 Response ALIGNMENT_CACHELINE; /**< Response buffer for USB control requests. */
 #endif
 
 /*****************************************************************************/
 /**
 * This function handles a Setup Data packet from the host.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	SetupData is the structure containing the setup request.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] SetupData is the structure containing the setup request.
 *
 * @return
 *		- XST_SUCCESS if the function is successful.
 *		- XST_FAILURE if an Error occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XUsbPs_Ch9HandleSetupPacket(XUsbPs *InstancePtr,
@@ -137,13 +135,9 @@ int XUsbPs_Ch9HandleSetupPacket(XUsbPs *InstancePtr,
 /**
 * This function handles a standard device request.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	SetupData is a pointer to the data structure containing the
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] SetupData is a pointer to the data structure containing the
 *		setup request.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
@@ -524,7 +518,7 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 			break;
 
 
-		/* For set interface, check the alt setting host wants */
+		/**< For set interface, check the alt setting host wants */
 		case XUSBPS_REQ_SET_INTERFACE:
 
 #ifdef CH9_DEBUG
@@ -584,8 +578,8 @@ static void XUsbPs_StdDevReq(XUsbPs *InstancePtr,
 /**
 * This function handles a vendor request.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	SetupData is a pointer to the data structure containing the
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] SetupData is a pointer to the data structure containing the
 *		setup request.
 *
 * @return
@@ -620,7 +614,7 @@ static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 	int 	Direction;
 	int 	Timeout;
 
-	/* Check the direction, USB 2.0 section 9.3 */
+	/**< Check the direction, USB 2.0 section 9.3 */
 	Direction = SetupData->bmRequestType & (1 << 7);
 
 	if (!Direction) {
@@ -687,12 +681,8 @@ static int XUsbPs_HandleVendorReq(XUsbPs *InstancePtr,
 /**
  * Set the Config state
  *
- * @param	InstancePtr is a private member of Usb_DevData instance.
- * @param	Flag is the config value.
- *
- * @return	None.
- *
- * @note		None.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] Flag is the config value.
  *
  *****************************************************************************/
 void XUsbPs_SetConfigDone(void *InstancePtr, u8 Flag)
@@ -704,11 +694,9 @@ void XUsbPs_SetConfigDone(void *InstancePtr, u8 Flag)
 /**
  * Get the Config state
  *
- * @param	InstancePtr is a private member of Usb_DevData instance.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
  *
  * @return	Current configuration value
- *
- * @note		None.
  *
  *****************************************************************************/
 u8 XUsbPs_GetConfigDone(void *InstancePtr)

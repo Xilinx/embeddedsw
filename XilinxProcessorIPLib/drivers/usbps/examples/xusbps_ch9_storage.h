@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
  * @file xusbps_ch9_storage.h
  *
  * This file contains definitions used in the chapter 9 code.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -42,15 +41,18 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/* Check where these defines need to go  */
-#define be2le(val)	(u32)(val)
-#define be2les(x)	(u16) (x)
+/** @name Byte order conversion macros.
+ * @{
+ */
+#define be2le(val)	(u32)(val) /**< Cast a 32-bit value without byte swapping. */
+#define be2les(x)	(u16) (x)  /**< Cast a 16-bit value without byte swapping. */
 #define htonl(val)	((((u32)(val) & 0x000000FF)<<24) |	\
 			 (((u32)(val) & 0x0000FF00)<<8)  |	\
 			 (((u32)(val) & 0x00FF0000)>>8)  |	\
-			 (((u32)(val) & 0xFF000000)>>24))
+			 (((u32)(val) & 0xFF000000)>>24)) /**< Convert 32-bit host to network byte order. */
 
-#define htons(x)	(u16) ((((u16)(x))<<8) | (((u16)(x))>>8))
+#define htons(x)	(u16) ((((u16)(x))<<8) | (((u16)(x))>>8)) /**< Convert 16-bit host to network byte order. */
+/** @} */
 
 /************************** Function Prototypes ******************************/
 

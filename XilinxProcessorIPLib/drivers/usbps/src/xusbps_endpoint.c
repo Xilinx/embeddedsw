@@ -12,8 +12,6 @@
  *
  * Endpoint specific function implementations.
  *
- * @note     None.
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -32,6 +30,7 @@
  * 2.5   pm  02/20/20 Added ISO endpoint support.
  * 2.11  ka  01/29/26 Fix codespell errors.
  * 2.12  ka  09/02/26 Fix MISRA-C Rule 21.18 violation
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  ******************************************************************************/
 
@@ -75,14 +74,14 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
 /**
  *
  * This function configures the DEVICE side of the controller. The caller needs
- * to pass in the desired configuration (e.g. number of endpoints) and a
+ * to pass in the desired configuration (for example number of endpoints) and a
  * DMAable buffer that will hold the Queue Head List and the Transfer
  * Descriptors. The required size for this buffer can be obtained by the caller
  * using the: XUsbPs_DeviceMemRequired() macro.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
- * @param	CfgPtr is a pointer to the configuration structure that contains
+ * @param[in] CfgPtr is a pointer to the configuration structure that contains
  *		the desired DEVICE side configuration.
  *
  * @return
@@ -159,10 +158,10 @@ int XUsbPs_ConfigureDevice(XUsbPs *InstancePtr,
 /**
 * This function sends a given data buffer.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	EpNum is the number of the endpoint to receive data from.
-* @param	BufferPtr is a pointer to the buffer to send.
-* @param	BufferLen is the Buffer length.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] EpNum is the number of the endpoint to send data on.
+* @param[in] BufferPtr is a pointer to the buffer to send.
+* @param[in] BufferLen is the Buffer length.
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
@@ -186,10 +185,10 @@ int XUsbPs_EpBufferSend(XUsbPs *InstancePtr, u8 EpNum,
 * This function sends a given data buffer and also zero length packet if the
 * Bufferlen is in multiples of endpoint max packet size.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	EpNum is the number of the endpoint to receive data from.
-* @param	BufferPtr is a pointer to the buffer to send.
-* @param	BufferLen is the Buffer length.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] EpNum is the number of the endpoint to send data on.
+* @param[in] BufferPtr is a pointer to the buffer to send.
+* @param[in] BufferLen is the Buffer length.
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
@@ -223,11 +222,11 @@ int XUsbPs_EpBufferSendWithZLT(XUsbPs *InstancePtr, u8 EpNum,
 * This function sends a given data buffer and also sends ZLT packet if it is
 * requested.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	EpNum is the number of the endpoint to receive data from.
-* @param	BufferPtr is a pointer to the buffer to send.
-* @param	BufferLen is the Buffer length.
-* @param	ReqZero is the
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] EpNum is the number of the endpoint to send data on.
+* @param[in] BufferPtr is a pointer to the buffer to send.
+* @param[in] BufferLen is the Buffer length.
+* @param[in] ReqZero is the flag to request a zero-length packet after transfer.
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
@@ -383,14 +382,10 @@ static int XUsbPs_EpQueueRequest(XUsbPs *InstancePtr, u8 EpNum,
  * This function receives a data buffer from the endpoint of the given endpoint
  * number and pass it to the application.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
- * @param	EpNum is the number of the endpoint to receive data from.
- * @param	BufferLen is holding the buffer length.
- *
- * @return	None.
- *
- * @note	None.
+ * @param[in] EpNum is the number of the endpoint to receive data from.
+ * @param[in] BufferLen is holding the buffer length.
  *
  ******************************************************************************/
 void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
@@ -410,7 +405,7 @@ void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
 
 	/* Use the buffer pointer stored in the "user data" field of the
 	 * Transfer Descriptor.
-	*/
+	 */
 
 	do {
 		XUsbPs_dTDInvalidateCache(Ep->dTDCurr);
@@ -485,14 +480,14 @@ void XUsbPs_EpGetData(XUsbPs *InstancePtr, u8 EpNum, u32 BufferLen)
  * This function receives a data buffer from the endpoint of the given endpoint
  * number.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
- * @param	EpNum is the number of the endpoint to receive data from.
- * @param	BufferPtr (OUT param) is a pointer to the buffer pointer to hold
- *		the reference of the data buffer.
- * @param	BufferLenPtr (OUT param) is a pointer to the integer that will
- *		hold the buffer length.
- * @param	Handle is the opaque handle to be used when the buffer is
+ * @param[in] EpNum is the number of the endpoint to receive data from.
+* @param[out] BufferPtr is a pointer to the buffer pointer to hold
+*		the reference of the data buffer.
+* @param[out] BufferLenPtr is a pointer to the integer that will
+*		hold the buffer length.
+ * @param[out] Handle is the opaque handle to be used when the buffer is
  *		released.
  *
  * @return
@@ -573,16 +568,14 @@ int XUsbPs_EpBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
 /**
 * This function returns a previously received data buffer to the driver.
 *
-* @param	Handle is a pointer to the buffer that is returned.
-*
-* @return	None.
+* @param[in] Handle is the opaque descriptor handle returned by XUsbPs_EpBufferReceive().
 *
 ******************************************************************************/
 void XUsbPs_EpBufferRelease(u32 Handle)
 {
 	XUsbPs_dTD		*dTDPtr;
 
-	/* Perform sanity check on Handle.*/
+	/**< Perform sanity check on Handle.*/
 	Xil_AssertVoid((0 != Handle) && (0 == (Handle % XUSBPS_dTD_ALIGN)));
 
 	/* Activate the descriptor and clear the Terminate bit. Make sure to do
@@ -605,12 +598,12 @@ void XUsbPs_EpBufferRelease(u32 Handle)
  * This function receives a data buffer from the endpoint of the given endpoint
  * number.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
- * @param	EpNum is the number of the endpoint to receive data from.
- * @param	BufferPtr (OUT param) is a pointer to the buffer pointer to hold
+ * @param[in] EpNum is the number of the endpoint to receive data from.
+ * @param[out] BufferPtr (OUT param) is a pointer to the buffer pointer to hold
  *		the reference of the data buffer.
- * @param	BufferLen (OUT param) is a pointer to the integer that will
+ * @param[out] BufferLen (OUT param) is a pointer to the integer that will
  *		hold the buffer length.
  *
  * @return
@@ -654,15 +647,15 @@ s32 XUsbPs_EpDataBufferReceive(XUsbPs *InstancePtr, u8 EpNum,
 /**
  * This function sets the handler for endpoint events.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
- * @param	EpNum is the number of the endpoint to receive data from.
- * @param	Direction is the direction of the endpoint (bitfield):
+ * @param[in] EpNum is the number of the endpoint to receive data from.
+ * @param[in] Direction is the direction of the endpoint (bitfield):
  * 			- XUSBPS_EP_DIRECTION_OUT
  * 			- XUSBPS_EP_DIRECTION_IN
- * @param	CallBackFunc is the Handler callback function.
+ * @param[in] CallBackFunc is the Handler callback function.
  *		Can be NULL if the user wants to disable the handler entry.
- * @param	CallBackRef is the user definable data pointer that will be
+ * @param[in] CallBackRef is the user definable data pointer that will be
  *		passed back if the handler is called. May be NULL.
  *
  * @return
@@ -704,13 +697,13 @@ int XUsbPs_EpSetHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 /**
  * This function sets the handler for ISO endpoint events.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance of the
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance of the
  *		controller.
- * @param	EpNum is the number of the endpoint to receive data from.
- * @param	Direction is the direction of the endpoint (bitfield):
+ * @param[in] EpNum is the number of the endpoint to receive data from.
+ * @param[in] Direction is the direction of the endpoint (bitfield):
  * 			- XUSBPS_EP_DIRECTION_OUT
  * 			- XUSBPS_EP_DIRECTION_IN
- * @param	CallBackFunc is the Handler callback function.
+ * @param[in] CallBackFunc is the Handler callback function.
  *		Can be NULL if the user wants to disable the handler entry.
  *
  * @return
@@ -752,9 +745,9 @@ s32 XUsbPs_EpSetIsoHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 /**
 * This function primes an endpoint.
 *
-* @param	InstancePtr is pointer to the XUsbPs instance.
-* @param	EpNum is the number of the endpoint to receive data from.
-* @param	Direction is the direction of the endpoint (bitfield):
+* @param[in] InstancePtr is pointer to the XUsbPs instance.
+* @param[in] EpNum is the number of the endpoint to receive data from.
+* @param[in] Direction is the direction of the endpoint (bitfield):
 * 			- XUSBPS_EP_DIRECTION_OUT
 * 			- XUSBPS_EP_DIRECTION_IN
 *
@@ -762,8 +755,6 @@ s32 XUsbPs_EpSetIsoHandler(XUsbPs *InstancePtr, u8 EpNum, u8 Direction,
 *		- XST_SUCCESS: The operation completed successfully.
 *		- XST_FAILURE: An error occurred.
 *		- XST_INVALID_PARAM: Invalid parameter passed.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XUsbPs_EpPrime(XUsbPs *InstancePtr, u8 EpNum, u8 Direction)
@@ -800,17 +791,16 @@ int XUsbPs_EpPrime(XUsbPs *InstancePtr, u8 EpNum, u8 Direction)
 /**
 * This function extracts the Setup Data from a given endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	EpNum is the number of the endpoint to receive data from.
-* @param	SetupDataPtr is a pointer to the setup data structure to be
+* @param[in] EpNum is the number of the endpoint to receive data from.
+* @param[out] SetupDataPtr is a pointer to the setup data structure to be
 *		filled.
 *
 * @return
 *		- XST_SUCCESS: The operation completed successfully.
 *		- XST_FAILURE: An error occurred.
 *
-* @note		None.
 ******************************************************************************/
 int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
 			  XUsbPs_SetupData *SetupDataPtr)
@@ -903,10 +893,8 @@ int XUsbPs_EpGetSetupData(XUsbPs *InstancePtr, int EpNum,
 * The function sets up the local data structure with the aligned addresses for
 * the Queue Head and Transfer Descriptors.
 *
-* @param	DevCfgPtr is pointer to the XUsbPs DEVICE configuration
+* @param[in] DevCfgPtr is pointer to the XUsbPs DEVICE configuration
 *		structure.
-*
-* @return	none
 *
 * @note
 * 		Endpoints of type XUSBPS_EP_TYPE_NONE are not used in the
@@ -1030,12 +1018,8 @@ static void XUsbPs_EpListInit(XUsbPs_DeviceConfig *DevCfgPtr)
 *
 * This function initializes the Queue Head List in memory.
 *
-* @param	DevCfgPtr is a pointer to the XUsbPs DEVICE configuration
+* @param[in] DevCfgPtr is a pointer to the XUsbPs DEVICE configuration
 *		structure.
-*
-* @return	None
-*
-* @note		None.
 *
 ******************************************************************************/
 static void XUsbPs_dQHInit(XUsbPs_DeviceConfig *DevCfgPtr)
@@ -1045,7 +1029,7 @@ static void XUsbPs_dQHInit(XUsbPs_DeviceConfig *DevCfgPtr)
 	XUsbPs_Endpoint	*Ep;
 	XUsbPs_EpConfig	*EpCfg;
 
-	/* Setup pointers for simpler access. */
+	/**< Setup pointers for simpler access. */
 	Ep	= DevCfgPtr->Ep;
 	EpCfg	= DevCfgPtr->EpCfg;
 
@@ -1120,7 +1104,7 @@ static void XUsbPs_dQHInit(XUsbPs_DeviceConfig *DevCfgPtr)
  *
  * This function initializes the Transfer Descriptors lists in memory.
  *
- * @param	DevCfgPtr is a pointer to the XUsbPs DEVICE configuration
+ * @param[in] DevCfgPtr is a pointer to the XUsbPs DEVICE configuration
  *		structure.
  *
  * @return
@@ -1135,7 +1119,7 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
 	XUsbPs_Endpoint	*Ep;
 	XUsbPs_EpConfig	*EpCfg;
 
-	/* Setup pointers for simpler access. */
+	/**< Setup pointers for simpler access. */
 	Ep	= DevCfgPtr->Ep;
 	EpCfg	= DevCfgPtr->EpCfg;
 
@@ -1243,9 +1227,9 @@ static int XUsbPs_dTDInit(XUsbPs_DeviceConfig *DevCfgPtr)
  * will take care of splitting the buffer into multiple 4kB aligned segments if
  * the buffer happens to span one or more 4kB pages.
  *
- * @param	dTDIndex is a pointer to the Transfer Descriptor
- * @param	BufferPtr is pointer to the buffer to link to the descriptor.
- * @param	BufferLen is the length of the buffer.
+ * @param[in] dTDPtr is a pointer to the Transfer Descriptor
+ * @param[in] BufferPtr is pointer to the buffer to link to the descriptor.
+ * @param[in] BufferLen is the length of the buffer.
  *
  * @return
  *		- XST_SUCCESS: The operation completed successfully.
@@ -1329,8 +1313,8 @@ static int XUsbPs_dTDAttachBuffer(XUsbPs_dTD *dTDPtr,
  * If the max packet length is greater than XUSBPS_MAX_PACKET_SIZE, then
  * Mult bits are set to reflect that.
  *
- * @param	dQHPtr is a pointer to the dQH element.
- * @param	Len is the Length to be set.
+ * @param[in] dQHPtr is a pointer to the dQH element.
+ * @param[in] Len is the Length to be set.
  *
  ******************************************************************************/
 static void XUsbPs_dQHSetMaxPacketLenISO(XUsbPs_dQH *dQHPtr, u32 Len)
@@ -1367,18 +1351,18 @@ static void XUsbPs_dQHSetMaxPacketLenISO(XUsbPs_dQH *dQHPtr, u32 Len)
 *
 * Both QH and dTDs are updated for the new configuration.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	CfgPtr
+* @param[in] CfgPtr
 * 		Pointer to the updated XUsbPs DEVICE configuration structure.
 *
-* @param	EpNum
+* @param[in] EpNum
 *		The endpoint to be reconfigured.
 *
-* @param NewDirection
+* @param[in] NewDirection
 *		The new transfer direction the endpoint.
 *
-* @param DirectionChanged
+* @param[in] DirectionChanged
 *		A boolean value indicate whether the transfer direction has changed.
 *
 * @return
@@ -1450,16 +1434,14 @@ int XUsbPs_ReconfigureEp(XUsbPs *InstancePtr, XUsbPs_DeviceConfig *CfgPtr,
  * This function re-initializes the Queue Head List in memory.
  * The endpoint 1 has been disabled before this call.
  *
- * @param	DevCfgPtr
+ * @param[in] DevCfgPtr
  * 		Pointer to the updated XUsbPs DEVICE configuration structure.
  *
- * @param	EpNum
+ * @param[in] EpNum
  *		The endpoint to be reconfigured.
  *
- * @param	NewDirection
+ * @param[in] NewDirection
  *		The new transfer direction of endpoint 1
- *
- * @return	none
  *
  ******************************************************************************/
 static void XUsbPs_dQHReinitEp(XUsbPs_DeviceConfig *DevCfgPtr,
@@ -1543,13 +1525,13 @@ static void XUsbPs_dQHReinitEp(XUsbPs_DeviceConfig *DevCfgPtr,
  * The endpoint has been disabled before the call. The transfer descriptors
  * list pointer has been initialized too.
  *
- * @param	DevCfgPtr
+ * @param[in] DevCfgPtr
  * 		Pointer to the XUsbPs DEVICE configuration structure.
  *
- * @param	EpNum
+ * @param[in] EpNum
  *		The endpoint to be reconfigured.
  *
- * @param	NewDirection
+ * @param[in] NewDirection
  *		The new transfer direction of endpoint 1
  *
  * @return

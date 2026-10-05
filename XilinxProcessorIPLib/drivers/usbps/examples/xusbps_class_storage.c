@@ -94,27 +94,25 @@ static const SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
 	{"1.00"}		/* Revision:   must be  4 characters long. */
 };
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
+/** @cond NODOC */
 /* Buffer for virtual flash disk space. */
 static u8 VirtFlash[VFLASH_SIZE] ALIGNMENT_CACHELINE;
 
 static USB_CBW lastCBW ALIGNMENT_CACHELINE;
 
-/* Local transmit buffer for simple replies. */
+/**< Local transmit buffer for simple replies. */
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
+/** @endcond */
 #endif
 
 /*****************************************************************************/
 /**
 * This function handles Reduced Block Command (RBC) requests from the host.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	EpNum is the number of the endpoint on which the RBC was received.
-* @param	BufferPtr is the data buffer containing the RBC or data.
-* @param	BufferLen is the length of the data buffer.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] EpNum is the number of the endpoint on which the RBC was received.
+* @param[in] BufferPtr is the data buffer containing the RBC or data.
+* @param[in] BufferLen is the length of the data buffer.
 *
 ******************************************************************************/
 void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
@@ -126,7 +124,7 @@ void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
 	/* Static variables used for data transfers.*/
 	static int	rxBytesLeft;
 
-	/* Current SCSI machine state. */
+	/**< Current SCSI machine state. */
 	static int	phase = USB_EP_STATE_COMMAND;
 
 	(void)EpNum;
@@ -332,16 +330,12 @@ void XUsbPs_HandleStorageReq(XUsbPs *InstancePtr, u8 EpNum,
 
 
 /*****************************************************************************/
-/**
+/*
 * This function handles a Storage Class Setup request from the host.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	SetupData is the setup data structure containing the setup
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] SetupData is the setup data structure containing the setup
 *		request.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 void XUsbPs_ClassReq(XUsbPs *InstancePtr, XUsbPs_SetupData *SetupData)

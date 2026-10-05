@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -43,20 +43,20 @@
 #pragma pack(push, 1)
 #endif
 typedef struct {
-	u8  bLength;
-	u8  bDescriptorType;
-	u16 bcdUSB;
-	u8  bDeviceClass;
-	u8  bDeviceSubClass;
-	u8  bDeviceProtocol;
-	u8  bMaxPacketSize0;
-	u16 idVendor;
-	u16 idProduct;
-	u16 bcdDevice;
-	u8  iManufacturer;
-	u8  iProduct;
-	u8  iSerialNumber;
-	u8  bNumConfigurations;
+	u8  bLength; /**< Descriptor length in bytes. */
+	u8  bDescriptorType; /**< Descriptor type identifier. */
+	u16 bcdUSB; /**< USB specification version (BCD). */
+	u8  bDeviceClass; /**< Device class code. */
+	u8  bDeviceSubClass; /**< Device subclass code. */
+	u8  bDeviceProtocol; /**< Device protocol code. */
+	u8  bMaxPacketSize0; /**< Maximum packet size for endpoint 0. */
+	u16 idVendor; /**< Vendor ID. */
+	u16 idProduct; /**< Product ID. */
+	u16 bcdDevice; /**< Device release number (BCD). */
+	u8  iManufacturer; /**< Index of manufacturer string descriptor. */
+	u8  iProduct; /**< Index of product string descriptor. */
+	u8  iSerialNumber; /**< Index of serial number string descriptor. */
+	u8  bNumConfigurations; /**< Number of possible configurations. */
 #ifdef __ICCARM__
 } USB_STD_DEV_DESC;
 #pragma pack(pop)
@@ -68,14 +68,14 @@ typedef struct {
 #pragma pack(push, 1)
 #endif
 typedef struct {
-	u8  bLength;
-	u8  bDescriptorType;
-	u16 wTotalLength;
-	u8  bNumInterfaces;
-	u8  bConfigurationValue;
-	u8  iConfiguration;
-	u8  bmAttributes;
-	u8  bMaxPower;
+	u8  bLength; /**< Descriptor length in bytes. */
+	u8  bDescriptorType; /**< Descriptor type identifier. */
+	u16 wTotalLength; /**< Total length of configuration descriptor. */
+	u8  bNumInterfaces; /**< Number of interfaces in this configuration. */
+	u8  bConfigurationValue; /**< Value for SET_CONFIGURATION request. */
+	u8  iConfiguration; /**< Index of string descriptor for this configuration. */
+	u8  bmAttributes; /**< Configuration attributes (power and remote-wakeup flags). */
+	u8  bMaxPower; /**< Maximum power consumption in 2mA units. */
 #ifdef __ICCARM__
 } USB_STD_CFG_DESC;
 #pragma pack(pop)
@@ -87,15 +87,15 @@ typedef struct {
 #pragma pack(push, 1)
 #endif
 typedef struct {
-	u8  bLength;
-	u8  bDescriptorType;
-	u8  bInterfaceNumber;
-	u8  bAlternateSetting;
-	u8  bNumEndPoints;
-	u8  bInterfaceClass;
-	u8  bInterfaceSubClass;
-	u8  bInterfaceProtocol;
-	u8  iInterface;
+	u8  bLength; /**< Descriptor length in bytes. */
+	u8  bDescriptorType; /**< Descriptor type identifier. */
+	u8  bInterfaceNumber; /**< Interface number. */
+	u8  bAlternateSetting; /**< Alternate setting number. */
+	u8  bNumEndPoints; /**< Number of endpoints. */
+	u8  bInterfaceClass; /**< Interface class code. */
+	u8  bInterfaceSubClass; /**< Interface subclass code. */
+	u8  bInterfaceProtocol; /**< Interface protocol code. */
+	u8  iInterface; /**< Index of string descriptor for this interface. */
 #ifdef __ICCARM__
 } USB_STD_IF_DESC;
 #pragma pack(pop)
@@ -107,12 +107,12 @@ typedef struct {
 #pragma pack(push, 1)
 #endif
 typedef struct {
-	u8  bLength;
-	u8  bDescriptorType;
-	u8  bEndpointAddress;
-	u8  bmAttributes;
-	u16 wMaxPacketSize;
-	u8  bInterval;
+	u8  bLength; /**< Descriptor length in bytes. */
+	u8  bDescriptorType; /**< Descriptor type identifier. */
+	u8  bEndpointAddress; /**< Endpoint address (direction + number). */
+	u8  bmAttributes; /**< Endpoint/capability attributes. */
+	u16 wMaxPacketSize; /**< Maximum packet size for this endpoint. */
+	u8  bInterval; /**< Polling interval in frames. */
 #ifdef __ICCARM__
 } USB_STD_EP_DESC;
 #pragma pack(pop)
@@ -124,9 +124,9 @@ typedef struct {
 #pragma pack(push, 1)
 #endif
 typedef struct {
-	u8  bLength;
-	u8  bDescriptorType;
-	u16 wLANGID[1];
+	u8  bLength; /**< Descriptor length in bytes. */
+	u8  bDescriptorType; /**< Descriptor type identifier. */
+	u16 wLANGID[1]; /**< Supported language IDs. */
 #ifdef __ICCARM__
 } USB_STD_STRING_DESC;
 #pragma pack(pop)
@@ -138,10 +138,10 @@ typedef struct {
 #pragma pack(push, 1)
 #endif
 typedef struct {
-	USB_STD_CFG_DESC stdCfg;
-	USB_STD_IF_DESC ifCfg;
-	USB_STD_EP_DESC epCfg1;
-	USB_STD_EP_DESC epCfg2;
+	USB_STD_CFG_DESC stdCfg; /**< Standard configuration descriptor. */
+	USB_STD_IF_DESC ifCfg; /**< Standard mass-storage interface descriptor. */
+	USB_STD_EP_DESC epCfg1; /**< First bulk endpoint configuration. */
+	USB_STD_EP_DESC epCfg2; /**< Second bulk endpoint configuration. */
 #ifdef __ICCARM__
 } USB_CONFIG;
 #pragma pack(pop)
@@ -153,16 +153,20 @@ typedef struct {
 
 /************************** Variable Definitions *****************************/
 
-#define USB_ENDPOINT0_MAXP		0x40
+/** @name USB descriptor type and endpoint constants.
+ * @{
+ */
+#define USB_ENDPOINT0_MAXP		0x40 /**< Maximum packet size for endpoint 0. */
 
-#define USB_BULKIN_EP			1
-#define USB_BULKOUT_EP			1
+#define USB_BULKIN_EP			1 /**< Bulk IN endpoint number. */
+#define USB_BULKOUT_EP			1 /**< Bulk OUT endpoint number. */
 
-#define USB_DEVICE_DESC			0x01
-#define USB_CONFIG_DESC			0x02
-#define USB_STRING_DESC			0x03
-#define USB_INTERFACE_CFG_DESC		0x04
-#define USB_ENDPOINT_CFG_DESC		0x05
+#define USB_DEVICE_DESC			0x01 /**< Device descriptor type. */
+#define USB_CONFIG_DESC			0x02 /**< Configuration descriptor type. */
+#define USB_STRING_DESC			0x03 /**< String descriptor type. */
+#define USB_INTERFACE_CFG_DESC		0x04 /**< Interface descriptor type. */
+#define USB_ENDPOINT_CFG_DESC		0x05 /**< Endpoint descriptor type. */
+/** @} */
 
 
 /*****************************************************************************/
@@ -170,9 +174,9 @@ typedef struct {
 *
 * This function returns the device descriptor for the device.
 *
-* @param	BufPtr is pointer to the buffer that is to be filled
+* @param[out] BufPtr is pointer to the buffer that is to be filled
 *		with the descriptor.
-* @param	BufLen is the size of the provided buffer.
+* @param[in] BufLen is the size of the provided buffer.
 *
 * @return 	Length of the descriptor in the buffer on success.
 *		0 on error.
@@ -217,9 +221,9 @@ u32 XUsbPs_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen)
 *
 * This function returns the configuration descriptor for the device.
 *
-* @param	BufPtr is the pointer to the buffer that is to be filled with
+* @param[out] BufPtr is the pointer to the buffer that is to be filled with
 *		the descriptor.
-* @param	BufLen is the size of the provided buffer.
+* @param[in] BufLen is the size of the provided buffer.
 *
 * @return 	Length of the descriptor in the buffer on success.
 *		0 on error.
@@ -294,10 +298,10 @@ u32 XUsbPs_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 *
 * This function returns a string descriptor for the given index.
 *
-* @param	BufPtr is a  pointer to the buffer that is to be filled with
+* @param[out] BufPtr is a  pointer to the buffer that is to be filled with
 *		the descriptor.
-* @param	BufLen is the size of the provided buffer.
-* @param	Index is the index of the string for which the descriptor
+* @param[in] BufLen is the size of the provided buffer.
+* @param[in] Index is the index of the string for which the descriptor
 *		is requested.
 *
 * @return 	Length of the descriptor in the buffer on success.
@@ -366,14 +370,12 @@ u32 XUsbPs_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index)
 }
 
 
-/*****************************************************************************/
-/**
+/****************************************************************************/
+/*
 * This function handles a "set configuration" request.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	ConfigIdx is the Index of the desired configuration.
-*
-* @return	None
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] ConfigIdx is the Index of the desired configuration.
 *
 ******************************************************************************/
 void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
@@ -401,17 +403,13 @@ void XUsbPs_SetConfiguration(XUsbPs *InstancePtr, int ConfigIdx)
 	XUsbPs_EpPrime(InstancePtr, 1, XUSBPS_EP_DIRECTION_OUT);
 }
 
-/****************************************************************************/
-/**
+/***************************************************************************/
+/*
  * This function is called by Chapter9 handler when SET_CONFIGURATION command
  * is received from Host.
  *
- * @param	InstancePtr is pointer to XUsbPs instance of the controller.
- * @param	SetupData is the setup packet received from Host.
- *
- * @return
- *		- XST_SUCCESS if successful,
- *		- XST_FAILURE if unsuccessful.
+ * @param[in] InstancePtr is pointer to XUsbPs instance of the controller.
+ * @param[in] SetupData is the setup packet received from Host.
  *
  * @note
  *		Non control endpoints must be enabled after SET_CONFIGURATION
@@ -426,13 +424,13 @@ void XUsbPs_SetConfigurationApp(XUsbPs *InstancePtr,
 	(void)SetupData;
 }
 
-/****************************************************************************/
-/**
+/***************************************************************************/
+/*
  * This function is called by Chapter9 handler when SET_CONFIGURATION command
  * or SET_INTERFACE command is received from Host.
  *
- * @param	InstancePtr is pointer to XUsbPs instance of the controller.
- * @param	SetupData is the setup packet received from Host.
+ * @param[in] InstancePtr is pointer to XUsbPs instance of the controller.
+ * @param[in] SetupData is the setup packet received from Host.
  *
  * @note
  *

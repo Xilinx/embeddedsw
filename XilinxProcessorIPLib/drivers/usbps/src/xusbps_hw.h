@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,7 @@
  * 1.05a kpc  07/03/13 Added XUsbPs_ResetHw function prototype
  * 2.00a kpc  04/03/14 Fixed CR#777764. Corrected max endpoint vale and masks
  * 2.5   pm   02/20/20 Added Endpoint Control Register bit positions for Rx & Tx
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -44,46 +45,46 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 
-#define XUSBPS_REG_SPACING		4
+#define XUSBPS_REG_SPACING		4 /**< Byte spacing between consecutive registers. */
 
 /** @name Timer 0 Register offsets
  *
  * @{
  */
-#define XUSBPS_TIMER0_LD_OFFSET	0x00000080
-#define XUSBPS_TIMER0_CTL_OFFSET	0x00000084
-/* @} */
+#define XUSBPS_TIMER0_LD_OFFSET	0x00000080 /**< Timer 0 load value register offset. */
+#define XUSBPS_TIMER0_CTL_OFFSET	0x00000084 /**< Timer 0 control register offset. */
+/** @} */
 
 /** @name Timer Control Register bit mask
  *
  * @{
  */
-#define XUSBPS_TIMER_RUN_MASK		0x80000000
-#define XUSBPS_TIMER_STOP_MASK		0x80000000
-#define XUSBPS_TIMER_RESET_MASK	0x40000000
-#define XUSBPS_TIMER_REPEAT_MASK	0x01000000
-/* @} */
+#define XUSBPS_TIMER_RUN_MASK		0x80000000 /**< Timer run bit (start timer). */
+#define XUSBPS_TIMER_STOP_MASK		0x80000000 /**< Timer stop bit (clear to stop). */
+#define XUSBPS_TIMER_RESET_MASK	0x40000000 /**< Timer reset bit. */
+#define XUSBPS_TIMER_REPEAT_MASK	0x01000000 /**< Timer repeat mode bit. */
+/** @} */
 
 /** @name Timer Control Register bit mask
  *
  * @{
  */
-#define XUSBPS_TIMER_COUNTER_MASK	0x00FFFFFF
-/* @} */
+#define XUSBPS_TIMER_COUNTER_MASK	0x00FFFFFF /**< Timer counter value mask (24 bits). */
+/** @} */
 
 /** @name Device Hardware Parameters
  *
  * @{
  */
-#define XUSBPS_HWDEVICE_OFFSET		0x0000000C
+#define XUSBPS_HWDEVICE_OFFSET		0x0000000C /**< Hardware Device Parameters register offset. */
 
-#define XUSBPS_EP_NUM_MASK		0x3E
-#define XUSBPS_EP_NUM_SHIFT		1
-/* @} */
+#define XUSBPS_EP_NUM_MASK		0x3E /**< Endpoint number field mask. */
+#define XUSBPS_EP_NUM_SHIFT		1    /**< Endpoint number field bit shift. */
+/** @} */
 
 /** @name Capability Register offsets
  */
-#define XUSBPS_HCSPARAMS_OFFSET		0x00000104
+#define XUSBPS_HCSPARAMS_OFFSET		0x00000104 /**< Host Controller Structural Parameters register offset. */
 
 /** @name Operational Register offsets.
  * Register comments are tagged with "H:" and "D:" for Host and Device modes,
@@ -110,6 +111,7 @@ extern "C" {
 #define XUSBPS_PORTSCR1_OFFSET		0x00000184 /**< Port Control/Status 1 */
 
 /* NOTE: The Port Control / Status Register index is 1-based. */
+/** @brief Port Control/Status register offset for port n (1-based). */
 #define XUSBPS_PORTSCRn_OFFSET(n)	\
 	(XUSBPS_PORTSCR1_OFFSET + (((n)-1) * XUSBPS_REG_SPACING))
 
@@ -133,13 +135,14 @@ extern "C" {
 #define XUSBPS_EP_IN_MASK	0x0FFF0000 /**< IN (TX) endpoint mask */
 #define XUSBPS_EP_ALL_MASK	0x0FFF0FFF /**< Mask used for endpoint control
 					     *  registers */
+/** @brief Endpoint Control register offset for endpoint n (0-based). */
 #define XUSBPS_EPCRn_OFFSET(n)	\
 	(XUSBPS_EPCR0_OFFSET + ((n) * XUSBPS_REG_SPACING))
 
-#define  XUSBPS_EPFLUSH_RX_SHIFT   0
-#define  XUSBPS_EPFLUSH_TX_SHIFT  16
+#define  XUSBPS_EPFLUSH_RX_SHIFT   0  /**< Bit shift for RX (OUT) endpoint flush. */
+#define  XUSBPS_EPFLUSH_TX_SHIFT  16  /**< Bit shift for TX (IN) endpoint flush. */
 
-/* @} */
+/** @} */
 
 
 
@@ -148,8 +151,8 @@ extern "C" {
  */
 
 /* Definitions for TX Endpoint bits */
-#define XUSBPS_EPCR_TXT_TYPE_SHIFT	18	/* < Endpoint Type - TX bit shift*/
-#define XUSBPS_EPCR_TXT_TYPE_MASK	0x000C0000	/* < Endpoint Type - TX read only*/
+#define XUSBPS_EPCR_TXT_TYPE_SHIFT	18	/**< Endpoint type TX field bit shift. */
+#define XUSBPS_EPCR_TXT_TYPE_MASK	0x000C0000	/**< Endpoint type TX field mask (read only). */
 #define XUSBPS_EPCR_TXT_CONTROL_MASK	0x00000000 /**< Control Endpoint - TX */
 #define XUSBPS_EPCR_TXT_ISO_MASK	0x00040000 /**< Isochronous. Endpoint */
 #define XUSBPS_EPCR_TXT_BULK_MASK	0x00080000 /**< Bulk Endpoint - TX */
@@ -160,7 +163,7 @@ extern "C" {
 
 
 /* Definitions for RX Endpoint bits */
-#define XUSBPS_EPCR_RXT_TYPE_SHIFT	2	/* < Endpoint Type - RX bit shift*/
+#define XUSBPS_EPCR_RXT_TYPE_SHIFT	2	/**< Endpoint type RX field bit shift. */
 #define XUSBPS_EPCR_RXT_TYPE_MASK	0x0000000C	/**< Endpoint Type - RX read only*/
 #define XUSBPS_EPCR_RXT_CONTROL_MASK	0x00000000 /**< Control Endpoint - RX */
 #define XUSBPS_EPCR_RXT_ISO_MASK	0x00000004 /**< Isochronous Endpoint */
@@ -169,7 +172,7 @@ extern "C" {
 #define XUSBPS_EPCR_RXS_MASK		0x00000001 /**< Stall RX endpoint. */
 #define XUSBPS_EPCR_RXE_MASK		0x00000080 /**< Transmit enable. - RX */
 #define XUSBPS_EPCR_RXR_MASK		0x00000040 /**< Data Toggle Reset Bit */
-/* @} */
+/** @} */
 
 
 /** @name USB Command Register (CR) bit positions.
@@ -187,7 +190,7 @@ extern "C" {
 #define XUSBPS_CMD_ATDTW_MASK	0x00004000 /**< Add dTD TripWire */
 #define XUSBPS_CMD_FS2_MASK	0x00008000 /**< Frame List Size bit 2 */
 #define XUSBPS_CMD_ITC_MASK	0x00FF0000 /**< IRQ Threshold Control */
-/* @} */
+/** @} */
 
 
 /**
@@ -220,9 +223,9 @@ extern "C" {
 #define XUSBPS_CMD_ITHRESHOLD_16	0x10 /**< 16 micro-frames */
 #define XUSBPS_CMD_ITHRESHOLD_32	0x20 /**< 32 micro-frames */
 #define XUSBPS_CMD_ITHRESHOLD_64	0x40 /**< 64 micro-frames */
-#define XUSBPS_CMD_ITHRESHOLD_MAX	XUSBPS_CMD_ITHRESHOLD_64
-#define XUSBPS_CMD_ITHRESHOLD_DEFAULT	XUSBPS_CMD_ITHRESHOLD_8
-/* @} */
+#define XUSBPS_CMD_ITHRESHOLD_MAX	XUSBPS_CMD_ITHRESHOLD_64 /**< Maximum interrupt threshold value. */
+#define XUSBPS_CMD_ITHRESHOLD_DEFAULT	XUSBPS_CMD_ITHRESHOLD_8  /**< Default interrupt threshold (8 micro-frames). */
+/** @} */
 
 
 
@@ -270,22 +273,22 @@ extern "C" {
 		XUSBPS_IXR_TI0_MASK | \
 		XUSBPS_IXR_TI1_MASK)
 /**< Mask for ALL IRQ types */
-/* @} */
+/** @} */
 
 
 /** @name USB Mode Register (MODE) bit positions.
  *  @{
  */
 #define XUSBPS_MODE_CM_MASK		0x00000003 /**< Controller Mode Select */
-#define XUSBPS_MODE_CM_IDLE_MASK	0x00000000
-#define XUSBPS_MODE_CM_DEVICE_MASK	0x00000002
-#define XUSBPS_MODE_CM_HOST_MASK	0x00000003
+#define XUSBPS_MODE_CM_IDLE_MASK	0x00000000 /**< Controller idle mode. */
+#define XUSBPS_MODE_CM_DEVICE_MASK	0x00000002 /**< Controller device mode select. */
+#define XUSBPS_MODE_CM_HOST_MASK	0x00000003 /**< Controller host mode select. */
 #define XUSBPS_MODE_ES_MASK		0x00000004 /**< USB Endian Select */
 #define XUSBPS_MODE_SLOM_MASK		0x00000008 /**< USB Setup Lockout Mode Disable */
-#define XUSBPS_MODE_SDIS_MASK		0x00000010
-#define XUSBPS_MODE_VALID_MASK		0x0000001F
+#define XUSBPS_MODE_SDIS_MASK		0x00000010 /**< Stream disable mode bit. */
+#define XUSBPS_MODE_VALID_MASK		0x0000001F /**< Mask of all valid mode bits. */
 
-/* @} */
+/** @} */
 
 
 /** @name USB Device Address Register (DEVICEADDR) bit positions.
@@ -299,13 +302,13 @@ extern "C" {
 /**< Address shift */
 #define XUSBPS_DEVICEADDR_MAX			127
 /**< Biggest allowed address */
-/* @} */
+/** @} */
 
 /** @name USB TT Control Register (TTCTRL) bit positions.
  *  @{
  */
 #define XUSBPS_TTCTRL_HUBADDR_MASK	0x7F000000 /**< TT Hub Address */
-/* @} */
+/** @} */
 
 
 /** @name USB Burst Size Register (BURSTSIZE) bit posisions.
@@ -313,7 +316,7 @@ extern "C" {
  */
 #define XUSBPS_BURSTSIZE_RX_MASK	0x000000FF /**< RX Burst Length */
 #define XUSBPS_BURSTSIZE_TX_MASK	0x0000FF00 /**< TX Burst Length */
-/* @} */
+/** @} */
 
 
 /** @name USB Tx Fill Tuning Register (TXFILL) bit positions.
@@ -325,7 +328,7 @@ extern "C" {
 /**< Scheduler Health Cntr */
 #define XUSBPS_TXFILL_BURST_MASK	0x003F0000
 /**< FIFO Burst Threshold */
-/* @} */
+/** @} */
 
 
 /** @name USB ULPI Viewport Register (ULPIVIEW) bit positions.
@@ -339,7 +342,7 @@ extern "C" {
 #define XUSBPS_ULPIVIEW_RW_MASK	0x20000000 /**< ULPI Read/Write Control */
 #define XUSBPS_ULPIVIEW_RUN_MASK	0x40000000 /**< ULPI Run */
 #define XUSBPS_ULPIVIEW_WU_MASK	0x80000000 /**< ULPI Wakeup */
-/* @} */
+/** @} */
 
 
 /** @name Port Status Control Register bit positions.
@@ -368,7 +371,7 @@ extern "C" {
 #define XUSBPS_PORTSCR_PFSC_MASK 0x01000000 /**< Port Force Full Speed
 						* Connect */
 #define XUSBPS_PORTSCR_PSPD_MASK 0x0C000000 /**< Port Speed */
-/* @} */
+/** @} */
 
 
 /** @name On-The-Go Status Control Register (OTGCSR) bit positions.
@@ -411,6 +414,7 @@ extern "C" {
 #define XUSBPS_OTGSC_DPIE_MASK	 0x40000000 /**< Data Pulse Interrupt
 							* Enable Bit */
 
+/** @brief Mask for all OTG interrupt status bits. */
 #define XUSBPS_OTG_ISB_ALL	(XUSBPS_OTGSC_IDIS_MASK |\
 				 XUSBPS_OTGSC_AVVIS_MASK | \
 				 XUSBPS_OTGSC_ASVIS_MASK | \
@@ -418,8 +422,8 @@ extern "C" {
 				 XUSBPS_OTGSC_BSEIS_MASK | \
 				 XUSBPS_OTGSC_1MSS_MASK | \
 				 XUSBPS_OTGSC_DPIS_MASK)
-/** Mask for All IRQ status masks */
 
+/** @brief Mask for all OTG IRQ Enable Bits. */
 #define XUSBPS_OTG_IEB_ALL	(XUSBPS_OTGSC_IDIE_MASK |\
 				 XUSBPS_OTGSC_AVVIE_MASK | \
 				 XUSBPS_OTGSC_ASVIE_MASK | \
@@ -427,27 +431,15 @@ extern "C" {
 				 XUSBPS_OTGSC_BSEE_IEB_MASK | \
 				 XUSBPS_OTGSC_1MSE_MASK | \
 				 XUSBPS_OTGSC_DPIE_MASK)
-/** Mask for All IRQ Enable masks */
-/* @} */
+/** @} */
 
 
-/**< Alignment of the Device Queue Head List BASE. */
-#define XUSBPS_dQH_BASE_ALIGN		2048
-
-/**< Alignment of a Device Queue Head structure. */
-#define XUSBPS_dQH_ALIGN		64
-
-/**< Alignment of a Device Transfer Descriptor structure. */
-#define XUSBPS_dTD_ALIGN		32
-
-/**< Size of one RX buffer for a OUT Transfer Descriptor. */
-#define XUSBPS_dTD_BUF_SIZE		4096
-
-/**< Maximum size of one RX/TX buffer. */
-#define XUSBPS_dTD_BUF_MAX_SIZE	16*1024
-
-/**< Alignment requirement for Transfer Descriptor buffers. */
-#define XUSBPS_dTD_BUF_ALIGN		4096
+#define XUSBPS_dQH_BASE_ALIGN		2048 /**< Alignment of the Device Queue Head List BASE. */
+#define XUSBPS_dQH_ALIGN		64   /**< Alignment of a Device Queue Head structure. */
+#define XUSBPS_dTD_ALIGN		32   /**< Alignment of a Device Transfer Descriptor structure. */
+#define XUSBPS_dTD_BUF_SIZE		4096 /**< Size of one RX buffer for an OUT Transfer Descriptor. */
+#define XUSBPS_dTD_BUF_MAX_SIZE	16*1024 /**< Maximum size of one RX/TX buffer. */
+#define XUSBPS_dTD_BUF_ALIGN		4096 /**< Alignment requirement for Transfer Descriptor buffers. */
 
 
 /**************************** Type Definitions *******************************/
@@ -459,8 +451,8 @@ extern "C" {
 *
 * This macro reads the given register.
 *
-* @param	BaseAddress is the base address for the USB registers.
-* @param	RegOffset is the register offset to be read.
+* @param[in] BaseAddress is the base address for the USB registers.
+* @param[in] RegOffset is the register offset to be read.
 *
 * @return	The 32-bit value of the register.
 *
@@ -477,11 +469,9 @@ extern "C" {
 *
 * This macro writes the given register.
 *
-* @param	BaseAddress is the the base address for the USB registers.
-* @param	RegOffset is the register offset to be written.
-* @param	Data is the the 32-bit value to write to the register.
-*
-* @return	None.
+* @param[in] BaseAddress is the base address for the USB registers.
+* @param[in] RegOffset is the register offset to be written.
+* @param[in] Data is the 32-bit value to write to the register.
 *
 * @note		C-style signature:
 *		void XUsbPs_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)

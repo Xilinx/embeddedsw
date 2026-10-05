@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
  * 2.8   pm   07/07/23 Added support for system device-tree flow.
  * 2.11  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
  *                     documentation.
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  *
  *****************************************************************************/
@@ -53,9 +54,9 @@ extern XUsbPs_Config XUsbPs_ConfigTable[];
 * in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceID is the ID of the controller to look up the
+* @param[in] DeviceID is the ID of the controller to look up the
 *		configuration for.
 * @endif
 *

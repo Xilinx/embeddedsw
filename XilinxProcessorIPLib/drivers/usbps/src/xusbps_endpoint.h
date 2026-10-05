@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
  * ----- ---- -------- --------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
  * 2.5   pm   02/20/20 Added multiplier bit for ISO frame handling.
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  *
  ******************************************************************************/
@@ -57,7 +58,7 @@ extern "C" {
 #define XUSBPS_dTDBPTR2	0x10 /**< Buffer Pointer 2 */
 #define XUSBPS_dTDBPTR3	0x14 /**< Buffer Pointer 3 */
 #define XUSBPS_dTDBPTR4	0x18 /**< Buffer Pointer 4 */
-#define XUSBPS_dTDBPTR(n)	(XUSBPS_dTDBPTR0 + (n) * 0x04)
+#define XUSBPS_dTDBPTR(n)	(XUSBPS_dTDBPTR0 + (n) * 0x04) /**< Buffer Pointer n (0-4). */
 #define XUSBPS_dTDRSRVD	0x1C /**< Reserved field */
 
 /* We use the reserved field in the dTD to store user data. */
@@ -71,7 +72,7 @@ extern "C" {
 /**< USB dTD Next Link Pointer Terminate Bit */
 #define XUSBPS_dTDNLP_ADDR_MASK	0xFFFFFFE0
 /**< USB dTD Next Link Pointer Address [31:5] */
-/* @} */
+/** @} */
 
 
 /** @name dTD Token (dTDTOKEN) bit positions.
@@ -84,39 +85,30 @@ extern "C" {
 #define XUSBPS_dTDTOKEN_MULTO_MASK	0x00000C00 /**< Multiplier Override Field [1:0] */
 #define XUSBPS_dTDTOKEN_IOC_MASK	0x00008000 /**< Interrupt on Complete Bit */
 #define XUSBPS_dTDTOKEN_LEN_MASK	0x7FFF0000 /**< Transfer Length Field */
-/* @} */
+/** @} */
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/*****************************************************************************/
-/**
- *
- * IMPORTANT NOTE:
- * ===============
- *
- * Many of the following macros modify Device Queue Head (dQH) data structures
- * and Device Transfer Descriptor (dTD) data structures. Those structures can
- * potentially reside in CACHED memory. Therefore, it's the callers
- * responsibility to ensure cache coherency by using provided
- *
- * 	XUsbPs_dQHInvalidateCache()
- * 	XUsbPs_dQHFlushCache()
- * 	XUsbPs_dTDInvalidateCache()
- * 	XUsbPs_dTDFlushCache()
- *
- * function calls.
- *
- ******************************************************************************/
+/*
+ * IMPORTANT NOTE: Many of the following macros modify dQH/dTD structures
+ * that may reside in cached memory. Callers must ensure cache coherency
+ * using the cache invalidate/flush macros provided below.
+ */
+
+/** @brief Invalidates cache for a Transfer Descriptor. */
 #define XUsbPs_dTDInvalidateCache(dTDPtr) \
 	Xil_DCacheInvalidateRange((unsigned int)dTDPtr, sizeof(XUsbPs_dTD))
 
+/** @brief Flushes cache for a Transfer Descriptor. */
 #define XUsbPs_dTDFlushCache(dTDPtr) \
 	Xil_DCacheFlushRange((unsigned int)dTDPtr, sizeof(XUsbPs_dTD))
 
+/** @brief Invalidates cache for a Queue Head structure. */
 #define XUsbPs_dQHInvalidateCache(dQHPtr) \
 	Xil_DCacheInvalidateRange((unsigned int)dQHPtr, sizeof(XUsbPs_dQH))
 
+/** @brief Flushes cache for a Queue Head structure. */
 #define XUsbPs_dQHFlushCache(dQHPtr) \
 	Xil_DCacheFlushRange((unsigned int)dQHPtr, sizeof(XUsbPs_dQH))
 
@@ -125,8 +117,8 @@ extern "C" {
  *
  * This macro sets the Transfer Length for the given Transfer Descriptor.
  *
- * @param	dTDPtr is pointer to the dTD element.
- * @param	Len is the length to be set. Range: 0..16384
+ * @param[in,out] dTDPtr is pointer to the dTD element.
+ * @param[in] Len is the length to be set. Range: 0..16384
  *
  * @note	C-style signature:
  *		void XUsbPs_dTDSetTransferLen(u32 dTDPtr, u32 Len)
@@ -143,12 +135,12 @@ extern "C" {
  *
  * This macro gets the Next Link pointer of the given Transfer Descriptor.
  *
- * @param	dTDPtr is pointer to the dTD element.
+ * @param[in] dTDPtr is pointer to the dTD element.
  *
- * @return 	TransferLength field of the descriptor.
+ * @return 	Next Link Pointer of the descriptor.
  *
  * @note	C-style signature:
- *		u32 XUsbPs_dTDGetTransferLen(u32 dTDPtr)
+ *		u32 XUsbPs_dTDGetNLP(u32 dTDPtr)
  *
  ******************************************************************************/
 #define XUsbPs_dTDGetNLP(dTDPtr)					\
@@ -161,11 +153,11 @@ extern "C" {
  *
  * This macro sets the Next Link pointer of the given Transfer Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
- * @param	NLP is the Next Link Pointer
+ * @param[in,out] dTDPtr is a pointer to the dTD element.
+ * @param[in] NLP is the Next Link Pointer
  *
  * @note	C-style signature:
- *		void XUsbPs_dTDSetTransferLen(u32 dTDPtr, u32 Len)
+ *		void XUsbPs_dTDSetNLP(u32 dTDPtr, u32 NLP)
  *
  ******************************************************************************/
 #define XUsbPs_dTDSetNLP(dTDPtr, NLP)					\
@@ -180,7 +172,7 @@ extern "C" {
  *
  * This macro gets the Transfer Length for the given Transfer Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
+ * @param[in] dTDPtr is a pointer to the dTD element.
  *
  * @return 	TransferLength field of the descriptor.
  *
@@ -199,7 +191,7 @@ extern "C" {
  * This macro sets the Interrupt On Complete (IOC) bit for the given Transfer
  * Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
+ * @param[in,out] dTDPtr is a pointer to the dTD element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dTDSetIOC(u32 dTDPtr)
@@ -216,7 +208,7 @@ extern "C" {
  *
  * This macro sets the Terminate bit for the given Transfer Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
+ * @param[in,out] dTDPtr is a pointer to the dTD element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dTDSetTerminate(u32 dTDPtr)
@@ -233,7 +225,7 @@ extern "C" {
  *
  * This macro clears the Terminate bit for the given Transfer Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
+ * @param[in,out] dTDPtr is a pointer to the dTD element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dTDClrTerminate(u32 dTDPtr)
@@ -250,7 +242,7 @@ extern "C" {
  *
  * This macro checks if the given descriptor is active.
  *
- * @param	dTDPtr is a pointer to the dTD element.
+ * @param[in] dTDPtr is a pointer to the dTD element.
  *
  * @return
  * 		- TRUE: The buffer is active.
@@ -270,7 +262,7 @@ extern "C" {
  *
  * This macro sets the Active bit for the given Transfer Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
+ * @param[in,out] dTDPtr is a pointer to the dTD element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dTDSetActive(u32 dTDPtr)
@@ -286,8 +278,8 @@ extern "C" {
  *
  * This macro sets the multiplier bit for the Transfer Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
- * @param	val is the multiplier value.
+ * @param[in,out] dTDPtr is a pointer to the dTD element.
+ * @param[in] val is the multiplier value.
  *
  * @note	C-style signature:
  *		void XUsbPs_dTDSetMultO(u32 dTDPtr, u32 val)
@@ -304,8 +296,8 @@ extern "C" {
  *
  * This macro reads the content of a field in a Transfer Descriptor.
  *
- * @param	dTDPtr is a pointer to the dTD element.
- * @param	Id is the field ID inside the dTD element to read.
+ * @param[in] dTDPtr is a pointer to the dTD element.
+ * @param[in] Id is the field ID inside the dTD element to read.
  *
  * @note	C-style signature:
  *		u32 XUsbPs_ReaddTD(u32 dTDPtr, u32 Id)
@@ -318,9 +310,9 @@ extern "C" {
  *
  * This macro writes a value to a field in a Transfer Descriptor.
  *
- * @param	dTDPtr is pointer to the dTD element.
- * @param	Id is the field ID inside the dTD element to read.
- * @param	Val is the value to write to the field.
+ * @param[in,out] dTDPtr is pointer to the dTD element.
+ * @param[in] Id is the field ID inside the dTD element to write.
+ * @param[in] Val is the value to write to the field.
  *
  * @note	C-style signature:
  *		u32 XUsbPs_WritedTD(u32 dTDPtr, u32 Id, u32 Val)
@@ -373,15 +365,13 @@ extern "C" {
 #define XUSBPS_dQHCFG_MPL_MASK		0x07FF0000
 /**< USB dQH Maximum Packet Length
  * Field [10:0] */
-#define XUSBPS_dQHCFG_MPL_SHIFT    16
+#define XUSBPS_dQHCFG_MPL_SHIFT    16 /**< Bit shift for MPL field. */
 #define XUSBPS_dQHCFG_ZLT_MASK		0x20000000
-/**< USB dQH Zero Length Termination
- * Select Bit */
+/**< USB dQH Zero Length Termination Select Bit. */
 #define XUSBPS_dQHCFG_MULT_MASK		0xC0000000
-/* USB dQH Number of Transactions Field
- * [1:0] */
-#define XUSBPS_dQHCFG_MULT_SHIFT       30
-/* @} */
+/**< USB dQH Number of Transactions Field [1:0]. */
+#define XUSBPS_dQHCFG_MULT_SHIFT       30 /**< Bit shift for MULT field. */
+/** @} */
 
 
 /*****************************************************************************/
@@ -389,8 +379,8 @@ extern "C" {
  *
  * This macro sets the Maximum Packet Length field of the give Queue Head.
  *
- * @param	dQHPtr is a pointer to the dQH element.
- * @param	Len is the length to be set.
+ * @param[in,out] dQHPtr is a pointer to the dQH element.
+ * @param[in] Len is the length to be set.
  *
  * @note	C-style signature:
  *		void XUsbPs_dQHSetMaxPacketLen(u32 dQHPtr, u32 Len)
@@ -406,7 +396,7 @@ extern "C" {
  *
  * This macro sets the Interrupt On Setup (IOS) bit for an endpoint.
  *
- * @param	dQHPtr is a pointer to the dQH element.
+ * @param[in,out] dQHPtr is a pointer to the dQH element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dQHSetIOS(u32 dQHPtr)
@@ -422,7 +412,7 @@ extern "C" {
  *
  * This macro clears the Interrupt On Setup (IOS) bit for an endpoint.
  *
- * @param	dQHPtr is a pointer to the dQH element.
+ * @param[in,out] dQHPtr is a pointer to the dQH element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dQHClrIOS(u32 dQHPtr)
@@ -438,11 +428,10 @@ extern "C" {
  *
  * This macro enables Zero Length Termination for the endpoint.
  *
- * @param	dQHPtr is a pointer to the dQH element.
+ * @param[in,out] dQHPtr is a pointer to the dQH element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dQHEnableZLT(u32 dQHPtr)
- *
  *
  ******************************************************************************/
 #define XUsbPs_dQHEnableZLT(dQHPtr)					\
@@ -456,11 +445,10 @@ extern "C" {
  *
  * This macro disables Zero Length Termination for the endpoint.
  *
- * @param	dQHPtr is a pointer to the dQH element.
+ * @param[in,out] dQHPtr is a pointer to the dQH element.
  *
  * @note	C-style signature:
  *		void XUsbPs_dQHDisableZLT(u32 dQHPtr)
- *
  *
  ******************************************************************************/
 #define XUsbPs_dQHDisableZLT(dQHPtr)					\
@@ -473,8 +461,8 @@ extern "C" {
  *
  * This macro reads the content of a field in a Queue Head.
  *
- * @param	dQHPtr is a pointer to the dQH element.
- * @param	Id is the Field ID inside the dQH element to read.
+ * @param[in] dQHPtr is a pointer to the dQH element.
+ * @param[in] Id is the Field ID inside the dQH element to read.
  *
  * @note	C-style signature:
  *		u32 XUsbPs_ReaddQH(u32 dQHPtr, u32 Id)
@@ -487,9 +475,9 @@ extern "C" {
  *
  * This macro writes a value to a field in a Queue Head.
  *
- * @param	dQHPtr is a pointer to the dQH element.
- * @param	Id is the Field ID inside the dQH element to read.
- * @param	Val is the Value to write to the field.
+ * @param[in,out] dQHPtr is a pointer to the dQH element.
+ * @param[in] Id is the Field ID inside the dQH element to write.
+ * @param[in] Val is the Value to write to the field.
  *
  * @note	C-style signature:
  *		u32 XUsbPs_WritedQH(u32 dQHPtr, u32 Id, u32 Val)

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 *
 * This file contains an example of how to use the USB driver with the USB
 * controller in DEVICE mode.
-*
 *
 *<pre>
 * MODIFICATION HISTORY:
@@ -53,11 +52,12 @@
 #endif
 
 /************************** Constant Definitions *****************************/
-#define MEMORY_SIZE (64 * 1024)
+#define MEMORY_SIZE (64 * 1024) /**< Memory buffer size in bytes (64 KB). */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 Buffer[MEMORY_SIZE];
+u8 Buffer[MEMORY_SIZE]; /**< Data buffer for USB interrupt-driven transfer operations. */
 #else
+/** @brief Data buffer for USB interrupt-driven transfer operations. */
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 #endif
 
@@ -65,7 +65,7 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifdef SDT
-#define USBPS_BASEADDR		XPS_USB0_BASEADDR /* USBPS base address */
+#define USBPS_BASEADDR		XPS_USB0_BASEADDR  /**< USBPS base address */
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -91,20 +91,18 @@ static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
  * are initialized to zero each time the program runs.
  */
 #ifndef SDT
-static XScuGic IntcInstance;    /* The instance of the IRQ Controller */
+static XScuGic IntcInstance;    /**< The instance of the IRQ Controller. */
 #endif
-static XUsbPs UsbInstance;	/* The instance of the USB Controller */
+static XUsbPs UsbInstance;	/**< The instance of the USB Controller. */
 
-static volatile int NumIrqs = 0;
-static volatile int NumReceivedFrames = 0;
+static volatile int NumIrqs = 0; /**< Number of IRQs received. */
+static volatile int NumReceivedFrames = 0; /**< Number of received USB frames. */
 
 
 /*****************************************************************************/
 /**
  *
  * Main function to call the USB interrupt example.
- *
- * @param	None
  *
  * @return
  * 		- XST_SUCCESS if successful
@@ -116,7 +114,7 @@ int main(void)
 {
 	int Status;
 
-	/* Run the USB Interrupt example.*/
+	/**< Run the USB Interrupt example.*/
 #ifndef SDT
 	Status = UsbIntrExample(&IntcInstance, &UsbInstance,
 				XPAR_XUSBPS_0_DEVICE_ID, XPAR_XUSBPS_0_INTR);
@@ -138,14 +136,14 @@ int main(void)
  * set up a USB flash disk emulation system.
  *
  * @if SDT
- * @param	UsbInstancePtr is a pointer to the instance of USB driver.
- * @param	BaseAddress is the base address of the USB Controller.
+ * @param[in] UsbInstancePtr is a pointer to the instance of USB driver.
+ * @param[in] BaseAddress is the base address of the USB Controller.
  * @else
- * @param	IntcInstancePtr is a pointer to the instance of the INTC driver.
- * @param	UsbInstancePtr is a pointer to the instance of USB driver.
- * @param	UsbDeviceId is the Device ID of the USB Controller and is the
+ * @param[in] IntcInstancePtr is a pointer to the instance of the INTC driver.
+ * @param[in] UsbInstancePtr is a pointer to the instance of USB driver.
+ * @param[in] UsbDeviceId is the Device ID of the USB Controller and is the
  * 		XPAR_<USB_instance>_DEVICE_ID value from xparameters.h.
- * @param	UsbIntrId is the Interrupt Id and is typically
+ * @param[in] UsbIntrId is the Interrupt Id and is typically
  * 		XPAR_<INTC_instance>_<USB_instance>_IP2INTC_IRPT_INTR value
  * 		from xparameters.h.
  * @endif
@@ -363,16 +361,9 @@ out:
  * This handler provides an example of how to handle USB interrupts and
  * is application specific.
  *
- * @param	CallBackRef is the Upper layer callback reference passed back
+ * @param[in] CallBackRef is the upper layer callback reference passed back
  *		when the callback function is invoked.
- * @param 	Mask is the Interrupt Mask.
- * @param	CallBackRef is the User data reference.
- *
- * @return
- * 		- XST_SUCCESS if successful
- * 		- XST_FAILURE on error
- *
- * @note	None.
+ * @param[in] Mask is the interrupt mask.
  *
  ******************************************************************************/
 static void UsbIntrHandler(void *CallBackRef, u32 Mask)
@@ -391,13 +382,11 @@ static void UsbIntrHandler(void *CallBackRef, u32 Mask)
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized.
 *
-*
-* @param	CallBackRef is the reference passed in when the function
+* @param[in] CallBackRef is the reference passed in when the function
 *		was registered.
-* @param	EpNum is the Number of the endpoint on which the event occurred.
-* @param	EventType is type of the event that occurred.
-*
-* @return	None.
+* @param[in] EpNum is the Number of the endpoint on which the event occurred.
+* @param[in] EventType is type of the event that occurred.
+* @param[in] Data is event-specific data (NULL for receive and setup events).
 *
 ******************************************************************************/
 static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
@@ -456,15 +445,11 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum,
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized.
 *
-*
-* @param	CallBackRef is the reference passed in when the function was
+* @param[in] CallBackRef is the reference passed in when the function was
 *		registered.
-* @param	EpNum is the Number of the endpoint on which the event occurred.
-* @param	EventType is type of the event that occurred.
-*
-* @return	None.
-*
-* @note 	None.
+* @param[in] EpNum is the Number of the endpoint on which the event occurred.
+* @param[in] EventType is type of the event that occurred.
+* @param[in] Data is event-specific data (NULL for receive events).
 *
 ******************************************************************************/
 static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
@@ -520,9 +505,9 @@ static void XUsbPs_Ep1EventHandler(void *CallBackRef, u8 EpNum,
 * be directly connected to a processor without an interrupt controller.  The
 * user should modify this function to fit the application.
 *
-* @param	IntcInstancePtr is a pointer to instance of the Intc controller.
-* @param	UsbInstancePtr is a pointer to instance of the USB controller.
-* @param	UsbIntrId is the Interrupt Id and is typically
+* @param[in] IntcInstancePtr is a pointer to instance of the Intc controller.
+* @param[in] UsbInstancePtr is a pointer to instance of the USB controller.
+* @param[in] UsbIntrId is the Interrupt Id and is typically
 * 		XPAR_<INTC_instance>_<USB_instance>_VEC_ID value
 * 		from xparameters.h
 *
@@ -589,14 +574,10 @@ static int UsbSetupIntrSystem(XScuGic *IntcInstancePtr,
 *
 * This function disables the interrupts that occur for the USB controller.
 *
-* @param	IntcInstancePtr is a pointer to instance of the INTC driver.
-* @param	UsbIntrId is the Interrupt Id and is typically
+* @param[in] IntcInstancePtr is a pointer to instance of the INTC driver.
+* @param[in] UsbIntrId is the Interrupt Id and is typically
 * 		XPAR_<INTC_instance>_<USB_instance>_VEC_ID value
 * 		from xparameters.h
-*
-* @return	None
-*
-* @note		None.
 *
 ******************************************************************************/
 static void UsbDisableIntrSystem(XScuGic *IntcInstancePtr, u16 UsbIntrId)

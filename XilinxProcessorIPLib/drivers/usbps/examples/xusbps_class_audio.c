@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -40,10 +40,8 @@
  * This function is called by Chapter9 handler when class request is received
  * from Host.
  *
- * @param	InstancePtr is pointer to Usb_DevData instance.
- * @param	SetupData is the setup packet received from Host.
- *
- * @note	None.
+ * @param[in] InstancePtr is a pointer to the XUsbPs controller instance.
+ * @param[in] SetupData is the setup packet received from Host.
  *
  *****************************************************************************/
 void XUsbPs_ClassReq(XUsbPs *InstancePtr, XUsbPs_SetupData *SetupData)

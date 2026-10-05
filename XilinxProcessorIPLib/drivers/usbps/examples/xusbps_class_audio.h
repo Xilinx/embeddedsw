@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -38,11 +38,11 @@ extern "C" {
 #ifdef XUSBPS_UAC1
 
 /* Audio Class-Specific Request Codes */
-#define UAC1_SET_CUR				0x01
-#define UAC1_GET_CUR				0x81
-#define UAC1_GET_MIN				0x82
-#define UAC1_GET_MAX				0x83
-#define UAC1_GET_RES				0x84
+#define UAC1_SET_CUR				0x01 /**< UAC1 SET_CUR request code. */
+#define UAC1_GET_CUR				0x81 /**< UAC1 GET_CUR request code. */
+#define UAC1_GET_MIN				0x82 /**< UAC1 GET_MIN request code. */
+#define UAC1_GET_MAX				0x83 /**< UAC1 GET_MAX request code. */
+#define UAC1_GET_RES				0x84 /**< UAC1 GET_RES request code. */
 
 #else	/* XUSBPS_UAC2 */
 

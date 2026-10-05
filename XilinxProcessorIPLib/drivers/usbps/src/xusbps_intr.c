@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
  * 2.3   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
  *            (moving of dTD Head/Tail Pointers properly).
  * 2.5   pm  02/20/20 Added ISO endpoint support.
+ * 2.12  ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  ******************************************************************************/
 
@@ -58,14 +59,9 @@ static void XUsbPs_IntrHandleEp0Setup(XUsbPs *InstancePtr);
 *    XUsbPs_EpSetHandler()
 * functions.
 *
-*
-* @param	HandlerRef is a Reference passed to the interrupt register
+* @param[in] HandlerRef is a Reference passed to the interrupt register
 *		function. In our case this will be a pointer to the XUsbPs
 *		instance.
-*
-* @return	None
-*
-* @note		None
 *
 ******************************************************************************/
 void XUsbPs_IntrHandler(void *HandlerRef)
@@ -173,20 +169,18 @@ void XUsbPs_IntrHandler(void *HandlerRef)
 * This function registers the user callback handler for controller
 * (non-endpoint) interrupts.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	CallBackFunc is the Callback function to register.
+* @param[in] CallBackFunc is the Callback function to register.
 *		CallBackFunc may be NULL to clear the entry.
-* @param	CallBackRef is the user data reference passed to the
+* @param[in] CallBackRef is the user data reference passed to the
 *		callback function. CallBackRef may be NULL.
-* @param	Mask is the User interrupt mask. Defines which interrupts
+* @param[in] Mask is the User interrupt mask. Defines which interrupts
 *		will cause the callback to be called.
 *
 * @return
 *		- XST_SUCCESS: Callback registered successfully.
 *		- XST_FAILURE: Callback could not be registered.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XUsbPs_IntrSetHandler(XUsbPs *InstancePtr,
@@ -209,14 +203,10 @@ int XUsbPs_IntrSetHandler(XUsbPs *InstancePtr,
 * when a transmit complete interrupt occurs. It returns buffers of completed
 * descriptors to the caller.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-* @param	EpCompl is the Bit mask of endpoints that caused a transmit
+* @param[in] EpCompl is the Bit mask of endpoints that caused a transmit
 *		complete interrupt.
-*
-* @return	None
-*
-* @note		None.
 *
 ******************************************************************************/
 static void XUsbPs_IntrHandleTX(XUsbPs *InstancePtr, u32 EpCompl)
@@ -289,13 +279,11 @@ static void XUsbPs_IntrHandleTX(XUsbPs *InstancePtr, u32 EpCompl)
  * that have been registered with the individual endpoints that data has been
  * received.
  *
- * @param	InstancePtr
+ * @param[in] InstancePtr
  * 		Pointer to the XUsbPs instance of the controller.
  *
- * @param	EpCompl
+ * @param[in] EpCompl
  * 		Bit mask of endpoints that caused a receive complete interrupt.
- * @return
- *		none
  *
  ******************************************************************************/
 static void XUsbPs_IntrHandleRX(XUsbPs *InstancePtr, u32 EpCompl)
@@ -305,7 +293,7 @@ static void XUsbPs_IntrHandleRX(XUsbPs *InstancePtr, u32 EpCompl)
 	u32		Mask;
 	int		NumEp;
 
-	/* Check all endpoints for RX complete bits. */
+	/**< Check all endpoints for RX complete bits. */
 	Mask	= 0x00000001;
 	NumEp	= InstancePtr->DeviceConfig.NumEndpoints;
 
@@ -367,13 +355,9 @@ static void XUsbPs_IntrHandleRX(XUsbPs *InstancePtr, u32 EpCompl)
 * This function handles a RESET interrupt. It will notify the interrupt
 * handler callback of the RESET condition.
 *
-* @param	InstancePtr is pointer to the XUsbPs instance of the controller
-* @param	IrqSts is the Interrupt status register content.
+* @param[in] InstancePtr is pointer to the XUsbPs instance of the controller
+* @param[in] IrqSts is the Interrupt status register content.
 *		To be passed on to the user.
-*
-* @return	None
-*
-* @Note		None.
 *
 ******************************************************************************/
 static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
@@ -469,14 +453,10 @@ static void XUsbPs_IntrHandleReset(XUsbPs *InstancePtr, u32 IrqSts)
 /*****************************************************************************/
 /**
 * This function handles a Setup Packet interrupt. It will notify the interrupt
-* handler callback of the RESET condition.
+* handler callback of the setup packet condition.
 *
-* @param	InstancePtr is a pointer to the XUsbPs instance of the
+* @param[in] InstancePtr is a pointer to the XUsbPs instance of the
 *		controller.
-*
-* @return	None
-*
-* @Note 	None
 *
 ******************************************************************************/
 static void XUsbPs_IntrHandleEp0Setup(XUsbPs *InstancePtr)
@@ -484,7 +464,7 @@ static void XUsbPs_IntrHandleEp0Setup(XUsbPs *InstancePtr)
 
 	XUsbPs_EpOut	*Ep;
 
-	/* Notify the user. */
+	/**< Notify the user. */
 	Ep = &InstancePtr->DeviceConfig.Ep[0].Out;
 
 	if (Ep->HandlerFunc) {

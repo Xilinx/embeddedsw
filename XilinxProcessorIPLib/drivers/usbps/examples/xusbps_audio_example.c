@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -47,20 +47,22 @@
 #endif
 
 /************************** Constant Definitions ****************************/
+/** @brief Integer ceiling division: round (n / d) up to the nearest integer. */
 #define DIV_ROUND_UP(n, d)	(((n) + (d) - 1) / (d))
 
 /*
  * The following constants are to be modified to get different size of memory.
  */
-#define RAMDISKSECTORS  	0x400		//1KB
-#define RAMBLOCKS		4096
+#define RAMDISKSECTORS  	0x400		/**< Number of sectors in the ramdisk (1K). */
+#define RAMBLOCKS		4096            /**< Number of 32-bit words per ramdisk sector. */
 
-#define MEMORY_SIZE (64 * 1024)
+#define MEMORY_SIZE (64 * 1024)         /**< Total memory buffer size in bytes (64 KB). */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 Buffer[MEMORY_SIZE];
+u8 Buffer[MEMORY_SIZE]; /**< Data buffer for USB audio transfer operations. */
 #pragma data_alignment = 4
 #else
+/** @brief Data buffer for USB audio transfer operations. */
 u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 #endif
 
@@ -76,7 +78,7 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
  * 			{ 0x00, 0x77, 0x01,}, // sample frequency 96000
  *		};
  */
-#define CUR_AUDIOFREQ		0x00
+#define CUR_AUDIOFREQ		0x00 /**< Default audio frequency index (UAC1: 8000 Hz). */
 
 #else	/*	XUSPBS_UAC2 */
 
@@ -90,16 +92,16 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
  * 			{ 0x00, 0x77, 0x01,}, // sample frequency 96000
  *		};
  */
-#define CUR_AUDIOFREQ		0x01
+#define CUR_AUDIOFREQ		0x01 /**< Default audio frequency index (UAC2: 44100 Hz). */
 
 #endif
 
 #ifndef SDT
-#define USB_DEVICE_ID		XPAR_XUSBPS_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define	USB_INTR_ID		XPAR_XUSBPS_0_INTR
+#define USB_DEVICE_ID		XPAR_XUSBPS_0_DEVICE_ID  /**< USB controller device ID. */
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID /**< Interrupt controller device ID. */
+#define	USB_INTR_ID		XPAR_XUSBPS_0_INTR       /**< USB controller interrupt ID. */
 #else
-#define USBPS_BASEADDR		XPS_USB0_BASEADDR /* USBPS base address */
+#define USBPS_BASEADDR		XPS_USB0_BASEADDR  /**< USBPS base address */
 #endif
 /************************** Function Prototypes ******************************/
 static void XUsbPs_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
@@ -117,41 +119,44 @@ s32 XUsbPs_SetupInterruptSystem(XUsbPs *InstancePtr, u16 IntcDeviceID,
 #endif
 
 /************************** Variable Definitions *****************************/
-struct Usb_DevData UsbInstance;
+struct Usb_DevData UsbInstance;    /**< USB device runtime data instance. */
 
-Usb_Config *UsbConfigPtr;
-XUsbPs PrivateData;
+Usb_Config *UsbConfigPtr;          /**< Pointer to USB hardware configuration. */
+XUsbPs PrivateData;                /**< USB controller driver instance. */
 
 /*
  * Interrupt controller instance
  */
 #ifndef SDT
-XScuGic InterruptController;
+XScuGic InterruptController;      /**< GIC interrupt controller instance. */
 #endif
 
-XUsbPs_DeviceConfig DeviceConfig;
+XUsbPs_DeviceConfig DeviceConfig;  /**< USB device endpoint configuration. */
 
 /*
  * A ram array
  */
-u32 RamDisk[RAMDISKSECTORS * RAMBLOCKS] __attribute__ ((aligned(4)));
-u8 *WrRamDiskPtr = (u8 *) & (RamDisk[0]);
+u32 RamDisk[RAMDISKSECTORS * RAMBLOCKS] __attribute__ ((aligned(4))); /**< RAM-backed virtual disk. */
+u8 *WrRamDiskPtr = (u8 *) & (RamDisk[0]); /**< Write pointer into ramdisk. */
 
-u8 BufferPtrTemp[1024];
+u8 BufferPtrTemp[1024]; /**< Temporary data transfer buffer. */
 
-u32 Index = 0;
-u8 FirstPktFrame = 1;
+u32 Index = 0;         /**< Current audio data index. */
+u8 FirstPktFrame = 1;  /**< Flag indicating first packet frame. */
 
-u32 Framesize = 0, Interval = 0, PacketSize = 0,
-    PacketResidue = 0, Residue = 0;
+u32 Framesize = 0,     /**< Audio frame size in bytes. */
+    Interval = 0,      /**< Number of isochronous service intervals per second. */
+    PacketSize = 0,    /**< Calculated packet size per interval. */
+    PacketResidue = 0, /**< Per-interval fractional-byte residue. */
+    Residue = 0;       /**< Accumulated fractional-byte residue across service intervals. */
 
 #ifdef XUSBPS_MICROPHONE
-static u32 FileSize = sizeof(Hello_wav);
+static u32 FileSize = sizeof(Hello_wav); /**< Size of the audio file in bytes. */
 #else
-static u32 FileSize = sizeof(RamDisk);
+static u32 FileSize = sizeof(RamDisk); /**< Size of the audio file in bytes. */
 #endif
 
-/* Supported AUDIO sampling frequencies */
+/** @brief Supported audio sampling frequencies (3-byte little-endian values). */
 u8 AudioFreq [MAX_AUDIO_FREQ][3] = {
 	{ 0x40, 0x1F, 0x00 },	/* sample frequency 8000  */
 	{ 0x44, 0xAC, 0x00 },	/* sample frequency 44100 */
@@ -163,14 +168,9 @@ u8 AudioFreq [MAX_AUDIO_FREQ][3] = {
 /**
  * This function is the main function of the USB audio example.
  *
- * @param	None
- *
  * @return
  *		- XST_SUCCESS if successful,
  *		- XST_FAILURE if unsuccessful.
- *
- * @note	None.
- *
  *
  *****************************************************************************/
 int main(void)
@@ -293,14 +293,10 @@ int main(void)
 
 /****************************************************************************/
 /**
- * This function calculates Data to be sent at every Interval
+ * Calculates data transfer size per isochronous interval based on
+ * sample rate and packet frequency.
  *
- * @param	None
- *
- * @return	None
- *
- * @note	None.
- *
+ * @note   The calculated values are stored in global state.
  *
  *****************************************************************************/
 static void XUsbPs_AudioTransferSize(void)
@@ -345,13 +341,9 @@ static void XUsbPs_AudioTransferSize(void)
  * This function is ISO IN Endpoint handler/Callback function, called by driver
  * when data is sent to host.
  *
- * @param	CallBackRef is pointer to Usb_DevData instance.
- * @param	RequestedBytes is number of bytes requested to send.
- * @param	BytesTxed is actual number of bytes sent to Host.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] CallBackRef is pointer to Usb_DevData instance.
+ * @param[in] RequestedBytes is number of bytes requested to send.
+ * @param[in] BytesTxed is actual number of bytes sent to Host.
  *
  *****************************************************************************/
 static void XUsbPs_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
@@ -411,13 +403,9 @@ static void XUsbPs_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
  * This function is ISO OUT Endpoint handler/Callback function, called by driver
  * when data is received from host.
  *
- * @param	CallBackRef is pointer to Usb_DevData instance.
- * @param	RequestedBytes is number of bytes requested to send.
- * @param	BytesTxed is actual number of bytes sent to Host.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] CallBackRef is pointer to Usb_DevData instance.
+ * @param[in] RequestedBytes is the number of bytes requested to receive.
+ * @param[in] BytesTxed is the actual number of bytes received from the host.
  *
  *****************************************************************************/
 static void XUsbPs_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
@@ -461,13 +449,11 @@ static void XUsbPs_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
  * It is called from an interrupt context such that the amount of processing
  * performed should be minimized.
  *
- *
- * @param	CallBackRef is the reference passed in when the function
+ * @param[in] CallBackRef is the reference passed in when the function
  *		was registered.
- * @param	EpNum is the Number of the endpoint on which the event occurred.
- * @param	EventType is type of the event that occurred.
- *
- * @return	None.
+ * @param[in] EpNum is the Number of the endpoint on which the event occurred.
+ * @param[in] EventType is type of the event that occurred.
+ * @param[in] Data is event-specific data (NULL for receive and setup events).
  *
  ******************************************************************************/
 static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType, void *Data)
@@ -518,6 +504,7 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType, vo
 	}
 }
 
+#ifndef SDT
 /****************************************************************************/
 /**
  * This function setups the interrupt system such that interrupts can occur.
@@ -526,17 +513,14 @@ static void XUsbPs_Ep0EventHandler(void *CallBackRef, u8 EpNum, u8 EventType, vo
  * directly connected to aprocessor without an interrupt controller.
  * The user should modify this function to fit the application.
  *
- * @param	InstancePtr is a pointer to the XUsbPs instance.
- * @param	IntcDeviceID is the unique ID of the interrupt controller
- * @param	IntcInstacePtr is a pointer to the interrupt controller
+ * @param[in] InstancePtr is a pointer to the XUsbPs instance.
+ * @param[in] IntcDeviceID is the unique ID of the interrupt controller
+ * @param[in] IntcInstancePtr is a pointer to the interrupt controller
  *			instance.
  *
  * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
  *
- * @note		None.
- *
  *****************************************************************************/
-#ifndef SDT
 s32 XUsbPs_SetupInterruptSystem(XUsbPs *InstancePtr, u16 IntcDeviceID,
 				XScuGic *IntcInstancePtr)
 {
@@ -601,13 +585,13 @@ s32 XUsbPs_SetupInterruptSystem(XUsbPs *InstancePtr, u16 IntcDeviceID,
 * The initialization entails:
 * - Initialize all members of the XUsbPs structure.
 *
-* @param	InstancePtr is a pointer to XUsbPs instance of the controller.
-* @param	ConfigPtr is a pointer to a XUsbPs_Config configuration
+* @param[in] InstancePtr is a pointer to XUsbPs instance of the controller.
+* @param[in] ConfigPtr is a pointer to a XUsbPs_Config configuration
 *		structure. This structure will contain the requested
 *		configuration for the device. Typically, this is a local
 *		structure and the content of which will be copied into the
 *		configuration structure within XUsbPs.
-* @param	BaseAddress is the base address of the device.
+* @param[in] BaseAddress is the base address of the device.
 *
 * @return
 *		- XST_SUCCESS no errors occurred.
