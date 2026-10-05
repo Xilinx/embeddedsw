@@ -1836,6 +1836,11 @@ XStatus XPmDevice_Request(const u32 SubsystemId, const u32 DeviceId,
 		goto done;
 	}
 
+	if ((u32)XPM_NODEIDX_DEV_ALL == NODEINDEX(DeviceId)) {
+		Status = XPmSubsystem_RequestAllPreallocDevices(SubsystemId, DeviceId);
+		goto done;
+	}
+
 	Device = XPmDevice_GetById(DeviceId);
 	if (NULL == Device) {
 		Status = XPM_PM_INVALID_NODE;

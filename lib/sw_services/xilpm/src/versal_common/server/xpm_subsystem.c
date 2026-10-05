@@ -701,6 +701,56 @@ done:
 	return Status;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Request all preallocated devices in the subsystem that match the
+ * subclass and type of the specified device ID.
+ *
+ * @param SubsystemId	Subsystem ID
+ * @param DeviceId	Device ID (subclass and type used for matching)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ * or a reason code
+ ****************************************************************************/
+XStatus XPmSubsystem_RequestAllPreallocDevices(const u32 SubsystemId, const u32 DeviceId)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
+	XPm_Requirement *Reqm;
+	u32 DevId;
+
+	if (NULL == Subsystem) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	Reqm = Subsystem->Requirements;
+
+	while (NULL != Reqm) {
+		DevId = Reqm->Device->Node.Id;
+		if ((1U != Reqm->Allocated) &&
+		    (NODESUBCLASS(DevId) == NODESUBCLASS(DeviceId)) &&
+		    (NODETYPE(DevId) == NODETYPE(DeviceId)) &&
+		    (1U == PREALLOC((u32)Reqm->Flags))) {
+			Status = XPm_RequestDevice(SubsystemId, DevId,
+						   Reqm->PreallocCaps,
+						   Reqm->PreallocQoS, 0U,
+						   XPLMI_CMD_SECURE);
+			if (XST_SUCCESS != Status) {
+				PmErr("Requesting prealloc device 0x%x failed.\n\r", DevId);
+				Status = XPM_ERR_DEVICE_REQ;
+				goto done;
+			}
+		}
+		Reqm = Reqm->NextDevice;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 XStatus XPmSubsystem_Add(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;

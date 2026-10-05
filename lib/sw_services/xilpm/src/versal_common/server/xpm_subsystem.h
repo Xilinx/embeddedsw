@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -108,6 +108,7 @@ XStatus XPm_IsForcePowerDownAllowed(u32 SubsystemId, u32 NodeId, u32 CmdType);
 XStatus XPmSubsystem_NotifyHealthyBoot(const u32 SubsystemId);
 void XPm_SetOverlayCdoFlag(u8 value);
 u8 XPm_GetOverlayCdoFlag(void);
+XStatus XPmSubsystem_RequestAllPreallocDevices(const u32 SubsystemId, const u32 DeviceId);
 
 #ifdef __cplusplus
 }
