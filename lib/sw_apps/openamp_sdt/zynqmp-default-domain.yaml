@@ -8,22 +8,22 @@ reserved-memory:
   rproc0@9800000:
     label: rproc0
     start: 0x9800000
-    size: 0x60000
+    size: 0x20000
     no-map: 1
-  vdev0vring0@9860000:
+  vdev0vring0@9880000:
     label: vdev0vring0
-    start: 0x9860000
+    start: 0x9880000
     size: 0x4000
     no-map: 1
-  vdev0vring1@9864000:
+  vdev0vring1@9884000:
     label: vdev0vring1
-    start: 0x9864000
+    start: 0x9884000
     size: 0x4000
     no-map: 1
-  vdev0buffer@9868000:
+  vdev0buffer@9888000:
     label: vdev0buffer
-    start: 0x9868000
-    size: 0x100000
+    start: 0x9888000
+    size: 0x78000
     no-map: 1
   libmetal_elf@9968000:
     label: libmetal_elf
@@ -82,9 +82,9 @@ domains:
           el: 0x3
     os,type: linux
     reserved-memory:
-      - vdev0buffer@9868000
-      - vdev0vring1@9864000
-      - vdev0vring0@9860000
+      - vdev0buffer@9888000
+      - vdev0vring1@9884000
+      - vdev0vring0@9880000
       - rproc0@9800000
     domain-to-domain:
       compatible: openamp,domain-to-domain-v1
@@ -98,7 +98,7 @@ domains:
         compatible: openamp,rpmsg-v1
         relation0:
           remote: R5_0_FREERTOS
-          carveouts: [ vdev0vring0@9860000, vdev0vring1@9864000, vdev0buffer@9868000 ]
+          carveouts: [ vdev0vring0@9880000, vdev0vring1@9884000, vdev0buffer@9888000 ]
           mbox: ipi_7_to_ipi_1
           timer: [ ttc0, ttc1 ]
 
@@ -122,13 +122,17 @@ domains:
     sram:
       - dev: rproc0@9800000
         start: 0x9800000
-        size: 0x6000
-      - dev: psv_r5_0_atcm_global@ffe00000
+        size: 0x20000
+      - dev: psu_r5_0_atcm_global@ffe00000
         size: 64K
+        start: 0xffe00000
+      - dev: psu_r5_0_btcm_global@ffe20000
+        size: 64K
+        start: 0xffe20000
     reserved-memory:
-      - vdev0buffer@9868000
-      - vdev0vring1@9864000
-      - vdev0vring0@9860000
+      - vdev0buffer@9888000
+      - vdev0vring1@9884000
+      - vdev0vring0@9880000
       - rproc0@9800000
     domain-to-domain:
       compatible: openamp,domain-to-domain-v1
@@ -137,7 +141,7 @@ domains:
         relation0:
           host: APU_Linux
           mbox: ipi_1_to_ipi_7
-          carveouts: [ vdev0vring0@9860000, vdev0vring1@9864000, vdev0buffer@9868000 ]
+          carveouts: [ vdev0vring0@9880000, vdev0vring1@9884000, vdev0buffer@9888000 ]
           timer: ttc3
 
   R5_1_BAREMETAL:
