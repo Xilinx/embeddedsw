@@ -96,7 +96,8 @@ For details, see xusb_storage_polled_mode.c.
 
 @subsection Notes
  - These examples are independent from one another. All the examples except the
-the phy_read_write example should include the xusb_cp9.c file.
+phy_read_write example should include the xusb_cp9.c file. The mass
+storage examples should also include the xusb_msc.c file.
  - The constants HID_DEVICES, USB_MOUSE, USB_KEYBOARD and MASS_STORAGE_DEVICE
 defined in the xusb_types.h file are to be used for testing the examples.
  - To run mass storage examples, the constant definition MASS_STORAGE_DEVICE is

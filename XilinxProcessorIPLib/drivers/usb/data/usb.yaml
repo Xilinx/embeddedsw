@@ -42,6 +42,8 @@ examples:
         - dependency_files:
             - xusb_cp9.c
             - xusb_cp9.h
+            - xusb_msc.c
+            - xusb_msc.h
             - xusb_storage.h
             - xusb_types.h
         - interrupts
@@ -78,6 +80,8 @@ examples:
         - dependency_files:
             - xusb_cp9.c
             - xusb_cp9.h
+            - xusb_msc.c
+            - xusb_msc.h
             - xusb_storage.h
             - xusb_types.h
         - interrupts
@@ -86,6 +90,8 @@ examples:
         - dependency_files:
             - xusb_cp9.c
             - xusb_cp9.h
+            - xusb_msc.c
+            - xusb_msc.h
             - xusb_storage.h
             - xusb_types.h
         - reg
