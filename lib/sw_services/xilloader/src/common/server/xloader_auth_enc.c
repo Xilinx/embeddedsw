@@ -185,6 +185,7 @@
 *       mkr  09/08/2026 Fixed discarded-qualifiers GCC warnings
 *       tbk  09/07/26 Bound IHT and partition HashBlockSize in words, PPK and
 *                       HB signature Total/Actual sizes, and reject zero copy lengths
+*       sri  10/05/2026 Use AuthJtagMessagePtr AuthHdr for LMS Auth JTAG signature verify
 *
 * </pre>
 *
@@ -4320,7 +4321,14 @@ int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 	XSecure_HssInitParams HssInitParams;
 	XSecure_LmsSignVerifyParams LmsSignVerifyParams;
 #ifndef VERSAL_2VP_P
-	u32 AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	u32 AuthType;
+
+	if (SecurePtr->AuthJtagMessagePtr != NULL) {
+		AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AuthJtagMessagePtr->AuthHdr);
+	}
+	else {
+		AuthType = XLoader_GetAuthPubAlgo(&SecurePtr->AcPtr->AuthHdr);
+	}
 #else
 	u32 AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
 #endif

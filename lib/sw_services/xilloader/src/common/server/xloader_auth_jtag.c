@@ -24,6 +24,7 @@
 *                       and XLoader_DisableJtagIfOpenedByAuthJtag to lock DAP
 *                       during PLM update
 *       sri  04/24/2026 Added LMS support for authenticated JTAG message
+*       sri  09/22/2026 Initialize PdiPtr and stop writing AuthHdr through NULL for LMS AuthJtag
 *
 * </pre>
 *
@@ -625,6 +626,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	 * XPLMI_PMC_CHUNK_MEMORY_1.
 	 */
 	SecureParams.AuthJtagMessagePtr = (XLoader_AuthJtagMessage *)(UINTPTR)XPLMI_PMCRAM_CHUNK_MEMORY_1;
+	SecureParams.PdiPtr = XLoader_GetPdiInstance();
 
 	Status = XPlmi_MemSetBytes(SecureParams.AuthJtagMessagePtr,
 		sizeof(XLoader_AuthJtagMessage), 0U, sizeof(XLoader_AuthJtagMessage));
@@ -832,8 +834,6 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 			(u8 *)&SpkHash, (XLoader_AuthKey *)KeyData.PpkData, (u8*)KeyData.SPKSignature);
 	}
 	else {
-		SecureParams.AcPtr->AuthHdr = SecureParams.AuthJtagMessagePtr->AuthHdr;
-
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyLmsSignature, &SecureParams,
 			(u8 *)KeyData.SPKSignature,
 			KeyData.SpkHeader->SignatureSize,
@@ -868,8 +868,6 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 			(u8*)KeyData.EnableJtagSignature);
 	}
 	else {
-		SecureParams.AcPtr->AuthHdr = SecureParams.AuthJtagMessagePtr->AuthHdr;
-
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyLmsSignature, &SecureParams,
 			(u8 *)KeyData.EnableJtagSignature,
 			SecureParams.AuthJtagMessagePtr->ActualAuthJtagSignSize,
