@@ -46,12 +46,17 @@
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
  * 5.7   sm   09/23/26 Added Xil_AssertVoid checks to fix GCC warnings
  *			(CR-1276275).
+ * 5.7   sm   10/01/26 Reject out-of-range SCSI READ/WRITE through
+ *			xusb_msc.c. Clear the CSW status and residue for
+ *			each command. Report sense data for failed
+ *			commands in the REQUEST SENSE response.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xusb.h"
 #include "xusb_storage.h"
+#include "xusb_msc.h"
 #include "stdio.h"
 #include "xenv_standalone.h"
 #include "xil_exception.h"
@@ -479,7 +484,8 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 
 
 		if (InstancePtr->DeviceConfig.CurrentSpeed ==
-		    XUSB_EP_HIGH_SPEED) {
+		    XUSB_EP_HIGH_SPEED &&
+		    BlockCount.IntBlockCount) {
 			if (FirstPkt == 0) {
 
 				BlockCount.IntBlockCount--;
@@ -530,7 +536,6 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 		} else {
 			FirstPkt = 0;
 			CmdFlag = 0;
-			CmdStatusBlock.bCSWStatus = CMD_PASSED;
 			CmdStatusBlock.Residue.value = 0;
 
 			if (InstancePtr->Config.DmaEnabled) {
@@ -602,6 +607,15 @@ void ProcessRxCmd(XUsb *InstancePtr)
 	u8 SendResp = FALSE;
 
 	/*
+	 * Sense data describes the last command only, so keep it for a
+	 * REQUEST SENSE and clear it for any other command.
+	 */
+	if (CmdBlock.OpCode != SCSI_REQUEST_SENSE) {
+		XUsb_MsSetSense((u8 *) &Prss, XUSB_MSC_SENSE_KEY_NO_SENSE,
+				0, 0);
+	}
+
+	/*
 	 * Setup status block.
 	 */
 	CmdStatusBlock.dCBWTag = CmdBlock.dCBWTag;
@@ -609,6 +623,8 @@ void ProcessRxCmd(XUsb *InstancePtr)
 	CmdStatusBlock.dCBWSignature[1] = 'S';
 	CmdStatusBlock.dCBWSignature[2] = 'B';
 	CmdStatusBlock.dCBWSignature[3] = 'S';
+	CmdStatusBlock.bCSWStatus = CMD_PASSED;
+	CmdStatusBlock.Residue.value = 0;
 
 	/*
 	 * Process the command.
@@ -736,6 +752,10 @@ void ProcessRxCmd(XUsb *InstancePtr)
 #ifdef XUSB_MS_DEBUG
 				xil_printf("SCSI REMOVAL failed\r\n");
 #endif
+				XUsb_MsSetSense((u8 *) &Prss,
+					XUSB_MSC_SENSE_KEY_ILLEGAL_REQUEST,
+					XUSB_MSC_SENSE_ASC_INVALID_CDB_FIELD,
+					0);
 				CmdStatusBlock.bCSWStatus = CMD_FAILED;
 			} else {
 				CmdStatusBlock.bCSWStatus = CMD_PASSED;
@@ -747,6 +767,9 @@ void ProcessRxCmd(XUsb *InstancePtr)
 			/*
 			 * Set status to failure.
 			 */
+			XUsb_MsSetSense((u8 *) &Prss,
+					XUSB_MSC_SENSE_KEY_ILLEGAL_REQUEST,
+					XUSB_MSC_SENSE_ASC_INVALID_OPCODE, 0);
 			CmdStatusBlock.bCSWStatus = CMD_FAILED;
 			CmdStatusBlock.Residue.value = 0;
 			break;
@@ -782,6 +805,11 @@ void ProcessRxCmd(XUsb *InstancePtr)
 
 		CmdStatusBlock.bCSWStatus = CMD_PASSED;
 		CmdStatusBlock.Residue.value = 0;
+	}
+
+	if (CmdBlock.OpCode == SCSI_REQUEST_SENSE) {
+		XUsb_MsSetSense((u8 *) &Prss, XUSB_MSC_SENSE_KEY_NO_SENSE,
+				0, 0);
 	}
 
 	if (CmdStatusBlock.bCSWStatus != CMD_PASSED) {
@@ -824,7 +852,6 @@ FuncExit:
 	return;
 }
 
-
 /*****************************************************************************/
 /*
  * This function implements the transmission of data from the device to the READ
@@ -863,6 +890,26 @@ void Read10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 	BlockCount.CharBlockCount[2] = pCmdBlock->transfer_length[0];
 	BlockCount.CharBlockCount[3] = pCmdBlock->transfer_length[1];
 #endif
+
+	if (Lba.IntLba >= RAMDISKSECTORS ||
+	    BlockCount.IntBlockCount > (RAMDISKSECTORS - Lba.IntLba)) {
+#ifdef XUSB_MS_DEBUG
+		xil_printf("LBA EXCEEDS DEVICE CAPACITY\r\n");
+#endif
+		/*
+		 * ProcessRxCmd() sends the CSW once CmdFlag is cleared.
+		 */
+		XUsb_MsSetSense((u8 *) &Prss,
+				XUSB_MSC_SENSE_KEY_ILLEGAL_REQUEST,
+				XUSB_MSC_SENSE_ASC_LBA_OUT_OF_RANGE, 0);
+		XUsb_MsRejectCommand(InstancePtr, 1, pCmdBlock->Length.VALUE,
+				     &pStatusBlock->bCSWStatus,
+				     &pStatusBlock->Residue.value,
+				     &BlockCount.IntBlockCount, &CmdFlag,
+				     NULL);
+		goto FuncExit;
+	}
+
 	CmdFlag = READ_COMMAND;
 
 
@@ -986,6 +1033,25 @@ void Write10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 	BlockCount.CharBlockCount[2] = pCmdBlock->transfer_length[0];
 	BlockCount.CharBlockCount[3] = pCmdBlock->transfer_length[1];
 #endif
+
+	if (Lba.IntLba >= RAMDISKSECTORS ||
+	    BlockCount.IntBlockCount > (RAMDISKSECTORS - Lba.IntLba)) {
+#ifdef XUSB_MS_DEBUG
+		xil_printf("LBA EXCEEDS DEVICE CAPACITY\r\n");
+#endif
+		/*
+		 * ProcessRxCmd() sends the failure CSW.
+		 */
+		XUsb_MsSetSense((u8 *) &Prss,
+				XUSB_MSC_SENSE_KEY_ILLEGAL_REQUEST,
+				XUSB_MSC_SENSE_ASC_LBA_OUT_OF_RANGE, 0);
+		XUsb_MsRejectCommand(InstancePtr, 2, pCmdBlock->Length.VALUE,
+				     &pStatusBlock->bCSWStatus,
+				     &pStatusBlock->Residue.value,
+				     &BlockCount.IntBlockCount, &CmdFlag,
+				     NULL);
+		goto FuncExit;
+	}
 
 	while (BlockCount.IntBlockCount) {
 		WrRamDiskPtr = (u8 *) & (RamDisk[Lba.IntLba][0]);

@@ -32,12 +32,16 @@
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
  * 5.7   sm   09/23/26 Added Xil_AssertVoid checks to fix GCC warnings
  *			(CR-1276275).
+ * 5.7   sm   10/01/26 Reject out-of-range SCSI READ/WRITE through
+ *			xusb_msc.c. Clear the CSW status and residue for
+ *			each command.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xusb.h"
 #include "xusb_storage.h"
+#include "xusb_msc.h"
 #include "stdio.h"
 #include "xparameters.h"
 #include "xil_cache.h"
@@ -70,6 +74,7 @@ volatile u8 RdIndex = 0;
 volatile u8 WrIndex = 0;
 
 volatile u32 IntrStatus;
+volatile u8 SendStatus = FALSE;
 /*****************************************************************************/
 /**
  * This main function starts the USB application.
@@ -425,12 +430,13 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 
 	if (CmdFlag == READ_COMMAND) {
 
-
-		if (FirstPkt == 0) {
-			BlockCount.IntBlockCount--;
-			Lba.IntLba++;
+		if (BlockCount.IntBlockCount) {
+			if (FirstPkt == 0) {
+				BlockCount.IntBlockCount--;
+				Lba.IntLba++;
+			}
+			FirstPkt = 1;
 		}
-		FirstPkt = 1;
 
 		if (BlockCount.IntBlockCount > 0) {
 
@@ -457,7 +463,6 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 		} else {
 			FirstPkt = 0;
 			CmdFlag = 0;
-			CmdStatusBlock.bCSWStatus = CMD_PASSED;
 			CmdStatusBlock.Residue.value = 0;
 
 			if (InstancePtr->Config.DmaEnabled) {
@@ -586,7 +591,8 @@ void ProcessRxCmd(XUsb *InstancePtr)
 	u8 Length;
 	u8 *BufPtr;
 	u8 SendResp = FALSE;
-	u8 SendStatus = FALSE;
+
+	SendStatus = FALSE;
 
 	/*
 	 * Setup status block.
@@ -597,6 +603,8 @@ void ProcessRxCmd(XUsb *InstancePtr)
 	CmdStatusBlock.dCBWSignature[1] = 'S';
 	CmdStatusBlock.dCBWSignature[2] = 'B';
 	CmdStatusBlock.dCBWSignature[3] = 'S';
+	CmdStatusBlock.bCSWStatus = CMD_PASSED;
+	CmdStatusBlock.Residue.value = 0;
 
 
 	/*
@@ -817,7 +825,6 @@ FuncExit:
 	return;
 }
 
-
 /*****************************************************************************/
 /*
  * This function implements the transmission of data from the device to the READ
@@ -856,6 +863,20 @@ void Read10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 	BlockCount.CharBlockCount[2] = pCmdBlock->transfer_length[0];
 	BlockCount.CharBlockCount[3] = pCmdBlock->transfer_length[1];
 #endif
+
+	if (Lba.IntLba >= RAMDISKSECTORS ||
+	    BlockCount.IntBlockCount > (RAMDISKSECTORS - Lba.IntLba)) {
+#ifdef XUSB_MS_DEBUG
+		xil_printf("LBA EXCEEDS DEVICE CAPACITY\r\n");
+#endif
+		XUsb_MsRejectCommand(InstancePtr, 1, pCmdBlock->Length.VALUE,
+				     &pStatusBlock->bCSWStatus,
+				     &pStatusBlock->Residue.value,
+				     &BlockCount.IntBlockCount, &CmdFlag,
+				     &SendStatus);
+		goto FuncExit;
+	}
+
 	CmdFlag = READ_COMMAND;
 
 
@@ -942,6 +963,19 @@ void Write10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 	BlockCount.CharBlockCount[2] = pCmdBlock->transfer_length[0];
 	BlockCount.CharBlockCount[3] = pCmdBlock->transfer_length[1];
 #endif
+
+	if (Lba.IntLba >= RAMDISKSECTORS ||
+	    BlockCount.IntBlockCount > (RAMDISKSECTORS - Lba.IntLba)) {
+#ifdef XUSB_MS_DEBUG
+		xil_printf("LBA EXCEEDS DEVICE CAPACITY\r\n");
+#endif
+		XUsb_MsRejectCommand(InstancePtr, 2, pCmdBlock->Length.VALUE,
+				     &pStatusBlock->bCSWStatus,
+				     &pStatusBlock->Residue.value,
+				     &BlockCount.IntBlockCount, &CmdFlag,
+				     &SendStatus);
+		goto FuncExit;
+	}
 
 	CmdFlag = WRITE_COMMAND;
 

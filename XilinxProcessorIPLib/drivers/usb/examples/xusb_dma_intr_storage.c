@@ -32,12 +32,17 @@
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
  * 5.7   sm   09/23/26 Added Xil_AssertVoid checks to fix GCC warnings
  *			(CR-1276275).
+ * 5.7   sm   10/01/26 Reject out-of-range SCSI READ/WRITE through
+ *			xusb_msc.c. Record ResponseSent only after the
+ *			CSW send succeeds. Clear the CSW status and
+ *			residue for each command.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xusb.h"
 #include "xusb_storage.h"
+#include "xusb_msc.h"
 #include "xenv_standalone.h"
 #include "xil_exception.h"
 #include "xil_cache.h"
@@ -661,6 +666,8 @@ void ProcessRxCmd(XUsb *InstancePtr)
 	CmdStatusBlock.dCBWSignature[1] = 'S';
 	CmdStatusBlock.dCBWSignature[2] = 'B';
 	CmdStatusBlock.dCBWSignature[3] = 'S';
+	CmdStatusBlock.bCSWStatus = CMD_PASSED;
+	CmdStatusBlock.Residue.value = 0;
 
 	/*
 	 * Process the command.
@@ -839,18 +846,21 @@ void ProcessRxCmd(XUsb *InstancePtr)
 			xil_printf("SendStatus Failure\n");
 			SendStatus = FALSE;
 			TxDmaTransfer = FALSE;
+			ResponseSent = FALSE;
 		} else {
 			TxDmaTransfer = TRUE;
+			ResponseSent = TRUE;
 		}
 	}
+#ifdef XUSB_MS_DEBUG
 	if (CmdStatusBlock.bCSWStatus != CMD_PASSED) {
 		xil_printf("command failed \r\n");
 	}
+#endif
 
 FuncExit:
 	return;
 }
-
 
 /*****************************************************************************/
 /*
@@ -891,6 +901,20 @@ void Read10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 	BlockCount.CharBlockCount[2] = pCmdBlock->transfer_length[0];
 	BlockCount.CharBlockCount[3] = pCmdBlock->transfer_length[1];
 #endif
+
+	if (Lba.IntLba >= RAMDISKSECTORS ||
+	    BlockCount.IntBlockCount > (RAMDISKSECTORS - Lba.IntLba)) {
+#ifdef XUSB_MS_DEBUG
+		xil_printf("LBA EXCEEDS DEVICE CAPACITY\r\n");
+#endif
+		XUsb_MsRejectCommand(InstancePtr, 1, pCmdBlock->Length.VALUE,
+				     &pStatusBlock->bCSWStatus,
+				     &pStatusBlock->Residue.value,
+				     &BlockCount.IntBlockCount, &CmdFlag,
+				     &SendStatus);
+		goto FuncExit;
+	}
+
 	CmdFlag = READ_COMMAND;
 	RdResponseSent = FALSE;
 	if (BlockCount.IntBlockCount) {
@@ -1001,6 +1025,19 @@ void Write10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock)
 	BlockCount.CharBlockCount[3] = pCmdBlock->transfer_length[1];
 #endif
 
+	if (Lba.IntLba >= RAMDISKSECTORS ||
+	    BlockCount.IntBlockCount > (RAMDISKSECTORS - Lba.IntLba)) {
+#ifdef XUSB_MS_DEBUG
+		xil_printf("LBA EXCEEDS DEVICE CAPACITY\r\n");
+#endif
+		XUsb_MsRejectCommand(InstancePtr, 2, pCmdBlock->Length.VALUE,
+				     &pStatusBlock->bCSWStatus,
+				     &pStatusBlock->Residue.value,
+				     &BlockCount.IntBlockCount, &CmdFlag,
+				     &SendStatus);
+		return;
+	}
+
 	CmdFlag = WRITE_COMMAND;
 
 }
@@ -1017,7 +1054,8 @@ void ReadTransfer(XUsb *InstancePtr)
 {
 
 	if (InstancePtr->DeviceConfig.CurrentSpeed ==
-	    XUSB_EP_HIGH_SPEED) {
+	    XUSB_EP_HIGH_SPEED &&
+	    BlockCount.IntBlockCount) {
 		if (FirstPkt == 0) {
 			BlockCount.IntBlockCount--;
 			Lba.IntLba++;
@@ -1053,7 +1091,6 @@ void ReadTransfer(XUsb *InstancePtr)
 		if (RdResponseSent == FALSE) {
 			Xil_DCacheFlushRange((u32)&CmdStatusBlock,
 					     USBCSW_LENGTH);
-			CmdStatusBlock.bCSWStatus = CMD_PASSED;
 			CmdStatusBlock.Residue.value = 0;
 			if (XUsb_EpDataSend(&UsbInstance, 1,
 					    (unsigned char *) &CmdStatusBlock, USBCSW_LENGTH) == XST_SUCCESS) {
