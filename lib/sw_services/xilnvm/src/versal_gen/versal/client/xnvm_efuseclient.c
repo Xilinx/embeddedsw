@@ -36,6 +36,8 @@
 * 3.7   mb   12/31/2025 Added client API to check AES key CRC
 *       mb   01/06/2026 Added client API to check USER key CRC
 *       tbk  03/20/26 Added SMC support for client applications
+* 3.8   mkr  08/25/2026 Fixed OffChidIdAddr typo and added const to InstancePtr
+*                       in PUF as user fuse APIs
 *
 * </pre>
 *
@@ -785,7 +787,7 @@ END:
  * 		requested by the user.
  *
  * @param	InstancePtr Pointer to the client instance
- * @param	OffChidIdAddr	Address of the output buffer to store the
+ * @param	OffChipIdAddr	Address of the output buffer to store the
  * 				OffChip ID eFuse data
  * @param	OffChipIdNum	OffChip ID number to be read out
  *
@@ -795,7 +797,7 @@ END:
  *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const u64 OffChidIdAddr,
+int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const u64 OffChipIdAddr,
 	const XNvm_OffchipId OffChipIdNum)
 {
 	int Status = XST_FAILURE;
@@ -805,7 +807,7 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (OffChidIdAddr == XIL_UNSIGNED_ZERO)) {
+	if ((InstancePtr == NULL) || (OffChipIdAddr == XIL_UNSIGNED_ZERO)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -814,8 +816,8 @@ int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const 
 	XNVM_PACK_PAYLOAD3(Payload,  (u32)(((InstancePtr->SlrIndex) << XNVM_SLR_INDEX_SHIFT)
 				| (u32)XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID),
 				OffChipIdNum,
-				OffChidIdAddr,
-				(OffChidIdAddr >> XNVM_ADDR_HIGH_SHIFT));
+				OffChipIdAddr,
+				(OffChipIdAddr >> XNVM_ADDR_HIGH_SHIFT));
 
 	/** - Send request using generic API */
 	Status = XNvm_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
@@ -965,7 +967,7 @@ END:
  *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
+int XNvm_EfuseWritePufAsUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
@@ -1006,7 +1008,7 @@ END:
  *		- XST_FAILURE  If there is a failure
  *
  ******************************************************************************/
-int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
+int XNvm_EfuseReadPufAsUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr)
 {
 	int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];

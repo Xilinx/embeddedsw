@@ -104,6 +104,9 @@
 *       obs  03/26/2026 Replaced XSysMonPsv types with XNvm_SysmonPsv
 *       mb   04/23/2026 Remove unused macros and variables
 * 3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
+*       mkr  10/03/2026 Renamed affected error codes to XNVM_EFUSE_ERR_ prefix
+*                       and removed duplicate XNVM_EFUSE_WORD_LEN macro, now
+*                       defined in xnvm_common_defs.h
 *
 * </pre>
 *
@@ -133,7 +136,6 @@
 #define XNVM_EFUSE_TOTAL_NUM_OF_ROWS		(768U) /**< Efuse total number of rows */
 #define XNVM_EFUSE_TOTAL_PPK_HASH_ROWS  (XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS * 3U)
 				/**< PPK hash number of eFuse rows */
-#define XNVM_EFUSE_WORD_LEN			(4U) /**< eFuse word length */
 #define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU) /**< Default secure value for 32 bit */
 #define XNVM_NUM_OF_CACHE_ADDR_PER_PAGE		(0x400U)  /**< Number of cache addresses per page */
 #define XNVM_EFUSE_PPK_3_PPK_4_ENABLE       (0x00030000U) /**< PPK3 and PPK4 enable bits mask*/
@@ -2157,7 +2159,7 @@ END :
  *
  * @return
  *		- XST_SUCCESS  Specified bit set in eFUSE.
- *		- XNVM_EFUSE_ERROR_INVALID_PARAM  Invalid Parameter.
+ *		- XNVM_EFUSE_ERR_INVALID_PARAM  Invalid Parameter.
  *		- XNVM_EFUSE_ERR_WRITE_AES_DIS  Error while writing AES_DIS
  *		- XNVM_EFUSE_ERR_WRITE_PPK0_WR_LK  Error while writing PPK0_WR_LK.
  *		- XNVM_EFUSE_ERR_WRITE_PPK1_WR_LK  Error while writing PPK1_WR_LK.
@@ -5346,7 +5348,7 @@ END:
  * @return
  *		- XST_SUCCESS  On Successful read.
  *		- XST_FAILURE  On Read failure
- *		- XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED  On enable bits are not set.
+ *		- XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED  On enable bits are not set.
  *
  ******************************************************************************/
 static int XNvm_EfuseIsAdditionalPpkEn(void)
@@ -5370,7 +5372,7 @@ static int XNvm_EfuseIsAdditionalPpkEn(void)
 	ReadRegTmp = ReadRegTmp & XNVM_EFUSE_PPK_3_PPK_4_ENABLE;
 
 	if ((ReadReg == 0x0U) || (ReadRegTmp == 0x0U)) {
-		Status = (int)XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED;
+		Status = (int)XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED;
 		goto END;
 	}
 END:
@@ -5388,7 +5390,7 @@ END:
  * @return
  *		- XST_SUCCESS  If programming is successful.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM  On Invalid Parameter.
- *		- XNVM_ERR_WRITE_PUF_USER_DATA  On Invalid user data
+ *		- XNVM_EFUSE_ERR_WRITE_PUF_USER_DATA  On Invalid user data
  *
  * @note By default PUF eFuses are used for PUF helper data
  *       To program PUF eFuses as general purpose efuses user needs to enable
@@ -5430,7 +5432,7 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses)
 			XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS - 1U) {
 			if ((WritePufFuses->PufFuseData[Row - StartRow] &
 				XNVM_PUF_ROW_UPPER_NIBBLE_MASK) != 0x00U) {
-				Status = (int)XNVM_ERR_WRITE_PUF_USER_DATA;
+				Status = (int)XNVM_EFUSE_ERR_WRITE_PUF_USER_DATA;
 				goto END;
 			}
 		}
@@ -6017,7 +6019,7 @@ END:
  * @return
  *		- XST_SUCCESS  If additional PPK validation is successful.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM  Error when invalid param is passed.
- *		- XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED  Error when additional PPK enable bit is neither
+ *		- XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED  Error when additional PPK enable bit is neither
  *                             programmed/requested.
  *		- XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED  Error when PPK0/PPK1/PPK2 are neither
  *                            programmed/requested.
@@ -6063,12 +6065,12 @@ static int XNvm_EfuseValidateAdditionalPpkWriteReq(const XNvm_EfuseData *WriteCh
 			if (WriteChecks->MiscCtrlBits != NULL) {
 			/** - Allow additional PPK programming only when additional PPK enable is being programmed */
 				if (WriteChecks->MiscCtrlBits->AdditionalPpkEn != TRUE) {
-					Status = (int)XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED;
+					Status = (int)XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED;
 					goto END;
 				}
 			}
 			else {
-				Status = (int)XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED;
+				Status = (int)XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED;
 				goto END;
 			}
 		}

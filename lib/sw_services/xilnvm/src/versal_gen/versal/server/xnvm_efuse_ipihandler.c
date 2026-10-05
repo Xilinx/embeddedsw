@@ -40,6 +40,9 @@
 * 3.8	rpu  08/17/2026 Fixed user fuse write to use XNvm_EfuseUserDataAddr
 *       rpu  08/26/2026 Added parameter validation for user fuse IPI write
 *       rap  09/22/2026 Added RowCount overflow check in XNvm_EfuseRead
+*       mkr  10/03/2026 Renamed affected error codes to XNVM_EFUSE_ERR_ prefix
+*                       and removed duplicate XNVM_EFUSE_WORD_LEN macro, now
+*                       defined in xnvm_common_defs.h
 *
 * </pre>
 *
@@ -69,7 +72,6 @@
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 #define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U) /**< Number of PUF fuses available for user data */
 #endif
-#define XNVM_EFUSE_WORD_LEN		(4U)	/**< eFuse word length */
 
 /************************** Function Prototypes *****************************/
 static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
@@ -270,7 +272,7 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	XNvm_EfuseAdditionalPpkHash AdditionalPpkHash __attribute__ ((aligned (32U)));
 #endif
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EfuseDataAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EfuseDataAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = Xil_SMemSet(&EfuseData, sizeof(XNvm_EfuseData), 0U, sizeof(XNvm_EfuseData));
 	if (Status != XST_SUCCESS) {
@@ -284,44 +286,44 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	 * - Validate internal address fields in the copied structure
 	 */
 	if (EfuseDataAddr.AesKeyAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.AesKeyAddr, sizeof(XNvm_EfuseAesKeys), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.AesKeyAddr, sizeof(XNvm_EfuseAesKeys), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.PpkHashAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.PpkHashAddr, sizeof(XNvm_EfusePpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.PpkHashAddr, sizeof(XNvm_EfusePpkHash), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.DecOnlyAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.DecOnlyAddr, sizeof(XNvm_EfuseDecOnly), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.DecOnlyAddr, sizeof(XNvm_EfuseDecOnly), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.SecCtrlAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.SecCtrlAddr, sizeof(XNvm_EfuseSecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.SecCtrlAddr, sizeof(XNvm_EfuseSecCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.MiscCtrlAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.MiscCtrlAddr, sizeof(XNvm_EfuseMiscCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.MiscCtrlAddr, sizeof(XNvm_EfuseMiscCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.RevokeIdAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.RevokeIdAddr, sizeof(XNvm_EfuseRevokeIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.RevokeIdAddr, sizeof(XNvm_EfuseRevokeIds), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.IvAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.IvAddr, sizeof(XNvm_EfuseIvs), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.IvAddr, sizeof(XNvm_EfuseIvs), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.UserFuseAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.UserFuseAddr, sizeof(XNvm_EfuseUserDataAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.UserFuseAddr, sizeof(XNvm_EfuseUserDataAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.GlitchCfgAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.GlitchCfgAddr, sizeof(XNvm_EfuseGlitchCfgBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.GlitchCfgAddr, sizeof(XNvm_EfuseGlitchCfgBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.BootEnvCtrlAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.BootEnvCtrlAddr, sizeof(XNvm_EfuseBootEnvCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.BootEnvCtrlAddr, sizeof(XNvm_EfuseBootEnvCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.Misc1CtrlAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.Misc1CtrlAddr, sizeof(XNvm_EfuseSecMisc1Bits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.Misc1CtrlAddr, sizeof(XNvm_EfuseSecMisc1Bits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 	if (EfuseDataAddr.OffChipIdAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.OffChipIdAddr, sizeof(XNvm_EfuseOffChipIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.OffChipIdAddr, sizeof(XNvm_EfuseOffChipIds), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 #ifdef XNVM_EN_ADD_PPKS
 	if (EfuseDataAddr.AdditionalPpkHashAddr != 0U) {
-		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.AdditionalPpkHashAddr, sizeof(XNvm_EfuseAdditionalPpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EfuseDataAddr.AdditionalPpkHashAddr, sizeof(XNvm_EfuseAdditionalPpkHash), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 	}
 #endif
 
@@ -425,7 +427,7 @@ static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 		 * - Validate internal address field for user fuse data
 		 */
 		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UserFusesAddr.UserFuseDataAddr,
-			UserData.NumOfUserFuses * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+			UserData.NumOfUserFuses * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)UserFuseArr,
 				UserFusesAddr.UserFuseDataAddr,
@@ -499,7 +501,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	XNvm_EfusePufFuse PufUserFuse;
 	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES];
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufFuseAddr, Addr,
 			sizeof(PufFuseAddr));
@@ -508,7 +510,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	 * - Validate internal address field for PUF fuse data
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufFuseAddr.PufFuseDataAddr,
-		PufFuseAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		PufFuseAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	PufUserFuse.EnvMonitorDis = PufFuseAddr.EnvMonitorDis;
 	PufUserFuse.PrgmPufFuse = PufFuseAddr.PrgmPufFuse;
@@ -557,7 +559,7 @@ static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	u32 PufFusesArr[XNVM_EFUSE_NUM_OF_PUF_FUSES];
 	XNvm_EfusePufFuse PufUserFuse;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFusesAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFusesAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufFusesAddr, Addr,
 			sizeof(PufFusesAddr));
@@ -566,7 +568,7 @@ static int XNvm_EfusePufUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	 * - Validate internal address field for PUF fuse data
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufFusesAddr.PufFuseDataAddr,
-		PufFusesAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		PufFusesAddr.NumOfPufFusesRows * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	PufUserFuse.StartPufFuseRow = PufFusesAddr.StartPufFuseRow;
 	PufUserFuse.NumOfPufFusesRows = PufFusesAddr.NumOfPufFusesRows;
@@ -606,7 +608,7 @@ int XNvm_EfusePufWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	XNvm_EfusePufHdAddr PufHdAddr;
 	XNvm_EfusePufHd PufHd;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufHdAddr, Addr,
 			sizeof(PufHdAddr));
@@ -669,7 +671,7 @@ static int XNvm_EfusePufRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh) {
 	XNvm_EfusePufHdAddr PufHdAddr = {0U};
 	XNvm_EfusePufHd PufHd;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadPuf(&PufHd);
 	if (Status != XST_SUCCESS) {
@@ -720,7 +722,7 @@ static int XNvm_EfuseIvRead(u32 SubsystemId, XNvm_IvType IvType, u32 AddrLow, u3
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_Iv Iv;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(Iv), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(Iv), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadIv(&Iv, IvType);
 	if (Status != XST_SUCCESS) {
@@ -757,7 +759,7 @@ static int XNvm_EfuseRevocationIdRead(u32 SubsystemId, XNvm_RevocationId RevokeI
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 RevocationId;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RevocationId), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RevocationId), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadRevocationId(&RevocationId, RevokeIdNum);
 	if (Status != XST_SUCCESS) {
@@ -796,7 +798,7 @@ static int XNvm_EfuseUserFusesRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	u32 UserFuseData[XNVM_NUM_OF_USER_FUSES];
 	XNvm_EfuseUserData UserData;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(UserFuses), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(UserFuses), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&UserFuses, Addr,
 			sizeof(UserFuses));
@@ -841,7 +843,7 @@ static int XNvm_EfusePpkHashRead(u32 SubsystemId, XNvm_PpkType PpkHashType,
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_PpkHash PpkHash;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PpkHash), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadPpkHash(&PpkHash, PpkHashType);
 	if (Status != XST_SUCCESS) {
@@ -877,7 +879,7 @@ static int XNvm_EfuseMiscCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(MiscCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(MiscCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadMiscCtrlBits(&MiscCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -914,7 +916,7 @@ static int XNvm_EfuseSecCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseSecCtrlBits SecCtrlBits;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadSecCtrlBits(&SecCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -951,7 +953,7 @@ static int XNvm_EfuseSecMisc1BitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseSecMisc1Bits SecMisc1Bits;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecMisc1Bits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecMisc1Bits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadSecMisc1Bits(&SecMisc1Bits);
 	if (Status != XST_SUCCESS) {
@@ -988,7 +990,7 @@ static int XNvm_EfuseBootEnvCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrH
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfuseBootEnvCtrlBits BootEnvCtrlBits;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(BootEnvCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(BootEnvCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadBootEnvCtrlBits(&BootEnvCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -1025,7 +1027,7 @@ static int XNvm_EfusePufCtrlBitsRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_EfusePufSecCtrlBits PufSecCtrlBits;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufSecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufSecCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadPufSecCtrlBits(&PufSecCtrlBits);
 	if (Status != XST_SUCCESS) {
@@ -1063,7 +1065,7 @@ static int XNvm_EfuseOffChipIdRead(u32 SubsystemId, XNvm_OffchipId IdNum, u32 Ad
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 OffChipId;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(OffChipId), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(OffChipId), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadOffchipRevokeId(&OffChipId, IdNum);
 	if (Status != XST_SUCCESS) {
@@ -1098,7 +1100,7 @@ static int XNvm_EfuseDecEfuseOnlyRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 DecOnly;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(DecOnly), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(DecOnly), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadDecOnly(&DecOnly);
 	if (Status != XST_SUCCESS) {
@@ -1135,7 +1137,7 @@ static int XNvm_EfuseDnaRead(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	u64 Addr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	XNvm_Dna EfuseDna;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EfuseDna), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(EfuseDna), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Status = XNvm_EfuseReadDna(&EfuseDna);
 	if (Status != XST_SUCCESS) {
@@ -1313,7 +1315,7 @@ int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 S
 	u64 ReadDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 	u32 RowCount = (u32)(Size / XNVM_EFUSE_WORD_LEN);
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReadDataAddr, Size, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReadDataAddr, Size, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	/* RowCount is passed as u8; reject requests that would overflow it */
 	if (RowCount > 0xFFU) {
@@ -1343,7 +1345,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1353,7 +1355,7 @@ static int XNvm_EfuseIvWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 	XNvm_EfuseIvs Ivs = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(Ivs), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(Ivs), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1382,7 +1384,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1392,7 +1394,7 @@ static int XNvm_EfuseSecMisc1WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 	XNvm_EfuseSecMisc1Bits SecMisc1Bits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecMisc1Bits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecMisc1Bits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1422,7 +1424,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1432,7 +1434,7 @@ static int XNvm_EfuseAnlgTrimWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 	XNvm_EfuseGlitchCfgBits GlitchCfgBits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(GlitchCfgBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(GlitchCfgBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1462,7 +1464,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1472,7 +1474,7 @@ static int XNvm_EfuseBootEnvCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMon
 	XNvm_EfuseBootEnvCtrlBits BootEnvCtrl = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(BootEnvCtrl), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(BootEnvCtrl), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1502,7 +1504,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1513,7 +1515,7 @@ static int XNvm_EfusePufWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 	XNvm_EfusePufHd PufHd = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufHdAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1557,7 +1559,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1567,7 +1569,7 @@ static int XNvm_EfuseSecMisc0WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 	XNvm_EfuseDecOnly DecOnly = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(DecOnly), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(DecOnly), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1596,7 +1598,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1606,7 +1608,7 @@ static int XNvm_EfuseAesKeysWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 	XNvm_EfuseAesKeys AesKeys = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesKeys), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(AesKeys), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1637,7 +1639,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1647,7 +1649,7 @@ static int XNvm_EfuseOffChipIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMoni
 	XNvm_EfuseOffChipIds OffChipIds = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(OffChipIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(OffChipIds), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1677,7 +1679,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1687,7 +1689,7 @@ static int XNvm_EfuseRevokeIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonit
 	XNvm_EfuseRevokeIds RevokeIds = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RevokeIds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(RevokeIds), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1717,7 +1719,7 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1727,7 +1729,7 @@ static int XNvm_EfusePpkhashWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 	XNvm_EfusePpkHash PpkHash = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PpkHash), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1759,7 +1761,7 @@ END:
  * @return
  * 		- XST_SUCCESS - If the write is successful
  * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1772,7 +1774,7 @@ static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 	u32 UserFuseArr[XNVM_NUM_OF_USER_FUSES] __attribute__ ((aligned (32U))) = {0U};
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(XNvm_EfuseUserDataAddr),
-		Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1810,7 +1812,7 @@ static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UserFusesAddr.UserFuseDataAddr,
 		UserData.NumOfUserFuses * XNVM_WORD_LEN,
-		Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+		Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)UserFuseArr,
 			UserFusesAddr.UserFuseDataAddr,
@@ -1839,8 +1841,8 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
- * 		- XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED - On access disabled
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED - On access disabled
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1850,7 +1852,7 @@ static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 	XNvm_EfuseMiscCtrlBits MiscCtrlBits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(MiscCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(MiscCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1865,7 +1867,7 @@ static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 #ifndef XNVM_WRITE_KEY_MANAGEMENT_EFUSE
 	if ((EfuseData.MiscCtrlBits->Ppk0Invalid != 0U) || (EfuseData.MiscCtrlBits->Ppk1Invalid != 0U) ||
 	    (EfuseData.MiscCtrlBits->Ppk2Invalid != 0U)) {
-		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		Status = XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED;
 		goto END;
 	}
 #endif
@@ -1875,7 +1877,7 @@ static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 	    || (EfuseData.MiscCtrlBits->HaltBootError != 0U) ||
 	    (EfuseData.MiscCtrlBits->HaltBootEnv != 0U) || (EfuseData.MiscCtrlBits->CryptoKatEn != 0U) ||
 	    (EfuseData.MiscCtrlBits->LbistEn != 0U) || (EfuseData.MiscCtrlBits->SafetyMissionEn != 0U)) {
-		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		Status = XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED;
 		goto END;
 	}
 #endif
@@ -1898,8 +1900,8 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the write is successful
- * 		- XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE - On invalid address range
- * 		- XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED - On access disabled
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On invalid address range
+ * 		- XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED - On access disabled
  * 		- XST_FAILURE - On memory copy failure
  *
  *****************************************************************************/
@@ -1909,7 +1911,7 @@ static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 	XNvm_EfuseSecCtrlBits SecCtrlBits = {0U};
 	XNvm_EfuseData EfuseData = {0U};
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecCtrlBits), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(SecCtrlBits), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
@@ -1927,7 +1929,7 @@ static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 	    (EfuseData.SecCtrlBits->AesWrLk != 0U) || (EfuseData.SecCtrlBits->AesCrcLk != 0U) ||
 	    (EfuseData.SecCtrlBits->Ppk2WrLk != 0U) || (EfuseData.SecCtrlBits->Ppk1WrLk != 0U) ||
 	    (EfuseData.SecCtrlBits->Ppk0WrLk != 0U)) {
-		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		Status = XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED;
 		goto END;
 	}
 #endif
@@ -1938,7 +1940,7 @@ static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 	    (EfuseData.SecCtrlBits->SecDbgDis != 0U) || (EfuseData.SecCtrlBits->SecLockDbgDis != 0U) ||
 	    (EfuseData.SecCtrlBits->PmcScEn != 0U) || (EfuseData.SecCtrlBits->BootEnvWrLk != 0U) ||
 	    (EfuseData.SecCtrlBits->RegInitDis != 0U)) {
-		Status = XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED;
+		Status = XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED;
 		goto END;
 	}
 #endif

@@ -25,6 +25,9 @@
 * 3.2   vss  09/19/23 Fixed MISRA-C Rule 2.5 violaion
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
 * 3.7   mb   12/31/2025 Added client API XNvm_EfuseCheckAesKeyCrc to check AES key CRC
+* 3.8   mkr  08/25/2026 Fixed OffChidIdAddr typo, added const to InstancePtr
+*                       in PUF as user fuse prototypes, and removed duplicate
+*                       XNVM_WORD_LEN macro
 *
 * </pre>
 *
@@ -59,7 +62,6 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XNVM_WORD_LEN		(4U) /**< Word length*/
 
 /************************** Function Prototypes ******************************/
 int XNvm_EfuseWrite(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr);
@@ -75,14 +77,14 @@ int XNvm_EfuseReadSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 
 int XNvm_EfuseReadSecMisc1Bits(const XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits);
 int XNvm_EfuseReadBootEnvCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits);
 int XNvm_EfuseReadPufSecCtrlBits(const XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits);
-int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const u64 OffChidIdAddr, const XNvm_OffchipId OffChipIdNum);
+int XNvm_EfuseReadOffchipRevokeId(const XNvm_ClientInstance *InstancePtr, const u64 OffChipIdAddr, const XNvm_OffchipId OffChipIdNum);
 int XNvm_EfuseReadPpkHash(const XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType);
 int XNvm_EfuseReadDecOnly(const XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr);
 int XNvm_EfuseReadDna(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr);
 int XNvm_EfuseAesKeyCrcCheck(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc, const XNvm_AesKeyType AesKeyType);
 #ifdef XNVM_ACCESS_PUF_USER_DATA
-int XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance *InstancePtr, u64 PufUserFuseAddr);
-int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
+int XNvm_EfuseWritePufAsUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
+int XNvm_EfuseReadPufAsUserFuses(const XNvm_ClientInstance *InstancePtr, const u64 PufUserFuseAddr);
 #else
 int XNvm_EfuseWritePuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr);
 int XNvm_EfuseReadPuf(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr);

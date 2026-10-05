@@ -39,6 +39,8 @@
 * 3.8   mkr  07/20/2026 Removed XNVM_CL_MAX_COUNT_VAL definition and added in common to make it
                         available for both client and server.
 * 3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
+*       mkr  10/03/2026 Widened KeyLen parameter of XNvm_BbramWriteAesKey from
+*                       u16 to u32 to match the size type used by the callers
 *
 * </pre>
 *
@@ -141,7 +143,7 @@ static int XNvm_BbramWriteBbram8(u32 Data);
  * 		- XNVM_BBRAM_ERROR_AES_CRC_MISMATCH  CRC mismatch.
  *
  ******************************************************************************/
-int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen)
+int XNvm_BbramWriteAesKey(const u8* Key, u32 KeyLen)
 {
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;

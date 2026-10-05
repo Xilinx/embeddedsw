@@ -32,6 +32,8 @@
 *       obs  03/26/2026 Replaced XSysMonPsv driver APIs with direct register
 *                       access via XPlmi_SysMon helpers
 * 3.8   rap  09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
+*       mkr  10/03/2026 Fixed Temparature typo, renamed error codes to XNVM_EFUSE_ERR_ prefix,
+*                       fixed doxygen comments, and removed duplicate XNVM_EFUSE_WORD_LEN
 *
 * </pre>
 *
@@ -71,7 +73,6 @@
 #define XNVM_EFUSE_SYSMON_NUM_SUPPLIES_PER_FLAG	(32U)   /**< Sysmon number of supplies per flag */
 #define XNVM_EFUSE_SYSMONPSV_TIMEOUT		(100000U) /**< Sysmon Psv timeout value */
 #define XNVM_EFUSE_FRACTION_MUL_VALUE		(1000000U) /**< Fraction multiplier value */
-#define XNVM_EFUSE_WORD_LEN			(4U)     /**< eFuse word length */
 /** @} */
 
 /***************************** Type Definitions *******************************/
@@ -81,7 +82,7 @@
 
 /*************************** Function Prototypes ******************************/
 static int XNvm_EfusePmcVoltageCheck(float Voltage);
-static int XNvm_EfuseTemparatureCheck(float Temparature);
+static int XNvm_EfuseTemperatureCheck(float Temperature);
 
 /*************************** Variable Definitions *****************************/
 
@@ -486,12 +487,14 @@ END :
  * @brief	This function checks device Temperature for
  * 		LP,MP and HP devices based on the Efuse value.
  *
+ * @param	Temperature	Device temperature to be checked against thresholds.
+ *
  * @return
  *		- XST_SUCCESS  On Temperature within thresholds.
  *		- XST_FAILURE  On Temperature not within thresholds.
  *
  ******************************************************************************/
-static int XNvm_EfuseTemparatureCheck(float Temparature)
+static int XNvm_EfuseTemperatureCheck(float Temperature)
 {
 	int Status = XST_FAILURE;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
@@ -556,7 +559,7 @@ static int XNvm_EfuseTemparatureCheck(float Temparature)
 		TempMin = XNVM_EFUSE_TEMP_MP_MIN;
 	}
 
-	if ((Temparature < TempMin) || (Temparature > TempMax)) {
+	if ((Temperature < TempMin) || (Temperature > TempMax)) {
 		Status = XST_FAILURE;
 	}
 	else {
@@ -571,6 +574,8 @@ END:
 /**
  * @brief	This function checks VCC_PMC voltage checks for
  * 		LP,MP and HP devices based on the Efuse value.
+ *
+ * @param	Voltage		VCC_PMC voltage to be checked against thresholds.
  *
  * @return
  *		- XST_SUCCESS  On VCC_PMC within thresholds.
@@ -706,9 +711,12 @@ u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
  *
  * @return
  * 		- XST_SUCCESS - On successful Voltage and Temperature checks.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Input validation failure.
- * 		- XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is out of range
- * 		- XNVM_EFUSE_ERROR_READ_TEMPERATURE_OUT_OF_RANGE - Temperature is out of range
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - SysMonInstPtr is NULL or the
+ * 						SysMon instance is not ready.
+ * 		- XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE - Voltage is out of range
+ * 		- XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE - Temperature is out of range
+ * 		- XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED - No sysmon supply is enabled for monitoring
+ * 		- XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA - No new sysmon measurement data is available
  *
  ******************************************************************************/
 int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
@@ -722,7 +730,7 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 	int FractionalPart;
 	int IntegralPart;
 	float Voltage;
-	float Temparature;
+	float Temperature;
 	u32 Offset;
 	u32 Shift;
 	char Signchar = ' ';
@@ -755,7 +763,7 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 	 * - If supply register id is 0xFFFFFFFF, supply is not enabled, return error.
 	 */
 	if (SupplyReg == XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET) {
-		Status = (int)XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED;
+		Status = (int)XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED;
 		goto END;
 	}
 
@@ -772,7 +780,7 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 		Offset + XNVM_SYSMON_NEW_DATA_FLAG0), SysmonEventsMask,
 		SysmonEventsMask, XNVM_EFUSE_SYSMONPSV_TIMEOUT, &ReadReg);
 	if(Status != XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA;
+		Status = (int)XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA;
 		goto END;
 	}
 	else {
@@ -807,7 +815,7 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 		 */
 		Status = XNvm_EfusePmcVoltageCheck(Voltage);
 		if (Status != XST_SUCCESS) {
-			Status = (int)XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE;
+			Status = (int)XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE;
 			goto END;
 		}
 	}
@@ -816,14 +824,14 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 	 */
 	RawTemp = Xil_In32(SysMonInstPtr->Config.BaseAddress +
 			XNVM_SYSMON_TEMP_SAT);
-	Temparature = XNvm_SysMon_FixedToFloat(RawTemp);
+	Temperature = XNvm_SysMon_FixedToFloat(RawTemp);
 
-	if (Temparature < 0.0f) {
+	if (Temperature < 0.0f) {
 		Signchar = '-';
 	}
 
-	IntegralPart = (int)Temparature;
-	FractionalPart = (int)((Temparature - (float)IntegralPart) *
+	IntegralPart = (int)Temperature;
+	FractionalPart = (int)((Temperature - (float)IntegralPart) *
 				(float)XNVM_EFUSE_FRACTION_MUL_VALUE);
 
 	/**
@@ -839,9 +847,9 @@ int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 	 * - Check for temperature operating limits.
 	 * Return error if temperature is not within operating limits.
 	 */
-	Status = XNvm_EfuseTemparatureCheck(Temparature);
+	Status = XNvm_EfuseTemperatureCheck(Temperature);
 	if (Status != XST_SUCCESS) {
-		Status = (int)XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+		Status = (int)XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE;
 	}
 	else {
 		Status = XST_SUCCESS;

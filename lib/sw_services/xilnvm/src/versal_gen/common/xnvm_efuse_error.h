@@ -27,6 +27,8 @@
 *       ng   11/22/23 Fixed doxygen grouping
 * 3.5   har  12/04/24 Added error code XNVM_EFUSE_ERR_AES_DISABLED
 * 3.6   hj   04/15/25 Remove zero IV check in dec_only fuse programming
+* 3.8   mkr  08/26/26 Fixed TMEPERATURE typo and renamed affected error codes
+*                     to XNVM_EFUSE_ERR_ prefix
 *
 * </pre>
 *
@@ -203,22 +205,22 @@ typedef enum {
 						* Programming, no data is
 						* provided for Programming.
 						* All Data pointers are NULL */
-	XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE = 0xF100,/**<0xF100 - Error
+	XNVM_EFUSE_ERR_READ_TEMPERATURE_OUT_OF_RANGE = 0xF100,/**<0xF100 - Error
 						* before programming eFuse,
 						* Temperature is out of range */
-	XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE = 0xF200,/**<0xF200 - Error
+	XNVM_EFUSE_ERR_READ_VOLTAGE_OUT_OF_RANGE = 0xF200,/**<0xF200 - Error
 						* before programming eFuse,
 						* Voltage is out of range */
-	XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED = 0xF300,/**<0xF300 - Error
+	XNVM_EFUSE_ERR_NO_SUPPLIES_ENABLED = 0xF300,/**<0xF300 - Error
 						* before programming eFuse,
 						* no supplies are enabled */
-	XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
+	XNVM_EFUSE_ERR_SYSMON_NO_NEW_DATA = 0xF400,/**<0xF400 - Error
 						* before programming eFuse,
 						* new data is not available */
-	XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED = 0xFA00,/**<0xFA00 - Error
+	XNVM_EFUSE_ERR_EFUSE_ACCESS_DISABLED = 0xFA00,/**<0xFA00 - Error
 						* when eFuse access,
 						* is not enabled */
-	XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE =	0xFB00,/**<0xFB00 - Error
+	XNVM_EFUSE_ERR_INVALID_ADDR_RANGE =	0xFB00,/**<0xFB00 - Error
 						* when accessed address range,
 						* of eFuse is invalid */
 	XNVM_EFUSE_ERR_GLITCH_DETECTED = 0x20000,/**<0x20000

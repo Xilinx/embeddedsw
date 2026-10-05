@@ -22,6 +22,7 @@
 * 3.2   kum  04/11/2023 Moved env error codes to common xnvm_efuse_error.h
 * 3.3   kpt  04/03/2024 Updated error code description
 *       ng   11/22/2023 Fixed doxygen grouping
+* 3.8   mkr  08/25/2026 Renamed affected error codes to XNVM_EFUSE_ERR_ prefix
 *
 * </pre>
 *
@@ -156,7 +157,7 @@ typedef enum {
 						* BOOTENV_WR_LK
 						* efuse programming */
 	XNVM_EFUSE_ERR_WRITE_CACHE_WR_LK = 0xA400,/**<0xA400 - Error in
-						* SVD_WR_LK
+						* CACHE_WR_LK
 						* efuse programming */
 	XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_0 = 0xA500,/**<0xA500 - Error in
 						* REG_INIT_DIS_BIT_0
@@ -195,7 +196,7 @@ typedef enum {
 						 * PPK3hash programming */
 	XNVM_EFUSE_ERR_WRITE_PPK4_HASH = 0xC400,/**<0xC400 - Error in
 						 * PPK4hash programming */
-	XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED = 0xC500,/**<0xC500 - Error
+	XNVM_EFUSE_ERR_5_PPKS_FEATURE_NOT_SUPPORTED = 0xC500,/**<0xC500 - Error
 							  * Additional ppk enable bits
 							  * are neither programmed/requested */
 	XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0 = 0xC600,/**<0xC600 - Error in
@@ -222,10 +223,6 @@ typedef enum {
 	XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED = 0xCE00,/**<0xCE00 - Error while programming
 	                          * additional PPK's PPK0/PPK1/PPK2 are neither
 							  * programmed/requested */
-	XNVM_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
-						* When user chooses PUF efuses as user efuses
-						* data provided for last row
-						* i.e row 255 is not valid */
 	XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS = 0xD000,/**<0xD000 - Error in
 						* reading Sec Ctrl efuses */
 	XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS = 0xD100,/**<0xD100 - Error in
@@ -298,6 +295,10 @@ typedef enum {
 	XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS = 0xEF00,/**<0xEF00 - Error in
 						* programming of ROM flow control halt boot
 						* bits for generic and environment errors*/
+	XNVM_EFUSE_ERR_WRITE_PUF_USER_DATA = 0x10000, /**< 0x10000
+						* When user chooses PUF efuses as user efuses
+						* data provided for last row
+						* i.e row 255 is not valid */
 } XNvm_EfuseVersalErrorCodes;
 
 /*************************** Function Prototypes ******************************/

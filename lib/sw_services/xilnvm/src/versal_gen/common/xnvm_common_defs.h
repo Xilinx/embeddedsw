@@ -23,8 +23,10 @@
 *       ng   11/22/2023 Fixed doxygen grouping
 * 3.8   rpu  07/06/26 Clean up PPK hash length macros
 *       mkr  07/20/26 Moved XNVM_CL_MAX_COUNT_VAL definition from xnvm_bbram.c to xnvm_common_defs.h
-                      to make it available for both client and server.
+*                     to make it available for both client and server.
 *       tus  08/19/26 Added XilNvm capability bit enum
+*       mkr  08/25/26 Removed duplicate XNVM_WORD_LEN, added consolidated
+*                     XNVM_EFUSE_WORD_LEN
 *
 * </pre>
 *
@@ -59,9 +61,9 @@ extern "C" {
 #define XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS	(127U)	/**< PUF syndrome data formatted */
 #define XNVM_NUM_OF_REVOKE_ID_FUSES			(8U)	/**< Number of revocation ID eFuses */
 #define XNVM_NUM_OF_OFFCHIP_ID_FUSES			(8U)	/**< Number of offchip revocation ID eFuses */
+#define XNVM_EFUSE_WORD_LEN				(4U)	/**< eFuse word length */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_WORDS			(8U)	/**< AES key length in words */
 #define XNVM_EFUSE_IV_LEN_IN_WORDS                      (3U)	/**< eFuse IV length in words */
-#define XNVM_WORD_LEN					(4U)	/**< WORD length */
 #ifndef VERSAL_2VE_2VM
 #define XNVM_EFUSE_PPK_HASH_LEN_IN_BYTES		(32U)
 	/**< PPK hash length in bytes for Versal, VersalNet and Versal_2vp */

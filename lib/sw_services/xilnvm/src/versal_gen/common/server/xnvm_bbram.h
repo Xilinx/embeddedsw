@@ -26,6 +26,8 @@
 *       kal  03/08/2023 Added new error code XNVM_BBRAM_ERROR_IN_DMA_XFER
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
 * 3.5   hj   03/26/2025 Added new error code XNVM_BBRAM_ERROR_GP_WRITE_IN_SB
+* 3.8   mkr  08/25/2026 Widened KeyLen parameter of XNvm_BbramWriteAesKey from
+*                       u16 to u32 to match the size type used by the callers
 *
 * </pre>
 *
@@ -77,7 +79,7 @@ extern "C" {
 /*************************** Function Prototypes ******************************/
 
 /* Writes AES key to BBRAM */
-int XNvm_BbramWriteAesKey(const u8* Key, u16 KeyLen);
+int XNvm_BbramWriteAesKey(const u8* Key, u32 KeyLen);
 
 /* Locks user data and prevent writes */
 int XNvm_BbramLockUsrDataWrite(void);

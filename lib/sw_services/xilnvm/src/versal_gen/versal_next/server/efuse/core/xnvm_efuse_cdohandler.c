@@ -28,6 +28,8 @@
 * 3.7  mb    01/13/2026 Added support for AES key CRC check
 *      nik   01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
 * 3.8  rap   09/22/2026 Fixed warnings caused due to new compiler flags added in makefile
+*      mkr   10/03/2026 Renamed the affected eFuse error code to use the XNVM_EFUSE_ERR_
+*                       prefix for consistency with the rest of the eFuse error codes
 *
 * </pre>
 *
@@ -558,7 +560,7 @@ static int XNvm_EfuseWriteAesKeys(u32 SubsystemId, u32 EnvDisFlag, XNvm_AesKeyTy
 	XNvm_AesKey AesKeys __attribute__ ((aligned (32U))) = {0U};
 	u64 AesKeyAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesKeyAddr, sizeof(AesKeys), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesKeyAddr, sizeof(AesKeys), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&AesKeys, AesKeyAddr, sizeof(AesKeys));
 
@@ -689,7 +691,7 @@ static int XNvm_EfuseWritePpk(u32 SubsystemId, u32 EnvDisFlag, XNvm_PpkType PpkT
 	XNvm_PpkHash PpkHash __attribute__ ((aligned (32U))) = {0U};
 	u64 PpkHashAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PpkHashAddr, sizeof(PpkHash), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PpkHashAddr, sizeof(PpkHash), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PpkHash, PpkHashAddr, sizeof(PpkHash));
 
@@ -768,7 +770,7 @@ static int XNvm_EfuseWriteIvs(u32 SubsystemId, u32 EnvDisFlag, XNvm_IvType IvTyp
 	XNvm_Iv Iv __attribute__ ((aligned (32U))) = {0U};
 	u64 IvAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, IvAddr, sizeof(Iv), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, IvAddr, sizeof(Iv), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&Iv, IvAddr, sizeof(Iv));
 
@@ -800,7 +802,7 @@ static int XNvm_EfuseWriteDiceUds(u32 SubsystemId, u32 EnvDisFlag, u32 AddrLow, 
 	XNvm_Uds Uds __attribute__ ((aligned (32U))) = {0U};
 	u64 UdsAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UdsAddr, sizeof(Uds), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, UdsAddr, sizeof(Uds), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&Uds, UdsAddr, sizeof(Uds));
 
@@ -833,7 +835,7 @@ static int XNvm_EfuseWriteDmeKey(u32 SubsystemId, u32 EnvDisFlag, u32 DmeKeyType
 	XNvm_DmeKey DmeKey __attribute__ ((aligned (32U))) = {0U};
 	u64 DmeKeyAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DmeKeyAddr, sizeof(DmeKey), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DmeKeyAddr, sizeof(DmeKey), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&DmeKey, DmeKeyAddr, sizeof(DmeKey));
 
@@ -980,7 +982,7 @@ static int XNvm_EfuseWriteDiceUdsFromPload(u32 EnvDisFlag, XNvm_Uds *Uds)
 		goto END;
 	}
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, OutputBuffer, RegCount * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, OutputBuffer, RegCount * XNVM_WORD_LEN, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	while(Offset < EndOffset){
 		RegData = XNvm_EfuseReadReg(XNVM_EFUSE_CACHE_BASEADDR, Offset);
@@ -1224,7 +1226,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	/**
 	 * - Validate the address range for PufFuseAddr structure
 	 */
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, sizeof(PufFuseAddr), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufFuseAddr, Addr, sizeof(PufFuseAddr));
 
@@ -1241,7 +1243,7 @@ static int XNvm_EfusePufUserDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh
 	/**
 	 * - Validate internal address field for PUF fuse data
 	 */
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr, DataSize, Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr, DataSize, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	/**
 	 * - Copying PUF fuse data from the provided address
@@ -1286,7 +1288,7 @@ static int XNvm_EfuseWritePufData(u32 SubsystemId, u32 AddrLow, u32 AddrHigh)
 	XNvm_EfusePufHdAddr PufData __attribute__ ((aligned (32U))) = {0U};
 	u64 PufDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr, sizeof(PufData), Status, XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE, END);
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, PufDataAddr, sizeof(PufData), Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
 
 	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&PufData, PufDataAddr, sizeof(PufData));
 
