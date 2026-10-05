@@ -41,24 +41,16 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-u8 class_data[10];
-TaskHandle_t xMainTask;
-TaskHandle_t xKeyboardTask;
-xSemaphoreHandle xSemaphore;
-
-/****************************************************************************/
+u8 class_data[10];	/**< Class_data. */
+TaskHandle_t xMainTask;	/**< X Main Task. */
+TaskHandle_t xKeyboardTask;	/**< X Keyboard Task. */
+xSemaphoreHandle xSemaphore;	/**< X Semaphore. */
 /**
-* This function is class handler for HID and is called when
-* Setup packet received is for Class request(not a Standard Device request)
+* @brief Handle USB class request for HID keyboard.
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	SetupData is pointer to SetupPacket received.
-*
-* @return	None
-*
-* @note		None.
-*
-*****************************************************************************/
+* @param[in] InstancePtr is a pointer to the USB device data instance.
+* @param[in] SetupData is a pointer to the setup packet data.
+*/
 void Usb_ClassReq_Keyboard(struct Usb_DevData *InstancePtr,
 			   SetupPacket *SetupData)
 {
@@ -89,7 +81,7 @@ void Usb_ClassReq_Keyboard(struct Usb_DevData *InstancePtr,
 				      | SET_REPORT_REQUEST):
 			/* This example does not implement a handler for the
 			 * SET_REPORT class request. SET_REPORT carries host-to-device
-			 * Output/Feature data (e.g. keyboard LED state); the
+			 * Output/Feature data (for example keyboard LED state); the
 			 * demonstration only needs to emit key reports, not act on
 			 * LED or other output reports, so that path is omitted.
 			 */
@@ -106,9 +98,7 @@ void Usb_ClassReq_Keyboard(struct Usb_DevData *InstancePtr,
 * This task implements keyboard functionality. task will get
 * host and act accordingly
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvKeyboardTask(void *pvParameters)

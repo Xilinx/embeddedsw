@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,6 +27,7 @@
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.15  np   26/03/24 Add doxygen and editorial fixes
 * 1.18  nk  23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
+* 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *
 * </pre>
 *
@@ -52,10 +53,7 @@
 * @brief
 * Stalls control endpoint and restarts to receive setup packet.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-*
-* @return	None
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
 *
 *****************************************************************************/
 void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
@@ -81,11 +79,8 @@ void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr)
 /**
 * Checks the data phase and calls user endpoint handler.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Event Pointer to the Endpoint event occurred in core.
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Event Pointer to the Endpoint event occurred in core.
 *
 *****************************************************************************/
 void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
@@ -155,10 +150,7 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 /**
 * Checks the status phase and starts next control transfer.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
 *
 *****************************************************************************/
 void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr)
@@ -195,11 +187,10 @@ void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr)
 /**
 * Starts status phase of control transfer.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Event Pointer to the Endpoint event occurred in core.
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Event Pointer to the Endpoint event occurred in core.
 *
 * @return	XST_SUCCESS else XST_FAILURE
-*
 *
 *****************************************************************************/
 s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
@@ -274,11 +265,8 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 /**
 * Ends data phase which is used in case of the error.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Ept Pointer to the Endpoint structure.
-*
-* @return	None
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in,out] Ept Pointer to the Endpoint structure.
 *
 *****************************************************************************/
 void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
@@ -306,11 +294,10 @@ void XUsbPsu_Ep0_EndControlData(struct XUsbPsu *InstancePtr,
 /**
 * Enables USB control endpoint that is EP0OUT and EP0IN of Core.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Size Control endpoint size.
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Size Control endpoint size.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
-*
 *
 ****************************************************************************/
 s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)

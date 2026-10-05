@@ -7,7 +7,7 @@
 /****************************************************************************/
 /**
  *
- * @file xusb_freertos_composite.c
+ * @file xusb_freertos_composite_example.c
  *
  * This file implements mass storage, hid, audio and dfu all in one composite
  * device.
@@ -34,24 +34,25 @@
 
 /************************** Constant Definitions ****************************/
 #ifndef SDT
-#define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define USB_INTR_ID             XPAR_XUSBPS_0_INTR
-#define USB_WAKEUP_INTR_ID      XPAR_XUSBPS_0_WAKE_INTR
+#define INTC_DEVICE_ID          XPAR_SCUGIC_SINGLE_DEVICE_ID	/**< Intc Device Id. */
+#define USB_INTR_ID             XPAR_XUSBPS_0_INTR	/**< Usb Intr Id. */
+#define USB_WAKEUP_INTR_ID      XPAR_XUSBPS_0_WAKE_INTR	/**< Usb Wakeup Intr Id. */
 #else
-#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
-#define INTRNAME_HIBER		2 /* Interrupt-name - Hiber */
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define INTRNAME_DWC3USB3	0  /**< Interrupt-name - USB */
+#define INTRNAME_HIBER		2  /**< Interrupt-name - Hiber */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
 
-struct Usb_DevData UsbInstance;
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
-XScuGic	InterruptController;	/* Interrupt controller instance */
+XScuGic	InterruptController;	/**< Interrupt Controller. */
 
 /* Supported AUDIO sampling frequencies */
+/** @brief Audio_freq. */
 u8 audio_freq[MAX_AUDIO_FREQ][3] = {
 	{ 0x40, 0x1F, 0x00 },	/* sample frequency 8000  */
 	{ 0x44, 0xAC, 0x00 },	/* sample frequency 44100 */
@@ -60,10 +61,10 @@ u8 audio_freq[MAX_AUDIO_FREQ][3] = {
 };
 
 u8 BufferPtrTemp[1024];
-u8 StorageDisk[0x6400000];	/* 100MB for storage */
-u8 AudioDisk[0x3200000];	/* 50MB for audio */
-u8 DfuDisk[0x3200000];		/* 50MB for DFU */
-
+u8 StorageDisk[0x6400000];	/**< Storage Disk. */
+u8 AudioDisk[0x3200000];	/**< Audio Disk. */
+u8 DfuDisk[0x3200000];	/**< DFU disk buffer. */
+/** @brief Composite device instance. */
 struct composite_dev comp_dev = {
 	.f_dfu.disk = DfuDisk,
 	.f_dfu.disksize = sizeof(DfuDisk),
@@ -93,11 +94,7 @@ static USBCH9_DATA composite_data = {
 /**
  * This function calculates Data to be sent at every Interval
  *
- * @param	f_audio audio interface instance pointer
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] f_audio audio interface instance pointer
  *
  *****************************************************************************/
 static void set_audio_transfer_size(struct audio_if *f_audio)
@@ -139,13 +136,9 @@ static void set_audio_transfer_size(struct audio_if *f_audio)
  * This function is ISO OUT Endpoint handler/Callback function, called by driver
  * when data is received from host.
  *
- * @param	CallBackRef is pointer to Usb_DevData instance.
- * @param	RequestedBytes is number of bytes requested to send.
- * @param	BytesTxed is actual number of bytes sent to Host.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] CallBackRef is pointer to Usb_DevData instance.
+ * @param[in] RequestedBytes is number of bytes requested to send.
+ * @param[in] BytesTxed is actual number of bytes sent to Host.
  *
  *****************************************************************************/
 static void Usb_AudioOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
@@ -169,13 +162,9 @@ static void Usb_AudioOutHandler(void *CallBackRef, u32 RequestedBytes, u32 Bytes
  * This function is ISO IN Endpoint handler/Callback function, called by driver
  * when data is sent to host.
  *
- * @param	CallBackRef is pointer to Usb_DevData instance.
- * @param	RequestedBytes is number of bytes requested to send.
- * @param	BytesTxed is actual number of bytes sent to Host.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] CallBackRef is pointer to Usb_DevData instance.
+ * @param[in] RequestedBytes is number of bytes requested to send.
+ * @param[in] BytesTxed is actual number of bytes sent to Host.
  *
  *****************************************************************************/
 static void Usb_AudioInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
@@ -199,13 +188,9 @@ static void Usb_AudioInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesT
 * This function is Bulk Out Endpoint handler/Callback called by driver when
 * data is received.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested for reception.
-* @param	BytesTxed is actual number of bytes received from Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested for reception.
+* @param[in] BytesTxed is actual number of bytes received from Host.
 *
 *****************************************************************************/
 static void Usb_StorageOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
@@ -229,13 +214,9 @@ static void Usb_StorageOutHandler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 * This function is Bulk In Endpoint handler/Callback called by driver when
 * data is sent.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested to send.
-* @param	BytesTxed is actual number of bytes sent to Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested to send.
+* @param[in] BytesTxed is actual number of bytes sent to Host.
 *
 *****************************************************************************/
 static void Usb_StorageInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
@@ -259,13 +240,9 @@ static void Usb_StorageInHandler(void *CallBackRef, u32 RequestedBytes, u32 Byte
 * This function is IN Endpoint handler/Callback called by driver when
 * data is sent.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested to send.
-* @param	BytesTxed is actual number of bytes sent to Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested to send.
+* @param[in] BytesTxed is actual number of bytes sent to Host.
 *
 *****************************************************************************/
 static void Usb_KeyboardInHabdler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
@@ -293,15 +270,13 @@ static void Usb_KeyboardInHabdler(void *CallBackRef, u32 RequestedBytes, u32 Byt
 * directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	IntcDeviceID is the unique ID of the interrupt controller
-* @param	USB_INTR_ID is the interrupt ID of the USB controller
-* @param	IntcPtr is a pointer to the interrupt controller
+* @param[in] InstancePtr is a pointer to the XUsbPsu instance.
+* @param[in] IntcDeviceID is the unique ID of the interrupt controller
+* @param[in] UsbIntrId is the USB interrupt ID.
+* @param[in] IntcPtr is a pointer to the interrupt controller
 *			instance.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 *****************************************************************************/
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
@@ -385,21 +360,18 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 /**
 * This function is implementing USB AUDIO-DFU composite example.
 *
-* @param	UsbInstPtr USB instance pointer.
-*		IntrInstPtr Interrupt controller instance pointer
-*		DeviceId USB Device ID
-*		IntcDeviceID Interrupt controller Device ID
+* @param[in] UsbInstPtr is a pointer to the USB device instance.
+* @param[in] dev is a pointer to the composite device instance.
 *
 * @return 	- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef SDT
 static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr, XScuGic *IntrInstPtr,
 				struct composite_dev *dev, u16 DeviceId, u16 IntcDeviceID, u16 UsbIntrId)
 #else
+/** @brief Implements FreeRTOS USB composite example (SDT flow). */
 static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr,
 				struct composite_dev *dev)
 #endif
@@ -465,13 +437,13 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr,
 
 	set_audio_transfer_size(&dev->f_audio);
 
-	/* Mass storage endpoint event hadler registration */
+	/* Mass storage endpoint event handler registration */
 	SetEpHandler(UsbInstance.PrivateData, STORAGE_EP, USB_EP_DIR_OUT,
 		     Usb_StorageOutHandler);
 	SetEpHandler(UsbInstance.PrivateData, STORAGE_EP, USB_EP_DIR_IN,
 		     Usb_StorageInHandler);
 
-	/* Keyboard endpoint event hadler */
+	/* Keyboard endpoint event handler */
 	SetEpHandler(UsbInstPtr->PrivateData, KEYBOARD_EP, USB_EP_DIR_IN,
 		     Usb_KeyboardInHabdler);
 	/* setup interrupts */
@@ -605,9 +577,7 @@ static int XUsbCompositeExample(struct Usb_DevData *UsbInstPtr,
 /**
 * This task implements mass storage functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 static void prvMainTask(void *pvParameters)
@@ -631,12 +601,8 @@ static void prvMainTask(void *pvParameters)
 /**
 * This function is the main function of the AUDI-DFU composite example.
 *
-* @param	None.
-*
 * @return 	- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *****************************************************************************/
 int main(void)

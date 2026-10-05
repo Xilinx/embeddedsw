@@ -1,18 +1,18 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
 /****************************************************************************/
 /**
  *
- * @file xusb_freertos_audio.c
+ * @file xusb_freertos_audio_example.c
  *
  * This file implements the ISO IN and ISO OUT data transfer. It transfers and
  * receives audio data on High or Super Speed bus based on connection.
  *
- * @setup requirement
+ * @par Setup requirement
  * zcu102 board in usb device mode, connected with host using USB 3.0 cable
  *
  * Following other files require to run this example
@@ -20,7 +20,7 @@
  *  o xusb_freertos_ch9_audio.c, xusb_freerots_ch9_audio.h
  *  o xusb_freertos_class_audio.c, xusb_freertos_class_audio.h
  *
- * @validation
+ * @par Validation
  *  o on success example will be detected as audio device
  *  o use aplay/arecord for play or record audio
  *
@@ -48,30 +48,31 @@
 
 /************************** Constant Definitions ****************************/
 #ifndef SDT
-#define USB_INTR_ID			XPAR_XUSBPS_0_INTR
+#define USB_INTR_ID			XPAR_XUSBPS_0_INTR	/**< USB interrupt ID. */
 #else
-#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define INTRNAME_DWC3USB3	0  /**< Interrupt-name - USB */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 
 /* The following constants are to be modified to get different size of memory */
-#define RAMDISKSECTORS		0x400   /* 1KB */
-#define RAMBLOCKS		4096
-#define MEMORY_SIZE		(64 * 1024)
+#define RAMDISKSECTORS		0x400    /**< 1KB */
+#define RAMBLOCKS		4096     /**< Number of RAM blocks for audio storage. */
+#define MEMORY_SIZE		(64 * 1024)	/**< Memory buffer size in bytes. */
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-struct Usb_DevData UsbInstance;
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-u8 Buffer[MEMORY_SIZE];
+u8 Buffer[MEMORY_SIZE];	/**< Buffer. */
 #else
-u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
+u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;	/**< Alignment Cacheline. */
 #endif
 
 /* Supported AUDIO sampling frequencies */
+/** @brief Audio_freq. */
 u8 audio_freq[MAX_AUDIO_FREQ][3] = {
 	{ 0x40, 0x1F, 0x00 },	/* sample frequency 8000  */
 	{ 0x44, 0xAC, 0x00 },	/* sample frequency 44100 */
@@ -79,9 +80,10 @@ u8 audio_freq[MAX_AUDIO_FREQ][3] = {
 	{ 0x00, 0x77, 0x01,},	/* sample frequency 96000 */
 };
 
-u8 BufferPtrTemp[1024];
-u8 VirtFlash[0x10000000];
+u8 BufferPtrTemp[1024];	/**< Temporary audio transfer buffer. */
+u8 VirtFlash[0x10000000];	/**< Virtual flash storage buffer. */
 
+/** @brief Audio device instance for this example. */
 struct audio_dev audio_dev = {
 	.virtualdisk = VirtFlash,
 	.disksize = sizeof(VirtFlash),
@@ -111,12 +113,8 @@ static USBCH9_DATA iso_data = {
 * directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param	InstPtr is a pointer to the XUsb instance.
-* @param	UsbIntrId is the interrupt ID of the USB controller
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsbPsu instance.
+* @param[in] UsbIntrId is the interrupt ID of the USB controller
 *
 *****************************************************************************/
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
@@ -139,11 +137,7 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 /**
  * This function calculates Data to be sent at every Interval
  *
- * @param	f_audio audio interface instance pointer
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] f_audio audio interface instance pointer
  *
  *****************************************************************************/
 static void set_audio_transfer_size(struct audio_dev *f_audio)
@@ -182,13 +176,9 @@ static void set_audio_transfer_size(struct audio_dev *f_audio)
  * This function is ISO OUT Endpoint handler/Callback function, called by driver
  * when data is received from host.
  *
- * @param	CallBackRef is pointer to Usb_DevData instance.
- * @param	RequestedBytes is number of bytes requested to send.
- * @param	BytesTxed is actual number of bytes sent to Host.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] CallBackRef is pointer to Usb_DevData instance.
+ * @param[in] RequestedBytes is number of bytes requested to send.
+ * @param[in] BytesTxed is actual number of bytes sent to Host.
  *
  *****************************************************************************/
 static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
@@ -212,13 +202,9 @@ static void Usb_IsoOutHandler(void *CallBackRef, u32 RequestedBytes,
  * This function is ISO IN Endpoint handler/Callback function, called by driver
  * when data is sent to host.
  *
- * @param	CallBackRef is pointer to Usb_DevData instance.
- * @param	RequestedBytes is number of bytes requested to send.
- * @param	BytesTxed is actual number of bytes sent to Host.
- *
- * @return	None
- *
- * @note	None.
+ * @param[in] CallBackRef is pointer to Usb_DevData instance.
+ * @param[in] RequestedBytes is number of bytes requested to send.
+ * @param[in] BytesTxed is actual number of bytes sent to Host.
  *
  *****************************************************************************/
 static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
@@ -241,23 +227,19 @@ static void Usb_IsoInHandler(void *CallBackRef, u32 RequestedBytes,
 /**
 * This function is implementing USB audio example.
 *
-* @param	UsbInstPtr USB instance pointer.
-*		dev audio device instance pointer
-*		DeviceId USB Device ID
-*		UsbIntrId USB Interrupt ID
+* @param[in] UsbInstPtr is a pointer to the USB device instance.
+* @param[in] dev is a pointer to the audio device instance.
 *
 * @return	- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef SDT
 static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 			    struct audio_dev *dev, u16 DeviceId, u16 UsbIntrId)
 #else
-static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
-			    struct audio_dev *dev)
+/** @brief Implements FreeRTOS USB audio example (SDT flow). */
+static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr, struct audio_dev *dev)
 #endif
 {
 	s32 Status;
@@ -374,9 +356,7 @@ static int XUsbAudioExample(struct Usb_DevData *UsbInstPtr,
 /**
 * This task implements audio functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 static void prvMainTask(void *pvParameters)
@@ -401,14 +381,9 @@ static void prvMainTask(void *pvParameters)
 /**
  * This function is the main function of the USB audio example.
  *
- * @param	None
- *
  * @return
  *		- XST_SUCCESS if successful,
  *		- XST_FAILURE if unsuccessful.
- *
- * @note	None.
- *
  *
  *****************************************************************************/
 int main(void)

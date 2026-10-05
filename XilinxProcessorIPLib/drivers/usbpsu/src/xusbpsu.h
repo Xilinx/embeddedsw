@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,6 @@
 * @addtogroup usbpsu_api USBPSU APIs
 * @{
 * @details
-*
 *
 * <pre>
 *
@@ -54,11 +53,12 @@
 * 1.15  ml    11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 * 1.15  np    26/03/24 Add doxygen and editorial fixes
 * 1.16   dn    17/05/24 Fix compilation error
+* 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
 #ifndef XUSBPSU_H  /* Prevent circular inclusions */
-#define XUSBPSU_H  /**< by using protection macros  */
+#define XUSBPSU_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -242,7 +242,7 @@ extern "C" {
 /** @endcond */
 
 /**
- * @param XusbPsuLinkState This typedef defines link state.
+ * @param[in] XusbPsuLinkState This typedef defines link state.
  *
  */
 typedef enum {
@@ -263,7 +263,7 @@ typedef enum {
 } XusbPsuLinkState;	/**< defines link state */
 
 /**
- * @param XusbPsuLinkStateChange This typedef defines link state change.
+ * @param[in] XusbPsuLinkStateChange This typedef defines link state change.
  *
  */
 typedef enum {
@@ -308,10 +308,10 @@ typedef enum {
 
 /**
  * struct XUsbPsu_EvtBuffer - Software Event buffer representation
- * @param BuffAddr: Event Buffer address
- * @param Offset: Event Buffer offset
- * @param Count: Event Buffer count
- * @param Flags: Event Buffer Flag - PENDING /NOT PENDING
+ * @param[in] BuffAddr: Event Buffer address
+ * @param[in] Offset: Event Buffer offset
+ * @param[in] Count: Event Buffer count
+ * @param[in] Flags: Event Buffer Flag - PENDING /NOT PENDING
  */
 struct XUsbPsu_EvtBuffer {
 	void	*BuffAddr;	/**< Event Buffer address */
@@ -322,10 +322,10 @@ struct XUsbPsu_EvtBuffer {
 
 /**
  * struct XUsbPsu_Trb - Transfer Request Block - Hardware format
- * @param BufferPtrLow: Data buffer pointer to low 32 bits
- * @param BufferPtrHigh: Data buffer pointer to high 32-bits
- * @param Size: Buffer Size
- * @param Ctrl: Transfer Request Block Control parameter
+ * @param[in] BufferPtrLow: Data buffer pointer to low 32 bits
+ * @param[in] BufferPtrHigh: Data buffer pointer to high 32-bits
+ * @param[in] Size: Buffer Size
+ * @param[in] Ctrl: Transfer Request Block Control parameter
  */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -345,9 +345,9 @@ __attribute__((packed)); /**< Transfer Request Block - Hardware format */
 
 /**
  * struct XUsbPsu_EpParams - Endpoint Parameters
- * @param Param2: Parameter 2
- * @param Param1: Parameter 1
- * @param Param0: Parameter 0
+ * @param[in] Param2: Parameter 2
+ * @param[in] Param1: Parameter 1
+ * @param[in] Param0: Parameter 0
  */
 struct XUsbPsu_EpParams {
 	u32	Param2;		/**< Parameter 2 */
@@ -357,11 +357,11 @@ struct XUsbPsu_EpParams {
 
 /**
  * struct SetupPacket - USB Standard Control Request
- * @param bRequestType: Characteristics of request
- * @param bRequest: Type of request
- * @param wValue: Word-sized field that varies according to request
- * @param wIndex: Used to pass an index or offset
- * @param wLength: Number of bytes to transfer if there is a Data stage
+ * @param[in] bRequestType: Characteristics of request
+ * @param[in] bRequest: Type of request
+ * @param[in] wValue: Word-sized field that varies according to request
+ * @param[in] wIndex: Used to pass an index or offset
+ * @param[in] wLength: Number of bytes to transfer if there is a Data stage
  */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -381,24 +381,24 @@ typedef struct {
 
 /**
  * struct XUsbPsu_Ep - Endpoint representation
- * @param Handler: User handler
- * @param EpTrb: TRB used by endpoint
- * @param EpStatus: Flags to represent Endpoint status
- * @param EpSavedState: Endpoint status saved at the time of hibernation
- * @param RequestedBytes: RequestedBytes for transfer
- * @param BytesTxed: Actual Bytes transferred
- * @param Interval: Data transfer service interval
- * @param TrbEnqueue: number of TRB enqueue
- * @param TrbDequeue: number of TRB dequeue
- * @param MaxSize: Size of endpoint
- * @param CurUf: current microframe
- * @param BufferPtr: Buffer location
- * @param ResourceIndex: Resource Index assigned to Endpoint by core
- * @param PhyEpNum: Physical Endpoint Number in core
- * @param UsbEpNum: USB Endpoint Number
- * @param Type: Type of Endpoint - Control/BULK/INTERRUPT/ISOC
- * @param Direction: Direction - EP_DIR_OUT/EP_DIR_IN
- * @param UnalignedTx: Unaligned Tx flag - 0/1
+ * @param[in] Handler: User handler
+ * @param[in] EpTrb: TRB used by endpoint
+ * @param[in] EpStatus: Flags to represent Endpoint status
+ * @param[in] EpSavedState: Endpoint status saved at the time of hibernation
+ * @param[in] RequestedBytes: RequestedBytes for transfer
+ * @param[in] BytesTxed: Actual Bytes transferred
+ * @param[in] Interval: Data transfer service interval
+ * @param[in] TrbEnqueue: number of TRB enqueue
+ * @param[in] TrbDequeue: number of TRB dequeue
+ * @param[in] MaxSize: Size of endpoint
+ * @param[in] CurUf: current microframe
+ * @param[in] BufferPtr: Buffer location
+ * @param[in] ResourceIndex: Resource Index assigned to Endpoint by core
+ * @param[in] PhyEpNum: Physical Endpoint Number in core
+ * @param[in] UsbEpNum: USB Endpoint Number
+ * @param[in] Type: Type of Endpoint - Control/BULK/INTERRUPT/ISOC
+ * @param[in] Direction: Direction - EP_DIR_OUT/EP_DIR_IN
+ * @param[in] UnalignedTx: Unaligned Tx flag - 0/1
  */
 struct XUsbPsu_Ep {
 	void (*Handler)(void *, u32, u32);
@@ -442,25 +442,24 @@ struct XUsbPsu_Ep {
 
 /**
  * struct XUsbPsu_Config - Configuration information for the USB
- * @param DeviceId: Unique ID of controller
- * @param BaseAddress: Core register base address
- * @param IsCacheCoherent: Describes whether Cache Coherent or not
- * @param EnableSuperSpeed: Set to enable super speed support
- * @param RefClk: Input clocks
+ * @param[in] DeviceId: Unique ID of controller
+ * @param[in] BaseAddress: Core register base address
+ * @param[in] IsCacheCoherent: Describes whether Cache Coherent or not
+ * @param[in] EnableSuperSpeed: Set to enable super speed support
+ * @param[in] RefClk: Input clocks
  */
 typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID of controller */
 #else
-	char *Name;
+	char *Name; /**< Unique name of controller. */
 #endif
 	UINTPTR BaseAddress;	/**< Core register base address */
 	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 	u8 EnableSuperSpeed;	/**< Set to enable super speed support */
 #ifdef SDT
-	u16 IntrId[3];	/** Bits[11:0] Interrupt-id Bits[15:12] trigger type */
-	/** level flags */
-	UINTPTR IntrParent; /** Bit[0] Interrupt parent type Bit[64/32:1] */
+	u16 IntrId[3]; /**< Bits[11:0] Interrupt-id Bits[15:12] trigger type */
+	UINTPTR IntrParent; /**< Bit[0] Interrupt parent type Bit[64/32:1] */
 #endif
 #if defined (XCLOCKING)
 	u32 RefClk;		/**< Input clocks */
@@ -471,9 +470,9 @@ typedef XUsbPsu_Config Usb_Config; /**< typedef configuration structure */
 
 /**
  * struct Usb_DevData - Application device data
- * @param Speed: device speed - full/low/high/super
- * @param State: device state
- * @param PrivateData: USB device application data
+ * @param[in] Speed: device speed - full/low/high/super
+ * @param[in] State: device state
+ * @param[in] PrivateData: USB device application data
  */
 struct Usb_DevData {
 	u8 Speed; /**< USB device data speed */
@@ -487,46 +486,46 @@ struct Usb_DevData {
  */
 /**
  * struct XUsbPsu - USB Device Controller representation
- * @param SetupData: Setup data packet
- * @param Ep0_Trb: TRB for control transfers
- * @param ConfigPtr: Configuration info pointer
- * @param eps: Endpoints array
- * @param Evt: Usb event buffer
- * @param EpParams: Endpoint Parameters
- * @param BaseAddress: Core register base address
- * @param DevDescSize: Device descriptor size
- * @param ConfigDescSize: Config descriptor size
- * @param AppData: Application data
- * @param *Chapter9: USB Chapter9 function handler
- * @param *ResetIntrHandler: Reset function handler
- * @param *DisconnectIntrHandler: Disconnect function handler
- * @param *DevDesc: Device descriptor pointer
- * @param *ConfigDesc: Config descriptor pointer
- * @param EventBuffer: Event buffer array
- * @param NumOutEps: Number of out endpoints
- * @param NumInEps: Number of in endpoint
- * @param ControlDir: Control endpoint direction
- * @param IsInTestMode: USB test mode flag
- * @param TestMode:  Test Mode
- * @param Ep0State: Control EP state
- * @param LinkState: USB link state
- * @param UnalignedTx: Unaligned transfer flag
- * @param IsConfigDone: Flag - Check config is done or not
- * @param IsThreeStage: USB three stage communication
- * @param IsHibernated: Flag - Hibernated state
- * @param HasHibernation: Has hibernation support
- * @param *data_ptr: pointer for storing applications data
+ * @param[in] SetupData: Setup data packet
+ * @param[in] Ep0_Trb: TRB for control transfers
+ * @param[in] ConfigPtr: Configuration info pointer
+ * @param[in] eps: Endpoints array
+ * @param[in] Evt: Usb event buffer
+ * @param[in] EpParams: Endpoint Parameters
+ * @param[in] BaseAddress: Core register base address
+ * @param[in] DevDescSize: Device descriptor size
+ * @param[in] ConfigDescSize: Config descriptor size
+ * @param[in] AppData: Application data
+ * @param[in] *Chapter9: USB Chapter9 function handler
+ * @param[in] *ResetIntrHandler: Reset function handler
+ * @param[in] *DisconnectIntrHandler: Disconnect function handler
+ * @param[in] *DevDesc: Device descriptor pointer
+ * @param[in] *ConfigDesc: Config descriptor pointer
+ * @param[in] EventBuffer: Event buffer array
+ * @param[in] NumOutEps: Number of out endpoints
+ * @param[in] NumInEps: Number of in endpoint
+ * @param[in] ControlDir: Control endpoint direction
+ * @param[in] IsInTestMode: USB test mode flag
+ * @param[in] TestMode:  Test Mode
+ * @param[in] Ep0State: Control EP state
+ * @param[in] LinkState: USB link state
+ * @param[in] UnalignedTx: Unaligned transfer flag
+ * @param[in] IsConfigDone: Flag - Check config is done or not
+ * @param[in] IsThreeStage: USB three stage communication
+ * @param[in] IsHibernated: Flag - Hibernated state
+ * @param[in] HasHibernation: Has hibernation support
+ * @param[in] *data_ptr: pointer for storing applications data
  */
 struct XUsbPsu {
 #if defined (__ICCARM__)
-	SetupPacket SetupData __attribute__((aligned(64)));	/**< Setup data packet */
-	struct XUsbPsu_Trb Ep0_Trb __attribute__((aligned(64)));	/**< TRB for control transfers */
+	SetupPacket SetupData __attribute__((aligned(64))); /**< Setup Packet buffer */
+	struct XUsbPsu_Trb Ep0_Trb __attribute__((aligned(64))); /**< TRB for control transfers */
 #else
 	SetupPacket SetupData ALIGNMENT_CACHELINE;
 	/**< Setup Packet buffer */
 	struct XUsbPsu_Trb Ep0_Trb ALIGNMENT_CACHELINE;
-#endif
 	/**< TRB for control transfers */
+#endif
 	XUsbPsu_Config *ConfigPtr;	/**< Configuration info pointer */
 	struct XUsbPsu_Ep eps[XUSBPSU_ENDPOINTS_NUM]; /**< Endpoints */
 	struct XUsbPsu_EvtBuffer Evt;	/**< Usb event buffer */
@@ -568,9 +567,9 @@ struct XUsbPsu {
 
 /**
  * struct XUsbPsu_Event_Type - Device Endpoint Events type
- * @param : Device specific event
- * @param : Event types
- * @param : Reserved, not used
+ * @param[in] : Device specific event
+ * @param[in] : Event types
+ * @param[in] : Reserved, not used
  */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -587,9 +586,9 @@ struct XUsbPsu_Event_Type {
 #endif
 /**
  * struct XUsbPsu_event_depvt - Device Endpoint Events
- * @param Is_EpEvt: indicates this is an endpoint event
- * @param endpoint_number: number of the endpoint
- * @param endpoint_event: The event we have:
+ * @param[in] Is_EpEvt: indicates this is an endpoint event
+ * @param[in] endpoint_number: number of the endpoint
+ * @param[in] endpoint_event: The event we have:
  *	0x00	- Reserved
  *	0x01	- XferComplete
  *	0x02	- XferInProgress
@@ -598,10 +597,10 @@ struct XUsbPsu_Event_Type {
  *	0x05	- Reserved
  *	0x06	- StreamEvt
  *	0x07	- EPCmdCmplt
- * @param Reserved11_10: Reserved, don't use.
- * @param Status: Indicates the status of the event. Refer to databook for
+ * @param[in] Reserved11_10: Reserved, don't use.
+ * @param[in] Status: Indicates the status of the event. Refer to databook for
  *	more information.
- * @param Parameters: Parameters of the current event. Refer to databook for
+ * @param[in] Parameters: Parameters of the current event. Refer to databook for
  *	more information.
  */
 #if defined (__ICCARM__)
@@ -622,9 +621,9 @@ struct XUsbPsu_Event_Epevt {
 #endif
 /**
  * struct XUsbPsu_event_devt - Device Events
- * @param Is_DevEvt: indicates this is a non-endpoint event
- * @param Device_Event: indicates it's a device event. Should read as 0x00
- * @param Type: indicates the type of device event.
+ * @param[in] Is_DevEvt: indicates this is a non-endpoint event
+ * @param[in] Device_Event: indicates it's a device event. Should read as 0x00
+ * @param[in] Type: indicates the type of device event.
  *	0	- DisconnEvt
  *	1	- USBRst
  *	2	- ConnectDone
@@ -638,9 +637,9 @@ struct XUsbPsu_Event_Epevt {
  *	10	- CmdCmplt
  *	11	- EvntOverflow
  *	12	- VndrDevTstRcved
- * @param Reserved15_12: Reserved, not used
- * @param Event_Info: Information about this event
- * @param Reserved31_25: Reserved, not used
+ * @param[in] Reserved15_12: Reserved, not used
+ * @param[in] Event_Info: Information about this event
+ * @param[in] Reserved31_25: Reserved, not used
  */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -660,10 +659,10 @@ struct XUsbPsu_Event_Devt {
 #endif
 /**
  * struct XUsbPsu_event_gevt - Other Core Events
- * @param one_bit: indicates this is a non-endpoint event (not used)
- * @param device_event: indicates it's (0x03) Carkit or (0x04) I2C event.
- * @param phy_port_number: self-explanatory
- * @param reserved31_12: Reserved, not used.
+ * @param[in] one_bit: indicates this is a non-endpoint event (not used)
+ * @param[in] device_event: indicates it's (0x03) Carkit or (0x04) I2C event.
+ * @param[in] phy_port_number: self-explanatory
+ * @param[in] reserved31_12: Reserved, not used.
  */
 #if defined (__ICCARM__)
 #pragma pack(push, 1)
@@ -681,11 +680,11 @@ struct XUsbPsu_Event_Gevt {
 #endif
 /**
  * union XUsbPsu_event - representation of Event Buffer contents
- * @param Raw: raw 32-bit event
- * @param Type: type of the event
- * @param Epevt: Device Endpoint Event
- * @param Devt: Device Event
- * @param Gevt: Global Event
+ * @param[in] Raw: raw 32-bit event
+ * @param[in] Type: type of the event
+ * @param[in] Epevt: Device Endpoint Event
+ * @param[in] Devt: Device Event
+ * @param[in] Gevt: Global Event
  */
 union XUsbPsu_Event {
 	u32				Raw;	/**< raw 32-bit event */
@@ -737,11 +736,10 @@ extern XUsbPsu_Config XUsbPsu_ConfigTable[]; /**< Configuration table */
 *
 * Returns the data pointer of driver instance.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
 *
 * @return	data pointer of driver instance.
-*
 *
 ******************************************************************************/
 static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr)
@@ -755,12 +753,9 @@ static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr)
 *
 * Sets driver data from driver like speed/state.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	data Void pointer
-*
-* @return	None.
-*
+* @param[in] data Void pointer
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
@@ -775,12 +770,9 @@ static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr,
 *
 * This function is used as chapter 9 interrupt handler.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	func USB Chapter9 function handler
-*
-* @return	None.
-*
+* @param[in] func USB Chapter9 function handler
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_ch9handler(
@@ -796,12 +788,9 @@ static inline void XUsbPsu_set_ch9handler(
 *
 * Handles USB resets.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	func USB Reset function handler.
-*
-* @return	None.
-*
+* @param[in] func USB Reset function handler.
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_rsthandler(
@@ -817,13 +806,9 @@ static inline void XUsbPsu_set_rsthandler(
 *
 * This function is used as disconnect interrupt handler.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be
 *		worked on.
-* @param	func USB disconnect function handler
-*
-* @return	None.
-*
-*
+* @param[in] func USB disconnect function handler
 *
 ******************************************************************************/
 static inline void XUsbPsu_set_disconnect(

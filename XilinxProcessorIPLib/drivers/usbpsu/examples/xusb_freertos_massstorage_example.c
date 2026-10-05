@@ -7,11 +7,11 @@
 /****************************************************************************/
 /**
  *
- * @file xusb_freertos_massstorage.c
+ * @file xusb_freertos_massstorage_example.c
  *
  * This file implements the mass storage class example.
  *
- * @setup requirement
+ * @par Setup requirement
  * zcu102 board in usb device mode, connected with host using USB 3.0 cable
  *
  * Following other files require to run this example
@@ -19,7 +19,7 @@
  *  o xusb_freertos_ch9_storage.c, xusb_freerots_ch9_storage.h
  *  o xusb_freertos_class_storage.c, xusb_freertos_class_storage.h
  *
- * @validation
+ * @par Validation
  *  o on success example will be detected as mass storage on host
  *  o do IN and OUT transfer of the same size
  *  o must not get diff between IN and OUT files
@@ -48,30 +48,30 @@
 #include "xusb_freertos_class_storage.h"
 
 /************************** Constant Definitions ****************************/
-#define MEMORY_SIZE (64 * 1024)
+#define MEMORY_SIZE (64 * 1024)	/**< Memory buffer size in bytes. */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 u8 Buffer[MEMORY_SIZE];
 #else
-u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
+u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;	/**< Alignment Cacheline. */
 #endif
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef SDT
-#define USB_INTR_ID			XPAR_XUSBPS_0_INTR
+#define USB_INTR_ID			XPAR_XUSBPS_0_INTR	/**< Usb Intr Id. */
 #else
-#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define INTRNAME_DWC3USB3	0  /**< Interrupt-name - USB */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 
 /************************** Function Prototypes ******************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed);
-void BulkInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed);
+void BulkInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed);	/**< Bulk IN endpoint completion callback. */
 
 /************************** Variable Definitions *****************************/
-struct Usb_DevData UsbInstance;
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
 /* Buffer for virtual flash disk space. */
 #ifdef __ICCARM__
@@ -82,9 +82,10 @@ struct Usb_DevData UsbInstance;
 #endif
 u8 StorageDisk[STORAGE_SIZE];
 #else
-u8 StorageDisk[STORAGE_SIZE] ALIGNMENT_CACHELINE;
+u8 StorageDisk[STORAGE_SIZE] ALIGNMENT_CACHELINE;	/**< Storage disk buffer. */
 #endif
 
+/** @brief FreeRTOS mass storage device instance. */
 struct storage_dev storage_dev = {
 	.disk = StorageDisk,
 	.disksize = sizeof(StorageDisk),
@@ -112,12 +113,8 @@ static USBCH9_DATA storage_data = {
 * directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbIntrId is the interrupt ID of the USB controller
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsbPsu instance.
+* @param[in] UsbIntrId is the interrupt ID of the USB controller
 *
 *****************************************************************************/
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
@@ -140,20 +137,17 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 /**
 * This function is implementing USB mass storage example.
 *
-* @param	UsbInstPtr USB instance pointer.
-*		DeviceId USB Device ID
-*		UsbIntrId USB Interrupt ID
+* @param[in] UsbInstPtr is a pointer to the USB device instance.
 *
 * @return	- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef SDT
 static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr,
 				 u16 DeviceId, u16 UsbIntrId)
 #else
+/** @brief Implements FreeRTOS USB mass storage example (SDT flow). */
 static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr)
 #endif
 {
@@ -260,9 +254,7 @@ static int XUsbMassStorageExamle(struct Usb_DevData *UsbInstPtr)
 /**
 * This task implements mass storage functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 static void prvMainTask(void *pvParameters)
@@ -288,14 +280,9 @@ static void prvMainTask(void *pvParameters)
 /**
 * This function is the main function of the USB mass storage example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -317,13 +304,9 @@ int main(void)
 * This function is Bulk Out Endpoint handler/Callback called by driver when
 * data is received.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested for reception.
-* @param	BytesTxed is actual number of bytes received from Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested for reception.
+* @param[in] BytesTxed is actual number of bytes received from Host.
 *
 *****************************************************************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
@@ -346,13 +329,9 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)
 * This function is Bulk In Endpoint handler/Callback called by driver when
 * data is sent.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested to send.
-* @param	BytesTxed is actual number of bytes sent to Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested to send.
+* @param[in] BytesTxed is actual number of bytes sent to Host.
 *
 *****************************************************************************/
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)

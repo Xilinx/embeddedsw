@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xusbpsu_local.h
 * @addtogroup usbpsu_api USBPSU APIs
 * @{
-* @details
 *
 * <pre>
 *
@@ -20,13 +19,14 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   pm    03/23/20 First release
 * 1.9   pm    03/15/21 Fixed doxygen warnings
+* 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *
 * </pre>
 *
 *****************************************************************************/
 /** @cond INTERNAL */
 #ifndef XUSBPSU_LOCAL_H  /* Prevent circular inclusions */
-#define XUSBPSU_LOCAL_H  /**< by using protection macros  */
+#define XUSBPSU_LOCAL_H
 
 #ifdef __cplusplus
 extern "C" {

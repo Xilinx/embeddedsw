@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -34,6 +34,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/** @brief Waits for a USB DFU reset by polling dfu_wait_for_interrupt. */
 static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 {
 	/* This bit would be cleared when reset happens*/
@@ -50,19 +51,17 @@ static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-u8 DetachCounter = 0;
+u8 DetachCounter = 0;	/**< Detach Counter. */
 
 /*****************************************************************************/
 /**
 * This function handles setting of DFU state.
 *
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	dfu_state is a value of the DFU state to be set
+* @param[in] DFU is a pointer to DFU instance of the controller
+* @param[in] dfu_state is a value of the DFU state to be set
 *
 * @return	- XST_SUCCESS if the function is successful.
 *		- XST_FAILURE if an Error occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
@@ -155,10 +154,8 @@ stall:
 /**
 * This function updates the current state while downloading a file
 *
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	status is a pointer of the DFU status
-*
-* @note		None.
+* @param[in] DFU is a pointer to DFU instance of the controller
+* @param[in] status is a pointer of the DFU status
 *
 ******************************************************************************/
 void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
@@ -186,16 +183,12 @@ void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
 
 /*****************************************************************************/
 /**
-* This function handles getting of DFU status.
-*
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	status is the pointer of the DFU status
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ * @brief Handles getting of DFU status.
+ *
+ * @param[in] DFU is a pointer to the DFU instance of the controller.
+ * @param[out] status is a pointer to the DFU status byte array (6 bytes).
+ *
+ ******************************************************************************/
 void USB_DfuGetStatus(struct dfu_if *DFU, u8 *status)
 {
 	/* update the download state */
@@ -216,11 +209,7 @@ void USB_DfuGetStatus(struct dfu_if *DFU, u8 *status)
 /**
 * This function handles USB disconnect, called from driver.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
 *
 ******************************************************************************/
 void Usb_DisconnectHandler(struct Usb_DevData *InstancePtr)
@@ -244,11 +233,7 @@ void Usb_DisconnectHandler(struct Usb_DevData *InstancePtr)
 /**
 * This function handles USB reset, called from driver.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
 *
 ******************************************************************************/
 void Usb_ResetHandler(struct Usb_DevData *InstancePtr)
@@ -269,12 +254,8 @@ void Usb_ResetHandler(struct Usb_DevData *InstancePtr)
 /**
 * This function handles set interface request.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 void Usb_SetIntf(struct Usb_DevData *InstancePtr,  SetupPacket *SetupData)
@@ -388,12 +369,8 @@ void Usb_SetIntf(struct Usb_DevData *InstancePtr,  SetupPacket *SetupData)
 /**
 * This function handles UAC1 class request.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -631,12 +608,8 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 /**
 * This function handles DFU heart and soul of DFU state machine.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -775,6 +748,12 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 	}
 }
 
+/**
+* @brief Handle USB class request for the composite device.
+*
+* @param[in] InstancePtr is a pointer to the USB device data instance.
+* @param[in] SetupData is a pointer to the setup packet data.
+			 */
 void Usb_ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 {
 	Xil_AssertVoid(InstancePtr != NULL);

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -10,7 +10,6 @@
  * @file xusb_freertos_class_composite.h
  *
  * This file contains definitions used in the composite device class code.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -39,136 +38,140 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /* DFU states */
-#define STATE_APP_IDLE                  0x00
-#define STATE_APP_DETACH                0x01
-#define STATE_DFU_IDLE                  0x02
-#define STATE_DFU_DOWNLOAD_SYNC         0x03
-#define STATE_DFU_DOWNLOAD_BUSY         0x04
-#define STATE_DFU_DOWNLOAD_IDLE         0x05
-#define STATE_DFU_MANIFEST_SYNC         0x06
-#define STATE_DFU_MANIFEST              0x07
-#define STATE_DFU_MANIFEST_WAIT_RESET   0x08
-#define STATE_DFU_UPLOAD_IDLE           0x09
-#define STATE_DFU_ERROR                 0x0a
+#define STATE_APP_IDLE                  0x00	/**< State App Idle. */
+#define STATE_APP_DETACH                0x01	/**< State App Detach. */
+#define STATE_DFU_IDLE                  0x02	/**< State Dfu Idle. */
+#define STATE_DFU_DOWNLOAD_SYNC         0x03	/**< State Dfu Download Sync. */
+#define STATE_DFU_DOWNLOAD_BUSY         0x04	/**< State Dfu Download Busy. */
+#define STATE_DFU_DOWNLOAD_IDLE         0x05	/**< State Dfu Download Idle. */
+#define STATE_DFU_MANIFEST_SYNC         0x06	/**< State Dfu Manifest Sync. */
+#define STATE_DFU_MANIFEST              0x07	/**< State Dfu Manifest. */
+#define STATE_DFU_MANIFEST_WAIT_RESET   0x08	/**< State Dfu Manifest Wait Reset. */
+#define STATE_DFU_UPLOAD_IDLE           0x09	/**< State Dfu Upload Idle. */
+#define STATE_DFU_ERROR                 0x0a	/**< State Dfu Error. */
 
 /* DFU status */
-#define DFU_STATUS_OK                   0x00
-#define DFU_STATUS_ERROR_TARGET         0x01
-#define DFU_STATUS_ERROR_FILE           0x02
-#define DFU_STATUS_ERROR_WRITE          0x03
-#define DFU_STATUS_ERROR_ERASE          0x04
-#define DFU_STATUS_ERROR_CHECK_ERASED   0x05
-#define DFU_STATUS_ERROR_PROG           0x06
-#define DFU_STATUS_ERROR_VERIFY         0x07
-#define DFU_STATUS_ERROR_ADDRESS        0x08
-#define DFU_STATUS_ERROR_NOTDONE        0x09
-#define DFU_STATUS_ERROR_FIRMWARE       0x0a
-#define DFU_STATUS_ERROR_VENDOR         0x0b
-#define DFU_STATUS_ERROR_USBR           0x0c
-#define DFU_STATUS_ERROR_POR            0x0d
-#define DFU_STATUS_ERROR_UNKNOWN        0x0e
-#define DFU_STATUS_ERROR_STALLEDPKT     0x0f
+#define DFU_STATUS_OK                   0x00	/**< DFU status: No error. */
+#define DFU_STATUS_ERROR_TARGET         0x01	/**< Dfu Status Error Target. */
+#define DFU_STATUS_ERROR_FILE           0x02	/**< Dfu Status Error File. */
+#define DFU_STATUS_ERROR_WRITE          0x03	/**< Dfu Status Error Write. */
+#define DFU_STATUS_ERROR_ERASE          0x04	/**< Dfu Status Error Erase. */
+#define DFU_STATUS_ERROR_CHECK_ERASED   0x05	/**< Dfu Status Error Check Erased. */
+#define DFU_STATUS_ERROR_PROG           0x06	/**< Dfu Status Error Prog. */
+#define DFU_STATUS_ERROR_VERIFY         0x07	/**< Dfu Status Error Verify. */
+#define DFU_STATUS_ERROR_ADDRESS        0x08	/**< Dfu Status Error Address. */
+#define DFU_STATUS_ERROR_NOTDONE        0x09	/**< Dfu Status Error Notdone. */
+#define DFU_STATUS_ERROR_FIRMWARE       0x0a	/**< Dfu Status Error Firmware. */
+#define DFU_STATUS_ERROR_VENDOR         0x0b	/**< Dfu Status Error Vendor. */
+#define DFU_STATUS_ERROR_USBR           0x0c	/**< Dfu Status Error Usbr. */
+#define DFU_STATUS_ERROR_POR            0x0d	/**< Dfu Status Error Por. */
+#define DFU_STATUS_ERROR_UNKNOWN        0x0e	/**< Dfu Status Error Unknown. */
+#define DFU_STATUS_ERROR_STALLEDPKT     0x0f	/**< Dfu Status Error Stalledpkt. */
 
 /* DFU commands */
-#define DFU_DETACH      		0
-#define DFU_DNLOAD      		1
-#define DFU_UPLOAD      		2
-#define DFU_GETSTATUS   		3
-#define DFU_CLRSTATUS   		4
-#define DFU_GETSTATE    		5
-#define DFU_ABORT       		6
+#define DFU_DETACH      		0	/**< Dfu Detach. */
+#define DFU_DNLOAD      		1	/**< Dfu Dnload. */
+#define DFU_UPLOAD      		2	/**< Dfu Upload. */
+#define DFU_GETSTATUS   		3	/**< Dfu Getstatus. */
+#define DFU_CLRSTATUS   		4	/**< Dfu Clrstatus. */
+#define DFU_GETSTATE    		5	/**< Dfu Getstate. */
+#define DFU_ABORT       		6	/**< Dfu Abort. */
 
 /* DFU alternate setting value when in run-time mode */
-#define DFU_ALT_SETTING 		1
+#define DFU_ALT_SETTING 		1	/**< Dfu Alt Setting. */
 
 /* A.14 Audio Class-Specific Request Codes */
-#define UAC2_CS_CUR			0x01
-#define UAC2_CS_RANGE			0x02
+#define UAC2_CS_CUR			0x01	/**< Uac2 Cs Cur. */
+#define UAC2_CS_RANGE			0x02	/**< Uac2 Cs Range. */
 
 /* A.17 Control Selector Codes */
 /* A.17.1 Clock Source Control Selectors */
-#define UAC2_CS_CONTROL_UNDEFINED	0x00
-#define UAC2_CS_CONTROL_SAM_FREQ	0x01
-#define UAC2_CS_CONTROL_CLOCK_VALID	0x02
+#define UAC2_CS_CONTROL_UNDEFINED	0x00	/**< Uac2 Cs Control Undefined. */
+#define UAC2_CS_CONTROL_SAM_FREQ	0x01	/**< Uac2 Cs Control Sam Freq. */
+#define UAC2_CS_CONTROL_CLOCK_VALID	0x02	/**< Uac2 Cs Control Clock Valid. */
 
 /* A.17.2 Clock Selector Control Selectors */
-#define UAC2_CX_CONTROL_UNDEFINED	0x00
-#define UAC2_CX_CONTROL_CLOCK_SEL	0x01
+#define UAC2_CX_CONTROL_UNDEFINED	0x00	/**< Uac2 Cx Control Undefined. */
+#define UAC2_CX_CONTROL_CLOCK_SEL	0x01	/**< Uac2 Cx Control Clock Sel. */
 
 /* A.17.7 Feature Unit Control Selectors */
-#define UAC2_FU_CONTROL_UNDEFINED	0x00
-#define UAC2_FU_MUTE_CONTROL		0x01
-#define UAC2_FU_VOLUME_CONTROL		0x02
+#define UAC2_FU_CONTROL_UNDEFINED	0x00	/**< Uac2 Fu Control Undefined. */
+#define UAC2_FU_MUTE_CONTROL		0x01	/**< Uac2 Fu Mute Control. */
+#define UAC2_FU_VOLUME_CONTROL		0x02	/**< Uac2 Fu Volume Control. */
 
-#define ISO_EP				2
-#define STORAGE_EP			3
-#define KEYBOARD_EP			4
+#define ISO_EP				2	/**< Iso Ep. */
+#define STORAGE_EP			3	/**< Mass storage endpoint number. */
+#define KEYBOARD_EP			4	/**< Keyboard Ep. */
+/** @brief Interval Per Second. */
 #define INTERVAL_PER_SECOND		(u32)(8000)
 
 /* Isoc interval for AUDIO */
-#define AUDIO_INTERVAL			0x04
+#define AUDIO_INTERVAL			0x04	/**< Audio Interval. */
 
 /* Array of supported sampling frequencies */
-#define MAX_AUDIO_FREQ			0x04
-#define CUR_AUDIO_FREQ			0x01
+#define MAX_AUDIO_FREQ			0x04	/**< Max Audio Freq. */
+#define CUR_AUDIO_FREQ			0x01	/**< Cur Audio Freq. */
 
 /* Bytes per Audio transferred frame */
-#define AUDIO_FRAME_SIZE		0x02
+#define AUDIO_FRAME_SIZE		0x02	/**< Audio Frame Size. */
 
 /* Bits per Audio transferred frame */
+/** @brief Bit Resolution. */
 #define BIT_RESOLUTION			((AUDIO_FRAME_SIZE) * (0x08))
 
 /* Mass storage opcodes. */
-#define USB_RBC_TEST_UNIT_READY		0x00
-#define USB_RBC_REQUEST_SENSE		0x03
-#define USB_RBC_FORMAT			0x04
-#define USB_RBC_INQUIRY			0x12
-#define USB_RBC_MODE_SELECT		0x15
-#define USB_RBC_MODE_SENSE		0x1a
-#define USB_RBC_STARTSTOP_UNIT		0x1b
-#define USB_RBC_MEDIUM_REMOVAL		0x1e
-#define USB_UFI_GET_CAP_LIST		0x23
-#define USB_RBC_READ_CAP		0x25
-#define USB_RBC_READ			0x28
-#define USB_RBC_WRITE			0x2a
-#define USB_RBC_VERIFY			0x2f
-#define USB_SYNC_SCSI			0x35
+#define USB_RBC_TEST_UNIT_READY		0x00	/**< Usb Rbc Test Unit Ready. */
+#define USB_RBC_REQUEST_SENSE		0x03	/**< Usb Rbc Request Sense. */
+#define USB_RBC_FORMAT			0x04	/**< Usb Rbc Format. */
+#define USB_RBC_INQUIRY			0x12	/**< Usb Rbc Inquiry. */
+#define USB_RBC_MODE_SELECT		0x15	/**< Usb Rbc Mode Select. */
+#define USB_RBC_MODE_SENSE		0x1a	/**< Usb Rbc Mode Sense. */
+#define USB_RBC_STARTSTOP_UNIT		0x1b	/**< Usb Rbc Startstop Unit. */
+#define USB_RBC_MEDIUM_REMOVAL		0x1e	/**< Usb Rbc Medium Removal. */
+#define USB_UFI_GET_CAP_LIST		0x23	/**< Usb Ufi Get Cap List. */
+#define USB_RBC_READ_CAP		0x25	/**< Usb Rbc Read Cap. */
+#define USB_RBC_READ			0x28	/**< Usb Rbc Read. */
+#define USB_RBC_WRITE			0x2a	/**< Usb Rbc Write. */
+#define USB_RBC_VERIFY			0x2f	/**< Usb Rbc Verify. */
+#define USB_SYNC_SCSI			0x35	/**< Usb Sync Scsi. */
 
 /* Virtual Flash memory related definitions */
-#define STORAGE_SIZE			0x6400000	/* 100MB space */
-#define STORAGE_BLOCK_SIZE		0x200
+#define STORAGE_SIZE			0x6400000	/**< Storage Size. */
+#define STORAGE_BLOCK_SIZE		0x200	/**< Storage Block Size. */
+/** @brief Storage Num Blocks. */
 #define STORAGE_NUM_BLOCKS		(STORAGE_SIZE/STORAGE_BLOCK_SIZE)
 
 /* Class request opcodes */
-#define USB_CLASSREQ_MASS_STORAGE_RESET	0xFF
-#define USB_CLASSREQ_GET_MAX_LUN	0xFE
+#define USB_CLASSREQ_MASS_STORAGE_RESET	0xFF	/**< Usb Classreq Mass Storage Reset. */
+#define USB_CLASSREQ_GET_MAX_LUN	0xFE	/**< Usb Classreq Get Max Lun. */
 
 /* SCSI machine states */
-#define USB_EP_STATE_COMMAND		0
-#define USB_EP_STATE_DATA_IN		1
-#define USB_EP_STATE_DATA_OUT		2
-#define USB_EP_STATE_STATUS		3
+#define USB_EP_STATE_COMMAND		0	/**< Usb Ep State Command. */
+#define USB_EP_STATE_DATA_IN		1	/**< Usb Ep State Data In. */
+#define USB_EP_STATE_DATA_OUT		2	/**< Usb Ep State Data Out. */
+#define USB_EP_STATE_STATUS		3	/**< Usb Ep State Status. */
 
 /* HID class requests */
-#define GET_REPORT_REQUEST              0x01
-#define GET_IDLE_REQUEST                0x02
-#define GET_PROTOCOL_REQUEST            0x03
-#define SET_REPORT_REQUEST              0x09
-#define SET_IDLE_REQUEST                0x0A
-#define SET_PROTOCOL_REQUEST            0x0B
+#define GET_REPORT_REQUEST              0x01	/**< Get Report Request. */
+#define GET_IDLE_REQUEST                0x02	/**< Get Idle Request. */
+#define GET_PROTOCOL_REQUEST            0x03	/**< Get Protocol Request. */
+#define SET_REPORT_REQUEST              0x09	/**< Set Report Request. */
+#define SET_IDLE_REQUEST                0x0A	/**< Set Idle Request. */
+#define SET_PROTOCOL_REQUEST            0x0B	/**< Set Protocol Request. */
 
-#define HID_KEYBOARD_PROTOCOL           0x00
-#define REPORT_DESC_LENGTH              0x3F
+#define HID_KEYBOARD_PROTOCOL           0x00	/**< Hid Keyboard Protocol. */
+#define REPORT_DESC_LENGTH              0x3F	/**< Report Desc Length. */
 
-#define REPORT_LENGTH                   8
+#define REPORT_LENGTH                   8	/**< Report Length. */
 
-#define AUDIO_INTF			0
-#define AUDIO_INTF_OUT			1
-#define AUDIO_INTF_IN			2
-#define DFU_INTF			3
-#define STORAGE_INTF			4
-#define KEYBOARD_INTF			5
+#define AUDIO_INTF			0	/**< Audio Intf. */
+#define AUDIO_INTF_OUT			1	/**< Audio Intf Out. */
+#define AUDIO_INTF_IN			2	/**< Audio Intf In. */
+#define DFU_INTF			3	/**< Dfu Intf. */
+#define STORAGE_INTF			4	/**< Storage Intf. */
+#define KEYBOARD_INTF			5	/**< Keyboard Intf. */
 
+/** @brief D I V_ R O U N D_ U P(n, d). */
 #define DIV_ROUND_UP(n, d)		(((n) + (d) - 1) / (d))
 
 /**************************** Type Definitions *******************************/
@@ -321,16 +324,17 @@ struct audio_if {
 	u32			firstpkt;
 	u8			*disk;
 	u32			disksize;
-	u32			bytesRecv;
-	TaskHandle_t		xRecordTask;
-	TaskHandle_t		xPlayTask;
-	xSemaphoreHandle	xSemaphoreRecord;
-	xSemaphoreHandle	xSemaphorePlay;
+	u32			bytesRecv;	/**< Bytes Recv. */
+	TaskHandle_t		xRecordTask;	/**< X Record Task. */
+	TaskHandle_t		xPlayTask;	/**< X Play Task. */
+	xSemaphoreHandle	xSemaphoreRecord;	/**< X Semaphore Record. */
+	xSemaphoreHandle	xSemaphorePlay;	/**< X Semaphore Play. */
 };
 
+/** @brief USB transfer data structure. */
 struct transfer {
-	u8	*Ptr;
-	u32	Length;
+	u8	*Ptr;	/**< Ptr. */
+	u32	Length;	/**< Length. */
 };
 
 struct storage_if {
@@ -355,22 +359,23 @@ struct storage_if {
 	USB_CBW			cbw ALIGNMENT_CACHELINE;
 	USB_CSW			csw ALIGNMENT_CACHELINE;
 #endif
-	TaskHandle_t		xSCSITask;
-	xSemaphoreHandle	xSemaphore;
-	struct transfer		currTrans;
+	TaskHandle_t		xSCSITask;	/**< X S C S I Task. */
+	xSemaphoreHandle	xSemaphore;	/**< Curr Trans. */
+	struct transfer		currTrans;	/**< Current transfer pointer. */
 };
 
+/** @brief USB HID keyboard interface structure. */
 struct keyboard_if {
-	TaskHandle_t		xKeyboardTask;
-	xSemaphoreHandle	xSemaphore;
+	TaskHandle_t		xKeyboardTask;	/**< X Keyboard Task. */
+	xSemaphoreHandle	xSemaphore;	/**< X Semaphore. */
 };
 
 struct composite_dev {
-	TaskHandle_t		xMainTask;
+	TaskHandle_t		xMainTask;	/**< F_keyboard. */
 	struct audio_if		f_audio;
 	struct dfu_if		f_dfu;
 	struct storage_if	f_storage;
-	struct keyboard_if	f_keyboard;
+	struct keyboard_if	f_keyboard;	/**< Keyboard interface instance. */
 };
 
 /************************** Function Prototypes ******************************/

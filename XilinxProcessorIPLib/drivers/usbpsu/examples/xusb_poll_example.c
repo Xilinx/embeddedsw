@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -41,7 +41,7 @@
 #endif
 
 /************************** Constant Definitions ****************************/
-#define MEMORY_SIZE (64U * 1024U)
+#define MEMORY_SIZE (64U * 1024U)	/**< Memory buffer size in bytes. */
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64U
@@ -50,26 +50,28 @@
 #endif
 u8 Buffer[MEMORY_SIZE];
 #else
-u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
+u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;	/**< Alignment Cacheline. */
 #endif
 
 #ifdef SDT
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+/** @brief BulkOutHandler function. */
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 		    u32 BytesTxed);
+/** @brief BulkInHandler function. */
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 		   u32 BytesTxed);
 
 /************************** Variable Definitions *****************************/
-struct Usb_DevData UsbInstance;
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
-Usb_Config *UsbConfigPtr;
+Usb_Config *UsbConfigPtr;	/**< Usb Config Ptr. */
 
 /* Buffer for virtual flash disk space. */
 #ifdef __ICCARM__
@@ -94,9 +96,9 @@ USB_CBW CBW ALIGNMENT_CACHELINE;
 USB_CSW CSW ALIGNMENT_CACHELINE;
 #endif
 
-u8	Phase;
-u32	rxBytesLeft;
-u8	*VirtFlashWritePointer = VirtFlash;
+u8	Phase;	/**< Phase. */
+u32	rxBytesLeft;	/**< Rx Bytes Left. */
+u8	*VirtFlashWritePointer = VirtFlash;	/**< Virt Flash Write Pointer. */
 
 /* Initialize a DFU data structure */
 static USBCH9_DATA storage_data = {
@@ -127,14 +129,9 @@ static USBCH9_DATA storage_data = {
 /**
 * This function is the main function of the USB mass storage example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -223,13 +220,9 @@ int main(void)
 * This function is Bulk Out Endpoint handler/Callback called by driver when
 * data is received.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested for reception.
-* @param	BytesTxed is actual number of bytes received from Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested for reception.
+* @param[in] BytesTxed is actual number of bytes received from Host.
 *
 *****************************************************************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
@@ -260,13 +253,9 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 * This function is Bulk In Endpoint handler/Callback called by driver when
 * data is sent.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested to send.
-* @param	BytesTxed is actual number of bytes sent to Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested to send.
+* @param[in] BytesTxed is actual number of bytes sent to Host.
 *
 *****************************************************************************/
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,

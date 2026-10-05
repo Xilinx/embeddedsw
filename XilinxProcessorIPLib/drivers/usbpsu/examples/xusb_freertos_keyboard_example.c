@@ -1,17 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /****************************************************************************/
 /**
  *
- * @file xusb_freertos_keyboard.c
+ * @file xusb_freertos_keyboard_example.c
  *
  * This file implements keyboard example.
  *
- * @setup requirement
+ * @par Setup requirement
  * zcu102 board in usb device mode, connected with host using USB 3.0 cable
  *
  * Following other files require to run this example
@@ -19,11 +19,11 @@
  *  o xusb_freertos_ch9_keyboard.c, xusb_freerots_ch9_keyboard.h
  *  o xusb_freertos_class_keyboard.c, xusb_freertos_class_keyboard.h
  *
- * @validation
+ * @par Validation
  *  o on success example will be detected as keyboard on host
- *  o start hexdump <hid node> on host
+ *  o start hexdump \<hid node\> on host
  *  o press key on board serial
- *  o key should be detcted on host
+ *  o key should be detected on host
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -47,32 +47,33 @@
 #include "xusb_freertos_class_keyboard.h"
 
 /************************** Constant Definitions ****************************/
-#define MEMORY_SIZE (64 * 1024)
+#define MEMORY_SIZE (64 * 1024)	/**< Memory buffer size in bytes. */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 u8 Buffer[MEMORY_SIZE];
 #else
-u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
+u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;	/**< Alignment Cacheline. */
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #ifndef SDT
-#define USB_INTR_ID			XPAR_XUSBPS_0_INTR
+#define USB_INTR_ID			XPAR_XUSBPS_0_INTR	/**< Usb Intr Id. */
 #else
-#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define INTRNAME_DWC3USB3	0  /**< Interrupt-name - USB */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 
 /************************** Function Prototypes ******************************/
+/** @brief Usb_EpInHandler function. */
 void Usb_EpInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed);
 
 /************************** Variable Definitions *****************************/
 
-struct Usb_DevData UsbInstance;	/* The instance of the USB Controller */
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
 u8 Phase;
 
-/* Initialize a data structure */
+/**< Initialize a data structure */
 static USBCH9_DATA keyboard_data = {
 	.ch9_func = {
 
@@ -96,12 +97,8 @@ static USBCH9_DATA keyboard_data = {
 * directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param	InstPtr is a pointer to the XUsbPsu instance.
-* @param	UsbIntrId is the interrupt ID of the USB controller
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsbPsu instance.
+* @param[in] UsbIntrId is the interrupt ID of the USB controller
 *
 *****************************************************************************/
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
@@ -124,14 +121,10 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 /**
 * This function is implementing USB Keyboard example.
 *
-* @param	UsbInstPtr USB instance pointer.
-*		DeviceId USB Device ID
-*		UsbIntrId USB Interrupt ID
+* @param[in] UsbInstPtr is a pointer to the USB device instance.
 *
 * @return	- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -228,9 +221,7 @@ static int XUsbKeyboardExample(struct Usb_DevData *UsbInstPtr)
 /**
 * This task implements keyboard functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 static void prvMainTask(void *pvParameters)
@@ -254,14 +245,9 @@ static void prvMainTask(void *pvParameters)
 /**
 * This function is the main function of the USB keyboard example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -283,13 +269,9 @@ int main(void)
 * This function is IN Endpoint handler/Callback called by driver when
 * data is sent.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested to send.
-* @param	BytesTxed is actual number of bytes sent to Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested to send.
+* @param[in] BytesTxed is actual number of bytes sent to Host.
 *
 *****************************************************************************/
 void Usb_EpInHandler(void *CallBackRef, u32 RequestedBytes, u32 BytesTxed)

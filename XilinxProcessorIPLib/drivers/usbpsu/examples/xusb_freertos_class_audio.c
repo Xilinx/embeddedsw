@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,18 +38,6 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-
-/****************************************************************************/
-/**
- * This function is called by Chapter9 handler when class request is received
- * from Host.
- *
- * @param	InstancePtr is pointer to Usb_DevData instance.
- * @param	SetupData is the setup packet received from Host.
- *
- * @note	None.
- *
- *****************************************************************************/
 void Usb_ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 {
 	u32 ReplyLen;
@@ -279,9 +267,7 @@ void Usb_ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 /**
 * This task implements audio record functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvRecordTask(void *pvParameters)
@@ -360,9 +346,7 @@ void prvRecordTask(void *pvParameters)
 /**
 * This task implements audio playback functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvPlayBackTask(void *pvParameters)

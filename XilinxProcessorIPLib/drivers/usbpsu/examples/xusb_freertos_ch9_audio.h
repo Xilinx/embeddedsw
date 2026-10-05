@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -43,6 +43,7 @@ extern "C" {
  */
 
 /* USB types, the second of three bRequestType fields */
+/** @brief USB request type: Class. */
 #define USB_TYPE_CLASS			(0x01 << 5)
 
 /*
@@ -50,76 +51,79 @@ extern "C" {
  * defined in the USB "Common Class" Spec (3.11).  Individual class specs
  * are authoritative for their usage, not the "common class" writeup.
  */
+/** @brief Class-specific interface descriptor type. */
 #define USB_DT_CS_INTERFACE		(USB_TYPE_CLASS | USB_TYPE_INTERFACE_DESC)
+/** @brief Class-specific endpoint descriptor type. */
 #define USB_DT_CS_ENDPOINT		(USB_TYPE_CLASS | USB_TYPE_ENDPOINT_CFG_DESC)
 
 /* Audio Interface Subclass Codes */
-#define USB_SUBCLASS_AUDIOCONTROL	0x01
-#define USB_SUBCLASS_AUDIOSTREAMING	0x02
+#define USB_SUBCLASS_AUDIOCONTROL	0x01	/**< USB Audio Control subclass code. */
+#define USB_SUBCLASS_AUDIOSTREAMING	0x02	/**< USB Audio Streaming subclass code. */
 
 /* Audio Class-Specific AC Interface Descriptor Subtypes */
-#define UAC_INPUT_TERMINAL		0x02
-#define UAC_OUTPUT_TERMINAL		0x03
-#define UAC_FEATURE_UNIT		0x06
+#define UAC_INPUT_TERMINAL		0x02	/**< UAC Input Terminal descriptor subtype. */
+#define UAC_OUTPUT_TERMINAL		0x03	/**< UAC Output Terminal descriptor subtype. */
+#define UAC_FEATURE_UNIT		0x06	/**< UAC Feature Unit descriptor subtype. */
 
 /* Format Type Codes */
-#define UAC_FORMAT_TYPE_I		0x1
-#define UAC_FORMAT_TYPE_SUBTYPE		0x02
+#define UAC_FORMAT_TYPE_I		0x1	/**< UAC format type I subtype. */
+#define UAC_FORMAT_TYPE_SUBTYPE		0x02	/**< UAC format type subtype identifier. */
 
 /* Audio Class-Specific AS Interface Descriptor Subtypes */
-#define UAC_AS_GENERAL			0x01
+#define UAC_AS_GENERAL			0x01	/**< UAC AudioStreaming General subtype. */
 
 /* Audio Class-Specific Endpoint Descriptor Subtypes */
-#define UAC_EP_GENERAL			0x01
+#define UAC_EP_GENERAL			0x01	/**< UAC endpoint general subtype. */
 
 /* bInterfaceProtocol values to denote the version of the standard used */
-#define UAC_VERSION			0x20
+#define UAC_VERSION			0x20	/**< UAC version identifier. */
 
 /* Terminal Unit */
-#define USB_OUT_IT_ID			1
-#define USB_OUT_OT_ID			2
-#define USB_IN_IT_ID			3
-#define USB_IN_OT_ID			4
+#define USB_OUT_IT_ID			1	/**< USB output input terminal ID. */
+#define USB_OUT_OT_ID			2	/**< USB output terminal ID. */
+#define USB_IN_IT_ID			3	/**< USB input input terminal ID. */
+#define USB_IN_OT_ID			4	/**< USB input output terminal ID. */
 
 /* Clock Control Unit */
-#define NUM_CLK_SRC			1
-#define USB_CLK_SRC_ID			5
-#define USB_CLK_SEL_ID			6
+#define NUM_CLK_SRC			1	/**< Number of clock sources. */
+#define USB_CLK_SRC_ID			5	/**< USB clock source ID. */
+#define USB_CLK_SEL_ID			6	/**< Usb Clk Sel Id. */
 
 /* Feature Unit */
-#define OUT_FETR_UNT_ID			7
-#define IN_FETR_UNT_ID			8
+#define OUT_FETR_UNT_ID			7	/**< Out Fetr Unt Id. */
+#define IN_FETR_UNT_ID			8	/**< In Fetr Unt Id. */
 
-#define CONTROL_RDONLY			1
-#define CONTROL_RDWR			3
+#define CONTROL_RDONLY			1	/**< Control Rdonly. */
+#define CONTROL_RDWR			3	/**< Control Rdwr. */
 
-#define CLK_FREQ_CTRL			0
-#define COPY_CTRL			0
+#define CLK_FREQ_CTRL			0	/**< Clk Freq Ctrl. */
+#define COPY_CTRL			0	/**< Copy Ctrl. */
 
 /* Audio Function Category Codes */
-#define UAC2_FUNCTION_SUBCLASS_UNDEFINED	0x00
-#define UAC2_FUNCTION_IO_BOX			0x08
+#define UAC2_FUNCTION_SUBCLASS_UNDEFINED	0x00	/**< Uac2 Function Subclass Undefined. */
+#define UAC2_FUNCTION_IO_BOX			0x08	/**< Uac2 Function Io Box. */
 
 /* Audio Class-Specific Clock Source Descriptor Subtype */
-#define UAC2_CLOCK_SOURCE		0x0a
+#define UAC2_CLOCK_SOURCE		0x0a	/**< Uac2 Clock Source. */
 
 /* Audio Class-Specific Clock Selector Descriptor Subtype */
-#define UAC2_CLOCK_SELECTOR		0x0b
+#define UAC2_CLOCK_SELECTOR		0x0b	/**< Uac2 Clock Selector. */
 
 /* bmAttribute fields */
-#define UAC2_CLOCK_SOURCE_TYPE_INT_FIXED	0x1
+#define UAC2_CLOCK_SOURCE_TYPE_INT_FIXED	0x1	/**< Uac2 Clock Source Type Int Fixed. */
 
 /* Audio Data Format Type I Codes */
-#define UAC2_FORMAT_TYPE_I_PCM		0x01
+#define UAC2_FORMAT_TYPE_I_PCM		0x01	/**< Uac2 Format Type I Pcm. */
 
 /* The USB 3.0 spec redefines bits 5:4 of bmAttributes as interrupt ep type */
+/** @brief Usb Endpoint Sync Async. */
 #define USB_ENDPOINT_SYNC_ASYNC		(1 << 2)
 
 /*
  * Number of channel in AUDIO
  * Stereo->2 / Mono->1
  */
-#define AUDIO_CHANNEL_NUM		0x02
+#define AUDIO_CHANNEL_NUM		0x02	/**< Audio Channel Num. */
 
 /**************************** Type Definitions *******************************/
 
@@ -370,17 +374,17 @@ typedef struct {
 	UAC2_CLOCK_SOURCE_DESC		ClkSrcDesc;
 	UAC2_CLOCK_SELECTOR_DESC	ClkSltrDesc;
 
-	/* Out Direction */
+	/**< Out Direction */
 	UAC2_INPUT_TERMINAL_DESC	usbOutItDesc;
 	UAC2_FEATURE_UNIT_DESC		OutfeatureUnitDesc;
 	UAC2_OUTPUT_TERMINAL_DESC	usbOutOtDesc;
 
-	/* In Direction */
+	/**< In Direction */
 	UAC2_INPUT_TERMINAL_DESC	usbInItDesc;
 	UAC2_FEATURE_UNIT_DESC		InfeatureUnitDesc;
 	UAC2_OUTPUT_TERMINAL_DESC	usbInOtDesc;
 
-	/* Output Stream */
+	/**< Output Stream */
 	USB_STD_IF_DESC			stdAsOutIf0Desc;
 	USB_STD_IF_DESC			stdAsOutIf1Desc;
 	UAC2_AS_HEADER_DESC 		asOutHdrDesc;
@@ -388,7 +392,7 @@ typedef struct {
 	USB_EP_DESC			asEpOutDesc;
 	UAC2_ISO_EP_DESC		asIsoEpOutDesc;
 
-	/* Input Stream */
+	/**< Input Stream */
 	USB_STD_IF_DESC			stdAsInIf0Desc;
 	USB_STD_IF_DESC			stdAsInIf1Desc;
 	UAC2_AS_HEADER_DESC 		asInHdrDesc;
@@ -414,17 +418,17 @@ typedef struct {
 	UAC2_CLOCK_SOURCE_DESC		ClkSrcDesc;
 	UAC2_CLOCK_SELECTOR_DESC	ClkSltrDesc;
 
-	/* Out Direction */
+	/**< Out Direction */
 	UAC2_INPUT_TERMINAL_DESC	usbOutItDesc;
 	UAC2_FEATURE_UNIT_DESC		OutfeatureUnitDesc;
 	UAC2_OUTPUT_TERMINAL_DESC	usbOutOtDesc;
 
-	/* In Direction */
+	/**< In Direction */
 	UAC2_INPUT_TERMINAL_DESC	usbInItDesc;
 	UAC2_FEATURE_UNIT_DESC		InfeatureUnitDesc;
 	UAC2_OUTPUT_TERMINAL_DESC	usbInOtDesc;
 
-	/* Output Stream */
+	/**< Output Stream */
 	USB_STD_IF_DESC			stdAsOutIf0Desc;
 	USB_STD_IF_DESC			stdAsOutIf1Desc;
 	UAC2_AS_HEADER_DESC 		asOutHdrDesc;
@@ -433,7 +437,7 @@ typedef struct {
 	USB_STD_EP_SS_COMP_DESC		asEpOutCompDesc;
 	UAC2_ISO_EP_DESC		asIsoEpOutDesc;
 
-	/* Input Stream */
+	/**< Input Stream */
 	USB_STD_IF_DESC			stdAsInIf0Desc;
 	USB_STD_IF_DESC			stdAsInIf1Desc;
 	UAC2_AS_HEADER_DESC 		asInHdrDesc;
@@ -449,23 +453,26 @@ typedef struct {
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define ISO_EP				1
+#define ISO_EP				1	/**< Iso Ep. */
 
+/** @brief Interval Per Second. */
 #define INTERVAL_PER_SECOND		(u32)(8000)
 
 /* Isoc interval for AUDIO */
-#define AUDIO_INTERVAL			0x04
+#define AUDIO_INTERVAL			0x04	/**< Audio Interval. */
 
 /* Array of supported sampling frequencies */
-#define MAX_AUDIO_FREQ			0x04
+#define MAX_AUDIO_FREQ			0x04	/**< Max Audio Freq. */
 
 /* Bytes per Audio transferred frame */
-#define AUDIO_FRAME_SIZE		0x02
-#define CUR_AUDIO_FREQ			0x01
+#define AUDIO_FRAME_SIZE		0x02	/**< Audio Frame Size. */
+#define CUR_AUDIO_FREQ			0x01	/**< Cur Audio Freq. */
 
 /* Bits per Audio transferred frame */
+/** @brief Bit Resolution. */
 #define BIT_RESOLUTION			((AUDIO_FRAME_SIZE) * (0x08))
 
+/** @brief D I V_ R O U N D_ U P(n, d). */
 #define DIV_ROUND_UP(n, d)		(((n) + (d) - 1) / (d))
 /************************** Function Prototypes ******************************/
 
@@ -477,8 +484,10 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen);
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 			     u32 BufLen, u8 Index);
 s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl);
+/** @brief Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler. */
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr,
 			    SetupPacket *Ctrl);
+/** @brief Handles USB SET_INTERFACE standard request. */
 void Usb_SetInterfaceHandler(struct Usb_DevData *InstancePtr,
 			     SetupPacket *Ctrl);
 

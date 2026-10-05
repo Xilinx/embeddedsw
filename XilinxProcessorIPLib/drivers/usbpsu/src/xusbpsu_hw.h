@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 * 1.9	pm    15/03/21 Fixed doxygen warnings
 * 1.14	pm    21/06/23 Added support for system device-tree flow.
 * 1.15  np    26/03/24 Add doxygen and editorial fixes
+* 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *
 * </pre>
 *
@@ -33,7 +34,7 @@
 
 /** @cond INTERNAL */
 #ifndef XUSBPSU_HW_H	/* Prevent circular inclusions */
-#define XUSBPSU_HW_H	/**< by using protection macros  */
+#define XUSBPSU_HW_H
 
 #include "xstatus.h"
 
@@ -358,8 +359,8 @@ extern "C" {
 * Reads a register of the USBPS8 device. This macro provides register
 * access to all registers using the register offsets.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Offset Offset of the register to read.
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Offset Offset of the register to read.
 *
 * @return	The contents of the register.
 *
@@ -376,11 +377,9 @@ extern "C" {
 * Writes a register of the USBPS8 device. This macro provides
 * register access to all registers using the register offsets.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Offset Offset of the register to write.
-* @param	Data Value to write to the register.
-*
-* @return	None.
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Offset Offset of the register to write.
+* @param[in] Data Value to write to the register.
 *
 * @note 	C-style Signature:
 *		    void XUsbPsu_WriteReg(struct XUsbPsu *InstancePtr,
@@ -395,7 +394,7 @@ extern "C" {
 *
 * Reads a vendor register of the USBPS8 device.
 *
-* @param       Offset Offset of the register to read.
+* @param[in] Offset Offset of the register to read.
 *
 * @return      The contents of the register.
 *
@@ -411,10 +410,8 @@ extern "C" {
 *
 * Writes a Vendor register of the USBPS8 device.
 *
-* @param       Offset Offset of the register to write.
-* @param       Data Value to write to the register.
-*
-* @return      None.
+* @param[in] Offset Offset of the register to write.
+* @param[in] Data Value to write to the register.
 *
 * @note        C-style Signature:
 *              void XUsbPsu_WriteVendorReg(struct XUsbPsu *InstancePtr,
@@ -430,7 +427,7 @@ extern "C" {
 *
 * Reads a power state register of the USBPSU device.
 *
-* @param       Offset Offset of the register to read.
+* @param[in] Offset Offset of the register to read.
 *
 * @return      The contents of the register.
 *
@@ -447,10 +444,8 @@ extern "C" {
 *
 * Writes a power state register of the USBPSU device.
 *
-* @param       Offset Offset of the register to write.
-* @param       Data Value to write to the register.
-*
-* @return      None.
+* @param[in] Offset Offset of the register to write.
+* @param[in] Data Value to write to the register.
 *
 * @note        C-style Signature:
 *              void XUsbPsu_WriteVslPwrStateReg(struct XUsbPsu *InstancePtr,
@@ -466,8 +461,7 @@ extern "C" {
 *
 * Reads a LPD register of the USBPS8 device.
 *
-*
-* @param       Offset Offset of the register to read.
+* @param[in] Offset Offset of the register to read.
 *
 * @return      The contents of the register.
 *
@@ -483,10 +477,8 @@ extern "C" {
 *
 * Writes a LPD register of the USBPS8 device.
 *
-* @param       Offset Offset of the register to write.
-* @param       Data Value to write to the register.
-*
-* @return      None.
+* @param[in] Offset Offset of the register to write.
+* @param[in] Data Value to write to the register.
 *
 * @note        C-style Signature:
 *              void XUsbPsu_WriteLpdReg(struct XUsbPsu *InstancePtr,

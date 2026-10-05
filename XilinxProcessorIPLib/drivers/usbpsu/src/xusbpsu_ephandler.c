@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *****************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xusbpsu_ephandler.c
 * @addtogroup usbpsu_api USBPSU APIs
 * @{
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -22,6 +21,7 @@
 * 1.12	pm  10/08/22 Update doxygen tag and addtogroup version
 * 1.15  np  26/03/24 Add doxygen and editorial fixes
 * 1.18  nk  23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
+* 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -45,14 +45,11 @@
 * @brief
 * Stops transfer on Endpoint.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	UsbEpNum USB endpoint number.
-* @param	Dir Direction of endpoint
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] UsbEpNum USB endpoint number.
+* @param[in] Dir Direction of endpoint
 * 				- XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
-* @param	Force Flag to stop/pause transfer.
-*
-* @return	None.
-*
+* @param[in] Force Flag to stop/pause transfer.
 *
 ****************************************************************************/
 void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
@@ -100,13 +97,10 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 /**
 * Resets and deactivates transfer endpoint.
 *
-* @param        InstancePtr Pointer to the XUsbPsu instance.
-* @param        UsbEpNum USB endpoint number.
-* @param        Dir Direction of endpoint
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] UsbEpNum USB endpoint number.
+* @param[in] Dir Direction of endpoint
 *    		- XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
-*
-* @return       None.
-*
 *
 ****************************************************************************/
 void XUsbPsu_EpTransferDeactive(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
@@ -143,11 +137,8 @@ void XUsbPsu_EpTransferDeactive(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 /**
 * Queries endpoint state and saves it in EpSavedState.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Ept Pointer to the XUsbPsu pointer structure.
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in,out] Ept Pointer to the endpoint structure.
 *
 ****************************************************************************/
 void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
@@ -169,10 +160,7 @@ void XUsbPsu_SaveEndpointState(struct XUsbPsu *InstancePtr,
 /**
 * Clears stall on all endpoints.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
 *
 ****************************************************************************/
 void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
@@ -208,10 +196,10 @@ void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
 * @brief
 * Initiates DMA to send data on endpoint to the host.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	UsbEp USB endpoint number.
-* @param	BufferPtr Pointer to data. This data buffer is cache-aligned.
-* @param	BufferLen Length of data buffer.
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] UsbEp USB endpoint number.
+* @param[in] BufferPtr Pointer to data. This data buffer is cache-aligned.
+* @param[in] BufferLen Length of data buffer.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
@@ -366,10 +354,10 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 * @brief
 * Initiates DMA to receive data on endpoint from host.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	UsbEp USB endpoint number.
-* @param	BufferPtr Pointer to data. This data buffer is cache-aligned.
-* @param	Length Length of data to be received.
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] UsbEp USB endpoint number.
+* @param[out] BufferPtr Pointer to the cache-aligned receive buffer.
+* @param[in] Length Length of data to be received.
 *
 * @return	XST_SUCCESS else XST_FAILURE
 *
@@ -536,12 +524,9 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 * @brief
 * Stalls an endpoint.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Epnum USB endpoint number.
-* @param	Dir	Direction
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Epnum USB endpoint number.
+* @param[in] Dir	Direction
 *
 *****************************************************************************/
 void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
@@ -572,12 +557,9 @@ void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 * @brief
 * Clears stall on an endpoint.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Epnum USB endpoint number.
-* @param	Dir	Direction.
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Epnum USB endpoint number.
+* @param[in] Dir	Direction.
 *
 *****************************************************************************/
 void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
@@ -608,14 +590,11 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 * @brief
 * Sets an user handler to be called after data is sent/received by an endpoint.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Epnum USB endpoint number.
-* @param	Dir Direction of endpoint
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Epnum USB endpoint number.
+* @param[in] Dir Direction of endpoint
 * 				- XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
-* @param	Handler User handler to be called.
-*
-* @return	None.
-*
+* @param[in] Handler User handler to be called.
 *
 *****************************************************************************/
 void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
@@ -639,15 +618,14 @@ void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 * @brief
 * Returns status of endpoint whether it is stalled or not.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Epnum USB endpoint number.
-* @param	Dir Direction of endpoint
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Epnum USB endpoint number.
+* @param[in] Dir Direction of endpoint
 * 				- XUSBPSU_EP_DIR_IN/XUSBPSU_EP_DIR_OUT.
 *
 * @return
 *			1 - if stalled
 *			0 - if not stalled
-*
 *
 *****************************************************************************/
 s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
@@ -670,11 +648,8 @@ s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 /**
 * Checks the data phase and calls user endpoint handler.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Event Pointer to the endpoint event occurred in core.
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Event Pointer to the endpoint event occurred in core.
 *
 *****************************************************************************/
 void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
@@ -761,11 +736,8 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 * For Isochronous transfer, gets the microframe time and calls respective
 * endpoint handler.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance.
-* @param	Event Pointer to the Endpoint event occurred in core.
-*
-* @return	None.
-*
+* @param[in] InstancePtr Pointer to the XUsbPsu instance.
+* @param[in] Event Pointer to the Endpoint event occurred in core.
 *
 *****************************************************************************/
 void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
@@ -798,12 +770,11 @@ void XUsbPsu_EpXferNotReady(struct XUsbPsu *InstancePtr,
 /**
 * Restarts transfer for active endpoint.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be worked.
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be worked.
 * 		on.
-* @param	EpNum Endpoint number.
+* @param[in] EpNum Endpoint number.
 *
 * @return	XST_SUCCESS on success or else XST_FAILURE.
-*
 *
 ******************************************************************************/
 s32 XUsbPsu_RestartEp(struct XUsbPsu *InstancePtr, u8 EpNum)

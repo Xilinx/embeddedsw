@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,12 +26,13 @@
  * 1.6   pm  22/07/18  Removed coverity warning- INCLUDE_RECURSION
  * 1.8	 pm  24/07/20  Fixed MISRA-C and Coverity warnings
  * 1.9	 pm  15/03/21  Fixed doxygen warnings
+ * 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  *
  ******************************************************************************/
 /** @cond INTERNAL */
 #ifndef XUSBPSU_ENDPOINT_H	/* Prevent circular inclusions */
-#define XUSBPSU_ENDPOINT_H	/**< by using protection macros */
+#define XUSBPSU_ENDPOINT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,7 +66,7 @@ extern "C" {
 #define XUSBPSU_DGCMD_CMDIOC                    0x00000100U /**< Command Interrupt on Complete - bit 8 */
 
 /* Device Generic Command Parameter Register */
-#define XUSBPSU_DGCMDPAR_FORCE_LINKPM_ACCEPT    (0x00000001U << 0U) /**< Link PM acceept */
+#define XUSBPSU_DGCMDPAR_FORCE_LINKPM_ACCEPT    (0x00000001U << 0U) /**< Link PM accept */
 #define XUSBPSU_DGCMDPAR_FIFO_NUM(n)            ((u32)(n) << 0U) /**< FIFO NUM */
 #define XUSBPSU_DGCMDPAR_RX_FIFO                (0x00000000U << 5U) /**< RX FIFO */
 #define XUSBPSU_DGCMDPAR_TX_FIFO                (0x00000001U << 5U) /**< TX FIFO */

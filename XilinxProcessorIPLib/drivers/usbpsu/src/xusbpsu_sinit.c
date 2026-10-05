@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,7 +10,6 @@
 * @file xusbpsu_sinit.c
 * @addtogroup usbpsu_api USBPSU APIs
 * @{
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +23,7 @@
 * 1.15  np   26/03/24 Add doxygen and editorial fixes
 * 1.19  bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -57,9 +57,9 @@
 * The table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param DeviceId Unique device ID of the device being looked up.
+* @param[in] DeviceId Unique device ID of the device being looked up.
 * @endif
 *
 * @return

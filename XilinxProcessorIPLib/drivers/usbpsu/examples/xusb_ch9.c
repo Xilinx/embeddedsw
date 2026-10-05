@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -51,12 +51,8 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 /**
 * This function handles a Setup Data packet from the host.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller.
-* @param	SetupData is the structure containing the setup request.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller.
+* @param[in] SetupData is the structure containing the setup request.
 *
 ******************************************************************************/
 void Ch9Handler(struct Usb_DevData *InstancePtr,
@@ -100,13 +96,9 @@ void Ch9Handler(struct Usb_DevData *InstancePtr,
 /**
 * This function handles a standard device request.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller.
-* @param	SetupData is a pointer to the data structure containing the
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller.
+* @param[in] SetupData is a pointer to the data structure containing the
 *			setup request.
-*
-* @return	None.
-*
-* @note		None.
 *
 ******************************************************************************/
 static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
@@ -296,7 +288,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 				case USB_TYPE_STRING_DESC:
 					/* Set up the reply buffer with the configuration
 						 * descriptor data.
-						 */
+					 */
 					ReplyLen = usb_data->ch9_func.
 						   Usb_Ch9SetupStrDescReply(
 							   InstancePtr, Reply, 128,
@@ -323,7 +315,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 				case USB_TYPE_BOS_DESC:
 					/* Set up the reply buffer with the BOS descriptor
 						 * data.
-						 */
+					 */
 					ReplyLen = usb_data->ch9_func.
 						   Usb_Ch9SetupBosDescReply(Reply,
 									    USB_REQ_REPLY_LEN);
@@ -506,7 +498,7 @@ static void Usb_StdDevReq(struct Usb_DevData *InstancePtr,
 
 			break;
 
-		/* For set interface, check the alt setting host wants */
+		/**< For set interface, check the alt setting host wants */
 		case USB_REQ_SET_INTERFACE:
 
 #ifdef CH9_DEBUG

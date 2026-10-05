@@ -154,7 +154,7 @@ Mass Storage usb gadget example.
 
 For details, see xusb_freertos_massstorage.c
 
-@section ex26 xusb_freertos_ch9_keyboard.c
+@section ex26b xusb_freertos_ch9_keyboard.c
 This file contains the usb chapter 9 code related to freertos specific
 Keyboard HID gadget application.
 

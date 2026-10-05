@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
 /*****************************************************************************/
 /**
  *
- * @file xusb_freerots_class_keyboard.h
+ * @file xusb_freertos_class_keyboard.h
  *
  * This file contains definitions used in the HID class.
  *
@@ -38,17 +38,17 @@ extern "C" {
 /************************** Constant Definitions ******************************/
 
 /* HID class requests */
-#define GET_REPORT_REQUEST              0x01
-#define GET_IDLE_REQUEST                0x02
-#define GET_PROTOCOL_REQUEST            0x03
-#define SET_REPORT_REQUEST              0x09
-#define SET_IDLE_REQUEST                0x0A
-#define SET_PROTOCOL_REQUEST            0x0B
+#define GET_REPORT_REQUEST              0x01	/**< Get Report Request. */
+#define GET_IDLE_REQUEST                0x02	/**< Get Idle Request. */
+#define GET_PROTOCOL_REQUEST            0x03	/**< Get Protocol Request. */
+#define SET_REPORT_REQUEST              0x09	/**< Set Report Request. */
+#define SET_IDLE_REQUEST                0x0A	/**< Set Idle Request. */
+#define SET_PROTOCOL_REQUEST            0x0B	/**< Set Protocol Request. */
 
-#define HID_KEYBOARD_PROTOCOL           0x00
-#define REPORT_DESC_LENGTH              0x3F
+#define HID_KEYBOARD_PROTOCOL           0x00	/**< Hid Keyboard Protocol. */
+#define REPORT_DESC_LENGTH              0x3F	/**< Report Desc Length. */
 
-#define REPORT_LENGTH                   8
+#define REPORT_LENGTH                   8	/**< Report Length. */
 
 /************************** Variable Definitions ******************************/
 extern TaskHandle_t xMainTask;
@@ -56,6 +56,7 @@ extern TaskHandle_t xKeyboardTask;
 extern xSemaphoreHandle xSemaphore;
 
 /************************** Function Prototypes *******************************/
+/** @brief Handle USB class request for HID keyboard. */
 void Usb_ClassReq_Keyboard(struct Usb_DevData *InstancePtr, SetupPacket *SetupData);
 void prvKeyboardTask( void *pvParameters);
 

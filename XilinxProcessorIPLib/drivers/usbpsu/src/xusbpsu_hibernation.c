@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,7 @@
 * 1.14	pm     21/06/23 Added support for system device-tree flow.
 * 1.15  np     26/03/24 Add doxygen and editorial fixes
 * 1.18  nk     23/10/25 Added cache flush/invalidate when EL1_NONSECURE is not defined.
+* 1.20  ml   22/09/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 *
 * </pre>
 *
@@ -99,11 +100,8 @@ static u32 SavedRegs[NUM_OF_NONSTICKY_REGS];
 /**
 * Saves non sticky registers.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
-*
-* @return	None.
-*
 *
 ******************************************************************************/
 static void XUsbPsu_SaveRegs(struct XUsbPsu *InstancePtr)
@@ -119,11 +117,8 @@ static void XUsbPsu_SaveRegs(struct XUsbPsu *InstancePtr)
 /**
 * Restores non sticky registers.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
-*
-* @return	None.
-*
 *
 ******************************************************************************/
 static void XUsbPsu_RestoreRegs(struct XUsbPsu *InstancePtr)
@@ -140,7 +135,7 @@ static void XUsbPsu_RestoreRegs(struct XUsbPsu *InstancePtr)
 /**
 * Initializes to handle hibernation event.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
@@ -187,13 +182,12 @@ s32 XUsbPsu_InitHibernation(struct XUsbPsu *InstancePtr)
 /**
 * Handles hibernation event.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be worked
 * 		on.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
 *
 
-*
 ******************************************************************************/
 s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 {
@@ -350,11 +344,10 @@ s32 XUsbPsu_HibernationIntr(struct XUsbPsu *InstancePtr)
 /**
 * Restores non-sticky registers from the core.
 *
-* @param	InstancePtr Pointer to the XUsbPsu instance to be worked
+* @param[in] InstancePtr Pointer to the XUsbPsu instance to be worked
 * 			on.
 *
 * @return	XST_SUCCESS else XST_FAILURE.
-*
 *
 ******************************************************************************/
 s32 XUsbPsu_CoreRegRestore(struct XUsbPsu *InstancePtr)

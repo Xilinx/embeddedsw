@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -34,6 +34,10 @@
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/** @brief Waits for a USB DFU reset by polling dfu_wait_for_interrupt.
+ *
+ * @param[in] DFU is a pointer to the DFU interface instance.
+ */
 static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 {
 
@@ -50,21 +54,19 @@ static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern u8 VirtFlash[];
-u8 DetachCounter = 0;
+extern u8 VirtFlash[];	/**< Virt Flash. */
+u8 DetachCounter = 0;	/**< Detach Counter. */
 
 /*****************************************************************************/
 /**
 * This function handles setting of DFU state.
 *
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	dfu_state is a value of the DFU state to be set
+* @param[in] DFU is a pointer to DFU instance of the controller
+* @param[in] dfu_state is a value of the DFU state to be set
 *
 * @return
 *		- XST_SUCCESS if the function is successful.
 *		- XST_FAILURE if an Error occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
@@ -156,10 +158,8 @@ stall:
 /**
 * This function updates the current state while downloading a file
 *
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	status is a pointer of the DFU status
-*
-* @note		None.
+* @param[in] DFU is a pointer to DFU instance of the controller
+* @param[in] status is a pointer of the DFU status
 *
 ******************************************************************************/
 void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
@@ -181,21 +181,12 @@ void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
 			break;
 	}
 }
-
 /*****************************************************************************/
 /**
-* This function handles getting of DFU status.
-*
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	status is the pointer of the DFU status
-*
-* @return
-*		- XST_SUCCESS if the function is successful.
-*
-* @note		None.
+* @brief Handles getting of DFU status.
 *
 ******************************************************************************/
-s32 USB_DfuGetStatus(struct dfu_if *DFU, u8 *status)
+void USB_DfuGetStatus(struct dfu_if *DFU, u8 *status)
 {
 
 	/* update the download state */
@@ -211,18 +202,14 @@ s32 USB_DfuGetStatus(struct dfu_if *DFU, u8 *status)
 	status[4] = (u8)DFU->curr_state;
 	status[5] = (u8)0;
 
-	return XST_SUCCESS;
+	return;
 }
 
 /*****************************************************************************/
 /**
 * This function handles DFU disconnect, called from driver.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
 *
 ******************************************************************************/
 void Usb_DfuDisconnect(struct Usb_DevData *InstancePtr)
@@ -246,11 +233,7 @@ void Usb_DfuDisconnect(struct Usb_DevData *InstancePtr)
 /**
 * This function handles DFU reset, called from driver.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
 *
 ******************************************************************************/
 void Usb_DfuReset(struct Usb_DevData *InstancePtr)
@@ -271,12 +254,8 @@ void Usb_DfuReset(struct Usb_DevData *InstancePtr)
 /**
 * This function handles DFU set interface.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 void Usb_DfuSetIntf(struct Usb_DevData *InstancePtr,  SetupPacket *SetupData)
@@ -312,12 +291,8 @@ void Usb_DfuSetIntf(struct Usb_DevData *InstancePtr,  SetupPacket *SetupData)
 /**
 * This function handles DFU heart and soul of DFU state machine.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)

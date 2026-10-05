@@ -1,17 +1,17 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
 /****************************************************************************/
 /**
  *
- * @file xusb_freertos_dfu.c
+ * @file xusb_freertos_dfu_example.c
  *
  * This file implements DFU class example.
  *
- * @setup requirement
+ * @par Setup requirement
  * zcu102 board in usb device mode, connected with host using USB 3.0 cable
  *
  * Following other files require to run this example
@@ -19,7 +19,7 @@
  *  o xusb_ch9_dfu.c, xusb_ch9_dfu.h
  *  o xusb_class_dfu.c, xusb_class_dfu.h
  *
- * @validation
+ * @par Validation
  *  o on success example will be detected as dfu device on host
  *  o user can download binaries using dfu-util
  *
@@ -45,21 +45,21 @@
 
 /************************** Constant Definitions ****************************/
 #ifndef SDT
-#define USB_INTR_ID             XPAR_XUSBPS_0_INTR
+#define USB_INTR_ID             XPAR_XUSBPS_0_INTR	/**< Usb Intr Id. */
 #else
-#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define INTRNAME_DWC3USB3	0  /**< Interrupt-name - USB */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-static TaskHandle_t xMainTask;
-struct Usb_DevData UsbInstance;
+static TaskHandle_t xMainTask;	/**< Main task handle. */
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
-u8 VirtFlash[0x10000000];
+u8 VirtFlash[0x10000000];	/**< Dfu. */
 
-struct dfu_if DFU;		/* DFU instance structure*/
+struct dfu_if DFU;	/**< DFU interface instance. */
 
 /* Initialize a DFU data structure */
 static USBCH9_DATA dfu_data = {
@@ -87,12 +87,8 @@ static USBCH9_DATA dfu_data = {
 * directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	UsbIntrId is the interrupt ID of the USB controller
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsbPsu instance.
+* @param[in] UsbIntrId is the interrupt ID of the USB controller
 *
 *****************************************************************************/
 void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
@@ -115,14 +111,10 @@ void SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 UsbIntrId)
 /**
 * This function is implementing USB DFU example.
 *
-* @param	UsbInstPtr USB instance pointer.
-*		DeviceId USB Device ID
-*		UsbIntrId USB Interrupt ID
+* @param[in] UsbInstPtr is a pointer to the USB device instance.
 *
 * @return	- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
 *
 *****************************************************************************/
 #ifndef SDT
@@ -205,9 +197,7 @@ static int XUsbDfuExample(struct Usb_DevData *UsbInstPtr)
 /**
 * This task implements mass storage functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 static void prvMainTask(void *pvParameters)
@@ -231,14 +221,9 @@ static void prvMainTask(void *pvParameters)
 /**
 * This function is the main function of the DFU example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)

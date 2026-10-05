@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -33,12 +33,14 @@ extern "C" {
 #include "xusb_ch9.h"
 
 /************************** Constant Definitions *****************************/
-#define USB_EP_STATE_KEY		1
-#define USB_EP_STATE_NOKEY		2
+#define USB_EP_STATE_KEY		1	/**< Usb Ep State Key. */
+#define USB_EP_STATE_NOKEY		2	/**< Usb Ep State Nokey. */
 
-#define KEYBOARD_EP			1
+#define KEYBOARD_EP			1	/**< Keyboard Ep. */
 
+/** @brief Keyboard Config. */
 #define KEYBOARD_CONFIG			(1 << 0)
+/** @brief Keyboard Unconfig. */
 #define KEYBOARD_UNCONFIG		(1 << 1)
 
 /************************** TypeDef Definitions *****************************/
@@ -67,8 +69,8 @@ __attribute__((__packed__)) USB_STD_HID_DESC;
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
 	USB_STD_IF_DESC ifCfg;
-	USB_STD_HID_DESC hiddesc;
-	USB_STD_EP_DESC intep;
+	USB_STD_HID_DESC hiddesc;	/**< Hiddesc. */
+	USB_STD_EP_DESC intep;	/**< Intep. */
 #ifdef __ICCARM__
 } USB_CONFIG;
 #pragma pack(pop)
@@ -82,9 +84,9 @@ typedef struct {
 typedef struct {
 	USB_STD_CFG_DESC stdCfg;
 	USB_STD_IF_DESC ifCfg;
-	USB_STD_HID_DESC hiddesc;
-	USB_STD_EP_DESC intep;
-	USB_STD_EP_SS_COMP_DESC epsscomp;
+	USB_STD_HID_DESC hiddesc; /**< HID descriptor. */
+	USB_STD_EP_DESC intep; /**< Interrupt endpoint descriptor. */
+	USB_STD_EP_SS_COMP_DESC epsscomp;	/**< Epsscomp. */
 #ifdef __ICCARM__
 } USB30_CONFIG;
 #pragma pack(pop)
@@ -98,12 +100,16 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* Check where these defines need to go  */
+/** @brief Be2le(val). */
 #define be2le(val)	(u32)(val)
+/** @brief Be2les(x). */
 #define be2les(x)	(u16) (x)
+/** @brief Swap byte order from host to network (32-bit). */
 #define htonl(val)	((((u32)(val) & 0x000000FF)<<24) |	\
 			 (((u32)(val) & 0x0000FF00)<<8)  |	\
 			 (((u32)(val) & 0x00FF0000)>>8)  |	\
 			 (((u32)(val) & 0xFF000000)>>24))
+/** @brief Swap byte order from host to network (16-bit). */
 #define htons(x)	(u16) ((((u16)(x))<<8) | (((u16)(x))>>8))
 
 /************************** Function Prototypes ******************************/
@@ -113,6 +119,7 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr, u32 Bu
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr, u32 BufLen);
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr, u32 BufLen, u8 Index);
 s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl);
+/** @brief Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler. */
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl);
 u32 Usb_GetDescReply(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl, u8 *BufPtr);
 

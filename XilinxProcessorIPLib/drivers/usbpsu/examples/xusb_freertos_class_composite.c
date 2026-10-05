@@ -34,6 +34,10 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/** @brief Waits for a USB DFU reset by polling dfu_wait_for_interrupt.
+ *
+ * @param[in] DFU is a pointer to the DFU interface instance.
+ */
 static inline void Usb_DfuWaitForReset(struct dfu_if *DFU)
 {
 	/* This bit would be cleared when reset happens*/
@@ -73,7 +77,7 @@ static u8 BufferPtrTemp[1024];
 u8 DetachCounter = 0;
 #endif
 #else
-u8 DetachCounter = 0;
+u8 DetachCounter = 0;	/**< Detach Counter. */
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
 static u8 ClassData[10];
@@ -89,7 +93,9 @@ static u8 BufferPtrTemp[1024];
 #endif
 const static SCSI_INQUIRY scsiInquiry[] = {
 #else
+/** @cond NODOC */
 static const SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
+/** @endcond */
 #endif
 	{
 		0x00,
@@ -123,13 +129,11 @@ static const SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
 /**
 * This function handles setting of DFU state.
 *
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	dfu_state is a value of the DFU state to be set
+* @param[in] DFU is a pointer to DFU instance of the controller
+* @param[in] dfu_state is a value of the DFU state to be set
 *
 * @return	- XST_SUCCESS if the function is successful.
 *		- XST_FAILURE if an Error occurred.
-*
-* @note		None.
 *
 ******************************************************************************/
 s32 Usb_DfuSetState(struct dfu_if *DFU, u8 dfu_state)
@@ -222,10 +226,8 @@ stall:
 /**
 * This function updates the current state while downloading a file
 *
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	status is a pointer of the DFU status
-*
-* @note		None.
+* @param[in] DFU is a pointer to DFU instance of the controller
+* @param[in] status is a pointer of the DFU status
 *
 ******************************************************************************/
 void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
@@ -250,19 +252,11 @@ void USB_DfuSetDwloadState(struct dfu_if *DFU, u8 *status)
 			break;
 	}
 }
-
-/*****************************************************************************/
+/****************************************************************************/
 /**
-* This function handles getting of DFU status.
-*
-* @param	DFU is a pointer to DFU instance of the controller
-* @param	status is the pointer of the DFU status
-*
-* @return	None
-*
-* @note		None.
-*
-******************************************************************************/
+ * @brief Handles getting of DFU status.
+ *
+ *****************************************************************************/
 void USB_DfuGetStatus(struct dfu_if *DFU, u8 *status)
 {
 	/* update the download state */
@@ -283,11 +277,7 @@ void USB_DfuGetStatus(struct dfu_if *DFU, u8 *status)
 /**
 * This function handles USB disconnect, called from driver.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
 *
 ******************************************************************************/
 void Usb_DisconnectHandler(struct Usb_DevData *InstancePtr)
@@ -311,11 +301,7 @@ void Usb_DisconnectHandler(struct Usb_DevData *InstancePtr)
 /**
 * This function handles USB reset, called from driver.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
 *
 ******************************************************************************/
 void Usb_ResetHandler(struct Usb_DevData *InstancePtr)
@@ -336,12 +322,8 @@ void Usb_ResetHandler(struct Usb_DevData *InstancePtr)
 /**
 * This function handles set interface request.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 void Usb_SetIntf(struct Usb_DevData *InstancePtr,  SetupPacket *SetupData)
@@ -417,12 +399,8 @@ void Usb_SetIntf(struct Usb_DevData *InstancePtr,  SetupPacket *SetupData)
 /**
 * This function handles UAC1 class request.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -662,12 +640,8 @@ static void Usb_AudioClassReq(struct Usb_DevData *InstancePtr, SetupPacket *Setu
 /**
 * This function handles DFU heart and soul of DFU state machine.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller
-* @param	SetupData is a pointer to setup token of control transfer
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to Usb_DevData instance of the controller
+* @param[in] SetupData is a pointer to setup token of control transfer
 *
 ******************************************************************************/
 static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -811,12 +785,8 @@ static void Usb_DfuClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 * This function is class handler for Mass storage and is called when
 * Setup packet received is for Class request(not Standard Device request)
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	SetupData is pointer to SetupPacket received.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is pointer to Usb_DevData instance.
+* @param[in] SetupData is pointer to SetupPacket received.
 *
 ******************************************************************************/
 void Usb_StorageClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -846,12 +816,8 @@ void Usb_StorageClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData
 * This function is class handler for HID and is called when
 * Setup packet received is for Class request(not a Standard Device request)
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	SetupData is pointer to SetupPacket received.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is pointer to Usb_DevData instance.
+* @param[in] SetupData is pointer to SetupPacket received.
 *
 *****************************************************************************/
 void Usb_KeyboardClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -876,7 +842,7 @@ void Usb_KeyboardClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupDat
 		case SET_REPORT_REQUEST:
 			/* This example does not implement a handler for the
 			 * SET_REPORT class request. SET_REPORT carries host-to-device
-			 * Output/Feature data (e.g. keyboard LED state); the
+			 * Output/Feature data (for example keyboard LED state); the
 			 * demonstration only needs to emit key reports, not act on
 			 * LED or other output reports, so that path is omitted.
 			 */
@@ -888,20 +854,6 @@ void Usb_KeyboardClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupDat
 			Ep0StallRestart(InstancePtr->PrivateData);
 	}
 }
-
-/****************************************************************************/
-/**
-* This function is class request handler for composite device
-* Setup packet received is for Class request(not a Standard Device request)
-*
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	SetupData is pointer to SetupPacket received.
-*
-* @return	None
-*
-* @note		None.
-*
-*****************************************************************************/
 void Usb_ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -931,19 +883,6 @@ void Usb_ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 			break;
 	}
 }
-
-/*****************************************************************************/
-/**
-* This function handles Reduced Block Command (RBC) requests from the host.
-*
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller.
-* @param	f is a pointer to storage interface
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
 void ParseCBW(struct Usb_DevData *InstancePtr, struct storage_if *f)
 {
 	u32	Offset;
@@ -1049,20 +988,6 @@ void ParseCBW(struct Usb_DevData *InstancePtr, struct storage_if *f)
 			break;
 	}
 }
-
-
-/****************************************************************************/
-/**
-* This function is used to send SCSI Command Status Wrapper to Host.
-*
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	Length is the data residue.
-*
-* @return	None
-*
-* @note
-*
-*****************************************************************************/
 void SendCSW(struct Usb_DevData *InstancePtr, struct storage_if *f, u32 Length)
 {
 	f->csw.dCSWSignature = 0x53425355;
@@ -1079,9 +1004,7 @@ void SendCSW(struct Usb_DevData *InstancePtr, struct storage_if *f, u32 Length)
 * This task implements keyboard functionality. task will get
 * host and act accordingly
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvKeyboardTask(void *pvParameters)
@@ -1133,9 +1056,7 @@ void prvKeyboardTask(void *pvParameters)
 * This task implements SCSI command functionality. task will get command from
 * host and act accordingly
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvSCSITask( void *pvParameters)
@@ -1201,9 +1122,7 @@ void prvSCSITask( void *pvParameters)
 /**
 * This task implements audio record functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvRecordTask( void *pvParameters)
@@ -1276,9 +1195,7 @@ void prvRecordTask( void *pvParameters)
 /**
 * This task implements audio playback functionality
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvPlayBackTask( void *pvParameters)

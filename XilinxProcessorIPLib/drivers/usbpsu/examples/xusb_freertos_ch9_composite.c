@@ -82,6 +82,7 @@ static u8 report_desc[] = {
 #ifdef __ICCARM__
 USB_STD_DEV_DESC deviceDesc[] = {
 #else
+/** @brief USB device descriptor array (16-byte aligned). */
 USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
 #endif
 	{
@@ -1151,6 +1152,7 @@ DFU_USB_CONFIG __attribute__ ((aligned(16))) DFUconfig2 = {
 	}
 };
 
+/** @brief Hid_desc. */
 USB_STD_HID_DESC hid_desc = {
 	.bLength		=	sizeof (USB_STD_HID_DESC),
 	.bDescriptorType	=	USB_TYPE_HID_DESC,
@@ -1228,14 +1230,6 @@ static u8 DFUStringList[2][6][128] = {
 *
 * This function returns the device descriptor for the device.
 *
-* @param	InstancePtr is a pointer to the Usb_DevData instance.
-* @param	BufPtr is pointer to the buffer that is to be filled
-*		with the descriptor.
-* @param	BufLen is the size of the provided buffer.
-*
-* @return	Length of the descriptor in the buffer on success.
-*		0 on error.
-*
 ******************************************************************************/
 u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 			     u32 BufLen)
@@ -1270,14 +1264,6 @@ u32 Usb_Ch9SetupDevDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 /**
 *
 * This function returns the configuration descriptor for the device.
-*
-* @param	InstancePtr is a pointer to the Usb_DevData instance.
-* @param	BufPtr is the pointer to the buffer that is to be filled with
-*		the descriptor.
-* @param	BufLen is the size of the provided buffer.
-*
-* @return	Length of the descriptor in the buffer on success.
-*		0 on error.
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
@@ -1329,16 +1315,6 @@ u32 Usb_Ch9SetupCfgDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 /**
 *
 * This function returns a string descriptor for the given index.
-*
-* @param	InstancePtr is a pointer to the Usb_DevData instance.
-* @param	BufPtr is a  pointer to the buffer that is to be filled with
-*		the descriptor.
-* @param	BufLen is the size of the provided buffer.
-* @param	Index is the index of the string for which the descriptor
-*		is requested.
-*
-* @return	Length of the descriptor in the buffer on success.
-*		0 on error.
 *
 ******************************************************************************/
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
@@ -1417,13 +1393,6 @@ u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr, u8 *BufPtr,
 *
 * This function returns the BOS descriptor for the device.
 *
-* @param	BufPtr is the pointer to the buffer that is to be filled with
-*		the descriptor.
-* @param	BufLen is the size of the provided buffer.
-*
-* @return	Length of the descriptor in the buffer on success.
-*		0 on error.
-*
 ******************************************************************************/
 u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 {
@@ -1444,7 +1413,7 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 		{
 			sizeof(USB_STD_DEVICE_CAP_7BYTE), /* bLength */
 			0x10,				/* bDescriptorType */
-			0x02,				/* bDevCapabiltyType */
+			0x02,				/* bDevCapabilityType */
 #ifdef USB_LPM_MODE
 			0x06
 		},				/* bmAttributes */
@@ -1456,7 +1425,7 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 		{
 			sizeof(USB_STD_DEVICE_CAP_10BYTE), /* bLength */
 			0x10,				/* bDescriptorType */
-			0x03,				/* bDevCapabiltyType */
+			0x03,				/* bDevCapabilityType */
 			0x00,				/* bmAttributes */
 			(0x000F),			/* wSpeedsSupported */
 			0x01,				/* bFunctionalitySupport */
@@ -1485,18 +1454,14 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 
 	return sizeof(USB_BOS_DESC);
 }
-
-
 /****************************************************************************/
 /**
 * Changes State of Core to USB configured State.
 *
-* @param	InstancePtr is a pointer to the Usb_DevData instance.
-* @param	Ctrl is a pointer to the Setup packet data.
+* @param[in]	InstancePtr is a pointer to the Usb_DevData instance.
+* @param[in]	Ctrl is a pointer to the Setup packet data.
 *
 * @return	XST_SUCCESS else XST_FAILURE
-*
-* @note		None.
 *
 *****************************************************************************/
 s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
@@ -1529,17 +1494,22 @@ s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl)
 
 	return Ret;
 }
-
 /****************************************************************************/
 /**
 * This function is called by Chapter9 handler when SET_CONFIGURATION command
 * is received from Host.
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	SetupData is the setup packet received from Host.
+* @param[in]	InstancePtr is pointer to Usb_DevData instance.
+* @param[in]	SetupData is the setup packet received from Host.
 *
-* @return	- XST_SUCCESS if successful,
+* @return
+*		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
+*
+* @note
+*		Non control endpoints must be enabled after SET_CONFIGURATION
+*		command since hardware clears all previously enabled endpoints
+*		except control endpoints when this command is received.
 *
 *****************************************************************************/
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -1585,21 +1555,6 @@ s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr, SetupPacket *SetupD
 
 	return XST_SUCCESS;
 }
-
-/*****************************************************************************/
-/**
-*
-* This function returns a keyboard descriptors.
-*
-* @param	InstancePtr is a pointer to the Usb_DevData instance.
-* @param	Ctrl is a pointer to the Setup packet data.
-* @param	BufPtr is a  pointer to the buffer that is to be filled with
-*		the descriptor.
-*
-* @return 	Length of the descriptor in the buffer on success.
-*		0 on error.
-*
-******************************************************************************/
 u32 Usb_GetDescReply(struct Usb_DevData *InstancePtr, SetupPacket *SetupData,
 		     u8 *BufPtr)
 {

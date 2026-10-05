@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -45,8 +45,8 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern u8 Phase;
-extern u8 VirtFlash[];
+extern u8 Phase;	/**< Phase. */
+extern u8 VirtFlash[];	/**< Virt Flash. */
 
 /*
  * Pre-manufactured response to the SCSI Inquiry command.
@@ -95,17 +95,19 @@ static u8 MaxLUN = 0;
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
 #endif
 
-extern USB_CBW CBW;
-extern USB_CSW CSW;
+extern USB_CBW CBW;	/**< Cbw. */
+extern USB_CSW CSW;	/**< Csw. */
 
-extern u32	rxBytesLeft;
-extern u8	*VirtFlashWritePointer;
+extern u32	rxBytesLeft;	/**< Rx Bytes Left. */
+extern u8	*VirtFlashWritePointer;	/**< Virt Flash Write Pointer. */
 
 /* Local transmit buffer for simple replies. */
 #ifdef __ICCARM__
 static u8 txBuffer[128];
 #else
+/** @cond NODOC */
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
+/** @endcond */
 #endif
 
 /*****************************************************************************/
@@ -113,12 +115,8 @@ static u8 txBuffer[128] ALIGNMENT_CACHELINE;
 * This function is class handler for Mass storage and is called when
 * Setup packet received is for Class request(not Standard Device request)
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	SetupData is pointer to SetupPacket received.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is pointer to Usb_DevData instance.
+* @param[in] SetupData is pointer to SetupPacket received.
 *
 ******************************************************************************/
 void ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -147,17 +145,13 @@ void ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 	}
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
-* This function handles Reduced Block Command (RBC) requests from the host.
+* @brief Parse and handle Command Block Wrapper (CBW) from USB host.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance of the controller.
+* @param[in] InstancePtr is a pointer to the USB device data instance.
 *
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
+*****************************************************************************/
 void ParseCBW(struct Usb_DevData *InstancePtr)
 {
 	u32	Offset;
@@ -327,19 +321,12 @@ void ParseCBW(struct Usb_DevData *InstancePtr)
 			}
 	}
 }
-
-/****************************************************************************/
 /**
-* This function is used to send SCSI Command Status Wrapper to Host.
+* @brief Send Command Status Wrapper to host.
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	Length is the data residue.
-*
-* @return	None
-*
-* @note
-*
-*****************************************************************************/
+* @param[in] InstancePtr is a pointer to the USB device data instance.
+* @param[in] Length is the data residue length.
+					 */
 void SendCSW(struct Usb_DevData *InstancePtr, u32 Length)
 {
 	CSW.dCSWSignature = 0x53425355;

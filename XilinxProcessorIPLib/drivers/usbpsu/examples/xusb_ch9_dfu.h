@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -10,7 +10,6 @@
  * @file xusb_ch9_dfu.h
  *
  * This file contains definitions used in DFU specific chapter 9 code.
- *
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -38,7 +37,7 @@ extern "C" {
 #include "xusb_ch9.h"
 
 /************************** Constant Definitions *****************************/
-#define DFU_MAX_TRANSFER	1024
+#define DFU_MAX_TRANSFER	1024	/**< Maximum DFU block transfer size in bytes. */
 
 /**************************** Type Definitions *******************************/
 #ifdef __ICCARM__
@@ -93,13 +92,17 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* Check where these defines need to go  */
+/** @brief Be2le(val). */
 #define be2le(val)	(u32)(val)
+/** @brief Be2les(x). */
 #define be2les(x)	(u16) (x)
+/** @brief Swap byte order from host to network (32-bit). */
 #define htonl(val)	((((u32)(val) & 0x000000FF)<<24) |	\
 			 (((u32)(val) & 0x0000FF00)<<8)  |	\
 			 (((u32)(val) & 0x00FF0000)>>8)  |	\
 			 (((u32)(val) & 0xFF000000)>>24))
 
+/** @brief Swap byte order from host to network (16-bit). */
 #define htons(x)	(u16) ((((u16)(x))<<8) | (((u16)(x))>>8))
 
 /************************** Function Prototypes ******************************/
@@ -111,6 +114,7 @@ u32 Usb_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen);
 u32 Usb_Ch9SetupStrDescReply(struct Usb_DevData *InstancePtr,
 			     u8 *BufPtr, u32 BufLen, u8 Index);
 s32 Usb_SetConfiguration(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl);
+/** @brief Handles the SET_CONFIGURATION request from the host; called by the Chapter 9 handler. */
 s32 Usb_SetConfigurationApp(struct Usb_DevData *InstancePtr, SetupPacket *Ctrl);
 
 #ifdef __cplusplus

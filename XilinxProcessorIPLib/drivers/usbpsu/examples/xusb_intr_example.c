@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -57,13 +57,13 @@
 #include "xscugic.h"
 #endif
 #else
-#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
-#define INTRNAME_HIBER		2 /* Interrupt-name - Hiber */
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define INTRNAME_DWC3USB3	0  /**< Interrupt-name - USB */
+#define INTRNAME_HIBER		2  /**< Interrupt-name - Hiber */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 
 /************************** Constant Definitions ****************************/
-#define MEMORY_SIZE (64 * 1024)
+#define MEMORY_SIZE (64 * 1024)	/**< Memory buffer size in bytes. */
 #ifdef __ICCARM__
 #if defined (PLATFORM_ZYNQMP) || defined (versal)
 #pragma data_alignment = 64
@@ -72,7 +72,7 @@
 #endif
 u8 Buffer[MEMORY_SIZE];
 #else
-u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
+u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;	/**< Alignment Cacheline. */
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -80,18 +80,21 @@ u8 Buffer[MEMORY_SIZE] ALIGNMENT_CACHELINE;
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+/** @brief BulkOutHandler function. */
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 		    u32 BytesTxed);
+/** @brief BulkInHandler function. */
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 		   u32 BytesTxed);
 #ifndef SDT
+/** @brief SetupInterruptSystem function. */
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 				u16 USB_INTR_ID, void *IntcPtr);
 #endif
 /************************** Variable Definitions *****************************/
-struct Usb_DevData UsbInstance;
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
-Usb_Config *UsbConfigPtr;
+Usb_Config *UsbConfigPtr;	/**< Usb Config Ptr. */
 
 #ifndef SDT
 #ifdef __MICROBLAZE__
@@ -99,7 +102,7 @@ Usb_Config *UsbConfigPtr;
 XIntc	InterruptController;	/*XIntc interrupt controller instance */
 #endif /* XPAR_INTC_0_DEVICE_ID */
 #else
-XScuGic	InterruptController;	/* Interrupt controller instance */
+XScuGic	InterruptController;	/**< Interrupt Controller. */
 #endif
 
 #ifdef __MICROBLAZE__		/* MICROBLAZE */
@@ -112,8 +115,8 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 #define	USB_INT_ID		XPAR_XUSBPS_0_INTR
 #define	USB_WAKEUP_INTR_ID	XPAR_XUSBPS_0_WAKE_INTR
 #else	/* OTHERS */
-#define	INTC_DEVICE_ID		0
-#define	USB_INT_ID		0
+#define	INTC_DEVICE_ID		0	/**< Interrupt controller device ID. */
+#define	USB_INT_ID		0	/**< Usb Int Id. */
 #endif
 #endif
 
@@ -140,9 +143,9 @@ USB_CBW CBW ALIGNMENT_CACHELINE;
 USB_CSW CSW ALIGNMENT_CACHELINE;
 #endif
 
-u8 Phase;
-u32	rxBytesLeft;
-u8 *VirtFlashWritePointer = VirtFlash;
+u8 Phase;	/**< Phase. */
+u32	rxBytesLeft;	/**< Rx Bytes Left. */
+u8 *VirtFlashWritePointer = VirtFlash;	/**< Virt Flash Write Pointer. */
 
 /* Initialize a DFU data structure */
 static USBCH9_DATA storage_data = {
@@ -173,14 +176,9 @@ static USBCH9_DATA storage_data = {
 /**
 * This function is the main function of the USB mass storage example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -312,13 +310,9 @@ int main(void)
 * This function is Bulk Out Endpoint handler/Callback called by driver when
 * data is received.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested for reception.
-* @param	BytesTxed is actual number of bytes received from Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested for reception.
+* @param[in] BytesTxed is actual number of bytes received from Host.
 *
 *****************************************************************************/
 void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
@@ -349,13 +343,9 @@ void BulkOutHandler(void *CallBackRef, u32 RequestedBytes,
 * This function is Bulk In Endpoint handler/Callback called by driver when
 * data is sent.
 *
-* @param	CallBackRef is pointer to Usb_DevData instance.
-* @param	RequestedBytes is number of bytes requested to send.
-* @param	BytesTxed is actual number of bytes sent to Host.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] CallBackRef is pointer to Usb_DevData instance.
+* @param[in] RequestedBytes is number of bytes requested to send.
+* @param[in] BytesTxed is actual number of bytes sent to Host.
 *
 *****************************************************************************/
 void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
@@ -385,15 +375,13 @@ void BulkInHandler(void *CallBackRef, u32 RequestedBytes,
 * directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	IntcDeviceID is the unique ID of the interrupt controller
-* @param	USB_INTR_ID is the interrupt ID of the USB controller
-* @param	IntcPtr is a pointer to the interrupt controller
+* @param[in] InstancePtr is a pointer to the XUsbPsu instance.
+* @param[in] IntcDeviceID is the unique ID of the interrupt controller
+* @param[in] USB_INTR_ID is the USB interrupt ID.
+* @param[in] IntcPtr is a pointer to the interrupt controller
 *			instance.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 *****************************************************************************/
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,

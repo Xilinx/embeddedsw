@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025  Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
 /*****************************************************************************/
 /**
  *
- * @file xusb_freerots_class_storage.c
+ * @file xusb_freertos_class_storage.c
  *
  * This file contains the implementation of the Mass Storage specific class
  * code for the example.
@@ -53,7 +53,9 @@ TaskHandle_t xMainTask;
 #endif
 const static SCSI_INQUIRY scsiInquiry[] = {
 #else
+/** @cond NODOC */
 static const SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
+/** @endcond */
 #endif
 	{
 		0x00,
@@ -103,7 +105,9 @@ static u8 txBuffer[128];
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
 
 /* Local transmit buffer for simple replies. */
+/** @cond NODOC */
 static u8 txBuffer[128] ALIGNMENT_CACHELINE;
+/** @endcond */
 #endif
 
 /*****************************************************************************/
@@ -111,12 +115,8 @@ static u8 txBuffer[128] ALIGNMENT_CACHELINE;
 * This function is class handler for Mass storage and is called when
 * Setup packet received is for Class request(not Standard Device request)
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	SetupData is pointer to SetupPacket received.
-*
-* @return	None
-*
-* @note		None.
+* @param[in] InstancePtr is pointer to Usb_DevData instance.
+* @param[in] SetupData is pointer to SetupPacket received.
 *
 ******************************************************************************/
 void ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
@@ -141,17 +141,14 @@ void ClassReq(struct Usb_DevData *InstancePtr, SetupPacket *SetupData)
 	}
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 /**
-* This function handles Reduced Block Command (RBC) requests from the host.
+* @brief Parse and handle Command Block Wrapper (CBW) from USB host.
 *
-* @param	InstancePtr is a pointer to Usb_DevData instance
+* @param[in] InstancePtr is a pointer to the USB device data instance.
+* @param[in] dev is a pointer to the storage device instance.
 *
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
+*****************************************************************************/
 void ParseCBW(struct Usb_DevData *InstancePtr, struct storage_dev *dev)
 {
 	u32	Offset;
@@ -259,19 +256,13 @@ void ParseCBW(struct Usb_DevData *InstancePtr, struct storage_dev *dev)
 			break;
 	}
 }
-
-/****************************************************************************/
 /**
-* This function is used to send SCSI Command Status Wrapper to Host.
+* @brief Send Command Status Wrapper to host.
 *
-* @param	InstancePtr is pointer to Usb_DevData instance.
-* @param	Length is the data residue.
-*
-* @return	None
-*
-* @note
-*
-*****************************************************************************/
+* @param[in] InstancePtr is a pointer to the USB device data instance.
+* @param[in] dev is a pointer to the storage instance.
+* @param[in] Length is the data residue length.
+			 */
 void SendCSW(struct Usb_DevData *InstancePtr, struct storage_dev *dev,
 	     u32 Length)
 {
@@ -290,9 +281,7 @@ void SendCSW(struct Usb_DevData *InstancePtr, struct storage_dev *dev,
 * This task implements SCSI command functionality. task will get command from
 * host and act accordingly
 *
-* @param	pvParameters private parameters.
-*
-* @note		None.
+* @param[in] pvParameters private parameters.
 *
 *****************************************************************************/
 void prvSCSITask(void *pvParameters)

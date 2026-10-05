@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -52,9 +52,9 @@
 #include "xscugic.h"
 #endif
 #else
-#define INTRNAME_DWC3USB3	0 /* Interrupt-name - USB */
-#define INTRNAME_HIBER		2 /* Interrupt-name - Hiber */
-#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR /* USB base address */
+#define INTRNAME_DWC3USB3	0  /**< Interrupt-name - USB */
+#define INTRNAME_HIBER		2  /**< Interrupt-name - Hiber */
+#define XUSBPSU_BASEADDRESS	XPAR_XUSBPSU_0_BASEADDR  /**< USB base address */
 #endif
 
 /************************** Constant Definitions ****************************/
@@ -66,7 +66,7 @@ static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
 #endif
 
 /************************** Variable Definitions *****************************/
-struct Usb_DevData UsbInstance;
+struct Usb_DevData UsbInstance;	/**< USB device data instance. */
 
 Usb_Config *UsbConfigPtr;
 
@@ -98,7 +98,7 @@ XScuGic	InterruptController;	/* Interrupt controller instance */
 
 u8 VirtFlash[0x10000000];
 
-struct dfu_if DFU;		/* DFU instance structure*/
+struct dfu_if DFU;	/**< DFU interface instance. */
 
 /* Initialize a DFU data structure */
 static USBCH9_DATA dfu_data = {
@@ -123,14 +123,9 @@ static USBCH9_DATA dfu_data = {
 /**
 * This function is the main function of the DFU example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -255,15 +250,13 @@ int main(void)
 * directly connected to a processor without an interrupt controller.
 * The user should modify this function to fit the application.
 *
-* @param	InstancePtr is a pointer to the XUsbPsu instance.
-* @param	IntcDeviceID is the unique ID of the interrupt controller
-* @param	USB_INTR_ID is the interrupt ID of the usb controller
-* @param	IntcPtr is a pointer to the interrupt controller
+* @param[in] InstancePtr is a pointer to the XUsbPsu instance.
+* @param[in] IntcDeviceID is the unique ID of the interrupt controller
+* @param[in] USB_INTR_ID is the USB interrupt ID.
+* @param[in] IntcPtr is a pointer to the interrupt controller
 *			instance.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
 *
 *****************************************************************************/
 static s32 SetupInterruptSystem(struct XUsbPsu *InstancePtr, u16 IntcDeviceID,
