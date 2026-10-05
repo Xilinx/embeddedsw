@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,8 +12,6 @@
 * @{
  *
  * This file contains the USB end point related function definitions.
- *
- * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -39,6 +37,7 @@
  *
  * 4.01a hvm  8/23/11 Added an API to set the number of isochronous transfers in
  *			a microframe for a given endpoint.
+ * 5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  ******************************************************************************/
 /***************************** Include Files **********************************/
@@ -56,13 +55,9 @@
 *
 * This function enables the specified endpoint for all operations.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number which has to be enabled for
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number which has to be enabled for
 *		operations.
-*
-* @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XUsb_EpEnable(const XUsb *InstancePtr, u8 EpNum)
@@ -87,13 +82,9 @@ void XUsb_EpEnable(const XUsb *InstancePtr, u8 EpNum)
 *
 * This function disables the specified endpoint for all operations.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number which has to be disabled for
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number which has to be disabled for
 *		operations.
-*
-* @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XUsb_EpDisable(const XUsb *InstancePtr, u8 EpNum)
@@ -118,11 +109,9 @@ void XUsb_EpDisable(const XUsb *InstancePtr, u8 EpNum)
 *
 * This function stalls operations for the specified endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number which has to be stalled for
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number which has to be stalled for
 *		operations.
-*
-* @return	None.
 *
 * @note		This function does not guaranty the Stall operation, it only
 *		sets the Stall bit in the Endpoint configuration register.
@@ -148,16 +137,14 @@ void XUsb_EpStall(const XUsb *InstancePtr, u8 EpNum)
 /****************************************************************************/
 /**
 *
-* This function unstalls operations for the specified endpoint.
+* This function clears the stall state for the specified endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number for which the unstall operations
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number for which the unstall operations
 * 		are to be carried out.
 *
-* @return	None.
-*
-* @note		This function does not guaranty the Stall operation, it only
-*		sets the Stall bit in the Endpoint configuration register.
+* @note		This function only clears the Stall bit in the Endpoint
+*		configuration register.
 *
 *****************************************************************************/
 void XUsb_EpUnstall(const XUsb *InstancePtr, u8 EpNum)
@@ -183,13 +170,9 @@ void XUsb_EpUnstall(const XUsb *InstancePtr, u8 EpNum)
 * This function configures a specific end point with the given configuration
 * data.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number which has to be configured.
-* @param	EpCfgPtr is a pointer to the endpoint configuration structure.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number which has to be configured.
+* @param[in] EpCfgPtr is a pointer to the endpoint configuration structure.
 *
 *****************************************************************************/
 void XUsb_EpConfigure(XUsb *InstancePtr, u8 EpNum, XUsb_EpConfig *EpCfgPtr)
@@ -242,10 +225,10 @@ void XUsb_EpConfigure(XUsb *InstancePtr, u8 EpNum, XUsb_EpConfig *EpCfgPtr)
 * This function copies the transmit data to the end point buffer and enables the
 * buffer for transmission.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number.
-* @param	BufferPtr is a pointer to buffer containing the data to be sent.
-* @param	BufferLen is the number of data bytes to be sent.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number.
+* @param[in] BufferPtr is a pointer to buffer containing the data to be sent.
+* @param[in] BufferLen is the number of data bytes to be sent.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -412,17 +395,15 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 * passed and then makes the device ready for receiving data again into the same
 * end point buffer.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number.
-* @param	BufferPtr is a pointer to buffer where data is to be copied.
-* @param	BufferLen is the number of data bytes to be received.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number.
+* @param[out] BufferPtr is a pointer to the buffer where received data is copied.
+* @param[in] BufferLen is the number of data bytes to be received.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if there is no received data in any of the
 * 		ping pong buffers.
-*
-* @note		None
 *
 *****************************************************************************/
 int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
@@ -553,11 +534,9 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 * This function sets the number of isochronous transfers in a microframe
 * for a given endpoint.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	EpNum is the endpoint number.
-* @param	NoOfTransfers is the number of transfers in a microframe.
-*
-* @return	None
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] EpNum is the endpoint number.
+* @param[in] NoOfTransfers is the number of transfers in a microframe.
 *
 * @note		The values allowed for number of transfers is 1, 2 and 3.
 *		This function should be called after all the endpoints are

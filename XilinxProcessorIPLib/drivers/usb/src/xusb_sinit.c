@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,8 +15,6 @@
 * This file contains the implementation of the XUsb driver's static
 * initialization functionality.
 *
-* @note		None.
-*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -28,6 +26,7 @@
 * 5.8   ka   11/09/25 Added 64-bit addressing support.
 * 5.8   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
+* 5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -57,9 +56,9 @@ extern XUsb_Config XUsb_ConfigTable[];
 * A table contains the configuration info for each device in the system.
 *
 * @if SDT
-* @param	BaseAddress contains the base address of the device
+* @param[in] BaseAddress contains the base address of the device
 * @else
-* @param	DeviceId contains the ID of the device for which the
+* @param[in] DeviceId contains the ID of the device for which the
 *		device configuration pointer is to be returned.
 * @endif
 *

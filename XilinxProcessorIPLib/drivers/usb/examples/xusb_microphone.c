@@ -16,8 +16,6 @@
  * data on isochronous endpoint and the PC can store this data.
  * Noise will be heard when this data is played on the PC.
  *
- * @note	None.
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -64,12 +62,12 @@
 
 /************************** Variable Definitions *****************************/
 
-static XUsb UsbInstance;		/* The instance of the USB device */
+static XUsb UsbInstance;		/**< The instance of the USB device */
 
-XUsb_Config *UsbConfigPtr;	/* Pointer to the USB config structure */
+XUsb_Config *UsbConfigPtr;	/**< Pointer to the USB config structure */
 
 #ifndef SDT
-XIntc InterruptController;	/* Instance of the Interrupt Controller */
+XIntc InterruptController;	/**< Instance of the Interrupt Controller */
 static int SetupInterruptSystem(XUsb *InstancePtr);
 #endif
 
@@ -77,13 +75,9 @@ static int SetupInterruptSystem(XUsb *InstancePtr);
 /**
  * This main function starts the USB Interrupt example.
  *
- *
- * @param	None.
- *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if test fails.
- * @note	None.
  *
  *****************************************************************************/
 int main()
@@ -215,18 +209,13 @@ int main()
 }
 
 /*****************************************************************************/
-/**
+/*
  * This is the USB initialization function. This example initializes the device
  * for Microphone Application. The following configuration is done.
  *	- EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.
  *	- EP1 : ISOCHRONOUS, BULK_IN, packet size 1024 bytes.
  *
- *
- * @param	InstancePtr is a pointer to the XUsb instance.
- *
- * @return	None.
- *
- * @note	None.
+ * @param[in]	InstancePtr is a pointer to the XUsb instance.
  *
  ******************************************************************************/
 void InitUsbInterface(XUsb *InstancePtr)
@@ -273,18 +262,13 @@ void InitUsbInterface(XUsb *InstancePtr)
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function is the interrupt handler for the USB microphone device
  * application.
  *
- *
- * @param    	CallBackRef is the callback reference passed from the interrupt
+ * @param[in]    	CallBackRef is the callback reference passed from the interrupt
  *           	handler, which in our case is a pointer to the driver instance.
- * @param    	IntrStatus is a bit mask indicating pending interrupts.
- *
- * @return   	None.
- *
- * @note        None.
+ * @param[in]    	IntrStatus is a bit mask indicating pending interrupts.
  *
  ******************************************************************************/
 void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus)
@@ -329,16 +313,13 @@ void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus)
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function is the interrupt handler for the USB End point Zero events.
  *
- *
- * @param	CallBackRef is the callback reference passed from the interrupt.
+ * @param[in]	CallBackRef is the callback reference passed from the interrupt.
  *		handler, which in our case is a pointer to the driver instance.
- * @param	EpNum is the end point number.
- * @param	IntrStatus is a bit mask indicating pending interrupts.
- *
- * @return	None.
+ * @param[in]	EpNum is the end point number.
+ * @param[in]	IntrStatus is a bit mask indicating pending interrupts.
  *
  * @note	EpNum is not used in this function as the handler is attached
  *		specific to end point zero. This parameter is useful when a
@@ -396,15 +377,13 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function is the interrupt handler for the USB End point one events.
  *
- * @param	CallBackRef is the callback reference passed from the interrupt
+ * @param[in]	CallBackRef is the callback reference passed from the interrupt
  *		handler, which in our case is a pointer to the driver instance.
- * @param	EpNum is the end point number.
- * @param	IntrStatus is a bit mask indicating pending interrupts.
- *
- * @return	None.
+ * @param[in]	EpNum is the end point number.
+ * @param[in]	IntrStatus is a bit mask indicating pending interrupts.
  *
  * @note	EpNum is not used in this function as the handler is attached
  *		specific to end point one. This parameter is useful when a
@@ -441,15 +420,13 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 * directly connected to a processor without an interrupt controller.  The
 * user should modify this function to fit the application.
 *
-* @param	InstancePtr contains a pointer to the instance of the USB
+* @param[in]	InstancePtr contains a pointer to the instance of the USB
 *		component, which is going to be connected to the interrupt
 *		controller.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE. if it fails.
-*
-* @note		None
 *
 *******************************************************************************/
 static int SetupInterruptSystem(XUsb *InstancePtr)

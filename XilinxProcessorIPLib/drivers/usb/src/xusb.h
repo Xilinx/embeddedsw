@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,7 @@
 *
 * <b>Initialization & Configuration</b>
 *
-* The device driver enables higher layer software (e.g., an application) to
+* The device driver enables higher layer software (for example, an application) to
 * communicate to the USB device. Apart from transmission and reception of
 * USB frames the driver also handles the configuration of the device. A single
 * device driver can support multiple USB devices.
@@ -168,6 +168,7 @@
 * 5.6   pm   07/05/23 Added support for system device-tree flow.
 * 5.8   ka   11/09/25 Added 64-bit addressing support.
 *
+* 5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
  ******************************************************************************/
@@ -199,7 +200,7 @@ extern "C" {
 #define XUSB_EP_DIRECTION_IN		1	/**< Endpoint direction IN. */
 #define XUSB_EP_DIRECTION_OUT		0	/**< Endpoint direction OUT. */
 
-/* @} */
+/** @} */
 
 /**
  * @name Speed
@@ -209,7 +210,7 @@ extern "C" {
 #define XUSB_EP_HIGH_SPEED		1	/**< High Speed */
 #define XUSB_EP_FULL_SPEED		0	/**< Full Speed */
 
-/* @} */
+/** @} */
 
 /** @name  USB device specific global configuration constants.
  *  @{
@@ -218,14 +219,14 @@ extern "C" {
 #define XUSB_EP_NUMBER_ZERO		0	/**< End point Zero */
 #define XUSB_DEVICEADDR_MAX		127	/**< Max device address */
 
-/* @} */
+/** @} */
 
 /** @name USB device disconnect state
  * @{
  */
 #define XUSB_DISCONNECTED		0x1	/**< Disconnected state */
 #define XUSB_RESET			0x0	/**< Reset State */
-/* @} */
+/** @} */
 
 /**  @name Test Modes (Set Feature)
  * @{
@@ -235,7 +236,7 @@ extern "C" {
 #define TEST_SE0_NAK			3	/**< Chirp SE0 Test */
 #define TEST_PKT			4	/**< Packet Test */
 
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 
@@ -244,11 +245,11 @@ extern "C" {
  * This data type defines the callback function to be used for Endpoint
  * handlers.
  *
- * @param	CallBackRef is the Callback reference passed in by the upper
+ * @param[in] CallBackRef is the Callback reference passed in by the upper
  * 		layer when setting the handler, and is passed back to the upper
  * 		layer when the handler is called.
- * @param	EpNum is the endpoint that caused the event.
- * @param	EventType is the type of the event that occurred on that
+ * @param[in] EpNum is the endpoint that caused the event.
+ * @param[in] EventType is the type of the event that occurred on that
  * 		endpoint.
  */
 typedef void (*XUsb_EpHandlerFunc) (void *CallBackRef, u8 EpNum, u32 EventType);
@@ -258,10 +259,10 @@ typedef void (*XUsb_EpHandlerFunc) (void *CallBackRef, u8 EpNum, u32 EventType);
  * This data type defines the callback function to be used for the general
  * interrupt handler.
  *
- * @param	CallBackRef is the Callback reference passed in by the upper
+ * @param[in] CallBackRef is the Callback reference passed in by the upper
  * 		layer when setting the handler, and is passed back to the upper
  *		layer when the handler is called.
- * @param	InterruptType is the type of the event that caused the
+ * @param[in] InterruptType is the type of the event that caused the
  * 		interrupt.
  */
 typedef void (*XUsb_IntrHandlerFunc) (void *CallBackRef, u32 InterruptType);
@@ -320,7 +321,7 @@ typedef struct {
 #ifndef SDT
 	u16 DeviceId;		/**< Unique ID of device. */
 #else
-	char *Name;
+	char *Name;		/**< Device name string for SDT flow. */
 #endif
 	UINTPTR BaseAddress;	/**< Core register base address. */
 	u8 DmaEnabled;		/**< DMA support Enabled */
@@ -358,17 +359,17 @@ typedef struct {
 	/**
 	 * Callbacks and callback references
 	 */
-	XUsb_IntrHandlerFunc HandlerFunc;
-	void *HandlerRef;
+	XUsb_IntrHandlerFunc HandlerFunc;	/**< General interrupt handler. */
+	void *HandlerRef;			/**< Callback reference for general handler. */
 
-	XUsb_IntrHandlerFunc ErrHandlerFunc;
-	void *ErrHandlerRef;
+	XUsb_IntrHandlerFunc ErrHandlerFunc;	/**< Error interrupt handler. */
+	void *ErrHandlerRef;			/**< Callback reference for error handler. */
 
-	XUsb_IntrHandlerFunc DmaHandlerFunc;
-	void *DmaHandlerRef;
+	XUsb_IntrHandlerFunc DmaHandlerFunc;	/**< DMA interrupt handler. */
+	void *DmaHandlerRef;			/**< Callback reference for DMA handler. */
 
-	XUsb_IntrHandlerFunc UlpiHandlerFunc;
-	void *UlpiHandlerRef;
+	XUsb_IntrHandlerFunc UlpiHandlerFunc;	/**< ULPI PHY interrupt handler. */
+	void *UlpiHandlerRef;			/**< Callback reference for ULPI handler. */
 
 } XUsb;
 
@@ -475,5 +476,5 @@ XUsb_Config *XUsb_LookupConfig(UINTPTR BaseAddress);
 }
 #endif
 
-#endif /* XUSB_H */
 /** @} */
+#endif /* XUSB_H */

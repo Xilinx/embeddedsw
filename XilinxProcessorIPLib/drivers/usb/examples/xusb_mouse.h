@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,6 @@
  *
  * This file contains the constants, type definitions, variables and function
  * prototypes used in the mouse application.
- *
- * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -41,17 +39,18 @@ extern "C" {
 /*
  * Mouse interface class
  */
-#define MOUSE_PROTOCOL			2
-#define HID_DESCR			0x21
+#define MOUSE_PROTOCOL			2	/**< HID mouse protocol code. */
+#define HID_DESCR			0x21	/**< HID class descriptor type code. */
 
 /************************** Variable Definitions ******************************/
 
 /*
  * Flags used to abort read and write command loops.
  */
-extern u16 MaxControlSize;
+extern u16 MaxControlSize;	/**< Maximum control endpoint packet size. */
 
 
+/** @brief Standard USB device descriptor for mouse example. */
 USB_STD_DEV_DESC DeviceDescriptor __attribute__ ((aligned (4))) = {
 	sizeof (USB_STD_DEV_DESC), 	/* Descriptor Size 18 bytes */
 	DEVICE_DESCR, 			/* This is a device descriptor */
@@ -92,7 +91,7 @@ FPGA1_CONFIGURATION  __attribute__ ((aligned (4))) FsUsbConfig  = {
 	 */
 	{
 		sizeof(USB_STD_CFG_DESC),/* Size of config descriptor 9 bytes */
-		CONFIG_DESCR, 		 /* This is a conifig descriptor */
+		CONFIG_DESCR, 		 /* This is a config descriptor */
 		sizeof(FsUsbConfig), 	 /* Total size of configuration LS */
 		0x00,			 /* Total size of configuration MS */
 		0x01, 			 /* No. Of interfaces 1 */
@@ -157,7 +156,7 @@ FPGA1_CONFIGURATION  __attribute__ ((aligned (4))) HsUsbConfig  = {
 	 */
 	{
 		sizeof(USB_STD_CFG_DESC),/* Size of config descriptor 9 bytes */
-		CONFIG_DESCR, 		 /* This is a conifig descriptor */
+		CONFIG_DESCR, 		 /* This is a config descriptor */
 		sizeof(HsUsbConfig), 	 /* Total size of configuration LS */
 		0x00,			 /* Total size of configuration MS */
 		0x01, 			 /* No. Of interfaces 1 */
@@ -250,6 +249,7 @@ USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned (4))) = {
 	}
 };
 
+/** @brief Standard USB HID descriptor for mouse example. */
 USB_STD_HID_DESC HidDescriptor __attribute__ ((aligned(4))) = {
 	sizeof(USB_STD_HID_DESC),	/* bLength */
 	0x21,			/* bDescriptorType = HID */
@@ -268,10 +268,17 @@ USB_STD_HID_DESC HidDescriptor __attribute__ ((aligned(4))) = {
 
 /************************** Function Prototypes *******************************/
 
+/* Initialize the USB device interface for the mouse example. */
 void  	InitUsbInterface(XUsb *InstancePtr);
+/* USB interface general interrupt handler callback. */
 void 	UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus);
+/*
+ * USB endpoint generic interrupt handler callback.
+ */
 void 	EpIntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/* USB endpoint 0 interrupt handler callback. */
 void 	Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/* USB endpoint 1 interrupt handler callback. */
 void 	Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
 
 #ifdef __cplusplus

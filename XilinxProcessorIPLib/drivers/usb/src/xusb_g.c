@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,8 +15,6 @@
 * This file contains a configuration table that specifies the configuration of
 * the USB devices in the system.
 *
-* @note		None.
-*
 * <pre>
 *
 * MODIFICATION HISTORY:
@@ -27,6 +25,7 @@
 * 2.00a  hvm  12/2/08 Updated the configuration structure with the
 *			INCLUDE_DMA option.
 * 5.6   pm   05/07/23 Added support for system device-tree flow.
+* 5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/

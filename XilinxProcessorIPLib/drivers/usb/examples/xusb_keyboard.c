@@ -120,10 +120,10 @@ void GpioIsr(void *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
-static XUsb UsbInstance;		/* The instance of the USB device */
+static XUsb UsbInstance;		/**< The instance of the USB device */
 static XGpio Gpio; /* The Instance of the GPIO Driver */
 
-XUsb_Config *UsbConfigPtr;	/* Pointer to the USB config structure */
+XUsb_Config *UsbConfigPtr;	/**< Pointer to the USB config structure */
 XGpio_Config *GpioConfigPtr;	/* Pointer to the GPIO config structure */
 
 #ifndef SDT
@@ -137,14 +137,9 @@ int MaxMsgLength;
 /**
 * This function is the main function of the USB Keyboard example.
 *
-* @param	None.
-*
 * @return
 *		- XST_SUCCESS if successful,
 *		- XST_FAILURE if unsuccessful.
-*
-* @note		None.
-*
 *
 *****************************************************************************/
 int main(void)
@@ -172,11 +167,11 @@ int main(void)
  * buttons SW3 or SW4 or SW5 or SW7 on the ML403 evaluation board is pressed.
  *
  * @if SDT
- * @param	UsbBaseAddress is the base address of the USB device.
- * @param	GpioBaseAddress is the base address of the GPIO device.
+ * @param[in] UsbBaseAddress is the base address of the USB device.
+ * @param[in] GpioBaseAddress is the base address of the GPIO device.
  * @else
- * @param	UsbId is the USB device id.
- * @param	GpioId is the GPIO device id.
+ * @param[in] UsbId is the USB device id.
+ * @param[in] GpioId is the GPIO device id.
  * @endif
  *
  * @return
@@ -332,17 +327,13 @@ int UsbKbdExample(UINTPTR UsbBaseAddress, UINTPTR GpioBaseAddress)
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function initializes the USB device for Keyboard example. The following
  * is the configuration.
  *	- EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.
  *	- EP1 : NON_ISOCHRONOUS, INTERRUPT_IN, packet size of 16 bytes.
  *
- * @param	InstancePtr is a pointer to the XUsb instance.
- *
- * @return	None.
- *
- * @note	None.
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
  *
  ******************************************************************************/
 void InitUsbInterface(XUsb *InstancePtr)
@@ -389,16 +380,14 @@ void InitUsbInterface(XUsb *InstancePtr)
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function is the interrupt handler for the USB keyboard example
  *
- * @param	CallBackRef is the callback reference passed from the interrupt
+ * @param[in] CallBackRef is the callback reference passed from the interrupt
  *		handler, which in our case is a pointer to the driver instance.
- * @param	IntrStatus is a bit mask indicating pending interrupts.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
  *
- * @return	None.
- *
- * @note	Each interrupt source is disabled upon reception. This is to
+  * @note	Each interrupt source is disabled upon reception. This is to
  *		avoid the repetitive occurrence of the same event. This is done
  *		because these event conditions exist for few milliseconds.
  *
@@ -445,18 +434,15 @@ void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus)
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function is the interrupt handler for the USB End point Zero events.
  *
- *
- * @param	CallBackRef is the callback reference passed from the interrupt.
+ * @param[in] CallBackRef is the callback reference passed from the interrupt.
  *		handler, which in our case is a pointer to the driver instance.
- * @param	EpNum is the end point number.
- * @param	IntrStatus is a bit mask indicating pending interrupts.
+ * @param[in] EpNum is the end point number.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
  *
- * @return	None.
- *
- * @note	EpNum is not used in this function as the handler is attached
+  * @note	EpNum is not used in this function as the handler is attached
  *		specific to end point zero. This parameter is useful when a
  *		single handler is used for processing all end point interrupts.
  *
@@ -508,17 +494,15 @@ void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 }
 
 /*****************************************************************************/
-/**
+/*
  * This function is the interrupt handler for the USB End point one events.
  *
- * @param	CallBackRef is the callback reference passed from the interrupt
+ * @param[in] CallBackRef is the callback reference passed from the interrupt
  *		handler, which in our case is a pointer to the driver instance.
- * @param	EpNum is the end point number.
- * @param	IntrStatus is a bit mask indicating pending interrupts.
+ * @param[in] EpNum is the end point number.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
  *
- * @return	None.
- *
- * @note	EpNum is not used in this function as the handler is attached
+  * @note	EpNum is not used in this function as the handler is attached
  *		specific to end point one. This parameter is useful when a
  *		single handler is used for processing all end point interrupts.
  *
@@ -551,13 +535,9 @@ void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus)
 * This function will detect the push button on the board has changed state
 * and then prepare data to be sent to the host.
 *
-* @param	InstancePtr is the GPIO component to operate on. It is a void
+* @param[in] InstancePtr is the GPIO component to operate on. It is a void
 *		pointer and in this case will be a pointer to the GPIO
 *		instance.
-*
-* @return 	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void GpioIsr(void *InstancePtr)
@@ -651,14 +631,12 @@ void GpioIsr(void *InstancePtr)
 * directly connected to a processor without an interrupt controller.  The
 * user should modify this function to fit the application.
 *
-* @param	UsbPtr is a pointer to the instance of the USB device.
-* @param	GpioPtr is a pointer to the instance of the GPIO device.
+* @param[in] UsbPtr is a pointer to the instance of the USB device.
+* @param[in] GpioPtr is a pointer to the instance of the GPIO device.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE. if it fails.
-*
-* @note		None.
 *
 *******************************************************************************/
 static int SetupInterruptSystem(XUsb *UsbPtr, XGpio *GpioPtr)

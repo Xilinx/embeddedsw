@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,11 +38,12 @@
 * 4.03a bss  06/20/10 Added SIE Reset Mask (CR 660602)
 * 4.04a bss  10/22/13 Added macros for HSIC PHY registers.
 * 5.8   ka   11/09/25 Added 64-bit addressing support.
+* 5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
-#ifndef XUSB_L_H		/* prevent circular inclusions */
-#define XUSB_L_H		/* by using protection macros */
+#ifndef XUSB_L_H
+#define XUSB_L_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -85,7 +86,7 @@ extern "C" {
 #define XUSB_DMA_LENGTH_OFFSET		0x0210	/**< DMA Length Register */
 #define XUSB_DMA_STATUS_OFFSET		0x0214	/**< DMA Status Register */
 
-/* @} */
+/** @} */
 
 /** @name Address Register
  *
@@ -93,7 +94,7 @@ extern "C" {
  */
 #define XUSB_ADDRESS_ADDR_MASK		0x7F	/**< Address Mask  */
 
-/* @} */
+/** @} */
 
 /** @name Control Register
  *
@@ -102,7 +103,7 @@ extern "C" {
 #define XUSB_CONTROL_USB_READY_MASK 	0x80000000 /**< USB ready Mask */
 #define XUSB_REMOTE_WAKEUP_MASK		0x40000000 /**< Remote Wakeup Mask */
 #define XUSB_CONTROL_SIE_RESET_MASK	0x20000000 /**< Soft Reset Mask */
-/* @} */
+/** @} */
 
 /** @name Status Register and Interrupt Enable Register
  *
@@ -153,7 +154,7 @@ extern "C" {
 #define XUSB_STATUS_EP0_BUFF1_COMP_MASK	0x00000001 /**< EP 0 Buff 1 Processed */
 
 #define XUSB_STATUS_EP_BUFF2_SHIFT	8	   /**< EP buffer offset */
-/* @} */
+/** @} */
 
 /** @name Frame Number Register
  *
@@ -163,7 +164,7 @@ extern "C" {
 #define XUSB_FRAMENUM_MICRO_FRAME_MASK	0x00000007 /**< Micro Frame Mask */
 #define XUSB_FRAMENUM_FRAME_SHIFT	0x3	   /**< Frame Number Shift */
 
-/* @} */
+/** @} */
 
 /** @name Buffer Ready Register
  *
@@ -185,12 +186,14 @@ extern "C" {
 #define XUSB_BUFFREADY_EP1_BUFF1_MASK	0x00000002  /**< EP 1 Buff 1 Ready */
 #define XUSB_BUFFREADY_EP0_BUFF_MASK	0x00000001  /**< EP 0 Buffer Ready */
 
+/** @brief Composite mask of all USB event interrupt status bits. */
 #define XUSB_STATUS_INTR_EVENT_MASK	(XUSB_STATUS_HIGH_SPEED_MASK | \
 		XUSB_STATUS_RESET_MASK | \
 		XUSB_STATUS_SUSPEND_MASK | \
 		XUSB_STATUS_DISCONNECT_MASK | \
 		XUSB_STATUS_SOF_PACKET_MASK|\
 		XUSB_STATUS_RESUME_MASK)
+/** @brief Composite mask of all endpoint buffer completion interrupt bits. */
 #define XUSB_STATUS_INTR_BUFF_COMP_ALL_MASK  \
 	(XUSB_STATUS_EP7_BUFF2_COMP_MASK | \
 	 XUSB_STATUS_EP6_BUFF2_COMP_MASK |  \
@@ -207,9 +210,11 @@ extern "C" {
 	 XUSB_STATUS_EP2_BUFF1_COMP_MASK |  \
 	 XUSB_STATUS_EP1_BUFF1_COMP_MASK |  \
 	 XUSB_STATUS_EP0_BUFF1_COMP_MASK )
+/** @brief Composite mask for all DMA event interrupt status bits. */
 #define XUSB_STATUS_DMA_EVENT_MASK	(XUSB_STATUS_DMA_DONE_MASK | \
 		XUSB_STATUS_DMA_ERROR_MASK)
 
+/** @brief Composite mask for all USB error event interrupt status bits. */
 #define XUSB_STATUS_ERROR_EVENT_MASK	(XUSB_STATUS_BITSTUFF_ERR_MASK |   \
 		XUSB_STATUS_PID_ERR_MASK |        \
 		XUSB_STATUS_CRC_ERR_MASK)
@@ -217,7 +222,7 @@ extern "C" {
 #define XUSB_STATUS_INTR_ALL_MASK	0xFFFFFEFF /**< All Interrupts Mask */
 
 
-/* @} */
+/** @} */
 
 /** @name Test Mode Register
  *
@@ -228,7 +233,7 @@ extern "C" {
 #define XUSB_TESTMODE_SE0_NAK_MASK	0x00000003 /**< Test Mode SE0 NAK */
 #define XUSB_TESTMODE_TEST_PKT_MASK	0x00000004 /**< Test Packet Mode */
 
-/* @} */
+/** @} */
 
 /** @name Error Counter Register
  *
@@ -237,11 +242,11 @@ extern "C" {
 #define XUSB_ECR_BITSTUFF_ERRCNT_MASK	0xFF000000 /**< Bit Stuff error counter */
 #define XUSB_ECR_PID_ERRCNT_MASK	0x00FF0000 /**< PID error counter */
 #define XUSB_ECR_CRC_ERRCNT_MASK	0x0000FF00 /**< CRC error counter */
-#define XUSB_ECR_BITSTUFF_ERRCNT_SHIFT	24
-#define XUSB_ECR_PID_ERRCNT_SHIFT	16
-#define XUSB_ECR_CRC_ERRCNT_SHIFT	8
+#define XUSB_ECR_BITSTUFF_ERRCNT_SHIFT	24 /**< Bit stuff error count shift. */
+#define XUSB_ECR_PID_ERRCNT_SHIFT	16 /**< PID error count shift. */
+#define XUSB_ECR_CRC_ERRCNT_SHIFT	8  /**< CRC error count shift. */
 
-/* @} */
+/** @} */
 
 /** @name ULPI PHY Access Register
  *
@@ -254,8 +259,8 @@ extern "C" {
 							bit */
 #define XUSB_UPAR_BUSY_MASK	0x80000000 /**< PHY access enable */
 
-#define XUSB_UPAR_REG_DATA_SHIFT	8
-/* @} */
+#define XUSB_UPAR_REG_DATA_SHIFT	8 /**< ULPI PHY data register shift. */
+/** @} */
 
 /** @name Endpoint Configuration Space offsets
  *
@@ -265,7 +270,7 @@ extern "C" {
 #define XUSB_EP_BUF0COUNT_OFFSET	0x08	/**< Buffer 0 Count */
 #define XUSB_EP_BUF1COUNT_OFFSET	0x0C	/**< Buffer 1 Count */
 
-/* @} */
+/** @} */
 
 /** @name Endpoint Configuration Status Register
  *
@@ -290,7 +295,7 @@ extern "C" {
 #define XUSB_EP_CFG_PACKET_SIZE_SHIFT	15	/**< Endpoint Pkt Size Shift */
 #define XUSB_EP_CFG_ISOTRANS_SHIFT	13	/**< Endpoint Isotrans Shift*/
 
-/* @} */
+/** @} */
 
 /** @name DMA Reset/Control and Status register bits
  *
@@ -307,7 +312,7 @@ extern "C" {
 #define XUSB_DMA_DMASR_ERROR		0x40000000 /**< DMA Error */
 #define XUSB_DMA_DMACR_DIR_MASK		0x80000000 /**< DMA direction */
 
-/* @} */
+/** @} */
 
 /*
  * When this bit is set, the DMA buffer ready bit is set by hardware upon
@@ -364,15 +369,15 @@ extern "C" {
 #define XUSB_HSIC_DATA_READY_MASK		0x00000020 /**< IDELAY block
 								ready mask */
 
-/* @} */
+/** @} */
 
 /*
  * Define the appropriate I/O access method to memory mapped I/O or
  * other interface if necessary
  */
 
-#define XUsb_In32  Xil_In32
-#define XUsb_Out32 Xil_Out32
+#define XUsb_In32  Xil_In32  /**< USB 32-bit memory-mapped input accessor. */
+#define XUsb_Out32 Xil_Out32 /**< USB 32-bit memory-mapped output accessor. */
 
 /**************************** Type Definitions *******************************/
 
@@ -382,8 +387,8 @@ extern "C" {
 /**
 * Read from the specified USB device register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param[in] BaseAddress contains the base address of the device.
+* @param[in] RegOffset contains the offset from the 1st register of the
 *		device to select the specific register.
 *
 * @return	The value read from the register.
@@ -399,12 +404,10 @@ extern "C" {
 /**
 * Write to the specified USB device register.
 *
-* @param	BaseAddress contains the base address of the device.
-* @param	RegOffset contains the offset from the 1st register of the
+* @param[in] BaseAddress contains the base address of the device.
+* @param[in] RegOffset contains the offset from the 1st register of the
 *		device to select the specific register.
-* @param	RegisterValue is the value to be written to the register.
-*
-* @return	None.
+* @param[in] RegisterValue is the value to be written to the register.
 *
 * @note		C-Style signature:
 *		void XUsb_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
@@ -417,5 +420,5 @@ extern "C" {
 }
 #endif
 
-#endif /* XUSB_L_H */
 /** @} */
+#endif /* XUSB_L_H */

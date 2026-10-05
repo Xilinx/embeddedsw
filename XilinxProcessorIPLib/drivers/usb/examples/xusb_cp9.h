@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,6 @@
  *
  * This file contains the constants, typedefs, variables and functions
  * prototypes related to the USB chapter 9 related code.
- *
- * @note     None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -47,17 +45,18 @@ extern "C" {
 
 /**************************** Type Definitions ********************************/
 
-/*
- * Structure 32 bit int memory access to the Dual Port RAM.
+/**
+ * @brief Union for 32-bit word and byte access to Dual Port RAM.
  */
 typedef union {
-	u32 Word;
+	u32 Word; /**< 32-bit word access. */
+	/** @brief Byte-level access to the 32-bit word. */
 	struct {
-		u8 Zero;
-		u8 One;
-		u8 Two;
-		u8 Three;
-	} Byte;
+		u8 Zero;  /**< Byte at offset 0. */
+		u8 One;   /**< Byte at offset 1. */
+		u8 Two;   /**< Byte at offset 2. */
+		u8 Three; /**< Byte at offset 3. */
+	} Byte; /**< Named byte fields of the word. */
 } IntChar;
 
 /************************** Function Prototypes *******************************/

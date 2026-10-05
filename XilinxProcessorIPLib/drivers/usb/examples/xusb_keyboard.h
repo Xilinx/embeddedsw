@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -11,8 +11,6 @@
  *
  * This file contains the constants, type definitions, variables and function
  * prototypes used in the USB keyboard example.
- *
- * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -47,8 +45,9 @@ extern "C" {
 /*
  * Flags used to abort read and write command loops.
  */
-extern u16 MaxControlSize;
+extern u16 MaxControlSize;	/**< Maximum control endpoint packet size. */
 
+/** @brief Standard USB device descriptor for keyboard example. */
 USB_STD_DEV_DESC DeviceDescriptor __attribute__ ((aligned(4))) = {
 	sizeof(USB_STD_DEV_DESC),	/* Descriptor Size 18 bytes */
 	DEVICE_DESCR,	/* This is a device descriptor */
@@ -91,7 +90,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) HsUsbConfig = {
 		 */
 		sizeof(USB_STD_CFG_DESC),/* Size of config descriptor 9
 						bytes */
-		CONFIG_DESCR,	/* This is a conifig descriptor */
+		CONFIG_DESCR,	/* This is a config descriptor */
 		sizeof(HsUsbConfig),	/* Total size of configuration
 			LS */
 		0x00,	/* Total size of configuration MS */
@@ -158,7 +157,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 		 */
 		sizeof(USB_STD_CFG_DESC),	/* Size of config descriptor 9
 		bytes */
-		CONFIG_DESCR,	/* This is a conifig descriptor */
+		CONFIG_DESCR,	/* This is a config descriptor */
 		sizeof(FsUsbConfig),	/* Total size of configuration
 			LS */
 		0x00,	/* Total size of configuration MS */
@@ -256,6 +255,7 @@ USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned(4))) = {
 	}
 };
 
+/** @brief Standard USB HID descriptor for keyboard example. */
 USB_STD_HID_DESC HidDescriptor __attribute__ ((aligned(4))) = {
 	sizeof(USB_STD_HID_DESC),	/* bLength */
 	0x21,			/* bDescriptorType = HID */
@@ -271,7 +271,7 @@ USB_STD_HID_DESC HidDescriptor __attribute__ ((aligned(4))) = {
 	0x00
 };
 
-/*Xilinx specific message*/
+/** @brief Xilinx HID keyboard report message data array. */
 unsigned char Message[] __attribute__ ((aligned(4))) = {
 	0x00, 0x00, 0x28, 0x00,		// (cr)
 	0x02, 0x00, 0x1B, 0x00,		// X

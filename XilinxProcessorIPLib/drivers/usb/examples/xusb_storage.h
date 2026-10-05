@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,8 +11,6 @@
  *
  * This file contains the constants, type definitions, variables and function
  * prototypes used in the mass storage application.
- *
- * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -60,65 +58,65 @@ extern "C" {
  * Mass storage device Flash size. The following constants are to be modified
  * to get different size of  memory.
  */
-#define RAMDISKSECTORS  		0x400
-#define RAMBLOCKS			128
+#define RAMDISKSECTORS  		0x400	/**< Number of RAM disk sectors. */
+#define RAMBLOCKS			128	/**< Number of 32-bit words per RAM disk sector. */
 
 /*
  * Mass storage Class and Sub class codes.
  */
-#define MS_SCSI_CMD_SET			0x06
-#define CLASS_MASS_STORAGE		0x08
+#define MS_SCSI_CMD_SET			0x06	/**< SCSI command set for mass storage. */
+#define CLASS_MASS_STORAGE		0x08	/**< USB mass storage class code. */
 
 /*
  * Mass Storage Protocols.
  */
-#define MS_BULK_ONLY			0x50
+#define MS_BULK_ONLY			0x50	/**< USB mass storage bulk-only transport protocol. */
 
 /*
  * SCSI Commands.
  */
-#define SCSI_READ_10			0x28
-#define SCSI_READ_12			0xA8
-#define SCSI_WRITE_10			0x2A
-#define SCSI_WRITE_12			0xAA
-#define SCSI_VERIFY			0x2f
-#define SCSI_INQUIRY			0x12
-#define SCSI_READ_FORMAT_CAPACITIES	0x23
-#define SCSI_MODE_SENSE			0x1a
-#define SCSI_READ_CAPACITY		0x25
-#define SCSI_TEST_UNIT_READY		0x00
-#define SCSI_REQUEST_SENSE		0x03
-#define SCSI_MEDIA_REMOVAL		0x1e
+#define SCSI_READ_10			0x28	/**< SCSI READ(10) operation code. */
+#define SCSI_READ_12			0xA8	/**< SCSI READ(12) operation code. */
+#define SCSI_WRITE_10			0x2A	/**< SCSI WRITE(10) operation code. */
+#define SCSI_WRITE_12			0xAA	/**< SCSI WRITE(12) operation code. */
+#define SCSI_VERIFY			0x2f	/**< SCSI VERIFY operation code. */
+#define SCSI_INQUIRY			0x12	/**< SCSI INQUIRY operation code. */
+#define SCSI_READ_FORMAT_CAPACITIES	0x23	/**< SCSI READ FORMAT CAPACITIES operation code. */
+#define SCSI_MODE_SENSE			0x1a	/**< SCSI MODE SENSE operation code. */
+#define SCSI_READ_CAPACITY		0x25	/**< SCSI READ CAPACITY operation code. */
+#define SCSI_TEST_UNIT_READY		0x00	/**< SCSI TEST UNIT READY operation code. */
+#define SCSI_REQUEST_SENSE		0x03	/**< SCSI REQUEST SENSE operation code. */
+#define SCSI_MEDIA_REMOVAL		0x1e	/**< SCSI PREVENT/ALLOW MEDIUM REMOVAL code. */
 
-#define USBCSW_SIGNATURE 		0x55534253
-#define USBCSW_LENGTH			0x0d
-#define MODESENSE_RETURNALL		0x3f
+#define USBCSW_SIGNATURE 		0x55534253	/**< USB command status wrapper signature. */
+#define USBCSW_LENGTH			0x0d	/**< USB command status wrapper size in bytes. */
+#define MODESENSE_RETURNALL		0x3f	/**< Mode sense return all pages code. */
 
 /*
  * Valid USB Status block.
  */
-#define CMD_PASSED			0x00
-#define CMD_FAILED			0x01
-#define PHASE_ERROR			0x02
+#define CMD_PASSED			0x00	/**< USB CSW status: command passed. */
+#define CMD_FAILED			0x01	/**< USB CSW status: command failed. */
+#define PHASE_ERROR			0x02	/**< USB CSW status: phase error. */
 
 /*
  * Error codes.
  */
-#define NO_ERROR			0
-#define ERR_NOTERASED			1
-#define ERR_NOFREEBLOCKS		2
-#define ERR_USBABORT			3
-#define ERR_CMDFAILED			4
-#define ERR_ECC				5
-#define ERR_BADBZ			6
-#define ERR_DSMM			7
+#define NO_ERROR			0	/**< No error occurred. */
+#define ERR_NOTERASED			1	/**< Error: block not erased. */
+#define ERR_NOFREEBLOCKS		2	/**< Error: no free blocks available. */
+#define ERR_USBABORT			3	/**< Error: USB transfer aborted. */
+#define ERR_CMDFAILED			4	/**< Error: command failed. */
+#define ERR_ECC				5	/**< Error: ECC error. */
+#define ERR_BADBZ			6	/**< Error: bad block zone (exact meaning is implementation-specific). */
+#define ERR_DSMM			7	/**< Error: device-specific media management error. */
 
 /*
  * Mass Storage file format related constants.
  */
-#define FORMATTED_CURRENT		0x02000000
-#define UNFORMATTED			0x01000000
-#define BLOCK_SIZE			0x0200
+#define FORMATTED_CURRENT		0x02000000	/**< Media is formatted (current format). */
+#define UNFORMATTED			0x01000000	/**< Media is unformatted. */
+#define BLOCK_SIZE			0x0200	/**< Block size in bytes (512 bytes). */
 
 /*
  * End point types.
@@ -133,9 +131,9 @@ extern "C" {
 /*
  * Flags used to abort read and write command loops.
  */
-u8 Read10Abort = 0;
-u8 Write10Abort = 0;
-u8 ErrCode;
+u8 Read10Abort = 0;	/**< Flag to abort SCSI READ(10) command loop. */
+u8 Write10Abort = 0;	/**< Flag to abort SCSI WRITE(10) command loop. */
+u8 ErrCode;	/**< Current error code from last SCSI command. */
 extern u16 MaxControlSize;
 extern USB_CMD_BUF Ch9_CmdBuf;
 extern IntChar UsbMemData;		/* Dual Port memory */
@@ -143,249 +141,227 @@ extern IntChar UsbMemData;		/* Dual Port memory */
 /*
  * A ram array
  */
-u32 RamDisk[RAMDISKSECTORS][RAMBLOCKS] __attribute__ ((aligned(4)));
+u32 RamDisk[RAMDISKSECTORS][RAMBLOCKS] __attribute__ ((aligned(4)));	/**< RAM disk storage array. */
 
 /*
  * Logical block address.
  */
 union {
-	volatile u8 CharLba[4];
-	volatile u32 IntLba;
-} Lba;
+	volatile u8 CharLba[4];  /**< LBA as four bytes in native byte order. */
+	volatile u32 IntLba;     /**< LBA as a 32-bit integer. */
+} Lba;	/**< Logical block address union. */
 
 /*
  * Mass storage memory block count.
  */
 union {
-	volatile u8 CharBlockCount[4];
-	volatile u32 IntBlockCount;
-} BlockCount;
+	volatile u8 CharBlockCount[4];  /**< Block count as four bytes. */
+	volatile u32 IntBlockCount;     /**< Block count as a 32-bit integer. */
+} BlockCount;	/**< Block count union. */
 
 /*
  * SCSI Command descriptor blocks.
  */
 
-/*
- * Modesense.
- */
+/** @brief SCSI mode sense command descriptor block structure. */
 typedef struct {
-	u8 OpCode;
-	u8 lun;
-	u8 pagecode;
-	u8 mb0;
-	u8 parmlength;
-	u8 mb0_2;
-	u8 padding[10];
+	u8 OpCode;	/**< SCSI operation code. */
+	u8 lun;	/**< Logical unit number. */
+	u8 pagecode;	/**< Page code for mode sense. */
+	u8 mb0;	/**< Reserved byte 0. */
+	u8 parmlength;	/**< Allocation length for the mode-sense response. */
+	u8 mb0_2;	/**< Reserved byte 2. */
+	u8 padding[10];	/**< Padding bytes for alignment. */
 } SCSI_MODESENSE_CDB, *PSCSI_MODESENSE_CDB;
 
-/*
- * Media Removal.
- */
+/** @brief SCSI prevent/allow medium removal command structure. */
 typedef struct {
-	u8 OpCode;
-	u8 lun;
-	u8 mb0[2];
-	u8 prevent;
-	u8 padding[11];
+	u8 OpCode;	/**< SCSI operation code. */
+	u8 lun;	/**< Logical unit number. */
+	u8 mb0[2];	/**< Reserved bytes. */
+	u8 prevent;	/**< Prevent removal flag. */
+	u8 padding[11];	/**< Padding bytes for alignment. */
 
-} SCSI_MEDIA_REMOVAL_TYPE, *PSCSI_MEDIA_REMOVAL_TYPE;
+} SCSI_MEDIA_REMOVAL_TYPE, *PSCSI_MEDIA_REMOVAL_TYPE;	/**< Pointer to SCSI_MEDIA_REMOVAL_TYPE structure. */
 
-/*
- * Responses to SCSI commands.
- */
-
-/*
- * Request Sense standard data.
- */
+/** @brief SCSI request sense standard response data structure. */
 typedef struct {
-	u8 error_code;
-	u8 padding1;
-	u8 sense_key;
-	u8 information[4];
-	u8 additional_sense_length;
-	u8 padding2[4];
-	u8 additional_sense_code;
-	u8 additional_sense_code_qualifier;
-	u8 padding3[4];
+	u8 error_code;	/**< Error code and valid bit. */
+	u8 padding1;	/**< Reserved padding byte. */
+	u8 sense_key;	/**< Sense key code. */
+	u8 information[4];	/**< Information bytes. */
+	u8 additional_sense_length;	/**< Additional sense data length. */
+	u8 padding2[4];	/**< Command-specific information bytes. */
+	u8 additional_sense_code;	/**< Additional sense code. */
+	u8 additional_sense_code_qualifier;	/**< Additional sense code qualifier. */
+	u8 padding3[4];	/**< FRU code and sense-key-specific information bytes. */
 
-} REQUEST_SENSE, *PREQUEST_SENSE;
+} REQUEST_SENSE, *PREQUEST_SENSE;	/**< Pointer to REQUEST_SENSE structure. */
 
-/*
- * Inquiry Data.
- */
+/** @brief SCSI inquiry command response data structure. */
 typedef struct {
-	u8 device_type;
-	u8 RMB;
-	u8 mbz;
-	u8 mb1;
-	u8 mb1f;
-	char pad[3];
-	char vendor[8];
-	char product[16];
-	char prodrev[4];
+	u8 device_type;	/**< Peripheral device type. */
+	u8 RMB;	/**< Removable media bit. */
+	u8 mbz;	/**< Reserved byte. */
+	u8 mb1;	/**< Response data format. */
+	u8 mb1f;	/**< Format-specific flags. */
+	char pad[3];	/**< Reserved padding bytes. */
+	char vendor[8];	/**< Vendor identification string. */
+	char product[16];	/**< Product identification string. */
+	char prodrev[4];	/**< Product revision level. */
 
-} INQUIRY, *PINQUIRY;
+} INQUIRY, *PINQUIRY;	/**< Pointer to INQUIRY structure. */
 
-/*
- * Read Format Capacities.
- */
+/** @brief SCSI read format capacities response structure. */
 typedef struct {
-	u8 caplstlen[4];
-	u8 maxnumblocks[4];
-	u8 cap_code_blocklength[4];
+	u8 caplstlen[4];	/**< Capacity list data length. */
+	u8 maxnumblocks[4];	/**< Maximum number of blocks. */
+	u8 cap_code_blocklength[4];	/**< Descriptor code and block length. */
 
-} CAPACITY_LIST, *PCAPACITY_LIST;
+} CAPACITY_LIST, *PCAPACITY_LIST;	/**< Pointer to CAPACITY_LIST structure. */
 
+/** @brief SCSI read capacity command response structure. */
 typedef struct {
-	u8 lastLBA[4];
-	u8 blocklength[4];
-} READ_CAPACITY, *PREAD_CAPACITY;
+	u8 lastLBA[4];	/**< Last logical block address. */
+	u8 blocklength[4];	/**< Block length in bytes. */
+} READ_CAPACITY, *PREAD_CAPACITY;	/**< Pointer to READ_CAPACITY structure. */
 
-/*
- * MODESENSE Mode Parameter List.
- */
+/** @brief SCSI mode sense mode parameter list header structure. */
 typedef struct {
-	u8 mode_data_length;
-	u8 medium_type_code;
-	u8 device_spec_params;
-	u8 block_desc_length;
-} MODESENSE_MPL, *PMODESENSE_MPL;
+	u8 mode_data_length;	/**< Mode data length. */
+	u8 medium_type_code;	/**< Medium type code. */
+	u8 device_spec_params;	/**< Device-specific parameters. */
+	u8 block_desc_length;	/**< Block descriptor length. */
+} MODESENSE_MPL, *PMODESENSE_MPL;	/**< Pointer to MODESENSE_MPL structure. */
 
-/*
- * MODESENSE Read-Write Error Recovery Page.
- */
+/** @brief SCSI mode sense read-write error recovery page structure. */
 typedef struct {
-	u8 page_code;
-	u8 page_length;
-	u8 page_params;
-	u8 read_retry_count;
-	u8 reserved_mb0[4];
-	u8 write_retry_count;
-	u8 reserved_mb3;
-	u8 recovery_limit[2];
+	u8 page_code;	/**< Page code for read/write error recovery. */
+	u8 page_length;	/**< Page length in bytes. */
+	u8 page_params;	/**< Error recovery parameters bitmask. */
+	u8 read_retry_count;	/**< Read retry count. */
+	u8 reserved_mb0[4];	/**< Reserved bytes. */
+	u8 write_retry_count;	/**< Write retry count. */
+	u8 reserved_mb3;	/**< Reserved byte. */
+	u8 recovery_limit[2];	/**< Recovery time limit in milliseconds. */
 
-} MODESENSE_RWER, *PMODESENSE_RWER;
+} MODESENSE_RWER, *PMODESENSE_RWER;	/**< Pointer to MODESENSE_RWER structure. */
 
-/*
- * Modesense Flexible Disk Page.
- */
+/** @brief SCSI mode sense flexible disk page structure. */
 typedef struct {
-	u8 page_code;
-	u8 page_length;
-	u8 transfer_rate[2];
-	u8 heads;
-	u8 sectors_track;
-	u8 bytes_sector[2];
-	u8 cylinders[2];
-	u8 mbd8;
-	u8 mb0_1[8];
-	u8 motor_on_delay;
-	u8 motor_off_delay;
-	u8 mb0_2[7];
-	u8 medium_rotation_rate[2];
-	u8 mb0_3[2];
+	u8 page_code;	/**< Page code for flexible disk. */
+	u8 page_length;	/**< Page length in bytes. */
+	u8 transfer_rate[2];	/**< Transfer rate in kbits/sec. */
+	u8 heads;	/**< Number of heads. */
+	u8 sectors_track;	/**< Sectors per track. */
+	u8 bytes_sector[2];	/**< Bytes per sector. */
+	u8 cylinders[2];	/**< Number of cylinders. */
+	u8 mbd8;	/**< Media byte 8 flags. */
+	u8 mb0_1[8];	/**< Reserved bytes. */
+	u8 motor_on_delay;	/**< Motor-on delay in hundredths of seconds. */
+	u8 motor_off_delay;	/**< Motor-off delay in tenths of seconds. */
+	u8 mb0_2[7];	/**< Reserved bytes. */
+	u8 medium_rotation_rate[2];	/**< Medium rotation rate in RPM. */
+	u8 mb0_3[2];	/**< Reserved bytes. */
 
-} MODESENSE_FD, *PMODESENSE_FD;
+} MODESENSE_FD, *PMODESENSE_FD;	/**< Pointer to MODESENSE_FD structure. */
 
-/*
- * Modesense Removable Block Access Capacities Page.
- */
+/** @brief SCSI mode sense removable block access capacities page structure. */
 typedef struct {
-	u8 page_code;
-	u8 page_length;
-	u8 mb0_1;
-	u8 total_luns;
-	u8 mb0_2[8];
+	u8 page_code;	/**< Page code for removable block access capabilities. */
+	u8 page_length;	/**< Page length in bytes. */
+	u8 mb0_1;	/**< Reserved byte. */
+	u8 total_luns;	/**< Total number of logical units. */
+	u8 mb0_2[8];	/**< Reserved bytes. */
 
-} MODESENSE_RBAC, *PMODESENSE_RBAC;
+} MODESENSE_RBAC, *PMODESENSE_RBAC;	/**< Pointer to MODESENSE_RBAC structure. */
 
-/*
- * Modesense Timer and Protect Page.
- */
+/** @brief SCSI mode sense timer and protect page structure. */
 typedef struct {
-	u8 page_code;
-	u8 page_length;
-	u8 mb0_1;
-	u8 iatm;
-	u8 mb0_2[3];
-	u8 mb1c;
+	u8 page_code;	/**< Page code for timer and protect. */
+	u8 page_length;	/**< Page length in bytes. */
+	u8 mb0_1;	/**< Reserved byte. */
+	u8 iatm;	/**< Inactivity timer multiplier. */
+	u8 mb0_2[3];	/**< Reserved bytes. */
+	u8 mb1c;	/**< Media change notification class 1. */
 
-} MODESENSE_TP, *PMODESENSE_TP;
+} MODESENSE_TP, *PMODESENSE_TP;	/**< Pointer to MODESENSE_TP structure. */
 
 
+/** @brief SCSI mode sense short reply structure with header and basic pages. */
 typedef struct {
-	MODESENSE_MPL mpl;
-	u8 page1_code;
-	u8 page1_length;
-	u8 page2_code;
-	u8 page2_length;
+	MODESENSE_MPL mpl;	/**< Mode parameter list header. */
+	u8 page1_code;	/**< Page 1 code. */
+	u8 page1_length;	/**< Page 1 length. */
+	u8 page2_code;	/**< Page 2 code. */
+	u8 page2_length;	/**< Page 2 length. */
 
-} MODE_SENSE_REPLY_SHORT, *PMODE_SENSE_REPLY_SHORT;
+} MODE_SENSE_REPLY_SHORT, *PMODE_SENSE_REPLY_SHORT;	/**< Pointer to MODE_SENSE_REPLY_SHORT structure. */
 
+/** @brief SCSI mode sense full reply structure with all supported pages. */
 typedef struct {
-	MODESENSE_MPL mpl;
-	MODESENSE_RWER rwer;
-	MODESENSE_FD fd;
-	MODESENSE_RBAC rbac;
-	MODESENSE_TP tp;
+	MODESENSE_MPL mpl;	/**< Mode parameter list header. */
+	MODESENSE_RWER rwer;	/**< Read/write error recovery page. */
+	MODESENSE_FD fd;	/**< Flexible disk page. */
+	MODESENSE_RBAC rbac;	/**< Removable block access capabilities page. */
+	MODESENSE_TP tp;	/**< Timer and protect page. */
 
-} MODE_SENSE_REPLY_ALL, *PMODE_SENSE_REPLY_ALL;
+} MODE_SENSE_REPLY_ALL, *PMODE_SENSE_REPLY_ALL;	/**< Pointer to MODE_SENSE_REPLY_ALL structure. */
 
-/*
- * USB Mass Storage Command Block Wrapper.
- */
+/** @brief USB mass storage command block wrapper structure. */
 typedef struct {
+	/** @brief CBW signature union for byte and word access. */
 	union Signature {
-		u8 dCBWSignature[4];
-		u32 VALUE;
+		u8 dCBWSignature[4]; /**< Signature bytes array. */
+		u32 VALUE;           /**< Signature as a 32-bit word. */
 
-	} Signature;
+	} Signature; /**< Command block wrapper signature field. */
 
-	u32 dCBWTag;
+	u32 dCBWTag; /**< Command block wrapper tag. */
 
+	/** @brief CBW data transfer length union for byte and word access. */
 	union Length {
-		u8 dCBWDataTransferLength[4];
-		u32 VALUE;
+		u8 dCBWDataTransferLength[4]; /**< Transfer length bytes array. */
+		u32 VALUE;                    /**< Transfer length as 32-bit word. */
 
-	} Length;
+	} Length; /**< Command block wrapper data transfer length. */
 
-	u8 dCBWFlags;
-	u8 bCBWLUN;
-	u8 bCDBLength;
+	u8 dCBWFlags;	/**< Flags: direction and reserved bits. */
+	u8 bCBWLUN;	/**< Logical unit number. */
+	u8 bCDBLength;	/**< Length of CBWCDB field in bytes. */
 
-	volatile u8 OpCode;
-	u8 lun;
-	u8 lba[4];
-	u8 reserved_2;
-	u8 transfer_length[2];
-	u8 control;
-	u8 padding[6];
+	volatile u8 OpCode;	/**< SCSI operation code. */
+	u8 lun;	/**< Logical unit number in CDB. */
+	u8 lba[4];	/**< Logical block address. */
+	u8 reserved_2;	/**< Reserved byte in CDB. */
+	u8 transfer_length[2];	/**< Transfer length in blocks. */
+	u8 control;	/**< Control byte. */
+	u8 padding[6];	/**< Padding completing the 16-byte CBWCDB field. */
 
-} USBCBW, *PUSBCBW;
+} USBCBW, *PUSBCBW;	/**< Pointer to USBCBW structure. */
 
-/*
- * USB Mass Storage Command Status Wrapper.
- */
+/** @brief USB mass storage command status wrapper structure. */
 typedef struct {
 
-	u8 dCBWSignature[4];
+	u8 dCBWSignature[4]; /**< CSW signature field. */
 
-	u32 dCBWTag;
+	u32 dCBWTag; /**< Command block wrapper tag echo. */
+	/** @brief CSW data residue union for byte and word access. */
 	union Residue {
-		u8 dCSWDataResidue[4];
-		u32 value;
+		u8 dCSWDataResidue[4]; /**< Residue bytes array. */
+		u32 value;             /**< Residue as a 32-bit word. */
 
-	} Residue;
+	} Residue; /**< Data residue for the command. */
 
-	u8 bCSWStatus;
+	u8 bCSWStatus; /**< Command completion status code. */
 
-} USBCSW, *PUSBCSW;
+} USBCSW, *PUSBCSW;	/**< Pointer to USBCSW structure. */
 
 /*
  * Mass Storage Command and Status block instances.
  */
-USBCBW CmdBlock;
-USBCSW CmdStatusBlock;
+USBCBW CmdBlock;	/**< Current SCSI command block wrapper. */
+USBCSW CmdStatusBlock;	/**< Current SCSI command status wrapper. */
 
 
 
@@ -493,7 +469,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 	{
 		sizeof(USB_STD_CFG_DESC),	/* Size of config descriptor 9
 		bytes */
-		CONFIG_DESCR,	/* This is a conifig descriptor */
+		CONFIG_DESCR,	/* This is a config descriptor */
 		sizeof(FsUsbConfig),	/* Total size of configuration
 			LS */
 		0x00,	/* Total size of configuration MS */
@@ -590,15 +566,18 @@ USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned(4))) = {
 /*
  * Mass Storage device enumeration related structure initializations.
  */
+/** @brief Request sense response data buffer. */
 REQUEST_SENSE Prss = { 0x70, 0, 0x06, {'0', '0', '0', '0'}, 0x0a, {'0', '0', '0', '0'},
 		       0x28, 0x0, {'0', '0', '0', '0'}
 		     };
 
+/** @brief Inquiry response data buffer. */
 INQUIRY Piq = { 0, 0x80, 0, 0, 0x1f, {0, 0, 0}, {'X', 'i', 'l', 'i', 'n', 'x' },
 	{'S', 'M', 'S', 'C', ' ', 'F', 'l', 'a', 's', 'h', ' ', 'D', 'e', 'm', 'o'},
 	{'0', '0', '0', '1'}
 };
 
+/** @brief Capacity list response data buffer. */
 CAPACITY_LIST Pcl = { {'8', '0', '0', '0'}, {
 		(RAMDISKSECTORS & 0xFF),
 		((RAMDISKSECTORS & 0xFF00) >> 8),
@@ -613,13 +592,15 @@ CAPACITY_LIST Pcl = { {'8', '0', '0', '0'}, {
 	}
 };
 
-READ_CAPACITY Prc;
+READ_CAPACITY Prc;	/**< READ_CAPACITY response buffer. */
 
-PSCSI_MEDIA_REMOVAL_TYPE Pmr;
+PSCSI_MEDIA_REMOVAL_TYPE Pmr;	/**< Pointer to SCSI_MEDIA_REMOVAL_TYPE buffer. */
 
+/** @brief Short mode sense reply buffer. */
 MODE_SENSE_REPLY_SHORT Pmsd_s = { {0x12, 0, 0x00, 0x00},
 	0x00, 0x00, 0x00, 0x1c
 };
+/** @brief Full mode sense reply buffer. */
 MODE_SENSE_REPLY_ALL Pmsd_l = { {0x43, 0, 0x00, 0x00},
 	{
 		0x1, 0x0a, 0, 0x03, {0, 0, 0, 0},
@@ -637,26 +618,139 @@ MODE_SENSE_REPLY_ALL Pmsd_l = { {0x43, 0, 0x00, 0x00},
 };
 
 
-PSCSI_MODESENSE_CDB Pms_cdb;
+PSCSI_MODESENSE_CDB Pms_cdb;	/**< Pointer to mode sense CDB. */
 
 /************************** Function Prototypes *******************************/
 
+/**
+ * @brief Initializes the USB interface configuration and descriptors.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ */
 void InitUsbInterface(XUsb *InstancePtr);
+/**
+ * @brief USB interface interrupt handler for device-level events.
+ *
+ * @param[in] CallBackRef is the callback reference passed from the interrupt
+ *            handler, which in our case is a pointer to the driver instance.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
+ */
 void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus);
+/**
+ * @brief Generic endpoint interrupt handler.
+ *
+ * @param[in] CallBackRef is the callback reference (USB instance pointer).
+ * @param[in] EpNum is the endpoint number that triggered the interrupt.
+ * @param[in] IntrStatus is the endpoint interrupt status bitmask.
+ */
 void EpIntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/**
+ * @brief USB endpoint 0 interrupt handler for control transfers.
+ *
+ * @param[in] CallBackRef is the callback reference passed from the interrupt
+ *            handler, which in our case is a pointer to the driver instance.
+ * @param[in] EpNum is the end point number.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
+ */
 void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/**
+ * @brief USB endpoint 1 interrupt handler for bulk-in transfers.
+ *
+ * @param[in] CallBackRef is the callback reference passed from the interrupt
+ *            handler, which in our case is a pointer to the driver instance.
+ * @param[in] EpNum is the end point number.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
+ */
 void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/**
+ * @brief USB endpoint 2 interrupt handler for bulk-out transfers.
+ *
+ * @param[in] CallBackRef is the callback reference passed from the interrupt
+ *            handler, which in our case is a pointer to the driver instance.
+ * @param[in] EpNum is the end point number.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
+ */
 void Ep2IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/**
+ * @brief Processes received SCSI commands from the host.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ */
 void ProcessRxCmd(XUsb *InstancePtr);
+/**
+ * @brief Handles SCSI READ(10) command.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ * @param[in] pCmdBlock is a pointer to the Mass Storage Command Block wrapper.
+ * @param[in] pStatusBlock is a pointer to the Mass Storage Status wrapper.
+ */
 void Read10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles SCSI WRITE(10) command.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ * @param[in] pCmdBlock is a pointer to the Mass Storage Command Block wrapper.
+ * @param[out] pStatusBlock is a pointer to the Mass Storage Status wrapper.
+ */
 void Write10(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles SCSI REQUEST SENSE command.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ * @param[in] pCmdBlock is a pointer to the command block wrapper.
+ * @param[in] pStatusBlock is a pointer to the command status wrapper.
+ */
 void RequestSense(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles SCSI PREVENT/ALLOW MEDIUM REMOVAL command.
+ *
+ * @param[in] pCmdBlock is a pointer to the command block wrapper.
+ * @param[in] pStatusBlock is a pointer to the command status wrapper.
+ */
 void Media_Removal(PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles SCSI MODE SENSE command.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ * @param[in] pCmdBlock is a pointer to the command block wrapper.
+ * @param[in] pStatusBlock is a pointer to the command status wrapper.
+ */
 void ModeSense(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles SCSI READ CAPACITY command.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ * @param[in] pCmdBlock is a pointer to the command block wrapper.
+ * @param[in] pStatusBlock is a pointer to the command status wrapper.
+ */
 void ReadCapacity(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles SCSI READ FORMAT CAPACITIES command.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ * @param[in] pCmdBlock is a pointer to the command block wrapper.
+ * @param[in] pStatusBlock is a pointer to the command status wrapper.
+ */
 void RFC(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles SCSI INQUIRY command.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ * @param[in] pCmdBlock is a pointer to the command block wrapper.
+ * @param[in] pStatusBlock is a pointer to the command status wrapper.
+ */
 void Inquiry(XUsb *InstancePtr, PUSBCBW pCmdBlock, PUSBCSW pStatusBlock);
+/**
+ * @brief Handles USB mass storage class reset request.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ */
 void MassStorageReset(XUsb *InstancePtr);
+/**
+ * @brief Handles USB GET MAX LUN class request.
+ *
+ * @param[in] InstancePtr is a pointer to the XUsb instance.
+ */
 void GetMaxLUN(XUsb *InstancePtr);
 
 #ifndef SDT

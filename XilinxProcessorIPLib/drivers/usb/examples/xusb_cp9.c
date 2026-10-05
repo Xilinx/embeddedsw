@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,8 +10,6 @@
  * @file xusb_cp9.c
  *
  * This file contains the USB Chapter 9 related functions.
- *
- * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -45,29 +43,20 @@
 
 /************************** Variable Definitions ******************************/
 
-IntChar UsbMemData;		/* Dual Port memory */
+IntChar UsbMemData;		/**< Dual Port memory data buffer. */
 
-/*
- * Instance of the Chapter 9 command buffer.
- */
-USB_CMD_BUF Ch9_CmdBuf;
+USB_CMD_BUF Ch9_CmdBuf;	/**< Chapter 9 USB control command buffer instance. */
 
-/*
- * Maximum control pkt size.
- */
-u16 MaxControlSize = 8;
+u16 MaxControlSize = 8;	/**< Maximum control endpoint packet size in bytes. */
 
-/*
- * Standard USB structure instances.
- */
-extern USB_STD_DEV_DESC DeviceDescriptor;
-extern USB_STD_QUAL_DESC QualifierDescriptor;
-extern FPGA1_CONFIGURATION HsUsbConfig;
-extern FPGA1_CONFIGURATION FsUsbConfig;
-extern USB_STD_STRING_DESC LangId;
-extern USB_STD_STRING_MAN_DESC Manufacturer;
-extern USB_STD_STRING_PS_DESC ProductString;
-extern USB_STD_STRING_SN_DESC SerialNumber;
+extern USB_STD_DEV_DESC DeviceDescriptor;	/**< Standard USB device descriptor. */
+extern USB_STD_QUAL_DESC QualifierDescriptor;	/**< USB device qualifier descriptor. */
+extern FPGA1_CONFIGURATION HsUsbConfig;		/**< High-speed USB configuration descriptor. */
+extern FPGA1_CONFIGURATION FsUsbConfig;		/**< Full-speed USB configuration descriptor. */
+extern USB_STD_STRING_DESC LangId;		/**< USB language ID string descriptor. */
+extern USB_STD_STRING_MAN_DESC Manufacturer;	/**< USB manufacturer string descriptor. */
+extern USB_STD_STRING_PS_DESC ProductString;	/**< USB product string descriptor. */
+extern USB_STD_STRING_SN_DESC SerialNumber;	/**< USB serial number string descriptor. */
 
 #ifdef HID_DEVICES
 extern USB_STD_HID_DESC HidDescriptor;
@@ -138,11 +127,7 @@ const unsigned char ReportDesc[0x34] = { // Report descriptor
 /**
 * This routine is called when an OUT transaction for Endpoint Zero is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void EP0ProcessOutToken(XUsb *InstancePtr)
@@ -167,7 +152,7 @@ void EP0ProcessOutToken(XUsb *InstancePtr)
 					     XUSB_EP_BUF0COUNT_OFFSET);
 			/*
 			 * Copy the data to be received from the DPRAM.
-			*/
+			 */
 			RamBase = (u8 *) (InstancePtr->Config.BaseAddress +
 					  ((InstancePtr->DeviceConfig.Ep[0].
 					    RamBase) << 2));
@@ -205,11 +190,7 @@ void EP0ProcessOutToken(XUsb *InstancePtr)
 /**
 * This routine is called when IN transaction for Endpoint Zero is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note     	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void EP0ProcessInToken(XUsb *InstancePtr)
@@ -281,11 +262,9 @@ void EP0ProcessInToken(XUsb *InstancePtr)
 /**
 * This routine is called when a chapter 9 command is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 * @return 	The setup request value to be processed by the upper layer.
-*
-* @note     	None.
 *
 ******************************************************************************/
 int Chapter9(XUsb *InstancePtr)
@@ -359,13 +338,11 @@ int Chapter9(XUsb *InstancePtr)
 /**
 * This function executes the chapter 9 command processing
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 * @return 	The request value to be processed by the upper layer if the
 *		request is not handled.
 *		XST_SUCCESS if the request is successfully processed.
-*
-* @note		None.
 *
 ******************************************************************************/
 int ExecuteCommand(XUsb *InstancePtr)
@@ -476,11 +453,7 @@ int ExecuteCommand(XUsb *InstancePtr)
 /**
 * This function responds to the GET_INTERFACE command.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note     	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void GetInterface(XUsb *InstancePtr)
@@ -517,11 +490,7 @@ void GetInterface(XUsb *InstancePtr)
 /**
 * This function responds to the SET_INTERFACE command.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note     	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void SetInterface(XUsb *InstancePtr)
@@ -542,11 +511,7 @@ void SetInterface(XUsb *InstancePtr)
 /**
  * This function sets the basic Control status words.
  *
- * @param	InstancePtr is a pointer to the XUsb instance of the controller.
- *
- * @return 	None.
- *
- * @note     	None.
+ * @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
  *
  ******************************************************************************/
 void SetupControlWriteStatusStage(XUsb *InstancePtr)
@@ -571,11 +536,7 @@ void SetupControlWriteStatusStage(XUsb *InstancePtr)
 /**
 * This routine is called when a GET_STATUS command is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note     	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void GetStatus(XUsb *InstancePtr)
@@ -653,11 +614,7 @@ void GetStatus(XUsb *InstancePtr)
 /**
 * This routine is called when a GET_DESCRIPTOR command is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note     	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void GetDescriptor(XUsb *InstancePtr)
@@ -915,11 +872,7 @@ Func_Exit7:
 /**
 * This routine is called when a SET_DESCRIPTOR command is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void SetDescriptor(XUsb *InstancePtr)
@@ -934,11 +887,7 @@ void SetDescriptor(XUsb *InstancePtr)
 /**
 * This routine is called when a GET_CONFIGURATION command is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void GetConfiguration(XUsb *InstancePtr)
@@ -969,11 +918,7 @@ void GetConfiguration(XUsb *InstancePtr)
 /**
 * This routine is called when a SET_CONFIGURATION command is received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void SetConfiguration(XUsb *InstancePtr)
@@ -1050,13 +995,9 @@ void SetConfiguration(XUsb *InstancePtr)
 * This routine is called when a SET_FEATURE or a CLEAR_FEATURE command is
 * received.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-* @param	flag specifies whether it is a SET_FEATURE (TRUE)or a
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
+* @param[in] flag specifies whether it is a SET_FEATURE (TRUE)or a
 *		CLEAR_FEATURE (FALSE) command.
-*
-* @return	None.
-*
-* @note 	None.
 *
 ******************************************************************************/
 void SetClearFeature(XUsb *InstancePtr, int flag)
@@ -1165,11 +1106,7 @@ Func_Exit10:
 /**
 * This routine copies the EP0 related data to the DPRAM.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the controller.
-*
-* @return 	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance of the controller.
 *
 ******************************************************************************/
 void LoadEP0(XUsb *InstancePtr)

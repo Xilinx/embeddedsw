@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,8 +13,6 @@
  *
  * The XUsb driver. Functions in this file are the minimum required functions
  * for this driver. See xusb.h for a detailed description of the driver.
- *
- * @note     None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -38,6 +36,7 @@
  *                     Changed the prototype of XUsb_CfgInitialize API.
  * 5.2	MNK   29/03/15 Added 64bit changes for ZYNQMP.
  * 5.6   pm   07/05/23 Added support for system device-tree flow.
+ * 5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  *****************************************************************************/
 
@@ -65,13 +64,13 @@ static void StubHandler(void);
 * The initialization entails:
 * - Initialize all members of the XUsb structure.
 *
-* @param	InstancePtr is a pointer to the XUsb instance of the USB device.
-* @param	ConfigPtr is a pointer to a XUsb_Config configuration structure.
+* @param[out] InstancePtr is a pointer to the XUsb instance of the USB device.
+* @param[in] ConfigPtr is a pointer to a XUsb_Config configuration structure.
 * 		This structure will contain the requested configuration for the
 * 		device. Typically, this is a local structure and the content of
 * 		which will be copied into the configuration structure within
 * 		XUsb.
-* @param	EffectiveAddr is the device base address in the virtual memory
+* @param[in] EffectiveAddr is the device base address in the virtual memory
 *		address space. If the address translation is not used then the
 *		physical address is passed.
 *		Unexpected errors may occur if the address mapping is changed
@@ -126,8 +125,8 @@ int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
 *
 * This function initializes USB End points.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	CfgPtr is pointer to a XUsb_Config configuration structure.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] CfgPtr is pointer to a XUsb_Config configuration structure.
 *		This structure will contain the requested configuration for the
 * 		device. Typically, this is a local structure and the content of
 * 		which will be copied into the configuration structure within
@@ -136,8 +135,6 @@ int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
 * @return
 *		- XST_SUCCESS no errors occurred.
 *		- XST_FAILURE an error occurred during initialization.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XUsb_ConfigureDevice(XUsb *InstancePtr, XUsb_DeviceConfig *CfgPtr)
@@ -182,11 +179,7 @@ int XUsb_ConfigureDevice(XUsb *InstancePtr, XUsb_DeviceConfig *CfgPtr)
 /**
 * This function starts the USB Device.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
 *
 ******************************************************************************/
 void XUsb_Start(XUsb *InstancePtr)
@@ -206,11 +199,7 @@ void XUsb_Start(XUsb *InstancePtr)
 /**
 * This function stops the USB device.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
 *
 ******************************************************************************/
 void XUsb_Stop(XUsb *InstancePtr)
@@ -236,11 +225,9 @@ void XUsb_Stop(XUsb *InstancePtr)
 /**
 * This function returns the current frame number.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
 *
-* @return	The current frame number..
-*
-* @note		None.
+* @return	The current frame number.
 *
 ******************************************************************************/
 u32 XUsb_GetFrameNum(const XUsb *InstancePtr)
@@ -261,14 +248,12 @@ u32 XUsb_GetFrameNum(const XUsb *InstancePtr)
 /**
 * This function sets the USB device address.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	Address is the device address to be set.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] Address is the device address to be set.
 *
 * @return
 *		- XST_SUCCESS: Address set successfully.
 *		- XST_INVALID_PARAM: Invalid parameter passed.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XUsb_SetDeviceAddress(XUsb *InstancePtr, u8 Address)
@@ -292,11 +277,9 @@ int XUsb_SetDeviceAddress(XUsb *InstancePtr, u8 Address)
 /**
 * This function sets the USB device into a given test mode.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	TestMode is the type of test to be performed.
-* @param	BufPtr is a pointer to the buffer containing the test packet.
-*
-* @return	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] TestMode is the type of test to be performed.
+* @param[in] BufPtr is a pointer to the buffer containing the test packet.
 *
 * @note		If the test mode is Test packet(TEST_PKT), then user needs
 *		to pass the address of the buffer containing the test packet. In
@@ -371,9 +354,7 @@ void XUsb_SetTestMode(XUsb *InstancePtr, u8 TestMode, u8 *BufPtr)
 /**
 * This function resets the DMA module of the USB device
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-*
-* @return	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
 *
 * @note		After the DMA reset, only the DMA related logic part of the
 *		USB device will be reset and all the DMA related registers will
@@ -397,15 +378,13 @@ void XUsb_DmaReset(XUsb *InstancePtr)
 * data transfer. This function is called by the XUsb_EpDataSend and
 * XUsb_EpDataRecv functions.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	SrcAddr is the source address from where the data is to be
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] SrcAddr is the source address from where the data is to be
 *		read.
-* @param	DstAddr is the destination address to where the data is to be
+* @param[in] DstAddr is the destination address to where the data is to be
 *		written.
-* @param	Length is the amount of data that can be transferred. The
+* @param[in] Length is the amount of data that can be transferred. The
 *		maximum data transfer can be 1024.
-*
-* @return	None.
 *
 * @note		This function doesn't guarantee that the transfer is done
 *		successfully. This function only initiates the DMA transfer.
@@ -461,15 +440,11 @@ void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
 * This function reads the USB error counter register and returns the error
 * counters information.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	BitStuffErrors is  a pointer to the 8 bit bitstuff error
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[out] BitStuffErrors is  a pointer to the 8 bit bitstuff error
 *		counter.
-* @param	PidErrors is a pointer to the 8 bit pid error counter.
-* @param	CrcErrors is a pointer to the 8 bit crc error counter.
-*
-* @return	None.
-*
-* @note		None.
+* @param[out] PidErrors is a pointer to the 8 bit pid error counter.
+* @param[out] CrcErrors is a pointer to the 8 bit crc error counter.
 *
 ******************************************************************************/
 void XUsb_ReadErrorCounters(XUsb *InstancePtr, u8 *BitStuffErrors,
@@ -499,8 +474,8 @@ void XUsb_ReadErrorCounters(XUsb *InstancePtr, u8 *BitStuffErrors,
 * function  returns the busy status if the earlier transaction is still in
 * progress and returns the PHY register data upon successful read transaction.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	RegAddr is the address of the PHY register.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] RegAddr is the address of the PHY register.
 *
 * @return
 *		- Register data
@@ -548,17 +523,14 @@ u8 XUsb_UlpiPhyReadRegister(XUsb *InstancePtr, u8 RegAddr)
 * function  returns the busy status if the earlier transaction is still in
 * progress and returns a success upon successful write transaction initiation.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	RegAddr is the address of the PHY register.
-*		counter.
-* @param	UlpiPhyRegData is the data to be written to PHY register.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] RegAddr is the address of the PHY register.
+* @param[in] UlpiPhyRegData is the data to be written to PHY register.
 *
 * @return
-*		- XST_SUCCESS: Read transaction initiated successfully.
+*		- XST_SUCCESS: Write transaction initiated successfully.
 *		- XST_DEVICE_BUSY: The previous PHY transaction is still in
 *		  progress.
-*
-* @note		None.
 *
 ******************************************************************************/
 int XUsb_UlpiPhyWriteRegister(XUsb *InstancePtr, u8 RegAddr,
@@ -595,12 +567,6 @@ int XUsb_UlpiPhyWriteRegister(XUsb *InstancePtr, u8 RegAddr,
 * handlers are set to this callback. It is considered an error for this handler
 * to be invoked.
 *
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
-*
 ******************************************************************************/
 static void StubHandler(void)
 {
@@ -612,9 +578,7 @@ static void StubHandler(void)
 /**
 * This function resets the Serial Interface Engine
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-*
-* @return	None.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
 *
 * @note		After the SIE reset, only the SIE state machine logic part of
 *		the USB device will be reset and starts from Init state.

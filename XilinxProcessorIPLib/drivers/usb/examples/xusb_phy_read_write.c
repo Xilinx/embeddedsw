@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -42,26 +42,26 @@
 /************************** Constant Definitions *****************************/
 
 #ifndef SDT
-#define USB_DEVICE_ID		XPAR_USB_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
-#define USB_INTR		XPAR_INTC_0_USB_0_VEC_ID
+#define USB_DEVICE_ID		XPAR_USB_0_DEVICE_ID	/**< USB device ID from xparameters. */
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID	/**< Interrupt controller device ID. */
+#define USB_INTR		XPAR_INTC_0_USB_0_VEC_ID	/**< USB interrupt vector ID. */
 #else
 #define XUSB_BASEADDRESS	XPAR_XUSB_0_BASEADDR
 #endif
 
-#define ULPI_SCRATCH_REGISTER	0x16
-#define WRITE_REG_DATA		0xAA
+#define ULPI_SCRATCH_REGISTER	0x16	/**< ULPI PHY scratch register address. */
+#define WRITE_REG_DATA		0xAA	/**< Data value to write to the PHY register. */
 
 /************************** Variable Definitions *****************************/
 
-XUsb UsbInstance;		/* The instance of the USB device */
-XUsb_Config *UsbConfigPtr;	/* Instance of the USB config structure */
+XUsb UsbInstance;		/**< USB device instance. */
+XUsb_Config *UsbConfigPtr;	/**< Pointer to the USB configuration structure. */
 
 #ifndef SDT
-XIntc InterruptController;	/* Instance of the Interrupt Controller */
+XIntc InterruptController;	/**< Instance of the interrupt controller. */
 #endif
 
-volatile u8 PhyAccessDone = 0;
+volatile u8 PhyAccessDone = 0;	/**< Flag indicating ULPI PHY access completion. */
 
 void UsbIfPhyIntrHandler(void *CallBackRef, u32 IntrStatus);
 #ifndef SDT
@@ -72,13 +72,9 @@ static int SetupInterruptSystem(XUsb *InstancePtr);
 /**
  * This main function starts the USB application.
  *
- *
- * @param	None.
- *
  * @return
  *		- XST_SUCCESS if successful.
  *		- XST_FAILURE if test fails.
- * @note	None.
  *
  *****************************************************************************/
 int main()
@@ -179,14 +175,9 @@ int main()
 /**
  * This function is the ULPI PHY interrupt handler
  *
- *
- * @param    	CallBackRef is the callback reference passed from the interrupt
+ * @param[in] CallBackRef is the callback reference passed from the interrupt
  *           	handler, which in our case is a pointer to the driver instance.
- * @param    	IntrStatus is a bit mask indicating pending interrupts.
- *
- * @return   	None.
- *
- * @note        None.
+ * @param[in] IntrStatus is a bit mask indicating pending interrupts.
  *
  ******************************************************************************/
 void UsbIfPhyIntrHandler(void *CallBackRef, u32 IntrStatus)
@@ -214,15 +205,13 @@ void UsbIfPhyIntrHandler(void *CallBackRef, u32 IntrStatus)
 * directly connected to a processor without an interrupt controller.  The
 * user should modify this function to fit the application.
 *
-* @param	InstancePtr contains a pointer to the instance of the USB
+* @param[in] InstancePtr contains a pointer to the instance of the USB
 *		component, which is going to be connected to the interrupt
 *		controller.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE. if it fails.
-*
-* @note		None
 *
 *******************************************************************************/
 static int SetupInterruptSystem(XUsb *InstancePtr)

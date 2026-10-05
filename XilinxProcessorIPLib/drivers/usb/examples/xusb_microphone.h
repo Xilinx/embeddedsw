@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,8 +10,6 @@
  *
  * This file contains the constants, type definitions, variables and function
  * prototypes used in the usb microphone application.
- *
- * @note	None.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -41,42 +39,42 @@ extern "C" {
 /*
  * Valid USB Status block.
  */
-#define CMD_PASSED			0x00
-#define CMD_FAILED			0x01
-#define PHASE_ERROR			0x02
+#define CMD_PASSED			0x00	/**< Command completed successfully status code. */
+#define CMD_FAILED			0x01	/**< Command failed status code. */
+#define PHASE_ERROR			0x02	/**< Phase error status code. */
 
 /*
  * USB Audio control class Specific constants
  */
-#define USB_CLASS_AUDIO			0x01
-#define USB_AUDIO_PROTOCOL		0x00
+#define USB_CLASS_AUDIO			0x01	/**< USB audio device class code. */
+#define USB_AUDIO_PROTOCOL		0x00	/**< USB audio protocol code. */
 
-#define CS_INTERFACE			0x24
-#define CS_ENDPOINT			0x25
-#define INPUT_TERMINAL			0x02
-#define OUTPUT_TERMINAL			0x03
+#define CS_INTERFACE			0x24	/**< Class-specific interface descriptor type. */
+#define CS_ENDPOINT			0x25	/**< Class-specific endpoint descriptor type. */
+#define INPUT_TERMINAL			0x02	/**< Audio input terminal descriptor subtype. */
+#define OUTPUT_TERMINAL			0x03	/**< Audio output terminal descriptor subtype. */
 
 /*
  * Audio Interface Subclass codes
  */
-#define USB_AUDIO_CONTROL		0x01
-#define USB_AUDIO_STREAMING		0x02
+#define USB_AUDIO_CONTROL		0x01	/**< USB audio control subclass code. */
+#define USB_AUDIO_STREAMING		0x02	/**< USB audio streaming subclass code. */
 
-#define USB_ISOC_TRANSFER_TYPE_ADAPT	0x01
-#define USB_ISOC_NOT_SHARED		0x01
-#define FORMAT_TYPE_SUBTYPE		0x2
-#define FORMAT_TYPE_I			0x1
+#define USB_ISOC_TRANSFER_TYPE_ADAPT	0x01	/**< Isochronous transfer type: adaptive. */
+#define USB_ISOC_NOT_SHARED		0x01	/**< Isochronous endpoint not shared. */
+#define FORMAT_TYPE_SUBTYPE		0x2	/**< Format type descriptor subtype code. */
+#define FORMAT_TYPE_I			0x1	/**< Audio format type I code. */
 /*
  * Error codes.
  */
-#define NO_ERROR			0
-#define ERR_NOTERASED			1
-#define ERR_NOFREEBLOCKS		2
-#define ERR_USBABORT			3
-#define ERR_CMDFAILED			4
-#define ERR_ECC				5
-#define ERR_BADBZ			6
-#define ERR_DSMM			7
+#define NO_ERROR			0	/**< No error code. */
+#define ERR_NOTERASED			1	/**< Not erased error code. */
+#define ERR_NOFREEBLOCKS		2	/**< No free blocks error code. */
+#define ERR_USBABORT			3	/**< USB abort error code. */
+#define ERR_CMDFAILED			4	/**< Command failed error code. */
+#define ERR_ECC				5	/**< ECC error code. */
+#define ERR_BADBZ			6	/**< Bad block zone error code. */
+#define ERR_DSMM			7	/**< DSMM error code. */
 
 /*
  * End point types.
@@ -87,10 +85,11 @@ extern "C" {
 #define EP_INTERRUPT			3	/**< Interrupt Endpoint */
 
 /************************** Variable Definitions ******************************/
-extern u16 MaxControlSize;
-extern USB_CMD_BUF Ch9_CmdBuf;
-extern IntChar UsbMemData;		/* Dual Port memory */
-extern u32 AltSetting;
+extern u16 MaxControlSize;	/**< Maximum control endpoint packet size. */
+extern USB_CMD_BUF Ch9_CmdBuf;	/**< Chapter 9 USB command buffer instance. */
+extern IntChar UsbMemData;		/**< Dual Port memory data buffer. */
+extern u32 AltSetting;	/**< Current audio alternate setting index. */
+/** @brief Standard USB device descriptor for microphone example. */
 USB_STD_DEV_DESC DeviceDescriptor __attribute__ ((aligned(4))) = {
 	sizeof(USB_STD_DEV_DESC),	/* Descriptor Size 18 bytes */
 	DEVICE_DESCR,	/* This is a device descriptor */
@@ -130,7 +129,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) HsUsbConfig = {
 		 */
 		sizeof(USB_STD_CFG_DESC),/* Size of config descriptor 9
 						bytes */
-		CONFIG_DESCR,	/* This is a conifig descriptor */
+		CONFIG_DESCR,	/* This is a config descriptor */
 		sizeof(HsUsbConfig),	/* Total size of configuration
 				LS */
 		0x00,	/* Total size of configuration MS */
@@ -301,7 +300,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 		 */
 		sizeof(USB_STD_CFG_DESC),/* Size of config descriptor 9
 						bytes */
-		CONFIG_DESCR,	/* This is a conifig descriptor */
+		CONFIG_DESCR,	/* This is a config descriptor */
 		sizeof(FsUsbConfig),	/* Total size of configuration
 				LS */
 		0x00,	/* Total size of configuration MS */
@@ -343,7 +342,7 @@ FPGA1_CONFIGURATION __attribute__ ((aligned(4))) FsUsbConfig = {
 		/* wTotalLength */
 		0x01,			/* bInCollection How many
 					   Audio Streaming descriptors
-					   */
+		 */
 		0x01			/* baInterfaceNr Their interface
 					   numbers */
 	},
@@ -512,10 +511,17 @@ USB_STD_STRING_SN_DESC SerialNumber __attribute__ ((aligned(4))) = {
 
 /************************** Function Prototypes *******************************/
 
+/* Initialize the USB device interface for the microphone example. */
 void InitUsbInterface(XUsb *InstancePtr);
+/* USB interface general interrupt handler callback. */
 void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus);
+/*
+ * USB endpoint generic interrupt handler callback.
+ */
 void EpIntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/* USB endpoint 0 interrupt handler callback. */
 void Ep0IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
+/* USB endpoint 1 interrupt handler callback. */
 void Ep1IntrHandler(void *CallBackRef, u8 EpNum, u32 IntrStatus);
 
 #ifdef __cplusplus

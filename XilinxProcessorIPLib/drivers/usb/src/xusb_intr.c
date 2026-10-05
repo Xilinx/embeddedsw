@@ -1,7 +1,7 @@
 /******************************************************************************
 * Copyright (C) 2006 Vreelin Engineering, Inc.  All Rights Reserved.
 * Copyright (C) 2007 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -37,6 +37,7 @@
  *			Added interrupt handling for ULPI PHY interrupts.
  * 4.02a bss  3/04/12 Modified XCOMPONENT_IS_READY to XIL_COMPONENT_IS_READY
  *			CR 650877
+ * 5.9   ml   09/22/26 Fixed doxygen 1.15.0 and compliance checker warnings.
  * </pre>
  ******************************************************************************/
 
@@ -59,15 +60,11 @@
 *
 * This function enables the specified interrupts.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	Mask is the bit-mask of the interrupts to be enabled.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] Mask is the bit-mask of the interrupts to be enabled.
 *		Bit positions of 1 will be enabled. Bit positions of 0 will
 *		keep the previous setting. This mask is formed by OR'ing
 *		XUSB_STATUS_*_MASK bits defined in xusb_l.h.
-*
-* @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XUsb_IntrEnable(XUsb *InstancePtr, u32 Mask)
@@ -93,15 +90,11 @@ void XUsb_IntrEnable(XUsb *InstancePtr, u32 Mask)
 *
 * This function disables the specified interrupts.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	Mask is the bit-mask of the interrupts to be disabled.
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] Mask is the bit-mask of the interrupts to be disabled.
 *		Bit positions of 1 will be enabled. Bit positions of 0 will
 *		keep the previous setting. This mask is formed by OR'ing
 *		XUSB_STATUS_*_MASK bits defined in xusb_l.h.
-*
-* @return	None.
-*
-* @note		None.
 *
 *****************************************************************************/
 void XUsb_IntrDisable(XUsb *InstancePtr, u32 Mask)
@@ -143,10 +136,8 @@ void XUsb_IntrDisable(XUsb *InstancePtr, u32 Mask)
 * handle interrupts and installing the callbacks using XUsb_SetHandler()
 * during the initialization phase.
 *
-* @param	InstancePtr is a pointer to the XUsb instance that just
+* @param[in] InstancePtr is a pointer to the XUsb instance that just
 *		interrupted.
-*
-* @return	None.
 *
 * @note		No user handler is defined for the DMA interrupts.
 *		The DMA interrupt status is updated in the DMA status
@@ -298,12 +289,10 @@ void XUsb_IntrHandler(void *InstancePtr)
 * This function installs an asynchronous callback function for the general
 * interrupt (interrupts other than the endpoint and error interrupts).
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] CallBackFunc is the address of the callback function.
+* @param[in] CallBackRef is a user data item that will be passed to the
 *		callback function when it is invoked.
-*
-* @return	None.
 *
 * @note
 * 		Invoking this function for a handler that already has been
@@ -326,14 +315,12 @@ void XUsb_IntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 /**
 * This function sets the handler for endpoint events.
 *
-* @param	InstancePtr is a Pointer to the XUsb instance.
-* @param	EpNum is the Number of the endpoint.
-* @param	CallBackFunc is the address of the callback function.
+* @param[in] InstancePtr is a Pointer to the XUsb instance.
+* @param[in] EpNum is the Number of the endpoint.
+* @param[in] CallBackFunc is the address of the callback function.
 * 		It can be NULL if the user wants to disable the handler entry.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in] CallBackRef is a user data item that will be passed to the
 *		callback function when it is invoked. This can be NULL.
-*
-* @return	None.
 *
 * @note
 * 		Invoking this function for a handler that already has been
@@ -362,12 +349,10 @@ void XUsb_EpSetHandler(XUsb *InstancePtr, u8 EpNum,
 * This function installs an asynchronous callback function for the error
 * events.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] CallBackFunc is the address of the callback function.
+* @param[in] CallBackRef is a user data item that will be passed to the
 *		callback function when it is invoked.
-*
-* @return	None.
 *
 * @note
 * 		Invoking this function for a handler that already has been
@@ -392,12 +377,10 @@ void XUsb_ErrIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 * This function installs an asynchronous callback function for the DMA
 * events.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] CallBackFunc is the address of the callback function.
+* @param[in] CallBackRef is a user data item that will be passed to the
 *		callback function when it is invoked.
-*
-* @return	None.
 *
 * @note
 * 		Invoking this function for a handler that already has been
@@ -422,12 +405,10 @@ void XUsb_DmaIntrSetHandler(XUsb *InstancePtr, void *CallBackFunc,
 * This function installs an asynchronous callback function for the ULPI PHY
 * events.
 *
-* @param	InstancePtr is a pointer to the XUsb instance.
-* @param	CallBackFunc is the address of the callback function.
-* @param	CallBackRef is a user data item that will be passed to the
+* @param[in] InstancePtr is a pointer to the XUsb instance.
+* @param[in] CallBackFunc is the address of the callback function.
+* @param[in] CallBackRef is a user data item that will be passed to the
 *		callback function when it is invoked.
-*
-* @return	None.
 *
 * @note
 * 		Invoking this function for a handler that already has been
