@@ -28,7 +28,8 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
     set(XILNVM_mode "client" CACHE STRING "Enables A72/R5/PL microblaze server and client mode support for XilNvm library for Versal.")
     set_property(CACHE XILNVM_mode PROPERTY STRINGS "client" "server")
 
-    option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)
+    # Cache disable option while operating in client mode
+    option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." OFF)
     if(XILNVM_cache_disable AND XILNVM_mode STREQUAL "client")
       set(XNVM_CACHE_DISABLE " ")
     endif()
@@ -56,7 +57,8 @@ if("${CMAKE_MACHINE}" STREQUAL "VersalNet")
     # For APU/RPU/PL microblaze cores in Versal_Net and Versal_2VE_2VM, mode is client.
     set(XILNVM_mode "client")
 
-    option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." ON)
+    # Cache disable option while operating in client mode
+    option(XILNVM_cache_disable "Enables/Disables Cache for XilNvm client library." OFF)
     if(XILNVM_cache_disable)
       set(XNVM_CACHE_DISABLE " ")
     endif()

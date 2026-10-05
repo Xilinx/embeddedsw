@@ -17,6 +17,7 @@
 #       vss  02/23/24 Added configuration parameters for eFuse write
 # 3.7   mb   11/11/25 Updated library version for 2026.1
 # 3.8   rpu  07/06/26 Updated library version for 2026.2
+#       rama  09/17/26 Enable cache by default
 ##############################################################################
 
 OPTION psf_version = 2.1;
@@ -32,7 +33,7 @@ BEGIN LIBRARY xilnvm
   OPTION NAME = xilnvm;
   PARAM name = xnvm_use_puf_hd_as_user_efuse, desc = "Enables API's to use PUF Helper data efuses as user efuses ", type = bool, default = false;
   PARAM name = xnvm_mode, desc = "Enables A72/R5 server and client mode support for XilNvm library for\n Versal", type = enum, values = (mode = "client", mode = "server"), default = "client";
-  PARAM name = xnvm_cache_disable, desc = "Enables/Disables Cache for XilNvm client library", type = bool, default = true;
+  PARAM name = xnvm_cache_disable, desc = "Enables/Disables Cache for XilNvm client library", type = bool, default = false;
   PARAM name = xnvm_en_add_ppks, desc = "Enables/Disables Additional PPKs provisioning support", type = bool, default = false;
   PARAM name = xnvm_en_write_sec_crit_efuse, desc = "Enables/Disables write access to security critical eFuses ", type = bool, default = false;
   PARAM name = xnvm_en_write_user_efuse, desc = "Enables/Disables write access to user eFuses", type = bool, default = false;

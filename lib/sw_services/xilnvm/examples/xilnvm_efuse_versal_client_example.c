@@ -49,7 +49,7 @@
  * 			static SharedMem[XNVM_TOTAL_SHARED_MEM_SIZE] __attribute__((aligned(64U)))
  * 					__attribute__((section(".sharedmemory.SharedMem")));
  *
- * To keep things simple, by default the cache is disabled for this example
+ * By default the cache is enabled for this example
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -79,6 +79,7 @@
  *       mkr   07/20/2026 Removed duplicate XNvm_ValidateAesKey definition
  *                        as it is available in xnvm_utils.c
  *       mb    09/17/2026 Removed unused local AES key length macros.
+ *       rama 09/18/2026 Enable cache by default and handle cache ops for IPI buffers shared with PLM
  *
  * </pre>
  *
@@ -770,19 +771,17 @@ static int XilNvm_EfuseShowUserFuses(void)
 	ReadUserFuses->NumOfUserFuses = XNVM_EFUSE_READ_NUM_OF_USER_FUSES;
 	ReadUserFuses->UserFuseDataAddr = (UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr)));
 
-	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr))),
+	Xil_DCacheFlushRange((UINTPTR)ReadUserFuses, sizeof(XNvm_EfuseUserDataAddr));
+	Xil_DCacheInvalidateRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr))),
 		(XNVM_EFUSE_READ_NUM_OF_USER_FUSES * sizeof(u32)));
-	Xil_DCacheInvalidateRange((UINTPTR)ReadUserFuses, sizeof(XNvm_EfuseUserDataAddr));
 
 	Status = XNvm_EfuseReadUserFuses(&NvmClientInstance, (UINTPTR)ReadUserFuses);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr))),
+	Xil_DCacheInvalidateRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfuseUserDataAddr))),
 		(XNVM_EFUSE_READ_NUM_OF_USER_FUSES * sizeof(u32)));
-	Xil_DCacheInvalidateRange((UINTPTR)ReadUserFuses,
-		sizeof(XNvm_EfuseUserDataAddr));
 
 	for (Row = XNVM_EFUSE_READ_USER_FUSE_NUM;
 		Row < (s8)(XNVM_EFUSE_READ_USER_FUSE_NUM +
@@ -2623,9 +2622,9 @@ static int XilNvm_EfuseReadPufFuses(void)
 	PufFuses->StartPufFuseRow = XNVM_EFUSE_READ_PUF_FUSE_NUM;
 	PufFuses->NumOfPufFusesRows = XNVM_EFUSE_READ_NUM_OF_PUF_FUSES;
 
-	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfusePufFuseAddr))),
+	Xil_DCacheFlushRange((UINTPTR)PufFuses, sizeof(XNvm_EfusePufFuseAddr));
+	Xil_DCacheInvalidateRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfusePufFuseAddr))),
 		(XNVM_EFUSE_READ_NUM_OF_PUF_FUSES * sizeof(u32)));
-	Xil_DCacheInvalidateRange((UINTPTR)PufFuses, sizeof(XNvm_EfusePufFuseAddr));
 
 	/* Read PUF Fuses */
 	Status = XNvm_EfuseReadPufAsUserFuses(&NvmClientInstance, (UINTPTR)PufFuses);
@@ -2633,9 +2632,8 @@ static int XilNvm_EfuseReadPufFuses(void)
 		goto END;
 	}
 
-	Xil_DCacheFlushRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfusePufFuseAddr))),
+	Xil_DCacheInvalidateRange((UINTPTR)(SharedMem + Align(sizeof(XNvm_EfusePufFuseAddr))),
 		(XNVM_EFUSE_READ_NUM_OF_PUF_FUSES * sizeof(u32)));
-	Xil_DCacheInvalidateRange((UINTPTR)PufFuses, sizeof(XNvm_EfusePufFuseAddr));
 
 	for (Row = XNVM_EFUSE_READ_PUF_FUSE_NUM;
 		Row < (XNVM_EFUSE_READ_PUF_FUSE_NUM +

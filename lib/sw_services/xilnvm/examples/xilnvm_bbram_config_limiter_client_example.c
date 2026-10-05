@@ -19,6 +19,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   har     08/22/24 First release
+* 3.8   rama 09/17/26 Enable cache by default for client example
 *
 * </pre>
 *
@@ -43,6 +44,8 @@
 * User must configure this macro to a non-zero value which should be less than 0x0FFFFFFFU.
 *
 * This example is supported for Versal Gen 2 devices only.
+*
+* By default the cache is enabled for this example
 *
 ******************************************************************************/
 
@@ -84,6 +87,10 @@ int main(void)
 	int Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XNvm_ClientInstance NvmClientInstance;
+
+#ifdef XNVM_CACHE_DISABLE
+	Xil_DCacheDisable();
+#endif
 
 #ifndef SDT
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
