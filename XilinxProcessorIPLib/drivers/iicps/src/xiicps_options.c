@@ -35,6 +35,7 @@
 *	    02/02/20 Correct return value of XIicPs_GetOptions function
 *	    02/04/20 Modified latest code for MISRA-C:2012 Compliance
 * 3.24  tb  09/30/26 Align Doxygen comments with AMD standards
+* 3.24  vlt 10/02/26 Refactor XIicPs_SetSClk() to reduce CCM.
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +58,10 @@
 
 
 /************************** Function Prototypes ******************************/
+
+static u32 XIicPs_FindBestDivisors(const XIicPs *InstancePtr, u32 FsclHz,
+				  u32 Temp, u32 *CalcDivA,
+				  u32 *CalcDivB);
 
 
 /************************** Variable Definitions *****************************/
@@ -309,7 +314,62 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief Finds the best clock divisors for the specified Temp value.
 *
+* @param[in]     InstancePtr Pointer to the XIicPs instance.
+* @param[in]     FsclHz Target serial clock frequency.
+* @param[in]     Temp Combined divisor value.
+* @param[out]    CalcDivA Selected DivA value.
+* @param[out]    CalcDivB Selected DivB value.
+*
+* @return	The minimum frequency error for the specified Temp value.
+*
+******************************************************************************/
+static u32 XIicPs_FindBestDivisors(const XIicPs *InstancePtr, u32 FsclHz,
+				  u32 Temp, u32 *CalcDivA,
+				  u32 *CalcDivB)
+{
+	u32 Div_a;
+	u32 Div_b;
+	u32 ActualFscl;
+	u32 CurrentError;
+	u32 LastError = FsclHz;
+
+	*CalcDivA = 0U;
+	*CalcDivB = 0U;
+
+	for (Div_b = 0U; Div_b < 64U; Div_b++) {
+		Div_a = Temp / (Div_b + 1U);
+
+		if (Div_a != 0U) {
+			Div_a = Div_a - 1U;
+		}
+
+		if (Div_a > 3U) {
+			continue;
+		}
+
+		ActualFscl = InstancePtr->Config.InputClockHz /
+			    (22U * (Div_a + 1U) * (Div_b + 1U));
+
+		if (ActualFscl > FsclHz) {
+			CurrentError = ActualFscl - FsclHz;
+		} else {
+			CurrentError = FsclHz - ActualFscl;
+		}
+
+		if (LastError > CurrentError) {
+			*CalcDivA = Div_a;
+			*CalcDivB = Div_b;
+			LastError = CurrentError;
+		}
+	}
+
+	return LastError;
+}
+
+/*****************************************************************************/
+/**
 * @brief Sets the serial clock rate for the IIC device.
 *
 * The device must be idle rather than busy transferring data before setting
@@ -337,14 +397,10 @@ u32 XIicPs_GetOptions(XIicPs *InstancePtr)
 ******************************************************************************/
 s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 {
-	u32 Div_a;
-	u32 Div_b;
-	u32 ActualFscl;
 	u32 Temp;
 	u32 TempLimit;
 	u32 LastError;
 	u32 BestError;
-	u32 CurrentError;
 	u32 ControlReg;
 	u32 CalcDivA;
 	u32 CalcDivB;
@@ -364,12 +420,12 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	/*
 	 * Assume Div_a is 0 and calculate (divisor_a+1) x (divisor_b+1).
 	 */
-	Temp = (InstancePtr->Config.InputClockHz) / ((u32)22U * FsclHzVar);
+	Temp = InstancePtr->Config.InputClockHz / ((u32)22U * FsclHzVar);
 
 	/*
-	 * If the answer is negative or 0, the Fscl input is out of range.
+	 * If Temp is 0, the requested SCL frequency is out of range.
 	 */
-	if ((u32)(0U) == Temp) {
+	if (Temp == 0U) {
 		return (s32)XST_FAILURE;
 	}
 
@@ -400,34 +456,9 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	BestDivB = 0U;
 	for ( ; Temp <= TempLimit ; Temp++)
 	{
-		LastError = FsclHzVar;
-		CalcDivA = 0U;
-		CalcDivB = 0U;
-
-		for (Div_b = 0U; Div_b < 64U; Div_b++) {
-
-			Div_a = Temp / (Div_b + 1U);
-
-			if (Div_a != 0U){
-				Div_a = Div_a - (u32)1U;
-			}
-			if (Div_a > 3U){
-				continue;
-			}
-			ActualFscl = (InstancePtr->Config.InputClockHz) /
-						(22U * (Div_a + 1U) * (Div_b + 1U));
-
-			if (ActualFscl > FsclHzVar){
-				CurrentError = (ActualFscl - FsclHzVar);}
-			else{
-				CurrentError = (FsclHzVar - ActualFscl);}
-
-			if (LastError > CurrentError) {
-				CalcDivA = Div_a;
-				CalcDivB = Div_b;
-				LastError = CurrentError;
-			}
-		}
+		LastError = XIicPs_FindBestDivisors(InstancePtr, FsclHzVar,
+						   Temp, &CalcDivA,
+						   &CalcDivB);
 
 		/*
 		 * Used to capture the best divisors.
