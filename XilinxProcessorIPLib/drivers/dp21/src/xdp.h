@@ -388,6 +388,9 @@ extern "C" {
 #include "xstatus.h"
 #include "xvidc.h"
 
+/* Selects XDP_USE_DSC and supplies the PPS types used by the stream state. */
+#include "xdp21_dsc.h"
+
 /****************************** Type Definitions ******************************/
 
 /**
@@ -596,6 +599,8 @@ typedef struct {
 					0 = v1.1a, 1 = v1.2, 2 = v1.4. */
 	u8 IsRx;		/**< The type of DisplayPort core.
 					0 = TX, 1 = RX. */
+	u8 DscEn;		/**< Display Stream Compression is built into
+					this core instance. */
 } XDp_Config;
 
 /**
@@ -1211,6 +1216,14 @@ typedef struct {
 	void *PresetFfeAdjustCallbackRef;	/* A pointer to the user data passed to the
 						 * ffe preset adjust request callback function.
 						 */
+#ifdef XDP_USE_DSC
+	u8 DscStreamEnable;			/**< 1: use DSC TU formulas in
+					 * XDp_TxCfgMsaRecalculate(); 0: legacy
+					 * uncompressed HActive path. */
+	u8 DscPpsValid;				/**< 1: DscPps is valid when
+					 * DscStreamEnable is set. */
+	XDp21_DscPps DscPps;			/**< Parsed PPS for DSC TU / WPL. */
+#endif /* XDP_USE_DSC */
 } XDp_Tx;
 
 /**
@@ -1819,6 +1832,11 @@ void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal);
 u32 XDp_SelfTest(XDp *InstancePtr);
 u8 Dp_GetMstSideBandMsgStatus(XDp *InstancePtr);
 #if XPAR_XDPTXSS_NUM_INSTANCES
+#ifdef XDP_USE_DSC
+/* DSC SST stream configuration (see xdp21_dsc_tu.c, xdp_spm.c). */
+void XDp_TxSetDscStreamEnable(XDp *InstancePtr, u8 Enable);
+int XDp_TxSetDscStreamPps(XDp *InstancePtr, const u8 *PpsData);
+#endif /* XDP_USE_DSC */
 /* xdp_spm.c: Stream policy maker functions. */
 void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream);
 void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,

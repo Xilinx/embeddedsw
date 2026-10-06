@@ -45,6 +45,9 @@
 
 #include "xparameters.h"
 #include "xdp.h"
+#ifdef XDP_USE_DSC
+#include "xdp21_dsc_tu.h"
+#endif
 
 /**************************** Function Prototypes *****************************/
 
@@ -213,16 +216,33 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	}
 
 	/* Calculate the data per lane. */
-	WordsPerLine = (MsaConfig->Vtm.Timing.HActive * BitsPerPixel);
-	if ((WordsPerLine % 16) != 0) {
-		WordsPerLine += 16;
-	}
-	WordsPerLine /= 16;
+#ifdef XDP_USE_DSC
+	/*
+	 * A compressed stream sizes the transfer unit from the chunk, dummy and
+	 * end of chunk counts carried in the PPS, because its HActive counts
+	 * compressed bytes rather than the pixels the uncompressed arithmetic
+	 * below assumes.
+	 */
+	if (InstancePtr->TxInstance.DscStreamEnable &&
+	    InstancePtr->TxInstance.DscPpsValid &&
+	    (InstancePtr->TxInstance.MstEnable == 0)) {
+		(void)XDp_TxCalcDscMsaTu(MsaConfig,
+					 &InstancePtr->TxInstance.DscPps,
+					 LinkRate, LaneCount);
+	} else
+#endif /* XDP_USE_DSC */
+	{
+		WordsPerLine = (MsaConfig->Vtm.Timing.HActive * BitsPerPixel);
+		if ((WordsPerLine % 16) != 0) {
+			WordsPerLine += 16;
+		}
+		WordsPerLine /= 16;
 
-	MsaConfig->DataPerLane = WordsPerLine - LaneCount;
-	if ((WordsPerLine % LaneCount) != 0) {
-		MsaConfig->DataPerLane +=
-					(WordsPerLine % LaneCount);
+		MsaConfig->DataPerLane = WordsPerLine - LaneCount;
+		if ((WordsPerLine % LaneCount) != 0) {
+			MsaConfig->DataPerLane +=
+						(WordsPerLine % LaneCount);
+		}
 	}
 
 	if (InstancePtr->TxInstance.MstEnable == 1) {
@@ -237,6 +257,19 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 		 * operation. */
 		MsaConfig->TransferUnitSize = XDP_TX_MAX_NUM_OF_TIMESLOTS;
 		MsaConfig->StartTs = 1;
+
+#ifdef XDP_USE_DSC
+		/*
+		 * A compressed stream already had AvgBytesPerTU and InitWait
+		 * derived from the compressed line length and the FEC
+		 * overhead, so the uncompressed arithmetic must not run and
+		 * overwrite them.
+		 */
+		if (InstancePtr->TxInstance.DscStreamEnable &&
+		    InstancePtr->TxInstance.DscPpsValid) {
+			return;
+		}
+#endif /* XDP_USE_DSC */
 
 		/* Calculate the average number of bytes per transfer unit.
 		 * Note: Both the integer and the fractional part is stored in

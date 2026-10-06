@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -71,6 +71,9 @@ properties:
   xlnx,flow-direction:
     description: The type of DisplayPort core, 0 = TX, 1 = RX.
 
+  xlnx,enable-dsc:
+    description: 1 if this DisplayPort core is built with Display Stream Compression, 0 if not
+
 depends:
     video_common: []
 
@@ -93,6 +96,7 @@ required:
     - xlnx,number-of-mst-streams
     - xlnx,protocol-selection
     - xlnx,flow-direction
+    - xlnx,enable-dsc
 
 config:
     - XDp_Config

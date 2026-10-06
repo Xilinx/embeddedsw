@@ -1397,6 +1397,43 @@ extern "C" {
 #define XDP_RX_VSC_COLOR_FORMAT_STREAM4	0x654
 /** @} */
 
+/** @name DPRX core registers: Display Stream Compression and FEC.
+  * @{
+  */
+#define XDP_RX_FEC_CAPS			0x100	/**< FEC capability, exposed to
+							the upstream source in
+							the RX DPCD at 0x090. */
+#define XDP_RX_DSC_CAPS_1		0x790	/**< DSC capability, read only. */
+#define XDP_RX_DSC_CAPS_2		0x794	/**< DSC capability, second
+							word, read only. */
+#define XDP_RX_DSC_CRC_1		0x798	/**< DSC CRC and control. Bit 3
+							declares DSC support in
+							the RX DPCD at 0x060. */
+#define XDP_RX_DSC_CRC_2		0x79C	/**< DSC CRC, second word. */
+#define XDP_RX_DSC_PPS_DATA		0xC00	/**< Received picture parameter
+							set, 128 bytes held in 32
+							consecutive words. */
+#define XDP_RX_DSC_PPS_DATA_WORD(WordNum) \
+			(XDP_RX_DSC_PPS_DATA + ((WordNum) * 4))
+/** @} */
+
+/** @name DPRX core registers: Display Stream Compression and FEC bit masks.
+  * @{
+  */
+#define XDP_RX_DSC_CAPS_1_ENABLE_MASK	0x001	/**< The stream being received
+							is DSC compressed. */
+#define XDP_RX_DSC_CRC_1_SUPPORT_MASK	0x008	/**< Declares DSC support to
+							the upstream source. */
+#define XDP_RX_DSC_CRC_1_STATUS_MASK	0x070	/**< DSC status field. */
+#define XDP_RX_MSA_VBID_DSC_MASK	0x040	/**< VB-ID bit 6, set while the
+							stream carries DSC
+							compressed video. */
+#define XDP_RX_MSA_VBID_NO_VIDEO_MASK	0x080	/**< VB-ID bit 7, set while no
+							video is being
+							received. */
+#define XDP_RX_MSA_VBID_STREAM_ID_MASK	0x03F	/**< VB-ID stream identifier. */
+/** @} */
+
 /** @name DPRX core registers: DPCD registers for HDCP.
   * @{
   */
