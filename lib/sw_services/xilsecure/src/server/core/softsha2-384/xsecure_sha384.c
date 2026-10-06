@@ -19,7 +19,7 @@
 * 1.0   har  01/02/23 Initial release
 *       kal  19/05/23 Added Sha2 Start, Update and Finish APIs support
 *       dd   10/11/23 MISRA-C violation Rule 1.1 fixed
-*
+* 5.8   mb   09/23/26 Added Doxygen comment in XSecure_Sha384Digest API
 * </pre>
 *
 ******************************************************************************/
@@ -63,6 +63,7 @@ int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Hash)
 		goto END;
 	}
 
+	/** - Calculate the SHA2-384 digest */
 	sha_384(Data, Size, Hash);
 
 	Status = XST_SUCCESS;

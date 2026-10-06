@@ -40,7 +40,8 @@
 * 5.6   rpu  08/11/2025 Removed crypto check in xsecure_init
 *       vss  09/30/2025 Updated AES/SHA queueing macro checks.
 * 5.7   tvp  02/23/2025 Initialize SHA2 for Versal_2vp_p
-* 5.8   rap  08/28/26 Fixed Doxygen Warnings
+* 5.8   rap  08/28/2026 Fixed Doxygen Warnings
+*       mb   09/23/2026 DeviceId comment correction
 * </pre>
 *
 ******************************************************************************/
@@ -246,7 +247,7 @@ XSecure_Rsa *XSecure_GetRsaInstance(void)
 /*****************************************************************************/
 /**
  * @brief	This function provides the pointer to the sha instance
- * 		based on the DevieId
+ * 		based on the DeviceId
  *
  * @param	DeviceId is the device identifier of the SHA instance
  *

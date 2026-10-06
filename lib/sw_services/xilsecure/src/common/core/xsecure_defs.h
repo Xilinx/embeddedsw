@@ -47,6 +47,7 @@
 *                     Xil_LibInfo container (xil_cryptoalginfo.h)
 *       rap  09/09/26 Moved XSECURE_ECC_P521_SIZE_IN_BYTES here as the single
 *                     client/server definition (same approach as RSA key sizes)
+*       mb   09/08/26 Fixed typo in Elliptic sign structure descriptions
 *
 * </pre>
 *
@@ -188,6 +189,7 @@ typedef struct {
 } XSecure_RsaPssSignVerifyParams;
 
 /** Structure for input parameters for Ellitic Sign generation */
+/** Structure for input parameters for Elliptic Sign generation */
 typedef struct {
 	u64 HashAddr;	/**< Hash address */
 	u64 PrivKeyAddr;	/**< Static Private key Address */
@@ -196,7 +198,7 @@ typedef struct {
 	u32 Size;	/**< Length of hash */
 } XSecure_EllipticSignGenParams;
 
-/** Structure for input parameters for Ellitic Sign Verification */
+/** Structure for input parameters for Elliptic Sign Verification */
 typedef struct {
 	u64 HashAddr;	/**< Hash address */
 	u64 PubKeyAddr;	/**< Public key Address */
