@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -30,6 +30,7 @@
  *       mn   04/30/21 Fixed rank selection logic for multi rank DDR
  *       mn   05/24/21 Fixed Eye Test issue with higher rank
  *       mn   05/26/21 Modify code to run 2D eye tests only for DDR4/LPDDR4
+ * 2.0   ap   09/29/26 Add ECC byte lane test for DDR4/LPDDR4
  *
  * </pre>
  *
@@ -752,6 +753,7 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 {
 	u32 DataPtr;
 	u32 RegVal;
+	u32 EccStat;
 	u64 Index;
 	u64 Addr;
 	u64 ReadVal;
@@ -771,6 +773,14 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 	DataPtr = 0U;
 
 	StartAddr = XMT_DDR_BASEADDR + StartAddr;
+
+	/*
+	 * Clear any stale ECC status before the write phase so that errors
+	 * accumulated from a previous sweep position do not pollute this one.
+	 */
+	if (XMtPtr->EccEnabled != 0U) {
+		Xil_Out32(XMT_DDRC_ECCCLR, 0xFU);
+	}
 
 	/* Do the Write operation on memory size specified in argument */
 	for (Index = StartAddr; Index < (StartAddr + (Len * XMT_KB2BYTE)); Index += Offset) {
@@ -864,6 +874,16 @@ void XMt_RunEyeMemtest(XMt_CfgData *XMtPtr, u64 StartAddr, u32 Len)
 				}
 			}
 		}
+
+		/* ECC byte lane check */
+		if (XMtPtr->EccEnabled != 0U) {
+			EccStat = Xil_In32(XMT_DDRC_ECCSTAT);
+			if ((EccStat & XMT_DDRC_ECCSTAT_ERR_MASK) != 0U) {
+				XMtPtr->EccErrCnt++;
+				/* Clear ECC status so the next position starts clean */
+				Xil_Out32(XMT_DDRC_ECCCLR, 0xFU);
+			}
+		}
 	}
 }
 
@@ -887,6 +907,7 @@ int main(void)
 	u32 BusWidth;
 	s8 Ch;
 	s8 SizeChar;
+	u32 PreviousLanes;
 
 	/* By Default, the Verbose Mode is Disabled */
 	Verbose = 0U;
@@ -1125,6 +1146,8 @@ int main(void)
 			}
 
 		} else if ((Ch == 'b') || (Ch == 'B')) {
+			PreviousLanes = XMt.DdrConfigLanes;
+
 			if (BusWidth == XMT_DDR_CONFIG_64BIT_WIDTH) {
 				if (XMt.BusWidth == XMT_DDR_CONFIG_64BIT_WIDTH) {
 					XMt.BusWidth = XMT_DDR_CONFIG_32BIT_WIDTH;
@@ -1148,6 +1171,10 @@ int main(void)
 				xil_printf(" Bus Width = %d \r\n", XMt.BusWidth);
 			} else {
 				xil_printf("Bus Width Switching not supported\r\n");
+			}
+			if (XMt.DdrConfigLanes != PreviousLanes) {
+				XMt.ReadCenterFetched = 0U;
+				XMt.WriteCenterFetched = 0U;
 			}
 
 		} else if ((Ch == 'h') || (Ch == 'H')) {

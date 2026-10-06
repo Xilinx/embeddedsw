@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -32,6 +32,9 @@
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  * 1.4   mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
  * 		 sg   11/11/22 Added 2D Read Eye support for LPDDR4
+ * 2.0        09/20/26 ECC byte lane support: XMt_ClearResults clears ECC
+ *                     lane slot; XMt_PrintResults prints ECC lane column;
+ *                     eye headers extended with ECC column when ECC enabled
  *
  * </pre>
  *
@@ -437,6 +440,9 @@ void XMt_ClearResults(XMt_CfgData *XMtPtr, u32 Addr)
 	for (Index = 0U; Index < XMtPtr->DdrConfigLanes; Index++) {
 		Xil_Out32(Addr + (Index * 4), 0U);
 	}
+
+	/* ECC result is tracked in software; there is no persistent8 register. */
+	XMtPtr->EccErrCnt = 0U;
 }
 
 /*****************************************************************************/
@@ -490,6 +496,14 @@ static INLINE u32 XMt_GetVref(XMt_CfgData *XMtPtr, u32 Addr)
 u32 XMt_GetVRefAuto(XMt_CfgData *XMtPtr)
 {
 	u32 Index;
+	u32 EccLaneAddr;
+
+	if (XMtPtr->EccEnabled != 0U) {
+		/* Capture auto-trained VRef for ECC byte lane separately. */
+		EccLaneAddr = XMT_LANE0GCR5_OFFSET +
+			(XMT_LANE_OFFSET * XMT_ECC_LANE);
+		XMtPtr->VRefAutoEcc = XMt_GetVref(XMtPtr, EccLaneAddr);
+	}
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMtPtr->VRefAuto[Index] = XMt_GetVref(XMtPtr, XMT_LANE0GCR5_OFFSET +
@@ -521,6 +535,11 @@ u32 XMt_GetVRefAutoMin(XMt_CfgData *XMtPtr)
 				XMtPtr->VRefAuto[Index];
 	}
 
+	if (XMtPtr->EccEnabled != 0U) {
+		VRefMin = VRefMin < XMtPtr->VRefAutoEcc ? VRefMin :
+				XMtPtr->VRefAutoEcc;
+	}
+
 	VRefMin = (VRefMin > 25) ? (VRefMin - 25) : 0;
 
 	return VRefMin;
@@ -548,6 +567,11 @@ u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr)
 				XMtPtr->VRefAuto[Index];
 	}
 
+	if (XMtPtr->EccEnabled != 0U) {
+		VRefMax = VRefMax > XMtPtr->VRefAutoEcc ? VRefMax :
+				XMtPtr->VRefAutoEcc;
+	}
+
 	return VRefMax + 25;
 }
 
@@ -564,6 +588,7 @@ u32 XMt_GetVRefAutoMax(XMt_CfgData *XMtPtr)
 void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef)
 {
 	u32 Index;
+	u32 EccLaneAddr;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		if (XMtPtr->RankSel == 1U) {
@@ -572,6 +597,20 @@ void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef)
 		} else {
 			XMt_MaskWrite(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
 					XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK, VRef);
+		}
+	}
+
+	if (XMtPtr->EccEnabled != 0U) {
+		EccLaneAddr = XMT_LANE0GCR5_OFFSET +
+			(XMT_LANE_OFFSET * XMT_ECC_LANE);
+		if (XMtPtr->RankSel == 1U) {
+			XMt_MaskWrite(EccLaneAddr,
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR1_MASK,
+				VRef << 8U);
+		} else {
+			XMt_MaskWrite(EccLaneAddr,
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
+				VRef);
 		}
 	}
 }
@@ -589,6 +628,7 @@ void XMt_SetVrefVal(XMt_CfgData *XMtPtr, u32 VRef)
 void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr)
 {
 	u32 Index;
+	u32 EccLaneAddr;
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		if (XMtPtr->RankSel == 1U) {
@@ -599,6 +639,20 @@ void XMt_ResetVrefAuto(XMt_CfgData *XMtPtr)
 			XMt_MaskWrite(XMT_LANE0GCR5_OFFSET + (XMT_LANE_OFFSET * Index),
 					XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
 					XMtPtr->VRefAuto[Index]);
+		}
+	}
+
+	if (XMtPtr->EccEnabled != 0U) {
+		EccLaneAddr = XMT_LANE0GCR5_OFFSET +
+			(XMT_LANE_OFFSET * XMT_ECC_LANE);
+		if (XMtPtr->RankSel == 1U) {
+			XMt_MaskWrite(EccLaneAddr,
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR1_MASK,
+				XMtPtr->VRefAutoEcc << 8U);
+		} else {
+			XMt_MaskWrite(EccLaneAddr,
+				XMT_DDR_PHY_DX0GCR5_DXREFISELR0_MASK,
+				XMtPtr->VRefAutoEcc);
 		}
 	}
 }
@@ -934,6 +988,24 @@ void XMt_Print2DReadEyeResults(XMt_CfgData *XMtPtr, u32 VRef)
 		}
 		xil_printf("|");
 	}
+	if (XMtPtr->EccEnabled != 0U) {
+		for (Index1 = -10; Index1 < 0; Index1++) {
+			if (Index1 < XMtPtr->EccEyeStart / ((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf(" ");
+			} else {
+				xil_printf("*");
+			}
+		}
+		xil_printf(":");
+		for (Index1 = 0; Index1 < 10; Index1++) {
+			if (Index1 < XMtPtr->EccEyeEnd / ((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf("*");
+			} else {
+				xil_printf(" ");
+			}
+		}
+		xil_printf("|");
+	}
 	xil_printf("\r\n");
 }
 
@@ -997,6 +1069,24 @@ void XMt_Print2DWriteEyeResultsR1(XMt_CfgData *XMtPtr, u32 VRef)
 		}
 		xil_printf("|");
 	}
+	if (XMtPtr->EccEnabled != 0U) {
+		for (Index1 = -10; Index1 < 0; Index1++) {
+			if (Index1 < XMtPtr->EccEyeStart / ((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf(" ");
+			} else {
+				xil_printf("*");
+			}
+		}
+		xil_printf(":");
+		for (Index1 = 0; Index1 < 10; Index1++) {
+			if (Index1 < XMtPtr->EccEyeEnd / ((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf("*");
+			} else {
+				xil_printf(" ");
+			}
+		}
+		xil_printf("|");
+	}
 	xil_printf("\r\n");
 }
 
@@ -1053,6 +1143,24 @@ void XMt_Print2DWriteEyeResultsR2(XMt_CfgData *XMtPtr, u32 VRef)
 		xil_printf(":");
 		for (Index1 = 0; Index1 < 10; Index1++) {
 			if (Index1 < XMtPtr->EyeEnd[Index]/((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf("*");
+			} else {
+				xil_printf(" ");
+			}
+		}
+		xil_printf("|");
+	}
+	if (XMtPtr->EccEnabled != 0U) {
+		for (Index1 = -10; Index1 < 0; Index1++) {
+			if (Index1 < XMtPtr->EccEyeStart / ((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
+				xil_printf(" ");
+			} else {
+				xil_printf("*");
+			}
+		}
+		xil_printf(":");
+		for (Index1 = 0; Index1 < 10; Index1++) {
+			if (Index1 < XMtPtr->EccEyeEnd / ((XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9)) {
 				xil_printf("*");
 			} else {
 				xil_printf(" ");
@@ -1163,21 +1271,39 @@ void XMt_PrintMemTestHeader(XMt_CfgData *XMtPtr)
 void XMt_PrintEyeHeader(XMt_CfgData *XMtPtr)
 {
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
-		xil_printf("-------+--------+--------+\r\n");
-		xil_printf("Offset | LANE-0 | LANE-1 |\r\n");
-		xil_printf("-------+--------+--------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("-------+--------+--------+--------+\r\n");
+			xil_printf("Offset | LANE-0 | LANE-1 |  ECC   |\r\n");
+			xil_printf("-------+--------+--------+--------+\r\n");
+		} else {
+			xil_printf("-------+--------+--------+\r\n");
+			xil_printf("Offset | LANE-0 | LANE-1 |\r\n");
+			xil_printf("-------+--------+--------+\r\n");
+		}
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
-		xil_printf("-------+--------+--------+--------+--------+\r\n");
-		xil_printf("Offset | LANE-0 | LANE-1 | LANE-2 | LANE-3 |\r\n");
-		xil_printf("-------+--------+--------+--------+--------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("-------+--------+--------+--------+--------+--------+\r\n");
+			xil_printf("Offset | LANE-0 | LANE-1 | LANE-2 | LANE-3 |  ECC   |\r\n");
+			xil_printf("-------+--------+--------+--------+--------+--------+\r\n");
+		} else {
+			xil_printf("-------+--------+--------+--------+--------+\r\n");
+			xil_printf("Offset | LANE-0 | LANE-1 | LANE-2 | LANE-3 |\r\n");
+			xil_printf("-------+--------+--------+--------+--------+\r\n");
+		}
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_8_LANE) {
-		xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
-		xil_printf("Offset | LANE-0 | LANE-1 | LANE-2 | LANE-3 | LANE-4 | LANE-5 | LANE-6 | LANE-7 |\r\n");
-		xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+			xil_printf("Offset | LANE-0 | LANE-1 | LANE-2 | LANE-3 | LANE-4 | LANE-5 | LANE-6 | LANE-7 |  ECC   |\r\n");
+			xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+		} else {
+			xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+			xil_printf("Offset | LANE-0 | LANE-1 | LANE-2 | LANE-3 | LANE-4 | LANE-5 | LANE-6 | LANE-7 |\r\n");
+			xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+		}
 	}
 }
 
@@ -1194,21 +1320,39 @@ void XMt_PrintEyeHeader(XMt_CfgData *XMtPtr)
 void XMt_PrintEyeResultsHeader(XMt_CfgData *XMtPtr)
 {
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
-		xil_printf("---------+---------+\r\n");
-		xil_printf("  LANE-0 |  LANE-1 |\r\n");
-		xil_printf("---------+---------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("---------+---------+---------+\r\n");
+			xil_printf("  LANE-0 |  LANE-1 |   ECC   |\r\n");
+			xil_printf("---------+---------+---------+\r\n");
+		} else {
+			xil_printf("---------+---------+\r\n");
+			xil_printf("  LANE-0 |  LANE-1 |\r\n");
+			xil_printf("---------+---------+\r\n");
+		}
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
-		xil_printf("---------+---------+---------+---------+\r\n");
-		xil_printf("  LANE-0 |  LANE-1 |  LANE-2 |  LANE-3 |\r\n");
-		xil_printf("---------+---------+---------+---------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("---------+---------+---------+---------+---------+\r\n");
+			xil_printf("  LANE-0 |  LANE-1 |  LANE-2 |  LANE-3 |   ECC   |\r\n");
+			xil_printf("---------+---------+---------+---------+---------+\r\n");
+		} else {
+			xil_printf("---------+---------+---------+---------+\r\n");
+			xil_printf("  LANE-0 |  LANE-1 |  LANE-2 |  LANE-3 |\r\n");
+			xil_printf("---------+---------+---------+---------+\r\n");
+		}
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_8_LANE) {
-		xil_printf("---------+---------+---------+---------+---------+---------+---------+---------+\r\n");
-		xil_printf("  LANE-0 |  LANE-1 |  LANE-2 |  LANE-3 |  LANE-4 |  LANE-5 |  LANE-6 |  LANE-7 |\r\n");
-		xil_printf("---------+---------+---------+---------+---------+---------+---------+---------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("---------+---------+---------+---------+---------+---------+---------+---------+---------+\r\n");
+			xil_printf("  LANE-0 |  LANE-1 |  LANE-2 |  LANE-3 |  LANE-4 |  LANE-5 |  LANE-6 |  LANE-7 |   ECC   |\r\n");
+			xil_printf("---------+---------+---------+---------+---------+---------+---------+---------+---------+\r\n");
+		} else {
+			xil_printf("---------+---------+---------+---------+---------+---------+---------+---------+\r\n");
+			xil_printf("  LANE-0 |  LANE-1 |  LANE-2 |  LANE-3 |  LANE-4 |  LANE-5 |  LANE-6 |  LANE-7 |\r\n");
+			xil_printf("---------+---------+---------+---------+---------+---------+---------+---------+\r\n");
+		}
 	}
 }
 
@@ -1227,21 +1371,39 @@ void XMt_Print2DEyeResultsHeader(XMt_CfgData *XMtPtr)
 	xil_printf("Note: Each asterisk(*) represents %d Taps\n",
 			(XMtPtr->DdrType == XMT_DDR_TYPE_DDR4) ? 4 : 9);
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
-		xil_printf("-----+---------------------+---------------------+\r\n");
-		xil_printf("VREF%%|        LANE0        |        LANE1        |\r\n");
-		xil_printf("-----+---------------------+---------------------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("-----+---------------------+---------------------+---------------------+\r\n");
+			xil_printf("VREF%%|        LANE0        |        LANE1        |         ECC         |\r\n");
+			xil_printf("-----+---------------------+---------------------+---------------------+\r\n");
+		} else {
+			xil_printf("-----+---------------------+---------------------+\r\n");
+			xil_printf("VREF%%|        LANE0        |        LANE1        |\r\n");
+			xil_printf("-----+---------------------+---------------------+\r\n");
+		}
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
-		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
-		xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |\r\n");
-		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+			xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |         ECC         |\r\n");
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+		} else {
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
+			xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |\r\n");
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
+		}
 	}
 
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_8_LANE) {
-		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
-		xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |        LANE4        |        LANE5        |        LANE6        |        LANE7        |\r\n");
-		xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+		if (XMtPtr->EccEnabled != 0U) {
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+			xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |        LANE4        |        LANE5        |        LANE6        |        LANE7        |         ECC         |\r\n");
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+		} else {
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+			xil_printf("VREF%%|        LANE0        |        LANE1        |        LANE2        |        LANE3        |        LANE4        |        LANE5        |        LANE6        |        LANE7        |\r\n");
+			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+		}
 	}
 }
 /*****************************************************************************/
@@ -1259,30 +1421,45 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 {
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_2_LANE) {
 		if (LineCode == 1U) {
-			xil_printf("--------------------");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"------------------------------" : "--------------------");
 		} else if (LineCode == 2U) {
-			xil_printf("-------+--------+--------+\r\n");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"-------+--------+--------+--------+\r\n" :
+				"-------+--------+--------+\r\n");
 		} else if (LineCode == 3U) {
-			xil_printf("---------+---------+\r\n");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"---------+---------+---------+\r\n" :
+				"---------+---------+\r\n");
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+-------------+-----------\r\n");
 		} else if (LineCode == 5U) {
-			xil_printf("-----+---------------------+---------------------+\r\n");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"-----+---------------------+---------------------+---------------------+\r\n" :
+				"-----+---------------------+---------------------+\r\n");
 		} else {
 			xil_printf("\r\n");
 		}
 	}
 	if (XMtPtr->DdrConfigLanes == XMT_DDR_CONFIG_4_LANE) {
 		if (LineCode == 1U) {
-			xil_printf("----------------------------------------");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"--------------------------------------------------" :
+				"----------------------------------------");
 		} else if (LineCode == 2U) {
-			xil_printf("-------+--------+--------+--------+--------+\r\n");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"-------+--------+--------+--------+--------+--------+\r\n" :
+				"-------+--------+--------+--------+--------+\r\n");
 		} else if (LineCode == 3U) {
-			xil_printf("---------+---------+---------+---------+\r\n");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"---------+---------+---------+---------+---------+\r\n" :
+				"---------+---------+---------+---------+\r\n");
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+-------------------------+-----------\r\n");
 		} else if (LineCode == 5U) {
-			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+\r\n");
+			xil_printf((XMtPtr->EccEnabled != 0U) ?
+				"-----+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n" :
+				"-----+---------------------+---------------------+---------------------+---------------------+\r\n");
 		} else {
 			xil_printf("\r\n");
 		}
@@ -1291,13 +1468,25 @@ void XMt_PrintLine(XMt_CfgData *XMtPtr, u8 LineCode)
 		if (LineCode == 1U) {
 			xil_printf("--------------------------------------------------------------------------------");
 		} else if (LineCode == 2U) {
-			xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+			if (XMtPtr->EccEnabled != 0U) {
+				xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+			} else {
+				xil_printf("-------+--------+--------+--------+--------+--------+--------+--------+--------+\r\n");
+			}
 		} else if (LineCode == 3U) {
-			xil_printf("---------+---------+---------+---------+---------+---------+---------+----------\r\n");
+			if (XMtPtr->EccEnabled != 0U) {
+				xil_printf("---------+---------+---------+---------+---------+---------+---------+---------+---------+\r\n");
+			} else {
+				xil_printf("---------+---------+---------+---------+---------+---------+---------+----------\r\n");
+			}
 		} else if (LineCode == 4U) {
 			xil_printf("---------+--------+------------------------------------------------+-----------\r\n");
 		} else if (LineCode == 5U) {
-			xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+			if (XMtPtr->EccEnabled != 0U) {
+				xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+			} else {
+				xil_printf("-----+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+---------------------+\r\n");
+			}
 		} else {
 			xil_printf("\r\n");
 		}
@@ -1320,6 +1509,10 @@ void XMt_PrintResults(XMt_CfgData *XMtPtr)
 
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		xil_printf(" %6d |", Xil_In32(XMT_RESULTS_BASE + (Index * 4)));
+	}
+	/* Print ECC byte lane result from software state; no MMIO register exists. */
+	if (XMtPtr->EccEnabled != 0U) {
+		xil_printf(" %6d |", XMtPtr->EccErrCnt);
 	}
 	xil_printf("\r\n");
 }

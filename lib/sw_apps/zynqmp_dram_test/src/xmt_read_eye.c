@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -48,6 +48,8 @@
 #define XMT_DDR4_READ_VREF_MIN		0x30U
 #define XMT_LPDDR4_READ_VREF_MAX		0x7FU
 #define XMT_LPDDR4_READ_VREF_MIN		0x0U
+
+#define XMT_ECC_RD_LANE	XMT_ECC_LANE /**< PHY lane index for ECC read-eye measurements */
 
 #define XMT_PSEC	1000000000000
 
@@ -116,6 +118,13 @@ static u32 XMt_GetRdCenter(XMt_CfgData *XMtPtr)
 				(XMT_LANE_OFFSET * Index));
 	}
 
+	if (XMtPtr->EccEnabled != 0U) {
+		XMtPtr->EccRdCenter.Qsd = XMt_GetRdQsd(XMT_LANE0LCDLR3_OFFSET +
+				(XMT_LANE_OFFSET * XMT_ECC_RD_LANE));
+		XMtPtr->EccRdCenter.Qsnd = XMt_GetRdQsnd(XMT_LANE0LCDLR4_OFFSET +
+				(XMT_LANE_OFFSET * XMT_ECC_RD_LANE));
+	}
+
 	XMtPtr->ReadCenterFetched = 1U;
 
 	return XST_SUCCESS;
@@ -145,6 +154,13 @@ static u32 XMt_ResetRdCenter(XMt_CfgData *XMtPtr)
 				XMtPtr->RdCenter[Index].Qsnd);
 	}
 
+	if (XMtPtr->EccEnabled != 0U) {
+		Xil_Out32(XMT_LANE0LCDLR3_OFFSET + (XMT_LANE_OFFSET * XMT_ECC_RD_LANE),
+				XMtPtr->EccRdCenter.Qsd);
+		Xil_Out32(XMT_LANE0LCDLR4_OFFSET + (XMT_LANE_OFFSET * XMT_ECC_RD_LANE),
+				XMtPtr->EccRdCenter.Qsnd);
+	}
+
 	/* Enable the Refresh after training */
 	XMt_EnableRefresh();
 
@@ -172,6 +188,11 @@ static void XMt_PrintRdCenter(XMt_CfgData *XMtPtr)
 		xil_printf("   %2d,%2d |", XMtPtr->RdCenter[Index].Qsd,
 				XMtPtr->RdCenter[Index].Qsnd);
 	}
+	if (XMtPtr->EccEnabled != 0U) {
+		XMt_CalcPerTapDelay(XMtPtr, XMT_ECC_RD_LANE);
+		xil_printf("   %2d,%2d |", XMtPtr->EccRdCenter.Qsd,
+				XMtPtr->EccRdCenter.Qsnd);
+	}
 }
 
 #ifdef XMT_DEBUG
@@ -196,6 +217,13 @@ static void XMt_PrintQsdQsnd(XMt_CfgData *XMtPtr)
 			(XMT_LANE_OFFSET*Index)),
 			XMt_GetRdQsnd(XMT_LANE0LCDLR4_OFFSET +
 			(XMT_LANE_OFFSET*Index)));
+	}
+	if (XMtPtr->EccEnabled != 0U) {
+		xil_printf("%d(%d,%d), ", XMT_ECC_RD_LANE,
+			XMt_GetRdQsd(XMT_LANE0LCDLR3_OFFSET +
+			(XMT_LANE_OFFSET * XMT_ECC_RD_LANE)),
+			XMt_GetRdQsnd(XMT_LANE0LCDLR4_OFFSET +
+			(XMT_LANE_OFFSET * XMT_ECC_RD_LANE)));
 	}
 	xil_printf("\r\n");
 }
@@ -232,6 +260,21 @@ static void XMt_SetRdDqsDelay(XMt_CfgData *XMtPtr, s32 Position)
 						(XMT_LANE_OFFSET*Index),
 						(XMtPtr->RdCenter[Index].Qsnd) +
 						Position);
+		}
+	}
+
+	if ((XMtPtr->EccEnabled != 0U) &&
+	    (((Position > 0) && XMtPtr->EccEyeEnd == 0) ||
+	     ((Position < 0) && XMtPtr->EccEyeStart == 0))) {
+		if ((((s32)XMtPtr->EccRdCenter.Qsd + Position) >= 0) &&
+		    (((s32)XMtPtr->EccRdCenter.Qsd + Position) <= 511)) {
+			Xil_Out32(XMT_LANE0LCDLR3_OFFSET + (XMT_LANE_OFFSET * XMT_ECC_RD_LANE),
+					XMtPtr->EccRdCenter.Qsd + Position);
+		}
+		if ((((s32)XMtPtr->EccRdCenter.Qsnd + Position) >= 0) &&
+		    (((s32)XMtPtr->EccRdCenter.Qsnd + Position) <= 511)) {
+			Xil_Out32(XMT_LANE0LCDLR4_OFFSET + (XMT_LANE_OFFSET * XMT_ECC_RD_LANE),
+					XMtPtr->EccRdCenter.Qsnd + Position);
 		}
 	}
 
@@ -290,6 +333,13 @@ static u32 XMt_MeasureRdEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 			}
 		}
 
+		if ((XMtPtr->EccEnabled != 0U) &&
+		    (((s32)XMtPtr->EccRdCenter.Qsd + Position) < 0) &&
+		    (((s32)XMtPtr->EccRdCenter.Qsnd + Position) < 0) &&
+		    (XMtPtr->EccErrCnt == 0U)) {
+			XMtPtr->EccErrCnt = 1U;
+		}
+
 		if (!(Mode & XMT_2D_EYE_TEST)) {
 			/* Print the lane wise results for this Position */
 			xil_printf("%3d    |", Position);
@@ -313,6 +363,18 @@ static u32 XMt_MeasureRdEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 			}
 		}
 
+		if (XMtPtr->EccEnabled != 0U) {
+			if (Mode & XMT_RIGHT_EYE_TEST) {
+				if ((XMtPtr->EccErrCnt > 0U) && (XMtPtr->EccEyeEnd == 0)) {
+					XMtPtr->EccEyeEnd = Position - 1;
+				}
+			} else {
+				if ((XMtPtr->EccErrCnt > 0U) && (XMtPtr->EccEyeStart == 0)) {
+					XMtPtr->EccEyeStart = Position + 1;
+				}
+			}
+		}
+
 		Done = 1;
 		/* Once all Eye Start/End values are non-zero, End the test */
 		for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
@@ -331,6 +393,25 @@ static u32 XMt_MeasureRdEyeEdge(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len, u8 M
 						Done = 0;
 					} else {
 						XMtPtr->EyeStart[Index] = Position + 1;
+					}
+				}
+			}
+		}
+
+		if (XMtPtr->EccEnabled != 0U) {
+			if (Mode & XMT_RIGHT_EYE_TEST) {
+				if (!XMtPtr->EccEyeEnd &&
+				    (((XMtPtr->EccRdCenter.Qsd + Position) < 511) ||
+				     ((XMtPtr->EccRdCenter.Qsnd + Position) < 511))) {
+					Done = 0;
+				}
+			} else {
+				if (!XMtPtr->EccEyeStart) {
+					if ((abs(Position) < XMtPtr->EccRdCenter.Qsd) ||
+					    (abs(Position) < XMtPtr->EccRdCenter.Qsnd)) {
+						Done = 0;
+					} else {
+						XMtPtr->EccEyeStart = Position + 1;
 					}
 				}
 			}
@@ -370,12 +451,22 @@ static void XMt_PrintReadEyeResults(XMt_CfgData *XMtPtr)
 		xil_printf("   %d.%02d  |", (int)XMtPtr->TapPs,
 			   (int)((XMtPtr->TapPs - (int)XMtPtr->TapPs)*100.0f));
 	}
+	if (XMtPtr->EccEnabled != 0U) {
+		XMtPtr->TapPs = XMt_CalcPerTapDelay(XMtPtr, XMT_ECC_RD_LANE);
+		xil_printf("   %d.%02d  |", (int)XMtPtr->TapPs,
+		   (int)((XMtPtr->TapPs - (int)XMtPtr->TapPs)*100.0f));
+	}
 	xil_printf("\r\n");
 	XMt_PrintLine(XMtPtr, 3);
 	xil_printf(" TAPS/cycle:\r\n");
 	XMt_PrintLine(XMtPtr, 3);
 	for (Index = 0; Index < XMtPtr->DdrConfigLanes; Index++) {
 		XMtPtr->TapPs = XMt_CalcPerTapDelay(XMtPtr, Index);
+		xil_printf("    %d   |", (s32)((1000000 /
+				(XMtPtr->DdrFreq * 4)) / XMtPtr->TapPs));
+	}
+	if (XMtPtr->EccEnabled != 0U) {
+		XMtPtr->TapPs = XMt_CalcPerTapDelay(XMtPtr, XMT_ECC_RD_LANE);
 		xil_printf("    %d   |", (s32)((1000000 /
 				(XMtPtr->DdrFreq * 4)) / XMtPtr->TapPs));
 	}
@@ -389,6 +480,12 @@ static void XMt_PrintReadEyeResults(XMt_CfgData *XMtPtr)
 				(XMtPtr->EyeEnd[Index] - XMtPtr->EyeStart[Index]));
 		xil_printf("  %d.%02d |", (int)TempVal, (int)((TempVal - (int)TempVal)*100.0f));
 	}
+	if (XMtPtr->EccEnabled != 0U) {
+		XMtPtr->TapPs = XMt_CalcPerTapDelay(XMtPtr, XMT_ECC_RD_LANE);
+		TempVal = (float) (XMtPtr->TapPs *
+				(XMtPtr->EccEyeEnd - XMtPtr->EccEyeStart));
+		xil_printf("  %d.%02d |", (int)TempVal, (int)((TempVal - (int)TempVal)*100.0f));
+	}
 	xil_printf("\r\n");
 	XMt_PrintLine(XMtPtr, 3);
 	xil_printf(" EYE WIDTH (%%):\r\n");
@@ -397,6 +494,12 @@ static void XMt_PrintReadEyeResults(XMt_CfgData *XMtPtr)
 		XMtPtr->TapPs = XMt_CalcPerTapDelay(XMtPtr, Index);
 		TempVal = 100 * (XMtPtr->TapPs * (XMtPtr->EyeEnd[Index] -
 				XMtPtr->EyeStart[Index])) / (1000000 / (XMtPtr->DdrFreq * 4));
+		xil_printf("  %d.%02d  |", (int)TempVal, (int)((TempVal - (int)TempVal)*100.0f));
+	}
+	if (XMtPtr->EccEnabled != 0U) {
+		XMtPtr->TapPs = XMt_CalcPerTapDelay(XMtPtr, XMT_ECC_RD_LANE);
+		TempVal = 100 * (XMtPtr->TapPs * (XMtPtr->EccEyeEnd -
+				XMtPtr->EccEyeStart)) / (1000000 / (XMtPtr->DdrFreq * 4));
 		xil_printf("  %d.%02d  |", (int)TempVal, (int)((TempVal - (int)TempVal)*100.0f));
 	}
 	xil_printf("\r\n");
@@ -408,6 +511,12 @@ static void XMt_PrintReadEyeResults(XMt_CfgData *XMtPtr)
 				(XMtPtr->RdCenter[Index].Qsd + XMtPtr->EyeStart[Index])) / 2,
 				((XMtPtr->RdCenter[Index].Qsnd + XMtPtr->EyeEnd[Index]) +
 				(XMtPtr->RdCenter[Index].Qsnd + XMtPtr->EyeStart[Index]))/2);
+	}
+	if (XMtPtr->EccEnabled != 0U) {
+		xil_printf("   %2d,%2d |", ((XMtPtr->EccRdCenter.Qsd + XMtPtr->EccEyeEnd) +
+				(XMtPtr->EccRdCenter.Qsd + XMtPtr->EccEyeStart)) / 2,
+				((XMtPtr->EccRdCenter.Qsnd + XMtPtr->EccEyeEnd) +
+				(XMtPtr->EccRdCenter.Qsnd + XMtPtr->EccEyeStart))/2);
 	}
 	xil_printf("\r\n");
 	XMt_PrintLine(XMtPtr, 3);
@@ -483,6 +592,8 @@ u32 XMt_MeasureRdEye(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 	/* Initialize Eye Parameters with zero */
 	XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeStart[0]);
 	XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeEnd[0]);
+	XMtPtr->EccEyeStart = 0;
+	XMtPtr->EccEyeEnd = 0;
 
 	/* Disable VT compensation */
 	XMt_DisableVtcomp();
@@ -606,6 +717,8 @@ u32 XMt_MeasureRdEye2D(XMt_CfgData *XMtPtr, u64 TestAddr, u32 Len)
 		/* Initialize Eye Parameters with zero */
 		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeStart[0]);
 		XMt_ClearEye(XMtPtr, (u32 *)&XMtPtr->EyeEnd[0]);
+		XMtPtr->EccEyeStart = 0;
+		XMtPtr->EccEyeEnd = 0;
 
 		/* Measure the Right Edge of the Eye */
 		Status = XMt_MeasureRdEyeEdge(XMtPtr, TestAddr, Len,

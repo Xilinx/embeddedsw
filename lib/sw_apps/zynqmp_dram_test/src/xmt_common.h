@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -27,6 +27,9 @@
  * 1.3   mn   09/08/21 Removed illegal write to DXnGTR0.WDQSL register field
  * 1.4   mn   11/29/21 Usability Enhancements for 2D Read/Write Eye
  * 1.5   sg   05/05/22 Fixed GCC warnings
+ * 2.0   ap   09/29/26 Added XMT_DDRC_ECCSTAT, XMT_DDRC_ECCCLR,
+ *                     XMT_DDRC_ECCERRCNT, XMT_DDRC_ECCSTAT_ERR_MASK and
+ *                     XMT_ECC_LANE defines for ECC byte lane test support
  *
  * </pre>
  *
@@ -103,6 +106,13 @@ extern "C" {
 #define XMT_DDR_ECC_CONFIG0			0xFD070070
 #define XMT_DDR_ECC_CONFIG0_ECC_MODE_MASK	0x7
 #define XMT_DDR_ECC_CONFIG0_ECC_MODE_SHIFT	0
+
+#define XMT_DDRC_ECCSTAT			0xFD070078 /**< ECC status register address */
+#define XMT_DDRC_ECCCLR				0xFD07007C /**< ECC status clear register address */
+#define XMT_DDRC_ECCERRCNT			0xFD070080 /**< ECC error count register address */
+#define XMT_DDRC_ECCSTAT_ERR_MASK		0x000F0F00 /**< ECC error status bits */
+
+#define XMT_ECC_LANE				8U /**< Physical PHY byte-lane index for ECC */
 
 #define XMT_DDRC_MRCTRL0			0xFD070010
 #define XMT_DDRC_MRCTRL0_MR_WR_SHIFT		31
@@ -411,16 +421,24 @@ typedef struct {
 	u32 BusWidth;
 	u32 EccEnabled;
 	u32 DCacheEnable;
+	u32 EccErrCnt; /**< Number of ECC errors detected during the test */
+	s32 EccEyeStart; /**< Last passing left-side ECC eye offset from center */
+	s32 EccEyeEnd; /**< Last passing right-side ECC eye offset from center */
 	u32 TapCount[8];
+	u32 EccTapCount; /**< Coarse write-delay tap count for the ECC lane */
 	s32 EyeStart[8];
 	s32 EyeEnd[8];
 	u32 VRefAuto[8];
+	u32 VRefAutoEcc; /**< Automatically selected read VRef for the ECC lane */
 	u32 VRefAutoWr;
 	XMt_ReadCenter RdCenter[8];
+	XMt_ReadCenter EccRdCenter; /**< Saved read timing center for the ECC lane */
 	u32 ReadCenterFetched;
 	XMt_WriteCenter WrCenter[8];
+	XMt_WriteCenter EccWrCenter; /**< Saved write timing center for the ECC lane */
 	u32 WriteCenterFetched;
 	XMt_WriteDs WrDs[8];
+	XMt_WriteDs EccWrDs; /**< Saved write-delay settings for the ECC lane */
 	double TapPs;
 	double DdrFreq;
 	u32 DdrType;
