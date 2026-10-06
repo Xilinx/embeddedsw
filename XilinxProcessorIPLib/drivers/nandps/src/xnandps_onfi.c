@@ -30,6 +30,7 @@
 * 2.7   sg     03/18/21    Added validation check for parameter page.
 * 2.12  vn     07/30/26    Fix Doxygen warnings
 * 2.12  vn     09/29/26    Align Doxygen comments with AMD standards
+* 2.12  tb     10/05/26    Fail init when the total block count is too large.
 * </pre>
 *
 ******************************************************************************/
@@ -494,7 +495,10 @@ int Onfi_NandInit(XNandPs *InstancePtr)
 				    Nand_Geometry.SpareBytesPerPage > XNANDPS_MAX_SPARE_SIZE ||
 				    Nand_Geometry.PagesPerBlock > XNANDPS_MAX_PAGES_PER_BLOCK ||
 				    Nand_Geometry.BlocksPerLun > XNANDPS_MAX_BLOCKS ||
-				    Nand_Geometry.NumLuns > XNANDPS_MAX_LUNS) {
+				    Nand_Geometry.NumLuns > XNANDPS_MAX_LUNS ||
+				    (Nand_Geometry.NumLuns *
+				     Nand_Geometry.BlocksPerLun) >
+				    XNANDPS_MAX_BLOCKS) {
 					return XST_FAILURE;
 				}
 
