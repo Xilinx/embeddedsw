@@ -29,6 +29,7 @@
 * 1.13  sb   10/28/25 Added cache invalidate when EL1_NONSECURE is not defined.
 * 1.15  zm   08/07/26 Added XOspiPsv_CheckStigWriteMsg() for the STIG write path.
 * 1.15  tb   09/30/26 Align Doxygen comments with AMD documentation standards
+* 1.15  zm   09/01/26 Check DAC transfer offset and length against 512MB window.
 *
 * </pre>
 *
@@ -278,7 +279,7 @@ ERROR_PATH:
 *
 * @return
 * 		- XST_SUCCESS if successful.
-*		- XST_FAILURE for invalid address.
+*		- XST_FAILURE for invalid address or length.
 *
 ******************************************************************************/
 u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
@@ -286,7 +287,8 @@ u32 XOspiPsv_Dac_Read(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)
 	u32 Status;
 	const UINTPTR Addr= (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr);
 
-	if (Addr >= (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
+	if ((Msg->Addr >= SIZE_512MB) ||
+			(InstancePtr->RxBytes > (SIZE_512MB - Msg->Addr))) {
 		Status = XST_FAILURE;
 		goto ERROR_PATH;
 	}
@@ -308,7 +310,7 @@ ERROR_PATH:
 *
 * @return
 * 		- XST_SUCCESS if successful.
-*		- XST_FAILURE for invalid address.
+*		- XST_FAILURE for invalid address or length.
 *
 ******************************************************************************/
 u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
@@ -316,7 +318,8 @@ u32 XOspiPsv_Dac_Write(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)
 	u32 Status;
 	UINTPTR Addr = (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + Msg->Addr);
 
-	if (Addr >= (UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE + SIZE_512MB)) {
+	if ((Msg->Addr >= SIZE_512MB) ||
+			(InstancePtr->TxBytes > (SIZE_512MB - Msg->Addr))) {
 		Status = XST_FAILURE;
 		goto ERROR_PATH;
 	}
