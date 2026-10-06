@@ -45,6 +45,9 @@ properties:
   xlnx,include-clk-wiz:
     description: 1 if Subssytem supports clocking wizard support, 0 if not support
 
+  xlnx,enable-dsc:
+    description: 1 if Subsystem compresses the stream with Display Stream Compression, 0 if not
+
   hdcp-timer-present:
     description: Sub-core instance presence
 
@@ -122,6 +125,7 @@ required:
     - xlnx,mode
     - xlnx,num-streams
     - xlnx,include-clk-wiz
+    - xlnx,enable-dsc
     - hdcptimer-present
     - hdcptimer-connected:
         subnode_phandle:
@@ -153,6 +157,7 @@ required:
           - xlnx,number-of-mst-streams
           - xlnx,protocol-selection
           - xlnx,flow-direction
+          - xlnx,enable-dsc
     - hdcp14-present
     - hdcp14-connected:
         subnode_phandle:

@@ -142,6 +142,17 @@ extern "C" {
 #endif
 /************************** Constant Definitions *****************************/
 
+/*
+ * The value selects the build, because the macro is also generated as zero
+ * whenever the device tree carries xlnx,enable-dsc with that value. The core
+ * feature macro is required as well, since the subsystem compression sources
+ * use the core picture parameter set type and call the core entry points, and
+ * those exist only when the core itself builds its compression support.
+ */
+#if XPAR_DPTXSS_0_ENABLE_DSC && defined(XDP_USE_DSC)
+#define XDPTXSS_USE_DSC
+#endif
+
 
 /**************************** Type Definitions *******************************/
 
@@ -343,6 +354,8 @@ typedef struct {
 	u8 NumMstStreams;	/**< The total number of MST streams supported
 				  *  by this core instance. */
 	u8 IncludeClkWiz;	/**< Clocking wizard support for link_clk */
+	u8 DscEn;		/**< This Subsystem core compresses the stream
+				  *  with Display Stream Compression. */
 	XDpTxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter
 							  *  Configuration */
 	XDpTxSs_ClkWizSubCore ClkWizSubCore; /**< Clocking Wizard Configuration*/
