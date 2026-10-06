@@ -37,6 +37,7 @@
  *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  *        zm   06/30/26 Extend the XPS_SYS_CTRL_BASEADDR macro for ARMR5, __aarch64__(non-versal) platforms.
  * 1.24   tb   09/30/26 Align Doxygen comments with AMD standards
+ * 1.24   zm   09/29/26 Add MAX_DELAY_CNT macro definition and XQspiPsu_StartDmaMsgTransfer prototype.
  *
  * </pre>
  *
@@ -82,8 +83,12 @@ extern "C" {
 #define XPS_SYS_CTRL_BASEADDR   0xFF180000U
 #endif
 #endif
+
+#define MAX_DELAY_CNT	1000000000U	/**< Maximum delay count. */
+
 /************************** Function Prototypes ******************************/
 void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
+s32 XQspiPsu_StartDmaMsgTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
 u32 XQspiPsu_SetIOMode(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg);
 void XQspiPsu_IORead(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		     u32 StatusReg);

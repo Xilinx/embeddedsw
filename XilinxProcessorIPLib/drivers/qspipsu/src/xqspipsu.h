@@ -136,6 +136,8 @@
  * 1.23 vlt 03/14/26 Updated BaseAddress type from u32 to UINTPTR
  *                   to support 64-bit addressing.
  * 1.24 tb  09/30/26 Align Doxygen comments with AMD standards
+ * 1.24 zm  09/30/26 Add XQspiPsu_ValidateMsgParams and XQspiPsu_CheckDmaByteCount
+ *                   functions.
  *
  * </pre>
  *
@@ -538,6 +540,70 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(const XQspiPsu *InstancePtr)
 #endif
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 			  XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief Checks the message ByteCount against the DMA upper limit - 2^28 bytes.
+ *
+ * @param[in]   Msg Pointer to the structure containing transfer data.
+ * @param[in]   NumMsg Number of messages to be transferred.
+ *
+ * @return
+ *		  - XST_SUCCESS if successful.
+ *		  - XST_FAILURE if the DMA limit is exceeded.
+ *
+ ******************************************************************************/
+static inline s32 XQspiPsu_CheckDmaByteCount(const XQspiPsu_Msg *Msg, u32 NumMsg)
+{
+	s32 Index;
+	s32 Status = (s32)XST_SUCCESS;
+
+	/* Check for ByteCount upper limit - 2^28 for DMA */
+	for (Index = 0; Index < (s32)NumMsg; Index++) {
+		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
+		    ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
+			Status = (s32)XST_FAILURE;
+			break;
+		}
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief Validates the message parameters common to the transfer entry points.
+ *
+ * @param[in]   InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in]   Msg Pointer to the structure containing transfer data.
+ * @param[in]   NumMsg Number of messages to be transferred.
+ *
+ * @return
+ *		  - TRUE if all parameters are valid. Also returned when asserts
+ *		    are compiled out (NDEBUG defined).
+ *		  - 0 if an assert fails. That return is done by the
+ *		    Xil_AssertNonvoid() macro itself, not by a return statement
+ *		    in this function.
+ *
+ ******************************************************************************/
+static inline u32 XQspiPsu_ValidateMsgParams(const XQspiPsu *InstancePtr,
+		const XQspiPsu_Msg *Msg, u32 NumMsg)
+{
+	s32 Index;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Msg != NULL);
+	Xil_AssertNonvoid(NumMsg > 0U);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	for (Index = 0; Index < (s32)NumMsg; Index++) {
+		Xil_AssertNonvoid(Msg[Index].ByteCount > 0U);
+	}
+
+	return (u32)TRUE;
 }
 
 /*****************************************************************************/

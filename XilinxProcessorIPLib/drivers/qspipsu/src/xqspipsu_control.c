@@ -34,6 +34,7 @@
  *                      when RxBytes is zero.
  * 1.24   vn   08/26/26 Fix Doxygen warnings.
  * 1.24   tb   09/30/26 Align Doxygen comments with AMD standards
+ * 1.24   zm   09/29/26 Added XQspiPsu_StartDmaMsgTransfer function.
  * </pre>
  *
  ******************************************************************************/
@@ -280,6 +281,57 @@ END:
 	return Status;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ *
+ * @brief Queues one message in GENFIFO for a DMA transfer.
+ *
+ * Except for DMA-mode RX, waits for GENFIFO and TX FIFO to drain.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ *
+ * @return
+ *		  - XST_SUCCESS if successful.
+ *		  - XST_FAILURE if the transfer times out.
+ *
+ ******************************************************************************/
+s32 XQspiPsu_StartDmaMsgTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
+{
+	InstancePtr->Msg = Msg;
+	XQspiPsu_GenFifoEntryData(InstancePtr, Msg);
+	if (InstancePtr->IsManualstart == (u32)TRUE) {
+#ifdef DEBUG
+		xil_printf("\nManual Start\r\n");
+#endif
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+				  XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+						   XQSPIPSU_CFG_OFFSET) |
+				  XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+	}
+	do {
+		if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
+		    ((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
+			break;
+		}
+		if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XQSPIPSU_ISR_OFFSET),
+				     (XQSPIPSU_ISR_GENFIFOEMPTY_MASK | XQSPIPSU_ISR_TXEMPTY_MASK),
+				     (XQSPIPSU_ISR_GENFIFOEMPTY_MASK | XQSPIPSU_ISR_TXEMPTY_MASK),
+				     MAX_DELAY_CNT) != (u32)XST_SUCCESS) {
+			return (s32)XST_FAILURE;
+		}
+
+	} while (InstancePtr->TxBytes != 0);
+	if (InstancePtr->ReadMode == XQSPIPSU_READMODE_IO) {
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				  XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
+						  InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) |
+						XQSPIPSU_CFG_MODE_EN_DMA_MASK));
+		InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
+	}
+	return (s32)XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**

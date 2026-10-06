@@ -40,7 +40,6 @@
 #include "xil_smc.h"
 #endif
 /************************** Constant Definitions *****************************/
-#define MAX_DELAY_CNT	1000000000U	/**< Maximum delay count. */
 
 /**************************** Type Definitions *******************************/
 

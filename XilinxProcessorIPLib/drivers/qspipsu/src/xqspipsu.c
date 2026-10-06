@@ -88,6 +88,8 @@
  *      zm  06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  * 1.24 vn  08/26/26 Fix Doxygen warnings.
  * 1.24 tb  09/30/26 Align Doxygen comments with AMD standards
+ * 1.24 zm  09/24/26 Refactor XQspiPsu_PolledTransfer, XQspiPsu_StartDmaTransfer
+ *                   and XQspiPsu_InterruptTransfer to reduce Cyclomatic complexity.
  *
  * </pre>
  *
@@ -104,7 +106,6 @@
 #include "sleep.h"
 
 /************************** Constant Definitions *****************************/
-#define MAX_DELAY_CNT	1000000000U	/**< Maximum delay count. */
 
 /**************************** Type Definitions *******************************/
 
@@ -426,16 +427,11 @@ void XQspiPsu_PollDataHandler(XQspiPsu *InstancePtr, u32 StatusReg)
 s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			    u32 NumMsg)
 {
-	s32 Index;
 	s32 Status;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Msg != NULL);
-	Xil_AssertNonvoid(NumMsg > 0U);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-	for (Index = 0; Index < (s32)NumMsg; Index++) {
-		Xil_AssertNonvoid(Msg[Index].ByteCount > 0U);
+	if (XQspiPsu_ValidateMsgParams(InstancePtr, Msg, NumMsg) != (u32)TRUE) {
+		Status = (s32)XST_FAILURE;
+		goto END;
 	}
 	/*
 	 * Check whether there is another transfer in progress.
@@ -445,13 +441,9 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		Status = (s32)XST_DEVICE_BUSY;
 		goto END;
 	}
-	/* Check for ByteCount upper limit - 2^28 for DMA */
-	for (Index = 0; Index < (s32)NumMsg; Index++) {
-		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
-		    ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-			Status = (s32)XST_FAILURE;
-			goto END;
-		}
+	Status = XQspiPsu_CheckDmaByteCount(Msg, NumMsg);
+	if (Status != (s32)XST_SUCCESS) {
+		goto END;
 	}
 	/*
 	 * Set the busy flag, which will be cleared when the transfer is
@@ -538,13 +530,9 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		InstancePtr->IsBusy = (u32)TRUE;
 		XQspiPsu_PollDataConfig(InstancePtr, Msg);
 	} else {
-		/* Check for ByteCount upper limit - 2^28 for DMA */
-		for (Index = 0; Index < (s32)NumMsg; Index++) {
-			if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
-			    ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-				Status = (s32)XST_FAILURE;
-				goto END;
-			}
+		Status = XQspiPsu_CheckDmaByteCount(Msg, NumMsg);
+		if (Status != (s32)XST_SUCCESS) {
+			goto END;
 		}
 		/*
 		 * Set the busy flag, which will be cleared when the transfer is
@@ -725,13 +713,10 @@ s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 			      u32 NumMsg)
 {
 	s32 Index;
+	s32 Status;
 
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(Msg != NULL);
-	Xil_AssertNonvoid(NumMsg > 0U);
-	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	for (Index = 0; Index < (s32)NumMsg; Index++) {
-		Xil_AssertNonvoid(Msg[Index].ByteCount > 0U);
+	if (XQspiPsu_ValidateMsgParams(InstancePtr, Msg, NumMsg) != (u32)TRUE) {
+		return (s32)XST_FAILURE;
 	}
 
 	/*
@@ -742,12 +727,9 @@ s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		return (s32)XST_DEVICE_BUSY;
 	}
 
-	/* Check for ByteCount upper limit - 2^28 for DMA */
-	for (Index = 0; Index < (s32)NumMsg; Index++) {
-		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
-		    ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-			return (s32)XST_FAILURE;
-		}
+	Status = XQspiPsu_CheckDmaByteCount(Msg, NumMsg);
+	if (Status != (s32)XST_SUCCESS) {
+		return Status;
 	}
 
 	/*
@@ -761,37 +743,9 @@ s32 XQspiPsu_StartDmaTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	/* list */
 	Index = 0;
 	while (Index < (s32)NumMsg) {
-		InstancePtr->Msg = &Msg[Index];
-		XQspiPsu_GenFifoEntryData(InstancePtr, &Msg[Index]);
-		if (InstancePtr->IsManualstart == (u32)TRUE) {
-#ifdef DEBUG
-			xil_printf("\nManual Start\r\n");
-#endif
-			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-					  XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
-							   XQSPIPSU_CFG_OFFSET) |
-					  XQSPIPSU_CFG_START_GEN_FIFO_MASK);
-		}
-		do {
-			if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_DMA) &&
-			    ((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-				break;
-			} else {
-				if (Xil_WaitForEvent((InstancePtr->Config.BaseAddress + XQSPIPSU_ISR_OFFSET),
-						     (XQSPIPSU_ISR_GENFIFOEMPTY_MASK | XQSPIPSU_ISR_TXEMPTY_MASK),
-						     (XQSPIPSU_ISR_GENFIFOEMPTY_MASK | XQSPIPSU_ISR_TXEMPTY_MASK),
-						     MAX_DELAY_CNT) != (u32)XST_SUCCESS) {
-					return (s32)XST_FAILURE;
-				}
-			}
-
-		} while (InstancePtr->TxBytes != 0);
-		if (InstancePtr->ReadMode == XQSPIPSU_READMODE_IO) {
-			XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
-					  XQSPIPSU_CFG_OFFSET, (XQspiPsu_ReadReg(
-							  InstancePtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET) |
-								XQSPIPSU_CFG_MODE_EN_DMA_MASK));
-			InstancePtr->ReadMode = XQSPIPSU_READMODE_DMA;
+		Status = XQspiPsu_StartDmaMsgTransfer(InstancePtr, &Msg[Index]);
+		if (Status != (s32)XST_SUCCESS) {
+			return Status;
 		}
 		Index++;
 	}

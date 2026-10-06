@@ -33,6 +33,7 @@
  *        zm   06/18/26 Queued whole transfer into GENFIFO to fix bus conflict.
  * 1.24   vn   08/26/26 Fix Doxygen warnings.
  * 1.24   tb   09/30/26 Align Doxygen comments with AMD standards
+ * 1.24   zm   09/24/26 Refactor XQspiPsu_TXRXSetup to reduce Cyclomatic complexity.
  *
  * </pre>
  ******************************************************************************/
@@ -315,6 +316,98 @@ void XQspiPsu_RXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg)
 /*****************************************************************************/
 /**
  *
+ * @brief Sets up the TX-only transfer in the GENFIFO entry.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in,out] GenFifoEntry Pointer to GENFIFO entry for the transfer.
+ *
+ ******************************************************************************/
+static void XQspiPsu_TXOnlySetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+					u32 *GenFifoEntry)
+{
+	*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
+	*GenFifoEntry |= XQSPIPSU_GENFIFO_TX;
+	/* Discard RX data */
+	*GenFifoEntry &= ~XQSPIPSU_GENFIFO_RX;
+
+	/* Setup data to be TXed */
+	XQspiPsu_TXSetup(InstancePtr, Msg);
+
+	InstancePtr->RecvBufferPtr = NULL;
+	InstancePtr->RxBytes = 0;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief Sets up the RX-only transfer in the GENFIFO entry.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in,out] GenFifoEntry Pointer to GENFIFO entry for the transfer.
+ *
+ ******************************************************************************/
+static void XQspiPsu_RXOnlySetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+					u32 *GenFifoEntry)
+{
+	/* TX auto fill */
+	*GenFifoEntry &= ~XQSPIPSU_GENFIFO_TX;
+	/* Setup RX */
+	*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
+	*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
+
+	/* Setup DMA for data to be RXed */
+	XQspiPsu_RXSetup(InstancePtr, Msg);
+
+	InstancePtr->SendBufferPtr = NULL;
+	InstancePtr->TxBytes = 0;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief Sets up a dummy-only transfer in the GENFIFO entry.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] GenFifoEntry Pointer to GENFIFO entry for the transfer.
+ *
+ ******************************************************************************/
+static void XQspiPsu_DummyOnlySetup(XQspiPsu *InstancePtr, u32 *GenFifoEntry)
+{
+	*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
+	*GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
+	InstancePtr->TxBytes = 0;
+	InstancePtr->RxBytes = 0;
+	InstancePtr->SendBufferPtr = NULL;
+	InstancePtr->RecvBufferPtr = NULL;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief Sets up a combined TX and RX transfer in the GENFIFO entry.
+ *
+ * @param[in,out] InstancePtr Pointer to the XQspiPsu instance.
+ * @param[in,out] Msg Pointer to the structure containing transfer data.
+ * @param[in,out] GenFifoEntry Pointer to GENFIFO entry for the transfer.
+ *
+ ******************************************************************************/
+static void XQspiPsu_TXAndRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
+					u32 *GenFifoEntry)
+{
+	*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
+	*GenFifoEntry |= (XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
+
+	/* Setup data to be TXed */
+	XQspiPsu_TXSetup(InstancePtr, Msg);
+	/* Setup DMA for data to be RXed */
+	XQspiPsu_RXSetup(InstancePtr, Msg);
+}
+
+/*****************************************************************************/
+/**
+ *
  * @brief Checks the TX/RX buffers in the message and sets up the transfer.
  *
  * Sets up the GENFIFO entries, TX FIFO, or RX DMA as required.
@@ -335,58 +428,23 @@ void XQspiPsu_TXRXSetup(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 #ifdef DEBUG
 	xil_printf("\nXQspiPsu_TXRXSetup\r\n");
 #endif
-	/* Transmit */
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) != (u32)FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == (u32)FALSE)) {
-
-		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
-		*GenFifoEntry |= XQSPIPSU_GENFIFO_TX;
-		/* Discard RX data */
-		*GenFifoEntry &= ~XQSPIPSU_GENFIFO_RX;
-
-		/* Setup data to be TXed */
-		XQspiPsu_TXSetup(InstancePtr, Msg);
-
-		InstancePtr->RecvBufferPtr = NULL;
-		InstancePtr->RxBytes = 0;
-	}
-	/*Receive*/
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == (u32)FALSE)) {
-
-		/* TX auto fill */
-		*GenFifoEntry &= ~XQSPIPSU_GENFIFO_TX;
-		/* Setup RX */
-		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
-		*GenFifoEntry |= XQSPIPSU_GENFIFO_RX;
-
-		/* Setup DMA for data to be RXed */
-		XQspiPsu_RXSetup(InstancePtr, Msg);
-
-		InstancePtr->SendBufferPtr = NULL;
-		InstancePtr->TxBytes = 0;
-	}
-	/* If only dummy is requested as a separate entry */
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) == (u32)FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) == (u32)FALSE)) {
-
-		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
-		*GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
-		InstancePtr->TxBytes = 0;
-		InstancePtr->RxBytes = 0;
-		InstancePtr->SendBufferPtr = NULL;
-		InstancePtr->RecvBufferPtr = NULL;
-	}
-	/* Dummy and cmd sent by upper layer to received data */
-	if (((Msg->Flags & XQSPIPSU_MSG_FLAG_TX) != (u32)FALSE) &&
-			((Msg->Flags & XQSPIPSU_MSG_FLAG_RX) != (u32)FALSE)) {
-		*GenFifoEntry |= XQSPIPSU_GENFIFO_DATA_XFER;
-		*GenFifoEntry |= (XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX);
-
-		/* Setup data to be TXed */
-		XQspiPsu_TXSetup(InstancePtr, Msg);
-		/* Setup DMA for data to be RXed */
-		XQspiPsu_RXSetup(InstancePtr, Msg);
+	switch (Msg->Flags & (XQSPIPSU_MSG_FLAG_TX | XQSPIPSU_MSG_FLAG_RX)) {
+	case XQSPIPSU_MSG_FLAG_TX:
+		/* Transmit */
+		XQspiPsu_TXOnlySetup(InstancePtr, Msg, GenFifoEntry);
+		break;
+	case XQSPIPSU_MSG_FLAG_RX:
+		/*Receive*/
+		XQspiPsu_RXOnlySetup(InstancePtr, Msg, GenFifoEntry);
+		break;
+	case (XQSPIPSU_MSG_FLAG_TX | XQSPIPSU_MSG_FLAG_RX):
+		/* Dummy and cmd sent by upper layer to received data */
+		XQspiPsu_TXAndRXSetup(InstancePtr, Msg, GenFifoEntry);
+		break;
+	default:
+		/* If only dummy is requested as a separate entry */
+		XQspiPsu_DummyOnlySetup(InstancePtr, GenFifoEntry);
+		break;
 	}
 }
 /*****************************************************************************/
