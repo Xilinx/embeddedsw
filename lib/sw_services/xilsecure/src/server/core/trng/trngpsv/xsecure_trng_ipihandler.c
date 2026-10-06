@@ -16,6 +16,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 5.7   tvp  11/14/25 Initial release
+* 5.8   mb   09/24/26 Moved XSecure_TrngKat here from core xsecure_trng.c
 *
 * </pre>
 *
@@ -26,6 +27,7 @@
 */
 /****************************************** Include Files *****************************************/
 #include "xplmi_dma.h"
+#include "xplmi.h"
 #include "xsecure_defs.h"
 #include "xsecure_trng.h"
 #include "xsecure_trng_ipihandler.h"
@@ -35,6 +37,7 @@
 /*************************************** Constant Definitions *************************************/
 
 static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size);
+static int XSecure_TrngKat(void);
 
 /*************************************** Function Definitions *************************************/
 
@@ -65,6 +68,13 @@ int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd)
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
 		Status = XSecure_TrngGenerateRandNum(Pload[0], Pload[1], Pload[2]);
+		break;
+	case XSECURE_API(XSECURE_API_KAT):
+		if ((Pload[0U] & XSECURE_API_ID_MASK) == XSECURE_API(XSECURE_API_TRNG_KAT)) {
+			Status = XSecure_TrngKat();
+		} else {
+			Status = XST_INVALID_PARAM;
+		}
 		break;
 	default:
 		Status = XST_INVALID_PARAM;
@@ -107,6 +117,33 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 	Xil_MemCpyFrom32To64Addr(RandAddr, (u32)(UINTPTR)RandBuf, Size);
 
 END:
+	return Status;
+}
+
+/**************************************************************************************************/
+/**
+ * @brief	This function calls XSecure_PreOperationalSelfTests server API and updates KAT
+ *		status to XPLMI_RTCFG_PLM_KAT_ADDR address.
+ *
+ * @return
+ *		 - XST_SUCCESS If the KAT is successful.
+ *		 - XST_FAILURE If there is a failure.
+ *
+ **************************************************************************************************/
+static int XSecure_TrngKat(void)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+
+	Status = XSecure_PreOperationalSelfTests(TrngInstance);
+	/** - Update KAT status in to RTC area */
+	if (Status != XST_SUCCESS) {
+		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);
+	}
+	else {
+		XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
+	}
+
 	return Status;
 }
 /** @} */

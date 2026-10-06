@@ -27,6 +27,7 @@
 * 5.4   yog  04/29/2024 Fixed doxygen grouping
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 * 5.5   tvp  05/13/2025 Code refactoring for Platform specific TRNG functions
+* 5.8   mb   09/24/26 Moved XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler
 *
 * </pre>
 *
@@ -45,7 +46,6 @@
 #include "xil_sutil.h"
 #include "xsecure_init.h"
 #include "xplmi.h"
-#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -55,9 +55,6 @@
 #define XSECURE_DEF_KAT_MASK		(0xFFFFFFFFU) /**< KAT mask */
 
 /************************** Function Prototypes *****************************/
-#ifndef PLM_SECURE_EXCLUDE
-static int XSecure_TrngKat(void);
-#endif
 /*****************************************************************************/
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
@@ -73,57 +70,18 @@ static int XSecure_TrngKat(void);
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 {
 	volatile int Status = XST_FAILURE;
-	u32 *Pload = NULL;
 
 	if (Cmd == NULL || Cmd->Payload == NULL) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	Pload = Cmd->Payload;
+	/** - Common IPI handler for versal devices */
+	Status = XSecure_KatIpiHandler(Cmd);
 
-	switch (Pload[0U] & XSECURE_API_ID_MASK) {
-#ifndef PLM_SECURE_EXCLUDE
-	case XSECURE_API(XSECURE_API_TRNG_KAT):
-		Status = XSecure_TrngKat();
-		break;
-#endif
-	default:
-		/** - Common IPI handler for versal devices */
-		Status = XSecure_KatIpiHandler(Cmd);
-		break;
-	}
 END:
 	return Status;
 }
-
-#ifndef PLM_SECURE_EXCLUDE
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_TrngPreOperationalSelfTests Server API
- *
- * @return
- *		 - XST_SUCCESS  If the KAT is successful
- *		 - XST_FAILURE  If there is a failure
- *
- ******************************************************************************/
-static int XSecure_TrngKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-
-	Status = XSecure_PreOperationalSelfTests(TrngInstance);
-	/** - Update KAT status in to RTC area */
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-	}
-
-	return Status;
-}
-#endif
 
 /*****************************************************************************/
 /**

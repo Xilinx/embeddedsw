@@ -21,6 +21,7 @@
 *       mb   04/17/26 Update XSecure_CryptoCheck API definition
 * 5.8   tbk  06/17/26 Added support for getting crypto algorithm's version
 *       ks   09/22/26 Removed the AES KEK decrypt IPI command
+*       mb   09/24/26 Route XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler
 *
 * </pre>
 *
@@ -313,6 +314,14 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		break;
 #endif
 	case XSECURE_API(XSECURE_API_KAT):
+#ifndef PLM_SECURE_EXCLUDE
+		if ((Cmd->Payload[0U] & XSECURE_API_ID_MASK) ==
+				XSECURE_API(XSECURE_API_TRNG_KAT)) {
+			XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(XSECURE_KAT_MAJOR_ERROR,
+			Status, StatusTmp, XSecure_TrngIpiHandler, Cmd)
+			break;
+		}
+#endif
 		/**   - @ref XSecure_KatIpiHandler */
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(XSECURE_KAT_MAJOR_ERROR,
 			Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)

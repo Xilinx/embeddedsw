@@ -17,6 +17,7 @@
 * ----- ---- ---------- -------------------------------------------------------
 * 5.4   kal  07/24/2024 Initial release
 * 5.5   tvp  05/13/2025 Code refactoring for Platform specific TRNG functions
+* 5.8   mb   09/24/26 Moved XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler
 *
 * </pre>
 *
@@ -36,14 +37,10 @@
 #include "xsecure_init.h"
 #include "xplmi.h"
 #include "xsecure_resourcehandling.h"
-#include "xsecure_trng.h"
 
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes *****************************/
-#ifndef PLM_SECURE_EXCLUDE
-static int XSecure_TrngKat(void);
-#endif
 static int XSecure_Sha2Kat(void);
 
 /*****************************************************************************/
@@ -77,11 +74,6 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 	}
 
 	switch (Pload[0U] & XSECURE_API_ID_MASK) {
-#ifndef PLM_SECURE_EXCLUDE
-	case XSECURE_API(XSECURE_API_TRNG_KAT):
-		Status = XSecure_TrngKat();
-		break;
-#endif
 	case XSECURE_API(XSECURE_API_SHA2_KAT):
 		/**   - XSecure_ShaKat */
 		/** - SHA IPI event handling */
@@ -106,36 +98,6 @@ END:
 	}
 	return Status;
 }
-
-#ifndef PLM_SECURE_EXCLUDE
-/*****************************************************************************/
-/**
- * @brief	This function handler calls XSecure_TrngPreOperationalSelfTests
- * 		server API and updates KAT status to XPLMI_RTCFG_PLM_KAT_ADDR
- * 		address.
- *
- * @return
- *		 - XST_SUCCESS - If the KAT is successful
- *		 - XST_FAILURE - If there is a failure
- *
- ******************************************************************************/
-static int XSecure_TrngKat(void)
-{
-	volatile int Status = XST_FAILURE;
-	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-
-	Status = XSecure_PreOperationalSelfTests(TrngInstance);
-	/** - Update KAT status in to RTC area */
-	if (Status != XST_SUCCESS) {
-		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);
-	}
-	else {
-		XPlmi_SetKatMask(XPLMI_SECURE_TRNG_KAT_MASK);
-	}
-
-	return Status;
-}
-#endif
 
 /*****************************************************************************/
 /**
