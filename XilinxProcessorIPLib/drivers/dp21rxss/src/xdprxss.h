@@ -127,6 +127,17 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/*
+ * The value selects the build, because the macro is also generated as zero
+ * whenever the device tree carries xlnx,enable-dsc with that value. The core
+ * feature macro is required as well, since the subsystem compression sources
+ * use the core picture parameter set type and call the core entry points, and
+ * those exist only when the core itself builds its compression support.
+ */
+#if XPAR_DPRXSS_0_ENABLE_DSC && defined(XDP_USE_DSC)
+#define XDPRXSS_USE_DSC
+#endif
+
 /* XDPRXSS wrapper macros for XDP_RX register offsets - only used ones */
 /** DPCD link bandwidth set register */
 #define XDPRXSS_DPCD_LINK_BW_SET	XDP_RX_DPCD_LINK_BW_SET
@@ -490,6 +501,8 @@ typedef struct {
 				  *  core instance. */
 	u8 IncludeAxiIic;  	/**< AXI IIC support flag */
 	u8 IncludeClkWiz;	/**< Clocking wizard support for dec_clk */
+	u8 DscEn;		/**< This Subsystem core decompresses a Display
+				  *  Stream Compression encoded stream. */
 
 	XDpRxSs_IicSubCore IicSubCore;	/**< IIC Configuration */
 	XDpRxSs_TmrCtrSubCore TmrCtrSubCore;	/**< Timer Counter

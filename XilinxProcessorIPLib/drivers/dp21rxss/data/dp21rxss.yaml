@@ -51,6 +51,9 @@ properties:
   xlnx,include-clk-wiz:
     description: 1 if Subsystem supports clocking wizard support, 0 if not support
 
+  xlnx,enable-dsc:
+    description: 1 if Subsystem decompresses a Display Stream Compression encoded stream, 0 if not
+
   iic-present:
     description: Sub-core instance presence
 
@@ -107,6 +110,7 @@ required:
     - xlnx,color-format
     - xlnx,include-axi-iic
     - xlnx,include-clk-wiz
+    - xlnx,enable-dsc
     - iic-present
     - iic-connected:
         subnode_phandle:
@@ -147,6 +151,7 @@ required:
           - xlnx,number-of-mst-streams
           - xlnx,protocol-selection
           - xlnx,flow-direction
+          - xlnx,enable-dsc
     - hdcp14-present
     - hdcp14-connected:
         subnode_phandle:
