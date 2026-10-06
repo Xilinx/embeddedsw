@@ -295,6 +295,8 @@
 * 4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
 * 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
+* 4.17  zm   09/18/26 Added receive buffer space check in the RX read loops
+*                     of XSpi_Transfer and XSpi_InterruptHandler.
 * </pre>
 *
 ******************************************************************************/
@@ -445,6 +447,7 @@ typedef struct {
 	u8 *RecvBufferPtr;	/**< Buffer to receive */
 	unsigned int RequestedBytes; /**< Total bytes to transfer (state) */
 	unsigned int RemainingBytes; /**< Bytes left to transfer (state) */
+	unsigned int RemainingRecvBytes; /**< Receive space left (state) */
 	int IsBusy;		/**< A transfer is in progress (state) */
 
 	XSpi_StatusHandler StatusHandler; /**< Status Handler */

@@ -89,6 +89,8 @@
 *                     XSpi_Transfer.
 * 4.17  vn   08/26/26 Fix Doxygen warnings.
 * 4.17  tb   09/30/26 Align Doxygen comments with AMD documentation standards
+* 4.17  zm   09/18/26 Added receive buffer space check in the RX read loops
+*                     of XSpi_Transfer and XSpi_InterruptHandler.
 * </pre>
 *
 ******************************************************************************/
@@ -191,6 +193,7 @@ int XSpi_CfgInitialize(XSpi *InstancePtr, XSpi_Config *Config,
 	InstancePtr->RecvBufferPtr = NULL;
 	InstancePtr->RequestedBytes = 0;
 	InstancePtr->RemainingBytes = 0;
+	InstancePtr->RemainingRecvBytes = 0;
 	InstancePtr->BaseAddr = EffectiveAddr;
 	InstancePtr->HasFifos = Config->HasFifos;
 	InstancePtr->FifosDepth = Config->FifosDepth;
@@ -648,6 +651,7 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 	InstancePtr->RequestedBytes = ByteCount;
 	InstancePtr->RemainingBytes = ByteCount;
+	InstancePtr->RemainingRecvBytes = ByteCount;
 
 	DataWidth = InstancePtr->DataWidth;
 
@@ -767,6 +771,21 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 
 				Data = XSpi_ReadReg(InstancePtr->BaseAddr,
 								XSP_DRR_OFFSET);
+
+				/*
+				 * When configured as a slave, the master may
+				 * send more bytes than were requested. So
+				 * when RemainingRecvBytes is zero, discard
+				 * the data already read from DRR instead of
+				 * storing it. Reading it out first keeps the
+				 * FIFO empty for the next transfer.
+				 */
+				if (InstancePtr->RemainingRecvBytes == 0U) {
+					StatusReg =
+						XSpi_GetStatusReg(InstancePtr);
+					continue;
+				}
+
 				if (DataWidth == XSP_DATAWIDTH_BYTE) {
 					/*
 					 * Data Transfer Width is Byte (8 bit).
@@ -796,6 +815,8 @@ int XSpi_Transfer(XSpi *InstancePtr, u8 *SendBufPtr,
 						InstancePtr->RecvBufferPtr += 4;
 					}
 				}
+				InstancePtr->RemainingRecvBytes -=
+						(DataWidth >> 3);
 				InstancePtr->Stats.BytesTransferred +=
 						(DataWidth >> 3);
 				ByteCount -= (DataWidth >> 3);
@@ -1200,6 +1221,19 @@ void XSpi_InterruptHandler(void *InstancePtr)
 			Data = XSpi_ReadReg(SpiPtr->BaseAddr, XSP_DRR_OFFSET);
 
 			/*
+			 * When configured as a slave, the master may send
+			 * more bytes than were requested. So when
+			 * RemainingRecvBytes is zero, discard the data
+			 * already read from DRR instead of storing it.
+			 * Reading it out first keeps the FIFO empty for
+			 * the next transfer.
+			 */
+			if (SpiPtr->RemainingRecvBytes == 0U) {
+				StatusReg = XSpi_GetStatusReg(SpiPtr);
+				continue;
+			}
+
+			/*
 			 * Data Transfer Width is Byte (8 bit).
 			 */
 			if (DataWidth == XSP_DATAWIDTH_BYTE) {
@@ -1220,6 +1254,7 @@ void XSpi_InterruptHandler(void *InstancePtr)
 				}
 			}
 
+			SpiPtr->RemainingRecvBytes -= (DataWidth >> 3);
 			SpiPtr->Stats.BytesTransferred += (DataWidth >> 3);
 			StatusReg = XSpi_GetStatusReg(SpiPtr);
 		}
@@ -1433,6 +1468,7 @@ void XSpi_Abort(XSpi *InstancePtr)
 
 	InstancePtr->RemainingBytes = 0;
 	InstancePtr->RequestedBytes = 0;
+	InstancePtr->RemainingRecvBytes = 0;
 	InstancePtr->IsBusy = FALSE;
 }
 
