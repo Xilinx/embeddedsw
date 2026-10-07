@@ -70,12 +70,30 @@ static XStatus SetPowerNode(u32 Id, XPm_Power *PwrNode)
 {
 	XStatus Status = XST_INVALID_PARAM;
 	u32 NodeIndex = NODEINDEX(Id);
+	u32 ValidType = 1U;
 
-	/*
-	 * We assume that the Node ID class, subclass and type has _already_
-	 * been validated before, so only check bounds here against index
-	 */
-	if ((NULL != PwrNode) && ((u32)XPM_NODEIDX_POWER_MAX > NodeIndex)) {
+	/* A domain subclass must have a domain allocation type. */
+	if ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(Id)) {
+		switch (NODETYPE(Id)) {
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_PMC:
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_FULL:
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_PS_LOW:
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_NOC:
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_CPM:
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_ME:
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_PL:
+		case (u32)XPM_NODETYPE_POWER_DOMAIN_HNICX:
+			break;
+		default:
+			ValidType = 0U;
+			break;
+		}
+	}
+
+
+	/* Publish only a valid node with an in-range index. */
+	if ((NULL != PwrNode) && ((u32)XPM_NODEIDX_POWER_MAX > NodeIndex) &&
+	    (1U == ValidType)) {
 		PmPowers[NodeIndex] = PwrNode;
 		PmNumPowers++;
 		Status = XST_SUCCESS;
@@ -453,7 +471,7 @@ done:
 
 XStatus XPmPower_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	XPm_Power *Power;
 	XPm_Power *PowerParent;
 	u32 i;
@@ -462,6 +480,11 @@ XStatus XPmPower_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 
 	if (NULL == Power) {
 		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
+
+	if ((0U != NumParents) && (NULL == Parents)) {
+		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -478,7 +501,8 @@ XStatus XPmPower_AddParent(u32 Id, const u32 *Parents, u32 NumParents)
 	}
 
 	if ((u32)XPM_NODESUBCL_POWER_DOMAIN == NODESUBCLASS(Id)) {
-		(void)XPmPowerDomain_AddParent(Id, Parents, NumParents);
+		Status = XPmPowerDomain_AddParent(Id, Parents, NumParents);
+		goto done;
 	}
 
 	Status = XST_SUCCESS;

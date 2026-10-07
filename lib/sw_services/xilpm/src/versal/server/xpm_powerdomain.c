@@ -97,10 +97,16 @@ done:
 
 XStatus XPmPowerDomain_AddParent(u32 Id, const u32 *ParentNodes, u32 NumParents)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	XPm_PowerDomain *PowerD;
 	XPm_PowerDomain *ParentPowerD;
+	XPm_Power *Parent;
 	u32 i, j;
+
+	if ((u32)XPM_NODESUBCL_POWER_DOMAIN != NODESUBCLASS(Id)) {
+		Status = XPM_PM_INVALID_NODE;
+		goto done;
+	}
 
 	PowerD = (XPm_PowerDomain *)XPmPower_GetById(Id);
 
@@ -109,21 +115,27 @@ XStatus XPmPowerDomain_AddParent(u32 Id, const u32 *ParentNodes, u32 NumParents)
 		goto done;
 	}
 
-	if ((MAX_POWERDOMAINS - 1U) < NumParents) {
+	if (((MAX_POWERDOMAINS - 1U) < NumParents) ||
+	    ((0U != NumParents) && (NULL == ParentNodes))) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	for (i = 0; i < NumParents; i++) {
-		PowerD->Parents[i + 1U] = ParentNodes[i];
-
-		/* Add Id as child of each parent node */
-		ParentPowerD = (XPm_PowerDomain *)XPmPower_GetById(ParentNodes[i]);
-		if (NULL == ParentPowerD) {
+		Parent = XPmPower_GetById(ParentNodes[i]);
+		if (NULL == Parent) {
 			Status = XPM_PM_INVALID_NODE;
 			goto done;
 		}
 
+		PowerD->Parents[i + 1U] = ParentNodes[i];
+		if ((u32)XPM_NODESUBCL_POWER_DOMAIN !=
+		    NODESUBCLASS(Parent->Node.Id)) {
+			continue;
+		}
+
+		/* Only power domains have a list of dependent children. */
+		ParentPowerD = (XPm_PowerDomain *)Parent;
 		for (j = 0U; j < MAX_POWERDOMAINS; j++) {
 			if (ParentPowerD->Children[j] != 0U) {
 				continue;
