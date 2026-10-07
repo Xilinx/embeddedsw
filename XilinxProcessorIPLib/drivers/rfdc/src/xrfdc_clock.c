@@ -85,6 +85,8 @@
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
 * 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
+*       akm    10/04/26 Validate distribution tile indices in
+*                       XRFdc_SetClkDistribution.
 * </pre>
 *
 ******************************************************************************/
@@ -539,6 +541,7 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 	u8 FeedBackForInputLeft = 0;
 	u32 Tile;
 	u32 Type;
+	u32 Index;
 	XRFdc_Tile_Clock_Settings Settings;
 	u8 DACEdgeTile;
 	u8 TileLayout;
@@ -554,6 +557,43 @@ u32 XRFdc_SetClkDistribution(XRFdc *InstancePtr, XRFdc_Distribution_Settings *Di
 		metal_log(METAL_LOG_ERROR, "\n Requested functionality not available for this IP in %s\r\n", __func__);
 		goto RETURN_PATH;
 	}
+
+	/*
+	 * The source and edge type/tile pairs index SampleRates[2][4] and
+	 * Info.ClkSettings[2][4] directly. XRFdc_TypeTile2DistTile() folds any
+	 * type that is not XRFDC_ADC_TILE onto the DAC path, so an out of range
+	 * type still yields a valid package tile and passes the later checks.
+	 * Range check the raw values here, before they are used.
+	 */
+	if ((DistributionSettingsPtr->SourceType != XRFDC_ADC_TILE) &&
+	    (DistributionSettingsPtr->SourceType != XRFDC_DAC_TILE)) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid source type (%u) in %s\r\n",
+			  DistributionSettingsPtr->SourceType, __func__);
+		goto RETURN_PATH;
+	}
+	if (DistributionSettingsPtr->SourceTileId > XRFDC_TILE_ID_MAX) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Invalid source tile id (%u) in %s\r\n",
+			  DistributionSettingsPtr->SourceTileId, __func__);
+		goto RETURN_PATH;
+	}
+	for (Index = 0U; Index < 2U; Index++) {
+		if ((DistributionSettingsPtr->EdgeTypes[Index] != XRFDC_ADC_TILE) &&
+		    (DistributionSettingsPtr->EdgeTypes[Index] != XRFDC_DAC_TILE)) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n Invalid edge type (%u) in %s\r\n",
+				  DistributionSettingsPtr->EdgeTypes[Index], __func__);
+			goto RETURN_PATH;
+		}
+		if (DistributionSettingsPtr->EdgeTileIds[Index] > XRFDC_TILE_ID_MAX) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n Invalid edge tile id (%u) in %s\r\n",
+				  DistributionSettingsPtr->EdgeTileIds[Index], __func__);
+			goto RETURN_PATH;
+		}
+	}
+
 	memset(&DistributionSettingsPtr->Info, 0, sizeof(DistributionSettingsPtr->Info));
 
 	DistributionSettingsPtr->Info.Source = XRFdc_TypeTile2DistTile(InstancePtr, DistributionSettingsPtr->SourceType,
