@@ -11,32 +11,76 @@
 * This example demonstrates LMS and HSS signature verification using the
 * hardened SHAKE block in the PMCL on Spartan UltraScale+.
 *
-* Procedure to link and compile the example for DDR-less designs:
+* Procedure to link this example for DDR-less designs:
 * ----------------------------------------------------------------------------
-* The LMS/HSS test vectors must reside in a memory region accessible to
-* both PL and PMC (PMCRAM) for DMA transfers.
+* PMC DMA reads the SHA source buffers below. Those buffers must reside in a
+* memory region that both the PL and the PMC can access (PMCRAM). PMC DMA
+* cannot complete a read from local BRAM, and the example then hangs in the
+* DMA done wait.
 *
-* 1. Add a shared memory region in the linker script memory declaration.
-*    The region must be at least 0x3000 bytes to accommodate the LMS/HSS
-*    test vectors (~12 KB):
+* SHARED_MEM is design dependent. Keep every byte of shared_mem inside the
+* PMCRAM range assigned to the application. Stop before reserved PMCRAM such
+* as the hooks table, hash block, and boot header.
 *
-*       shared_mem : ORIGIN = SHARED_MEM, LENGTH = 0x3000
+* PMC DMA reads these objects:
+*   SecureSha               section .data.SecureSha               300 bytes
+*     PartialData inside SecureSha is the DMA buffer.
+*   LmsShake256Data         section .data.LmsShake256Data          56 bytes
+*   HssShake256Data         section .data.HssShake256Data          56 bytes
+*   DigestPrefixFields      xsecure_lms_core.c, .bss               54 bytes
+*   LmsOtsSignVerifBuff     xsecure_lms_core.c, .bss             4278 bytes
+*   TmpHashPerDigitBuff     xsecure_lms_core.c, .bss               56 bytes
+*   LmsPubKeyTmpBuff        xsecure_lms_core.c, .bss               86 bytes
 *
-2. Data elements that are passed by reference to the PMC side should be stored in the above shared memory section.
-*  Change the .data section region to point to the new shared_mem region created in step 1. as below
+* The target(MB/MB-V) reads these objects. PMC DMA does not, so local memory is valid:
+*   LmsShake256Signature    section .data.LmsShake256Signature   4460 bytes
+*   HssShake256Signature    section .data.HssShake256Signature   4464 bytes
+*   LmsShake256PubKey (56 bytes) and HssShake256PubKey (60 bytes)
+*   AuthenticatedKey, DigestChecksum, TmpBuff, ExpectedPublicKey
+*   CurrentLmsQ and SignatureLengthConsumed, in .sbss
+*   XSECURE_D_MESG, XSECURE_D_PBLC, XSECURE_D_LEAF, XSECURE_D_INTR, in .rodata
 *
-*			.data : {
-*			. = ALIGN(4);
-*			__data_start = .;
-*			*(.data)
-*			*(.data.*)
-*			*(.gnu.linkonce.d.*)
-*			__data_end = .;
-*			} > shared_mem
+* The two signatures are about 9 KB. Leaving them in shared_mem pushes the
+* library .bss out of a small PMCRAM window. Place those two sections in
+* local memory, and place both .data and .bss in shared_mem. With the
+* signatures in local memory, shared_mem must be at least 0x2000 bytes:
+* the remaining .data is about 1.5 KB and .bss is about 5 KB.
 *
-* Note: The shared_mem section address is design and platform dependent.
-*       Users must map shared_mem to a memory region that is accessible
-*       to both the PMC and the PL, based on the target device and Vivado design.
+* 1. Declare the region. ORIGIN is the PMCRAM base from the Vivado design.
+*
+*       shared_mem : ORIGIN = SHARED_MEM, LENGTH = 0x2000
+*
+* 2. Keep the signature sections in local memory. This output section must
+*    appear before the .data section, or *(.data.*) collects the signatures.
+*
+*       .lms_cpu_data : {
+*          *(.data.LmsShake256Signature)
+*          *(.data.HssShake256Signature)
+*       } > local_bram_memory
+*
+* 3. Place .data and .bss in shared_mem:
+*
+*       .data : {
+*          . = ALIGN(64);
+*          __data_start = .;
+*          *(.data)
+*          *(.data.*)
+*          *(.gnu.linkonce.d.*)
+*          __data_end = .;
+*       } > shared_mem
+*
+*       .bss (NOLOAD) : {
+*          . = ALIGN(16);
+*          __bss_start = .;
+*          *(.bss)
+*          *(.bss.*)
+*          *(.gnu.linkonce.b.*)
+*          *(COMMON)
+*          __bss_end = .;
+*       } > shared_mem
+*
+*       ASSERT(__bss_end <= ORIGIN(shared_mem) + LENGTH(shared_mem),
+*              "LMS/HSS shared memory overflow")
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -45,6 +89,7 @@
 * 1.0   har    03/15/26 First Release
 *       mb     03/25/26 Remove hard code shared_mem section address
 * 5.8   rap    07/03/26 Renamed filename from spartanup to spartan_ultrascale_plus
+*       mb     10/06/26 Document PMC DMA buffers and the DDR-less linker script
 *
 * </pre>
 ******************************************************************************/
