@@ -57,9 +57,6 @@
 #define XRSA_BASEADDRESS			(0xEBF50000U) /**< RSA base address */
 #define XRSA_RESET_OFFSET			(0x00000040U) /**< RSA reset offset */
 
-#define XECDH_SHARED_SEC_OBJ_ID_SIZE		(0X4U)
-						/**< Size of shared secret object ID in bytes */
-
 /* Return value in case of success from third-party library */
 #define XRSA_ECC_SUCCESS			ELLIPTIC_SUCCESS /**< Success from third-party library */
 /* Validate Public Key error codes from third-party library */
@@ -1362,7 +1359,6 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  * @param	PrivKeyAddr - 64-bit address of the private key
  * @param	PubKeyAddr - 64-bit address of public key
  * @param	SharedSecretAddr - 64-bit address of buffer for storing shared secret
- * @param	SharedSecretObjIdAddr - 64-bit address of buffer for storing shared secret ID
  *
  * @return
  *	-	XASUFW_SUCCESS, if ECDH shared secret is generated successfully.
@@ -1372,7 +1368,6 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  *	-	XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
  *	-	XASUFW_ECDH_OTHER_ERROR, if operation fails due to any other error from
  *		third-party code.
- *	-	XASUFW_FAILURE, if operation fails due to any other reasons.
  *	-	XASUFW_RSA_ECC_INCORRECT_CURVE, if input curvetype or curvelen is incorrect.
  *	-	XASUFW_ECDH_RAND_GEN_ERROR, if random number generation fails in the
  *		third-party shared secret computation.
@@ -1382,7 +1377,7 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
  *
  *************************************************************************************************/
 s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
-		u64 PubKeyAddr, u64 SharedSecretAddr, u64 SharedSecretObjIdAddr)
+		u64 PubKeyAddr, u64 SharedSecretAddr)
 {
 	/**
 	 * Capture the start time of the ECDH shared secret generation operation, if performance
@@ -1398,7 +1393,6 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	u8 PubKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES
 			+ XASUFW_VALUE_TWO + XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]
 		__attribute__((aligned(4))) = {0U};
-	u8 SharedSecretObjId[XECDH_SHARED_SEC_OBJ_ID_SIZE];
 	EcdsaCrvInfo *Crv = NULL;
 	EcdsaKey Key;
 	u32 CurveSize = 0U;
@@ -1409,7 +1403,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		goto END;
 	}
 
-	if ((SharedSecretAddr == 0U) && (SharedSecretObjIdAddr == 0U)) {
+	if (SharedSecretAddr == 0U) {
 		Status = XASUFW_RSA_ECC_INVALID_PARAM;
 		goto END;
 	}
@@ -1526,18 +1520,18 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 		Status = XASUFW_ECDH_OTHER_ERROR;
 		goto END_CLR;
 	}
-	/** Copy the shared secret out if provided; Weierstrass reversal rides the copy-out DMA. */
+	/**
+	 * Copy the shared secret to the destination address using DMA. For Weierstrass curves the
+	 * byte-order reversal rides the copy-out DMA; Montgomery curves take a plain copy.
+	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	if (SharedSecretAddr == 0U) {
-		/* TODO: Store shared secret in keyvault and update SharedSecretObjId */
-		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)SharedSecretObjId,
-					SharedSecretObjIdAddr, XECDH_SHARED_SEC_OBJ_ID_SIZE, 0U);
-	} else if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
+	if ((Crv->CrvType != ECDSA_CURVE25519) && (Crv->CrvType != ECDSA_CURVE448)) {
 		Status = XAsufw_DmaXfrOutReverse(DmaPtr, SharedSecret, SharedSecretAddr, CurveLen);
 	} else {
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)SharedSecret, SharedSecretAddr,
 					CurveLen, 0U);
 	}
+
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_RSA_ECC_READ_DATA_FAIL;
 	} else {
@@ -1545,10 +1539,7 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 	}
 
 	/** Scrub the DMA secret datapath after the shared secret has been copied out. */
-	if (SharedSecretAddr != 0U) {
-		Status = XAsufw_UpdateBufStatus(Status,
-				XAsufw_DmaScrubSecretPath(DmaPtr));
-	}
+	Status = XAsufw_UpdateBufStatus(Status, XAsufw_DmaScrubSecretPath(DmaPtr));
 
 	/**
 	 * Measure and print the performance time for the ECDH shared secret generation operation,
@@ -1558,15 +1549,12 @@ s32 XRsa_EcdhGenSharedSecret(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u6
 
 END_CLR:
 
-	/** Zeroize local copy of private key, public key, shared secret objectID and shared secret. */
+	/** Zeroize local copy of private key, public key and shared secret. */
 	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)PrivKey,
 					XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)PubKey, sizeof(PubKey));
-	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)SharedSecretObjId, XECDH_SHARED_SEC_OBJ_ID_SIZE);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	XFIH_CALL(Xil_SecureZeroize, XFihEcdh, ClearStatus, (u8 *)(UINTPTR)SharedSecret,

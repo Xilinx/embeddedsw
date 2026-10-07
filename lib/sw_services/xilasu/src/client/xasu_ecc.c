@@ -360,6 +360,8 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 *RespBufPtr = NULL;
+	u32 RespBufSize = 0U;
 
 	/** Validate input parameters. */
 	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
@@ -372,8 +374,14 @@ s32 XAsu_EcdhGenSharedSecret(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams
 		goto END;
 	}
 
+	/** When the secret is stored in the vault, the response carries its object ID. */
+	if (EcdhParamsPtr->SharedSecretAddr == 0U) {
+		RespBufPtr = (u8 *)(UINTPTR)EcdhParamsPtr->SharedSecretObjIdAddr;
+		RespBufSize = XASU_KM_OUTPUT_ID_SIZE_IN_BYTES;
+	}
+
 	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, RespBufPtr, RespBufSize, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -579,9 +587,26 @@ static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
 		goto END;
 	}
 
+	/** Validate that a destination for the shared secret is provided. */
 	if ((EcdhParamsPtr->SharedSecretAddr == 0U) &&
 			(EcdhParamsPtr->SharedSecretObjIdAddr == 0U)) {
 		goto END;
+	}
+
+	/**
+	 * Validate the metadata the shared secret is stored under: the selected vault shall be
+	 * within the supported range, and the secret is only ever stored in the KDF/HMAC sub-vault.
+	 */
+	if (EcdhParamsPtr->SharedSecretAddr == 0U) {
+		if (XAsu_KmValidateKeyMetadata(&EcdhParamsPtr->SharedSecretMetadata) !=
+				XST_SUCCESS) {
+			goto END;
+		}
+
+		if (XASU_KM_GET_KEY_TYPE(EcdhParamsPtr->SharedSecretMetadata.CompositeKeyId) !=
+				(u8)XASU_KDF_HMAC_SUBVAULT_ID) {
+			goto END;
+		}
 	}
 
 	/**
@@ -635,6 +660,6 @@ static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
 	Status = XST_SUCCESS;
 
 END:
-   return Status;
+	return Status;
 }
 /** @} */

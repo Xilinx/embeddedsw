@@ -3036,8 +3036,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 	u32 KeyWrapUnwrapOutputLen = 0U;
 
 	/** Validate input parameters. */
-	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (KeyParams == NULL) ||
-	    (KeyIdPtr == NULL)) {
+	if ((DmaPtr == NULL) || (KeyParams == NULL) || (KeyIdPtr == NULL)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
@@ -3112,6 +3111,10 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 
 	/* Check if wrapped key. */
 	if ((ReqKeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
+		if (AesInstancePtr == NULL) {
+			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+			goto END;
+		}
 #ifdef XASU_KEYWRAP_ENABLE
 		/**
 		 * Verify the key is not a wrapped RSA public key, as unwrap yields only the modulus,

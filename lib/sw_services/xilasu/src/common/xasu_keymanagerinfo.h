@@ -40,7 +40,6 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_util.h"
 #include "xasu_rsainfo.h"
-#include "xasu_eccinfo.h"
 #include "xasu_aesinfo.h"
 #ifdef SDT
 #include "xasu_bsp_config.h"
@@ -208,6 +207,11 @@ extern "C" {
 /* Key attribute for RSA private decrypt operation. */
 #define XASU_KM_RSA_PVT_ATTR_MAX	(2U) /**< Maximum allowed value for RSA private key attribute */
 
+#define XASU_KM_ECC_MAX_PUB_KEY_SIZE_IN_BYTES		(132U) /**< Size of NIST P-521 public key
+								size in bytes */
+#define XASU_KM_ECC_MAX_PVT_KEY_SIZE_IN_BYTES		(66U) /**< Size of NIST P-521 private key
+								size in bytes */
+
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This enum contains sub vault ID related information. */
@@ -340,8 +344,8 @@ typedef struct {
 
 /** This structure contains the ECC key pair object with public and private keys. */
 typedef struct {
-	u8 PublicKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES]; /**< Public key buffer. */
-	u8 PrivateKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]; /**< Private key buffer. */
+	u8 PublicKey[XASU_KM_ECC_MAX_PUB_KEY_SIZE_IN_BYTES]; /**< Public key buffer. */
+	u8 PrivateKey[XASU_KM_ECC_MAX_PVT_KEY_SIZE_IN_BYTES]; /**< Private key buffer. */
 } XAsu_EccKeyPairObject;
 
 /** This structure contains info for exporting and importing key vault. */

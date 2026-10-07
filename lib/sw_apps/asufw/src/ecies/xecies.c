@@ -201,7 +201,7 @@ s32 XEcies_Encrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EcdhGenSharedSecret(DmaPtr, EciesParams->EccCurveType,
 			EciesParams->EccKeyLength, (u64)(UINTPTR)PrivKey, EciesParams->RxKeyAddr,
-			(u64)(UINTPTR)SharedSecret, 0U);
+			(u64)(UINTPTR)SharedSecret);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ECDH_FAILURE);
 	}
@@ -348,7 +348,7 @@ s32 XEcies_Decrypt(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes *AesInstancePt
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XRsa_EcdhGenSharedSecret(DmaPtr, EciesParams->EccCurveType,
 		EciesParams->EccKeyLength, EciesParams->RxKeyAddr, EciesParams->TxKeyAddr,
-		(u64)(UINTPTR)SharedSecret, 0U);
+		(u64)(UINTPTR)SharedSecret);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECIES_ECDH_FAILURE);
 		goto END_CLR;

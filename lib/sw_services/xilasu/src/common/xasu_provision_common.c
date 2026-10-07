@@ -28,6 +28,7 @@
 /************************************ Include Files **********************************************/
 #include "xasu_provision_common.h"
 #include "xasu_keymanager_common.h"
+#include "xasu_eccinfo.h"
 #include "xasu_keymanagerinfo.h"
 #include "xasu_ocpinfo.h"
 

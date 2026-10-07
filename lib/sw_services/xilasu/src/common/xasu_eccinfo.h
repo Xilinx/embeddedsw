@@ -21,6 +21,8 @@
  *       ss   12/02/24 Added support for ECDH
  *       yog  03/25/25 Added XAsu_EccKeyParams structure and XASU_ECC_GEN_PUBKEY_CMD_ID.
  *       yog  07/11/25 Added XASU_ECC_P448_SIZE_IN_BYTES macro and updated curve type macro values.
+ *       lp   10/02/26 Added SharedSecretMetadata to XAsu_EcdhParams for key vault storage of the
+ *                     shared secret.
  *
  * </pre>
  *
@@ -39,6 +41,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
+#include "xasu_keymanagerinfo.h"
 #ifdef SDT
 #include "xasu_bsp_config.h"
 #endif
@@ -131,8 +134,13 @@ typedef struct {
 typedef struct {
 	XAsu_EccKeyObject PvtKey; /**< Private key object */
 	XAsu_EccKeyObject PubKey; /**< Peer's public key object */
-	u64 SharedSecretAddr;   /**< Address where shared secret will be written (size = PvtKey.KeyLen) */
-	u64 SharedSecretObjIdAddr; /**< Optional object ID for shared secret storage */
+	u64 SharedSecretAddr; /**< Address where shared secret will be written (size = PvtKey.KeyLen) */
+	u64 SharedSecretObjIdAddr; /**< Address receiving the object ID of the stored shared secret;
+					used only when SharedSecretAddr is 0 */
+	XAsu_KeyManagerKeyMetadata SharedSecretMetadata; /**< Metadata used when the shared secret is
+					stored as a key in the vault, i.e. when SharedSecretAddr is 0.
+					Length is ignored, as the firmware stores the secret with the
+					curve length */
 } XAsu_EcdhParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

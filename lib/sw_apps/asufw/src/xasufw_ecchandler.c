@@ -48,6 +48,7 @@
 #include "xasufw_trnghandler.h"
 #include "xfih.h"
 #include "xkeymanager.h"
+#include "xasu_keymanager_common.h"
 #include "xasu_sharedmem.h"
 
 #if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
@@ -166,7 +167,11 @@ s32 XAsufw_EccInit(void)
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 #ifdef XASU_RSA_ECC_ENABLE
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
-		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK
+#ifdef XASU_KEYMANAGER_ENABLE
+		| XASUFW_KEYMANAGER_RESOURCE_MASK
+#endif /* XASU_KEYMANAGER_ENABLE */
+		,
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_RSA_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_OVERLAY_RESOURCE_MASK,
 #endif /* XASU_RSA_ECC_ENABLE */
@@ -241,6 +246,9 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 #ifdef XASU_RSA_ECC_ENABLE
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 #endif /* XASU_RSA_ECC_ENABLE */
+#ifdef XASU_KEYMANAGER_ENABLE
+	const XAsu_EcdhParams *EcdhParamsPtr = (const XAsu_EcdhParams *)ReqBuf->Arg;
+#endif /* XASU_KEYMANAGER_ENABLE */
 	XAsufw_Resource ResourceId = XASUFW_INVALID;
 
 	/** Allocate DMA resource for ECC module commands except for Get_Info command. */
@@ -263,6 +271,15 @@ static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		XAsufw_AllocateResource(XASUFW_RSA, ResourceId, ReqId);
 	}
 #endif /* XASU_RSA_ECC_ENABLE */
+
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Serialise the shared secret vault write against the key manager commands. */
+	if (CmdId == XASU_ECDH_SHARED_SECRET_CMD_ID) {
+		if (EcdhParamsPtr->SharedSecretAddr == 0U) {
+			XAsufw_AllocateResource(XASUFW_KEYMANAGER, ResourceId, ReqId);
+		}
+	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Activate ECC overlay. */
 	Status = XOverlay_Activate(XOVERLAY_ALGO_ECC, XAsufw_EccModule.AsuDmaPtr);
@@ -665,7 +682,9 @@ END:
  *	- XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL, if shared secret generation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *	- XASUFW_INVALID_SUBSYSTEM_ID, if invalid subsystem ID is provided.
- *	- XASUFW_INVALID_PARAM, if any argument is invalid.
+ *	- XASUFW_ECC_INVALID_PARAM, if any argument is invalid.
+ *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if fetching a key object from the vault fails.
+ *	- XASUFW_KEYMANAGER_STORE_KEY_ERROR, if storing the shared secret in the vault fails.
  *
  *************************************************************************************************/
 #ifdef XASU_RSA_ECC_ENABLE
@@ -677,15 +696,94 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	XAsu_EccKeyObject PvtKeyObj;
 	XAsu_EccKeyObject PubKeyObj;
+	u64 SharedSecretAddr = 0U;
+	u8 IsSharedSecretVaultStore = (u8)XASU_FALSE;
+#ifdef XASU_KEYMANAGER_ENABLE
+	u8 SharedSecret[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
+	XAsu_KeyManagerParams KeyStoreParams = {0U};
+	u32 *SharedSecretObjIdVal = NULL;
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EcdhParams);
 
+	/** Capture the client-selected output mode before processing the request. */
+	SharedSecretAddr = EcdhParamsPtr->SharedSecretAddr;
+	IsSharedSecretVaultStore = (SharedSecretAddr == 0U) ? (u8)XASU_TRUE : (u8)XASU_FALSE;
+
 	/** Validate whether the curve type of the private key matches the public key's curve type. */
 	if (EcdhParamsPtr->PvtKey.CurveType != EcdhParamsPtr->PubKey.CurveType) {
-		Status = XASUFW_INVALID_PARAM;
+		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
 	}
+
+	/** Validate the shared secret address and an object ID address. */
+	if ((IsSharedSecretVaultStore == (u8)XASU_TRUE) &&
+	    (EcdhParamsPtr->SharedSecretObjIdAddr == 0U)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+#ifdef XASU_KEYMANAGER_ENABLE
+	/**
+	 * Validate the metadata the shared secret is stored under. The vault range is checked here
+	 * rather than relying on the client, as any subsystem can send this command. The shared
+	 * secret is only ever stored in the KDF/HMAC sub-vault.
+	 */
+	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
+		if (XAsu_KmValidateKeyMetadata(&EcdhParamsPtr->SharedSecretMetadata) !=
+		    XST_SUCCESS) {
+			Status = XASUFW_ECC_INVALID_PARAM;
+			goto END;
+		}
+
+		if (XASU_KM_GET_KEY_TYPE(EcdhParamsPtr->SharedSecretMetadata.CompositeKeyId) !=
+		    (u8)XASU_KDF_HMAC_SUBVAULT_ID) {
+			Status = XASUFW_ECC_INVALID_PARAM;
+			goto END;
+		}
+	}
+#else
+	/** Reject a vault store request, as the key manager is not built in. */
+	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+#endif /* XASU_KEYMANAGER_ENABLE */
+
+	/** Validate the shared secret address and an object ID address. */
+	if ((IsSharedSecretVaultStore == (u8)XASU_TRUE) &&
+	    (EcdhParamsPtr->SharedSecretObjIdAddr == 0U)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+
+#ifdef XASU_KEYMANAGER_ENABLE
+	/**
+	 * Validate the metadata the shared secret is stored under. The vault range is checked here
+	 * rather than relying on the client, as any subsystem can send this command. The shared
+	 * secret is only ever stored in the KDF/HMAC sub-vault.
+	 */
+	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
+		if (XAsu_KmValidateKeyMetadata(&EcdhParamsPtr->SharedSecretMetadata) !=
+		    XST_SUCCESS) {
+			Status = XASUFW_ECC_INVALID_PARAM;
+			goto END;
+		}
+
+		if (XASU_KM_GET_KEY_TYPE(EcdhParamsPtr->SharedSecretMetadata.CompositeKeyId) !=
+		    (u8)XASU_KDF_HMAC_SUBVAULT_ID) {
+			Status = XASUFW_ECC_INVALID_PARAM;
+			goto END;
+		}
+	}
+#else
+	/** Reject a vault store request, as the key manager is not built in. */
+	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Copy key object from request */
 	PvtKeyObj = EcdhParamsPtr->PvtKey;
@@ -726,15 +824,20 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
+
+	/** If no output address is provided, use a local buffer to store the secret in the vault. */
+	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
+		SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
+	}
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * Validate the client buffer receiving the shared secret. The secret is written either
 	 * to the shared secret buffer or, when that buffer is not provided, as an object ID.
 	 */
-	if (EcdhParamsPtr->SharedSecretAddr != 0U) {
-		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
-					   EcdhParamsPtr->SharedSecretAddr, PvtKeyObj.KeyLen);
+	if (IsSharedSecretVaultStore != (u8)XASU_TRUE) {
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, SharedSecretAddr,
+					   PvtKeyObj.KeyLen);
 	} else {
 		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
 					   EcdhParamsPtr->SharedSecretObjIdAddr,
@@ -744,13 +847,42 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Generate shared secret using public key and private key. ECDH runs on the RSA core. */
 	Status = XRsa_EcdhGenSharedSecret(XAsufw_EccModule.AsuDmaPtr, PvtKeyObj.CurveType,
 					PvtKeyObj.KeyLen, PvtKeyObj.KeyAddr,
-					PubKeyObj.KeyAddr, EcdhParamsPtr->SharedSecretAddr,
-					EcdhParamsPtr->SharedSecretObjIdAddr);
+					PubKeyObj.KeyAddr, SharedSecretAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL);
+		goto END;
 	}
 
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Store the local buffer secret in the subsystem's vault and return its object ID. */
+	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
+		KeyStoreParams.KeyMetadata = EcdhParamsPtr->SharedSecretMetadata;
+		/* The client supplied length is overridden, as only the secret is ours to store. */
+		KeyStoreParams.KeyMetadata.Length = (u16)PvtKeyObj.KeyLen;
+		KeyStoreParams.KeyObjectAddr = (u64)(UINTPTR)SharedSecret;
+		KeyStoreParams.KeyIdAddr = EcdhParamsPtr->SharedSecretObjIdAddr;
+
+		SharedSecretObjIdVal =
+			&((u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf,
+						  RespBuf))[XASUFW_RESP_DATA_OFFSET];
+
+		Status = XKeyManager_StoreKeyInVault(XAsufw_EccModule.AsuDmaPtr,
+				NULL, &KeyStoreParams,
+				SharedSecretObjIdVal, SubSystemId);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_STORE_KEY_ERROR);
+		}
+	}
+#endif /* XASU_KEYMANAGER_ENABLE */
+
 END:
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Zeroize the local shared secret buffer, which only the vault path uses. */
+	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
+		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(SharedSecret,
+						XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES));
+	}
+#endif /* XASU_KEYMANAGER_ENABLE */
 	/** Release resources. */
 	if (XAsufw_ReleaseResource(XASUFW_RSA, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);

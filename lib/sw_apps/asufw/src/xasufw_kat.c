@@ -3811,7 +3811,7 @@ s32 XAsufw_P256EcdhKat(XAsufw_Dma *AsuDmaPtr)
 					  XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES,
 					  (u64)(UINTPTR)EcdhPrivKey,
 					  (u64)(UINTPTR)EcdhPubKey1,
-					  (u64)(UINTPTR)SharedSecret, 0U);
+					  (u64)(UINTPTR)SharedSecret);
 	if ((Status != XASUFW_SUCCESS) || (ReturnStatus != XASUFW_RSA_ECDH_SUCCESS)) {
 		Status = XASUFW_ECDH_GEN_SECRET_OPERATION_FAIL;
 		goto END_CLR;

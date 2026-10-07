@@ -57,6 +57,7 @@
 #include "xasu_keymanager.h"
 #include "xasu_keymanager_common.h"
 #include "xasu_ocp.h"
+#include "xasu_eccinfo.h"
 #include "xil_cache.h"
 #include "xil_util.h"
 
