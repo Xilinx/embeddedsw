@@ -24,7 +24,8 @@
 *                       and XLoader_DisableJtagIfOpenedByAuthJtag to lock DAP
 *                       during PLM update
 *       sri  04/24/2026 Added LMS support for authenticated JTAG message
-*       sri  09/22/2026 Initialize PdiPtr and stop writing AuthHdr through NULL for LMS AuthJtag
+* 2.5   sri  09/22/2026 Initialize PdiPtr and stop writing AuthHdr through NULL for LMS AuthJtag
+*       sri  10/07/2026 Replaced the A-HWRoT status check with a direct mismatch compare
 *
 * </pre>
 *
@@ -76,6 +77,10 @@ typedef struct {
 	volatile u8 AuthFailCounterTmp;	/**< For temporal redundancy */
 } XLoader_AuthJtagStatus;
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XLOADER_SECURE_STATE_MISMATCH(RegVal, Var, ExpectedValue) \
+		(((RegVal) != (Var)) || ((Var) != (ExpectedValue)))
+	/**< True when the register, stored state, and expected value do not all match.
+	 * Both comparisons stay in the if condition. RegVal and Var must be volatile. */
 
 /************************** Function Prototypes ******************************/
 #ifndef PLM_AUTH_JTAG_PPK_SPK
@@ -105,8 +110,8 @@ int XLoader_AddAuthJtagToScheduler(void)
 	volatile int Status = XST_FAILURE;
 	volatile u32 AuthJtagDis = XLOADER_AUTH_JTAG_DIS_MASK;
 	volatile u32 AuthJtagDisTmp = XLOADER_AUTH_JTAG_DIS_MASK;
-	u32 ReadAuthReg;
-	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	volatile u32 ReadAuthReg;
+	volatile u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	/**
 	 * - Read auth_jtag_disable efuse bits(20:19) of Security Control register
@@ -131,17 +136,18 @@ int XLoader_AddAuthJtagToScheduler(void)
 	if ((AuthJtagDis != XLOADER_AUTH_JTAG_DIS_MASK) &&
 		(AuthJtagDisTmp != XLOADER_AUTH_JTAG_DIS_MASK)) {
 		ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
-		Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
-			XPLMI_RTCFG_SECURESTATE_AHWROT);
-		if (Status != XST_SUCCESS) {
+		if (XLOADER_SECURE_STATE_MISMATCH(ReadAuthReg, SecureStateAHWRoT,
+				XPLMI_RTCFG_SECURESTATE_AHWROT)) {
 			if (ReadAuthReg != SecureStateAHWRoT) {
 				Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 			}
 			else {
+				/* A-HWRoT is not enabled, so do not add the task. */
 				Status = XST_SUCCESS;
 			}
 		}
 		else {
+			/* A-HWRoT is enabled, add the Auth JTAG task */
 			Status = XST_FAILURE;
 
 			Status = XPlmi_SchedulerAddTask(XPLMI_MODULE_LOADER_ID,
@@ -357,10 +363,10 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha3Hash Sha3Hash = {0U};
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	u32 ReadAuthReg;
+	volatile u32 ReadAuthReg;
 	volatile u8 UseDna;
 	volatile u8 UseDnaTmp;
-	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	volatile u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 
 	/** - Validate TimeOut pointer */
 	if (TimeOut == NULL) {
@@ -410,15 +416,15 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	 * - Check Secure State of device
 	 * If A-HWRoT is not enabled then return error
 	 */
+	Status = XST_FAILURE;
 	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
-	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
-		XPLMI_RTCFG_SECURESTATE_AHWROT);
-	if (Status != XST_SUCCESS) {
-		XPLMI_STATUS_GLITCH_DETECT(Status);
+	if (XLOADER_SECURE_STATE_MISMATCH(ReadAuthReg, SecureStateAHWRoT,
+			XPLMI_RTCFG_SECURESTATE_AHWROT)) {
 		if (ReadAuthReg != SecureStateAHWRoT) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 		}
 		else {
+			/* A-HWRoT is not enabled, return error */
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY, XIL_SIGNED_ZERO);
 		}
@@ -587,10 +593,10 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	volatile u32 RevokeId = XLOADER_INVALID_REVOCATION_ID;
 	static XLoader_SecureParams SecureParams = {0U};
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	u32 ReadAuthReg;
+	volatile u32 ReadAuthReg;
 	volatile u8 UseDna;
 	volatile u8 UseDnaTmp;
-	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
+	volatile u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 MsgLenInBytes = 0U;
 	u32 IdWord;
 	u8 SpkHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
@@ -746,14 +752,13 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	 */
 	Status = XST_FAILURE;
 	ReadAuthReg = XPlmi_In32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR);
-	Status = XLoader_CheckSecureState(ReadAuthReg, SecureStateAHWRoT,
-		XPLMI_RTCFG_SECURESTATE_AHWROT);
-	if (Status != XST_SUCCESS) {
-		XPLMI_STATUS_GLITCH_DETECT(Status);
+	if (XLOADER_SECURE_STATE_MISMATCH(ReadAuthReg, SecureStateAHWRoT,
+			XPLMI_RTCFG_SECURESTATE_AHWROT)) {
 		if (ReadAuthReg != SecureStateAHWRoT) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 		}
 		else {
+			/* A-HWRoT is not enabled, return error */
 			Status = XPlmi_UpdateStatus(
 				XLOADER_ERR_AUTH_JTAG_EFUSE_AUTH_COMPULSORY, XIL_SIGNED_ZERO);
 		}
