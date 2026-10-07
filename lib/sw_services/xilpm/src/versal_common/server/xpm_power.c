@@ -160,6 +160,7 @@ static XStatus SendPowerDownReq(const XPm_Node *Node)
 		for (Idx = (u32)XPM_NODEIDX_CLK_MIN; Idx < (u32)XPM_NODEIDX_CLK_MAX; Idx++) {
 			Clk = XPmClock_GetByIdx(Idx);
 			if ((NULL != Clk) && (ISPLL(Clk->Node.Id)) &&
+			    (NULL != Clk->PwrDomain) &&
 			    (Node->Id == Clk->PwrDomain->Node.Id)) {
 				XPmClockPll_Suspend((XPm_PllClockNode *)Clk);
 			}

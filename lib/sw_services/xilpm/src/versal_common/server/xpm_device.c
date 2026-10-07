@@ -2533,6 +2533,8 @@ XStatus XPmDevice_IsClockActive(const XPm_Device *Device)
 		if ((NULL != ClkHandle->Clock) &&
 		    (ISOUTCLK(ClkHandle->Clock->Node.Id))) {
 			Clk = (XPm_OutClockNode *)ClkHandle->Clock;
+			/* Initialize the output in case the query supplies no value. */
+			Enable = 0U;
 			Status = XPmClock_GetClockData(Clk, (u32)TYPE_GATE, &Enable);
 			if (XST_SUCCESS == Status) {
 				if (1U == Enable) {

@@ -776,7 +776,8 @@ XStatus XPmClock_GetClockData(const XPm_OutClockNode *Clk, u32 Nodetype, u32 *Va
 		goto done;
 	}
 
-	if ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State) {
+	if ((NULL != PowerDomain) &&
+	    ((u8)XPM_POWER_STATE_ON != PowerDomain->Node.State)) {
 		Status = XST_NO_ACCESS;
 		goto done;
 	}
