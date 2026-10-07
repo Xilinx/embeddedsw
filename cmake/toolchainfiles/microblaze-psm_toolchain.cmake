@@ -22,7 +22,7 @@ if(("${CMAKE_MACHINE}" STREQUAL "Versal"))
     set( CPU_VERSION "-mcpu=v10.0")
 endif()
 # FIXME: Use generic microblaze toolchain file for psm microblaze processor as well.
-set( TOOLCHAIN_PSM_C_FLAGS " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mxl-reorder -mno-xl-soft-mul -mxl-multiply-high -mno-xl-soft-div -O2 -pipe -g -DVERSAL_psm=1 ${CPU_VERSION}")
+set( TOOLCHAIN_PSM_C_FLAGS " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mxl-reorder -mno-xl-soft-mul -mxl-multiply-high -mno-xl-soft-div -O2 -pipe -g -fmacro-prefix-map=${CMAKE_CURRENT_SOURCE_DIR}=. -DVERSAL_psm=1 ${CPU_VERSION}")
 set( TOOLCHAIN_C_FLAGS " -O2 ${TOOLCHAIN_PSM_C_FLAGS} -DSDT" CACHE STRING "CFLAGS" )
 set( TOOLCHAIN_CXX_FLAGS " -O2 ${TOOLCHAIN_PSM_C_FLAGS} -DSDT" CACHE STRING "CXXFLAGS" )
 set( TOOLCHAIN_ASM_FLAGS " -O2 ${TOOLCHAIN_PSM_C_FLAGS} -DSDT" CACHE STRING "ASM FLAGS" )
