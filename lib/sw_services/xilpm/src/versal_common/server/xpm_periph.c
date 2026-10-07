@@ -70,7 +70,14 @@ XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_ResetNode *Reset, u32 GicProxyMask,
 		       u32 GicProxyGroup)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+
+	/* A zero mask has no interrupt routing; its group may be unused. */
+	if ((NULL == Periph) || ((0U != GicProxyMask) &&
+	    (GicProxyGroup >= XPm_GicProxy.GroupsCnt))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	Status = XPmDevice_Init(&Periph->Device, Id, BaseAddress, Power, Clock,
 				Reset);

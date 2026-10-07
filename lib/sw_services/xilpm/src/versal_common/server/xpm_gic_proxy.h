@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -45,7 +46,14 @@ typedef struct {
 
 extern XPm_GicProxy_t XPm_GicProxy;
 
-void XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable);
+/**
+ * @brief Configure a peripheral interrupt as a GIC Proxy wake source.
+ * A zero interrupt mask succeeds without changing GIC Proxy routing.
+ * @param Periph Peripheral supplying the interrupt mask and group.
+ * @param Enable Nonzero to enable the wake source, zero to disable it.
+ * @return XST_SUCCESS on success, or an error for invalid routing or missing PMC.
+ */
+XStatus XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable);
 
 #ifdef __cplusplus
 }

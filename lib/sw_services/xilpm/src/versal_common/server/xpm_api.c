@@ -985,7 +985,7 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 			    const u32 SourceNodeId, const u32 Enable)
 {
 	XPM_EXPORT_CMD(PM_SET_WAKEUP_SOURCE, XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	XPm_Periph *Periph = NULL;
 
 	/* Check if given target node is valid and present in device list */
@@ -1023,11 +1023,18 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 		goto done;
 	}
 
-	Periph->WakeProcId = TargetNodeId;
-
-	if (NULL != Periph->PeriphOps->SetWakeupSource) {
-		Periph->PeriphOps->SetWakeupSource(Periph, (u8)(Enable));
+	if ((NULL == Periph->PeriphOps) ||
+	    (NULL == Periph->PeriphOps->SetWakeupSource)) {
+		Status = XST_NO_FEATURE;
+		goto done;
 	}
+
+	Status = Periph->PeriphOps->SetWakeupSource(Periph, (u8)Enable);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	Periph->WakeProcId = TargetNodeId;
 
 done:
 	if (XST_SUCCESS != Status) {
@@ -1988,22 +1995,33 @@ done:
 	return Status;
 }
 
-static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
+/*****************************************************************************/
+/**
+ * Add a peripheral device from a PM_ADD_NODE command.
+ *
+ * @param Args     Command arguments, starting with the device ID.
+ * @param PowerId  Parent power node ID.
+ * @param NumArgs  Number of command arguments.
+ *
+ * @return XST_SUCCESS if the device is added, otherwise an error code.
+ */
+static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 DeviceId;
 	u32 Type;
-	u32 GicProxyMask;
-	u32 GicProxyGroup;
 	XPm_Periph *PeriphDevice;
 	XPm_Device *Device;
 	XPm_Power *Power;
 	u32 BaseAddr;
 
+	if ((NULL == Args) || (NumArgs < XPLMI_CMD_ARG_CNT_THREE)) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	DeviceId = Args[0];
 	BaseAddr = Args[2];
-	GicProxyMask = Args[3];
-	GicProxyGroup = Args[4];
 	Type = NODETYPE(DeviceId);
 
 	Power = XPmPower_GetById(PowerId);
@@ -2037,6 +2055,11 @@ static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
 	} else if ((u32)XPM_NODEIDX_DEV_AIE == NODEINDEX(DeviceId)) {
 		Status = XPm_PlatAddNodePeriph(Args, PowerId);
 	} else {
+		if (NumArgs < XPLMI_CMD_ARG_CNT_FIVE) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
+
 		PeriphDevice = (XPm_Periph *)XPm_AllocBytes(sizeof(XPm_Periph));
 		if (NULL == PeriphDevice) {
 			Status = XST_BUFFER_TOO_SMALL;
@@ -2044,7 +2067,7 @@ static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
 		}
 
 		Status = XPmPeriph_Init(PeriphDevice, DeviceId, BaseAddr, Power, NULL, NULL,
-					GicProxyMask, GicProxyGroup);
+					Args[3], Args[4]);
 	}
 
 done:
@@ -2325,7 +2348,7 @@ done:
  ****************************************************************************/
 static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 DeviceId;
 	u32 SubClass;
 	u32 PowerId = 0;
@@ -2366,7 +2389,7 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 		Status = AddProcDevice(Args, PowerId);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_PERIPH:
-		Status = AddPeriphDevice(Args, PowerId);
+		Status = AddPeriphDevice(Args, PowerId, NumArgs);
 		break;
 	case (u32)XPM_NODESUBCL_DEV_MEM:
 		Status = AddMemDevice(Args, PowerId);
@@ -2383,6 +2406,10 @@ static XStatus XPm_AddDevice(const u32 *Args, u32 NumArgs)
 	default:
 		Status = XPm_PlatAddDevice(Args, NumArgs);
 		break;
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto done;
 	}
 
 	if (NumArgs > 6U) {

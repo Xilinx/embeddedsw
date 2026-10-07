@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,9 +18,10 @@ typedef struct XPm_Periph XPm_Periph;
 
 #define HBMON_SCHED_PERIOD	(100U)
 
-/* Core Operations */
+/** Peripheral operations. */
 struct XPm_PeriphOps {
-	void (*SetWakeupSource)(const XPm_Periph *Periph, u8 Enable);
+	/** Configure wake routing and return its status. */
+	XStatus (*SetWakeupSource)(const XPm_Periph *Periph, u8 Enable);
 };
 
 /**
@@ -37,6 +38,18 @@ struct XPm_Periph {
 };
 
 /************************** Function Prototypes ******************************/
+/**
+ * @brief Initialize a peripheral and its optional GIC Proxy routing.
+ * @param Periph Peripheral to initialize.
+ * @param Id Device node ID.
+ * @param BaseAddress Peripheral base address.
+ * @param Power Parent power node.
+ * @param Clock Associated clock node.
+ * @param Reset Associated reset node.
+ * @param GicProxyMask Interrupt mask; zero permits an unused group value.
+ * @param GicProxyGroup GIC Proxy group; must be in range for a nonzero mask.
+ * @return XST_SUCCESS on success, or an initialization or routing error.
+ */
 XStatus XPmPeriph_Init(XPm_Periph *Periph, u32 Id, u32 BaseAddress,
 		       XPm_Power *Power, XPm_ClockNode *Clock,
 		       XPm_ResetNode *Reset, u32 GicProxyMask,

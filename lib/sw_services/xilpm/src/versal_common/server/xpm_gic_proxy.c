@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,15 +18,41 @@
 #endif
 #define XPM_GIC_PROXY_IS_ENABLED		0x1U
 
-void XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable)
+XStatus XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable)
 {
-	u32 GicProxyMask = Periph->GicProxyMask;
-	u32 GicProxyGroup = Periph->GicProxyGroup;
-	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+	volatile XStatus Status = XST_FAILURE;
+	u32 GicProxyMask;
+	u32 GicProxyGroup;
+	const XPm_Pmc *Pmc;
+
+	if (NULL == Periph) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	GicProxyMask = Periph->GicProxyMask;
+	/* A zero mask has no interrupt routing; its group may be unused. */
+	if (0U == GicProxyMask) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	GicProxyGroup = Periph->GicProxyGroup;
+	/* The group selects both a software array element and an MMIO bank. */
+	if (GicProxyGroup >= XPm_GicProxy.GroupsCnt) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	if (0U == Enable) {
 		XPm_GicProxy.Groups[GicProxyGroup].SetMask &= ~GicProxyMask;
 	} else {
+		Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+		if (NULL == Pmc) {
+			Status = XST_DEVICE_NOT_FOUND;
+			goto done;
+		}
+
 		/* PMC Global base address */
 		u32 BaseAddress = Pmc->PmcGlobalBaseAddr;
 		u32 RegAddress = BaseAddress +
@@ -40,6 +66,10 @@ void XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable)
 		/* Remember which interrupt in the group needs to be Enabled */
 		XPm_GicProxy.Groups[GicProxyGroup].SetMask |= GicProxyMask;
 	}
+
+	Status = XST_SUCCESS;
+done:
+	return Status;
 }
 
 /**
@@ -133,8 +163,13 @@ static void XPmGicProxy_Clear(void)
 	}
 }
 
-/* FPD GIC Proxy has interrupts organized in 5 Groups */
+#ifdef VERSAL_NET
+/** Versal Net PMC GIC Proxy has eight interrupt groups. */
+static XPm_GicProxyGroup XPm_GicProxyGroups[8];
+#else
+/** Versal PMC GIC Proxy has five interrupt groups. */
 static XPm_GicProxyGroup XPm_GicProxyGroups[5];
+#endif
 
 #ifdef VERSAL_NET
 #ifndef VERSAL_2VE_2VM
