@@ -60,6 +60,7 @@
 * 13.1  dc     02/18/26 Correct spelling errors
 * 13.2  vn     08/11/26 Fix Doxygen warnings.
 * 13.2  vn     09/29/26 Align Doxygen comments with AMD standards
+*       akm    10/04/26 Bound DTC code count in XRFdc_MTS_Dtc_Calc.
 *
 * </pre>
 *
@@ -387,6 +388,7 @@ static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 	int Last, Current_Gap, Max_Overlap, Overlap_Cnt;
 	int Min_Gap, Max_Gap, Diff, Min_Diff, Min_Range, Val, Target;
 	u8 Min_Gap_Allowed;
+	u8 Codes_Overflow;
 	int Codes[XRFDC_MTS_MAX_CODE] = { 0 };
 
 	if (InstancePtr->RFdc_Config.IPType < XRFDC_GEN3) {
@@ -398,6 +400,7 @@ static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 
 	/* Scan the flags and find candidate DTC codes */
 	Num_Found = 0U;
+	Codes_Overflow = 0U;
 	Max_Gap = 0;
 	Min_Gap = XRFDC_MTS_NUM_DTC;
 	Max_Overlap = 0;
@@ -408,8 +411,18 @@ static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 		Current_Gap = (int)Index - Last;
 		if (FlagsPtr[Index] != 0) {
 			if (Current_Gap > Min_Gap_Allowed) {
-				Codes[Num_Found] = Last + (Current_Gap / 2);
-				Num_Found++;
+				/*
+				 * A scan with an unstable SysRef can report more
+				 * candidate windows than Codes[] can hold. Keep the
+				 * first XRFDC_MTS_MAX_CODE and record the overflow
+				 * rather than writing past the array.
+				 */
+				if (Num_Found < XRFDC_MTS_MAX_CODE) {
+					Codes[Num_Found] = Last + (Current_Gap / 2);
+					Num_Found++;
+				} else {
+					Codes_Overflow = 1U;
+				}
 				/* Record max/min gaps */
 				Current_Gap--;
 				if (Current_Gap > Max_Gap) {
@@ -523,6 +536,25 @@ static u32 XRFdc_MTS_Dtc_Calc(XRFdc *InstancePtr, u32 Type, u32 Tile_Id, XRFdc_M
 			metal_log(METAL_LOG_DEBUG, "Reload Target %d, DTC Code %d, Diff %d, Min %d\n", Target,
 				  Codes[Index], Diff, Min_Diff);
 		}
+	}
+
+	/*
+	 * Discard the code when the scan cannot be trusted. The caller treats
+	 * -1 as a failed scan: it reports XRFDC_MTS_DTC_INVALID and programs
+	 * nothing.
+	 *
+	 * An overflowing scan selected from a truncated candidate list. A scan
+	 * that found no window ran no selection loop at all, so DTC_Code still
+	 * holds the code from a previous scan.
+	 */
+	if (Codes_Overflow != 0U) {
+		metal_log(METAL_LOG_ERROR, "\n More than %u DTC windows found for %s Tile %u in %s\r\n",
+			  XRFDC_MTS_MAX_CODE, ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, __func__);
+		SettingsPtr->DTC_Code[Tile_Id] = -1;
+	} else if (Num_Found == 0U) {
+		metal_log(METAL_LOG_ERROR, "\n No DTC window found for %s Tile %u in %s\r\n",
+			  ((Type == XRFDC_ADC_TILE) ? "ADC" : "DAC"), Tile_Id, __func__);
+		SettingsPtr->DTC_Code[Tile_Id] = -1;
 	}
 
 	/* Print some debug info */
