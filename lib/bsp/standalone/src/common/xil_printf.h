@@ -43,7 +43,11 @@ typedef s32 (*func_ptr)(int c);
 /************************** Function Prototypes ******************************/
 /**< prints the statement */
 void xil_printf( const char8 *ctrl1, ...);
-/**< This routine is equivalent to vprintf routine */
+/**
+ * @brief Print a formatted string using a va_list (subset of vprintf).
+ * @param[in] ctrl1 Format string controlling the output.
+ * @param[in] argp  Variable argument list matching the format string.
+ */
 void xil_vprintf(const char8 *ctrl1, va_list argp);
 void print( const char8 *ptr);
 extern void outbyte (char c); /**< To send byte */

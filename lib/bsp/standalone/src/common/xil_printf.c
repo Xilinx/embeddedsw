@@ -35,6 +35,18 @@ typedef struct params_s {
 	s32 unsigned_flag; /**< unsigned flag */
 } params_t;
 
+/************************** Additional Prototypes ****************************/
+
+static void handle_escape_sequence(char8 ch);
+static void handle_digit_flag(u8 ch, s32 dot_flag, params_t *par, char8 **ctrl);
+static void print_bounded_string(const char *string, u32 width);
+static s32 is_star_s_format(const char8 *ctrl);
+static void handle_char_output(char8 ch);
+static void handle_long_flag(char8 **ctrl, s32 *long_flag);
+static void handle_decimal_output(params_t *par, va_list *argp, s32 long_flag);
+static void handle_hex_output(params_t *par, va_list *argp, s32 long_flag);
+static void process_format_spec(char8 **ctrl_ptr, va_list *argp);
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 #if (defined(__MICROBLAZE__)) && (!defined(__arch64__))
@@ -263,6 +275,277 @@ static s32 getnum(charptr *linep)
 
 /*****************************************************************************/
 /**
+* This routine handles backslash escape sequences.
+*
+******************************************************************************/
+static void handle_escape_sequence(char8 ch)
+{
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
+	switch (ch) {
+		case 'a':
+			outbyte((char8)0x07);
+			break;
+		case 'h':
+			outbyte((char8)0x08);
+			break;
+		case 'r':
+			outbyte((char8)0x0D);
+			break;
+		case 'n':
+			outbyte((char8)0x0D);
+			outbyte((char8)0x0A);
+			break;
+		default:
+			outbyte(ch);
+			break;
+	}
+#else
+	(void)ch;
+#endif
+}
+
+/*****************************************************************************/
+/**
+* This routine processes a digit seen in a format specifier (width/precision).
+*
+******************************************************************************/
+static void handle_digit_flag(u8 ch, s32 dot_flag, params_t *par, char8 **ctrl)
+{
+	if (dot_flag != 0) {
+		par->num2 = getnum(ctrl);
+	} else {
+		if (ch == (u8)'0') {
+			par->pad_character = '0';
+		}
+		par->num1 = getnum(ctrl);
+		par->do_padding = 1;
+	}
+	(*ctrl) -= 1;
+}
+
+/*****************************************************************************/
+/**
+* This routine outputs up to 'width' characters from 'string', stopping early
+* at a null terminator.
+*
+******************************************************************************/
+static void print_bounded_string(const char *string, u32 width)
+{
+	u32 index;
+
+	for (index = 0U; (index < width) && (string[index] != '\0'); index++) {
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
+		outbyte(string[index]);
+#endif
+	}
+}
+
+/*****************************************************************************/
+/**
+* This routine returns 1 if the format string at ctrl starts with '.*s',
+* indicating a width-limited string specifier.
+*
+******************************************************************************/
+static s32 is_star_s_format(const char8 *ctrl)
+{
+	return ((ctrl[1] == '*') && (ctrl[2] == 's')) ? 1 : 0;
+}
+
+/*****************************************************************************/
+/**
+* This routine outputs a single character to the output device when the
+* output peripheral is available.
+*
+******************************************************************************/
+static void handle_char_output(char8 ch)
+{
+#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
+	outbyte(ch);
+#else
+	(void)ch;
+#endif
+}
+
+/*****************************************************************************/
+/**
+* This routine handles the 'l' format modifier. On ARMR5 with 64-bit support,
+* a second 'l' is required; on other 64-bit platforms a single 'l' suffices.
+*
+******************************************************************************/
+static void handle_long_flag(char8 **ctrl, s32 *long_flag)
+{
+#if defined(SUPPORT_64BIT_PRINT)
+#if defined(ARMR5)
+	if (*((*ctrl) + 1) == 'l') {
+		*long_flag = 1;
+		(*ctrl) += 1;
+	}
+#else
+	(void)ctrl;
+	*long_flag = 1;
+#endif
+#else
+	(void)ctrl;
+	(void)long_flag;
+#endif
+}
+
+/*****************************************************************************/
+/**
+* This routine outputs a decimal integer argument, selecting 32-bit or 64-bit
+* output based on long_flag and platform support.
+*
+******************************************************************************/
+static void handle_decimal_output(params_t *par, va_list *argp, s32 long_flag)
+{
+#if defined(SUPPORT_64BIT_PRINT)
+	if (long_flag != 0) {
+		outnum1((s64)va_arg(*argp, s64), 10L, par);
+	} else {
+		outnum(va_arg(*argp, s32), 10L, par);
+	}
+#else
+	(void)long_flag;
+	outnum(va_arg(*argp, s32), 10L, par);
+#endif
+}
+
+/*****************************************************************************/
+/**
+* This routine outputs a hexadecimal integer argument, selecting 32-bit or
+* 64-bit output based on long_flag and platform support.
+*
+******************************************************************************/
+static void handle_hex_output(params_t *par, va_list *argp, s32 long_flag)
+{
+#if defined(SUPPORT_64BIT_PRINT)
+	if (long_flag != 0) {
+		outnum1((s64)va_arg(*argp, s64), 16L, par);
+	} else {
+		outnum((s32)va_arg(*argp, s32), 16L, par);
+	}
+#else
+	(void)long_flag;
+	outnum((s32)va_arg(*argp, s32), 16L, par);
+#endif
+}
+
+/*****************************************************************************/
+/**
+* This routine processes a single '%'-introduced format specifier.
+* On entry *ctrl_ptr points to the '%' character; on return it points to
+* the character immediately after the consumed specifier.
+*
+******************************************************************************/
+static void process_format_spec(char8 **ctrl_ptr, va_list *argp)
+{
+	u8 ch;
+	s32 Check = 0;
+	s32 dot_flag = 0;
+	s32 long_flag = 0;
+	u32 width;
+	const char *string;
+	params_t par;
+
+	par.unsigned_flag = 0;
+	par.left_flag = 0;
+	par.do_padding = 0;
+	par.pad_character = ' ';
+	par.num2 = 32767;
+	par.num1 = 0;
+	par.len = 0;
+
+try_next:
+	(*ctrl_ptr) += 1;
+	ch = (u8)(**ctrl_ptr);
+
+	if (xil_isdigit(ch) != 0) {
+		handle_digit_flag(ch, dot_flag, &par, ctrl_ptr);
+		goto try_next;
+	}
+
+	switch (xil_tolower(ch)) {
+		case '%':
+			handle_char_output('%');
+			Check = 1;
+			break;
+
+		case '-':
+			par.left_flag = 1;
+			Check = 0;
+			break;
+
+		case '.':
+			if (is_star_s_format(*ctrl_ptr) != 0) {
+				width = va_arg(*argp, u32);
+				string = va_arg(*argp, const char *);
+				print_bounded_string(string, width);
+				(*ctrl_ptr) += 2;
+				Check = 1;
+			} else {
+				dot_flag = 1;
+				Check = 0;
+			}
+			break;
+
+		case 'l':
+			handle_long_flag(ctrl_ptr, &long_flag);
+			Check = 0;
+			break;
+
+		case 'u':
+			par.unsigned_flag = 1;
+		/* fall through */
+		case 'i':
+		case 'd':
+			handle_decimal_output(&par, argp, long_flag);
+			Check = 1;
+			break;
+
+		case 'p':
+#if defined(__aarch64__) || defined(__arch64__)
+			par.unsigned_flag = 1;
+			outnum1((s64)va_arg(*argp, s64), 16L, &par);
+			Check = 1;
+			break;
+#endif
+		case 'X':
+		case 'x':
+			par.unsigned_flag = 1;
+			handle_hex_output(&par, argp, long_flag);
+			Check = 1;
+			break;
+
+		case 's':
+			outs(va_arg(*argp, char *), &par);
+			Check = 1;
+			break;
+
+		case 'c':
+			handle_char_output((char8)va_arg(*argp, s32));
+			Check = 1;
+			break;
+
+		case '\\':
+			(*ctrl_ptr) += 1;
+			handle_escape_sequence(**ctrl_ptr);
+			Check = 0;
+			break;
+
+		default:
+			Check = 1;
+			break;
+	}
+
+	if (Check == 1) {
+		(*ctrl_ptr) += 1;
+		return;
+	}
+	goto try_next;
+}
+
+/*****************************************************************************/
+/**
 * This routine operates just like a printf/sprintf
 * routine. It outputs a set of data under the
 * control of a formatting string. Not all of the
@@ -300,17 +583,10 @@ void xil_printf( const char8 *ctrl1, ...)
 ******************************************************************************/
 void xil_vprintf(const char8 *ctrl1, va_list argp)
 {
-	s32 Check = 0;
-#if defined (SUPPORT_64BIT_PRINT)
-	s32 long_flag;
-#endif
-	s32 dot_flag;
-	u32 width, index;
-	params_t par;
-
-	u8 ch;
 	char8 *ctrl = (char8 *)ctrl1;
-	const char *string;
+	va_list local_argp;
+
+	va_copy(local_argp, argp);
 
 	while ((ctrl != NULL) && (*ctrl != (char8)0)) {
 
@@ -324,170 +600,10 @@ void xil_vprintf(const char8 *ctrl1, va_list argp)
 			continue;
 		}
 
-		/* initialize all the flags for this format.   */
-		dot_flag = 0;
-#if defined (SUPPORT_64BIT_PRINT)
-		long_flag = 0;
-#endif
-		par.unsigned_flag = 0;
-		par.left_flag = 0;
-		par.do_padding = 0;
-		par.pad_character = ' ';
-		par.num2 = 32767;
-		par.num1 = 0;
-		par.len = 0;
-
-try_next:
-		ctrl += 1;
-		ch = (u8) * ctrl;
-
-		if (xil_isdigit(ch) != 0) {
-			if (dot_flag != 0) {
-				par.num2 = getnum(&ctrl);
-			} else {
-				if (ch == (u8)'0') {
-					par.pad_character = '0';
-				}
-				par.num1 = getnum(&ctrl);
-				par.do_padding = 1;
-			}
-			ctrl -= 1;
-			goto try_next;
-		}
-
-		switch (xil_tolower(ch)) {
-			case '%':
-#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
-				outbyte( '%');
-#endif
-				Check = 1;
-				break;
-
-			case '-':
-				par.left_flag = 1;
-				Check = 0;
-				break;
-
-			case '.':
-				if ((*(ctrl + 1) == '*') && (*(ctrl + 2) == 's')) {
-					width = va_arg(argp, u32);
-					string = va_arg(argp, const char *);
-					for (index = 0; (index < width) && (string[index] != '\0') ; index++) {
-						outbyte(string[index]);
-					}
-					ctrl += 2;
-				} else {
-					dot_flag = 1;
-					Check = 0;
-				}
-				break;
-
-			case 'l':
-#if defined (SUPPORT_64BIT_PRINT)
-#if defined (ARMR5)
-				if (*(ctrl + 1) == 'l') {
-					long_flag = 1;
-					ctrl += 1;
-				}
-#else
-				long_flag = 1;
-#endif
-#endif
-				Check = 0;
-				break;
-
-			case 'u':
-				par.unsigned_flag = 1;
-			/* fall through */
-			case 'i':
-			case 'd':
-#if defined (SUPPORT_64BIT_PRINT)
-				if (long_flag != 0) {
-					outnum1((s64)va_arg(argp, s64), 10L, &par);
-				} else {
-					outnum( va_arg(argp, s32), 10L, &par);
-				}
-#else
-				outnum( va_arg(argp, s32), 10L, &par);
-#endif
-				Check = 1;
-				break;
-			case 'p':
-#if defined (__aarch64__) || defined (__arch64__)
-				par.unsigned_flag = 1;
-				outnum1((s64)va_arg(argp, s64), 16L, &par);
-				Check = 1;
-				break;
-#endif
-			case 'X':
-			case 'x':
-				par.unsigned_flag = 1;
-#if defined (SUPPORT_64BIT_PRINT)
-				if (long_flag != 0) {
-					outnum1((s64)va_arg(argp, s64), 16L, &par);
-				} else {
-					outnum((s32)va_arg(argp, s32), 16L, &par);
-				}
-#else
-				outnum((s32)va_arg(argp, s32), 16L, &par);
-#endif
-				Check = 1;
-				break;
-
-			case 's':
-				outs( va_arg( argp, char *), &par);
-				Check = 1;
-				break;
-
-			case 'c':
-#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
-				outbyte( (char8)va_arg( argp, s32));
-#endif
-				Check = 1;
-				break;
-
-			case '\\':
-				ctrl += 1;
-				switch (*ctrl) {
-					case 'a':
-#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
-						outbyte( ((char8)0x07));
-#endif
-						break;
-					case 'h':
-#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
-						outbyte( ((char8)0x08));
-#endif
-						break;
-					case 'r':
-#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
-						outbyte( ((char8)0x0D));
-#endif
-						break;
-					case 'n':
-#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
-						outbyte( ((char8)0x0D));
-						outbyte( ((char8)0x0A));
-#endif
-						break;
-					default:
-#if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
-						outbyte( *ctrl);
-#endif
-						break;
-				}
-				Check = 0;
-				break;
-
-			default:
-				Check = 1;
-				break;
-		}
-		if (Check == 1) {
-			ctrl += 1;
-			continue;
-		}
-		goto try_next;
+		/* delegate all format specifier processing    */
+		process_format_spec(&ctrl, &local_argp);
 	}
+
+	va_end(local_argp);
 }
 /*---------------------------------------------------*/
