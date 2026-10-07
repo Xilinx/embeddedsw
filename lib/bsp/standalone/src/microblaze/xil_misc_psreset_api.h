@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,16 +19,17 @@
 * 1.00b kpc   03/07/13 First release.
 * 8.0	sk    03/17/22 Remove commented code to fix misra_c_2012_directive_4_4
 * 		       violation.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+#ifndef XIL_MISC_RESET_H
+#define XIL_MISC_RESET_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XIL_MISC_RESET_H		/* prevent circular inclusions */
-#define XIL_MISC_RESET_H		/* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

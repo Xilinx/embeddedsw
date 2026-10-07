@@ -96,6 +96,7 @@
 *       kpt      10/17/24 Move API's used in secure libs to xil_sutil.c
 * 9.4   ml       07/24/25 Fixed GCC warnings
 * 9.5   hj       30/01/26 Remove zero address check from all API's
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -115,7 +116,7 @@
 /**
 * This API ceils the provided float value.
 *
-* @param	Value is a float variable which has to ceiled to nearest
+* @param[in]	Value is a float variable which has to ceiled to nearest
 *		integer.
 *
 * @return	Returns ceiled value.
@@ -136,14 +137,13 @@ s32 Xil_Ceil(float Value)
 /**
  * Checks whether the passed character is a valid hex digit
  *
- * @param   Ch - Pointer to the input character
+ * @param[in]   Ch - Pointer to the input character
  *
  * @return
  *          XST_SUCCESS	- on valid hex digit
  *          XST_FAILURE - on invalid hex digit
  *
- * @note    None.
- *
+
  ******************************************************************************/
 u32 Xil_IsValidHexChar(const char *Ch)
 {
@@ -162,15 +162,14 @@ u32 Xil_IsValidHexChar(const char *Ch)
 /**
  * Validate the input string contains only hexadecimal characters
  *
- * @param   HexStr - Pointer to string to be validated
+ * @param[in]   HexStr - Pointer to string to be validated
  *
  * @return
  *          XST_SUCCESS	- On valid input hex string
  *          XST_INVALID_PARAM - On invalid length of the input string
  *          XST_FAILURE	- On non hexadecimal character in string
  *
- * @note    None
- *
+
  ******************************************************************************/
 u32 Xil_ValidateHexStr(const char *HexStr)
 {
@@ -199,10 +198,10 @@ END:
  * Converts the string into the equivalent Hex buffer.
  *	Ex: "abc123" -> {0xab, 0xc1, 0x23}
  *
- * @param	Str is a Input String. Will support the lower and upper case values.
+ * @param[in]	Str is a Input String. Will support the lower and upper case values.
  * 		Value should be between 0-9, a-f and A-F
- * @param	Buf is Output buffer.
- * @param	Len of the input string. Should have even values
+ * @param[in]	Buf is Output buffer.
+ * @param[in]	Len of the input string. Should have even values
  *
  * @return
  * 		- XST_SUCCESS no errors occurred.
@@ -251,12 +250,12 @@ END:
  * Converts the string into the equivalent Hex buffer.
  *	Ex: "abc123" -> {0x23, 0xc1, 0xab}
  *
- * @param   Str - Input String to be converted to hex number in little
- *                endian format. Valid characters of input strin are between
+ * @param[in]   Str - Input String to be converted to hex number in little
+ *                endian format. Valid characters of input string are between
  *                0-9, a-f and A-F
- * @param   Buf - Pointer to memory location where converted hex numbers are to
+ * @param[in]   Buf - Pointer to memory location where converted hex numbers are to
  *                be stored.
- * @param   Len - Expected number of output bits
+ * @param[in]   Len - Expected number of output bits
  *
  * @return
  *          XST_SUCCESS - Input string is converted to hex number(s)
@@ -310,8 +309,8 @@ END:
 /**
  * Returns the length of input string.
  *
- * @param   Str - Input string
- * @param   MaxLen - Maximum expected length of the input string
+ * @param[in]   Str - Input string
+ * @param[in]   MaxLen - Maximum expected length of the input string
  *
  * @return
  *          Returns length of the input string if length is less than MaxLen.
@@ -341,9 +340,9 @@ u32 Xil_Strnlen(const char *Str, u32 MaxLen)
  * @brief	This functions copies source string to destination string. This
  * 			function is a safe version of strcpy
  *
- * @param	DestPtr is pointer to destination string
- * @param	SrcPtr is pointer to source string
- * @param	Size is the maximum number of bytes of the source string
+ * @param[in]	DestPtr is pointer to destination string
+ * @param[in]	SrcPtr is pointer to source string
+ * @param[in]	Size is the maximum number of bytes of the source string
  *			to be copied
  *
  * @return	XST_SUCCESS on success and error code on failure
@@ -376,18 +375,17 @@ END:
 /**
  * @brief	Copies specified range from source string to destination string
  *
- * @param	Src  is a pointer to source string
- * @param	Dest  is a pointer to destination string
- * @param	From is 0 based index from where string copy starts
- * @param	To   is 0 based index till which string is copied
- * @param	MaxSrcLen is the maximum length of source string
- * @param	MaxDstLen is the maximum length of destination string
+ * @param[in]	Src  is a pointer to source string
+ * @param[in]	Dest  is a pointer to destination string
+ * @param[in]	From is 0 based index from where string copy starts
+ * @param[in]	To   is 0 based index till which string is copied
+ * @param[in]	MaxSrcLen is the maximum length of source string
+ * @param[in]	MaxDstLen is the maximum length of destination string
  *
  * @return	XST_SUCCESS on success
  * 		XST_FAILURE on failure
  *
- * @note	None
- *
+
  ****************************************************************************/
 s32 Xil_StrCpyRange(const u8 *Src, u8 *Dest, u32 From, u32 To, u32 MaxSrcLen,
 		    u32 MaxDstLen)
@@ -428,9 +426,9 @@ END:
  * @brief	This function appends string2 to string1. This function is a safe
  * 			version of strcat
  *
- * @param	Str1Ptr is pointer to string1
- * @param	Str2Ptr is pointer to string2
- * @param	Size is the maximum number of bytes Str1 can hold
+ * @param[in]	Str1Ptr is pointer to string1
+ * @param[in]	Str2Ptr is pointer to string2
+ * @param[in]	Size is the maximum number of bytes Str1 can hold
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -470,9 +468,9 @@ END:
  * @brief	This function compares Len bytes from memory1 and memory2. This
  * 			function is a secure implementation of memcmp
  *
- * @param	Buf1Ptr is pointer to memory1
- * @param	Buf2Ptr is pointer to memory2
- * @param	Len is number of byets to be compared
+ * @param[in]	Buf1Ptr is pointer to memory1
+ * @param[in]	Buf2Ptr is pointer to memory2
+ * @param[in]	Len is number of byets to be compared
  *
  * @return	0 if contents of both the memory regions are same,
  * 			-1 if first non-matching character has lower value in Buf1Ptr

@@ -101,7 +101,7 @@ typedef struct
 /**
 * @brief    Return the most significant half of the 64 bit data type.
 *
-* @param    x is the 64 bit word.
+* @param[in]    x is the 64 bit word.
 *
 * @return   The upper 32 bits of the 64 bit word.
 *
@@ -112,7 +112,7 @@ typedef struct
 /**
 * @brief    Return the least significant half of the 64 bit data type.
 *
-* @param    x is the 64 bit word.
+* @param[in]    x is the 64 bit word.
 *
 * @return   The lower 32 bits of the 64 bit word.
 *
@@ -176,7 +176,7 @@ typedef void (*XExceptionHandler) (void *InstancePtr);
 
 /**
  * @brief  Returns 32-63 bits of a number.
- * @param  n : Number being accessed.
+ * @param[in]  n : Number being accessed.
  * @return Bits 32-63 of number.
  *
  * @note    A basic shift-right of a 64- or 32-bit quantity.
@@ -190,14 +190,14 @@ typedef void (*XExceptionHandler) (void *InstancePtr);
 #endif
 /**
  * @brief  Returns 0-31 bits of a number
- * @param  n : Number being accessed.
+ * @param[in]  n : Number being accessed.
  * @return Bits 0-31 of number
  */
 #define LOWER_32_BITS(n) ((u32)(n))
 
 /**
  * @brief   Returns 0-31 bits of a number .
- * @param   n : Number being accessed.
+ * @param[in]   n : Number being accessed.
  * @return  Bits 0-31 of number.
  */
 #if defined (__aarch64__) || defined (__arch64__)
@@ -224,6 +224,7 @@ typedef void (*XExceptionHandler) (void *InstancePtr);
 }
 #endif
 
+/** @} */
 #endif	/* end of protection macro */
 /**
  *@endcond

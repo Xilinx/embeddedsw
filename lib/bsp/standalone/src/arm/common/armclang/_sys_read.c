@@ -5,11 +5,23 @@
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
+/**
+ * @file _sys_read.c
+ * @brief Semihosting read stub for ARM compilers.
+ */
 #ifndef UNDEFINE_FILE_OPS
 #include "xil_printf.h"
 #include "xparameters.h"
 
 /* Stub for read() sys-call */
+/**
+ * @brief Stub for semihosting read; reads from STDIN if configured.
+ * @param[in] fh File handle (unused).
+ * @param[out] buf Buffer to store read bytes.
+ * @param[in] len Number of bytes requested.
+ * @param[in] mode Transfer mode (unused).
+ * @return Number of bytes NOT read.
+ */
 __attribute__((weak)) s32 _sys_read(__attribute__((unused)) u32 fh,
 					__attribute__((unused)) u8 *buf,
 					u32 len,

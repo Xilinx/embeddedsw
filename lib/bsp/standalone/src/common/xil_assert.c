@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 1.00a hbm  07/14/09 Initial release
 * 6.0   kvn  05/31/16 Make Xil_AsserWait a global variable
 * 9.2   bm   07/08/24 Disable Xil_AssertCallbackRoutine usage for PLM
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -70,13 +71,10 @@ static Xil_AssertCallback Xil_AssertCallbackRoutine = NULL;
 *           infinite loop depending on the value of the Xil_AssertWait
 *           variable.
 *
-* @param    File: filename of the source
-* @param    Line: linenumber within File
+* @param[in]    File: filename of the source
+* @param[in]    Line: linenumber within File
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void Xil_Assert(const char8 *File, s32 Line)
 {
@@ -103,10 +101,9 @@ void Xil_Assert(const char8 *File, s32 Line)
 * @brief    Set up a callback function to be invoked when an assert occurs.
 *           If a callback is already installed, then it will be replaced.
 *
-* @param    Routine: callback to be invoked when an assert is taken
+* @param[in]    Routine: callback to be invoked when an assert is taken
 *
-* @return   None.
-*
+
 * @note     This function has no effect if NDEBUG is set
 *
 ******************************************************************************/
@@ -122,12 +119,9 @@ void Xil_AssertSetCallback(Xil_AssertCallback Routine)
 *           signature for interrupt handlers. It can be used to assign a null
 *           handler (a stub) to an interrupt controller vector table.
 *
-* @param    NullParameter: arbitrary void pointer and not used.
+* @param[in]    NullParameter: arbitrary void pointer and not used.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void XNullHandler(void *NullParameter)
 {

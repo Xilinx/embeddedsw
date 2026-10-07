@@ -1,7 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file fstat.c
+ * @brief File status stub implementation for standalone BSP.
+ */
 
 
 #include <sys/stat.h>
@@ -18,6 +23,12 @@ __attribute__((weak)) s32 _fstat(s32 fd, struct stat *buf);
 #endif
 /*
  * fstat -- Since we have no file system, we just return an error.
+ */
+/**
+ * @brief Stub for _fstat(); marks file as character device.
+ * @param[in] fd File descriptor (unused).
+ * @param[out] buf Stat structure to fill; st_mode is set to S_IFCHR.
+ * @return Always 0.
  */
 __attribute__((weak)) s32 _fstat(s32 fd, struct stat *buf)
 {

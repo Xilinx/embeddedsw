@@ -1,7 +1,12 @@
 /*******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+/**
+ * @file xlpd_slcr.h
+ * @brief LPD SLCR register definitions.
+ */
 
 
 #ifndef __XLPD_SLCR_H__

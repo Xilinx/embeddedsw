@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,12 +26,13 @@
 * 			           fix misra_c_2012_rule_10_4 violation.
 * 9.0   ml    03/03/23 Add description to fix doxygen warnings.
 * 9.3   asa   03/04/25 Add support for Cortex-A* and clang.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIL_SPINLOCK_H  /**< prevent circular inclusions */
-#define XIL_SPINLOCK_H  /**< by using protection macros */
+#ifndef XIL_SPINLOCK_H
+#define XIL_SPINLOCK_H
 
 /***************************** Include Files ********************************/
 #include "xil_types.h"
@@ -51,18 +52,16 @@ void Xil_ReleaseSpinLock(void);
 u32 Xil_IsSpinLockEnabled(void);
 
 /************************** MACRO Definitions ****************************/
-#define XIL_SPINLOCK_LOCKVAL	0x10203040
-#define XIL_SPINLOCK_RESETVAL	0x40302010
-#define XIL_SPINLOCK_ENABLE     0x17273747
-#define XIL_SPINLOCK_ENABLED	0x17273747U
+#define XIL_SPINLOCK_LOCKVAL	0x10203040  /**< Magic value indicating spinlock is held. */
+#define XIL_SPINLOCK_RESETVAL	0x40302010  /**< Magic value indicating spinlock is released. */
+#define XIL_SPINLOCK_ENABLE     0x17273747  /**< Value written to enable spinlock feature. */
+#define XIL_SPINLOCK_ENABLED	0x17273747U /**< Unsigned check value for enabled spinlock state. */
 /***************** Macros (Inline Functions) Definitions ********************/
 
 #endif  /* (__GNUC__) */
 /***************************************************************************/
+/** @brief Acquire the spinlock to protect shared register access across CPUs. */
 #if defined(__GNUC__)
-/**< protect multiple applications running at separate CPUs to write to
-  * the same register
-  */
 #define XIL_SPINLOCK()              \
     if(Xil_IsSpinLockEnabled()!=(u32)0) {    \
         Xil_SpinLock();  }
@@ -70,8 +69,8 @@ u32 Xil_IsSpinLockEnabled(void);
 #define XIL_SPINLOCK()
 #endif /* (__GNUC__) */
 
+/** @brief Release the spinlock previously taken. */
 #if defined(__GNUC__)
-/**< Release the lock previously taken */
 #define XIL_SPINUNLOCK()              \
     if(Xil_IsSpinLockEnabled()!=(u32)0) {      \
         Xil_SpinUnlock();  }

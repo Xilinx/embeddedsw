@@ -1,5 +1,5 @@
 /******************************************************************************
-*Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+*Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 *SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,13 +7,14 @@
 /**
 *
 * @file xpm_init.h
-* @addtogroup xpm_init xpm_init APIs
+* @addtogroup xpm_init xpm APIs
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 *  1.0  gm      14/06/23 Initial release.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 ******************************************************************************/
 

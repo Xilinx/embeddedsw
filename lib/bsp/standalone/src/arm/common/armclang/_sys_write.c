@@ -5,9 +5,21 @@
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
+/**
+ * @file _sys_write.c
+ * @brief Semihosting write stub for ARM compilers.
+ */
 #include "xil_printf.h"
 #include "xparameters.h"
 
+/**
+ * @brief Stub for semihosting write; outputs to STDOUT if configured.
+ * @param[in] fh File handle (unused).
+ * @param[in] buf Buffer of bytes to write.
+ * @param[in] len Number of bytes to write.
+ * @param[in] mode Transfer mode (unused).
+ * @return 0 after standard console output; Xen console write result when Xen PV console is enabled.
+ */
 __attribute__((weak)) s32 _sys_write(__attribute__((unused)) u32 fh,
 					const u8 *buf, u32 len,
 					__attribute__((unused)) s32 mode)

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +24,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 5.2	pkp  28/05/15 First release
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -38,16 +40,30 @@ extern "C" {
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);
 void Xil_DCacheInvalidate(void);
+/** @brief Invalidate a range of data cache lines. */
 void Xil_DCacheInvalidateRange(INTPTR adr, u32 len);
 void Xil_DCacheFlush(void);
+/** @brief Flush a range of data cache lines. */
 void Xil_DCacheFlushRange(INTPTR adr, u32 len);
+/**
+ * @brief Invalidate a single data cache line.
+ * @param[in] adr Address of the cache line to invalidate.
+ */
 void Xil_DCacheInvalidateLine(u32 adr);
+/**
+ * @brief Flush a single data cache line.
+ * @param[in] adr Address of the cache line to flush.
+ */
 void Xil_DCacheFlushLine(u32 adr);
-
+/**
+ * @brief Invalidate a single instruction cache line.
+ * @param[in] adr Address of the instruction cache line to invalidate.
+ */
 void Xil_ICacheInvalidateLine(u32 adr);
 void Xil_ICacheEnable(void);
 void Xil_ICacheDisable(void);
 void Xil_ICacheInvalidate(void);
+/** @brief Invalidate a range of instruction cache lines. */
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len);
 
 #ifdef __cplusplus

@@ -5,7 +5,7 @@
 
 /*****************************************************************************/
 /**
-* @file xil_mpu.c
+* @file xil_mpu_r52.c
 *
 * This file provides APIs for enabling/disabling MPU and setting the memory
 * attributes for section of memory, in the CortexR52 MPU  table.
@@ -19,8 +19,8 @@
 * 9.1   ml   11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 * 9.2   ml   17/01/24 Modified description and code for Xil_SetTlbAttributesR52 and
 *                     Xil_SetTlbAttributes API's to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -40,48 +40,55 @@
  * It contains parameters required to fix overlapping created
  * by requested MPU region.
  */
+/** @brief Internal structure to track MPU region overlap parameters during region setup. */
 struct XRequestMpuConfig {
-	UINTPTR BaseAddress;/* MPU region base address */
-	u32 Size;/* MPU region size address */
-	u32 Attribute;/* MPU region size attribute */
-	u32 StartRegNum;/* Existing MPU region number where requested region base address falls */
-	u32 EndRegNum;/* Existing MPU region number where requested region end address falls */
-	u32 RedundantRegCnt; /* Number of existing MPU regions occupied requested region(excluding start and end region)*/
-	u32 Redundant_RegNum[16]; /* Array which contains existing MPU region number's occupied by requested region */
+	UINTPTR BaseAddress;      /**< MPU region base address. */
+	u32 Size;                 /**< MPU region size in bytes. */
+	u32 Attribute;            /**< MPU region attribute bitmask. */
+	u32 StartRegNum;          /**< Existing MPU region number containing the requested start address. */
+	u32 EndRegNum;            /**< Existing MPU region number containing the requested end address. */
+	u32 RedundantRegCnt;      /**< Number of existing MPU regions fully overlapped by the requested region. */
+	u32 Redundant_RegNum[16]; /**< Array of existing MPU region numbers overlapped by the requested region. */
 };
 
 /***************** Static functions declarations *********************/
+/** @brief Set TLB attributes for a memory region on Cortex-R52. */
 static u32 Xil_SetTlbAttributesR52(UINTPTR Addr, u32 Size, u32 Attrib)__attribute__((__section__(".boot")));
+/** @brief Add a new entry to the MPU configuration table. */
 static void Xil_AddEntryToMPUConfig(XMpu_Config MpuConfig, struct XMpuConfig NewEntry);
+/** @brief Remove an entry from the MPU configuration table. */
 static u32 Xil_RemoveEntryFromMPUConfig(XMpu_Config MpuConfig, UINTPTR RemovedEntry);
 static void Xil_SetMPUConfig(XMpu_Config MpuConfigNew);
 static u32 Xil_GetNumOfFreeRegionsInReqConfig (XMpu_Config MpuConfig);
-static u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig );
+static /** @brief Adjust overlapping MPU regions to resolve conflicts. */
+u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig );
 
 /************************** Constant Definitions *****************************/
-#define MPU_REGION_SIZE_MIN 0x40U
-/*
- * Cortex-R52 MPU regions are programmed on 64-byte granularity.
- * OR-ing with this mask normalizes an inclusive end address to the
- * end of the containing 64-byte-aligned MPU block.
- */
-#define XMPU_REGION_ALIGNMENT_MASK 0x3FU
+#define MPU_REGION_SIZE_MIN 0x40U /**< Minimum MPU region size (64 bytes). */
+#define XMPU_REGION_ALIGNMENT_MASK 0x3FU /**< Mask to normalize an address to the end of its 64-byte-aligned MPU block. */
 
 /************************** Variable Definitions *****************************/
+/**
+ *@cond nocomments
+ */
 XMpu_Config Mpu_Config __attribute__((section(".bootdata")));
+/**
+ *@endcond
+ */
+/** @brief Global MPU configuration table, placed in boot data section. */
+extern XMpu_Config Mpu_Config;
 
 /************************** Function Prototypes ******************************/
 void Xil_SetAttributeBasedOnConfig(u32 IsSortingNedded)  __attribute__((
-		__section__(".boot"))); /* To be used by only mpu_r52.c and xil_mpu_r52.c */
+		__section__(".boot"))); /**< Apply MPU configuration attributes (internal use only). */
 
 /*****************************************************************************/
 /**
 * @brief    Set the global MPU configuration data structure Mpu_Config with the
 *           one passed by caller
 *
-* @param	MpuConfigNew: New MPU configuration to be copied to Mpu_Config
-* @return	None.
-*
+* @param[in]	MpuConfigNew: New MPU configuration to be copied to Mpu_Config
+
 *
 ******************************************************************************/
 static void Xil_SetMPUConfig(XMpu_Config MpuConfigNew)
@@ -97,12 +104,11 @@ static void Xil_SetMPUConfig(XMpu_Config MpuConfigNew)
 /**
 * @brief    Returns the total number of free MPU regions available in new MPU
 *           configuration data structure being requested by caller.
-* @param	MpuConfig: This is of type XMpu_Config
+* @param[in]	MpuConfig: This is of type XMpu_Config
 *           which is an array of 16 entries of type structure representing
 *           the MPU config table.
 *
 * @return	Number of free regions available in requested configuration.
-*
 *
 ******************************************************************************/
 static u32 Xil_GetNumOfFreeRegionsInReqConfig (XMpu_Config MpuConfig)
@@ -119,6 +125,7 @@ static u32 Xil_GetNumOfFreeRegionsInReqConfig (XMpu_Config MpuConfig)
 	return NumofFreeRegs;
 }
 
+/** @brief Add a new entry to the MPU configuration table. */
 static void Xil_AddEntryToMPUConfig(XMpu_Config MpuConfig, struct XMpuConfig NewEntry)
 {
 	s32 RegNum, NewEntryIndex = 0, LastValidIndex = 0;
@@ -150,6 +157,7 @@ static void Xil_AddEntryToMPUConfig(XMpu_Config MpuConfig, struct XMpuConfig New
 
 }
 
+/** @brief Remove an entry from the MPU configuration table. */
 static u32 Xil_RemoveEntryFromMPUConfig(XMpu_Config MpuConfig, UINTPTR RemovedEntry)
 {
 	u32 RegNum, RemovedEntryIndex = 0xFF;
@@ -189,13 +197,12 @@ static u32 Xil_RemoveEntryFromMPUConfig(XMpu_Config MpuConfig, UINTPTR RemovedEn
 *
 * @brief   Program the MPU regions listed in Mpu_Config data
 *          structure.
-* @param   IsSortingNedded: Set it to 1 if Mpu_Config needes to be sorted
+* @param[in] IsSortingNedded Set it to 1 if Mpu_Config needs to be sorted
 *          before programming the MPU.
 *
-* @return	None.
+
 * @note    Only for internal use, supposed to be called only from mpu_r52.c
 *          and xil_mpu_r52.c
-*
 *
 ******************************************************************************/
 void Xil_SetAttributeBasedOnConfig(u32 IsSortingNedded)
@@ -241,6 +248,7 @@ void Xil_SetAttributeBasedOnConfig(u32 IsSortingNedded)
 	}
 }
 
+/** @brief Set TLB attributes for a memory region on Cortex-R52. */
 static u32 Xil_SetTlbAttributesR52(UINTPTR Addr, u32 Size, u32 Attrib)
 {
 	u32 Cnt, AttrChange = 0, NumFreeRegion = 0, Status = XST_FAILURE ;
@@ -387,6 +395,7 @@ static u32 Xil_SetTlbAttributesR52(UINTPTR Addr, u32 Size, u32 Attrib)
 	return XST_SUCCESS;
 }
 
+/** @brief Adjust overlapping MPU regions to resolve conflicts. */
 u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 {
 	u32 RegNum, Cnt, Status, NumFreeRegion;
@@ -400,7 +409,7 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 	/*
 	 * StartRegNum/EndRegNum are used directly as indices into the
 	 * MAX_POSSIBLE_MPU_REGS-entry MpuConfig array below. Guard against an
-	 * out-of-range index (e.g. the 0xFF sentinel) to avoid an OOB access.
+	 * out-of-range index (for example the 0xFF sentinel) to avoid an OOB access.
 	 */
 	if ((StartRegNum >= MAX_POSSIBLE_MPU_REGS) ||
 	    (EndRegNum >= MAX_POSSIBLE_MPU_REGS)) {
@@ -545,18 +554,25 @@ u32 Xil_AdjustOverlappedRegions(struct XRequestMpuConfig ReqMPUConfig )
 	return XST_SUCCESS;
 }
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief    This function sets the memory attributes for a section covering
-*           1MB, of memory in the translation table.
+*           1MB of memory in the translation table.
 *
-* @param	Addr : 32-bit address for which memory attributes need to be set.
-* @param	attrib : Attribute for the given memory region.
-* @return	None.
+* @param[in]	Addr   Address for which memory attributes need to be set.
+* @param[in]	attrib Attribute for the given memory region.
+* @return	XST_SUCCESS if the region is set, XST_FAILURE otherwise.
+*
 * @note     In RTOS/OS environment, this API must be called by disabling
 *           scheduler and interrupts.
 *
 ******************************************************************************/
+/**
+ *@endcond
+ */
 u32 Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 {
 	/*
@@ -572,10 +588,11 @@ u32 Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 * @brief    Set the memory attributes for a section of memory in the
 *           translation table.
 *
-* @param	addr: 32-bit address for which memory attributes need to be set..
-* @param	size: size is the size of the region.
-* @param	attrib: Attribute for the given memory region.
-* @return	None.
+* @param[in]	addr   Address for which memory attributes need to be set.
+* @param[in]	size   Size of the memory region.
+* @param[in]	attrib Attribute for the given memory region.
+* @return	XST_SUCCESS if the region is set, XST_FAILURE otherwise.
+*
 * @note     In RTOS/OS environment, this API must be called by disabling
 *           scheduler and interrupts.
 *
@@ -590,8 +607,7 @@ u32 Xil_SetMPURegion(UINTPTR addr, u64 size, u32 attrib)
 * @brief    Enable MPU for Cortex R52 processor. This function invalidates I
 *           cache and flushes the D Caches, and then enables the MPU.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void Xil_EnableMPU(void)
 {
@@ -634,8 +650,7 @@ void Xil_EnableMPU(void)
 * @brief    Disable MPU for Cortex R52 processors. This function invalidates I
 *           cache and flushes the D Caches, and then disables the MPU.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void Xil_DisableMPU(void)
 {
@@ -676,10 +691,9 @@ void Xil_DisableMPU(void)
 /**
 * @brief    The MPU configuration table is passed to the caller.
 *
-* @param	mpuconfig: This is of type XMpu_Config which is an array of
+* @param[in]	mpuconfig: This is of type XMpu_Config which is an array of
 * 			16 entries of type structure representing the MPU config table
-* @return	none
-*
+
 *
 ******************************************************************************/
 void Xil_GetMPUConfig (XMpu_Config mpuconfig)
@@ -697,7 +711,6 @@ void Xil_GetMPUConfig (XMpu_Config mpuconfig)
 * @brief    Returns the total number of free MPU regions available.
 *
 * @return	Number of free regions available to users
-*
 *
 ******************************************************************************/
 u32 Xil_GetNumOfFreeRegions (void)
@@ -724,7 +737,6 @@ u32 Xil_GetNumOfFreeRegions (void)
 *
 * @return	The free region mask as a 16 bit value
 *
-*
 ******************************************************************************/
 u16 Xil_GetMPUFreeRegMask (void)
 {
@@ -744,10 +756,8 @@ u16 Xil_GetMPUFreeRegMask (void)
 /**
 * @brief    Disables the corresponding region number as passed by the user.
 *
-* @param	reg_num: The region number to be disabled
 * @return	XST_SUCCESS: If the region could be disabled successfully
 * 			XST_FAILURE: If the requested region number is 16 or more.
-*
 *
 ******************************************************************************/
 u32 Xil_DisableMPURegionByRegNum (u32 reg_num)
@@ -787,7 +797,6 @@ exit1:
 *
 * @return	The free MPU region available
 *
-*
 ******************************************************************************/
 u32 Xil_GetNextMPURegion(void)
 {
@@ -803,8 +812,12 @@ u32 Xil_GetNextMPURegion(void)
 	return NextAvailableReg;
 }
 
+/** @brief Check for u32 addition overflow using compiler builtin. @param[in] a First operand. @param[in] b Second operand. @return Non-zero if overflow occurs. */
 #define u32overflow(a, b) ({__typeof__(a) s; __builtin_uadd_overflow(a, b, &s); })
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief    Memory mapping for Cortex-R52. If successful, the mapped
@@ -812,22 +825,20 @@ u32 Xil_GetNextMPURegion(void)
 *           truncate the PhysAddr by making it 64 byte aligned, since Cortex R52
 *           MPU region needs to be strictly 64 byte aligned.
 *
-* @param       PhysAddr is base physical address at which to start mapping.
 *                   NULL in Physaddr masks possible mapping errors.
-* @param       size of region to be mapped.
-* @param       flags used to set translation table.
 *
 * @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
 *
-* @cond Xil_MemMap_internal
 * @note:    u32overflow() is defined for readability and (for __GNUC__) to
 *           - force the type of the check to be the same as the first argument
 *           - hide the otherwise unused third argument of the builtin
 *           - improve safety by choosing the explicit _uadd_ version.
 *           Consider __builtin_add_overflow_p() when available.
 *           Use an alternative (less optimal?) for compilers w/o the builtin.
-* @endcond
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 {
 

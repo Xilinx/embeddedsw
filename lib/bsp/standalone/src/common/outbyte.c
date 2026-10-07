@@ -1,9 +1,15 @@
 /******************************************************************************
 *
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
+
+/**
+* @file outbyte.c
+* @brief Character output byte stub for standalone BSP.
+*/
+
 #include "bspconfig.h"
 #include "xil_types.h"
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,9 +9,7 @@
 *
 * @file xplatform_info.h
 *
-*
-* @addtogroup common_platform_info APIs to Get Platform Information
-*
+* @addtogroup common_platform_info Hardware Platform Information
 *
 * The xplatform_info.h file contains definitions for various available Xilinx&reg;
 * platforms. Also, it contains prototype of APIs, which can be used to get the
@@ -50,17 +48,18 @@
                       with XPS_PSX_RPU_CLUSTER_XY_CORE_X_PWRDWN registers
 * 9.4    vmt 28/10/25 Added XIOCoherencySupported() declaration to check cache
 		      coherency support.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+
+#ifndef XPLATFORM_INFO_H
+#define XPLATFORM_INFO_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XPLATFORM_INFO_H		/* prevent circular inclusions */
-#define XPLATFORM_INFO_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -159,8 +158,10 @@ extern "C" {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
+/** @brief Return the platform type identifier for the running processor. */
 u32 XGetPlatform_Info(void);
 #if ! defined(__microblaze__) && ! defined(__riscv)
+/** @brief Return the core ID of the currently executing processor. */
 u8 XGetCoreId(void);
 #endif
 
@@ -178,6 +179,7 @@ u8 XGetCoreId(void);
 u8 XGetBootStatus(void);
 #endif
 
+/** @brief Return non-zero if I/O coherency is supported by the platform. */
 u32 XIOCoherencySupported(void);
 
 /************************** Function Prototypes ******************************/
@@ -187,7 +189,7 @@ u32 XIOCoherencySupported(void);
 }
 #endif
 
-#endif /* end of protection macro */
 /**
 * @} End of "addtogroup common_platform_info".
 */
+#endif /* end of protection macro */

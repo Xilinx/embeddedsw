@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +22,7 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  05/29/14 First release
 * 9.01  bl   10/11/23 Add API Xil_MemMap
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -84,7 +85,13 @@ extern "C" {
  *@endcond
  */
 
+/**
+ * @brief Set TLB attributes for a given address.
+ * @param[in] Addr   Virtual address for which TLB attributes are to be set.
+ * @param[in] attrib Attribute bits to configure for the address.
+ */
 void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib);
+/** @brief Map a physical address range to virtual address space. */
 void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 
 #ifdef __cplusplus

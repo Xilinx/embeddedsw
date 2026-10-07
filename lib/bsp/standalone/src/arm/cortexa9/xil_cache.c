@@ -101,6 +101,7 @@
 *                     Changes are made to fix the same.
 * 9.1   asa  31/01/24 Fix overflow issues under corner cases for various
 *                     cache maintenance APIs.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -122,8 +123,8 @@
 /************************** Variable Definitions *****************************/
 
 #define IRQ_FIQ_MASK 0xC0U	/**< Mask IRQ and FIQ interrupts in cpsr */
-#define MAX_ADDR 				0xFFFFFFFFU
-#define LAST_CACHELINE_START	0xFFFFFFE0U
+#define MAX_ADDR 				0xFFFFFFFFU /**< Maximum address for cache operations. */
+#define LAST_CACHELINE_START	0xFFFFFFE0U /**< Last cache line start address (used to detect end-of-space). */
 
 #ifdef __GNUC__
 	extern s32  _stack_end;
@@ -136,10 +137,9 @@
 *
 * Access L2 Debug Control Register.
 *
-* @param	Value, value to be written to Debug Control Register.
+* @param[in]	Value value to be written to Debug Control Register.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #ifdef __GNUC__
 static inline void Xil_L2WriteDebugCtrl(u32 Value)
@@ -159,8 +159,7 @@ static void Xil_L2WriteDebugCtrl(u32 Value)
 *
 * Perform L2 Cache Sync Operation.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #ifdef __GNUC__
 static inline void Xil_L2CacheSync(void)
@@ -175,8 +174,7 @@ static void Xil_L2CacheSync(void)
 /**
 * @brief	Enable the Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_DCacheEnable(void)
 {
@@ -190,8 +188,7 @@ void Xil_DCacheEnable(void)
 /**
 * @brief	Disable the Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_DCacheDisable(void)
 {
@@ -205,8 +202,7 @@ void Xil_DCacheDisable(void)
 /**
 * @brief	Invalidate the entire Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_DCacheInvalidate(void)
 {
@@ -230,10 +226,7 @@ void Xil_DCacheInvalidate(void)
 * 			modified contents are lost and are NOT written to the system memory
 * 			before the line is invalidated.
 *
-* @param	adr: 32bit address of the data to be flushed.
-*
-* @return	None.
-*
+
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -309,12 +302,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
 * 			for a variable present in the same cache line, then we will have to
 *			invalidate the cache after DMA is complete.
 *
-*
-* @param	adr: 32bit start address of the range to be invalidated.
-* @param	len: Length of the range to be invalidated in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 {
@@ -340,10 +328,10 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 
 			Xil_L1DCacheFlushLine(adr);
 #ifndef USE_AMP
-			/* Disable Write-back and line fills */
+			/**< Disable Write-back and line fills */
 			Xil_L2WriteDebugCtrl(0x3U);
 			Xil_L2CacheFlushLine(adr);
-			/* Enable Write-back and line fills */
+			/**< Enable Write-back and line fills */
 			Xil_L2WriteDebugCtrl(0x0U);
 			Xil_L2CacheSync();
 #endif
@@ -356,10 +344,10 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 			if ((opendaddr != tempadr) || (unalignedstart == 0x0U)) {
 				Xil_L1DCacheFlushLine(opendaddr);
 #ifndef USE_AMP
-				/* Disable Write-back and line fills */
+				/**< Disable Write-back and line fills */
 				Xil_L2WriteDebugCtrl(0x3U);
 				Xil_L2CacheFlushLine(opendaddr);
-				/* Enable Write-back and line fills */
+				/**< Enable Write-back and line fills */
 				Xil_L2WriteDebugCtrl(0x0U);
 				Xil_L2CacheSync();
 				(u32)endaddr >= cacheline ? (endaddr -= cacheline) : (endaddr = 0);
@@ -371,7 +359,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 
 #ifndef USE_AMP
 		while (tempadr < endaddr) {
-			/* Invalidate L2 cache line */
+			/**< Invalidate L2 cache line */
 			*L2CCOffset = tempadr;
 			Xil_L2CacheSync();
 			((MAX_ADDR - (u32)tempadr) < cacheline) ? (tempadr = MAX_ADDR) : (tempadr += cacheline) ;
@@ -379,7 +367,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 #endif
 
 		while (adr < endaddr) {
-	/* Invalidate L1 Data cache line */
+	/**< Invalidate L1 Data cache line */
 #if defined (__GNUC__) || defined (__ICCARM__)
 			asm_cp15_inval_dc_line_mva_poc(adr);
 #else
@@ -389,7 +377,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 #endif
 			((MAX_ADDR - (u32)adr) < cacheline) ? (adr = MAX_ADDR) : (adr += cacheline) ;
 		}
-		/* Wait for L1 cache invalidation to complete */
+		/**< Wait for L1 cache invalidation to complete */
 		dsb();
 	}
 	mtcpsr(currmask);
@@ -399,8 +387,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 /**
 * @brief	Flush the entire Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_DCacheFlush(void)
 {
@@ -424,10 +411,7 @@ void Xil_DCacheFlush(void)
 * 			contents of the cacheline are written to system memory before the
 * 			line is invalidated.
 *
-* @param	adr: 32bit address of the data to be flushed.
-*
-* @return	None.
-*
+
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -439,12 +423,12 @@ void Xil_DCacheFlushLine(u32 adr)
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 	Xil_L1DCacheFlushLine(adr);
 #ifndef USE_AMP
-	/* Disable Write-back and line fills */
+	/**< Disable Write-back and line fills */
 	Xil_L2WriteDebugCtrl(0x3U);
 
 	Xil_L2CacheFlushLine(adr);
 
-	/* Enable Write-back and line fills */
+	/**< Enable Write-back and line fills */
 	Xil_L2WriteDebugCtrl(0x0U);
 #endif
 	mtcpsr(currmask);
@@ -458,11 +442,7 @@ void Xil_DCacheFlushLine(u32 adr)
 * 			If the cachelines are modified (dirty), they are written to the
 * 			system memory before the lines are invalidated.
 *
-* @param	adr: 32bit start address of the range to be flushed.
-* @param	len: Length of the range to be flushed in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 {
@@ -484,7 +464,7 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 		tempadr = adr;
 
 		while (tempadr < opendadr) {
-			/* Flush L1 Data cache line */
+			/**< Flush L1 Data cache line */
 #if defined (__GNUC__) || defined (__ICCARM__)
 			asm_cp15_clean_inval_dc_line_mva_poc(tempadr);
 #else
@@ -494,14 +474,14 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 #endif
 			((MAX_ADDR - (u32)tempadr) < cacheline) ? (tempadr = MAX_ADDR) : (tempadr += cacheline);
 		}
-		/* Wait for L1 cache clean and invalidation to complete */
+		/**< Wait for L1 cache clean and invalidation to complete */
 		dsb();
 
 #ifndef USE_AMP
-		/* Disable Write-back and line fills */
+		/**< Disable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x3U);
 		while ((u32)adr < opendadr) {
-			/* Flush L2 cache line */
+			/**< Flush L2 cache line */
 			*L2CCOffset = adr;
 			Xil_L2CacheSync();
 			((MAX_ADDR - (u32)adr) < cacheline) ? (adr = MAX_ADDR) : (adr += cacheline);
@@ -519,10 +499,7 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 * 			After the store completes, the cacheline is marked as unmodified
 * 			(not dirty).
 *
-* @param	adr: 32bit address of the data to be stored.
-*
-* @return	None.
-*
+
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -544,8 +521,7 @@ void Xil_DCacheStoreLine(u32 adr)
 /**
 * @brief	Enable the instruction cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_ICacheEnable(void)
 {
@@ -559,8 +535,7 @@ void Xil_ICacheEnable(void)
 /**
 * @brief	Disable the instruction cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_ICacheDisable(void)
 {
@@ -575,8 +550,7 @@ void Xil_ICacheDisable(void)
 /**
 * @brief	Invalidate the entire instruction cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_ICacheInvalidate(void)
 {
@@ -598,10 +572,7 @@ void Xil_ICacheInvalidate(void)
 *			by the address is cached by the instruction cache, the cacheline
 *			containing that instruction is invalidated.
 *
-* @param	adr: 32bit address of the instruction to be invalidated.
-*
-* @return	None.
-*
+
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -625,11 +596,7 @@ void Xil_ICacheInvalidateLine(u32 adr)
 * 			the instrunction cache, the cachelines containing those
 *			instructions are invalidated.
 *
-* @param	adr: 32bit start address of the range to be invalidated.
-* @param	len: Length of the range to be invalidated in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 {
@@ -652,12 +619,12 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 
 		while (LocalAddr < end) {
 #ifndef USE_AMP
-		/* Invalidate L2 cache line */
+		/**< Invalidate L2 cache line */
 		*L2CCOffset = LocalAddr;
 		Xil_L2CacheSync();
 #endif
 
-		/* Invalidate L1 I-cache line */
+		/**< Invalidate L1 I-cache line */
 #if defined (__GNUC__) || defined (__ICCARM__)
 			asm_cp15_inval_ic_line_mva_pou(LocalAddr);
 #else
@@ -667,7 +634,7 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 #endif
 			((MAX_ADDR - LocalAddr) < cacheline) ? (LocalAddr = MAX_ADDR) : (LocalAddr += cacheline) ;
 		}
-		/* Wait for L1 I cache invalidation to complete */
+		/**< Wait for L1 I cache invalidation to complete */
 		dsb();
 	}
 	mtcpsr(currmask);
@@ -677,14 +644,13 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 /**
 * @brief	Enable the level 1 Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1DCacheEnable(void)
 {
 	register u32 CtrlReg;
 
-	/* enable caches only if they are disabled */
+	/**< enable caches only if they are disabled */
 #ifdef __GNUC__
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
@@ -697,10 +663,10 @@ void Xil_L1DCacheEnable(void)
 		return;
 	}
 
-	/* clean and invalidate the Data cache */
+	/**< clean and invalidate the Data cache */
 	Xil_L1DCacheInvalidate();
 
-	/* enable the Data cache */
+	/**< enable the Data cache */
 	CtrlReg |= (XREG_CP15_CONTROL_C_BIT);
 
 	mtcp(XREG_CP15_SYS_CONTROL, CtrlReg);
@@ -710,18 +676,17 @@ void Xil_L1DCacheEnable(void)
 /**
 * @brief	Disable the level 1 Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1DCacheDisable(void)
 {
 	register u32 CtrlReg;
 
-	/* clean and invalidate the Data cache */
+	/**< clean and invalidate the Data cache */
 	Xil_L1DCacheFlush();
 
 #ifdef __GNUC__
-	/* disable the Data cache */
+	/**< disable the Data cache */
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
 	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
@@ -739,8 +704,7 @@ void Xil_L1DCacheDisable(void)
 /**
 * @brief	Invalidate the level 1 Data cache.
 *
-* @return	None.
-*
+
 * @note		In Cortex A9, there is no cp instruction for invalidating
 *			the whole D-cache. This function invalidates each line by
 *			set/way.
@@ -785,16 +749,16 @@ void Xil_L1DCacheInvalidate(void)
 	{ volatile register u32 Reg __asm(XREG_CP15_CACHE_SIZE_ID);
 	  CsidReg = Reg; }
 #endif
-	/* Determine Cache Size */
+	/**< Determine Cache Size */
 	CacheSize = (CsidReg >> 13U) & 0x1FFU;
 	CacheSize +=1U;
-	CacheSize *=128U;    /* to get number of bytes */
+	CacheSize *=128U;    /**< to get number of bytes */
 
-	/* Number of Ways */
+	/**< Number of Ways */
 	NumWays = (CsidReg & 0x3ffU) >> 3U;
 	NumWays += 1U;
 
-	/* Get the cacheline size, way size, index size from csidr */
+	/**< Get the cacheline size, way size, index size from csidr */
 	LineSize = (CsidReg & 0x07U) + 4U;
 
 	NumSet = CacheSize/NumWays;
@@ -803,16 +767,16 @@ void Xil_L1DCacheInvalidate(void)
 	Way = 0U;
 	Set = 0U;
 
-	/* Invalidate all the cachelines */
+	/**< Invalidate all the cachelines */
 	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
 		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
 			C7Reg = Way | Set;
 
-		/* Invalidate by Set/Way */
+		/**< Invalidate by Set/Way */
 #if defined (__GNUC__) || defined (__ICCARM__)
 			asm_cp15_inval_dc_line_sw(C7Reg);
 #else
-			/*mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg), */
+			/**< mtcp(XREG_CP15_INVAL_DC_LINE_SW, C7Reg), */
 			{ volatile register u32 Reg
 				__asm(XREG_CP15_INVAL_DC_LINE_SW);
 			  Reg = C7Reg; }
@@ -823,7 +787,7 @@ void Xil_L1DCacheInvalidate(void)
 		Way += 0x40000000U;
 	}
 
-	/* Wait for L1 invalidate to complete */
+	/**< Wait for L1 invalidate to complete */
 	dsb();
 	mtcpsr(currmask);
 }
@@ -836,10 +800,7 @@ void Xil_L1DCacheInvalidate(void)
 * 			(dirty), the modified contents are lost and are NOT written to
 *			system memory before the line is invalidated.
 *
-* @param	adr: 32bit address of the data to be invalidated.
-*
-* @return	None.
-*
+
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -848,7 +809,7 @@ void Xil_L1DCacheInvalidateLine(u32 adr)
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 	mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC, (adr & (~0x1FU)));
 
-	/* Wait for L1 invalidate to complete */
+	/**< Wait for L1 invalidate to complete */
 	dsb();
 }
 
@@ -860,11 +821,7 @@ void Xil_L1DCacheInvalidateLine(u32 adr)
 * 			cachelines are modified (dirty), the modified contents are lost and
 * 			NOT written to the system memory before the lines are invalidated.
 *
-* @param	adr: 32bit start address of the range to be invalidated.
-* @param	len: Length of the range to be invalidated in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1DCacheInvalidateRange(u32 adr, u32 len)
 {
@@ -895,7 +852,7 @@ void Xil_L1DCacheInvalidateRange(u32 adr, u32 len)
 			((MAX_ADDR - LocalAddr) < cacheline) ? (LocalAddr = MAX_ADDR) : (LocalAddr += cacheline);
 		}
 
-		/* Wait for L1 cache invalidation to complete */
+		/**< Wait for L1 cache invalidation to complete */
 		dsb();
 	}
 	mtcpsr(currmask);
@@ -905,8 +862,7 @@ void Xil_L1DCacheInvalidateRange(u32 adr, u32 len)
 /**
 * @brief	Flush the level 1 Data cache.
 *
-* @return	None.
-*
+
 * @note		In Cortex A9, there is no cp instruction for flushing
 *			the whole D-cache. Need to flush each line.
 *
@@ -931,17 +887,17 @@ void Xil_L1DCacheFlush(void)
 	  CsidReg = Reg; }
 #endif
 
-	/* Determine Cache Size */
+	/**< Determine Cache Size */
 
 	CacheSize = (CsidReg >> 13U) & 0x1FFU;
 	CacheSize +=1U;
-	CacheSize *=128U;    /* to get number of bytes */
+	CacheSize *=128U;    /**< to get number of bytes */
 
-	/* Number of Ways */
+	/**< Number of Ways */
 	NumWays = (CsidReg & 0x3ffU) >> 3U;
 	NumWays += 1U;
 
-	/* Get the cacheline size, way size, index size from csidr */
+	/**< Get the cacheline size, way size, index size from csidr */
 	LineSize = (CsidReg & 0x07U) + 4U;
 
 	NumSet = CacheSize/NumWays;
@@ -950,11 +906,11 @@ void Xil_L1DCacheFlush(void)
 	Way = 0U;
 	Set = 0U;
 
-	/* Invalidate all the cachelines */
+	/**< Invalidate all the cachelines */
 	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
 		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
 			C7Reg = Way | Set;
-			/* Flush by Set/Way */
+			/**< Flush by Set/Way */
 
 #if defined (__GNUC__) || defined (__ICCARM__)
 			asm_cp15_clean_inval_dc_line_sw(C7Reg);
@@ -969,7 +925,7 @@ void Xil_L1DCacheFlush(void)
 		Way += 0x40000000U;
 	}
 
-	/* Wait for L1 flush to complete */
+	/**< Wait for L1 flush to complete */
 	dsb();
 	mtcpsr(currmask);
 }
@@ -982,10 +938,7 @@ void Xil_L1DCacheFlush(void)
 * 			entire contents of the cacheline are written to system memory
 *			before the line is invalidated.
 *
-* @param	adr: 32bit address of the data to be flushed.
-*
-* @return	None.
-*
+
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -994,7 +947,7 @@ void Xil_L1DCacheFlushLine(u32 adr)
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 	mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC, (adr & (~0x1FU)));
 
-	/* Wait for L1 flush to complete */
+	/**< Wait for L1 flush to complete */
 	dsb();
 }
 
@@ -1006,11 +959,7 @@ void Xil_L1DCacheFlushLine(u32 adr)
 * 			cachelines are modified (dirty), they are written to system memory
 * 			before the lines are invalidated.
 *
-* @param	adr: 32bit start address of the range to be flushed.
-* @param	len: Length of the range to be flushed in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1DCacheFlushRange(u32 adr, u32 len)
 {
@@ -1041,7 +990,7 @@ void Xil_L1DCacheFlushRange(u32 adr, u32 len)
 			((MAX_ADDR - LocalAddr) < cacheline) ? (LocalAddr = MAX_ADDR) : (LocalAddr += cacheline);
 		}
 
-		/* Wait for L1 cache clean and invalidation to complete */
+		/**< Wait for L1 cache clean and invalidation to complete */
 		dsb();
 	}
 
@@ -1056,10 +1005,7 @@ void Xil_L1DCacheFlushRange(u32 adr, u32 len)
 * 			to system memory. After the store completes, the cacheline is
 *			marked as unmodified (not dirty).
 *
-* @param	adr: Address to be stored.
-*
-* @return	None.
-*
+
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -1068,7 +1014,7 @@ void Xil_L1DCacheStoreLine(u32 adr)
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0U);
 	mtcp(XREG_CP15_CLEAN_DC_LINE_MVA_POC, (adr & (~0x1FU)));
 
-	/* Wait for L1 store to complete */
+	/**< Wait for L1 store to complete */
 	dsb();
 }
 
@@ -1077,14 +1023,13 @@ void Xil_L1DCacheStoreLine(u32 adr)
 /**
 * @brief	Enable the level 1 instruction cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1ICacheEnable(void)
 {
 	register u32 CtrlReg;
 
-	/* enable caches only if they are disabled */
+	/**< enable caches only if they are disabled */
 #ifdef __GNUC__
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
@@ -1097,10 +1042,10 @@ void Xil_L1ICacheEnable(void)
 		return;
 	}
 
-	/* invalidate the instruction cache */
+	/**< invalidate the instruction cache */
 	mtcp(XREG_CP15_INVAL_IC_POU, 0U);
 
-	/* enable the instruction cache */
+	/**< enable the instruction cache */
 	CtrlReg |= (XREG_CP15_CONTROL_I_BIT);
 
 	mtcp(XREG_CP15_SYS_CONTROL, CtrlReg);
@@ -1110,8 +1055,7 @@ void Xil_L1ICacheEnable(void)
 /**
 * @brief	Disable level 1 the instruction cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1ICacheDisable(void)
 {
@@ -1119,10 +1063,10 @@ void Xil_L1ICacheDisable(void)
 
 	dsb();
 
-	/* invalidate the instruction cache */
+	/**< invalidate the instruction cache */
 	mtcp(XREG_CP15_INVAL_IC_POU, 0U);
 
-	/* disable the instruction cache */
+	/**< disable the instruction cache */
 #ifdef __GNUC__
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 #elif defined (__ICCARM__)
@@ -1140,16 +1084,15 @@ void Xil_L1ICacheDisable(void)
 /**
 * @brief	Invalidate the entire level 1 instruction cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1ICacheInvalidate(void)
 {
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 1U);
-	/* invalidate the instruction cache */
+	/**< invalidate the instruction cache */
 	mtcp(XREG_CP15_INVAL_IC_POU, 0U);
 
-	/* Wait for L1 invalidate to complete */
+	/**< Wait for L1 invalidate to complete */
 	dsb();
 }
 
@@ -1159,10 +1102,7 @@ void Xil_L1ICacheInvalidate(void)
 *			specified by the address is cached by the instruction cache, the
 *			cacheline containing that instruction is invalidated.
 *
-* @param	adr: 32bit address of the instruction to be invalidated.
-*
-* @return	None.
-*
+
 * @note		The bottom 5 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -1171,7 +1111,7 @@ void Xil_L1ICacheInvalidateLine(u32 adr)
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 1U);
 	mtcp(XREG_CP15_INVAL_IC_LINE_MVA_POU, (adr & (~0x1FU)));
 
-	/* Wait for L1 invalidate to complete */
+	/**< Wait for L1 invalidate to complete */
 	dsb();
 }
 
@@ -1182,11 +1122,7 @@ void Xil_L1ICacheInvalidateLine(u32 adr)
 *			by the instruction cache, the cacheline containing those bytes are
 *			invalidated.
 *
-* @param	adr: 32bit start address of the range to be invalidated.
-* @param	len: Length of the range to be invalidated in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L1ICacheInvalidateRange(u32 adr, u32 len)
 {
@@ -1217,7 +1153,7 @@ void Xil_L1ICacheInvalidateRange(u32 adr, u32 len)
 			((MAX_ADDR - LocalAddr) < cacheline) ? (LocalAddr = MAX_ADDR) : (LocalAddr += cacheline);
 		}
 
-		/* Wait for L1 cache invalidation to complete */
+		/**< Wait for L1 cache invalidation to complete */
 		dsb();
 	}
 
@@ -1229,8 +1165,7 @@ void Xil_L1ICacheInvalidateRange(u32 adr, u32 len)
 /**
 * @brief	Enable the L2 cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L2CacheEnable(void)
 {
@@ -1238,9 +1173,9 @@ void Xil_L2CacheEnable(void)
 
 	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
 
-	/* only enable if L2CC is currently disabled */
+	/**< only enable if L2CC is currently disabled */
 	if ((L2CCReg & 0x01U) == 0U) {
-		/* set up the way size and latencies */
+		/**< set up the way size and latencies */
 		L2CCReg = Xil_In32(XPS_L2CC_BASEADDR +
 				   XPS_L2CC_AUX_CNTRL_OFFSET);
 		L2CCReg &= XPS_L2CC_AUX_REG_ZERO_MASK;
@@ -1252,20 +1187,20 @@ void Xil_L2CacheEnable(void)
 		Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_DATA_RAM_CNTRL_OFFSET,
 			  XPS_L2CC_DATA_RAM_DEFAULT_MASK);
 
-		/* Clear the pending interrupts */
+		/**< Clear the pending interrupts */
 		L2CCReg = Xil_In32(XPS_L2CC_BASEADDR +
 				   XPS_L2CC_ISR_OFFSET);
 		Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_IAR_OFFSET, L2CCReg);
 
 		Xil_L2CacheInvalidate();
-		/* Enable the L2CC */
+		/**< Enable the L2CC */
 		L2CCReg = Xil_In32(XPS_L2CC_BASEADDR +
 				   XPS_L2CC_CNTRL_OFFSET);
 		Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET,
 			  (L2CCReg | (0x01U)));
 
         Xil_L2CacheSync();
-        /* synchronize the processor */
+        /**< synchronize the processor */
 	    dsb();
 
     }
@@ -1275,8 +1210,7 @@ void Xil_L2CacheEnable(void)
 /**
 * @brief	Disable the L2 cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L2CacheDisable(void)
 {
@@ -1286,14 +1220,14 @@ void Xil_L2CacheDisable(void)
 
     if((L2CCReg & 0x1U) != 0U) {
 
-        /* Clean and Invalidate L2 Cache */
+        /**< Clean and Invalidate L2 Cache */
         Xil_L2CacheFlush();
 
-	    /* Disable the L2CC */
+	    /**< Disable the L2CC */
 	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
 	    Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET,
 		      (L2CCReg & (~0x01U)));
-		/* Wait for the cache operations to complete */
+		/**< Wait for the cache operations to complete */
 
 		dsb();
     }
@@ -1303,8 +1237,7 @@ void Xil_L2CacheDisable(void)
 /**
 * @brief	Invalidate the entire level 2 cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L2CacheInvalidate(void)
 {
@@ -1322,13 +1255,13 @@ void Xil_L2CacheInvalidate(void)
 	 */
 	L2CCReg = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CNTRL_OFFSET);
 	if ((L2CCReg & 0x01U) != 0U) {
-	/*Flush stack memory to save return address*/
+	/**< Flush stack memory to save return address */
 		Xil_DCacheFlushRange(stack_end, stack_size);
 	}
 
 	#endif
 	u32 ResultDCache;
-	/* Invalidate the caches */
+	/**< Invalidate the caches */
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_WAY_OFFSET,
 		  0x0000FFFFU);
 	ResultDCache = Xil_In32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_WAY_OFFSET)
@@ -1338,10 +1271,10 @@ void Xil_L2CacheInvalidate(void)
 							& 0x0000FFFFU;
 	}
 
-	/* Wait for the invalidate to complete */
+	/**< Wait for the invalidate to complete */
 	Xil_L2CacheSync();
 
-	/* synchronize the processor */
+	/**< synchronize the processor */
 	dsb();
 }
 
@@ -1353,17 +1286,14 @@ void Xil_L2CacheInvalidate(void)
 *			the modified contents are lost and are NOT written to system memory
 *			before the line is invalidated.
 *
-* @param	adr: 32bit address of the data/instruction to be invalidated.
-*
-* @return	None.
-*
+
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
 void Xil_L2CacheInvalidateLine(u32 adr)
 {
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INVLD_PA_OFFSET, (u32)adr);
-	/* synchronize the processor */
+	/**< synchronize the processor */
 	dsb();
 }
 
@@ -1375,11 +1305,7 @@ void Xil_L2CacheInvalidateLine(u32 adr)
 * 			cachelines are modified (dirty), the modified contents are lost and
 * 			are NOT written to system memory before the lines are invalidated.
 *
-* @param	adr: 32bit start address of the range to be invalidated.
-* @param	len: Length of the range to be invalidated in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 {
@@ -1401,7 +1327,7 @@ void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 		((MAX_ADDR - LocalAddr) < len) ? (end = MAX_ADDR) : (end = LocalAddr + len);
 		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
-		/* Disable Write-back and line fills */
+		/**< Disable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x3U);
 
 		while (LocalAddr < end) {
@@ -1410,11 +1336,11 @@ void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 			((MAX_ADDR - LocalAddr) < cacheline) ? (LocalAddr = MAX_ADDR) : (LocalAddr += cacheline);
 		}
 
-		/* Enable Write-back and line fills */
+		/**< Enable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x0U);
 	}
 
-	/* synchronize the processor */
+	/**< synchronize the processor */
 	dsb();
 	mtcpsr(currmask);
 }
@@ -1423,16 +1349,15 @@ void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 /**
 * @brief	Flush the entire level 2 cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L2CacheFlush(void)
 {
 	u32 ResultL2Cache;
 
-	/* Flush the caches */
+	/**< Flush the caches */
 
-	/* Disable Write-back and line fills */
+	/**< Disable Write-back and line fills */
 	Xil_L2WriteDebugCtrl(0x3U);
 
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_INV_CLN_WAY_OFFSET,
@@ -1446,10 +1371,10 @@ void Xil_L2CacheFlush(void)
 	}
 
 	Xil_L2CacheSync();
-	/* Enable Write-back and line fills */
+	/**< Enable Write-back and line fills */
 	Xil_L2WriteDebugCtrl(0x0U);
 
-	/* synchronize the processor */
+	/**< synchronize the processor */
 	dsb();
 }
 
@@ -1461,10 +1386,7 @@ void Xil_L2CacheFlush(void)
 * 			entire contents of the cacheline are written to system memory
 * 			before the line is invalidated.
 *
-* @param	adr: 32bit address of the data/instruction to be flushed.
-*
-* @return	None.
-*
+
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
@@ -1487,11 +1409,7 @@ void Xil_L2CacheFlushLine(u32 adr)
 * 			cachelines are modified (dirty), they are written to the system
 * 			memory before the lines are invalidated.
 *
-* @param	adr: 32bit start address of the range to be flushed.
-* @param	len: Length of the range to be flushed in bytes.
-*
-* @return	None.
-*
+
 ****************************************************************************/
 void Xil_L2CacheFlushRange(u32 adr, u32 len)
 {
@@ -1512,7 +1430,7 @@ void Xil_L2CacheFlushRange(u32 adr, u32 len)
 		((MAX_ADDR - LocalAddr) < len) ? (end = MAX_ADDR) : (end = LocalAddr + len);
 		LocalAddr = LocalAddr & ~(cacheline - 1U);
 
-		/* Disable Write-back and line fills */
+		/**< Disable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x3U);
 
 		while (LocalAddr < end) {
@@ -1521,7 +1439,7 @@ void Xil_L2CacheFlushRange(u32 adr, u32 len)
 			((MAX_ADDR - LocalAddr) < cacheline) ? (LocalAddr = MAX_ADDR) : (LocalAddr += cacheline);
 		}
 
-		/* Enable Write-back and line fills */
+		/**< Enable Write-back and line fills */
 		Xil_L2WriteDebugCtrl(0x0U);
 	}
 	mtcpsr(currmask);
@@ -1535,10 +1453,7 @@ void Xil_L2CacheFlushRange(u32 adr, u32 len)
 *			system memory. After the store completes, the cacheline is marked
 *			as unmodified (not dirty).
 *
-* @param	adr: 32bit address of the data/instruction to be stored.
-*
-* @return	None.
-*
+
 * @note		The bottom 4 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/

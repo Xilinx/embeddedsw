@@ -32,7 +32,7 @@
 *                         instance specified by user.
 * 7.2   mus      01/29/20 Updated sleep routines to use CortexR5 PMU for delay
 *                         generation, in case TTC3/TTC2 instances are not
-*                         present in HW design. If user dont want to use PMU
+*                         present in HW design. If user don't want to use PMU
 *                         counter for sleep routines, BSP needs to be compiled
 *                         with "DONT_USE_PMU_FOR_SLEEP_ROUTINES" flag. It fixes
 *                         CR#1051591.
@@ -66,7 +66,7 @@
 *
 * This API gives a delay in microseconds
 *
-* @param	useconds requested
+* @param[in]	useconds requested
 *
 * @note		By default, usleep is implemented using TTC3. Although user is
 *               given an option to select other instances of TTC. When the user

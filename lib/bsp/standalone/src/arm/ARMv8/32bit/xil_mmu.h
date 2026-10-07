@@ -1,7 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,8 +22,8 @@
 * 7.1	mus  30/07/19 Added constant definitions for memory attributes.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * 9.1   bl   10/11/23 Add API Xil_MemMap
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -63,7 +62,17 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
+/** @cond nocomments */
 void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib);
+/** @endcond */
+/**
+ * @brief Map a physical address range.
+ * @param[in] PhysAddr Physical address to be mapped.
+ * @param[in] size Size of the region in bytes.
+ * @param[in] flags Memory attributes/flags to apply.
+ * @return PhysAddr unchanged on success, or NULL on address-range overflow
+ *         when flags is nonzero.
+ */
 void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 void Xil_EnableMMU(void);
 void Xil_DisableMMU(void);

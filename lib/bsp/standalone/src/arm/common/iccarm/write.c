@@ -1,7 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file write.c
+ * @brief File write stub implementation for standalone BSP.
+ */
 
 
 /*
@@ -27,9 +32,10 @@
 /*
  * If the __write implementation uses internal buffering, uncomment
  * the following line to ensure that we are called with "buffer" as 0
- * (i.e. flush) when the application terminates.
+ * (that is flush) when the application terminates.
  */
 
+/** @brief IAR __write syscall; outputs to STDOUT if configured. */
 size_t __write(sint32 handle, const u8 * buffer, size_t size)
 {
   u32 volatile *uart_base = (u32 *)0xE0001000U;
@@ -59,6 +65,13 @@ extern "C" {
  *          stdout and stderr are the same. Since we have no filesystem,
  *          open will only return an error.
  */
+/**
+ * @brief Stub for write(); outputs to STDOUT if configured.
+ * @param[in] fd File descriptor (unused; writes to STDOUT).
+ * @param[in] buf Buffer of bytes to write.
+ * @param[in] nbytes Number of bytes to write.
+ * @return Number of bytes written.
+ */
 sint32
 write (sint32 fd, char8* buf, sint32 nbytes)
 
@@ -82,6 +95,13 @@ write (sint32 fd, char8* buf, sint32 nbytes)
 #endif
 }
 
+/**
+ * @brief Alternate __write entry point; outputs to STDOUT if configured.
+ * @param[in] fd File descriptor (unused; writes to STDOUT).
+ * @param[in] buf Buffer of bytes to write.
+ * @param[in] nbytes Number of bytes to write.
+ * @return Number of bytes written.
+ */
 size_t
 __write (sint32 fd, const u8* buf, size_t nbytes)
 {

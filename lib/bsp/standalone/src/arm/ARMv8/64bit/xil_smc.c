@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -41,10 +42,15 @@ XSmc_OutVar SmcResult;
 * @brief	Initiate SMC call to EL3 secure monitor to request for secure
 *			service. This function is only applicable for EL1 Non-secure bsp.
 *
-* @param	FunctionID is the SMC identifier for a particular secure service
+* @param[in]	FunctionID is the SMC identifier for a particular secure service
 *			request
-* @param	Arg1 to Arg6 is the arguments passed to EL3 secure monitor
-* @param	Arg7 is Hypervisor Client ID register
+* @param[in] Arg1 First argument passed to the EL3 secure monitor.
+* @param[in] Arg2 Second argument passed to the EL3 secure monitor.
+* @param[in] Arg3 Third argument passed to the EL3 secure monitor.
+* @param[in] Arg4 Fourth argument passed to the EL3 secure monitor.
+* @param[in] Arg5 Fifth argument passed to the EL3 secure monitor.
+* @param[in] Arg6 Sixth argument passed to the EL3 secure monitor.
+* @param[in] Arg7 Hypervisor Client ID register.
 *
 * @return	Result from secure payload service
 * @note		FunctionID and Arg1-Arg7 should be as per SMC calling convention

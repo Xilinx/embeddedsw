@@ -1,8 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file write.c
+ * @brief File write stub implementation for standalone BSP.
+ */
 
 
 /* write.c -- write bytes to an output device.
@@ -29,6 +33,13 @@ __attribute__((weak)) sint32 write (sint32 fd, char8* buf, sint32 nbytes);
  * write -- write bytes to the serial port. Ignore fd, since
  *          stdout and stderr are the same. Since we have no filesystem,
  *          open will only return an error.
+ */
+/**
+ * @brief Stub for write(); outputs to STDOUT if configured.
+ * @param[in] fd File descriptor (unused; writes to STDOUT).
+ * @param[in] buf Buffer of bytes to write.
+ * @param[in] nbytes Number of bytes to write.
+ * @return Number of bytes written.
  */
 __attribute__((weak)) sint32
 write (sint32 fd, char8* buf, sint32 nbytes)
@@ -62,6 +73,13 @@ write (sint32 fd, char8* buf, sint32 nbytes)
 #endif
 }
 
+/**
+ * @brief Stub for _write(); outputs to STDOUT if configured.
+ * @param[in] fd File descriptor (unused; writes to STDOUT).
+ * @param[in] buf Buffer of bytes to write.
+ * @param[in] nbytes Number of bytes to write.
+ * @return Number of bytes written.
+ */
 __attribute__((weak)) sint32
 _write (sint32 fd, char8* buf, sint32 nbytes)
 {

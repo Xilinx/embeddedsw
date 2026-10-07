@@ -6,7 +6,7 @@
 
 /*****************************************************************************/
 /**
-* @file xil_mpu.c
+* @file xil_mpu_r5.c
 *
 * This file provides APIs for enabling/disabling MPU and setting the memory
 * attributes for sections, in the MPU translation table.
@@ -59,8 +59,8 @@
 *                     separate file for CortexR52.
 * 9.0  ml   04/26/23  Updated code to fix overrun coverity warnings.
 * 9.1  ml   11/16/23  Fix compilation errors reported with -std=c2x compiler flag
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -123,17 +123,21 @@ XMpu_Config Mpu_Config;
 
 /************************** Function Prototypes ******************************/
 void Xil_InitializeExistingMPURegConfig(void);
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief    This function sets the memory attributes for a section covering
-*           1MB, of memory in the translation table.
+*           1MB of memory in the translation table.
 *
-* @param	Addr : 32-bit address for which memory attributes need to be set.
-* @param	attrib : Attribute for the given memory region.
-* @return	None.
-*
+* @param[in]	Addr   32-bit address for which memory attributes need to be set.
+* @param[in]	attrib Attribute for the given memory region.
 *
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 {
 	INTPTR Localaddr = Addr;
@@ -148,11 +152,10 @@ void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 * @brief    Set the memory attributes for a section of memory in the
 *           translation table.
 *
-* @param	addr: 32-bit address for which memory attributes need to be set..
-* @param	size: size is the size of the region.
-* @param	attrib: Attribute for the given memory region.
-* @return	None.
-*
+* @param[in]	addr   32-bit address for which memory attributes need to be set.
+* @param[in]	size   Size of the memory region.
+* @param[in]	attrib Attribute for the given memory region.
+* @return	XST_SUCCESS if the MPU region is set, XST_FAILURE otherwise.
 *
 ******************************************************************************/
 u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
@@ -204,8 +207,7 @@ u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 * @brief    Enable MPU for Cortex R5 processor. This function invalidates I
 *           cache and flush the D Caches, and then enables the MPU.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void Xil_EnableMPU(void)
 {
@@ -253,8 +255,7 @@ void Xil_EnableMPU(void)
 * @brief    Disable MPU for Cortex R5 processors. This function invalidates I
 *           cache and flush the D Caches, and then disables the MPU.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void Xil_DisableMPU(void)
 {
@@ -305,13 +306,12 @@ void Xil_DisableMPU(void)
 * @brief    Update the MPU configuration for the requested region number in
 * 			the global MPU configuration table.
 *
-* @param	reg_num: The requested region number to be updated information for.
-* @param	address: 32 bit address for start of the region.
-* @param	size: Requested size of the region.
-* @param	attrib: Attribute for the corresponding region.
+* @param[in]	reg_num Region number to be updated.
+* @param[in]	address 32-bit start address of the region.
+* @param[in]	size    Requested size of the region.
+* @param[in]	attrib  Attribute for the corresponding region.
 * @return	XST_FAILURE: When the requested region number if 16 or more.
 * 			XST_SUCCESS: When the MPU configuration table is updated.
-*
 *
 ******************************************************************************/
 u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
@@ -355,11 +355,9 @@ exit:
 /**
 * @brief    The MPU configuration table is passed to the caller.
 *
-* @param	mpuconfig: This is of type XMpu_Config which is an array of
+* @param[in]	mpuconfig: This is of type XMpu_Config which is an array of
 * 			16 entries of type structure representing the MPU config table
-* @return	none
-*
-*
+
 ******************************************************************************/
 void Xil_GetMPUConfig (XMpu_Config mpuconfig)
 {
@@ -379,7 +377,6 @@ void Xil_GetMPUConfig (XMpu_Config mpuconfig)
 * @brief    Returns the total number of free MPU regions available.
 *
 * @return	Number of free regions available to users
-*
 *
 ******************************************************************************/
 u32 Xil_GetNumOfFreeRegions (void)
@@ -406,7 +403,6 @@ u32 Xil_GetNumOfFreeRegions (void)
 *
 * @return	The free region mask as a 16 bit value
 *
-*
 ******************************************************************************/
 u16 Xil_GetMPUFreeRegMask (void)
 {
@@ -426,10 +422,9 @@ u16 Xil_GetMPUFreeRegMask (void)
 /**
 * @brief    Disables the corresponding region number as passed by the user.
 *
-* @param	reg_num: The region number to be disabled
+* @param[in]	reg_num The region number to be disabled.
 * @return	XST_SUCCESS: If the region could be disabled successfully
 * 			XST_FAILURE: If the requested region number is 16 or more.
-*
 *
 ******************************************************************************/
 u32 Xil_DisableMPURegionByRegNum (u32 reg_num)
@@ -468,13 +463,12 @@ exit1:
 /**
 * @brief    Enables the corresponding region number as passed by the user.
 *
-* @param	reg_num: The region number to be enabled
-* @param	addr: 32 bit address for start of the region.
-* @param	size: Requested size of the region.
-* @param	attrib: Attribute for the corresponding region.
+* @param[in]	reg_num Region number to be configured.
+* @param[in]	addr    Base address of the MPU region.
+* @param[in]	size    Size of the MPU region in bytes.
+* @param[in]	attrib  Memory attributes for the region.
 * @return	XST_SUCCESS: If the region could be created successfully
 * 			XST_FAILURE: If the requested region number is 16 or more.
-*
 *
 ******************************************************************************/
 u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
@@ -537,9 +531,7 @@ exit2:
 * @brief    Initializes the MPU configuration table that are setup in the
 * 			R5 boot code in the Init_Mpu function called before C main.
 *
-* @return	none
-*
-*
+
 ******************************************************************************/
 void Xil_InitializeExistingMPURegConfig(void)
 {
@@ -585,7 +577,6 @@ void Xil_InitializeExistingMPURegConfig(void)
 *
 * @return	The free MPU region available
 *
-*
 ******************************************************************************/
 u32 Xil_GetNextMPURegion(void)
 {
@@ -608,6 +599,9 @@ u32 Xil_GetNextMPURegion(void)
                                                *   readability and __GNUC__ */
 #endif /* __GNUC__ */
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief    Memory mapping for Cortex-R5F. If successful, the mapped
@@ -615,22 +609,20 @@ u32 Xil_GetNextMPURegion(void)
 *           include more. Specifically, it will be a power of 2 in
 *           size, aligned on a boundary of that size.
 *
-* @param       PhysAddr is base physical address at which to start mapping.
 *                   NULL in Physaddr masks possible mapping errors.
-* @param       size of region to be mapped.
-* @param       flags used to set translation table.
 *
 * @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
 *
-* @cond Xil_MemMap_internal
 * @note:    u32overflow() is defined for readability and (for __GNUC__) to
 *           - force the type of the check to be the same as the first argument
 *           - hide the otherwise unused third argument of the builtin
 *           - improve safety by choosing the explicit _uadd_ version.
 *           Consider __builtin_add_overflow_p() when available.
 *           Use an alternative (less optimal?) for compilers w/o the builtin.
-* @endcond
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 {
 	size_t Regionsize = MPU_REGION_SIZE_MIN;

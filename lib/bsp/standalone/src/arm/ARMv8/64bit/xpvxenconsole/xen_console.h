@@ -4,8 +4,11 @@
  *  Created on: Sep 14, 2016
  *      Author: jarvis
  */
+
+
 /*
 Copyright DornerWorks 2016
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
 following conditions are met:
@@ -21,6 +24,11 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON A
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+/**
+* @file xen_console.h
+* @brief Xen paravirtualized console interface.
+*/
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,15 +36,19 @@ extern "C" {
 
 #ifndef _XEN_CONSOLE_H_
 
-typedef void (*callback_func)(char* data, int size);
+typedef void (*callback_func)(char* data, int size); /**< Callback function type for Xen console data reception. */
 
+/** @brief Print a formatted message via Xen console (printf-like). */
 void printk(const char *fmt, ...);
+/** @brief Initialise the Xen PV console. */
 void init_console(void);
 void register_console_callback(callback_func fptr);
 int XPVXenConsole_Printf(const char *FormatPtr, ...);
+/** @brief Initialise the Xilinx Xen PV console interface. */
 void XPVXenConsole_Init(void);
 int XPVXenConsole_Write(const char *BufferPtr);
 
+/** @brief Include guard for xen_console.h. */
 #define _XEN_CONSOLE_H_
 
 

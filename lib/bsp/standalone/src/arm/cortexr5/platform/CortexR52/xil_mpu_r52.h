@@ -1,11 +1,11 @@
 /******************************************************************************
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xil_mpu.h
+* @file xil_mpu_r52.h
 *
 * @addtogroup r52_mpu_apis Cortex R5 Processor MPU specific APIs
 *
@@ -28,7 +28,6 @@
 *| PMC                   | 0xF0000000 - 0xF7FFFFFF | Device Memory                  |
 *| FPD_CMN               | 0xF8000000 - 0xFBFFFFFF | Device Memory                  |
 *
-*
 * @{
 * <pre>
 * MODIFICATION HISTORY:
@@ -38,17 +37,17 @@
 * 9.0   mus  04/19/23 Initial version
 * 9.1   asa  03/04/24 Added a new structure "XMpuConfig_Init" that will be
 *                     used to pass MPU initialization data.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
-*
 ******************************************************************************/
-/**
- *@cond nocomments
- */
 
 #ifndef XIL_MPU_H
 #define XIL_MPU_H
 
+/**
+ *@cond nocomments
+ */
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -80,17 +79,17 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 struct XMpuConfig{
-	u32 RegionStatus; /* Enabled or disabled */
-	UINTPTR BaseAddress;/* MPU region base address */
-	u64 Size; /* MPU region size address */
-	u32 Attribute; /* MPU region size attribute */
-	u32 flags; /* MPU region flags */
+	u32 RegionStatus; /**< Enabled or disabled */
+	UINTPTR BaseAddress;/**< MPU region base address */
+	u64 Size; /**< MPU region size address */
+	u32 Attribute; /**< MPU region size attribute */
+	u32 flags; /**< MPU region flags */
 };
 
 struct XMpuConfig_Init{
-	UINTPTR BaseAddress;/* MPU region base address */
-	u64 Size; /* MPU region size address */
-	u32 Attribute; /* MPU region size attribute */
+	UINTPTR BaseAddress;/**< MPU region base address */
+	u64 Size; /**< MPU region size address */
+	u32 Attribute; /**< MPU region size attribute */
 };
 
 
@@ -106,24 +105,36 @@ extern XMpu_Config Mpu_Config;
 /**
  *@endcond
  */
+/** @cond nocomments */
 u32 Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib);
+/** @endcond */
 void Xil_EnableMPU(void) __attribute__((__section__(".boot")));
 void Xil_DisableMPU(void) __attribute__((__section__(".boot")));
 void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
+/** @brief Set an MPU region by address and size. */
 u32 Xil_SetMPURegion(UINTPTR addr, u64 size, u32 attrib);
 void Xil_GetMPUConfig (XMpu_Config mpuconfig);
 u32 Xil_GetNumOfFreeRegions (void);
 u32 Xil_GetNextMPURegion(void);
 u32 Xil_DisableMPURegionByRegNum (u32 reg_num) __attribute__((__section__(".boot")));
 u16 Xil_GetMPUFreeRegMask (void);
+/**
+ * @brief Set an MPU region by region number.
+ * @param[in] reg_num MPU region number to configure.
+ * @param[in] addr Base address of the MPU region.
+ * @param[in] size Size of the MPU region in bytes.
+ * @param[in] attrib Memory attributes for the region.
+ * @return XST_SUCCESS on success, XST_FAILURE on error.
+ */
 u32 Xil_SetMPURegionByRegNum (u32 reg_num, UINTPTR addr, u64 size, u32 attrib);
+/** @brief Map a physical address range. */
 void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* XIL_MPU_H */
 /**
 * @} End of "addtogroup r5_mpu_apis".
 */
+#endif /* XIL_MPU_H */

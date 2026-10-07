@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -44,6 +44,7 @@
 * 9.1   dp   03/26/24    Use global timer only when CONFIG_R52_USE_LPD_SYS_TMR is
 *                        defined for R52. By default, it uses PMU as sleep timer.
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -72,21 +73,20 @@
 /**
 * @brief	Start the 64-bit physical timer counter.
 *
-* @return	None.
-*
+
 * @note		The timer is initialized only if it is disabled. If the timer is
 *		already running this function does not perform any operation.
 *
 ****************************************************************************/
 void XTime_StartTimer(void)
 {
-		/* Take LPD_TIMESTAMP out of reset, TODO: remove this once FW flow is up */
+		/**< Take LPD_TIMESTAMP out of reset, TODO: remove this once FW flow is up */
 		Xil_Out32(LPD_RST_TIMESTAMP, 0x0);
 
-		/*write frequency to System Time Stamp Generator Register*/
+		/**< write frequency to System Time Stamp Generator Register */
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
 				XIOU_SCNTRS_FREQ);
-		/*Enable the timer/counter*/
+		/**< Enable the timer/counter */
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)
 						,XIOU_SCNTRS_CNT_CNTRL_REG_EN);
 }
@@ -97,7 +97,7 @@ void XTime_StartTimer(void)
 #elif defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
-#pragma message ("For the sleep routines, PMU cycle counter is used, dont reset/disable the pmu counters")
+#pragma message ("For the sleep routines, PMU cycle counter is used, don't reset/disable the pmu counters")
 #else
 #pragma message ("For the sleep routines, machine cycles are used")
 #endif
@@ -108,11 +108,9 @@ void XTime_StartTimer(void)
 *			desired. This API doesn't contain anything. It is defined to have
 *			uniformity across platforms.
 *
-* @param	Xtime_Global: 32 bit value to be written to the timer counter
 *           register.
 *
-* @return	None.
-*
+
 * @note		In multiprocessor environment reference time will reset/lost for
 *		    all processors, when this function called by any one processor.
 *
@@ -129,11 +127,9 @@ void XTime_SetTime(XTime Xtime_Global)
 /**
 * @brief    Get the time from the timer counter register.
 *
-* @param	Xtime_Global: Pointer to the 32 bit location to be updated with
 *           the time current value of timer counter register.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {

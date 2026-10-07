@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -56,6 +56,7 @@
 *		       operands and fix misra_c_2012_rule_10_4 violation.
 * 9.0   ml   03/03/23  Add description to fix doxygen warnings.
 * 9.1   ml   12/01/23  Updated the note description for sleep_MB.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -97,7 +98,7 @@ static u32 MBFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
 /*****************************************************************************/
 /**
 * @brief	Sets variable which stores Microblaze frequency value
-* @param	Val - Frequency value to be set
+* @param[in]	Val Frequency value to be set
 * @return	XST_SUCCESS - If frequency updated successfully
 * 			XST_INVALID_PARAM - If specified frequency value is not valid
 *
@@ -147,9 +148,8 @@ static void sleep_common(u32 n, u32 iters)
 /*****************************************************************************/
 /**
 * @brief    Provides delay for requested duration.
-* @param	useconds - time in useconds.
-* @return	0
-*
+* @param[in]	useconds time in useconds.
+
 * @note		Instruction cache should be enabled for this to work.
 *
 ******************************************************************************/
@@ -158,7 +158,7 @@ void usleep_MB(ULONG useconds)
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	sleep_common((u32)useconds, ITERS_PER_USEC);
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
-	/* Start Axi timer */
+	/**< Start Axi timer */
 	XTime_StartAxiTimer();
 	Xil_SleepAxiTimer(useconds, COUNTS_PER_USECOND);
 #endif
@@ -168,8 +168,7 @@ void usleep_MB(ULONG useconds)
 /*****************************************************************************/
 /**
 * @brief    Provides delay for requested duration.
-* @param	seconds - time in useconds.
-* @return	0
+* @param[in]	seconds Time in seconds.
 *
 * @note		Instruction cache should be enabled for this to work.
 *
@@ -179,7 +178,7 @@ void sleep_MB(u32 seconds)
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER) || defined (FREERTOS_BSP)
 	 sleep_common(seconds, ITERS_PER_SEC);
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
-	/* Start Axi timer */
+	/**< Start Axi timer */
 	XTime_StartAxiTimer();
 	Xil_SleepAxiTimer(seconds, COUNTS_PER_SECOND);
 #endif
@@ -189,12 +188,9 @@ void sleep_MB(u32 seconds)
 /*****************************************************************************/
 /**
 *
-* @brief    Provides delay for requested duration..
+* @brief    Provides delay for requested duration.
 *
-* @param	MilliSeconds - Delay time in milliseconds.
-*
-* @return	None.
-*
+* @param[in]	MilliSeconds Delay time in milliseconds.
 * @note 	Instruction cache should be enabled for this to work.
 *		Since this MB_sleep() is getting deprecated, please use
 *		sleep() instead of it.
@@ -206,7 +202,7 @@ void MB_Sleep(u32 MilliSeconds)
 	sleep_common(MilliSeconds, ITERS_PER_MSEC);
 
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
-	/* Start Axi timer */
+	/**< Start Axi timer */
 	XTime_StartAxiTimer();
 	Xil_SleepAxiTimer(MilliSeconds, COUNTS_PER_MSECOND);
 #endif
@@ -217,13 +213,11 @@ void MB_Sleep(u32 MilliSeconds)
  *
  * @brief    Provides delay for requested duration by using Axi Timer.
  *
- * @param	 delay - delay time in seconds/milli seconds/micro seconds.
+ * @param[in]	delay delay time in seconds/milli seconds/micro seconds.
  *           frequency - Number of counts per
  *                       second/milli second/micro second.
  *
- * @return	 None.
- *
- *
+
   ******************************************************************************/
 #if defined (XSLEEP_TIMER_IS_AXI_TIMER)
 static void Xil_SleepAxiTimer(u32 delay, u64 frequency)
@@ -254,9 +248,7 @@ static void Xil_SleepAxiTimer(u32 delay, u64 frequency)
  *
  * @brief   This API starts the Axi Timer only when the timer is not enabled.
  *
- * @param	None.
- *
- * @return	None.
+ * @param[in] None.
  *
  * @note    Instruction cache should be enabled for this to work.
  *
@@ -265,7 +257,7 @@ static void Xil_SleepAxiTimer(u32 delay, u64 frequency)
   {
 	u32 ControlStatusReg;
 
-	/*  Checking if the timer is enabled  */
+	/**< Checking if the timer is enabled */
 	if(Xil_In32(SLEEP_TIMER_BASEADDR + XSLEEP_TIMER_AXITIMER_TCSR0_OFFSET) &&
 	                                   XSLEEP_TIMER_AXITIMER_CSR_ENABLE_TMR_MASK)
 	{

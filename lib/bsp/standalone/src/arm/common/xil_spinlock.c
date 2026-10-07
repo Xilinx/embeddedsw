@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,7 +67,7 @@
 *    1 MB (or 2 MB) memory space as strongly ordered or device memory.
 * D) Both the applications must call the API Xil_InitializeSpinLock with
 *    the spinlock address, flag address and flag value to be used. Currently
-*    only one flag value is supported (i.e. XIL_SPINLOCK_ENABLE with
+*    only one flag value is supported (that is XIL_SPINLOCK_ENABLE with
 *    a value of 1).
 *    Only if the Xil_InitializeSpinLock returns success, should they
 *    proceed to use Xil_SpinLock and Xil_SpinUnlock.
@@ -169,6 +169,7 @@
 * 7.7	sk	  01/10/22 Update values from signed to unsigned to fix
 * 			           misra_c_2012_rule_10_4 violation.
 * 9.3   asa   03/04/25 Add support for ARMv8 and clang.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -203,13 +204,12 @@ static UINTPTR Xil_Spinlock_Flag_Addr = 0x0;
 *           critical section, the control will never go out from the API
 *           till the other CPU releases the lock.
 *
-* @param    None.
+* @param[in] None.
 *
 * @return   XST_FAILURE: If spinlock is not properly initialized.
 *           XST_SUCCESS: If the lock was successfully obtained.
 *
-* @note     None.
-*
+
 *****************************************************************************/
 u32 Xil_SpinLock(void)
 {
@@ -252,13 +252,12 @@ u32 Xil_SpinLock(void)
 *
 * @brief	Used to release a lock previously held by calling Xil_SpinLock.
 *
-* @param    None.
+* @param[in] None.
 *
 * @return   XST_FAILURE: If spinlock is not properly initialized.
 *           XST_SUCCESS: If the lock was successfully obtained.
 *
-* @note     None.
-*
+
 *****************************************************************************/
 u32 Xil_SpinUnlock(void)
 {
@@ -290,7 +289,7 @@ u32 Xil_SpinUnlock(void)
 /**
 * @brief	Used to initialize a spinlock.
 *
-* @param    lockaddr: Address of the lock variable. The address must be in
+* @param[in] lockaddr: Address of the lock variable. The address must be in
 *           a shared memory region.
 *           lockflagaddr: Address of the flag variable. The address must be
 *           in a shared memory region.
@@ -300,8 +299,7 @@ u32 Xil_SpinUnlock(void)
 * @return   XST_SUCCESS, if the initialization succeeded.
 *           XST_FAILURE, if the initialization failed
 *
-* @note     None.
-*
+
 *****************************************************************************/
 u32 Xil_InitializeSpinLock(UINTPTR lockaddr, UINTPTR lockflagaddr,
 		                                                    u32 lockflag)
@@ -312,7 +310,7 @@ u32 Xil_InitializeSpinLock(UINTPTR lockaddr, UINTPTR lockflagaddr,
 			/*
 			 * spinlock is already initialized by one of the CPUs, just update
 			 * the local variable Xil_Spinlock_Addr with the passed address
-			 * and dont write to the lock value as it might be currently
+			 * and don't write to the lock value as it might be currently
 			 * getting used.
 			 */
 			/*
@@ -351,12 +349,9 @@ u32 Xil_InitializeSpinLock(UINTPTR lockaddr, UINTPTR lockflagaddr,
 * @brief	Used to release the spinlock. Typically called by the application
 *           once spinlock feature is no more required.
 *
-* @param    None.
+* @param[in] None.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 *****************************************************************************/
 void Xil_ReleaseSpinLock(void)
 {
@@ -372,7 +367,7 @@ void Xil_ReleaseSpinLock(void)
 *           if it can use spinlock. If this API returns non-zero value, an
 *           application should then use Xil_SpinLock or Xil_SpinUnlock.
 *
-* @param    None
+* @param[in] None
 *
 * @return   Non-zero, if spinlock is already initialized and can be used.
 *           Zero, if spinlock is not initialized.

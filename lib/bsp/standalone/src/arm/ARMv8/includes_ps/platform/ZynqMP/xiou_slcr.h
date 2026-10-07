@@ -1,7 +1,12 @@
 /*******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+/**
+ * @file xiou_slcr.h
+ * @brief IOU SLCR register definitions.
+ */
 
 
 #ifndef __XIOU_SLCR_H__

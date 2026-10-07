@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,14 +8,14 @@
 /**
 *
 * @file xio.h
+*
 * @addtogroup cpu Overview
-* @{
-* @details
 *
 * This file contains the interface for the XIo component, which encapsulates
 * the Input/Output functions for processors that do not require any special
 * I/O handling.
 *
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -52,6 +52,7 @@
 *		      (C_USE_FPU > 0) and when processor is configured with
 *		      MUL64 support(C_USE_HW_MUL = 2).
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -61,8 +62,8 @@
 *
 ******************************************************************************/
 
-#ifndef XIO_H			/* prevent circular inclusions */
-#define XIO_H			/* by using protection macros */
+#ifndef XIO_H
+#define XIO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -98,12 +99,11 @@ typedef u32 XIo_Address;
 * Performs an input operation for an 8-bit memory location by reading from the
 * specified address and returning the value read from that address.
 *
-* @param	InputPtr contains the address to perform the input operation at.
+* @param[in]	InputPtr contains the address to perform the input operation at.
 *
 * @return	The value read from the specified input address.
 *
-* @note		None.
-*
+
 ******************************************************************************/
 #define XIo_In8(InputPtr)  (*(volatile u8  *)(InputPtr))
 
@@ -113,12 +113,11 @@ typedef u32 XIo_Address;
 * Performs an input operation for a 16-bit memory location by reading from the
 * specified address and returning the value read from that address.
 *
-* @param	InputPtr contains the address to perform the input operation at.
+* @param[in]	InputPtr contains the address to perform the input operation at.
 *
 * @return	The value read from the specified input address.
 *
-* @note		None.
-*
+
 ******************************************************************************/
 #define XIo_In16(InputPtr) (*(volatile u16 *)(InputPtr))
 
@@ -128,12 +127,11 @@ typedef u32 XIo_Address;
 * Performs an input operation for a 32-bit memory location by reading from the
 * specified address and returning the value read from that address.
 *
-* @param	InputPtr contains the address to perform the input operation at.
+* @param[in]	InputPtr contains the address to perform the input operation at.
 *
 * @return	The value read from the specified input address.
 *
-* @note		None.
-*
+
 ******************************************************************************/
 #define XIo_In32(InputPtr)  (*(volatile u32 *)(InputPtr))
 
@@ -144,14 +142,11 @@ typedef u32 XIo_Address;
 * Performs an output operation for an 8-bit memory location by writing the
 * specified value to the the specified address.
 *
-* @param	OutputPtr contains the address to perform the output operation
+* @param[in]	OutputPtr contains the address to perform the output operation
 *		at.
-* @param	Value contains the value to be output at the specified address.
+* @param[in]	Value contains the value to be output at the specified address.
 *
-* @return	None
-*
-* @note		None.
-*
+
 ******************************************************************************/
 #define XIo_Out8(OutputPtr, Value)  \
 	(*(volatile u8  *)((OutputPtr)) = (Value))
@@ -162,14 +157,11 @@ typedef u32 XIo_Address;
 * Performs an output operation for a 16-bit memory location by writing the
 * specified value to the the specified address.
 *
-* @param	OutputPtr contains the address to perform the output operation
+* @param[in]	OutputPtr contains the address to perform the output operation
 *		at.
-* @param	Value contains the value to be output at the specified address.
+* @param[in]	Value contains the value to be output at the specified address.
 *
-* @return	None
-*
-* @note		None.
-*
+
 ******************************************************************************/
 #define XIo_Out16(OutputPtr, Value) \
 	(*(volatile u16 *)((OutputPtr)) = (Value))
@@ -180,14 +172,11 @@ typedef u32 XIo_Address;
 * Performs an output operation for a 32-bit memory location by writing the
 * specified value to the the specified address.
 *
-* @param	OutputPtr contains the address to perform the output operation
+* @param[in]	OutputPtr contains the address to perform the output operation
 *		at.
-* @param	Value contains the value to be output at the specified address.
+* @param[in]	Value contains the value to be output at the specified address.
 *
-* @return	None
-*
-* @note		None.
-*
+
 ******************************************************************************/
 #define XIo_Out32(OutputPtr, Value) \
 	(*(volatile u32 *)((OutputPtr)) = (Value))
@@ -201,31 +190,31 @@ typedef u32 XIo_Address;
  * XIo_To/FromBigEndianXX macros below are to be used to allow the endian
  * conversion to only be performed when necessary
  */
-#define XIo_EndianNoop(Source, DestPtr)		(*DestPtr = Source)
+#define XIo_EndianNoop(Source, DestPtr)		(*DestPtr = Source) /**< No-op endian copy. */
 
 #ifdef XLITTLE_ENDIAN
 
-#define XIo_ToLittleEndian16			XIo_EndianNoop
-#define XIo_ToLittleEndian32			XIo_EndianNoop
-#define XIo_FromLittleEndian16			XIo_EndianNoop
-#define XIo_FromLittleEndian32			XIo_EndianNoop
+#define XIo_ToLittleEndian16			XIo_EndianNoop /**< Convert to little-endian 16-bit (no-op on LE). */
+#define XIo_ToLittleEndian32			XIo_EndianNoop /**< Convert to little-endian 32-bit (no-op on LE). */
+#define XIo_FromLittleEndian16			XIo_EndianNoop /**< Convert from little-endian 16-bit (no-op on LE). */
+#define XIo_FromLittleEndian32			XIo_EndianNoop /**< Convert from little-endian 32-bit (no-op on LE). */
 
-#define XIo_ToBigEndian16(Source, DestPtr) XIo_EndianSwap16(Source, DestPtr)
-#define XIo_ToBigEndian32(Source, DestPtr) XIo_EndianSwap32(Source, DestPtr)
-#define XIo_FromBigEndian16			XIo_ToBigEndian16
-#define XIo_FromBigEndian32			XIo_ToBigEndian32
+#define XIo_ToBigEndian16(Source, DestPtr) XIo_EndianSwap16(Source, DestPtr) /**< Convert to big-endian 16-bit (swap bytes on LE). */
+#define XIo_ToBigEndian32(Source, DestPtr) XIo_EndianSwap32(Source, DestPtr) /**< Convert to big-endian 32-bit (swap bytes on LE). */
+#define XIo_FromBigEndian16			XIo_ToBigEndian16 /**< Convert from big-endian 16-bit. */
+#define XIo_FromBigEndian32			XIo_ToBigEndian32 /**< Convert from big-endian 32-bit. */
 
 #else
 
-#define XIo_ToLittleEndian16(Source, DestPtr) XIo_EndianSwap16(Source, DestPtr)
-#define XIo_ToLittleEndian32(Source, DestPtr) XIo_EndianSwap32(Source, DestPtr)
-#define XIo_FromLittleEndian16			XIo_ToLittleEndian16
-#define XIo_FromLittleEndian32			XIo_ToLittleEndian32
+#define XIo_ToLittleEndian16(Source, DestPtr) XIo_EndianSwap16(Source, DestPtr) /**< Convert to little-endian 16-bit (swap bytes on BE). */
+#define XIo_ToLittleEndian32(Source, DestPtr) XIo_EndianSwap32(Source, DestPtr) /**< Convert to little-endian 32-bit (swap bytes on BE). */
+#define XIo_FromLittleEndian16			XIo_ToLittleEndian16 /**< Convert from little-endian 16-bit. */
+#define XIo_FromLittleEndian32			XIo_ToLittleEndian32 /**< Convert from little-endian 32-bit. */
 
-#define XIo_ToBigEndian16			XIo_EndianNoop
-#define XIo_ToBigEndian32			XIo_EndianNoop
-#define XIo_FromBigEndian16			XIo_EndianNoop
-#define XIo_FromBigEndian32			XIo_EndianNoop
+#define XIo_ToBigEndian16			XIo_EndianNoop /**< Convert to big-endian 16-bit (no-op on BE). */
+#define XIo_ToBigEndian32			XIo_EndianNoop /**< Convert to big-endian 32-bit (no-op on BE). */
+#define XIo_FromBigEndian16			XIo_EndianNoop /**< Convert from big-endian 16-bit (no-op on BE). */
+#define XIo_FromBigEndian32			XIo_EndianNoop /**< Convert from big-endian 32-bit (no-op on BE). */
 
 #endif
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,8 +23,8 @@
 * 5.00  pkp  02/10/14 Initial version
 * 7.7	sk   01/10/22 Update PRIV_RW_USER_RW macro from unsigned to unsigned
 * 		      long to fix misra_c_2012_rule_12_2 violation.
-* 8.0   mus  02/24/22 Updated #defines to support CortexR52 processor
-* 8.1   mus  02/20/23 Added #defines related to CPU affinity.
+* 8.0   mus  02/24/22 Updated defines to support CortexR52 processor
+* 8.1   mus  02/20/23 Added defines related to CPU affinity.
 * 9.0   mus  07/04/23 Added weak definitions for _TCM_A_REGION, _TCM_B_REGION,
 *                     and _TCM_C_REGION  variables, to avoid compilation failure
 *                     in case they are not exported by linker script.
@@ -33,6 +33,7 @@
 * 9.1   asa  03/09/24 Defining the weak _TCM_*_REGION in this header file creates
 *                     redefinition issues when someone includes this header
 *                     in a C source file and define _TCM_*_REGION in it.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/

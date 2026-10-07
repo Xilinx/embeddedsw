@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +10,6 @@
 * @file xil_testcache.c
 * @addtogroup common_test_utils
 *
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -18,6 +18,7 @@
 * 1.00a hbm  07/28/09 Initial release
 * 4.1   asa  05/09/14 Ensured that the address uses for cache test is aligned
 *				      cache line.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/

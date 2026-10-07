@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,17 +23,17 @@
 *			implementation
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
-*
 ******************************************************************************/
+
+#ifndef XTIME_H
+#define XTIME_H
 
 /**
  *@cond nocomments
  */
-
-#ifndef XTIME_H /* prevent circular inclusions */
-#define XTIME_H /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,7 +78,16 @@ void XTime_StartTimer(void);
  *@endcond
  */
 
+/**
+ * @brief Compatibility no-op; the continuously running generic timer cannot be set.
+ * @param[in] Xtime_Global Unused; the timer counter is not modified.
+ */
 void XTime_SetTime(XTime Xtime_Global);
+
+/**
+ * @brief Get the current global timer count.
+ * @param[out] Xtime_Global Pointer to store the current timer counter value.
+ */
 void XTime_GetTime(XTime *Xtime_Global);
 
 #ifdef __cplusplus

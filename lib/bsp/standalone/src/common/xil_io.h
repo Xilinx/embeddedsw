@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -35,11 +35,12 @@
 * 7.5   mus      05/17/21 Update the functions with comments. It fixes CR#1067739.
 * 9.0   ml       03/03/23 Add description and remove comments to fix doxygen warnings.
 * 9.4   vmt      30/09/25 Included riscv_interface.h header for RISC-V processors.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 ******************************************************************************/
 
-#ifndef XIL_IO_H           /**< prevent circular inclusions */
-#define XIL_IO_H           /**< by using protection macros */
+#ifndef XIL_IO_H
+#define XIL_IO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -96,7 +97,7 @@ extern u32 XStl_RegUpdate(u32 RegAddr, u32 RegVal);
 *           from the specified address and returning the 8 bit Value read from
 *            that address.
 *
-* @param	Addr contains the address to perform the input operation
+* @param[in]	Addr contains the address to perform the input operation
 *
 * @return	The 8 bit Value read from the specified input address.
 
@@ -114,7 +115,7 @@ static INLINE u8 Xil_In8(UINTPTR Addr)
 *           the specified address and returning the 16 bit Value read from that
 *           address.
 *
-* @param	Addr contains the address to perform the input operation
+* @param[in]	Addr contains the address to perform the input operation
 *
 * @return	The 16 bit Value read from the specified input address.
 *
@@ -131,7 +132,7 @@ static INLINE u16 Xil_In16(UINTPTR Addr)
 *           reading from the specified address and returning the 32 bit Value
 *           read  from that address.
 *
-* @param	Addr contains the address to perform the input operation
+* @param[in]	Addr contains the address to perform the input operation
 *
 * @return	The 32 bit Value read from the specified input address.
 *
@@ -147,8 +148,7 @@ static INLINE u32 Xil_In32(UINTPTR Addr)
 * @brief     Performs an input operation for a memory location by reading the
 *            64 bit Value read  from that address.
 *
-*
-* @param	Addr contains the address to perform the input operation
+* @param[in]	Addr contains the address to perform the input operation
 *
 * @return	The 64 bit Value read from the specified input address.
 *
@@ -164,16 +164,15 @@ static INLINE u64 Xil_In64(UINTPTR Addr)
 * @brief    Performs an output operation for an memory location by
 *           writing the 8 bit Value to the the specified address.
 *
-* @param	Addr contains the address to perform the output operation
-* @param	Value contains the 8 bit Value to be written at the specified
+* @param[in]	Addr contains the address to perform the output operation
+* @param[in]	Value contains the 8 bit Value to be written at the specified
 *           address.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 static INLINE void Xil_Out8(UINTPTR Addr, u8 Value)
 {
-	/* write 8 bit value to specified address */
+	/**< write 8 bit value to specified address */
 	volatile u8 *LocalAddr = (volatile u8 *)Addr;
 	*LocalAddr = Value;
 }
@@ -184,15 +183,14 @@ static INLINE void Xil_Out8(UINTPTR Addr, u8 Value)
 * @brief    Performs an output operation for a memory location by writing the
 *            16 bit Value to the the specified address.
 *
-* @param	Addr contains the address to perform the output operation
-* @param	Value contains the Value to be written at the specified address.
+* @param[in]	Addr contains the address to perform the output operation
+* @param[in]	Value contains the Value to be written at the specified address.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 static INLINE void Xil_Out16(UINTPTR Addr, u16 Value)
 {
-	/* write 16 bit value to specified address */
+	/**< write 16 bit value to specified address */
 	volatile u16 *LocalAddr = (volatile u16 *)Addr;
 	*LocalAddr = Value;
 }
@@ -203,16 +201,15 @@ static INLINE void Xil_Out16(UINTPTR Addr, u16 Value)
 * @brief    Performs an output operation for a memory location by writing the
 *           32 bit Value to the the specified address.
 *
-* @param	Addr contains the address to perform the output operation
-* @param	Value contains the 32 bit Value to be written at the specified
+* @param[in]	Addr contains the address to perform the output operation
+* @param[in]	Value contains the 32 bit Value to be written at the specified
 *           address.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 static INLINE void Xil_Out32(UINTPTR Addr, u32 Value)
 {
-	/* write 32 bit value to specified address */
+	/**< write 32 bit value to specified address */
 #ifndef ENABLE_SAFETY
 	volatile u32 *LocalAddr = (volatile u32 *)Addr;
 	*LocalAddr = Value;
@@ -227,15 +224,14 @@ static INLINE void Xil_Out32(UINTPTR Addr, u32 Value)
 * @brief    Performs an output operation for a memory location by writing the
 *           64 bit Value to the the specified address.
 *
-* @param	Addr contains the address to perform the output operation
-* @param	Value contains 64 bit Value to be written at the specified address.
+* @param[in]	Addr contains the address to perform the output operation
+* @param[in]	Value contains 64 bit Value to be written at the specified address.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
 {
-	/* write 64 bit value to specified address */
+	/**< write 64 bit value to specified address */
 	volatile u64 *LocalAddr = (volatile u64 *)Addr;
 	*LocalAddr = Value;
 }
@@ -247,8 +243,8 @@ static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
  *       	32 bit Value to the the specified address and then reading it
  *       	back to verify the value written in the register.
  *
- * @param	Addr contains the address to perform the output operation
- * @param	Value contains 32 bit Value to be written at the specified address
+ * @param[in]	Addr contains the address to perform the output operation
+ * @param[in]	Value contains 32 bit Value to be written at the specified address
  *
  * @return	Returns Status
  *        	- XST_SUCCESS on success
@@ -261,10 +257,10 @@ static INLINE int Xil_SecureOut32(UINTPTR Addr, u32 Value)
 	u32 ReadReg;
 	u32 ReadRegTemp;
 
-	/* writing 32 bit value to specified address */
+	/**< writing 32 bit value to specified address */
 	Xil_Out32(Addr, Value);
 
-	/* verify value written to specified address with multiple reads */
+	/**< verify value written to specified address with multiple reads */
 	ReadReg = Xil_In32(Addr);
 	ReadRegTemp = Xil_In32(Addr);
 
@@ -280,7 +276,7 @@ static INLINE int Xil_SecureOut32(UINTPTR Addr, u32 Value)
 *
 * @brief    Perform a 16-bit endian conversion.
 *
-* @param	Data 16 bit value to be converted
+* @param[in]	Data 16 bit value to be converted
 *
 * @return	16 bit Data with converted endianness
 *
@@ -295,7 +291,7 @@ static INLINE __attribute__((always_inline)) u16 Xil_EndianSwap16(u16 Data)
 *
 * @brief    Perform a 32-bit endian conversion.
 *
-* @param	Data : 32 bit value to be converted
+* @param[in]	Data : 32 bit value to be converted
 *
 * @return	32 bit data with converted endianness
 *
@@ -305,17 +301,17 @@ static INLINE __attribute__((always_inline)) u32 Xil_EndianSwap32(u32 Data)
 	u16 LoWord;
 	u16 HiWord;
 
-	/* get each of the half words from the 32 bit word */
+	/**< get each of the half words from the 32 bit word */
 
 	LoWord = (u16) (Data & 0x0000FFFFU);
 	HiWord = (u16) ((Data & 0xFFFF0000U) >> 16U);
 
-	/* byte swap each of the 16 bit half words */
+	/**< byte swap each of the 16 bit half words */
 
 	LoWord = (u16)(((LoWord & 0xFF00U) >> 8U) | ((LoWord & 0x00FFU) << 8U));
 	HiWord = (u16)(((HiWord & 0xFF00U) >> 8U) | ((HiWord & 0x00FFU) << 8U));
 
-	/* swap the half words before returning the value */
+	/**< swap the half words before returning the value */
 
 	return ((((u32)LoWord) << (u32)16U) | (u32)HiWord);
 }

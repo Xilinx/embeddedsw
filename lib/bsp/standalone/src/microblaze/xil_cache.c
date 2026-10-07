@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,8 +29,8 @@
 *                     in case of HW designs where DcacheUseWriteback=1.
 * 9.2   ml   09/30/23 typecasted with void where necessary to suppress unused parameters
 *                     warnings and added checks to fix unused variable.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -52,8 +52,7 @@ static XMicroblaze_Config *CfgPtr = XGet_CpuCfgPtr();
 *
 * @brief    Disable the data cache.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 void Xil_DCacheDisable(void)
 {
@@ -67,9 +66,7 @@ void Xil_DCacheDisable(void)
 *
 * @brief    Disable the instruction cache.
 *
-* @return   None.
-*
-*
+
 ****************************************************************************/
 void Xil_ICacheDisable(void)
 {
@@ -78,15 +75,14 @@ void Xil_ICacheDisable(void)
 }
 
 #ifdef SDT
+/** @brief Flush the entire MicroBlaze data cache. */
 void microblaze_flush_dcache(void) {
 #ifndef VERSAL_PLM
 	UINTPTR startadr=0, endadr=0;
 
 	if (CfgPtr->UseDcache && CfgPtr->AllowDcaheWr) {
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( CfgPtr->DcacheBaseaddr & (- (CfgPtr->DcacheLineLen*4)));
 		endadr = ((CfgPtr->DcacheBaseaddr + CfgPtr->DcacheByteSize) & (- (CfgPtr->DcacheLineLen*4)));
 
@@ -98,6 +94,11 @@ void microblaze_flush_dcache(void) {
 #endif
 }
 
+/**
+ * @brief Flush a range of MicroBlaze data cache lines starting at cacheaddr for len bytes.
+ * @param[in] cacheaddr Starting address of the cache range to flush.
+ * @param[in] len       Number of bytes to flush.
+ */
 void microblaze_flush_dcache_range(UINTPTR cacheaddr, u32 len) {
 #ifndef VERSAL_PLM
 	 UINTPTR startadr=0, endadr=0, temp=0;
@@ -108,9 +109,7 @@ void microblaze_flush_dcache_range(UINTPTR cacheaddr, u32 len) {
 			mtmsr(temp & ~(XIL_INTERRUPTS_MASK | XMICROBLAZE_DCACHE_MASK));
 		}
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( cacheaddr & (- (CfgPtr->DcacheLineLen * 4)));
 		endadr = cacheaddr + len - 1;
 		endadr = (endadr) & (- (CfgPtr->DcacheLineLen * 4));
@@ -134,6 +133,7 @@ void microblaze_flush_dcache_range(UINTPTR cacheaddr, u32 len) {
 #endif
 }
 
+/** @brief Invalidate the entire MicroBlaze data cache. */
 void microblaze_invalidate_dcache(void) {
 #ifndef VERSAL_PLM
 	 UINTPTR startadr=0, endadr=0, temp=0;
@@ -144,9 +144,7 @@ void microblaze_invalidate_dcache(void) {
 			mtmsr(temp & ~(XIL_INTERRUPTS_MASK | XMICROBLAZE_DCACHE_MASK));
 		}
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( CfgPtr->DcacheBaseaddr & (- (CfgPtr->DcacheLineLen*4)));
 		endadr = ((CfgPtr->DcacheBaseaddr + CfgPtr->DcacheByteSize) & (- (CfgPtr->DcacheLineLen*4)));
 
@@ -161,6 +159,11 @@ void microblaze_invalidate_dcache(void) {
 #endif
 }
 
+/**
+ * @brief Invalidate a range of MicroBlaze data cache lines starting at cacheaddr for len bytes.
+ * @param[in] cacheaddr Starting address of the cache range to invalidate.
+ * @param[in] len       Number of bytes to invalidate.
+ */
 void microblaze_invalidate_dcache_range(UINTPTR cacheaddr, u32 len) {
 #ifndef VERSAL_PLM
 	 UINTPTR startadr=0, endadr=0, temp=0;
@@ -172,9 +175,7 @@ void microblaze_invalidate_dcache_range(UINTPTR cacheaddr, u32 len) {
 			mtmsr(temp & ~(XIL_INTERRUPTS_MASK | XMICROBLAZE_DCACHE_MASK));
 		}
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( cacheaddr & (- (CfgPtr->DcacheLineLen * 4)));
 		endadr = cacheaddr + len - 1;
 		endadr = (endadr & (- (CfgPtr->DcacheLineLen * 4)));
@@ -201,15 +202,14 @@ void microblaze_invalidate_dcache_range(UINTPTR cacheaddr, u32 len) {
 #endif
 }
 
+/** @brief Flush the entire MicroBlaze external (L2) cache. */
 void microblaze_flush_cache_ext(void) {
 #ifndef VERSAL_PLM
 	UINTPTR startadr=0, endadr=0;
 
 	if ((CfgPtr->Interconnect > 3) && CfgPtr->AllowDcaheWr) {
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( CfgPtr->DcacheBaseaddr & (- (CfgPtr->DcacheLineLen*4)));
 		endadr = (( CfgPtr->DcacheHighaddr - CfgPtr->DcacheBaseaddr) );
 		endadr = (endadr & (- (4 * XIL_MICROBLAZE_EXT_CACHE_LINE_LEN)));
@@ -222,15 +222,18 @@ void microblaze_flush_cache_ext(void) {
 #endif
 }
 
+/**
+ * @brief Flush a range of MicroBlaze external (L2) cache lines starting at cacheaddr for len bytes.
+ * @param[in] cacheaddr Starting address of the external cache range to flush.
+ * @param[in] len       Number of bytes to flush.
+ */
 void microblaze_flush_cache_ext_range(UINTPTR cacheaddr, u32 len) {
 #ifndef VERSAL_PLM
 	UINTPTR startadr=0, endadr=0;
 
 	if ((CfgPtr->Interconnect > 3) && CfgPtr->AllowDcaheWr) {
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( cacheaddr & (- (XIL_MICROBLAZE_EXT_CACHE_LINE_LEN*4)));
 		endadr = cacheaddr + len -1;
 		endadr = (endadr & (- (4 * XIL_MICROBLAZE_EXT_CACHE_LINE_LEN)));
@@ -246,15 +249,14 @@ void microblaze_flush_cache_ext_range(UINTPTR cacheaddr, u32 len) {
 #endif
 }
 
+/** @brief Invalidate the entire MicroBlaze external (L2) cache. */
 void microblaze_invalidate_cache_ext(void) {
 #ifndef VERSAL_PLM
 	UINTPTR startadr=0, endadr=0;
 
 	if ((CfgPtr->Interconnect > 3) && CfgPtr->AllowDcaheWr) {
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( CfgPtr->DcacheBaseaddr & (- (CfgPtr->DcacheLineLen*4)));
 		endadr = (( CfgPtr->DcacheHighaddr - CfgPtr->DcacheBaseaddr) );
 		endadr = (endadr & (- (4 * XIL_MICROBLAZE_EXT_CACHE_LINE_LEN)));
@@ -267,15 +269,18 @@ void microblaze_invalidate_cache_ext(void) {
 #endif
 }
 
+/**
+ * @brief Invalidate a range of MicroBlaze external (L2) cache lines starting at cacheaddr for len bytes.
+ * @param[in] cacheaddr Starting address of the external cache range to invalidate.
+ * @param[in] len       Number of bytes to invalidate.
+ */
 void microblaze_invalidate_cache_ext_range(UINTPTR cacheaddr, u32 len) {
 #ifndef VERSAL_PLM
 	UINTPTR startadr=0, endadr=0;
 
 	if ((CfgPtr->Interconnect > 3) && CfgPtr->AllowDcaheWr) {
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( cacheaddr & (- (XIL_MICROBLAZE_EXT_CACHE_LINE_LEN*4)));
 		endadr = cacheaddr + len -1;
 		endadr = (endadr & (- (4 * XIL_MICROBLAZE_EXT_CACHE_LINE_LEN)));
@@ -291,6 +296,7 @@ void microblaze_invalidate_cache_ext_range(UINTPTR cacheaddr, u32 len) {
 #endif
 }
 
+/** @brief Invalidate the entire MicroBlaze instruction cache. */
 void microblaze_invalidate_icache(void) {
 #ifndef VERSAL_PLM
 	 UINTPTR startadr=0, endadr=0, temp=0;
@@ -301,9 +307,7 @@ void microblaze_invalidate_icache(void) {
 			mtmsr(temp & ~(XIL_INTERRUPTS_MASK | XMICROBLAZE_ICACHE_MASK));
 		}
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( CfgPtr->IcacheBaseaddr & (- (CfgPtr->IcacheLineLen*4)));
 		endadr = ((CfgPtr->IcacheBaseaddr + CfgPtr->CacheByteSize) & (- (CfgPtr->IcacheLineLen*4)));
 
@@ -318,6 +322,11 @@ void microblaze_invalidate_icache(void) {
 #endif
 }
 
+/**
+ * @brief Invalidate a range of MicroBlaze instruction cache lines starting at cacheaddr for len bytes.
+ * @param[in] cacheaddr Starting address of the instruction cache range to invalidate.
+ * @param[in] len       Number of bytes to invalidate.
+ */
 void microblaze_invalidate_icache_range(UINTPTR cacheaddr, u32 len) {
 #ifndef VERSAL_PLM
 	 UINTPTR startadr=0, endadr=0, temp=0;
@@ -328,9 +337,7 @@ void microblaze_invalidate_icache_range(UINTPTR cacheaddr, u32 len) {
 			mtmsr(temp & ~(XIL_INTERRUPTS_MASK | XMICROBLAZE_ICACHE_MASK));
 		}
 
-		/*
-		 * Align start and end address with cache line length
-		 */
+		/**< * Align start and end address with cache line length */
 		startadr = ( CfgPtr->IcacheBaseaddr & (- (CfgPtr->IcacheLineLen*4)));
 		endadr = cacheaddr + len - 1;
 		endadr = (endadr) & (- (CfgPtr->IcacheLineLen * 4));
@@ -349,6 +356,7 @@ void microblaze_invalidate_icache_range(UINTPTR cacheaddr, u32 len) {
 #endif
 }
 
+/** @brief Disable the MicroBlaze data cache. */
 void microblaze_disable_dcache(void) {
 #ifndef VERSAL_PLM
 	UINTPTR val=0;
@@ -366,6 +374,7 @@ void microblaze_disable_dcache(void) {
 #endif
 }
 
+/** @brief Enable the MicroBlaze data cache. */
 void microblaze_enable_dcache(void) {
 #ifndef VERSAL_PLM
 	UINTPTR val=0;
@@ -378,6 +387,7 @@ void microblaze_enable_dcache(void) {
 	}
 #endif
 }
+/** @brief Disable the MicroBlaze instruction cache. */
 void microblaze_disable_icache(void) {
 #ifndef VERSAL_PLM
 	UINTPTR val=0;
@@ -391,6 +401,7 @@ void microblaze_disable_icache(void) {
 #endif
 }
 
+/** @brief Enable the MicroBlaze instruction cache. */
 void microblaze_enable_icache(void) {
 #ifndef VERSAL_PLM
 	UINTPTR val=0;
@@ -429,3 +440,4 @@ void Xil_L1DCacheFlush(void) {
 #endif
 }
 #endif
+/** @} */

@@ -1,7 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file clock.c
+ * @brief clock stub implementation for standalone BSP.
+ */
 
 
 /*
@@ -22,6 +27,10 @@
 #include <time.h>
 
 
+/**
+ * @brief Stub for clock(); always returns 0.
+ * @return Always 0.
+ */
 clock_t (clock)(void)
 {
   return (0);

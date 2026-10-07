@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * 9.1   ml   02/29/24  Fixed compilation error.
 * 9.4   ml   07/24/25  Fixed GCC warnings
 * 9.5   bdk  12/08/25  Updated comments to support SDT flow for Doxygen
+* 9.6   ml   10/02/26  Fix Doxygen 1.15.0 and compliance checker warnings.
 *                      documentation.
 * </pre>
 ******************************************************************************/
@@ -55,35 +56,35 @@
 #define TTC_CNT1_TICK_DEVICE_ID	XPAR_XTTCPS_1_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 #else
-#define TTC_CNT0_BASEADDR XPAR_XTTCPS_0_BASEADDR
-#define TTC_CNT1_BASEADDR XPAR_XTTCPS_1_BASEADDR
-#define INTC_DIST_BASEADDR XPAR_XSCUGIC_0_BASEADDR
+#define TTC_CNT0_BASEADDR XPAR_XTTCPS_0_BASEADDR /**< Base address of TTC counter 0. */
+#define TTC_CNT1_BASEADDR XPAR_XTTCPS_1_BASEADDR /**< Base address of TTC counter 1. */
+#define INTC_DIST_BASEADDR XPAR_XSCUGIC_0_BASEADDR /**< Base address of the GIC distributor. */
 #endif
 
-#define TTC_CNT0_TICK_INTR_ID	XPAR_XTTCPS_0_INTR
-#define TTC_CNT1_TICK_INTR_ID	XPAR_XTTCPS_1_INTR
+#define TTC_CNT0_TICK_INTR_ID	XPAR_XTTCPS_0_INTR /**< Interrupt ID of TTC counter 0. */
+#define TTC_CNT1_TICK_INTR_ID	XPAR_XTTCPS_1_INTR /**< Interrupt ID of TTC counter 1. */
 
-#define TTC_CNT0_INTR_PRIORITY	0x30
-#define TTC_CNT1_INTR_PRIORITY	0x20
+#define TTC_CNT0_INTR_PRIORITY	0x30 /**< Interrupt priority for TTC counter 0 (low). */
+#define TTC_CNT1_INTR_PRIORITY	0x20 /**< Interrupt priority for TTC counter 1 (high). */
 
 
 /* Tick timer counters' output frequency */
-#define	TICK_TIMER0_FREQ_HZ	100000
-#define	TICK_TIMER1_FREQ_HZ	100
+#define	TICK_TIMER0_FREQ_HZ	100000 /**< Tick frequency for TTC counter 0 in Hz. */
+#define	TICK_TIMER1_FREQ_HZ	100 /**< Tick frequency for TTC counter 1 in Hz. */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
-	u32 OutputHz;	/* Output frequency */
-	XInterval Interval;	/* Interval value */
-	u8 Prescaler;	/* Prescaler value */
-	u16 Options;	/* Option settings */
+	u32 OutputHz;	/**< Output frequency */
+	XInterval Interval;	/**< Interval value */
+	u8 Prescaler;	/**< Prescaler value */
+	u16 Options;	/**< Option settings */
 } TmrCntrSetup;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
-int TmrNestedInterruptExample();  /* Main test */
+int TmrNestedInterruptExample();  /**< Main test */
 
 /* Set up routines for timer counters */
 #ifndef SDT
@@ -108,10 +109,10 @@ static TmrCntrSetup SettingsTable0 =
 static TmrCntrSetup SettingsTable1 =
 {TICK_TIMER1_FREQ_HZ, 0, 0, 0};
 
-static volatile u8 LowPriorityIntrFlag;	/* Flag to update low priority interrupt counter */
-static volatile u8 HighPriorityIntrFlag;	/* Flag to update high priority interrupt counter */
+static volatile u8 LowPriorityIntrFlag;	/**< Flag to update low priority interrupt counter */
+static volatile u8 HighPriorityIntrFlag;	/**< Flag to update high priority interrupt counter */
 
-XScuGic InterruptController;  	/* Interrupt controller instance */
+XScuGic InterruptController;  	/**< Interrupt controller instance */
 
 /* Timer counter instances */
 static XTtcPs TtcPsInst0;
@@ -122,13 +123,9 @@ static XTtcPs TtcPsInst1;
 *
 * This is the main function that calls the Nested Timer interrupt example.
 *
-* @param	None
-*
 * @return
 *		- XST_SUCCESS to indicate Success
 *		- XST_FAILURE to indicate a Failure.
-*
-* @note		None.
 *
 *****************************************************************************/
 int main(void)
@@ -149,8 +146,6 @@ int main(void)
 /**
 *
 * This is the main function of the nested interrupt example.
-*
-* @param	None
 *
 * @return	XST_SUCCESS to indicate success, else XST_FAILURE to indicate
 *		a Failure.
@@ -182,12 +177,12 @@ int TmrNestedInterruptExample()
 	 * different frequency
 	 */
 
-	/* Configure counter 0 */
+	/**< Configure counter 0 */
 #ifndef SDT
 	TtcTickIntrID = TTC_CNT0_TICK_INTR_ID;
 	DeviceID = TTC_CNT0_TICK_DEVICE_ID;
 
-	/* configure the priority for counter 0 */
+	/**< configure the priority for counter 0 */
 	IntrPriority = XScuGic_DistReadReg(&InterruptController,
 					   XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID));
 	IntrPriority = (IntrPriority & ~( XSCUGIC_PRIORITY_MASK << ((TtcTickIntrID % 4) * 8)))
@@ -209,12 +204,12 @@ int TmrNestedInterruptExample()
 		return XST_FAILURE;
 	}
 
-	/* Configure counter 1 */
+	/**< Configure counter 1 */
 #ifndef SDT
 	TtcTickIntrID = TTC_CNT1_TICK_INTR_ID;
 	DeviceID = TTC_CNT1_TICK_DEVICE_ID;
 
-	/* configure the priority for counter 1 */
+	/**< configure the priority for counter 1 */
 	IntrPriority = XScuGic_DistReadReg(&InterruptController,
 					   XSCUGIC_PRIORITY_OFFSET_CALC(TtcTickIntrID));
 	IntrPriority = (IntrPriority & ~( XSCUGIC_PRIORITY_MASK << ((TtcTickIntrID % 4) * 8)))
@@ -236,7 +231,7 @@ int TmrNestedInterruptExample()
 		return XST_FAILURE;
 	}
 
-	/* start all the timer at once */
+	/**< start all the timer at once */
 	XTtcPs_Start(&TtcPsInst0);
 
 	XTtcPs_Start(&TtcPsInst1);
@@ -253,21 +248,21 @@ int TmrNestedInterruptExample()
 * This function sets up the Ticker timer.
 *
 * @if SDT
-* @param	TtcPsInst is a pointer to the ttc instance.
-* @param	BaseAddr is the base address of the TTC device.
-* @param	priority is the interrupt priority for the timer.
-* @param	TickHandler is a interrupt handler to be registered with
+* @param[in]	TtcPsInst is a pointer to the ttc instance.
+* @param[in]	BaseAddr is the base address of the TTC device.
+* @param[in]	priority is the interrupt priority for the timer.
+* @param[in]	TickHandler is a interrupt handler to be registered with
 			the ttc instance
-* @param	SettingsTable is ticker timer counter initial setup.
+* @param[in]	SettingsTable is ticker timer counter initial setup.
 * @else
-* @param	TtcPsInst is a pointer to the ttc instance.
-* @param	DeviceID is the unique ID for the device.
-* @param	TtcTickIntrID is the unique interrupt ID for the timer.
-* @param	TickHandler is a interrupt handler to be registered with
+* @param[in]	TtcPsInst is a pointer to the ttc instance.
+* @param[in]	DeviceID is the unique ID for the device.
+* @param[in]	TtcTickIntrID is the unique interrupt ID for the timer.
+* @param[in]	TickHandler is a interrupt handler to be registered with
 			the ttc instance
-* @param	InterruptController is a pointer to the interrupt controller
+* @param[in]	InterruptController is a pointer to the interrupt controller
 *			instance..
-* @param	SettingsTable is ticker timer counter initial setup.
+* @param[in]	SettingsTable is ticker timer counter initial setup.
 * @endif
 *
 * @return	XST_SUCCESS if everything sets up well, XST_FAILURE otherwise.
@@ -316,17 +311,13 @@ int SetupTicker(XTtcPs *TtcPsInst, u32 BaseAddr, u32 priority,
 	TtcPsTick = TtcPsInst;
 
 #ifndef  SDT
-	/*
-	 * Connect to the interrupt controller
-	 */
+	/**< * Connect to the interrupt controller */
 	Status = XScuGic_Connect(InterruptController, TtcTickIntrID,
 				 (Xil_InterruptHandler)TickHandler, (void *)TtcPsTick);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	/*
-	 * Enable the interrupt for the Timer counter
-	 */
+	/**< * Enable the interrupt for the Timer counter */
 	XScuGic_Enable(InterruptController, TtcTickIntrID);
 #else
 
@@ -339,9 +330,7 @@ int SetupTicker(XTtcPs *TtcPsInst, u32 BaseAddr, u32 priority,
 	}
 #endif
 
-	/*
-	 * Enable the interrupts for the tick timer/counter
-	 */
+	/**< * Enable the interrupts for the tick timer/counter */
 	XTtcPs_EnableInterrupts(TtcPsTick, XTTCPS_IXR_INTERVAL_MASK);
 
 	return Status;
@@ -356,13 +345,13 @@ int SetupTicker(XTtcPs *TtcPsInst, u32 BaseAddr, u32 priority,
 *  . set interval and prescaler value for given output frequency.
 *
 * @if SDT
-* @param	BaseAddr is the base address of the TTC device.
-* @param	TtcPsInst is a pointer to the ttc instance.
-* @param	SettingsTable is the timer counter initial setup.
+* @param[in]	BaseAddr is the base address of the TTC device.
+* @param[in]	TtcPsInst is a pointer to the ttc instance.
+* @param[in]	SettingsTable is the timer counter initial setup.
 * @else
-* @param	DeviceID is the unique ID for the device.
-* @param	TtcPsInst is a pointer to the ttc instance.
-* @param	SettingsTable is the timer counter initial setup.
+* @param[in]	DeviceID is the unique ID for the device.
+* @param[in]	TtcPsInst is a pointer to the ttc instance.
+* @param[in]	SettingsTable is the timer counter initial setup.
 * @endif
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -386,9 +375,7 @@ int SetupTimer(u32 BaseAddr, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable)
 
 	Timer = TtcPsInst;
 
-	/*
-	 * Look up the configuration based on the device identifier
-	 */
+	/**< * Look up the configuration based on the device identifier */
 #ifndef SDT
 	Config = XTtcPs_LookupConfig(DeviceID);
 #else
@@ -397,17 +384,13 @@ int SetupTimer(u32 BaseAddr, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable)
 	if (NULL == Config) {
 		return XST_FAILURE;
 	}
-	/*
-	 * Initialize the device
-	 */
+	/**< * Initialize the device */
 	Status = XTtcPs_CfgInitialize(Timer, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Set the options
-	 */
+	/**< * Set the options */
 	XTtcPs_SetOptions(Timer, TimerSetup->Options);
 
 	/*
@@ -419,15 +402,14 @@ int SetupTimer(u32 BaseAddr, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable)
 	XTtcPs_CalcIntervalFromFreq(Timer, TimerSetup->OutputHz,
 				    &(TimerSetup->Interval), &(TimerSetup->Prescaler));
 
-	/*
-	 * Set the interval and prescale
-	 */
+	/**< * Set the interval and prescale */
 	XTtcPs_SetInterval(Timer, TimerSetup->Interval);
 	XTtcPs_SetPrescaler(Timer, TimerSetup->Prescaler);
 
 	return XST_SUCCESS;
 }
 
+#ifndef SDT
 /****************************************************************************/
 /**
 *
@@ -437,14 +419,13 @@ int SetupTimer(u32 BaseAddr, XTtcPs *TtcPsInst, TmrCntrSetup SettingsTable)
 * processor without an interrupt controller.  The user should modify this
 * function to fit the application.
 *
-* @param	IntcDeviceID is the unique ID of the interrupt controller
-* @param	IntcInstacePtr is a pointer to the interrupt controller
+* @param[in]	IntcDeviceID is the unique ID of the interrupt controller
+* @param[in]	IntcInstancePtr is a pointer to the interrupt controller
 *		instance.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
 *
 *****************************************************************************/
-#ifndef SDT
 static int SetupInterruptSystem(u16 IntcDeviceID,
 				XScuGic *IntcInstancePtr)
 {
@@ -452,9 +433,7 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 	XScuGic_Config *IntcConfig; /* The configuration parameters of the
 					   interrupt controller */
 
-	/*
-	 * Initialize the interrupt controller driver
-	 */
+	/**< * Initialize the interrupt controller driver */
 
 	IntcConfig = XScuGic_LookupConfig(IntcDeviceID);
 	if (NULL == IntcConfig) {
@@ -477,9 +456,7 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 				     IntcInstancePtr);
 
 
-	/*
-	 * Enable interrupts in the ARM
-	 */
+	/**< * Enable interrupts in the ARM */
 	Xil_ExceptionEnable();
 
 	return XST_SUCCESS;
@@ -494,10 +471,8 @@ static int SetupInterruptSystem(u16 IntcDeviceID,
 * are triggered. It enables the nested interrupts and does not exit till
 * other counter with higher priority interrupt is not triggered.
 *
-* @param	CallBackRef contains a callback reference from the driver, in
+* @param[in]	CallBackRef1 contains a callback reference from the driver, in
 *		this case it is the instance pointer for the TTC driver.
-*
-* @return	None.
 *
 *****************************************************************************/
 
@@ -505,25 +480,23 @@ static void TtcInst0TickHandler(void *CallBackRef1)
 {
 	u32 StatusEvent;
 
-	/* stop the counter first to avoid any further interrupt generation */
+	/**< stop the counter first to avoid any further interrupt generation */
 	XTtcPs_Stop((XTtcPs *)CallBackRef1);
 
-	/* update the flag to indicate the interrupt */
+	/**< update the flag to indicate the interrupt */
 	LowPriorityIntrFlag++;
 
-	/*
-	 * Read the interrupt status, then write it back to clear the interrupt.
-	 */
+	/**< * Read the interrupt status, then write it back to clear the interrupt. */
 	StatusEvent = XTtcPs_GetInterruptStatus((XTtcPs *)CallBackRef1);
 	XTtcPs_ClearInterruptStatus((XTtcPs *)CallBackRef1, StatusEvent);
 
-	/* Enable the nested interrupts to allow preemption */
+	/**< Enable the nested interrupts to allow preemption */
 	Xil_EnableNestedInterrupts();
 
-	/* wait till interrupts from counter configured with high priority interrupt */
+	/**< wait till interrupts from counter configured with high priority interrupt */
 	while (HighPriorityIntrFlag == 0);
 
-	/* Disable the nested interrupt before exiting IRQ mode */
+	/**< Disable the nested interrupt before exiting IRQ mode */
 	Xil_DisableNestedInterrupts();
 }
 
@@ -535,10 +508,8 @@ static void TtcInst0TickHandler(void *CallBackRef1)
 * configured with low priority (TtcInst0TickHandler), and increments
 * HighPriorityIntrFlag.
 *
-* @param        CallBackRef contains a callback reference from the driver, in
+* @param[in]	CallBackRef1 contains a callback reference from the driver, in
 *               this case it is the instance pointer for the TTC driver.
-*
-* @return       None.
 *
 *****************************************************************************/
 
@@ -546,16 +517,14 @@ static void TtcInst1TickHandler(void *CallBackRef1)
 {
 	u32 StatusEvent;
 
-	/* stop the counter first to avoid any further interrupt generation */
+	/**< stop the counter first to avoid any further interrupt generation */
 	XTtcPs_Stop((XTtcPs *)CallBackRef1);
 
-	/*
-	 * Read the interrupt status, then write it back to clear the interrupt.
-	 */
+	/**< * Read the interrupt status, then write it back to clear the interrupt. */
 	StatusEvent = XTtcPs_GetInterruptStatus((XTtcPs *)CallBackRef1);
 	XTtcPs_ClearInterruptStatus((XTtcPs *)CallBackRef1, StatusEvent);
 
-	/* update the flag to indicate the interrupt */
+	/**< update the flag to indicate the interrupt */
 	HighPriorityIntrFlag++;
 
 }

@@ -1,7 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file low_level_init.c
+ * @brief Low-level BSP initialization for IAR toolchain.
+ */
 
 
 /*
@@ -28,6 +33,10 @@ extern "C" {
 
 s32 __low_level_init(void);
 
+/**
+ * @brief Low-level hardware initialisation called before main(); returns 1.
+ * @return 1 to enable data-segment initialisation, 0 to skip it.
+ */
 s32 __low_level_init(void)
 {
   /*==================================*/

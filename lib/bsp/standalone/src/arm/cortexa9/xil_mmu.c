@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
 *                     It fixes CR#1008309.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -57,32 +58,33 @@
 
 #define	ARM_AR_MEM_TTB_SECT_SIZE	1024*1024 /**< Each TTB descriptor
                                                    *   covers a 1MB region */
+/** @brief Mask off lower bits of address to align to a TTB section boundary. */
 #define	ARM_AR_MEM_TTB_SECT_SIZE_MASK	(~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
-/**< Mask off lower bits of addr */
 
 /************************** Variable Definitions *****************************/
 
-extern u32 MMUTable;
+extern u32 MMUTable; /**< Base address of the MMU translation table (defined in linker script). */
 
 /************************** Function Prototypes ******************************/
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief	This function sets the memory attributes for a section covering 1MB
 *			of memory in the translation table.
 *
-* @param	Addr  32-bit address for which memory attributes need to be set.
-* @param	attrib  Attribute for the given memory region. xil_mmu.h contains
-*			definitions of commonly used memory attributes which can be
-*			utilized for this function.
-*
-*
-* @return	None.
+* @param[in]	Addr 32-bit address for which TLB attributes are to be set.
+* @param[in]	attrib Attribute bits to set for the given address.
 *
 * @note		The MMU or D-cache does not need to be disabled before changing a
 *			translation table entry.
 *
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 {
 	u32 *ptr;
@@ -110,8 +112,7 @@ void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
 * @brief	Enable MMU for cortex A9 processor. This function invalidates the
 *			instruction and data caches, and then enables MMU.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void Xil_EnableMMU(void)
 {
@@ -140,8 +141,7 @@ void Xil_EnableMMU(void)
 *			the TLBs, Branch Predictor Array and flushed the D Caches before
 *			disabling the MMU.
 *
-* @return	None.
-*
+
 * @note		When the MMU is disabled, all the memory accesses are treated as
 *			strongly ordered.
 ******************************************************************************/
@@ -169,13 +169,12 @@ void Xil_DisableMMU(void)
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);
 }
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief   Memory mapping for Cortex A9 processor.
-*
-* @param	PhysAddr  is physical address.
-* @param	size is size of region.
-* @param	flags is flags used to set translation table.
 *
 * @return	Pointer to virtual address.
 *
@@ -183,6 +182,9 @@ void Xil_DisableMMU(void)
 *       functionality is specific to A9 processor.
 *
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 {
    u32 Sectionoffset;

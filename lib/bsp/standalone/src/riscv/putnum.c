@@ -1,7 +1,13 @@
 /******************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file putnum.c
+* @brief Utility to print a hex number to the output device.
+*/
+
 
 #ifndef UNDEFINE_FILE_OPS
 #include "xil_types.h"
@@ -10,18 +16,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 __attribute__((weak)) void putnum(u32 num);
-
 #ifdef __cplusplus
 }
 #endif
-
-/*
- * putnum -- print a 32 bit number in hex
- * Declared as __weak attribute
- */
-
+/** @cond */
 __attribute__((weak)) void putnum(u32 num)
 {
 	char buf[9];
@@ -41,4 +40,5 @@ __attribute__((weak)) void putnum(u32 num)
 
 	print (buf);
 }
+/** @endcond */
 #endif

@@ -13,16 +13,23 @@
  * they apply.
  *****************************************************************************/
 
+/**
+* @file putnum.c
+* @brief Utility to print a hex number to the output device.
+*/
+
+
 /***************************** Include Files *********************************/
 #include "xil_types.h"
 #include "xil_printf.h"
 
-/************************** Function Prototypes ******************************/
 void putnum(u32 num);
 
 /*****************************************************************************/
 /**
-* putnum -- print a 32 bit number in hex
+* @brief putnum -- print a 32 bit number in hex
+*
+* @param[in] num 32-bit number to print in hexadecimal.
 *
 ******************************************************************************/
 void putnum(u32 num)

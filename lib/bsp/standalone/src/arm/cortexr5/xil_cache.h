@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 5.00 	pkp  02/20/14 First release
 * 6.2   mus  01/27/17 Updated to support IAR compiler
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -88,13 +89,23 @@ void Xil_ICacheDisable(void);
 void Xil_ICacheInvalidate(void);
 #endif
 
+/** @brief Invalidate a range of data cache lines. */
 void Xil_DCacheInvalidateRange(INTPTR adr, u32 len);
+/** @brief Flush a range of data cache lines. */
 void Xil_DCacheFlushRange(INTPTR adr, u32 len);
+/** @brief Invalidate a single data cache line. */
 void Xil_DCacheInvalidateLine(INTPTR adr);
+/** @brief Flush a single data cache line. */
 void Xil_DCacheFlushLine(INTPTR adr);
+/**
+ * @brief Clean and store a single data cache line.
+ * @param[in] adr Address of the cache line to store.
+ */
 void Xil_DCacheStoreLine(INTPTR adr);
 
+/** @brief Invalidate a range of instruction cache lines. */
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len);
+/** @brief Invalidate a single instruction cache line. */
 void Xil_ICacheInvalidateLine(INTPTR adr);
 
 #ifdef __cplusplus

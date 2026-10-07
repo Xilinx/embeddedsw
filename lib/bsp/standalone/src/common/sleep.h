@@ -34,6 +34,7 @@
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * 9.1   mus  10/24/23 Add support for RISC-V.
 * 9.2   bl   07/21/26 Add missing prototype for msleep API.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -58,18 +59,17 @@ extern "C" {
 * If the timeout is not a multiple of 100us, it waits for a timeout of
 * the next usec value which is a multiple of 100us.
 *
-* @param            IO_func - accessor function to read the register contents.
+* @param[in]            IO_func - accessor function to read the register contents.
 *                   Depends on the register width.
-* @param            ADDR - Address to be polled
-* @param            VALUE - variable to read the value
-* @param            COND - Condition to checked (usually involves VALUE)
-* @param            TIMEOUT_US - timeout in micro seconds
+* @param[in]            ADDR - Address to be polled
+* @param[out]           VALUE - variable to receive the value
+* @param[in]            COND - Condition to checked (usually involves VALUE)
+* @param[in]            TIMEOUT_US - timeout in micro seconds
 *
 * @return           0 - when the condition is met
 *                   -1 - when the condition is not met till the timeout period
 *
-* @note             none
-*
+
 *****************************************************************************/
 #define Xil_poll_timeout(IO_func, ADDR, VALUE, COND, TIMEOUT_US) \
  ( {	  \
@@ -92,6 +92,10 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 void usleep(ULONG useconds);
+/**
+ * @brief Sleep for specified number of milliseconds.
+ * @param[in] mseconds Number of milliseconds to sleep.
+ */
 void msleep(unsigned long mseconds);
 void sleep(u32 seconds);
 void usleep_R5(ULONG useconds);

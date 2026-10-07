@@ -23,6 +23,7 @@
 * 1.1   ng       09/19/2025 Fixed LPD SLCR error descriptions
 * 1.2   sk       09/23/2025 Added Additional HBMON Error ID's
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -36,32 +37,29 @@ extern "C" {
 #endif
 
 /************************** Constant Definitions *****************************/
-/**@name Versal_2VE_2VM Event Node IDs
+/**
  * @defgroup xileventnodes Event Node IDs
- * @ingroup xilnodeids
  * @{
  */
 
-#define XIL_NODETYPE_EVENT_ERROR_ID_ENCODING	(0x28100000U)
-
+#define XIL_NODETYPE_EVENT_ERROR_ID_ENCODING	(0x28100000U) /**< Error event ID encoding for node type. */
  /**
  * Error Event Node Ids
  */
 #define XIL_NODETYPE_EVENT_ERROR_PMC_ERR1	(0x28100000U)
-#define XIL_NODETYPE_EVENT_ERROR_PMC_ERR2	(0x28104000U)
-#define XIL_NODETYPE_EVENT_ERROR_PMC_ERR3	(0x28108000U)
-#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR1	(0x2810C000U)
-#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR2	(0x28110000U)
-#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR3	(0x28114000U)
-#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR4	(0x28118000U)
-#define XIL_NODETYPE_EVENT_ERROR_SW_ERR		(0x2811C000U)
+#define XIL_NODETYPE_EVENT_ERROR_PMC_ERR2	(0x28104000U) /**< PMC ERR2 error event node ID. */
+#define XIL_NODETYPE_EVENT_ERROR_PMC_ERR3	(0x28108000U) /**< PMC ERR3 error event node ID. */
+#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR1	(0x2810C000U) /**< LPD SLCR ERR1 error event node ID. */
+#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR2	(0x28110000U) /**< LPD SLCR ERR2 error event node ID. */
+#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR3	(0x28114000U) /**< LPD SLCR ERR3 error event node ID. */
+#define XIL_NODETYPE_EVENT_ERROR_LPD_SLCR_ERR4	(0x28118000U) /**< LPD SLCR ERR4 error event node ID. */
+#define XIL_NODETYPE_EVENT_ERROR_SW_ERR		(0x2811C000U) /**< SW error event node ID. */
 /**
  * @}
  */
 
-/**@name Versal_2VE_2VM Error event Mask
+/**
  * @defgroup xilerroreventmask Error Event Mask
- * @ingroup xilnodeids
  * @{
  * @defgroup pmcerr1 Error Event Mask for PMC ERR1
  * @ingroup xilerroreventmask
@@ -179,7 +177,6 @@ extern "C" {
 
 /**
  * @defgroup pmcerr2 Error Event Mask for PMC ERR2
- * @ingroup xilpmerroreventmask
  * @{
  * @brief Error Events belong to PMC ERR2 Node
  */
@@ -296,7 +293,6 @@ extern "C" {
 
 /**
  * @defgroup pmcerr3 Error Event Mask for PMC ERR3
- * @ingroup xilpmerroreventmask
  * @{
  * @brief Error Events belong to PMC ERR3 Node
  */
@@ -381,7 +377,6 @@ extern "C" {
 
 /**
  * @defgroup LPD SLCR err0 Error Event Mask for LPD SLCR ERR0
- * @ingroup xilpmerroreventmask
  * @{
  * @brief Error Events belong to LPD SLCR ERR0 Node
  */
@@ -483,8 +478,7 @@ extern "C" {
 
 
 /**
- * @defgroup LPD SLCR 1 Error Event Mask for LPD SLCR EAM ERR1
- * @ingroup xilpmerroreventmask
+ * @defgroup LPD_ERR1 SLCR 1 Error Event Mask for LPD SLCR EAM ERR1
  * @brief Error Events belong to LPD SLCR ERR1 Node
  * @{
  */
@@ -591,8 +585,7 @@ extern "C" {
  */
 
 /**
- * @defgroup LPDSLCRERR@ Error Event Mask for LPDSLCR ERR2
- * @ingroup xilpmerroreventmask
+ * @defgroup LPDSLCRERR2 Error Event Mask for LPDSLCR ERR2
  * @brief Error Events belong to LPDSLCR ERR2 Node
  * @{
  */
@@ -703,7 +696,6 @@ extern "C" {
 
 /**
  * @defgroup lpdslcr3 Error Event Mask for LPDSLCR ERR3
- * @ingroup xilpmerroreventmask
  * @brief Error Events belong to LPDSLCR ERR3 Node
  * @{
  */
@@ -810,28 +802,26 @@ extern "C" {
 
 /**
  * @defgroup swerr Error Event Mask for Software error events
- * @ingroup xilpmerroreventmask
  * @{
  * @brief Error Events belong to SW ERR Node
  */
 /** Error event mask for Software error events */
 /** Health Boot Monitoring errors */
 #define XIL_EVENT_ERROR_MASK_HB_MON_0		(0x00000001U)
-#define XIL_EVENT_ERROR_MASK_HB_MON_1		(0x00000002U)
-#define XIL_EVENT_ERROR_MASK_HB_MON_2		(0x00000004U)
-#define XIL_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U)
-#define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U)
-#define XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE 	(0x00000020U)
-#define XIL_EVENT_ERROR_PCR_LOG_UPDATE		(0x00000040U)
+#define XIL_EVENT_ERROR_MASK_HB_MON_1		(0x00000002U) /**< Health Boot Monitor 1 error event mask. */
+#define XIL_EVENT_ERROR_MASK_HB_MON_2		(0x00000004U) /**< Health Boot Monitor 2 error event mask. */
+#define XIL_EVENT_ERROR_MASK_HB_MON_3		(0x00000008U) /**< Health Boot Monitor 3 error event mask. */
+#define XIL_EVENT_ERROR_MASK_PLM_EXCEPTION	(0x00000010U) /**< PLM exception error event mask. */
+#define XIL_EVENT_ERROR_MASK_DEV_STATE_CHANGE 	(0x00000020U) /**< Device state change error event mask. */
+#define XIL_EVENT_ERROR_PCR_LOG_UPDATE		(0x00000040U) /**< PCR log update error event mask. */
 /** XilSem errors */
 #define XIL_EVENT_ERROR_MASK_XSEM_CRAM_CE	(0x00000080U)
-#define XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE	(0x00000100U)
-#define XIL_EVENT_ERROR_MASK_XSEM_NPI_UE	(0x00000200U)
-#define XIL_EVENT_ERROR_MASK_HB_MON_4		(0x00000400U)
-#define XIL_EVENT_ERROR_MASK_HB_MON_5		(0x00000800U)
-#define XIL_EVENT_ERROR_MASK_HB_MON_6		(0x00001000U)
-#define XIL_EVENT_ERROR_MASK_HB_MON_7		(0x00002000U)
-
+#define XIL_EVENT_ERROR_MASK_XSEM_CRAM_UE	(0x00000100U) /**< XilSem CRAM uncorrectable error event mask. */
+#define XIL_EVENT_ERROR_MASK_XSEM_NPI_UE	(0x00000200U) /**< XilSem NPI uncorrectable error event mask. */
+#define XIL_EVENT_ERROR_MASK_HB_MON_4		(0x00000400U) /**< Health Boot Monitor 4 error event mask. */
+#define XIL_EVENT_ERROR_MASK_HB_MON_5		(0x00000800U) /**< Health Boot Monitor 5 error event mask. */
+#define XIL_EVENT_ERROR_MASK_HB_MON_6		(0x00001000U) /**< Health Boot Monitor 6 error event mask. */
+#define XIL_EVENT_ERROR_MASK_HB_MON_7		(0x00002000U) /**< Health Boot Monitor 7 error event mask. */
 /** OCP subsystem update events */
 #define XIL_EVENT_ERROR_MASK_OCP_SUBSYS_UPDATE	(0x00004000U)
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,12 +27,13 @@
 * 6.0   asa      08/15/16 Updated the sleep/usleep signature. Fix for CR#956899.
 * 6.6	srm      10/18/17 Updated sleep routines to support user configurable
 *                         implementation. Now sleep routines will use Timer
-*                         specified by the user (i.e. Global timer/TTC timer)
+*                         specified by the user (that is Global timer/TTC timer)
 *       srm      01/11/18 Fixed the compilation warning.
 * 7.5   dp      01/05/21 Updated COUNTS_PER_USECOND macros to round it off to
 *                        nearest possible value so that delta error in time
 *                        calculations can be minimized.
 * 9.0   ml      03/03/23 Add description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -76,13 +77,10 @@ static void sleep_common(u32 n, u32 count)
 *
 * This API gives a delay in microseconds
 *
-* @param	useconds requested
-*
 * @return	0 if the delay can be achieved, -1 if the requested delay
 *		is out of range
 *
-* @note		None.
-*
+
 ****************************************************************************/
 int usleep_A53(unsigned long useconds)
 {
@@ -100,12 +98,11 @@ int usleep_A53(unsigned long useconds)
 *
 * This API is used to provide delays in seconds
 *
-* @param	seconds requested
+* @param[in]	seconds requested
 *
 * @return	0 always
 *
-* @note		None.
-*
+
 ****************************************************************************/
 unsigned sleep_A53(unsigned int seconds)
 {

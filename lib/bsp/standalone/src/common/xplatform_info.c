@@ -81,7 +81,7 @@
 /*****************************************************************************/
 /**
 *
-* @brief    This API is used to provide information about platform
+* @brief    Provides information about platform
 *
 * @return   The information about platform defined in xplatform_info.h
 *
@@ -102,7 +102,7 @@ u32 XGetPlatform_Info(void)
 /*****************************************************************************/
 /**
 *
-* @brief    This API is used to provide information about zynq ultrascale MP platform
+* @brief    Provides information about zynq ultrascale MP platform
 *
 * @return   The information about zynq ultrascale MP platform defined in
 *			xplatform_info.h
@@ -132,7 +132,7 @@ u32 XGet_Zynq_UltraMp_Platform_info(void)
 /*****************************************************************************/
 /**
 *
-* @brief    This API is used to provide information about PS Silicon version
+* @brief    Provides information about PS Silicon version
 *
 * @return   The information about PS Silicon version.
 *
@@ -163,7 +163,7 @@ u32 XGetPSVersion_Info(void)
 /*****************************************************************************/
 /**
 *
-* @brief    This API is used to provide information about core id of the
+* @brief    Provides information about core id of the
 *           CPU core from which it is executed.
 *
 * @return   Core id of the core on which API is executed.
@@ -174,17 +174,17 @@ u8 XGetCoreId(void)
 	UINTPTR CoreId;
 
 #if (defined (__aarch64__) && ! defined (VERSAL_NET))
-	/* CortexA53 and CortexA72 */
+	/**< CortexA53 and CortexA72 */
 	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
 	CoreId = ((CoreId & XREG_MPIDR_AFFINITY0_MASK) >> \
 		  XREG_MPIDR_AFFINITY0_SHIFT);
 #elif (defined (__aarch64__) && defined (VERSAL_NET))
-	/* CortexA78 */
+	/**< CortexA78 */
 	CoreId = (mfcp(MPIDR_EL1) & XREG_MPIDR_MASK);
 	CoreId = ((CoreId & XREG_MPIDR_AFFINITY1_MASK) >> \
 		  XREG_MPIDR_AFFINITY1_SHIFT);
 #else
-	/* CortexA9, CortexR5 and CortexR52 */
+	/**< CortexA9, CortexR5 and CortexR52 */
 #ifdef __GNUC__
 	CoreId = (mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & XREG_MPIDR_MASK);
 #elif defined (__ICCARM__)
@@ -210,7 +210,7 @@ u8 XGetCoreId(void)
 /*****************************************************************************/
 /**
 *
-* @brief    This API is used to provide information about cluster id of the
+* @brief    Provides information about cluster id of the
 *           CPU core from which it is executed.
 *
 * @return   Cluster id of the core on which API is executed.
@@ -308,19 +308,19 @@ u32 XIOCoherencySupported(void)
 	u64 CurrentEL;
 	u32 ExceptionLevel;
 
-	/* Read CurrentEL register */
+	/**< Read CurrentEL register */
 	__asm__ __volatile__ ("mrs %0, CurrentEL" : "=r" (CurrentEL));
 
 	ExceptionLevel = (u32)((CurrentEL >> 2U) & 0x3U);
 
-	/* Baremetal coherency allowed at EL1 Non-Secure */
+	/**< Baremetal coherency allowed at EL1 Non-Secure */
 	if (ExceptionLevel == APU_EL1) {
 		return TRUE;
 	}
 	return FALSE;
 
 #else
-	/* For ARM Cortex-R5, MicroBlaze and RISC-V */
+	/**< For ARM Cortex-R5, MicroBlaze and RISC-V */
 	return FALSE;
 #endif
 }

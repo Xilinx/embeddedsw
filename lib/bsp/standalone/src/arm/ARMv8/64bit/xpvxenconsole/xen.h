@@ -22,7 +22,14 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * Copyright (c) 2004, K A Fraser
+* * Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  */
+
+/**
+* @file xen.h
+* @brief Guest OS interface to the Xen hypervisor.
+*/
+
 /*
 Copyright DornerWorks 2016
 
@@ -46,6 +53,7 @@ extern "C" {
 #endif
 
 #ifndef __XEN_H_
+/** @brief Include guard for xen.h. */
 #define __XEN_H_
 
 /*
@@ -56,80 +64,80 @@ extern "C" {
  * ` enum hypercall_num { // __HYPERVISOR_* => HYPERVISOR_*()
  */
 
-#define __HYPERVISOR_set_trap_table        0
-#define __HYPERVISOR_mmu_update            1
-#define __HYPERVISOR_set_gdt               2
-#define __HYPERVISOR_stack_switch          3
-#define __HYPERVISOR_set_callbacks         4
-#define __HYPERVISOR_fpu_taskswitch        5
-#define __HYPERVISOR_sched_op_compat       6 /* compat since 0x00030101 */
-#define __HYPERVISOR_platform_op           7
-#define __HYPERVISOR_set_debugreg          8
-#define __HYPERVISOR_get_debugreg          9
-#define __HYPERVISOR_update_descriptor    10
-#define __HYPERVISOR_memory_op            12
-#define __HYPERVISOR_multicall            13
-#define __HYPERVISOR_update_va_mapping    14
-#define __HYPERVISOR_set_timer_op         15
-#define __HYPERVISOR_event_channel_op_compat 16 /* compat since 0x00030202 */
-#define __HYPERVISOR_xen_version          17
-#define __HYPERVISOR_console_io           18
-#define __HYPERVISOR_physdev_op_compat    19 /* compat since 0x00030202 */
-#define __HYPERVISOR_grant_table_op       20
-#define __HYPERVISOR_vm_assist            21
-#define __HYPERVISOR_update_va_mapping_otherdomain 22
-#define __HYPERVISOR_iret                 23 /* x86 only */
-#define __HYPERVISOR_vcpu_op              24
-#define __HYPERVISOR_set_segment_base     25 /* x86/64 only */
-#define __HYPERVISOR_mmuext_op            26
-#define __HYPERVISOR_xsm_op               27
-#define __HYPERVISOR_nmi_op               28
-#define __HYPERVISOR_sched_op             29
-#define __HYPERVISOR_callback_op          30
-#define __HYPERVISOR_xenoprof_op          31
-#define __HYPERVISOR_event_channel_op     32
-#define __HYPERVISOR_physdev_op           33
-#define __HYPERVISOR_hvm_op               34
-#define __HYPERVISOR_sysctl               35
-#define __HYPERVISOR_domctl               36
-#define __HYPERVISOR_kexec_op             37
-#define __HYPERVISOR_tmem_op              38
-#define __HYPERVISOR_xc_reserved_op       39 /* reserved for XenClient */
+#define __HYPERVISOR_set_trap_table        0 /**< Set processor trap/exception table. */
+#define __HYPERVISOR_mmu_update            1 /**< Perform MMU page-table updates. */
+#define __HYPERVISOR_set_gdt               2 /**< Set the Global Descriptor Table. */
+#define __HYPERVISOR_stack_switch          3 /**< Switch the guest kernel stack. */
+#define __HYPERVISOR_set_callbacks         4 /**< Set event/failsafe callback addresses. */
+#define __HYPERVISOR_fpu_taskswitch        5 /**< Notify Xen of FPU task-switch. */
+#define __HYPERVISOR_sched_op_compat       6 /**< Compatibility scheduler operations. */
+#define __HYPERVISOR_platform_op           7 /**< Platform-specific operations. */
+#define __HYPERVISOR_set_debugreg          8 /**< Set a hardware debug register. */
+#define __HYPERVISOR_get_debugreg          9 /**< Get a hardware debug register. */
+#define __HYPERVISOR_update_descriptor    10 /**< Update a segment descriptor. */
+#define __HYPERVISOR_memory_op            12 /**< Memory management operations. */
+#define __HYPERVISOR_multicall            13 /**< Execute multiple hypercalls atomically. */
+#define __HYPERVISOR_update_va_mapping    14 /**< Update a virtual-to-physical mapping. */
+#define __HYPERVISOR_set_timer_op         15 /**< Set a one-shot domain timer. */
+#define __HYPERVISOR_event_channel_op_compat 16 /**< Compatibility event channel operations. */
+#define __HYPERVISOR_xen_version          17 /**< Query Xen version information. */
+#define __HYPERVISOR_console_io           18 /**< Console I/O operations. */
+#define __HYPERVISOR_physdev_op_compat    19 /**< Compatibility physical device operations. */
+#define __HYPERVISOR_grant_table_op       20 /**< Grant table operations. */
+#define __HYPERVISOR_vm_assist            21 /**< Request VM assist features. */
+#define __HYPERVISOR_update_va_mapping_otherdomain 22 /**< Update VA mapping in another domain. */
+#define __HYPERVISOR_iret                 23 /**< Return from interrupt/exception (x86 only). */
+#define __HYPERVISOR_vcpu_op              24 /**< VCPU management operations. */
+#define __HYPERVISOR_set_segment_base     25 /**< Set segment base address registers (x86/64 only). */
+#define __HYPERVISOR_mmuext_op            26 /**< Extended MMU operations. */
+#define __HYPERVISOR_xsm_op               27 /**< Xen security module operations. */
+#define __HYPERVISOR_nmi_op               28 /**< NMI handling operations. */
+#define __HYPERVISOR_sched_op             29 /**< Scheduler operations. */
+#define __HYPERVISOR_callback_op          30 /**< Callback registration operations. */
+#define __HYPERVISOR_xenoprof_op          31 /**< Xenoprof profiling operations. */
+#define __HYPERVISOR_event_channel_op     32 /**< Event channel operations. */
+#define __HYPERVISOR_physdev_op           33 /**< Physical device operations. */
+#define __HYPERVISOR_hvm_op               34 /**< Hardware Virtual Machine operations. */
+#define __HYPERVISOR_sysctl               35 /**< System control operations. */
+#define __HYPERVISOR_domctl               36 /**< Domain control operations. */
+#define __HYPERVISOR_kexec_op             37 /**< Kernel exec operations. */
+#define __HYPERVISOR_tmem_op              38 /**< Transcendent memory operations. */
+#define __HYPERVISOR_xc_reserved_op       39 /**< Reserved Xen client operations. */
 
 /* Architecture-specific hypercall definitions. */
-#define __HYPERVISOR_arch_0               48
-#define __HYPERVISOR_arch_1               49
-#define __HYPERVISOR_arch_2               50
-#define __HYPERVISOR_arch_3               51
-#define __HYPERVISOR_arch_4               52
-#define __HYPERVISOR_arch_5               53
-#define __HYPERVISOR_arch_6               54
-#define __HYPERVISOR_arch_7               55
+#define __HYPERVISOR_arch_0               48 /**< Architecture-specific hypercall 0. */
+#define __HYPERVISOR_arch_1               49 /**< Architecture-specific hypercall 1. */
+#define __HYPERVISOR_arch_2               50 /**< Architecture-specific hypercall 2. */
+#define __HYPERVISOR_arch_3               51 /**< Architecture-specific hypercall 3. */
+#define __HYPERVISOR_arch_4               52 /**< Architecture-specific hypercall 4. */
+#define __HYPERVISOR_arch_5               53 /**< Architecture-specific hypercall 5. */
+#define __HYPERVISOR_arch_6               54 /**< Architecture-specific hypercall 6. */
+#define __HYPERVISOR_arch_7               55 /**< Architecture-specific hypercall 7. */
 
 /* ` } */
 
 /*
  * Commands to HYPERVISOR_console_io().
  */
-#define CONSOLEIO_write         0
-#define CONSOLEIO_read          1
+#define CONSOLEIO_write         0 /**< Write data to the Xen console. */
+#define CONSOLEIO_read          1 /**< Read data from the Xen console. */
 
 /*
  * Commands to HYPERVISOR_hvm_op
  */
-#define HVMOP_set_param           0
-#define HVMOP_get_param           1
+#define HVMOP_set_param           0 /**< Set an HVM domain parameter. */
+#define HVMOP_get_param           1 /**< Get an HVM domain parameter. */
 
 /* DOMID_SELF is used in certain contexts to refer to oneself. */
-#define DOMID_SELF (0x7FF0U)
+#define DOMID_SELF (0x7FF0U) /**< Pseudo-domain ID referring to the calling domain. */
 
 
-#define XENMEM_add_to_physmap      7
+#define XENMEM_add_to_physmap      7 /**< Add a page to the physical memory map. */
 
 
 /* Console debug shared memory ring and event channel */
-#define HVM_PARAM_CONSOLE_PFN    17
-#define HVM_PARAM_CONSOLE_EVTCHN 18
+#define HVM_PARAM_CONSOLE_PFN    17 /**< HVM parameter: console page frame number. */
+#define HVM_PARAM_CONSOLE_EVTCHN 18 /**< HVM parameter: console event channel. */
 
 
 #endif /* __XEN_PUBLIC_XEN_H__ */

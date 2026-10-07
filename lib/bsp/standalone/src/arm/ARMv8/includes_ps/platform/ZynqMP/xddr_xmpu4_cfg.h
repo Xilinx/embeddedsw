@@ -1,7 +1,12 @@
 /*******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+/**
+ * @file xddr_xmpu4_cfg.h
+ * @brief DDR XMPU4 configuration register definitions.
+ */
 
 
 #ifndef __XDDR_XMPU4_CFG_H__

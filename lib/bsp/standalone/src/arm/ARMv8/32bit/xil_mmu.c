@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * 9.2   ml   17/01/24 Modified description and code for Xil_MemMap API
 *                     to fix doxygen warnings.
 * 9.3   ml   20/12/24 Fixed GCC warnings
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -46,26 +47,27 @@
 
 /************************** Variable Definitions *****************************/
 
-extern u32 MMUTable;
+extern u32 MMUTable; /**< Base address of the MMU translation table (defined in linker script). */
 
 /************************** Function Prototypes ******************************/
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief	This function sets the memory attributes for a section covering 1MB
 *			of memory in the translation table.
 *
-* @param	Addr: 32-bit address for which the attributes need to be set.
-* @param	attrib: Attributes for the specified memory region. xil_mmu.h
-*			contains commonly used memory attributes definitions which can be
-*			utilized for this function.
-*
-*
-* @return	None.
+* @param[in]	Addr 32-bit address for which TLB attributes are to be set.
+* @param[in]	attrib Attribute bits to set for the given address.
 *
 * @note		The MMU or D-cache does not need to be disabled before changing a
 *			translation table entry.
 *
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 {
 	u32 *ptr;
@@ -88,6 +90,9 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 	isb(); /* synchronize context on this processor */
 }
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief    Memory mapping for ARMv8 based processors. If successful, the
@@ -95,22 +100,24 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 *	    may include more. Specifically, it will be a power of 2 in
 *           size, aligned on a boundary of that size.
 *
-* @param       PhysAddr is base physical address at which to start mapping.
 *                   NULL in Physaddr masks possible mapping errors.
-* @param       size of region to be mapped.
-* @param       flags used to set translation table.
+*
+* @param[in]	PhysAddr Physical address to be mapped.
+* @param[in]	size Size of the region in bytes.
+* @param[in]	flags Memory attributes/flags to apply.
 *
 * @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
 *
-* @cond Xil_MemMap_internal
 * @note:    u32overflow() is defined for readability and (for __GNUC__) to
 *           - force the type of the check to be the same as the first argument
 *           - hide the otherwise unused third argument of the builtin
 *           - improve safety by choosing the explicit _uadd_ version.
 *           Consider __builtin_add_overflow_p() when available.
 *           Use an alternative (less optimal?) for compilers w/o the builtin.
-* @endcond
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 {
 	UINTPTR section_offset;
@@ -149,8 +156,7 @@ void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 * @brief	Enable MMU for Cortex-A53 processor in 32bit mode. This function
 *			invalidates the instruction and data caches before enabling MMU.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void Xil_EnableMMU(void)
 {
@@ -172,8 +178,7 @@ void Xil_EnableMMU(void)
 *			invalidates the TLBs, Branch Predictor Array and flushed the data
 *			cache before disabling the MMU.
 *
-* @return	None.
-*
+
 * @note		When the MMU is disabled, all the memory accesses are treated as
 *			strongly ordered.
 ******************************************************************************/

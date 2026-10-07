@@ -1,7 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file lseek.c
+ * @brief lseek stub implementation for standalone BSP.
+ */
 
 
 /*
@@ -28,6 +33,13 @@
 #include "xil_types.h"
 LONG __lseek(sint32 handle, LONG offset, sint32 whence);
 
+/**
+ * @brief Stub for __lseek(); always returns -1 (not seekable).
+ * @param[in] handle File handle (unused).
+ * @param[in] offset Seek offset (unused).
+ * @param[in] whence Seek origin (unused).
+ * @return Always -1.
+ */
 LONG __lseek(sint32 handle, LONG offset, sint32 whence)
 {
   return (-1);

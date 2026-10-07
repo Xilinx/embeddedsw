@@ -13,13 +13,21 @@
  * they apply.
  *
  *****************************************************************************/
+
+/**
+* @file print.c
+* @brief String print utility for standalone BSP.
+*/
+
 /***************************** Include Files *********************************/
 
 #include "xil_printf.h"
 
 /*****************************************************************************/
 /**
-* print -- do a raw print of a string
+* @brief print -- do a raw print of a string
+*
+* @param[in] ptr Null-terminated string to print.
 *
 ******************************************************************************/
 void print(const char8 *ptr)

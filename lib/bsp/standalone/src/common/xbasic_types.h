@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2010 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +9,9 @@
 *
 * @file xbasic_types.h
 *
-*
 * @note  Dummy File for backwards compatibility
 *
 
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -21,6 +20,7 @@
 * 1.00a adk   1/31/14  Added in bsp common folder for backward compatibility
 * 7.0   aru   01/21/19 Modified the typedef of u32,u16,u8
 * 7.0 	aru   02/06/19 Included stdint.h and stddef.h
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -106,6 +106,8 @@ typedef Xuint8          u8;
 }
 #endif
 
+/** @} */
+/** @} */
 #endif	/* end of protection macro */
 
 /**

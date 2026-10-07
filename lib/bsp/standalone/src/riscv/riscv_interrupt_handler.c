@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,7 @@
 * 1.0   mus  11/21/22 First release
 * 9.3   ml   02/19/25 Add support for RISC-V Interrupt Handling
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -48,12 +49,10 @@ void riscv_register_handler(XInterruptHandler Handler, void *DataPtr);
 *         argument provided in this call as the DataPtr is used as the argument
 * 	  for the handler when it is called.
 *
-* @param  Handler: Top level handler.
-* @param  DataPtr: a reference to data that will be passed to the handler
+* @param[in]  Handler: Top level handler.
+* @param[in]  DataPtr: a reference to data that will be passed to the handler
 *         when it gets called.
 
-* @return None.
-*
 *
 ****************************************************************************/
 void riscv_register_handler(XInterruptHandler Handler, void *DataPtr)

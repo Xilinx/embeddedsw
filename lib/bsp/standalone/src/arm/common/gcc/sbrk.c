@@ -3,6 +3,10 @@
 * Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file sbrk.c
+ * @brief sbrk memory allocation stub for standalone BSP.
+ */
 
 
 #include <errno.h>
@@ -18,13 +22,18 @@ __attribute__((weak)) char8 *sbrk (ptrdiff_t nbytes);
 }
 #endif
 
-extern u8 _heap_start[];
-extern u8 _heap_end[];
-extern char8 HeapBase[];
-extern char8 HeapLimit[];
+extern u8 _heap_start[];   /**< Start of heap region (defined by linker script). */
+extern u8 _heap_end[];     /**< End of heap region (defined by linker script). */
+extern char8 HeapBase[];   /**< Heap base address (defined by linker script). */
+extern char8 HeapLimit[];  /**< Heap limit address (defined by linker script). */
 
 
 
+/**
+ * @brief Stub for sbrk(); manages heap end pointer.
+ * @param[in] nbytes Number of bytes to grow (positive) or shrink (negative) the heap.
+ * @return Pointer to previous heap end, or (char8*)-1 on failure.
+ */
 __attribute__((weak)) char8 *sbrk (ptrdiff_t nbytes)
 {
   char8 *base;

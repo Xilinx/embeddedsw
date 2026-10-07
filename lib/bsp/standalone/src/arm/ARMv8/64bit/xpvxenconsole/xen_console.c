@@ -33,8 +33,11 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+
+
 /*
 Copyright DornerWorks 2016
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
 following conditions are met:
@@ -50,6 +53,11 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON A
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+/**
+* @file xen_console.c
+* @brief Xen paravirtualized console implementation.
+*/
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -60,38 +68,41 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "xen_console.h"
 #include "xen_events.h"
 
-#define ECHO_TO_UART 1
-#define SUCCESS                        0
-#define ARG_NULL                      -1
-#define INIT_FAILED                   -2
-#define INIT_NOT_DONE                 -3
-#define BUFFER_OVERFLOW               -4
-#define PRINT_FAILED   				  -5
+#define ECHO_TO_UART 1 /**< Enable echoing console output to UART. */
+#define SUCCESS                        0  /**< Operation completed successfully. */
+#define ARG_NULL                      -1  /**< Error: null argument provided. */
+#define INIT_FAILED                   -2  /**< Error: console initialization failed. */
+#define INIT_NOT_DONE                 -3  /**< Error: console not yet initialized. */
+#define BUFFER_OVERFLOW               -4  /**< Error: ring buffer overflow. */
+#define PRINT_FAILED   				  -5  /**< Error: console print operation failed. */
 
-#define PAGE_TO_ADDR(x)		((void*)((u64)(x)<<PAGE_SHIFT))
-#define mfn_to_virt(x)		PAGE_TO_ADDR(x)
+#define PAGE_TO_ADDR(x)		((void*)((u64)(x)<<PAGE_SHIFT)) /**< Convert page frame number to virtual address. */
+#define mfn_to_virt(x)		PAGE_TO_ADDR(x) /**< Convert machine frame number to virtual address. */
 
-#define MASK_XENCONS_IDX(idx, ring) ((idx) & (sizeof(ring)-1))
+#define MASK_XENCONS_IDX(idx, ring) ((idx) & (sizeof(ring)-1)) /**< Mask index to fit within the ring buffer size. */
 
-// ring buffer structure
+/** @brief Xen console ring buffer interface shared between guest and backend. */
 struct xencons_interface {
-    u8 in[1024];
-    u8 out[2048];
-    u32 in_cons, in_prod;
-    u32 out_cons, out_prod;
+    u8 in[1024];      /**< Input ring buffer (from backend to guest). */
+    u8 out[2048];     /**< Output ring buffer (from guest to backend). */
+    u32 in_cons;      /**< Input ring consumer index. */
+    u32 in_prod;      /**< Input ring producer index. */
+    u32 out_cons;     /**< Output ring consumer index. */
+    u32 out_prod;     /**< Output ring producer index. */
 };
 
-// structure for asking Xen for some values
+/** @brief Structure for requesting values from the Xen hypervisor. */
 struct xen_param {
-    u16  domid;
-    u32  id;
-    u64	 val;
+    u16 domid; /**< Domain identifier. */
+    u32 id;    /**< Parameter identifier. */
+    u64 val;   /**< Parameter value. */
 };
 
 static int console_initialised = 0;
 static u64 guest_phys_page = -1;
 static u32 cons_evtch = -1;
 
+/** @brief Default no-op callback invoked when console input data is received. */
 static void default_console_input_callback(char* data, int size)
 {
 	u8 byte;
@@ -131,6 +142,10 @@ static void default_console_input_callback(char* data, int size)
 
 static callback_func console_input_callback = default_console_input_callback;
 
+/**
+ * @brief Register a callback function to be invoked on console input.
+ * @param[in] fptr Pointer to the callback function to register.
+ */
 void register_console_callback(callback_func fptr)
 {
 	if(NULL != fptr)
@@ -140,7 +155,7 @@ void register_console_callback(callback_func fptr)
 }
 
 
-// Ask Xen for a parameter that it knows about
+/** @brief Ask the Xen hypervisor for the value of a given HVM parameter. */
 static int get_hv_param(int param_id, uint64_t *value)
 {
     struct xen_param xp;
@@ -157,7 +172,7 @@ static int get_hv_param(int param_id, uint64_t *value)
     return ret;
 }
 
-// Copies the outgoing characters into the ring buffer
+/** @brief Copy outgoing characters into the Xen console ring buffer without raising an event. */
 static int xencons_ring_send_no_notify(const u8 *data, unsigned int len)
 {
     int sent = 0;
@@ -181,7 +196,7 @@ static int xencons_ring_send_no_notify(const u8 *data, unsigned int len)
     return sent;
 }
 
-// Copies the characters then raises an event to Xen
+/** @brief Copy characters into the Xen console ring buffer and raise an event to notify the backend. */
 static int xencons_ring_send(const u8 *data, unsigned len)
 {
     int sent;
@@ -192,7 +207,7 @@ static int xencons_ring_send(const u8 *data, unsigned len)
     return sent;
 }
 
-// Does some data reformatting to handle newline
+/** @brief Reformat data to handle newline conversion and send it to the Xen console ring buffer. */
 static void console_print(char *data, int length)
 {
     u8 *curr_char, saved_char;
@@ -233,7 +248,7 @@ static void console_print(char *data, int length)
     ring_send_fn(copied_ptr, length);
 }
 
-// This function will print to Xen's console one way or another
+/** @brief Format and print a message to the Xen console using either direct or ring-buffer path. */
 static void pvc_print(int direct, const char *fmt, va_list args)
 {
     static char   buf[1024];
@@ -252,6 +267,11 @@ static void pvc_print(int direct, const char *fmt, va_list args)
 }
 
 // Use this function to print to the Xen console
+/**
+ * @brief Print a formatted message via the Xen PV console.
+ * @param[in] fmt printf-style format string.
+ * @param[in] ... Variable arguments matching the format string.
+ */
 void printk(const char *fmt, ...)
 {
     va_list       args;
@@ -262,6 +282,7 @@ void printk(const char *fmt, ...)
 
 
 // Register this function with event handler to take care of console events
+/** @brief Handle incoming data from the Xen PV console ring buffer. */
 static void console_handle_input(void)
 {
 	struct xencons_interface *intf = mfn_to_virt(guest_phys_page);
@@ -292,6 +313,7 @@ static void console_handle_input(void)
 }
 
 // Initializes the Xen virtual console
+/** @brief Initialise the Xen PV console and map the shared ring. */
 void init_console(void)
 {
 	u64 val;
@@ -319,6 +341,7 @@ void init_console(void)
     unmask_evtchn(cons_evtch);
     console_initialised = 1;
 }
+/** @brief Initialise the Xilinx Xen PV console interface. */
 void XPVXenConsole_Init()
 {
 	init_console();
@@ -329,7 +352,7 @@ void XPVXenConsole_Init()
  * @brief   This function writes data to xen console output ring buffer &
  *          sends event notification to xen
  *
- * @param   BufferPtr: Pointer to buffer data to be written/copied to xen
+ * @param[in]   BufferPtr: Pointer to buffer data to be written/copied to xen
  *                     console output ring buffer
  *
  * @return
@@ -378,9 +401,9 @@ void XPVXenConsole_Init()
 /*****************************************************************************/
 /**
  *
- * @brief    This API is used to print data on xen console
+ * @brief    Prints data on the Xen console.
  *
- * @param    FormatPtr: Pointer to format/string to be printed on xen console
+ * @param[in]    FormatPtr: Pointer to format/string to be printed on xen console
  *
  * @return
  *           SUCCESS: if xen console printed data successfully

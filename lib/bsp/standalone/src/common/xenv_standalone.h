@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,8 +33,8 @@
 *                     to in MICROBLAZE section
 * 1.00a ecm  09/19/08 updated for v7.20 of Microblaze, new functionality
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -82,17 +83,16 @@ extern "C" {
  *
  * Copies a non-overlapping block of memory.
  *
- * @param	DestPtr
+ * @param[in]	DestPtr
  *		Destination address to copy data to.
  *
- * @param	SrcPtr
+ * @param[in]	SrcPtr
  * 		Source address to copy data from.
  *
- * @param	Bytes
+ * @param[in]	Bytes
  * 		Number of bytes to copy.
  *
- * @return	None.
- *
+
  * @note
  * 		The use of XENV_MEM_COPY is deprecated. Use memcpy() instead.
  *
@@ -112,17 +112,16 @@ extern "C" {
  *
  * Fills an area of memory with constant data.
  *
- * @param	DestPtr
+ * @param[in]	DestPtr
  *		Destination address to copy data to.
  *
- * @param	Data
+ * @param[in]	Data
  * 		Value to set.
  *
- * @param	Bytes
+ * @param[in]	Bytes
  * 		Number of bytes to copy.
  *
- * @return	None.
- *
+
  * @note
  * 		The use of XENV_MEM_FILL is deprecated. Use memset() instead.
  *
@@ -150,10 +149,9 @@ typedef s32 XENV_TIME_STAMP;
  *
  * Time is derived from the 64 bit PPC timebase register
  *
- * @param   StampPtr is the storage for the retrieved time stamp.
+ * @param[in]   StampPtr is the storage for the retrieved time stamp.
  *
- * @return  None.
- *
+
  * @note
  *
  * Signature: void XENV_TIME_STAMP_GET(XTIME_STAMP *StampPtr)
@@ -168,8 +166,8 @@ typedef s32 XENV_TIME_STAMP;
  *
  * This macro is not yet implemented and always returns 0.
  *
- * @param   Stamp1Ptr is the first sampled time stamp.
- * @param   Stamp2Ptr is the second sampled time stamp.
+ * @param[in]   Stamp1Ptr is the first sampled time stamp.
+ * @param[in]   Stamp2Ptr is the second sampled time stamp.
  *
  * @return  0
  *
@@ -185,8 +183,8 @@ typedef s32 XENV_TIME_STAMP;
  *
  * This macro is not yet implemented and always returns 0.
  *
- * @param   Stamp1Ptr is the first sampled time stamp.
- * @param   Stamp2Ptr is the second sampled time stamp.
+ * @param[in]   Stamp1Ptr is the first sampled time stamp.
+ * @param[in]   Stamp2Ptr is the second sampled time stamp.
  *
  * @return  0
  *
@@ -204,11 +202,10 @@ typedef s32 XENV_TIME_STAMP;
  * Delay the specified number of microseconds. Not implemented without OS
  * support.
  *
- * @param	delay
+ * @param[in]	delay
  * 		Number of microseconds to delay.
  *
- * @return	None.
- *
+
  *****************************************************************************/
 
 #ifdef __PPC__

@@ -38,7 +38,7 @@
 *                         triggers only FIQ at EL3. Fix for CR#1062506
 * 7.6   mus      09/17/21 Updated flag checking to fix warning reported with
 *                         -Wundef compiler option CR#1110261
-* 7.7   mus      01/31/22 Few of the #defines in xil_exception.h in are treated
+* 7.7   mus      01/31/22 Few of the defines in xil_exception.h in are treated
 *                         in different way based on "versal" flag. In existing
 *                         flow, this flag is defined only in xparameters.h and
 *                         BSP compiler flags, it is not defined in application
@@ -59,17 +59,18 @@
 *                         status reporting for ARMv7.
 *						  Updated Sync and SError fault status reporting
 *						  for ARMv8.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+
+#ifndef XIL_EXCEPTION_H
+#define XIL_EXCEPTION_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XIL_EXCEPTION_H /* prevent circular inclusions */
-#define XIL_EXCEPTION_H /* by using protection macros */
-
 /***************************** Include Files ********************************/
 
 #include "xil_types.h"
@@ -261,10 +262,9 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 /**
 * @brief	Enable Exceptions.
 *
-* @param	Mask: Value for enabling the exceptions.
+* @param[in]	Mask: Value for enabling the exceptions.
 *
-* @return	None.
-*
+
 * @note		If bit is 0, exception is enabled.
 *			C-Style signature: void Xil_ExceptionEnableMask(Mask)
 *
@@ -292,10 +292,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 /**
 * @brief	Enable the IRQ exception.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 #if (defined (versal) && !defined(ARMR5) && EL3)
 #define Xil_ExceptionEnable() \
@@ -309,10 +306,9 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 /**
 * @brief	Disable Exceptions.
 *
-* @param	Mask: Value for disabling the exceptions.
+* @param[in]	Mask: Value for disabling the exceptions.
 *
-* @return	None.
-*
+
 * @note		If bit is 1, exception is disabled.
 *			C-Style signature: Xil_ExceptionDisableMask(Mask)
 *
@@ -339,10 +335,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 /**
 * Disable the IRQ exception.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 #define Xil_ExceptionDisable() \
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_IRQ)
@@ -356,8 +349,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 *			configured to run at EL3. Reason is, Cortex-A72 is coupled
 *			with GIC-500(GICv3 specifications) and it triggers only FIQ at EL3.
 *
-* @return   None.
-*
+
 * @note     This macro is supposed to be used from interrupt handlers. In the
 *			interrupt handler the interrupts are disabled by default (I bit
 *			is set as 1). To allow nesting of interrupts, this macro should be
@@ -384,8 +376,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 *			macro is defined for Cortex-A53 64 bit mode BSP configured to run
 *			at EL3.
 *
-* @return   None.
-*
+
 * @note     This macro is meant to be called in the interrupt service routines.
 *			This macro cannot be used independently. It can only be used when
 *			nesting of interrupts have been enabled by using the macro
@@ -410,8 +401,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 *			macro is defined for Cortex-A53 64 bit mode and Cortex-A72 64 bit
 *			BSP configured to run at EL1 NON SECURE
 *
-* @return   None.
-*
+
 * @note     This macro is supposed to be used from interrupt handlers. In the
 *			interrupt handler the interrupts are disabled by default (I bit
 *			is set as 1). To allow nesting of interrupts, this macro should be
@@ -438,8 +428,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 *			macro is defined for Cortex-A53 64 bit mode and Cortex-A72 64 bit
 *			BSP configured to run at EL1 NON SECURE
 *
-* @return   None.
-*
+
 * @note     This macro is meant to be called in the interrupt service routines.
 *			This macro cannot be used independently. It can only be used when
 *			nesting of interrupts have been enabled by using the macro
@@ -463,8 +452,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 * @brief	Enable nested interrupts by clearing the I and F bits in CPSR. This
 * 			API is defined for cortex-a9 and cortex-r5.
 *
-* @return   None.
-*
+
 * @note     This macro is supposed to be used from interrupt handlers. In the
 *			interrupt handler the interrupts are disabled by default (I and F
 *			are 1). To allow nesting of interrupts, this macro should be
@@ -489,8 +477,7 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 * @brief	Disable the nested interrupts by setting the I and F bits. This API
 *			is defined for cortex-a9 and cortex-r5.
 *
-* @return   None.
-*
+
 * @note     This macro is meant to be called in the interrupt service routines.
 *			This macro cannot be used independently. It can only be used when
 *			nesting of interrupts have been enabled by using the macro
@@ -512,10 +499,20 @@ extern XExc_VectorTableEntry XExc_VectorTable[];
 
 /************************** Function Prototypes *****************************/
 
+/**
+ * @brief Register a handler for a specific exception.
+ * @param[in] Exception_id Exception vector identifier.
+ * @param[in] Handler      Pointer to the exception handler function.
+ * @param[in] Data         Pointer to data passed to the handler.
+ */
 extern void Xil_ExceptionRegisterHandler(u32 Exception_id,
 					 Xil_ExceptionHandler Handler,
 					 void *Data);
 
+/**
+ * @brief Remove the handler for a specific exception (restores stub handler).
+ * @param[in] Exception_id Exception vector identifier.
+ */
 extern void Xil_ExceptionRemoveHandler(u32 Exception_id);
 extern void Xil_GetExceptionRegisterHandler(u32 Exception_id,
 					Xil_ExceptionHandler *Handler, void **Data);
@@ -526,7 +523,7 @@ extern void Xil_ExceptionInit(void);
 }
 #endif /* __cplusplus */
 
-#endif /* XIL_EXCEPTION_H */
 /**
 * @} End of "addtogroup arm_exception_apis".
 */
+#endif /* XIL_EXCEPTION_H */

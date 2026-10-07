@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,7 +38,8 @@
  *                    are invalidated correctly by using the proper address
  *                    variable in the loop.
  *
- * </pre>
+ * 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
+* </pre>
  *
  ******************************************************************************/
  /***************************** Include Files *********************************/
@@ -56,34 +57,33 @@
 /************************** Variable Definitions *****************************/
 
 #define IRQ_FIQ_MASK 0xC0U	/**< Mask IRQ and FIQ interrupts in cpsr */
-#define MAX_ADDR 				0xFFFFFFFFU
-#define LAST_CACHELINE_START	0xFFFFFFE0U
+#define MAX_ADDR 				0xFFFFFFFFU /**< Maximum address for cache operations. */
+#define LAST_CACHELINE_START	0xFFFFFFE0U /**< Last cache line start address (used to detect end-of-space). */
 
-extern s32  _stack_end;
-extern s32  __undef_stack;
+extern s32  _stack_end;       /**< Linker-defined symbol for stack end address. */
+extern s32  __undef_stack;    /**< Linker-defined symbol for undefined-mode stack base. */
 #define SELECT_D_CACHE 0	/**< Select data cache */
 
 /****************************************************************************/
 /**
  * @brief	Enable the Data cache.
  *
- * @return	None.
- *
+
  ****************************************************************************/
 void Xil_DCacheEnable(void)
 {
 	u32 CtrlReg;
 
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	/* enable caches only if they are disabled */
+	/**< enable caches only if they are disabled */
 	if ((CtrlReg & XREG_CONTROL_DCACHE_BIT) == 0X00000000U) {
 
-		/* invalidate the Data cache */
+		/**< invalidate the Data cache */
 		Xil_DCacheInvalidate();
 
 		CtrlReg |= XREG_CONTROL_DCACHE_BIT;
 
-		/* enable the Data cache */
+		/**< enable the Data cache */
 		mtcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 	}
 }
@@ -92,18 +92,17 @@ void Xil_DCacheEnable(void)
 /**
  * @brief	Disable the Data cache.
  *
- * @return	None.
- *
+
  ****************************************************************************/
 void Xil_DCacheDisable(void)
 {
 	u32 CtrlReg;
-	/* clean and invalidate the Data cache */
+	/**< clean and invalidate the Data cache */
 	Xil_DCacheFlush();
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
 
 	CtrlReg &= ~(XREG_CONTROL_DCACHE_BIT);
-	/* disable the Data cache */
+	/**< disable the Data cache */
 	mtcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 }
 
@@ -111,8 +110,6 @@ void Xil_DCacheDisable(void)
 /**
  * @brief	Invalidate the Data cache. The contents present in
  *		the data cache are cleaned and invalidated.
- *
- * @return	None.
  *
  * @note	In Cortex-A53, functionality to simply invalid the
  *		cachelines is not present. Such operations are a
@@ -147,14 +144,14 @@ void Xil_DCacheInvalidate(void)
 	stack_start = (u32) &__undef_stack;
 	stack_size = stack_start - stack_end;
 
-	/*Flush stack memory to save return address */
+	/**< Flush stack memory to save return address */
 	Xil_DCacheFlushRange(stack_end, stack_size);
 
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
 
-	/* Number of level of cache */
+	/**< Number of level of cache */
 	NumCacheLevel = (mfcp(XREG_CP15_CACHE_LEVEL_ID) >> 24U) & 0x00000007U;
 
 	for (CacheLevel = 0U, WayAdjust = 0x1E; CacheLevel < NumCacheLevel;
@@ -165,21 +162,21 @@ void Xil_DCacheInvalidate(void)
 
 		CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
 
-		/* Get the cacheline size, way size, index size from csidr */
+		/**< Get the cacheline size, way size, index size from csidr */
 		LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
 
-		/* Number of Ways */
+		/**< Number of Ways */
 		NumWays = (CsidReg & 0x00001FFFU) >> 3U;
 		NumWays += 0X00000001U;
 
-		/*Number of Set */
+		/**< Number of Set */
 		NumSet = (CsidReg >> 13U) & 0x00007FFFU;
 		NumSet += 0X00000001U;
 
 		Way = 0U;
 		Set = 0U;
 
-		/* Invalidate all the cachelines */
+		/**< Invalidate all the cachelines */
 		for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
 			for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
 				C7Reg = Way | Set | (CacheLevel << 1);
@@ -190,19 +187,20 @@ void Xil_DCacheInvalidate(void)
 		Way += (0x00000001U << WayAdjust);
 		}
 
-		/* Wait for invalidate to complete */
+		/**< Wait for invalidate to complete */
 		dsb();
 	}
 	mtcpsr(currmask);
 }
+/**
+ *@cond nocomments
+ */
 /****************************************************************************/
 /**
  * @brief	Invalidate a Data cache line. The cacheline is cleaned and
  *			invalidated.
  *
- * @param	adr: 32 bit address of the data to be invalidated.
- *
- * @return	None.
+ * @param[in]	adr Address of the cache line to invalidate.
  *
  * @note	In Cortex-A53, functionality to simply invalid
  *		the cachelines is not present. Such operations
@@ -214,6 +212,9 @@ void Xil_DCacheInvalidate(void)
  *		invalidate to avoid such corruption.
  *
  ****************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_DCacheInvalidateLine(u32 adr)
 {
 
@@ -222,31 +223,32 @@ void Xil_DCacheInvalidateLine(u32 adr)
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	/* Select cache level 0 and D cache in CSSR */
+	/**< Select cache level 0 and D cache in CSSR */
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x0);
 	isb();
 	mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC, (adr & (~0x3F)));
-	/* Wait for invalidate to complete */
+	/**< Wait for invalidate to complete */
 	dsb();
-	/* Select cache level 1 and D cache in CSSR */
+	/**< Select cache level 1 and D cache in CSSR */
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x2);
 	isb();
 	mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC, (adr & (~0x3F)));
-	/* Wait for invalidate to complete */
+	/**< Wait for invalidate to complete */
 	dsb();
 	mtcpsr(currmask);
 }
 
+/**
+ *@cond nocomments
+ */
 /****************************************************************************/
 /**
  * @brief	Invalidate the Data cache for the given address range.
- *		The cachelines present in the adderss range are cleaned and
+ *		The cachelines present in the address range are cleaned and
  *		invalidated
  *
- * @param	adr: 32bit start address of the range to be invalidated.
- * @param	len: Length of the range to be invalidated in bytes.
- *
- * @return	None.
+ * @param[in]	adr Start address of the range to invalidate.
+ * @param[in]	len Length in bytes of the range to invalidate.
  *
  * @note	In Cortex-A53, functionality to simply invalid the cachelines
  *		is not present. Such operations are a problem for an
@@ -257,6 +259,9 @@ void Xil_DCacheInvalidateLine(u32 adr)
  *		to clean and invalidate to avoid such corruption.
  *
  ****************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 {
 	const u32 cacheline = 64U;
@@ -285,19 +290,19 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 		}
 
 		while (adr < (INTPTR)end) {
-			/* Select cache level 0 and D cache in CSSR */
+			/**< Select cache level 0 and D cache in CSSR */
 			mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x0);
-			/* Invalidate Data cache line */
+			/**< Invalidate Data cache line */
 			mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC,
 				(adr & (~0x3F)));
-			/* Wait for invalidate to complete */
+			/**< Wait for invalidate to complete */
 			dsb();
-			/* Select cache level 0 and D cache in CSSR */
+			/**< Select cache level 0 and D cache in CSSR */
 			mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x2);
-			/* Invalidate Data cache line */
+			/**< Invalidate Data cache line */
 			mtcp(XREG_CP15_INVAL_DC_LINE_MVA_POC,
 				(adr & (~0x3F)));
-			/* Wait for invalidate to complete */
+			/**< Wait for invalidate to complete */
 			dsb();
 			((MAX_ADDR - (u32)adr) < cacheline) ? (adr = MAX_ADDR) : (adr += cacheline);
 		}
@@ -309,8 +314,7 @@ void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
 /**
  * @brief	Flush the Data cache.
  *
- * @return	None.
- *
+
  ****************************************************************************/
 void Xil_DCacheFlush(void)
 {
@@ -332,32 +336,32 @@ void Xil_DCacheFlush(void)
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
 
-	/* Number of level of cache*/
+	/**< Number of level of cache */
 	NumCacheLevel = (mfcp(XREG_CP15_CACHE_LEVEL_ID)>>24U) & 0x00000007U;
 
 	for (CacheLevel = 0U, WayAdjust = 0x1E; CacheLevel < NumCacheLevel;
 		CacheLevel++, WayAdjust = WayAdjust - 2) {
-		/* Select cache level  and D cache in CSSELR */
+		/**< Select cache level  and D cache in CSSELR */
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, ((CacheLevel << 1) | SELECT_D_CACHE));
 		isb();
 
 		CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
 
-		/* Get the cacheline size, way size, index size from csidr */
+		/**< Get the cacheline size, way size, index size from csidr */
 		LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
 
-		/* Number of Ways */
+		/**< Number of Ways */
 		NumWays = (CsidReg & 0x00001FFFU) >> 3U;
 		NumWays += 0X00000001U;
 
-		/*Number of Set*/
+		/**< Number of Set */
 		NumSet = (CsidReg >> 13U) & 0x00007FFFU;
 		NumSet += 0X00000001U;
 
 		Way = 0U;
 		Set = 0U;
 
-		/* Invalidate all the cachelines */
+		/**< Invalidate all the cachelines */
 		for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
 			for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
 				C7Reg = Way | Set | (CacheLevel << 1);
@@ -368,12 +372,15 @@ void Xil_DCacheFlush(void)
 			Way += (0x00000001U << WayAdjust);
 		}
 
-		/* Wait for invalidate to complete */
+		/**< Wait for invalidate to complete */
 		dsb();
 	}
 	mtcpsr(currmask);
 }
 
+/**
+ *@cond nocomments
+ */
 /****************************************************************************/
 /**
  * @brief	Flush a Data cache line. If the byte specified by the
@@ -382,13 +389,14 @@ void Xil_DCacheFlush(void)
  *		modified (dirty), the entire contents of the cacheline are
  *		written to system memory before the line is invalidated.
  *
- * @param	adr: 32bit address of the data to be flushed.
- *
- * @return	None.
+ * @param[in]	adr Address of the cache line to flush.
  *
  * @note	The bottom 4 bits are set to 0, forced by architecture.
  *
  ****************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_DCacheFlushLine(u32 adr)
 {
 	u32 currmask;
@@ -396,21 +404,24 @@ void Xil_DCacheFlushLine(u32 adr)
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-	/* Select cache level 0 and D cache in CSSR */
+	/**< Select cache level 0 and D cache in CSSR */
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x0);
 	isb();
 	mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC, (adr & (~0x3F)));
-	/* Wait for invalidate to complete */
+	/**< Wait for invalidate to complete */
 	dsb();
-	/* Select cache level 1 and D cache in CSSR */
+	/**< Select cache level 1 and D cache in CSSR */
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x2);
 	isb();
 	mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC, (adr & (~0x3F)));
-	/* Wait for invalidate to complete */
+	/**< Wait for invalidate to complete */
 	dsb();
 	mtcpsr(currmask);
 }
 
+/**
+ *@cond nocomments
+ */
 /****************************************************************************/
 /**
  * @brief	Flush the Data cache for the given address range.
@@ -420,12 +431,12 @@ void Xil_DCacheFlushLine(u32 adr)
  *		they are written to system memory before the lines are
  *		invalidated.
  *
- * @param	adr: 32bit start address of the range to be flushed.
- * @param	len: Length of range to be flushed in bytes.
- *
- * @return	None.
- *
+ * @param[in] adr Start address of range to flush.
+ * @param[in] len Length in bytes of range to flush.
  ****************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 {
 	u32 LocalAddr = adr;
@@ -444,19 +455,19 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 		LocalAddr &= ~(cacheline - 1U);
 
 		while (LocalAddr < end) {
-			/* Select cache level 0 and D cache in CSSR */
+			/**< Select cache level 0 and D cache in CSSR */
 			mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x0);
-			/* Clean and Invalidate Data cache line */
+			/**< Clean and Invalidate Data cache line */
 			mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC,
 				(LocalAddr & (~0x3F)));
-			/* Wait for invalidate to complete */
+			/**< Wait for invalidate to complete */
 			dsb();
-			/* Select cache level 0 and D cache in CSSR */
+			/**< Select cache level 0 and D cache in CSSR */
 			mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x2);
-			/* Clean and Invalidate Data cache line */
+			/**< Clean and Invalidate Data cache line */
 			mtcp(XREG_CP15_CLEAN_INVAL_DC_LINE_MVA_POC,
 				(LocalAddr & (~0x3F)));
-			/* Wait for invalidate to complete */
+			/**< Wait for invalidate to complete */
 			dsb();
 			((MAX_ADDR - LocalAddr) < cacheline) ? (LocalAddr = MAX_ADDR) : (LocalAddr += cacheline) ;
 		}
@@ -469,20 +480,19 @@ void Xil_DCacheFlushRange(INTPTR adr, u32 len)
 /**
  * @brief	Enable the instruction cache.
  *
- * @return	None.
- *
+
  ****************************************************************************/
 void Xil_ICacheEnable(void)
 {
 	u32 CtrlReg;
 
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	/* enable caches only if they are disabled */
+	/**< enable caches only if they are disabled */
 	if ((CtrlReg & XREG_CONTROL_ICACHE_BIT) == 0x00000000U) {
-		/* invalidate the instruction cache */
+		/**< invalidate the instruction cache */
 		Xil_ICacheInvalidate();
 		CtrlReg |= XREG_CONTROL_ICACHE_BIT;
-		/* enable the instruction cache */
+		/**< enable the instruction cache */
 		mtcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 	}
 }
@@ -491,18 +501,17 @@ void Xil_ICacheEnable(void)
 /**
  * @brief	Disable the instruction cache.
  *
- * @return	None.
- *
+
  ****************************************************************************/
 void Xil_ICacheDisable(void)
 {
 	u32 CtrlReg;
 
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-	/* invalidate the instruction cache */
+	/**< invalidate the instruction cache */
 	Xil_ICacheInvalidate();
 	CtrlReg &= ~(XREG_CONTROL_ICACHE_BIT);
-	/* disable the instruction cache */
+	/**< disable the instruction cache */
 	mtcp(XREG_CP15_SYS_CONTROL, CtrlReg);
 
 }
@@ -511,8 +520,7 @@ void Xil_ICacheDisable(void)
 /**
  * @brief	Invalidate the entire instruction cache.
  *
- * @return	None.
- *
+
  ****************************************************************************/
 void Xil_ICacheInvalidate(void)
 {
@@ -522,25 +530,29 @@ void Xil_ICacheInvalidate(void)
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x1);
 	dsb();
-	/* invalidate the instruction cache */
+	/**< invalidate the instruction cache */
 	mtcp(XREG_CP15_INVAL_IC_POU, 0x0);
-	/* Wait for invalidate to complete */
+	/**< Wait for invalidate to complete */
 	dsb();
 	mtcpsr(currmask);
 }
+/**
+ *@cond nocomments
+ */
 /****************************************************************************/
 /**
  * @brief	Invalidate an instruction cache line. If the instruction
  *		specified by the address is cached by the instruction cache,
  *		the cachecline  containing that instruction is invalidated.
  *
- * @param	adr: 32bit address of the instruction to be invalidated..
- *
- * @return	None.
+ * @param[in]	adr Address of the instruction cache line to invalidate.
  *
  * @note	The bottom 4 bits are set to 0, forced by architecture.
  *
  ****************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_ICacheInvalidateLine(u32 adr)
 {
 	u32 currmask;
@@ -549,26 +561,30 @@ void Xil_ICacheInvalidateLine(u32 adr)
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x1);
-	/*Invalidate I Cache line*/
+	/**< Invalidate I Cache line */
 	mtcp(XREG_CP15_INVAL_IC_LINE_MVA_POU, adr & (~0x3F));
-	/* Wait for invalidate to complete */
+	/**< Wait for invalidate to complete */
 	dsb();
 	mtcpsr(currmask);
 }
 
 /****************************************************************************/
 /**
+ *@cond nocomments
+ */
+/**
  * @brief	Invalidate the instruction cache for the given address range.
  *		If the instructions specified by the address range are cached
  *		by the instrunction cache, the cachelines containing those
  *		instructions are invalidated.
  *
- * @param	adr: 32bit start address of the range to be invalidated.
- * @param	len: Length of the range to be invalidated in bytes.
+ * @param[in] adr Start address of range to invalidate.
  *
- * @return	None.
- *
+ * @param[in] len Length in bytes of range to invalidate.
  ****************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 {
 	const u32 cacheline = 64U;
@@ -585,10 +601,10 @@ void Xil_ICacheInvalidateRange(INTPTR adr, u32 len)
 		tempend = end;
 		tempadr &= ~(cacheline - 0x00000001U);
 
-		/* Select cache Level 0 I-cache in CSSR */
+		/**< Select cache Level 0 I-cache in CSSR */
 		mtcp(XREG_CP15_CACHE_SIZE_SEL, 0x1);
 		while (tempadr < tempend) {
-			/*Invalidate I Cache line*/
+			/**< Invalidate I Cache line */
 			mtcp(XREG_CP15_INVAL_IC_LINE_MVA_POU, tempadr & (~0x3F));
 			((MAX_ADDR - tempadr) < cacheline) ? (tempadr = MAX_ADDR) : (tempadr += cacheline) ;
 		}

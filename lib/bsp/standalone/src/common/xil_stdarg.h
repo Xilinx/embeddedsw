@@ -23,6 +23,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 9.5   vmt  04/30/26 Initial version
+* 9.6   ml   10/02/26  Fix Doxygen 1.15.0 and compliance checker warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -41,8 +42,8 @@ typedef __builtin_va_list va_list;
 /**
 * @brief Initialize a variable argument list.
 *
-* @param ap   Variable of type va_list to initialize.
-* @param last The last named parameter before the variadic arguments.
+* @param[out] ap  Variable of type va_list to initialize.
+* @param[in] last The last named parameter before the variadic arguments.
 *
 */
 #ifndef va_start
@@ -52,8 +53,8 @@ typedef __builtin_va_list va_list;
 /**
 * @brief Retrieve the next argument from a variable argument list.
 *
-* @param ap   Variable argument list previously initialized by va_start().
-* @param type Type of the argument to retrieve.
+* @param[in,out] ap   Variable argument list previously initialized by va_start().
+* @param[in] type Type of the argument to retrieve.
 *
 * @return The next argument in the list, cast to @p type.
 */
@@ -64,7 +65,7 @@ typedef __builtin_va_list va_list;
 /**
 * @brief End traversal of the variadic argument list.
 *
-* @param ap The va_list object to clean up.
+* @param[in,out] ap The va_list object to clean up.
 */
 #ifndef va_end
 #define va_end(ap)         __builtin_va_end(ap)
@@ -73,8 +74,8 @@ typedef __builtin_va_list va_list;
 /**
 * @brief Copy the state of one va_list to another.
 *
-* @param dest The destination va_list.
-* @param src  The source va_list.
+* @param[out] dest The destination va_list.
+* @param[in]  src  The source va_list.
 */
 #ifndef va_copy
 #define va_copy(dest, src) __builtin_va_copy(dest, src)

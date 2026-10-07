@@ -29,12 +29,14 @@
 * 9.0  ml        09/13/23 Assigned proper suffix to integer constants to fix
 *                         MISRA-C violation for Rule 7.2
 * 9.5  tbk       02/10/26 Added macro for SMC function Id
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
+* @{
 ******************************************************************************/
 
-#ifndef XIL_SMC_H /**< prevent circular inclusions */
-#define XIL_SMC_H /**< by using protection macros */
+#ifndef XIL_SMC_H
+#define XIL_SMC_H
 
 /***************************** Include Files ********************************/
 
@@ -119,7 +121,7 @@ XSmc_OutVar Xil_Smc(u64 FunctionID, u64 Arg1, u64 Arg2, u64 Arg3, u64 Arg4,
 }
 #endif /* __cplusplus */
 
-#endif /* XIL_SMC_H */
 /**
 * @} End of "addtogroup a53_64_smc_api".
 */
+#endif /* XIL_SMC_H */

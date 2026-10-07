@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xil_mmu.h
+* @file xil_mpu_r5.h
 *
 * @addtogroup r5_mpu_apis Cortex R5 Processor MPU specific APIs
 *
@@ -27,7 +27,6 @@
 *| FPS                   | 0xFD000000 - 0xFDFFFFFF | Device Memory               |
 *| LPS                   | 0xFE000000 - 0xFFFFFFFF | Device Memory               |
 *| OCM                   | 0xFFFC0000 - 0xFFFFFFFF | Normal write-back Cacheable |
-*
 *
 * @note
 * For a system where DDR is less than 2GB, region after DDR and before PL is
@@ -56,17 +55,17 @@
 * 9.0   ml   03/03/23  Add description to fix doxygen warnings.
 * 9.0   mus  04/20/23  Removed CortexR52 specific changes, separate file is
 *                      created for CortexR52.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
-*
 ******************************************************************************/
-/**
- *@cond nocomments
- */
 
 #ifndef XIL_MPU_H
 #define XIL_MPU_H
 
+/**
+ *@cond nocomments
+ */
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -79,10 +78,10 @@ extern "C" {
 #define MAX_POSSIBLE_MPU_REGS	16U
 /**************************** Type Definitions *******************************/
 struct XMpuConfig{
-	u32 RegionStatus; /* Enabled or disabled */
-	INTPTR BaseAddress;/* MPU region base address */
-	u64 Size; /* MPU region size address */
-	u32 Attribute; /* MPU region size attribute */
+	u32 RegionStatus; /**< Enabled or disabled */
+	INTPTR BaseAddress;/**< MPU region base address */
+	u64 Size; /**< MPU region size address */
+	u32 Attribute; /**< MPU region size attribute */
 };
 
 typedef struct XMpuConfig XMpu_Config[MAX_POSSIBLE_MPU_REGS];
@@ -97,24 +96,33 @@ extern XMpu_Config Mpu_Config;
  *@endcond
  */
 
+/**
+ * @brief Set TLB/MPU attributes for a given address.
+ * @param[in] Addr   32-bit address for which memory attributes need to be set.
+ * @param[in] attrib Attribute for the given memory region.
+ */
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
 void Xil_EnableMPU(void);
 void Xil_DisableMPU(void);
+/** @brief Set an MPU region by address and size. */
 u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib);
+/** @brief Update MPU configuration entry. */
 u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib);
 void Xil_GetMPUConfig (XMpu_Config mpuconfig);
 u32 Xil_GetNumOfFreeRegions (void);
 u32 Xil_GetNextMPURegion(void);
 u32 Xil_DisableMPURegionByRegNum (u32 reg_num);
 u16 Xil_GetMPUFreeRegMask (void);
+/** @brief Set an MPU region by region number. */
 u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib);
+/** @brief Map a physical address range. */
 void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* XIL_MPU_H */
 /**
 * @} End of "addtogroup r5_mpu_apis".
 */
+#endif /* XIL_MPU_H */

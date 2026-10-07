@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -13,7 +13,6 @@
 *
 * @note
 *
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -21,6 +20,7 @@
 * ----- -------- -------- -----------------------------------------------
 * 5.00 	pkp  	 05/29/14 First release
 * 9.00  ml       03/03/23 Add description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 ******************************************************************************/
 

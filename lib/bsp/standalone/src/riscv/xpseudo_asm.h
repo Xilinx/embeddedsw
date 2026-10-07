@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,11 +28,12 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 9.0   sa   07/20/20 Initial version
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
-#ifndef XPSEUDO_ASM_H /* prevent circular inclusions */
-#define XPSEUDO_ASM_H /* by using protection macros */
+#ifndef XPSEUDO_ASM_H
+#define XPSEUDO_ASM_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,7 +48,7 @@ extern "C" {
 }
 #endif
 
-#endif /* XPSEUDO_ASM_H */
 /**
 * @} End of "addtogroup RISC-V specific".
 */
+#endif /* XPSEUDO_ASM_H */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,17 +28,18 @@
 *		      APIs.
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
 * 9.0   ml   03/03/23 Updated function prototypes.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
-/**
-*@cond nocomments
-*/
 
 #ifndef XIL_CACHE_H
 #define XIL_CACHE_H
 
+/**
+*@cond nocomments
+*/
 #include "xil_types.h"
 
 #ifdef __cplusplus
@@ -88,20 +89,23 @@ extern "C" {
 void Xil_DCacheEnable(void);
 void Xil_DCacheDisable(void);
 void Xil_DCacheInvalidate(void);
+/** @brief Invalidate a range of data cache lines. */
 void Xil_DCacheInvalidateRange(INTPTR adr, u32 len);
 void Xil_DCacheFlush(void);
+/** @brief Flush a range of data cache lines. */
 void Xil_DCacheFlushRange(INTPTR adr, u32 len);
 
 void Xil_ICacheEnable(void);
 void Xil_ICacheDisable(void);
 void Xil_ICacheInvalidate(void);
+/** @brief Invalidate a range of instruction cache lines. */
 void Xil_ICacheInvalidateRange(INTPTR adr, u32 len);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
 /**
 * @} End of "addtogroup a9_cache_apis".
 */
+#endif

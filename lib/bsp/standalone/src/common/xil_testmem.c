@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -9,7 +9,6 @@
 *
 * @file xil_testmem.c
 * @addtogroup common_test_utils
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -42,6 +41,7 @@
 * 9.4   vmt  26/08/25 Updated datatype of word count to unsigned long to fix the
 *                     size limit issue
 * 9.4   vmt  24/09/25 Added extended address support for RISC-V
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -71,12 +71,12 @@ static u32 RotateRight(u32 Input, u8 Width);
 *
 * @brief    Perform a destructive 8-bit wide memory test.
 *
-* @param    Addrlow: lower 32 bit address of memory to be tested.
-* @param    Addrhigh: upper 32 bit address of memory to be tested.
-* @param    Words: length of the block.
-* @param    Pattern: constant used for the constant pattern test, if 0,
+* @param[in]    Addrlow: lower 32 bit address of memory to be tested.
+* @param[in]    Addrhigh: upper 32 bit address of memory to be tested.
+* @param[in]    Words: length of the block.
+* @param[in]    Pattern: constant used for the constant pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest: type of test selected. See xil_testmem.h for possible
+* @param[in]    Subtest: type of test selected. See xil_testmem.h for possible
 *	        values.
 *
 * @return
@@ -298,12 +298,12 @@ End_Label:
 *
 * @brief    Perform a destructive 16-bit wide memory test.
 *
-* @param    Addrlow: lower 32 bit address of memory to be tested.
-* @param    Addrhigh: upper 32 bit address of memory to be tested.
-* @param    Words: length of the block.
-* @param    Pattern: constant used for the constant Pattern test, if 0,
+* @param[in]    Addrlow: lower 32 bit address of memory to be tested.
+* @param[in]    Addrhigh: upper 32 bit address of memory to be tested.
+* @param[in]    Words: length of the block.
+* @param[in]    Pattern: constant used for the constant Pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest: type of test selected. See xil_testmem.h for possible
+* @param[in]    Subtest: type of test selected. See xil_testmem.h for possible
 *	        values.
 *
 * @return
@@ -541,12 +541,12 @@ End_Label:
 *
 * @brief    Perform a destructive 32-bit wide memory test.
 *
-* @param    Addrlow: lower 32 bit address of memory to be tested.
-* @param    Addrhigh: upper 32 bit address of memory to be tested.
-* @param    Words: length of the block.
-* @param    Pattern: constant used for the constant pattern test, if 0,
+* @param[in]    Addrlow: lower 32 bit address of memory to be tested.
+* @param[in]    Addrhigh: upper 32 bit address of memory to be tested.
+* @param[in]    Words: length of the block.
+* @param[in]    Pattern: constant used for the constant pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest: test type selected. See xil_testmem.h for possible
+* @param[in]    Subtest: test type selected. See xil_testmem.h for possible
 *	        values.
 *
 * @return
@@ -801,11 +801,11 @@ End_Label:
 *
 * @brief    Perform a destructive 32-bit wide memory test.
 *
-* @param    Addr: pointer to the region of memory to be tested.
-* @param    Words: length of the block.
-* @param    Pattern: constant used for the constant pattern test, if 0,
+* @param[in]    Addr: pointer to the region of memory to be tested.
+* @param[in]    Words: length of the block.
+* @param[in]    Pattern: constant used for the constant pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest: test type selected. See xil_testmem.h for possible
+* @param[in]    Subtest: test type selected. See xil_testmem.h for possible
 *	        values.
 *
 * @return
@@ -1050,11 +1050,11 @@ End_Label:
 *
 * @brief    Perform a destructive 16-bit wide memory test.
 *
-* @param    Addr: pointer to the region of memory to be tested.
-* @param    Words: length of the block.
-* @param    Pattern: constant used for the constant Pattern test, if 0,
+* @param[in]    Addr: pointer to the region of memory to be tested.
+* @param[in]    Words: length of the block.
+* @param[in]    Pattern: constant used for the constant Pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest: type of test selected. See xil_testmem.h for possible
+* @param[in]    Subtest: type of test selected. See xil_testmem.h for possible
 *	        values.
 *
 * @return
@@ -1284,11 +1284,11 @@ End_Label:
 *
 * @brief    Perform a destructive 8-bit wide memory test.
 *
-* @param    Addr: pointer to the region of memory to be tested.
-* @param    Words: length of the block.
-* @param    Pattern: constant used for the constant pattern test, if 0,
+* @param[in]    Addr: pointer to the region of memory to be tested.
+* @param[in]    Words: length of the block.
+* @param[in]    Pattern: constant used for the constant pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest: type of test selected. See xil_testmem.h for possible
+* @param[in]    Subtest: type of test selected. See xil_testmem.h for possible
 *	        values.
 *
 * @return
@@ -1512,11 +1512,10 @@ End_Label:
 *
 * @brief   Rotates the provided value to the left one bit position
 *
-* @param    Input is value to be rotated to the left
-* @param    Width is the number of bits in the input data
+* @param[in]    Input is value to be rotated to the left
+* @param[in]    Width is the number of bits in the input data
 *
 * @return   The resulting unsigned long value of the rotate left
-*
 *
 *****************************************************************************/
 #ifdef XIL_ENABLE_MEMORY_STRESS_TEST
@@ -1563,8 +1562,8 @@ static u32 RotateLeft(u32 Input, u8 Width)
 *
 * @brief    Rotates the provided value to the right one bit position
 *
-* @param    Input: value to be rotated to the right
-* @param    Width: number of bits in the input data
+* @param[in]    Input: value to be rotated to the right
+* @param[in]    Width: number of bits in the input data
 *
 * @return
 *           The resulting u32 value of the rotate right

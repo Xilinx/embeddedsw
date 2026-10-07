@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +17,6 @@
 * count a variety of events described in Coretx-R5 TRM. The xpm_counter.h file
 * defines configurations XPM_CNTRCFGx which can be used to program the event
 * counters to count a set of events.
-*
 *
 * @{
 * <pre>
@@ -41,17 +40,18 @@
 *                     where-as RPU in ZynqMP/Versal has 3 event
 *                     counters, updated macro's related to event counter
 *                     related masks accordingly.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+
+#ifndef XPMCOUNTER_H
+#define XPMCOUNTER_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XPMCOUNTER_H /* prevent circular inclusions */
-#define XPMCOUNTER_H /* by using protection macros */
-
 /***************************** Include Files ********************************/
 
 #include <stdint.h>
@@ -197,7 +197,7 @@ extern "C" {
 
 /*
  * Branch mispredicted or not predicted
- * This event ocurs for every pipeline flush
+ * This event occurs for every pipeline flush
  * caused by a branch
  */
 
@@ -657,8 +657,7 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency);
 }
 #endif
 
-#endif
-
 /**
 * @} End of "addtogroup r5_event_counter_apis".
 */
+#endif

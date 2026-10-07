@@ -50,7 +50,7 @@
  *   1. Hardware traps to _trap_handler (still at M privilege).
  *   2. Entry swaps to the M stack anchor (mscratch) and saves the guest frame.
  *   3. The interrupt is dispatched through RISCV_InterruptVectorTable — the
- *      same handlers registered by the monitor BSP (e.g. UART/timer ISRs).
+ *      same handlers registered by the monitor BSP (for example UART/timer ISRs).
  *   4. trap_restore returns to U-mode at the interrupted guest PC (mret).
  *
  * So guest ISRs are really monitor ISRs running on behalf of the guest; the
@@ -81,12 +81,19 @@ static u32 guest_u_mode_checksum(const u8 *buf, u32 len)
 	return sum;
 }
 
-/** Exit status passed to the monitor via XIL_SYS_EXIT. */
+/** Exit status passed to the monitor via XIL_SYS_EXIT.
+ *
+ * @return Exit code value to pass to the monitor (default: 42).
+ */
 __attribute__((weak)) long guest_exit_code(void)
 {
 	return 42L;
 }
 
+/**
+ * @brief Entry point; runs the RISC-V mode-switch guest and exits via ECALL.
+ * @return Always 0.
+ */
 int main(void)
 {
 	static const u8 payload[] = "mode-switch-guest-u-mode";

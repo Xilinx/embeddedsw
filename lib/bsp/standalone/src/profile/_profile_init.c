@@ -1,7 +1,14 @@
 /******************************************************************************
 * Copyright (c) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file _profile_init.c
+* @brief Profiling initialization for standalone BSP.
+*/
+
 
 
 #include "profile.h"
@@ -19,20 +26,24 @@ extern s32 powerpc405_init(void);
 
 #else
 
+/**
+ * @brief Initialise the Cortex-A9 SCU timer and GIC for profiling.
+ * @return 0 on success.
+ */
 extern s32 cortexa9_init(void);
 
 #endif
 
-s32 profile_version = 1;	/* Version of S/W Intrusive Profiling library */
+s32 profile_version = 1;	/**< Version of S/W Intrusive Profiling library. */
 
-u32 binsize = (u32)BINSIZE;    			/* Histogram Bin Size */
-u32 cpu_clk_freq = (u32)CPU_FREQ_HZ ;	/* CPU Clock Frequency */
-u32 sample_freq_hz = (u32)SAMPLE_FREQ_HZ ;	/* Histogram Sampling Frequency */
-u32 timer_clk_ticks = (u32)TIMER_CLK_TICKS ;/* Timer Clock Ticks for the Timer */
+u32 binsize = (u32)BINSIZE;    			/**< Histogram bin size. */
+u32 cpu_clk_freq = (u32)CPU_FREQ_HZ ;		/**< CPU clock frequency in Hz. */
+u32 sample_freq_hz = (u32)SAMPLE_FREQ_HZ ;	/**< Histogram sampling frequency in Hz. */
+u32 timer_clk_ticks = (u32)TIMER_CLK_TICKS ;	/**< Timer clock ticks for the profiling timer. */
 
 /* Structure for Storing the Profiling Data */
-struct gmonparam *_gmonparam = (struct gmonparam *)(0xffffffffU);
-s32 n_gmon_sections = 1;
+struct gmonparam *_gmonparam = (struct gmonparam *)(0xffffffffU); /**< Pointer to gmon profiling parameters. */
+s32 n_gmon_sections = 1;	/**< Number of gmon sections being profiled. */
 
 /* This is the initialization code, which is called from the crtinit. */
 

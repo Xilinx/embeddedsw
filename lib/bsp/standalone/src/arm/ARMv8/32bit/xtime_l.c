@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@
 *						this API to ensure the global timer counter is enabled
 * 7.5   mus    04/30/21  Moved pragma message from xtime_l.h to xtime_l.c, to avoid
 *                        displaying same warnings multiple times. It fixes CR#1090562.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -48,23 +50,22 @@
 /**
 * @brief	Start the 64-bit physical timer counter.
 *
-* @return	None.
-*
+
 * @note		The timer is initialized only if it is disabled. If the timer is
 *			already running this function does not perform any operation.
 *
 ****************************************************************************/
 void XTime_StartTimer(void)
 {
-	/* Enable the counter only if it is disable */
+	/**< Enable the counter only if it is disable */
 	if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)) &
 		 XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) != XIOU_SCNTRS_CNT_CNTRL_REG_EN){
 
-		/*write frequency to System Time Stamp Generator Register*/
+		/**< write frequency to System Time Stamp Generator Register */
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
 					XIOU_SCNTRS_FREQ);
 
-		/*Enable the counter*/
+		/**< Enable the counter */
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),
 					XIOU_SCNTRS_CNT_CNTRL_REG_EN);
 	}
@@ -75,12 +76,10 @@ void XTime_StartTimer(void)
 *			desired. This API doesn't contain anything. It is defined to have
 *			uniformity across platforms.
 *
-* @param	Xtime_Global: 64bit Value to be written to the Global Timer Counter
 *			Register. But since the function does not contain anything, the
 *			value is not used for anything.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
 {
@@ -93,15 +92,13 @@ so the API is left unimplemented*/
 /**
 * @brief	Get the time from the physical timer counter register.
 *
-* @param	Xtime_Global: Pointer to the 64-bit location to be updated with
 *			the current value in physical timer counter.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
-	/* Start global timer counter, it will only be enabled if it is disabled */
+	/**< Start global timer counter, it will only be enabled if it is disabled */
 	XTime_StartTimer();
 
 	*Xtime_Global = arch_counter_get_cntvct();

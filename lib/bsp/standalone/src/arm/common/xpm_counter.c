@@ -27,7 +27,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 8.00  mus  07/07/22 Initial version
-* 8.00  mus  07/14/22 Existing PMU APIs dont have support for CortexA53 32
+* 8.00  mus  07/14/22 Existing PMU APIs don't have support for CortexA53 32
 *                     bit processor, added check to skip PMU APIs
 *                     compilation in case of CortexA53 32 bit BSP.
 * 8.2   asa  02/23/23 Add instruction sync barrier as mandated by ARM specs.
@@ -40,6 +40,7 @@
 *                     APIs. They need not be supported for Versal Net.
 * 8.2   adk  03/13/23 Include xstatus.h when xiltimer is enabled.
 * 9.0   ml   14/04/23 Add U to numericals to fix misra-c violation
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +58,7 @@
 /************************** Constant Definitions ****************************/
 
 /**************************** Type Definitions ******************************/
+/** @brief Array of XPM_CTRCOUNT constant u32 values for PMCR event configuration. */
 typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT];
 
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -71,8 +73,7 @@ typedef const u32 PmcrEventCfg32[XPM_CTRCOUNT];
 *
 * @brief    This function disables the event counters.
 *
-* @return	None.
-*
+
 *****************************************************************************/
 void Xpm_DisableEventCounters(void)
 {
@@ -106,8 +107,7 @@ void Xpm_DisableEventCounters(void)
 *
 * @brief    This function enables the event counters.
 *
-* @return	None.
-*
+
 *****************************************************************************/
 void Xpm_EnableEventCounters(void)
 {
@@ -143,8 +143,7 @@ void Xpm_EnableEventCounters(void)
 *
 * @brief    This function resets the event counters.
 *
-* @return	None.
-*
+
 *****************************************************************************/
 void Xpm_ResetEventCounters(void)
 {
@@ -178,8 +177,7 @@ void Xpm_ResetEventCounters(void)
  *
  * Disables the requested event counter.
  *
- *
- * @param	EventCntrId: Event Counter ID. The counter ID is the same that
+ * @param[in]	EventCntrId: Event Counter ID. The counter ID is the same that
  *          was earlier returned through a call to Xpm_SetUpAnEvent.
  *
  * @return
@@ -226,8 +224,7 @@ u32 Xpm_DisableEvent(u32 EventCntrId)
  * Upon invoked, the API searches for an available counter. After finding
  * one, it sets up the counter to count events for the requested event.
  *
- *
- * @param	EventID: For valid values, please refer xpm_counter.h.
+ * @param[in]	EventID: For valid values, please refer xpm_counter.h.
  *
  * @return
  *		- Counter Number if successful. For Cortex-R5, valid return values are
@@ -295,12 +292,11 @@ u32 Xpm_SetUpAnEvent(u32 EventID)
  * the number of events that has been counted for the requested event ID.
  * This can only be called after a call to Xpm_SetUpAnEvent.
  *
- *
- * @param	EventCntrId: The counter ID is the same that was earlier
+ * @param[in]	EventCntrId: The counter ID is the same that was earlier
  *          returned through a call to Xpm_SetUpAnEvent.
  *          Cortex-R5 supports only 3 counters. The valid values are 0, 1,
  *          or 2 for other processors valid values are 0 to 5.
- * @param	CntVal: Pointer to a 32 bit unsigned int type. This is used to return
+ * @param[in]	CntVal: Pointer to a 32 bit unsigned int type. This is used to return
  *          the event counter value.
  *
  * @return
@@ -339,11 +335,10 @@ u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal)
 * @brief    This is helper function used by sleep/usleep APIs to generate
 *           delay in sec/usec
 *
-* @param    delay - delay time in sec/usec
-* @param    frequency - Number of countes in second/micro second
+* @param[in]    delay - delay time in sec/usec
+* @param[in]    frequency - Number of countes in second/micro second
 *
-* @return       None.
-*
+
 *****************************************************************************/
 #ifndef XPAR_XILTIMER_ENABLED
 void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
@@ -383,12 +378,11 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency)
 *           with the event codes, in a configuration selected by the user and
 *           enables the counters.
 *
-* @param	PmcrCfg: Configuration value based on which the event counters
+* @param[in]	PmcrCfg: Configuration value based on which the event counters
 *		    are configured.XPM_CNTRCFG* values defined in xpm_counter.h can
 *		    be utilized for setting configuration
 *
-* @return	None.
-*
+
 *****************************************************************************/
 void Xpm_SetEvents(s32 PmcrCfg)
 {
@@ -590,12 +584,11 @@ void Xpm_SetEvents(s32 PmcrCfg)
 * @brief    This function disables the event counters and returns the counter
 *           values.
 *
-* @param	PmCtrValue: Pointer to an array of type u32 PmCtrValue[6].
+* @param[in]	PmCtrValue: Pointer to an array of type u32 PmCtrValue[6].
 *		    It is an output parameter which is used to return the PM
 *		    counter values.
 *
-* @return	None.
-*
+
 *****************************************************************************/
 void Xpm_GetEventCounters(u32 *PmCtrValue)
 {

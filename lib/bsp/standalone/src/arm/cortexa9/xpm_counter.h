@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2011 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,17 +34,18 @@
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
 * 8.0   mus  07/07/22 Added prototype for new APIs as per consolidated
 *                     xpm_counter.c.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+
+#ifndef XPMCOUNTER_H
+#define XPMCOUNTER_H
+
 /**
 *@cond nocomments
 */
-
-#ifndef XPMCOUNTER_H /* prevent circular inclusions */
-#define XPMCOUNTER_H /* by using protection macros */
-
 /***************************** Include Files ********************************/
 
 #include <stdint.h>
@@ -569,7 +571,7 @@ u32 Xpm_GetEventCounter(u32 EventCntrId, u32 *CntVal);
 }
 #endif
 
-#endif
 /**
 * @} End of "addtogroup a9_event_counter_apis".
 */
+#endif

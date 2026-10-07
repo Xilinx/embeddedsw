@@ -22,7 +22,6 @@
 *	in order. If there is an error detected by a subtest, the test stops and the
 *	failure code is returned. Further tests are not run even if all of the tests are selected.
 *
-*
 * Following list describes the supported memory tests:
 *
 *  - XIL_TESTMEM_ALLMEMTESTS: This test runs all of the subtests.
@@ -90,17 +89,19 @@
 * 9.4   vmt  26/08/25 Updated datatype of word count to unsigned long to fix
 *                     the size limit issue
 * 9.4   vmt  24/09/25 Added extended address support for RISC-V
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+/** @{ */
+
+#ifndef XIL_TESTMEM_H
+#define XIL_TESTMEM_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XIL_TESTMEM_H	/* prevent circular inclusions */
-#define XIL_TESTMEM_H	/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -121,9 +122,6 @@ extern "C" {
 
 #define XIL_TESTMEM_INIT_VALUE	1U
 
-/** @name Memory subtests
- * @{
- */
 /**
  * See the detailed description of the subtests in the file description.
  */
@@ -134,7 +132,6 @@ extern "C" {
 #define XIL_TESTMEM_INVERSEADDR     0x04U
 #define XIL_TESTMEM_FIXEDPATTERN    0x05U
 #define XIL_TESTMEM_MAXTEST         XIL_TESTMEM_FIXEDPATTERN
-/* @} */
 
 #if !defined(__aarch64__) && !defined(__arch64__)
 #define	NUM_OF_BITS_IN_BYTE	8U
@@ -167,7 +164,5 @@ extern s32 Xil_TestMem8(u8 *Addr, unsigned long Words, u8 Pattern, u8 Subtest);
 }
 #endif
 
+/** @} End of "addtogroup common_test_utils". */
 #endif /* end of protection macro */
-/**
-* @} End of "addtogroup common_test_utils".
-*/

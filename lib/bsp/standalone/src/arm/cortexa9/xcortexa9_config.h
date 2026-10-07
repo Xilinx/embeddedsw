@@ -1,10 +1,17 @@
 /******************************************************************************
 * Copyright (c) 2021-2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file xcortexa9_config.h
+* @brief Cortex-A9 processor configuration parameters.
+*/
+
 #ifndef XIL_XCORTEXA9_CONFIG_H_ /* prevent circular inclusions */
-#define XIL_XCORTEXA9_CONFIG_H_ /* by using protection macros */
+/** @brief Include guard for xcortexa9_config.h. */
+#define XIL_XCORTEXA9_CONFIG_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,9 +22,10 @@ extern "C" {
 #include "xcortexa9.h"
 
 /************************** Variable Definitions ****************************/
-extern XCortexa9_Config XCortexa9_ConfigTable;
+extern XCortexa9_Config XCortexa9_ConfigTable; /**< Cortex-A9 processor configuration table instance. */
 
 /***************** Macros (Inline Functions) Definitions ********************/
+/** @brief Get the Cortex-A9 CPU clock frequency in Hz. */
 #define XGet_CpuFreq() XCortexa9_ConfigTable.CpuFreq
 
 #ifdef __cplusplus

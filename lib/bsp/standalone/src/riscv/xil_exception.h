@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,11 +8,11 @@
 *
 * @file xil_exception.h
 *
-* @addtogroup riscv_exception_apis RISC-V Exception APIs
+* @addtogroup riscv_exception_apis RISC-V exception APIs
 *
 * The xil_exception.h file contains RISC-V specific exception related APIs
 * and macros. Application programs can use these APIs/Macros for various
-* exception related operations (i.e. enable exception, disable exception,
+* exception related operations (that is enable exception, disable exception,
 * register exception handler etc.)
 *
 * @{
@@ -26,6 +26,7 @@
 * 9.4   vmt  29/07/25 Add support for RISC-V Exception and Interrupt
 *                     Handling in User and Supervisor modes.
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -123,10 +124,20 @@ extern RISCV_ExceptionVectorTableEntry RISCV_InterruptVectorTable[(XIL_INTERRUPT
 
 /************************** Function Prototypes ******************************/
 
+/**
+ * @brief Register a handler for a specific exception.
+ * @param[in] Id      Exception identifier.
+ * @param[in] Handler Pointer to the exception handler function.
+ * @param[in] Data    Pointer to data passed to the handler.
+ */
 extern void Xil_ExceptionRegisterHandler(u32 Id,
                                          Xil_ExceptionHandler Handler,
                                          void *Data);
 
+/**
+ * @brief Remove the handler for a specific exception.
+ * @param[in] Id Exception identifier.
+ */
 extern void Xil_ExceptionRemoveHandler(u32 Id);
 
 extern void Xil_ExceptionInit(void);

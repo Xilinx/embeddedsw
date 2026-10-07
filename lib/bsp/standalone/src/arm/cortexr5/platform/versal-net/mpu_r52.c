@@ -6,7 +6,7 @@
 
 /*****************************************************************************/
 /**
-* @file mpu.c
+* @file mpu_r52.c
 *
 * This file contains initial configuration of the CortexR52  MPU.
 *
@@ -22,6 +22,7 @@
 *                     in stead of using hard coded information inside
 *                     Init_MPU.
 * 9.2   mus  09/23/24 Added comments for MPU regions.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -45,9 +46,15 @@ static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 /************************** Constant Definitions *****************************/
 
 /************************** Variable Definitions *****************************/
+/**
+ *@cond nocomments
+ */
 __attribute__((weak)) u32  _TCM_A_REGION  __attribute__((__section__(".bootdata"))) = 0;
 __attribute__((weak)) u32 _TCM_B_REGION  __attribute__((__section__(".bootdata"))) = 0;
 __attribute__((weak)) u32 _TCM_C_REGION  __attribute__((__section__(".bootdata"))) = 0;
+/**
+ *@endcond
+ */
 
 /************************** Function Prototypes ******************************/
 extern void Xil_SetAttributeBasedOnConfig(u32 IsSortingNedded)  __attribute__((__section__(".boot")));
@@ -58,7 +65,7 @@ void Init_MPU(void) __attribute__((__section__(".boot")));
  * configuration data. This is defined as "weak" and is placed in the bootdata
  * section.
  * In an isolation use case, default addresses allocated to MPU regions will change
- * depending on user confugurations. For such cases Init_MPU must initialize
+ * depending on user configurations. For such cases Init_MPU must initialize
  * MPU regions as per user configurations instead of default configurations.
  * To have proper MPU configurations, users must override the default "weak" array
  * defined here with a non-weak array in their application.
@@ -76,6 +83,7 @@ void Init_MPU(void) __attribute__((__section__(".boot")));
  * }
  */
 
+/** @brief Initial MPU configuration table (weak symbol, overridable by application). */
 __attribute__((weak)) XMpuConfig_Initial InitialMpu_Config __attribute__((section(".bootdata"))) = {
 	{
 		/* 2 GB DDR DDRMC0_Region0_mem */
@@ -164,10 +172,6 @@ __attribute__((weak)) XMpuConfig_Initial InitialMpu_Config __attribute__((sectio
 * MPU with default memory attributes for rest of address range for Cortex R5
 * processor.
 *
-*
-* @return	None.
-*
-*
 ******************************************************************************/
 static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 		u32 Attrib)
@@ -182,15 +186,13 @@ static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 /*****************************************************************************/
 /**
 *
-* Initialize MPU for during bootup with predefined region attributes.
+* Initialize MPU for during boot up with predefined region attributes.
 * Note: If user wants to edit regions in this function, he has to ensure that
 * regions are not overlapping. Internal MPU APIs in mpu.c are not dealing with
 * overlapping detection and correction. Since, we would like to keep APIs in this
 * simple.
 *
-* @return	None.
-*
-*
+
 ******************************************************************************/
 void Init_MPU(void)
 {
@@ -215,10 +217,6 @@ void Init_MPU(void)
 /**
 *
 * Disable all the MPU regions if any of them is enabled
-*
-*
-* @return	None.
-*
 *
 ******************************************************************************/
 void Xil_DisableMPURegions(void)

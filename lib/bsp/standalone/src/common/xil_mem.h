@@ -1,7 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,8 +27,8 @@
 * </pre>
 *
 *****************************************************************************/
-#ifndef XIL_MEM_H	/**< prevent circular inclusions */
-#define XIL_MEM_H	/**< by using protection macros */
+#ifndef XIL_MEM_H
+#define XIL_MEM_H
 
 #ifdef __cplusplus
 extern "C" {

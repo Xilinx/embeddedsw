@@ -39,6 +39,7 @@
 *       tvp      02/04/26 Add doxygen note for Xil_IncrementBuffer
 *       vss      04/15/26 Fix for aliasing issue.
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -62,7 +63,7 @@
 
 /************************** Function Prototypes *****************************/
 
-void (*fptr)(void) = NULL;
+void (*fptr)(void) = NULL; /**< Function pointer for deferred execution (used for abort handler). */
 
 #ifdef __ARMCC_VERSION
 /******************************************************************************/
@@ -70,8 +71,8 @@ void (*fptr)(void) = NULL;
  *
  * This API returns the length of the input string
  *
- * @param  StartPtr is the pointer to the input string
- * @param  StrSize is the maximum length of the input string
+ * @param[in] StartPtr is the pointer to the input string
+ * @param[in] StrSize is the maximum length of the input string
  *
  * @return Returns the length of the input string
  *
@@ -97,22 +98,20 @@ static size_t strnlen (const char *StartPtr, size_t StrSize)
  * Converts the char into the equivalent nibble.
  *	Ex: 'a' -> 0xa, 'A' -> 0xa, '9'->0x9
  *
- * @param   InChar - Input character to be converted to nibble.
+ * @param[in] InChar - Input character to be converted to nibble.
  *                   Valid characters are between 0-9, a-f, A-F
- * @param   Num    - Memory location where nibble is to be stored
+ * @param[in] Num    - Memory location where nibble is to be stored
  *
  * @return
  *          XST_SUCCESS - Character converted to nibble
  *          XST_FAILURE - Invalid input character
- *
- * @note    None.
  *
  *****************************************************************************/
 u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num)
 {
 	u32 Status;
 
-	/* Convert the char to nibble */
+	/**< Convert the char to nibble */
 	if ((InChar >= (u8)'0') && (InChar <= (u8)'9')) {
 		*Num = InChar - (u8)'0';
 		Status = XST_SUCCESS;
@@ -130,21 +129,16 @@ u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num)
 }
 
 /****************************************************************************/
-/*
- * Converts the string into the equivalent Hex buffer.
+/**
+ * @brief Converts the string into the equivalent Hex buffer.
  *	Ex: "abc123" -> {0xab, 0xc1, 0x23}
  *
- * @param   Str - Pointer to string to be converted to Hex.
- *                Accepted characters in string are between 0-9, a-f and A-F
- * @param   Buf - Pointer to memory location where converted hex values are to
- *                be stored.
- * @param   Len - Length of input string
+ * @param[in] Str Pointer to string to be converted to Hex.
+ *                 Accepted characters in string are between 0-9, a-f and A-F
+ * @param[out] buf Pointer to memory location where converted hex values are stored.
+ * @param[in] Len Length of input string.
  *
- * @return
- *          XST_SUCCESS - Input string is converted to hex
- *          XST_FAILURE - Invalid character in input string
- *
- * @note    None.
+ * @return XST_SUCCESS if input string is converted to hex; XST_FAILURE for invalid character.
  *
  *****************************************************************************/
 u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u32 Len)
@@ -161,7 +155,7 @@ u32 Xil_ConvertStringToHex(const char *Str, u32 *buf, u32 Len)
 							 &Nibble[i]);
 			ConvertedLen = ConvertedLen + 1U;
 			if (Status != XST_SUCCESS) {
-				/* Error converting char to nibble */
+				/**< Error converting char to nibble */
 				goto END;
 			}
 		}
@@ -181,9 +175,7 @@ END:
 /*
  * Register PLM Alive Handler.
  *
- * @param   PlmAlive	- Pointer to PlmAlive API.
- *
- * @return    None.
+ * @param[in] PlmAlive	- Pointer to PlmAlive API.
  *
  *****************************************************************************/
 void Xil_RegisterPlmHandler(void (*PlmAlive) (void))
@@ -195,9 +187,7 @@ void Xil_RegisterPlmHandler(void (*PlmAlive) (void))
 /*
  * PLM Stub Handler called while waiting for event.
  *
- * @param   None.
- *
- * @return    None.
+ * @param[in] None.
  *
  *****************************************************************************/
 void Xil_PlmStubHandler(void)
@@ -209,19 +199,15 @@ void Xil_PlmStubHandler(void)
 #endif
 
 /****************************************************************************/
-/*
- * Waits for the event
+/**
+ * @brief Waits for the specified event within the given timeout.
  *
- * @param   RegAddr   - Address of register to be checked for event(s) occurrence
- * @param   EventMask - Mask indicating event(s) to be checked
- * @param   Event     - Specific event(s) value to be checked
- * @param   Timeout   - Max number of microseconds to wait for an event(s).
+ * @param[in] RegAddr   Address of register to be checked for event(s) occurrence.
+ * @param[in] EventMask Mask indicating event(s) to be checked.
+ * @param[in] Event     Specific event(s) value to be checked.
+ * @param[in] Timeout   Max number of microseconds to wait for an event(s).
  *
- * @return
- *          XST_SUCCESS - On occurrence of the event(s).
- *          XST_FAILURE - Event did not occur before counter reaches 0
- *
- * @note    None.
+ * @return XST_SUCCESS on occurrence of the event(s); XST_FAILURE if event did not occur.
  *
  *****************************************************************************/
 u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout)
@@ -250,12 +236,12 @@ u32 Xil_WaitForEvent(UINTPTR RegAddr, u32 EventMask, u32 Event, u32 Timeout)
 /**
  * Waits for the events. Returns on occurrence of first event / timeout.
  *
- * @param   EventsRegAddr - Address of register to be checked for event(s)
+ * @param[in] EventsRegAddr - Address of register to be checked for event(s)
  *                          occurrence
- * @param   EventsMask - Mask indicating event(s) to be checked
- * @param   WaitEvents - Specific event(s) to be checked
- * @param   Timeout    - Max number of microseconds to wait for an event(s).
- * @param   Events     - Mask of Events occurred returned in memory pointed by
+ * @param[in] EventsMask - Mask indicating event(s) to be checked
+ * @param[in] WaitEvents - Specific event(s) to be checked
+ * @param[in] Timeout    - Max number of microseconds to wait for an event(s).
+ * @param[in] Events     - Mask of Events occurred returned in memory pointed by
  *                       this variable
  *
  * @return
@@ -290,21 +276,15 @@ u32 Xil_WaitForEvents(UINTPTR EventsRegAddr, u32 EventsMask, u32 WaitEvents,
 }
 
 /****************************************************************************/
-/*
- * Waits for the event to be set with in timeout and returns error in case
- * event was not set in specified time out.
+/**
+ * @brief Waits for the specified events to be set within the timeout.
  *
- * @param   Timeout     - Max number of microseconds to wait for an event,
- *			  It should be maximum timeout needed among the
- *			  events specified.
- * @param   NumOfEvents - Number of event(s) to be checked.
- * @param   EventAddr   - Pointer to address of event(s) to be set.
+ * @param[in] Timeout     Max number of microseconds to wait for events.
+ *                        It should be the maximum timeout needed among the events.
+ * @param[in] NumOfEvents Number of event(s) to be checked.
+ * @param[in] EventAddr   Pointer to address of event(s) to be set.
  *
- * @return
- *          XST_SUCCESS - On occurrence of the event(s).
- *          XST_FAILURE - Event(s) did not occur before counter reaches 0
- *
- * @note    None.
+ * @return XST_SUCCESS on occurrence of the event(s); XST_FAILURE if events did not occur.
  *
  *****************************************************************************/
 u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, ...)
@@ -315,7 +295,7 @@ u32 Xil_WaitForEventSet(u32 Timeout, u32 NumOfEvents, volatile u32 *EventAddr, .
 	va_list Event;
 
 	va_start(Event, EventAddr);
-	/* wait for all events to complete */
+	/**< wait for all events to complete */
 	for (i = 0; i < NumOfEvents; i++) {
 		while (PollCount > 0U) {
 			if (Xil_In32((UINTPTR)EventAddr)) {
@@ -346,13 +326,11 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function will Read, Modify and Write to an address.
+ * @brief	Reads, modifies, and writes to an address.
  *
- * @param	Addr denotes Address
- * @param	Mask denotes the bits to be modified
- * @param	Value is the value to be written to the address
- *
- * @return	None
+ * @param[in]	Addr   Address to read-modify-write.
+ * @param[in]	Mask   Bitmask of bits to be modified.
+ * @param[in]	Value  Value to be written to the masked bits.
  *
  *****************************************************************************/
 void Xil_UtilRMW32(UINTPTR Addr, u32 Mask, u32 Value)
@@ -371,10 +349,10 @@ void Xil_UtilRMW32(UINTPTR Addr, u32 Mask, u32 Value)
  *			filled with 0s till DestPtrLen bytes and is considered as a failure.
  *			This function is a secure implementation of memcpy
  *
- * @param	DestPtr is pointer to destination address
- * @param	DestPtrLen is the memory allotted to the destination buffer
- * @param	SrcPtr is pointer to source address
- * @param	Len is number of bytes to be copied
+ * @param[in]	DestPtr is pointer to destination address
+ * @param[in]	DestPtrLen is the memory allotted to the destination buffer
+ * @param[in]	SrcPtr is pointer to source address
+ * @param[in]	Len is number of bytes to be copied
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -394,7 +372,7 @@ s32 Xil_SecureMemCpy(void *DestPtr, u32 DestPtrLen, const void *SrcPtr, u32 Len)
 		goto END;
 	}
 
-	/* Loop and copy.  */
+	/**< Loop and copy. */
 	while (Len != 0U) {
 		*Dest = *Src;
 		Dest++;
@@ -409,10 +387,10 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function is used to zeroize the memory
+ * @brief	Zeroizes the memory.
  *
- * @param	DataPtr Pointer to the memory which need to be zeroized.
- * @param	Length	Length of the data in bytes.
+ * @param[in]	DataPtr Pointer to the memory which need to be zeroized.
+ * @param[in]	Length	Length of the data in bytes.
  *
  * @return
  *		- XST_SUCCESS: If Zeroization is successful.
@@ -423,10 +401,10 @@ s32 Xil_SecureZeroize(u8 *DataPtr, const u32 Length)
 	u32 Index;
 	int Status = XST_FAILURE;
 
-	/* Clear the data */
+	/**< Clear the data */
 	(void)memset(DataPtr, 0, Length);
 
-	/* Read it back to verify */
+	/**< Read it back to verify */
 	for (Index = 0U; Index < Length; Index++) {
 		if (DataPtr[Index] != 0x00U) {
 			goto END;
@@ -447,11 +425,11 @@ END:
  *		make sure not to read from or write to out of bound memory
  *		region.
  *
- * @param	Src1     - Pointer to first memory range
- * @param	Src1Size - Maximum size of first memory range
- * @param	Src2     - Pointer to second memory range
- * @param	Src2Size - Maximum size of second memory range
- * @param	CmpLen   - Number of bytes to be compared
+ * @param[in]	Src1     - Pointer to first memory range
+ * @param[in]	Src1Size - Maximum size of first memory range
+ * @param[in]	Src2     - Pointer to second memory range
+ * @param[in]	Src2Size - Maximum size of second memory range
+ * @param[in]	CmpLen   - Number of bytes to be compared
  *
  * @return
  *		XST_SUCCESS - If specified number of bytes matches
@@ -485,11 +463,11 @@ s32 Xil_SMemCmp(const void *Src1, const u32 Src1Size,
  *		Note that this function compares till end to make it execute
  *		in constant time irrespective of the content of input memory.
  *
- * @param	Src1     - Pointer to first memory range
- * @param	Src1Size - Maximum size of first memory range
- * @param	Src2     - Pointer to second memory range
- * @param	Src2Size - Maximum size of second memory range
- * @param	CmpLen   - Number of bytes to be compared
+ * @param[in]	Src1     - Pointer to first memory range
+ * @param[in]	Src1Size - Maximum size of first memory range
+ * @param[in]	Src2     - Pointer to second memory range
+ * @param[in]	Src2Size - Maximum size of second memory range
+ * @param[in]	CmpLen   - Number of bytes to be compared
  *
  * @return
  *		XST_SUCCESS - If specified number of bytes matches
@@ -544,11 +522,11 @@ s32 Xil_SMemCmp_CT(const void *Src1, const u32 Src1Size,
  *		or write to out of bound memory region. Since 0 is valid address,
 *		Src and Dest parameter are not checked for NULL
  *
- * @param	Dest      - Pointer to destination memory
- * @param	DestSize  - Memory available at destination
- * @param	Src       - Pointer to source memory
- * @param	SrcSize   - Maximum data that can be copied from source
- * @param	CopyLen   - Number of bytes to be copied
+ * @param[in]	Dest      - Pointer to destination memory
+ * @param[in]	DestSize  - Memory available at destination
+ * @param[in]	Src       - Pointer to source memory
+ * @param[in]	SrcSize   - Maximum data that can be copied from source
+ * @param[in]	CopyLen   - Number of bytes to be copied
  *
  * @return
  *		XST_SUCCESS - Copy is successful
@@ -567,7 +545,7 @@ s32 Xil_SMemCpy(void *Dest, const u32 DestSize,
 	if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
 		Status =  XST_INVALID_PARAM;
 	}
-	/* Return error for overlap string */
+	/**< Return error for overlap string */
 	else if ((Src8 < Dst8) && (&Src8[CopyLen - 1U] >= Dst8)) {
 		Status =  XST_INVALID_PARAM;
 	} else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
@@ -587,10 +565,10 @@ s32 Xil_SMemCpy(void *Dest, const u32 DestSize,
  *		This function also takes maximum string size that destination
  *		holds to make sure not to write out of bound area.
  *
- * @param	Dest     - Pointer to destination memory
- * @param	DestSize - Memory available at destination
- * @param	Data     - Any value from 0 to 255
- * @param	Len      - Number of bytes to be copied
+ * @param[in]	Dest     - Pointer to destination memory
+ * @param[in]	DestSize - Memory available at destination
+ * @param[in]	Data     - Any value from 0 to 255
+ * @param[in]	Len      - Number of bytes to be copied
  *
  * @return
  *		XST_SUCCESS - Copy is successful
@@ -618,10 +596,10 @@ s32 Xil_SMemSet(void *Dest, const u32 DestSize,
  *		takes size of both strings to make sure not to read from /
  *		write to out of bound area.
  *
- * @param	DestStr  - Pointer to destination string
- * @param	DestSize - Maximum string size that destination can hold
- * @param	SrcStr   - Pointer to source string
- * @param	SrcSize  - Maximum string size that source can hold
+ * @param[in]	DestStr  - Pointer to destination string
+ * @param[in]	DestSize - Maximum string size that destination can hold
+ * @param[in]	SrcStr   - Pointer to source string
+ * @param[in]	SrcSize  - Maximum string size that source can hold
  *
  * @return
  *		XST_SUCCESS - Copy is successful
@@ -658,10 +636,10 @@ s32 Xil_SStrCat (u8 *DestStr, const u32 DestSize,
  *		size that Src1 and Src2 can hold to make sure not to read out of
  *		bound data for comparison.
  *
- * @param	Str1     - Pointer to first string
- * @param	Str1Size - Maximum string size that Str1 can hold
- * @param	Str2     - Pointer to second string
- * @param	Str2Size - Maximum string size that Str2 can hold
+ * @param[in]	Str1     - Pointer to first string
+ * @param[in]	Str1Size - Maximum string size that Str1 can hold
+ * @param[in]	Str2     - Pointer to second string
+ * @param[in]	Str2Size - Maximum string size that Str2 can hold
  *
  * @return
  *		XST_SUCCESS - If both strings are same
@@ -702,10 +680,10 @@ s32 Xil_SStrCmp(const u8 *Str1, const u32 Str1Size,
  *		dependent on the content of two input strings. The execution
  *		time is constant when string size are same.
  *
- * @param	Str1     - Pointer to first string
- * @param	Str1Size - Maximum string size that Str1 can hold
- * @param	Str2     - Pointer to second string
- * @param	Str2Size - Maximum string size that Str2 can hold
+ * @param[in]	Str1     - Pointer to first string
+ * @param[in]	Str1Size - Maximum string size that Str1 can hold
+ * @param[in]	Str2     - Pointer to second string
+ * @param[in]	Str2Size - Maximum string size that Str2 can hold
  *
  * @return
  *		XST_SUCCESS - If both strings are same
@@ -741,10 +719,10 @@ s32 Xil_SStrCmp_CT (const u8 *Str1, const u32 Str1Size,
  *		takes size of both strings to make sure not to read from /
  *		write to out of bound area.
  *
- * @param	DestStr  - Pointer to destination string
- * @param	DestSize - Maximum string size that destination can hold
- * @param	SrcStr   - Pointer to source string
- * @param	SrcSize  - Maximum string size that source can hold
+ * @param[in]	DestStr  - Pointer to destination string
+ * @param[in]	DestSize - Maximum string size that destination can hold
+ * @param[in]	SrcStr   - Pointer to source string
+ * @param[in]	SrcSize  - Maximum string size that source can hold
  *
  * @return
  *		XST_SUCCESS - Copy is successful
@@ -774,11 +752,11 @@ s32 Xil_SStrCpy(u8 *DestStr, const u32 DestSize,
  * @brief	This is wrapper function to memmove function. This function
  *		takes size of two memory regions to avoid out of bound memory region.
  *
- * @param	Dest      - Pointer to destination memory
- * @param	DestSize  - Memory available at destination
- * @param	Src       - Pointer to source memory
- * @param	SrcSize   - Maximum data that can be copied from source
- * @param	CopyLen   - Number of bytes to be copied
+ * @param[in]	Dest      - Pointer to destination memory
+ * @param[in]	DestSize  - Memory available at destination
+ * @param[in]	Src       - Pointer to source memory
+ * @param[in]	SrcSize   - Maximum data that can be copied from source
+ * @param[in]	CopyLen   - Number of bytes to be copied
  *
  * @return
  *		XST_SUCCESS - Copy is successful
@@ -810,9 +788,9 @@ s32 Xil_SMemMove(void *Dest, const u32 DestSize,
  * 32 bit value to the the specified address and then reading it back to
  * verify the value written in the register.
  *
- * @param	Addr contains the address to perform the output operation
- * @param	Mask indicates the bits to be modified
- * @param	Value contains 32 bit Value to be written at the specified address
+ * @param[in]	Addr contains the address to perform the output operation
+ * @param[in]	Mask indicates the bits to be modified
+ * @param[in]	Value contains 32 bit Value to be written at the specified address
  *
  * @return
  *         XST_SUCCESS on success
@@ -829,7 +807,7 @@ s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value)
 	Val = (Val & (~Mask)) | (Mask & Value);
 	Xil_Out32(Addr, Val);
 
-	/* verify value written to specified address */
+	/**< verify value written to specified address */
 	ReadReg = Xil_In32(Addr) & Mask;
 
 	if (ReadReg == (Mask & Value)) {
@@ -844,11 +822,11 @@ s32 Xil_SecureRMW32(UINTPTR Addr, u32 Mask, u32 Value)
  * @brief	This function changes the endianness of source data and copies it
  *          into destination buffer.
  *
- * @param	Dest      - Pointer to destination memory
- * @param	DestSize  - Memory available at destination
- * @param	Src       - Pointer to source memory
- * @param	SrcSize   - Maximum data that can be copied from source
- * @param	CopyLen   - Number of bytes to be copied
+ * @param[in]	Dest      - Pointer to destination memory
+ * @param[in]	DestSize  - Memory available at destination
+ * @param[in]	Src       - Pointer to source memory
+ * @param[in]	SrcSize   - Maximum data that can be copied from source
+ * @param[in]	CopyLen   - Number of bytes to be copied
  *
  * @return
  *		XST_SUCCESS - Copy is successful
@@ -869,7 +847,7 @@ s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
 	if ((CopyLen == 0U) || (DestSize < CopyLen) || (SrcSize < CopyLen)) {
 		Status =  XST_INVALID_PARAM;
 	}
-	/* Return error for overlap string */
+	/**< Return error for overlap string */
 	else if ((Src8 < Dst8) && (&Src8[CopyLen - 1U] >= Dst8)) {
 		Status =  XST_INVALID_PARAM;
 	} else if ((Dst8 < Src8) && (&Dst8[CopyLen - 1U] >= Src8)) {
@@ -890,8 +868,8 @@ s32 Xil_SChangeEndiannessAndCpy(void *Dest, const u32 DestSize,
 /**
  * @brief	This function changes the endianness of given buffer by reversing the byte order.
  *
- * @param	Buf - Pointer to the buffer whose data needs to be reversed.
- * @param	Size - is the size of the buffer in bytes to be reversed.
+ * @param[in]	Buf - Pointer to the buffer whose data needs to be reversed.
+ * @param[in]	Size - is the size of the buffer in bytes to be reversed.
  *
  * @return
  *		XST_SUCCESS - Data successfully reversed
@@ -908,7 +886,7 @@ s32 Xil_SReverseData(void *Buf, u32 Size)
 	u8 Data= 0U;
 	u32 LoopCnt = 0U;
 
-	/* Input validation */
+	/**< Input validation */
 	if (Size == 0U) {
 		Status = XST_INVALID_PARAM;
 		goto END;
@@ -939,9 +917,9 @@ END:
  * @brief	This function copies data from 64 bit address Src to 64 bit
  * address Dst
  *
- * @param	DstAddr is the 64 bit destination address
- * @param	SrcAddr is the 64 bit source address
- * @param	Cnt is the number of bytes of data to be copied
+ * @param[in]	DstAddr is the 64 bit destination address
+ * @param[in]	SrcAddr is the 64 bit source address
+ * @param[in]	Cnt is the number of bytes of data to be copied
  *
  * @note	This API is impacted by aliasing issues when handling SRC/DST addresses.
  * 		This API will be deprecated from 2027.1.
@@ -952,7 +930,7 @@ END:
  *************************************************************************************************/
 void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 {
-	/* Checking for overlap */
+	/**< Checking for overlap */
 	if (((SrcAddr < DstAddr) && ((SrcAddr + Cnt) <= DstAddr)) ||
 	    ((DstAddr < SrcAddr) && ((DstAddr + Cnt) <= SrcAddr))) {
 #if (defined(__riscv) && (__riscv_xlen == 32) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > 32)) || \
@@ -987,11 +965,9 @@ void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 /**
  * @brief	This function increments the buffer data by specified value.
  *
- * @param	Buffer		Pointer to the buffer to be incremented.
- * @param	BufferSize	Size of the buffer in bytes.
- * @param	IncVal		Increment value.
- *
- * @return	None
+ * @param[in,out]	Buffer      Pointer to the buffer to be incremented.
+ * @param[in] BufferSize  Size of the buffer in bytes.
+ * @param[in] IncVal      Increment value.
  *
  * @note	The caller shall define a local buffer as the buffer contents are modified
  *		in-place by this API. The input buffer will be updated with the incremented
@@ -1026,9 +1002,9 @@ void Xil_IncrementBuffer(u8* Buffer, u32 BufferSize, u8 IncVal)
  * @brief	This function copies data from a 64 bit source address
  * to a 32 bit destination address
  *
- * @param	DstAddr is the 32 bit destination address
- * @param	SrcAddr is the 64 bit source address
- * @param	Count is the number of bytes of data to be copied
+ * @param[in]	DstAddr is the 32 bit destination address
+ * @param[in]	SrcAddr is the 64 bit source address
+ * @param[in]	Count is the number of bytes of data to be copied
  *
  * @note	This function does not handle overlapping memory regions.
  *		No copy is performed if source and destination overlap or are the same.
@@ -1083,9 +1059,9 @@ END:
  * @brief	This function copies data from a 32 bit source address
  * to a 64 bit destination address
  *
- * @param	DstAddr is the 64 bit destination address
- * @param	SrcAddr is the 32 bit source address
- * @param	Count is the number of bytes of data to be copied
+ * @param[in]	DstAddr is the 64 bit destination address
+ * @param[in]	SrcAddr is the 32 bit source address
+ * @param[in]	Count is the number of bytes of data to be copied
  *
  * @note	This function does not handle overlapping memory regions.
  *		No copy is performed if source and destination overlap or are the same.

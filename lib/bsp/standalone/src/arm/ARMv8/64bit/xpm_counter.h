@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,7 +18,6 @@
 * defines configurations XPM_CNTRCFGx which can be used to program the event
 * counters to count a set of events.
 *
-*
 * @{
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,16 +27,17 @@
 * 8.0   mus  06/13/22 Initial version
 * 8.2   asa  02/23/23 Add PMU macros for A53, A72 and A78.
 * 9.0   ml   03/03/23 Added description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+#ifndef XPMCOUNTER_H
+#define XPMCOUNTER_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XPMCOUNTER_H /**< prevent circular inclusions */
-#define XPMCOUNTER_H /**< by using protection macros */
 
 /***************************** Include Files ********************************/
 
@@ -280,8 +280,7 @@ void Xpm_SleepPerfCounter(u32 delay, u64 frequency);
 }
 #endif
 
-#endif
-
 /**
 * @} End of "addtogroup armv8_event_counter_apis".
 */
+#endif

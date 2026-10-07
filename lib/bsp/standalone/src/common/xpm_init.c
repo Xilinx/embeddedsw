@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -10,9 +10,8 @@
 * @addtogroup xpm_init xpm APIs
 *
 * This file contains the xpm node data and API's.
-* @{
-* @details
 *
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -20,6 +19,7 @@
 * ----- -------- -------- -----------------------------------------------
 *  1.0  gm      14/06/23 Initial release.
 *  9.4  ml      10/09/25 Added SDT support
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 ******************************************************************************/
 
@@ -226,3 +226,4 @@ void __attribute__ ((constructor)) xpminit()
 	}
 }
 #endif
+/** @} */

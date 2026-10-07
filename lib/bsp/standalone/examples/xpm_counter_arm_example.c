@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -32,6 +32,10 @@ volatile u32 DummyWrite;
 volatile u32 DummyWrite1;
 volatile u32 DummyWrite2;
 
+/**
+ * @brief Entry point; demonstrates ARM performance monitor counter usage.
+ * @return Always 0.
+ */
 int main()
 {
     u32 CntrId;

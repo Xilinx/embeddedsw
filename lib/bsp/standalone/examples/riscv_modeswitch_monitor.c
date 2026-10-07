@@ -34,7 +34,7 @@
  *
  * After building the guest application, find _boot:
  *
- *   riscv64-unknown-elf-nm <guest_app>.elf | awk '$3 == "_boot" { print $1 }'
+ *   riscv64-unknown-elf-nm \<guest_app\>.elf | awk '$3 == "_boot" { print $1 }'
  *
  * Example output: 80200000  →  use GUEST_BOOT_PA=0x80200000U
  * Example output: 80040000  →  use GUEST_BOOT_PA=0x80040000U
@@ -45,7 +45,7 @@
  *
  * Replace 0x80200000U with your nm result. Rebuild the monitor after changing
  * this. Load the guest ELF at that same address before running the monitor
- * (e.g. XSDB dow). If USER_COMPILE_DEFINITIONS is unset, the default below
+ * (for example XSDB dow). If USER_COMPILE_DEFINITIONS is unset, the default below
  * (0x80200000U) is used — only valid when the guest actually links there.
  *
  * Supported guest ECALLs
@@ -80,13 +80,14 @@
 #include "xil_mode_switch.h"
 
 #ifndef GUEST_BOOT_PA
-#define GUEST_BOOT_PA	0x80200000U
+#define GUEST_BOOT_PA	0x80200000U /**< Physical address of the guest ELF boot symbol. */
 #endif
 
-#define MONITOR_MSTATE_COOKIE	0xA0BE0001U
+#define MONITOR_MSTATE_COOKIE	0xA0BE0001U /**< Magic cookie written to mstate by the monitor. */
 
 static volatile u32 g_monitor_cookie;
 
+/** @brief Perform a single monitored handoff to the guest and check exit code. */
 static int monitor_handoff_once(const char *label, u32 expect_exit)
 {
 	int st;
@@ -116,6 +117,10 @@ static int monitor_handoff_once(const char *label, u32 expect_exit)
 	return 0;
 }
 
+/**
+ * @brief Entry point; runs the RISC-V mode-switch monitor test sequence.
+ * @return 0 on success, 1 on initialization or handoff failure.
+ */
 int main(void)
 {
 	xil_printf("\r\n=== RISC-V mode-switch handoff example (monitor) ===\r\n");

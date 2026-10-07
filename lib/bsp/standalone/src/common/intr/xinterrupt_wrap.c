@@ -38,6 +38,7 @@
 * 9.5   ml   20/08/26 Add per-root XIntcInitRoots[] and XIntcGicConnectedRoots[]
 *                     for SDT multi-root INTC cascade. XIntcGetInstance() walks
 *                     IntrParent chain to locate the correct root instance.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -99,13 +100,12 @@ static XIntc *XIntcGetInstance(UINTPTR IntcParent)
 *
 * @brief    Initializes the interrupt controller.
 *
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
 * @return   XST_SUCCESS if initialization was successful
 * 	    XST_FAILURE in case of failure
 *
-* @note     None.
-*
+
 ******************************************************************************/
 int XConfigInterruptCntrl(UINTPTR IntcParent)
 {
@@ -200,16 +200,15 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 *
 * @brief    connects to the interrupt controller.
 *
-* @param    IntrId: Interrupt Id.
-* @param    IntrHandler: Interrupt handler.
-* @param    CallBackRef: Callback reference for handler.
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] IntrHandler: Interrupt handler.
+* @param[in] CallBackRef: Callback reference for handler.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
 * @return   XST_SUCCESS if initialization was successful
 * 	    XST_FAILURE in case of failure
 *
-* @note     None.
-*
+
 ******************************************************************************/
 int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, UINTPTR IntcParent)
 {
@@ -276,15 +275,14 @@ int XConnectToInterruptCntrl(u32 IntrId, void *IntrHandler, void *CallBackRef, U
 *
 * @brief    connects to the Fast interrupt controller.
 *
-* @param    IntrId: Interrupt Id.
-* @param    IntrHandler: Interrupt handler.
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] IntrHandler: Interrupt handler.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
 * @return   XST_SUCCESS if initialization was successful
 * 	    XST_FAILURE in case of failure
 *
-* @note     None.
-*
+
 ******************************************************************************/
 #if defined (__MICROBLAZE__) || defined(__riscv)
 int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcParent)
@@ -338,14 +336,13 @@ int XConnectToFastInterruptCntrl(u32 IntrId, void *IntrHandler, UINTPTR IntcPare
 *
 * @brief    disconnects the interrupt controller.
 *
-* @param    IntrId: Interrupt Id.
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
 * @return   XST_SUCCESS if initialization was successful
 * 	    XST_FAILURE in case of failure
 *
-* @note     None.
-*
+
 ******************************************************************************/
 int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent)
 {
@@ -390,14 +387,13 @@ int XDisconnectInterruptCntrl(u32 IntrId, UINTPTR IntcParent)
 *
 * @brief    Starts the interrupt controller.
 *
-* @param    Mode: Interrupt controller mode type.
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] Mode: Interrupt controller mode type.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
 * @return   XST_SUCCESS if initialization was successful
 * 	    XST_FAILURE in case of failure
 *
-* @note     None.
-*
+
 ******************************************************************************/
 int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent)
 {
@@ -436,13 +432,10 @@ int XStartInterruptCntrl(u32 Mode, UINTPTR IntcParent)
 *
 * @brief    Enable the interrupt id.
 *
-* @param    IntrId: Interrupt Id.
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 {
@@ -480,13 +473,10 @@ void XEnableIntrId( u32 IntrId, UINTPTR IntcParent)
 *
 * @brief    disable the interrupt id.
 *
-* @param    IntrId: Interrupt Id.
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 {
@@ -524,14 +514,11 @@ void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 *
 * @brief    Configures the priority and trigger type.
 *
-* @param    IntrId: Interrupt Id.
-* @param    Priority: Priority of the interrupt
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] Priority: Priority of the interrupt
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 {
@@ -556,15 +543,12 @@ void XSetPriorityTriggerType( u32 IntrId, u8 Priority, UINTPTR IntcParent)
 *
 * @brief    Gets the priority of the interrupt controller.
 *
-* @param    IntrId: Interrupt Id.
-* @param    Priority: Priority of the interrupt
-* @param    Trigger: Trigger type of the interrupt
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] Priority: Priority of the interrupt
+* @param[in] Trigger: Trigger type of the interrupt
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger,  UINTPTR IntcParent)
 {
@@ -583,12 +567,9 @@ void XGetPriorityTriggerType( u32 IntrId, u8 *Priority, u8 *Trigger,  UINTPTR In
 *
 * @brief    stops the interrupt controller.
 *
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void XStopInterruptCntrl( UINTPTR IntcParent)
 {
@@ -611,13 +592,10 @@ void XStopInterruptCntrl( UINTPTR IntcParent)
 *
 * @brief    Registers the interrupt handler.
 *
-* @param    IntrHandler: Interrupt handler.
-* @param    IntcParent: Interrupt controller baseaddress and type.
+* @param[in] IntrHandler: Interrupt handler.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
 *
-* @return   None.
-*
-* @note     None.
-*
+
 ******************************************************************************/
 void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 {
@@ -661,17 +639,16 @@ void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 *
 * @brief    Setup the interrupt system.
 *
-* @param    DriverInstance: Driver instance pointer.
-* @param    IntrHandler: Interrupt handler function pointer.
-* @param    IntrId: Interrupt Id.
-* @param    IntcParent: Interrupt controller baseaddress and type.
-* @param    Priority: Interrupt priority.
+* @param[in] DriverInstance: Driver instance pointer.
+* @param[in] IntrHandler: Interrupt handler function pointer.
+* @param[in] IntrId: Interrupt Id.
+* @param[in] IntcParent: Interrupt controller baseaddress and type.
+* @param[in] Priority: Interrupt priority.
 *
 * @return   XST_SUCCESS if initialization was successful
 * 	    XST_FAILURE in case of failure
 *
-* @note     None.
-*
+
 ******************************************************************************/
 int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  UINTPTR IntcParent,
 			  u16 Priority)
@@ -774,31 +751,30 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 * @brief    Convert legacy interrupt id to encoded interrupt ID needed by
 *           interrupt wrapper layer.
 *
-* @param    LegacyIntrId Interrupt ID of specific peripheral/PL-PS interrupt
+* @param[in] LegacyIntrId Interrupt ID of specific peripheral/PL-PS interrupt
 *           port documented in TRM of targeted SoC.
-* @param  : TriggerType Trigger type for targeted interrupt ID (documented in
+* @param[in] : TriggerType Trigger type for targeted interrupt ID (documented in
 *           TRM of targeted SoC)
 * 		1 = low-to-high edge triggered
 *	        2 = high-to-low edge triggered
 *	        4 = active high level-sensitive
 *	        8 = active low level-sensitive
 *
-* @param    IntrType Interrupt type of targeted interrupt ID.
+* @param[in] IntrType Interrupt type of targeted interrupt ID.
 * 		0 = SPI
 * 		1 = PPI (not applicable for AXI INTC)
 * 		2 = SGI
-* @param    IntcType Parent interrupt controller of targeted interrupt ID
+* @param[in] IntcType Parent interrupt controller of targeted interrupt ID
 * 		1 = AXI INTC
 * 		0 = GIC
 *
-* @param    IntrId Interrupt ID in encoded format compliant with interrupt
+* @param[in] IntrId Interrupt ID in encoded format compliant with interrupt
 *           wrapper layer. It is output parameter.
 * @return   XST_SUCCESS if LegacyIntrId is encoded successfully and copied to
 *                       IntrId
 *           XST_FAILURE in case of incorrect input parameter
 *
-* @note     None.
-*
+
 ******************************************************************************/
 s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcType, u32 *IntrId )
 {
@@ -834,17 +810,16 @@ s32 XGetEncodedIntrId(u32 LegacyIntrId, u32 TriggerType, u8 IntrType, u8 IntcTyp
 *
 * @brief    Trigger software interrupt
 *
-* @param    IntrId Targeted interrupt ID
-* @param    IntcType Parent interrupt controller base address in encoded format
-* @param    Cpu_Id List of CPUs to send the interrupt. NA for AXI INTC.
+* @param[in] IntrId Targeted interrupt ID
+* @param[in] IntcType Parent interrupt controller base address in encoded format
+* @param[in] Cpu_Id List of CPUs to send the interrupt. NA for AXI INTC.
 *           For VERSAL_NET bits 0-7 specifies core ID to send the interrupt.
 *           bits 8-15 specifies the cluster id.
 
 * @return   XST_SUCCESS - Successful generation of software interrupt
 *           XST_FAILURE - in case of failure
 *
-* @note     None.
-*
+
 ******************************************************************************/
 s32 XTriggerSoftwareIntr(u32 IntrId, UINTPTR IntcParent, u32 Cpu_Id)
 {
@@ -889,3 +864,4 @@ s32 XTriggerSoftwareIntr(u32 IntrId, UINTPTR IntcParent, u32 Cpu_Id)
 }
 
 #endif
+/** @} */

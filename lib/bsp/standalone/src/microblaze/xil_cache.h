@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +11,6 @@
 *
 * @addtogroup microblaze_cache_apis Microblaze Cache APIs
 * @{
-*
 *
 * The xil_cache.h file contains cache related driver functions (or macros)
 * that can be used to access the device.  The user should refer to the
@@ -37,8 +36,8 @@
 *					  to use the various cache related APIs. These changes are
 *					  done for implementing PR #697214.
 * 9.1   ml   01/09/24 Fix comment for Xil_L2CacheInvalidateRange.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
-*
 *
 ******************************************************************************/
 
@@ -67,9 +66,6 @@ extern "C" {
 * @brief    Invalidate the entire L1 data cache. If the cacheline is modified
 *            (dirty), the modified contents are lost.
 *
-*
-* @return   None.
-*
 * @note		Processor must be in real mode.
 ****************************************************************************/
 #define Xil_L1DCacheInvalidate() microblaze_invalidate_dcache()
@@ -80,8 +76,7 @@ extern "C" {
 * @brief    Invalidate the entire L2 data cache. If the cacheline is modified
 *           (dirty),the modified contents are lost.
 *
-* @return   None.
-*
+
 * @note		Processor must be in real mode.
 ****************************************************************************/
 #define Xil_L2CacheInvalidate() microblaze_invalidate_cache_ext()
@@ -94,11 +89,10 @@ extern "C" {
 *           data cache, the cacheline containing that byte is invalidated.If
 *           the cacheline is modified (dirty), the modified contents are lost.
 *
-* @param    Addr is address of range to be invalidated.
-* @param    Len is the length in bytes to be invalidated.
+* @param[in]    Addr is address of range to be invalidated.
+* @param[in]    Len is the length in bytes to be invalidated.
 *
-* @return   None.
-*
+
 * @note     Processor must be in real mode.
 ****************************************************************************/
 #define Xil_L1DCacheInvalidateRange(Addr, Len) \
@@ -112,11 +106,10 @@ extern "C" {
 *           L1 data cache, the cacheline containing that byte is invalidated.
 *           If the cacheline is modified (dirty), the modified contents are lost.
 *
-* @param    Addr: address of range to be invalidated.
-* @param    Len: length in bytes to be invalidated.
+* @param[in]    Addr: address of range to be invalidated.
+* @param[in]    Len: length in bytes to be invalidated.
 *
-* @return   None.
-*
+
 * @note     Processor must be in real mode.
 ****************************************************************************/
 #define Xil_L2CacheInvalidateRange(Addr, Len) \
@@ -129,11 +122,10 @@ extern "C" {
 *          data cache, and is modified (dirty), the cacheline will be written
 *          to system memory.The cacheline will also be invalidated.
 *
-* @param    Addr: the starting address of the range to be flushed.
-* @param    Len: length in byte to be flushed.
+* @param[in]    Addr: the starting address of the range to be flushed.
+* @param[in]    Len: length in byte to be flushed.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 #ifndef SDT
 #if (XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK == 1)
@@ -153,11 +145,10 @@ void Xil_L1DCacheFlushRange(UINTPTR Addr,u32 Len);
 *           data cache, and is modified (dirty), the cacheline will be
 *           written to system memory. The cacheline will also be invalidated.
 *
-* @param   Addr: the starting address of the range to be flushed.
-* @param   Len: length in byte to be flushed.
+* @param[in]   Addr: the starting address of the range to be flushed.
+* @param[in]   Len: length in byte to be flushed.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 #define Xil_L2CacheFlushRange(Addr, Len) \
 		microblaze_flush_cache_ext_range((Addr), (Len))
@@ -168,8 +159,7 @@ void Xil_L1DCacheFlushRange(UINTPTR Addr,u32 Len);
 *           cacheline will be written to system memory. The entire data cache
 *           will be invalidated.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 #ifndef SDT
 #if (XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK == 1)
@@ -187,8 +177,7 @@ void Xil_L1DCacheFlush(void);
 *           cacheline will be written to system memory. The entire data cache
 *           will be invalidated.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 #define Xil_L2CacheFlush() microblaze_flush_cache_ext()
 
@@ -197,11 +186,10 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Invalidate the instruction cache for the given address range.
 *
-* @param    Addr is address of ragne to be invalidated.
-* @param    Len is the length in bytes to be invalidated.
+* @param[in]    Addr is address of ragne to be invalidated.
+* @param[in]    Len is the length in bytes to be invalidated.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 #define Xil_L1ICacheInvalidateRange(Addr, Len) \
 			microblaze_invalidate_icache_range((Addr), (Len))
@@ -211,8 +199,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Invalidate the entire instruction cache.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 #define Xil_L1ICacheInvalidate() \
 			microblaze_invalidate_icache()
@@ -223,8 +210,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Enable the L1 data cache.
 *
-* @return   None.
-*
+
 * @note     This is processor specific.
 *
 ****************************************************************************/
@@ -236,8 +222,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Disable the L1 data cache.
 *
-* @return   None.
-*
+
 * @note     This is processor specific.
 *
 ****************************************************************************/
@@ -249,8 +234,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Enable the instruction cache.
 *
-* @return   None.
-*
+
 * @note     This is processor specific.
 *
 ****************************************************************************/
@@ -262,8 +246,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Disable the L1 Instruction cache.
 *
-* @return   None.
-*
+
 * @note     This is processor specific.
 *
 ****************************************************************************/
@@ -275,8 +258,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Enable the data cache.
 *
-* @return   None.
-*
+
 ****************************************************************************/
 #define Xil_DCacheEnable() Xil_L1DCacheEnable()
 
@@ -285,9 +267,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Enable the instruction cache.
 *
-* @return   None.
-*
-*
+
 ****************************************************************************/
 #define Xil_ICacheEnable() Xil_L1ICacheEnable()
 
@@ -296,8 +276,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Invalidate the entire Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #define Xil_DCacheInvalidate() \
 	Xil_L2CacheInvalidate(); \
@@ -314,11 +293,10 @@ void Xil_L1DCacheFlush(void);
 *           lost and are NOT written to system memory before the line is
 *           invalidated.
 *
-* @param	Addr: Start address of range to be invalidated.
-* @param	Len: Length of range to be invalidated in bytes.
+* @param[in]	Addr: Start address of range to be invalidated.
+* @param[in]	Len: Length of range to be invalidated in bytes.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #define Xil_DCacheInvalidateRange(Addr, Len) \
 	Xil_L2CacheInvalidateRange((Addr), (Len)); \
@@ -330,8 +308,7 @@ void Xil_L1DCacheFlush(void);
 *
 * @brief    Flush the entire Data cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #define Xil_DCacheFlush() \
 	Xil_L2CacheFlush(); \
@@ -345,11 +322,10 @@ void Xil_L1DCacheFlush(void);
 *            If the cacheline is modified (dirty), the written to system
 *            memory first before the before the line is invalidated.
 *
-* @param	Addr: Start address of range to be flushed.
-* @param	Len: Length of range to be flushed in bytes.
+* @param[in]	Addr: Start address of range to be flushed.
+* @param[in]	Len: Length of range to be flushed in bytes.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #define Xil_DCacheFlushRange(Addr, Len) \
 	Xil_L2CacheFlushRange((Addr), (Len)); \
@@ -360,8 +336,7 @@ void Xil_L1DCacheFlush(void);
 /**
 * @brief    Invalidate the entire instruction cache.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #define Xil_ICacheInvalidate() \
 	Xil_L2CacheInvalidate(); \
@@ -377,11 +352,10 @@ void Xil_L1DCacheFlush(void);
 *            lost and are NOT written to system memory before the line is
 *            invalidated.
 *
-* @param	Addr: Start address of ragne to be invalidated.
-* @param	Len: Length of range to be invalidated in bytes.
+* @param[in]	Addr: Start address of ragne to be invalidated.
+* @param[in]	Len: Length of range to be invalidated in bytes.
 *
-* @return	None.
-*
+
 ****************************************************************************/
 #define Xil_ICacheInvalidateRange(Addr, Len) \
 	Xil_L2CacheInvalidateRange((Addr), (Len)); \

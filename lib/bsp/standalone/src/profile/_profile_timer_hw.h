@@ -1,7 +1,14 @@
 /******************************************************************************
 * Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file _profile_timer_hw.h
+* @brief Hardware timer interface for profiling.
+*/
+
 
 
 #ifndef PROFILE_TIMER_HW_H
@@ -20,24 +27,34 @@
 #endif
 
 #ifdef PROC_PPC
+/** @brief Read a 32-bit value from a profile timer register. */
+/** @brief Read a 32-bit value from a profile timer I/O register. */
 #define ProfIo_In32(InputPtr) { (*(volatile u32 *)(InputPtr)); SYNCHRONIZE_IO; }
+/** @brief Write a 32-bit value to a profile timer register. */
+/** @brief Write a 32-bit value to a profile timer I/O register. */
 #define ProfIo_Out32(OutputPtr, Value) { (*(volatile u32 *)(OutputPtr) = Value); SYNCHRONIZE_IO; }
 #else
+/** @brief Read a 32-bit value from a profile timer I/O register. */
 #define ProfIo_In32(InputPtr) (*(volatile u32 *)(InputPtr));
+/** @brief Write a 32-bit value to a profile timer I/O register. */
 #define ProfIo_Out32(OutputPtr, Value) { (*(volatile u32 *)(OutputPtr) = (Value)); }
 #endif
 
+/** @brief Write a value to a timer counter register. */
 #define ProfTmrCtr_mWriteReg(BaseAddress, TmrCtrNumber, RegOffset, ValueToWrite)\
 	ProfIo_Out32(((u32)(BaseAddress) + (u32)XTmrCtr_Offsets[(TmrCtrNumber)] +	\
 			   (u32)(RegOffset)), (u32)(ValueToWrite))
 
+/** @brief Read a value from a timer counter register. */
 #define ProfTimerCtr_mReadReg(BaseAddress, TmrCtrNumber, RegOffset)	\
 	ProfIo_In32((u32)(BaseAddress) + (u32)XTmrCtr_Offsets[(TmrCtrNumber)] + (u32)(RegOffset))
 
+/** @brief Set the control/status register of a timer counter. */
 #define ProfTmrCtr_mSetControlStatusReg(BaseAddress, TmrCtrNumber, RegisterValue)\
 	ProfTmrCtr_mWriteReg((BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET,     \
 					   (RegisterValue))
 
+/** @brief Get the control/status register of a timer counter. */
 #define ProfTmrCtr_mGetControlStatusReg(BaseAddress, TmrCtrNumber)		\
 	ProfTimerCtr_mReadReg((u32)(BaseAddress), (TmrCtrNumber), XTC_TCSR_OFFSET)
 
@@ -67,7 +84,7 @@ extern "C" {
 #include "xscugic.h"
 #endif
 
-extern u32 timer_clk_ticks ;
+extern u32 timer_clk_ticks ; /**< Timer clock ticks for the profiling timer. */
 
 /*--------------------------------------------------------------------
  * PowerPC Target - Timer related functions

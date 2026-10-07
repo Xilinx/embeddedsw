@@ -3,6 +3,10 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+/**
+ * @file xil_printf.c
+ * @brief Lightweight printf implementation for embedded standalone BSP.
+ */
 /*---------------------------------------------------*/
 /* Modified from :                                   */
 /* Public Domain version of printf                   */
@@ -59,6 +63,7 @@ static void process_format_spec(char8 **ctrl_ptr, va_list *argp);
 
 #if (!defined(MICROBLAZE32)) && (!defined(RISCV32)) && \
 	(!defined(ZYNQMP_R5_FSBL_BSP))  && (!defined(DISABLE_64BIT_PRINT))
+/** @brief Defined when the target supports 64-bit print formatting. */
 #define SUPPORT_64BIT_PRINT
 #endif
 
@@ -193,13 +198,13 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 	}
 	padding( par->left_flag, par);
 }
-/*---------------------------------------------------*/
-/*                                                   */
-/* This routine moves a 64-bit number to the output  */
-/* buffer as directed by the padding and positioning */
-/* flags. 											 */
-/*                                                   */
 #if defined (SUPPORT_64BIT_PRINT)
+/**
+ * @brief Output a 64-bit number to the buffer with the specified base and padding.
+ * @param[in] n    Number to print.
+ * @param[in] base Numeric base (for example, 10 for decimal, 16 for hex).
+ * @param[in] par  Formatting parameters controlling padding and alignment.
+ */
 static void outnum1( const s64 n, const s32 base, params_t *par)
 {
 	s32 negative;
@@ -546,19 +551,16 @@ try_next:
 
 /*****************************************************************************/
 /**
-* This routine operates just like a printf/sprintf
-* routine. It outputs a set of data under the
-* control of a formatting string. Not all of the
-* standard C format control are supported. The ones
-* provided are primarily those needed for embedded
-* systems work. Primarily the floating point
-* routines are omitted. Other formats could be
-* added easily by following the examples shown for
-* the supported formats.
-* void esp_printf( const func_ptr f_ptr,
-* const charptr ctrl1, ...)
+* @brief Print a formatted string to the console (subset of printf).
 *
-*******************************************************************************/
+* Outputs data under control of a formatting string. Not all standard C format
+* controls are supported; primarily those needed for embedded systems work.
+* Floating point routines are omitted.
+*
+* @param[in] ctrl1 Format string controlling the output.
+* @param[in] ... Variable arguments matching the format string.
+*
+******************************************************************************/
 #if  defined (__aarch64__) && HYP_GUEST && EL1_NONSECURE && XEN_USE_PV_CONSOLE
 void xil_printf( const char8 *ctrl1, ...)
 {
@@ -577,10 +579,16 @@ void xil_printf( const char8 *ctrl1, ...)
 }
 #endif
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * This routine is equivalent to vprintf routine
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void xil_vprintf(const char8 *ctrl1, va_list argp)
 {
 	char8 *ctrl = (char8 *)ctrl1;

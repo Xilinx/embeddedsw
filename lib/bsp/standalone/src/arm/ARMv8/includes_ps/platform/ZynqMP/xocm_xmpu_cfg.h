@@ -1,7 +1,12 @@
 /*******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+/**
+ * @file xocm_xmpu_cfg.h
+ * @brief OCM XMPU configuration register definitions.
+ */
 
 
 #ifndef __XOCM_XMPU_CFG_H__

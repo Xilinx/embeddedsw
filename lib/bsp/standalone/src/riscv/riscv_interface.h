@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -19,8 +19,6 @@
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
-*
-*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -48,6 +46,7 @@
 *                     It fixes CR#1162997.
 * 9.1   ml   11/16/23 Fix compilation errors reported with -std=c2x compiler flag
 * 9.4   vmt  24/09/25 Added extended address support for RISC-V
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -63,8 +62,8 @@
 extern "C" {
 #endif
 
-extern void riscv_enable_interrupts(void);          /* Enable Interrupts */
-extern void riscv_disable_interrupts(void);         /* Disable Interrupts */
+extern void riscv_enable_interrupts(void); /**< Enable RISC-V machine-mode interrupts. */
+extern void riscv_disable_interrupts(void); /**< Disable RISC-V machine-mode interrupts. */
 extern void riscv_register_handler(                 /* Register external interrupt handler */
 	XInterruptHandler Handler,
 	void *DataPtr);
@@ -234,7 +233,9 @@ Executes an extended address store instruction in the MicroBlaze RISC-V processo
 #ifdef __cplusplus
 }
 #endif
-#endif // _RISCV_INTERFACE_H_
+
+/** @endcond */
 /**
 * @} End of "addtogroup riscv_pseudo_asm_macro".
 */
+#endif // _RISCV_INTERFACE_H_

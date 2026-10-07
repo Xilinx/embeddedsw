@@ -1,5 +1,6 @@
 /*
 Copyright DornerWorks 2016
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
 following conditions are met:
@@ -16,59 +17,60 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING 
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/**
+* @file xen_events.c
+* @brief Xen event channel implementation.
+*/
+
+
 #include "xen.h"
 #include "hypercall.h"
 #include "arm64_ops.h"
 #include "xen_events.h"
 #include "xen_console.h"
 
-#define VA_TO_GUEST_PAGE(x) 	((u64)x >> PAGE_SHIFT)		//BMC set up a direct VA:PA mapping
+#define VA_TO_GUEST_PAGE(x) 	((u64)x >> PAGE_SHIFT)		/**< Convert a virtual address to a guest page frame number (direct VA:PA mapping). */
 
 #define active_evtchns(cpu,sh,idx)              \
     ((sh)->evtchn_pending[idx] &                \
-     ~(sh)->evtchn_mask[idx])
+     ~(sh)->evtchn_mask[idx]) /**< Compute the set of active (pending and unmasked) event channels for the given index. */
 
-// Structure for going about sharing a page with Xen
+/** @brief Structure for sharing a page with Xen via add_to_physmap hypercall. */
 struct xen_add_to_physmap
 {
-    /* Which domain to change the mapping for. */
-    u16 domid;
-
-    /* Number of pages to go through for gmfn_range */
-    u16   size;
-
-    unsigned int space; /* => enum phys_map_space */
-
-    /* Index into space being mapped. */
-    u64 	idx;
-
-    /* GPFN in domid where the source mapping page should appear. */
-    u64     gpfn;
+    u16 domid;           /**< Domain to change the mapping for. */
+    u16 size;            /**< Number of pages for gmfn_range. */
+    unsigned int space;  /**< Physical map space type (enum phys_map_space). */
+    u64 idx;             /**< Index into the space being mapped. */
+    u64 gpfn;            /**< GPFN in domid where the source mapping page appears. */
 };
-typedef struct xen_add_to_physmap xen_add_to_physmap_t;
+typedef struct xen_add_to_physmap xen_add_to_physmap_t; /**< Xen hypercall structure for mapping a guest physical frame. */
 
+/** @brief Per-vCPU information shared between guest and Xen hypervisor. */
 struct vcpu_info {
-    u8 evtchn_upcall_pending;
-    u8 pad0;
-    u64 evtchn_pending_sel;
-    u8 pad[30];
-}; /* 64 bytes (x86) */
-typedef struct vcpu_info vcpu_info_t;
+    u8 evtchn_upcall_pending;  /**< Event channel upcall pending flag. */
+    u8 pad0;                   /**< Padding byte. */
+    u64 evtchn_pending_sel;    /**< Bitmask of pending event channels. */
+    u8 pad[30];                /**< Padding to align to 64 bytes. */
+}; /**< 64 bytes (x86) */
+typedef struct vcpu_info vcpu_info_t; /**< Per-vCPU information shared between guest and hypervisor. */
 
+/** @brief Shared info page between guest and Xen hypervisor. */
 struct shared_info
 {
-	vcpu_info_t vcpu_info[1];
-	u64 evtchn_pending[sizeof(u64) * 8];
-    u64 evtchn_mask[sizeof(u64) * 8];
+    vcpu_info_t vcpu_info[1];                  /**< Per-vCPU info array. */
+    u64 evtchn_pending[sizeof(u64) * 8];       /**< Pending event channel bitmap. */
+    u64 evtchn_mask[sizeof(u64) * 8];          /**< Masked event channel bitmap. */
 };
-typedef struct shared_info shared_info_t;
+typedef struct shared_info shared_info_t; /**< Shared info page between guest and Xen hypervisor. */
 
+/** @brief Event handler entry mapping an event channel to its handler. */
 struct event_handler
 {
-	u32 evtch_id;
-	void (*handler_fptr)(void);
+    u32 evtch_id;               /**< Event channel identifier. */
+    void (*handler_fptr)(void); /**< Pointer to the event handler function. */
 };
-typedef struct event_handler event_handler_t;
+typedef struct event_handler event_handler_t; /**< Event handler entry mapping an event channel to its handler. */
 
 static event_handler_t event_handler_table[1] = {{0}};
 static __attribute__((aligned(0x1000))) u8 shared_info_page[1<<PAGE_SHIFT];
@@ -76,6 +78,12 @@ static struct shared_info* shared_info = NULL;
 
 
 // This function is used to register a callback function for a particular event channel
+/**
+ * @brief Register a handler function for a Xen event channel.
+ * @param[in] evtch_id Event channel port to handle.
+ * @param[in] fptr Pointer to the handler function.
+ * @return 0 on success, negative on failure.
+ */
 int register_event_handler(u32 evtch_id, void (*fptr)(void))
 {
 
@@ -91,6 +99,10 @@ int register_event_handler(u32 evtch_id, void (*fptr)(void))
 }
 
 // This function is used by the guest to notify Xen that an event has occurred
+/**
+ * @brief Send a notification on a Xen event channel.
+ * @param[in] evtch_id Event channel port to notify.
+ */
 void notify_evtch(u32 evtch_id)
 {
     u32 op = (u32)evtch_id;
@@ -98,6 +110,10 @@ void notify_evtch(u32 evtch_id)
 }
 
 // This function makes it so an event can cause an interrupt to the guest
+/**
+ * @brief Unmask a Xen event channel.
+ * @param[in] port Event channel port to unmask.
+ */
 void unmask_evtchn(uint32_t port)
 {
 	struct shared_info* s = shared_info;
@@ -122,6 +138,10 @@ void unmask_evtchn(uint32_t port)
 }
 
 // Clears the event flag so Xen can raise it again later
+/**
+ * @brief Clear a pending Xen event channel notification.
+ * @param[in] port Event channel port to clear.
+ */
 static inline void clear_evtchn(uint32_t port)
 {
     shared_info_t *s = shared_info;
@@ -129,11 +149,16 @@ static inline void clear_evtchn(uint32_t port)
 }
 
 // This is where we would call the handler for the specific event, but for now only supporting 1 event
+/**
+ * @brief Dispatch and handle a pending event on the given channel port.
+ * @param[in] port Event channel port to dispatch.
+ * @return 0 on success.
+ */
 static int do_event(u32 port)
 {
     clear_evtchn(port);
 
-    /* call the handler */
+    /**< call the handler */
     if(port == event_handler_table[0].evtch_id)
     {
 	event_handler_table[0].handler_fptr();
@@ -143,6 +168,10 @@ static int do_event(u32 port)
 }
 
 // The IRQ handler for the interrupt that Xen uses for events (IRQ 31).
+/**
+ * @brief Top-level IRQ handler for Xen event channels.
+ * @param[in] data Opaque pointer to event data (unused).
+ */
 void handle_event_irq(void* data)
 {
 	unsigned long  l1, l2, l1i, l2i;
@@ -172,11 +201,12 @@ void handle_event_irq(void* data)
 }
 
 // Initialize the guest's event framework
+/** @brief Initialise the Xen event channel subsystem. */
 void init_events(void)
 {
     xen_add_to_physmap_t xatp;
 
-    /* Map shared_info page */
+    /**< Map shared_info page */
     xatp.domid = DOMID_SELF;
     xatp.idx = 0;
     xatp.space = XENMAPSPACE_shared_info;

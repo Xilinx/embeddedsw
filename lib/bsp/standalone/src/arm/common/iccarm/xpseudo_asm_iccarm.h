@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,16 +24,17 @@
 *						  instructions definitions
 * 6.2   kvn      03/03/17 Added support thumb mode
 * 7.2   asa              04/03/20 Renamed the str macro to strw.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+#ifndef XPSEUDO_ASM_ICCARM_H
+#define XPSEUDO_ASM_ICCARM_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XPSEUDO_ASM_ICCARM_H  /* prevent circular inclusions */
-#define XPSEUDO_ASM_ICCARM_H  /* by using protection macros */
 
 /***************************** Include Files ********************************/
 

@@ -1,11 +1,14 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file read.c
+ * @brief File read stub implementation for standalone BSP.
+ */
 
 /*
- *
  *
  * The "__read" function reads a number of bytes, at most "size" into
  * the memory area pointed to by "buffer".  It returns the number of
@@ -22,10 +25,21 @@
 #include "xil_types.h"
 
 
+/**
+ * @brief Read a character from console input.
+ * @return Character received from the console.
+ */
 extern char inbyte(void);
 
 size_t __read(sint32 handle,unsigned char * buffer, size_t size);
 
+/**
+ * @brief IAR __read syscall; reads from STDIN if configured.
+ * @param[in] handle File handle (unused; reads from STDIN).
+ * @param[out] buffer Buffer to store the bytes read.
+ * @param[in] size Maximum number of bytes to read.
+ * @return Number of bytes read, or 0 on error.
+ */
 size_t __read(sint32 handle,unsigned char * buffer, size_t size)
 {
 

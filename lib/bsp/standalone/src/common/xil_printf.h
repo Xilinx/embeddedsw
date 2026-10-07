@@ -3,6 +3,12 @@
 * Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+
+/**
+* @file xil_printf.h
+* @brief Lightweight printf interface for embedded systems.
+*/
+
  #ifndef XIL_PRINTF_H
  #define XIL_PRINTF_H
 
@@ -29,19 +35,19 @@ extern "C" {
 struct params_s;
 
 
-/*---------------------------------------------------*/
-/* The purpose of this routine is to output data the */
+/**< The purpose of this routine is to output data the */
 /* same as the standard printf function without the  */
 /* overhead most run-time libraries involve. Usually */
 /* the printf brings in many kilobytes of code and   */
 /* that is unacceptable in most embedded systems.    */
-/*---------------------------------------------------*/
 
 typedef char8* charptr;
-typedef s32 (*func_ptr)(int c);
+typedef s32 (*func_ptr)(int c); /**< Function pointer type for character output callbacks. */
 
 /************************** Function Prototypes ******************************/
-/**< prints the statement */
+/**
+ * @brief Print a formatted string to the console (subset of printf).
+*/
 void xil_printf( const char8 *ctrl1, ...);
 /**
  * @brief Print a formatted string using a va_list (subset of vprintf).
@@ -49,9 +55,20 @@ void xil_printf( const char8 *ctrl1, ...);
  * @param[in] argp  Variable argument list matching the format string.
  */
 void xil_vprintf(const char8 *ctrl1, va_list argp);
+/**
+ * @brief Print a raw string to the console.
+ */
 void print( const char8 *ptr);
-extern void outbyte (char c); /**< To send byte */
-extern char inbyte(void); /**< To receive byte */
+/**
+ * @brief Send a single byte to the console output.
+ * @param[in] c Character to send.
+ */
+extern void outbyte (char c);
+/**
+ * @brief Receive a single byte from the console input.
+ * @return Character received from the console.
+ */
+extern char inbyte(void);
 
 #ifdef __cplusplus
 }

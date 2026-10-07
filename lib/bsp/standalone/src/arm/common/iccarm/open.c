@@ -1,7 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file open.c
+ * @brief File open stub implementation for standalone BSP.
+ */
 
 
 /*
@@ -22,6 +27,12 @@
 
 sint32 __open(const char8 * filename, sint32 mode);
 
+/**
+ * @brief Stub for __open(); always returns 0.
+ * @param[in] filename Filename string (unused).
+ * @param[in] mode Open mode (unused).
+ * @return Always 0.
+ */
 sint32 __open(const char8 * filename, sint32 mode)
 {
 return 0;

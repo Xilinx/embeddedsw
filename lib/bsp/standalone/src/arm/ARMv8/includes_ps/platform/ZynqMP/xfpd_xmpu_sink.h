@@ -1,7 +1,12 @@
 /*******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+/**
+ * @file xfpd_xmpu_sink.h
+ * @brief FPD XMPU sink register definitions.
+ */
 
 
 #ifndef __XFPD_XMPU_SINK_H__

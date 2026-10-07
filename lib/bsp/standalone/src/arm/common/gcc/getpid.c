@@ -1,7 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file getpid.c
+ * @brief getpid stub implementation for standalone BSP.
+ */
 
 
 #include "xil_types.h"
@@ -19,11 +24,19 @@ __attribute__((weak)) s32 getpid(void);
 }
 #endif
 
+/**
+ * @brief Stub for getpid(); always returns 1.
+ * @return Always 1 (single process).
+ */
 __attribute__((weak)) s32 getpid(void)
 {
   return 1;
 }
 
+/**
+ * @brief Stub for _getpid(); always returns 1.
+ * @return Always 1 (single process).
+ */
 __attribute__((weak)) s32 _getpid(void)
 {
   return 1;

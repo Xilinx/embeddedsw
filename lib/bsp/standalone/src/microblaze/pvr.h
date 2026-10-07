@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2006 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -29,13 +29,13 @@
 * @{
 *
 ******************************************************************************/
-/**
- *@cond nocomments
- */
 
 #ifndef PVR_H
 #define PVR_H
 
+/**
+ *@cond nocomments
+ */
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "mb_interface.h"
@@ -512,13 +512,13 @@ Returns the value of C_USE_MMU. Refer to the MicroBlaze Processor Reference Guid
 /**
  *@endcond
  */
+/** @brief Read all MicroBlaze Processor Version Registers (PVR) into the given structure. */
 int microblaze_get_pvr (pvr_t *pvr);
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* PVR_H */
-
 /**
 * @} End of "addtogroup microblaze_pvr_macros".
 */
+#endif /* PVR_H */

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +39,7 @@
 *                      compilation warnings with "-Wstrict-prototypes" flag.
 *                      It fixes CR#1108601.
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -45,12 +47,12 @@
 *
 ******************************************************************************/
 
+#ifndef MICROBLAZE_SLEEP_H
+#define MICROBLAZE_SLEEP_H
+
 /**
  *@cond nocomments
  */
-#ifndef MICROBLAZE_SLEEP_H		/* prevent circular inclusions */
-#define MICROBLAZE_SLEEP_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -124,7 +126,7 @@ void MB_Sleep(u32 MilliSeconds) __attribute__((__deprecated__));
 }
 #endif
 
-#endif /* end of protection macro */
 /**
 * @} End of "addtogroup microblaze_sleep_routines".
 */
+#endif /* end of protection macro */

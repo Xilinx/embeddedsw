@@ -7,9 +7,8 @@
 /****************************************************************************/
 /**
 * @file xil_sutil.h
+*
 * @addtogroup common_utilities Common Utility APIs
-* @{
-* @details
 *
 * xil_sutil.h file contains xil utility functions declarations
 * Except few functions, most of these functions are wrappers to standard functions.
@@ -21,6 +20,7 @@
 * like password, keys which prevent disclosing of the data using
 * timing analysis.
 *
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -33,6 +33,7 @@
 * 9.5   abh      10/11/25 Fixed MISRA-C violations
 *       rmv      04/08/26 Added XIL_SCEILDIV macro
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -58,8 +59,8 @@ extern "C" {
  *
  * Builds version number by concatenates 16-bit Major version and Minor version.
  *
- * @param   Major is the 16-bit major version number
- * @param   Minor is the 16-bit minor version number
+ * @param[in] Major is the 16-bit major version number
+ * @param[in] Minor is the 16-bit minor version number
  *
  * @return	32-bit version number
  *
@@ -74,14 +75,13 @@ extern "C" {
  * for redundancy. This is to avoid glitches from altering the return values of
  * security critical functions.
  *
- * @param   Var is the variable which holds the return value of function
+ * @param[in] Var is the variable which holds the return value of function
  *          executed
- * @param   VarTmp is the variable which holds the value stored in Var
- * @param	Function is the function to be executed
- * @param	Other params are arguments to the called function
+ * @param[in] VarTmp is the variable which holds the value stored in Var
+ * @param[in]	Function is the function to be executed
+ * @param[in]	Other params are arguments to the called function
  *
- * @return	None
- *
+
  ******************************************************************************/
 #define XSECURE_TEMPORAL_IMPL(Var, VarTmp, Function, ...) \
 	{ \
@@ -99,15 +99,14 @@ extern "C" {
  * critical functions. The macro requires a label to be passed to "go to"
  * in case of error.
  *
- * @param   Label is the label defined in function and the control
+ * @param[in] Label is the label defined in function and the control
  *          will jump to the label in case of XST_FAILURE
- * @param   Status is the variable which holds the return value of
+ * @param[in] Status is the variable which holds the return value of
  *          function executed
- * @param	Function is the function to be executed
- * @param	Other params are arguments to the called function
+ * @param[in]	Function is the function to be executed
+ * @param[in]	Other params are arguments to the called function
  *
- * @return	None
- *
+
  ******************************************************************************/
 #define XSECURE_TEMPORAL_CHECK(Label, Status, Function, ...)   \
 	{ \
@@ -130,15 +129,14 @@ extern "C" {
  * a function call and cause altering of the code flow in security critical
  * functions.
  *
- * @param	Status is the variable which holds the return value of
+ * @param[in]	Status is the variable which holds the return value of
  *		function executed
- * @param	StatusTmp is the variable which holds the return value of
+ * @param[in]	StatusTmp is the variable which holds the return value of
  *		redundant function call executed
- * @param	Function is the function to be executed
- * @param	Other params are arguments to the called function
+ * @param[in]	Function is the function to be executed
+ * @param[in]	Other params are arguments to the called function
  *
- * @return	None
- *
+
  ******************************************************************************/
 #define XSECURE_REDUNDANT_CALL(Status, StatusTmp, Function, ...)   \
 	{ \
@@ -153,11 +151,10 @@ extern "C" {
  * a function call and cause altering of the code flow in security critical
  * functions.
  *
- * @param	Function is the function to be executed
- * @param	Other params are arguments to the called function
+ * @param[in]	Function is the function to be executed
+ * @param[in]	Other params are arguments to the called function
  *
- * @return	None
- *
+
  ******************************************************************************/
 #define XSECURE_REDUNDANT_IMPL(Function, ...)   \
 	{ \
@@ -171,10 +168,9 @@ extern "C" {
  * This Macro helps to detect glitches skipping the Status check
  * in case of error.
  *
- * @param 	None
+ * @param[in] None
  *
- * @return	None
- *
+
  ******************************************************************************/
 #define XSECURE_STATUS_CHK_GLITCH_DETECT(Status)   \
 	{ \
@@ -192,9 +188,9 @@ extern "C" {
  * Returns ceil value of (Numerator / Denominator) using the specified
  * integer Type used for the computation. Denominator must not be zero.
  *
- * @param	Type is the data type (e.g. u32, u64) used for the computation
- * @param	Numerator is the dividend
- * @param	Denominator is the divisor and must not be zero
+ * @param[in]	Type is the data type (for example u32, u64) used for the computation
+ * @param[in]	Numerator is the dividend
+ * @param[in]	Denominator is the divisor and must not be zero
  *
  * @return	Ceil value of (Numerator / Denominator)
  *

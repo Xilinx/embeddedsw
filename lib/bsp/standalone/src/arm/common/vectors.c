@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * 		      header file to fix misra_c_2012_rule_5_6 violation.
 * 8.0	sk   03/02/22 Move XExc_VectorTableEntry declaration to xil_exception.h
 * 		      header file to fix misra_c_2012_rule_8_4 violation.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -47,8 +49,7 @@
 * This is the C level wrapper for the FIQ interrupt called from the vectors.s
 * file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void FIQInterrupt(void)
 {
@@ -62,8 +63,7 @@ void FIQInterrupt(void)
 * This is the C level wrapper for the IRQ interrupt called from the vectors.s
 * file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void IRQInterrupt(void)
 {
@@ -78,8 +78,7 @@ void IRQInterrupt(void)
 * This is the C level wrapper for the Undefined exception called from the
 * vectors.s file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void UndefinedException(void)
 {
@@ -93,8 +92,7 @@ void UndefinedException(void)
 * This is the C level wrapper for the SW Interrupt called from the vectors.s
 * file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void SWInterrupt(void)
 {
@@ -108,8 +106,7 @@ void SWInterrupt(void)
 * This is the C level wrapper for the DataAbort Interrupt called from the
 * vectors.s file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void DataAbortInterrupt(void)
 {
@@ -123,8 +120,7 @@ void DataAbortInterrupt(void)
 * This is the C level wrapper for the PrefetchAbort Interrupt called from the
 * vectors.s file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void PrefetchAbortInterrupt(void)
 {
@@ -139,8 +135,7 @@ void PrefetchAbortInterrupt(void)
 * This is the C level wrapper for the Synchronous Interrupt called from the vectors.s
 * file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void SynchronousInterrupt(void)
 {
@@ -154,8 +149,7 @@ void SynchronousInterrupt(void)
 * This is the C level wrapper for the SError Interrupt called from the
 * vectors.s file.
 *
-* @return	None.
-*
+
 ******************************************************************************/
 void SErrorInterrupt(void)
 {

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2004 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +19,7 @@
 * 1.00b 10/03/03 First release
 * 8.0	03/17/22 Move MB_InterruptVectorTableEntry declaration to
 * 		 header file to fix misra_c_2012_rule_8_5 violation.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -50,12 +52,11 @@ void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr);
 /*****************************************************************************/
 /**
 *
-* @brief 	This function is the standard interrupt handler used by the MicroBlaze processor.
+* @brief 	Standard interrupt handler for the MicroBlaze processor.
 * 			It saves all volatile registers, calls the users top level interrupt handler.
 * 			When this returns, it restores all registers, and returns using a rtid instruction.
 *
-* @return 	None.
-*
+
 ******************************************************************************/
 #ifdef __clang__
 void _interrupt_handler(void)
@@ -76,12 +77,10 @@ void __interrupt_handler(void)
 * 			argument provided in this call as the DataPtr is used as the argument
 * 			for the handler when it is called.
 *
-* @param    Handler: Top level handler.
-* @param    DataPtr: a reference to data that will be passed to the handler
+* @param[in]    Handler: Top level handler.
+* @param[in]    DataPtr: a reference to data that will be passed to the handler
 *           when it gets called.
 
-* @return   None.
-*
 *
 ****************************************************************************/
 void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr)

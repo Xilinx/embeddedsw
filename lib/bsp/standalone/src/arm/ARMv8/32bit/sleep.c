@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,7 +27,8 @@
 * 6.0   mus      08/18/16 Updated the sleep signature. Fix for CR#956899
 * 6.6	srm      10/18/17 Updated sleep routines to support user configurable
 *			  implementation. Now sleep routines will use Timer
-*                         specified by the user (i.e. Global timer/TTC timer)
+*                         specified by the user (that is Global timer/TTC timer)
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -45,12 +47,11 @@
 *
 * This API is used to provide delays in seconds
 *
-* @param	seconds requested
+* @param[in]	seconds requested
 *
 * @return	0 always
 *
-* @note		None.
-*
+
 ****************************************************************************/
 unsigned sleep_A53(unsigned int seconds)
 {

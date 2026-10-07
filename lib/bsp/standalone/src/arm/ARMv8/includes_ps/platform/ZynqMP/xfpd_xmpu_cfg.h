@@ -1,7 +1,12 @@
 /*******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
+/**
+ * @file xfpd_xmpu_cfg.h
+ * @brief FPD XMPU configuration register definitions.
+ */
 
 
 #ifndef __XFPD_XMPU_CFG_H__

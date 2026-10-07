@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +21,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 7.6   mus  10/24/23 Initial version
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -28,12 +29,12 @@
 *
 ******************************************************************************/
 
+#ifndef RISCV_SLEEP_H
+#define RISCV_SLEEP_H
+
 /**
  *@cond nocomments
  */
-#ifndef RISCV_SLEEP_H		/* prevent circular inclusions */
-#define RISCV_SLEEP_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -106,7 +107,7 @@ u32 Xil_GetRISCVFrequency(void);
 }
 #endif
 
-#endif /* end of protection macro */
 /**
 * @} End of "addtogroup microblaze_sleep_routines".
 */
+#endif /* end of protection macro */

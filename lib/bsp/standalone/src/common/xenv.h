@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -22,6 +23,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00b ch   10/24/02 Added XENV_LINUX
 * 1.00a rmm  04/17/02 First release
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -89,11 +91,11 @@ extern "C" {
  *
  * Copies a non-overlapping block of memory.
  *
- * @param   DestPtr is the destination address to copy data to.
- * @param   SrcPtr is the source address to copy data from.
- * @param   Bytes is the number of bytes to copy.
+ * @param[in]   DestPtr is the destination address to copy data to.
+ * @param[in]   SrcPtr is the source address to copy data from.
+ * @param[in]   Bytes is the number of bytes to copy.
  *
- * @return  None
+
  */
 
 /*****************************************************************************/
@@ -103,11 +105,11 @@ extern "C" {
  *
  * Fills an area of memory with constant data.
  *
- * @param   DestPtr is the destination address to set.
- * @param   Data contains the value to set.
- * @param   Bytes is the number of bytes to set.
+ * @param[in]   DestPtr is the destination address to set.
+ * @param[in]   Data contains the value to set.
+ * @param[in]   Bytes is the number of bytes to set.
  *
- * @return  None
+
  */
 /*****************************************************************************/
 /**
@@ -116,9 +118,9 @@ extern "C" {
  *
  * Samples the processor's or external timer's time base counter.
  *
- * @param   StampPtr is the storage for the retrieved time stamp.
+ * @param[in]   StampPtr is the storage for the retrieved time stamp.
  *
- * @return  None
+
  */
 
 /*****************************************************************************/
@@ -128,8 +130,8 @@ extern "C" {
  *
  * Computes the delta between the two time stamps.
  *
- * @param   Stamp1Ptr - First sampled time stamp.
- * @param   Stamp1Ptr - Sedond sampled time stamp.
+ * @param[in]   Stamp1Ptr - First sampled time stamp.
+ * @param[in]   Stamp1Ptr - Sedond sampled time stamp.
  *
  * @return  An unsigned int value with units of microseconds.
  */
@@ -141,8 +143,8 @@ extern "C" {
  *
  * Computes the delta between the two time stamps.
  *
- * @param   Stamp1Ptr - First sampled time stamp.
- * @param   Stamp1Ptr - Sedond sampled time stamp.
+ * @param[in]   Stamp1Ptr - First sampled time stamp.
+ * @param[in]   Stamp1Ptr - Sedond sampled time stamp.
  *
  * @return  An unsigned int value with units of milliseconds.
  */
@@ -153,9 +155,9 @@ extern "C" {
  *
  * Delay the specified number of microseconds.
  *
- * @param   delay is the number of microseconds to delay.
+ * @param[in]   delay is the number of microseconds to delay.
  *
- * @return  None
+
  */
 
 #ifdef __cplusplus

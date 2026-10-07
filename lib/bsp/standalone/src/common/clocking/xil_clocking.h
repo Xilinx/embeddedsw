@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,12 +23,13 @@
 * 7.7 sk  01/10/22 Add function prototype for Xil_ClockGetRate to fix
 * 		   misra_c_2012_rule_8_4 violation.
 * 9.0 ml  03/03/23 Added description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIL_CLOCKING_H	/**< prevent circular inclusions */
-#define XIL_CLOCKING_H	/**< by using protection macros */
+#ifndef XIL_CLOCKING_H
+#define XIL_CLOCKING_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,8 +44,8 @@ extern "C" {
 #if defined  (XPAR_XCRPSU_0_DEVICE_ID) || defined(XPAR_PSU_CRL_APB_BASEADDR)
 #include "xclockps.h"
 #else
-typedef u32 XClock_OutputClks;
-typedef u64 XClockRate;
+typedef u32 XClock_OutputClks; /**< Output clock identifier type (fallback for non-CRPSU). */
+typedef u64 XClockRate;        /**< Clock rate type in Hz (fallback for non-CRPSU). */
 #endif
 
 /***************************** Include Files *********************************/
@@ -56,7 +57,6 @@ typedef u64 XClockRate;
 XStatus Xil_ClockDisable(XClock_OutputClks ClockId);
 XStatus Xil_ClockEnable(XClock_OutputClks ClockId);
 XStatus Xil_ClockInit(void);
-XStatus Xil_ClockGet(void);
 XStatus Xil_ClockSetRate(XClock_OutputClks ClockId, XClockRate Rate, XClockRate *SetRate);
 XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate);
 
@@ -64,4 +64,5 @@ XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate);
 }
 #endif
 
+/** @} */
 #endif /* end of protection macro */

@@ -1,8 +1,14 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file xdebug.h
+* @brief Debug print macros for Xilinx software IP.
+*/
+
 
 
 #ifndef XDEBUG

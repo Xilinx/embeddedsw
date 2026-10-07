@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2013 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,18 +11,20 @@
 * This file contains the various register definitions and function prototypes for
 * implementing the reset functionality of zynq ps devices
 *
+* <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00b kpc   03/07/13 First release.
 * 9.0   ml    03/03/23 Add description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XIL_MISC_RESET_H	/**< prevent circular inclusions */
-#define XIL_MISC_RESET_H	/**< by using protection macros */
+#ifndef XIL_MISC_RESET_H
+#define XIL_MISC_RESET_H
 
 #ifdef __cplusplus
 extern "C" {

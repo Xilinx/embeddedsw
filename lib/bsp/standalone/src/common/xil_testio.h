@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,17 +26,18 @@
 * Ver    Who    Date    Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00 hbm  08/05/09 First release
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+
+#ifndef XIL_TESTIO_H
+#define XIL_TESTIO_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XIL_TESTIO_H	/* prevent circular inclusions */
-#define XIL_TESTIO_H	/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -70,7 +72,7 @@ extern s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap);
 }
 #endif
 
-#endif /* end of protection macro */
 /**
 * @} End of "addtogroup common_test_utils".
 */
+#endif /* end of protection macro */

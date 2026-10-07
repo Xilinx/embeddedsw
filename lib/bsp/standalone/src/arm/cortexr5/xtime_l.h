@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,7 +24,7 @@
 *						and mask
 * 6.6   srm    10/22/17 Added a warning message for the user configurable sleep
 *                       implementation when default timer is selected by the user
-* 7.2   mus    01/29/20 Updated #defines to support PMU cycle counter for sleep
+* 7.2   mus    01/29/20 Updated defines to support PMU cycle counter for sleep
 *                       routines.
 * 7.5   dp      01/05/21 Updated COUNTS_PER_SECOND/USECOND and ITERS_PER_SEC/USEC
 *                        macros to round it off to nearest possible value so that
@@ -41,17 +41,18 @@
 * 9.1   dp   03/26/24    Use global timer only when CONFIG_R52_USE_LPD_SYS_TMR is
 *                        defined for R52. By default, it uses PMU as sleep timer.
 *                        Update COUNTS_PER_SECOND accordingly.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+
+#ifndef XTIME_H
+#define XTIME_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XTIME_H /* prevent circular inclusions */
-#define XTIME_H /* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -99,7 +100,7 @@ static inline u64 arch_counter_get_cntvct(void)
 #elif defined (SLEEP_TIMER_BASEADDR)
 #pragma message ("For the sleep routines, TTC3/TTC2 is used")
 #elif !defined (DONT_USE_PMU_FOR_SLEEP_ROUTINES)
-#pragma message ("For the sleep routines, PMU cycle counter is used, dont reset/disable the pmu counters")
+#pragma message ("For the sleep routines, PMU cycle counter is used, don't reset/disable the pmu counters")
 #else
 #pragma message ("For the sleep routines, machine cycles are used")
 #endif
@@ -132,14 +133,23 @@ typedef u32 XTime;
  *@endcond
  */
 
+/**
+ * @brief Set the current global timer count.
+ * @param[in] Xtime_Global Value to write to the global timer counter.
+ */
 void XTime_SetTime(XTime Xtime_Global);
+
+/**
+ * @brief Get the current global timer count.
+ * @param[out] Xtime_Global Pointer to store the current timer counter value.
+ */
 void XTime_GetTime(XTime *Xtime_Global);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* XTIME_H */
 /**
 * @} End of "@addtogroup r5_time_apis".
 */
+#endif /* XTIME_H */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,7 +12,6 @@
 * This header file contains ARM Cortex A53,A9,R5 specific sleep related APIs.
 * For sleep related functions that can be used across all Xilinx supported
 * processors, please use xil_sleeptimer.h.
-*
 *
 * <pre>
 * MODIFICATION HISTORY :
@@ -26,15 +25,16 @@
 * 7.7	sk   01/10/22 Add void to XTime_StartTTCTimer function declaration
 * 		      to fix misra_c_2012_rule_8_2 violation.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *****************************************************************************/
+
+#ifndef XIL_SLEEPTIMER_H
+#define XIL_SLEEPTIMER_H
 
 /**
  *@cond nocomments
  */
-#ifndef XIL_SLEEPTIMER_H		/* prevent circular inclusions */
-#define XIL_SLEEPTIMER_H		/* by using protection macros */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -68,53 +68,38 @@ extern "C" {
 #endif
 
 #if defined (SLEEP_TIMER_BASEADDR)
-/** @name Register Map
-*
-* Register offsets from the base address of the TTC device
-*
-* @{
-*/
- #define XSLEEP_TIMER_TTC_CLK_CNTRL_OFFSET		0x00000000U
-					     /**< Clock Control Register */
- #define XSLEEP_TIMER_TTC_CNT_CNTRL_OFFSET		0x0000000CU
-	                                     /**< Counter Control Register*/
- #define XSLEEP_TIMER_TTC_COUNT_VALUE_OFFSET	0x00000018U
-					     /**< Current Counter Value */
-/* @} */
-/** @name Clock Control Register
-* Clock Control Register definitions of TTC
-* @{
-*/
- #define XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK		0x00000001U
-						   /**< Prescale enable */
-/* @} */
-/** @name Counter Control Register
-* Counter Control Register definitions of TTC
-* @{
-*/
+#define XSLEEP_TIMER_TTC_CLK_CNTRL_OFFSET		0x00000000U
+#define XSLEEP_TIMER_TTC_CNT_CNTRL_OFFSET		0x0000000CU
+#define XSLEEP_TIMER_TTC_COUNT_VALUE_OFFSET		0x00000018U
+#define XSLEEP_TIMER_TTC_CLK_CNTRL_PS_EN_MASK		0x00000001U
 #define XSLEEP_TIMER_TTC_CNT_CNTRL_DIS_MASK		0x00000001U
-						/**< Disable the counter */
 #define XSLEEP_TIMER_TTC_CNT_CNTRL_RST_MASK		0x00000010U
-						  /**< Reset counter */
-/* @} */
+#endif
 
-/**************************** Type Definitions *******************************/
 /**
  *@endcond
  */
+
 /************************** Function Prototypes ******************************/
 
-/**< This is a helper function used by sleep/usleep APIs to
-*    have delay in sec/usec */
+#if defined (SLEEP_TIMER_BASEADDR)
+/**
+ * @brief Helper function used by sleep/usleep APIs to provide delay in sec/usec.
+ * @param[in] delay     Requested delay value.
+ * @param[in] frequency Timer frequency used to calculate the delay count.
+ */
 void Xil_SleepTTCCommon(u32 delay, u64 frequency);
 
-void XTime_StartTTCTimer(void); /**< This API starts the Triple
-                                 *   Timer Counter */
-
+/**
+ * @brief Start the Triple Timer Counter.
+ */
+void XTime_StartTTCTimer(void);
 #endif
 
+/** @cond nocomments */
 #ifdef __cplusplus
 }
 #endif
+/** @endcond */
 
 #endif /* XIL_SLEEPTIMER_H */

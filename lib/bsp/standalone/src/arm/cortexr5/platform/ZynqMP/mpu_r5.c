@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file mpu.c
+* @file mpu_r5.c
 *
 * This file contains initial configuration of the MPU.
 *
@@ -58,6 +58,7 @@
 * 9.0   ml   09/13/23 Added parenthensis on sub-expression to fix MISRA-C
 *                     violations for Rule 12.1
 * 9.4   ml   07/24/25 Fixed GCC warnings
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -161,9 +162,7 @@ static void Xil_DisableMPURegions(void);
 * MPU with default memory attributes for rest of address range for Cortex R5
 * processor.
 *
-* @return	None.
-*
-*
+
 ******************************************************************************/
 static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 		u32 Attrib)
@@ -177,11 +176,9 @@ static inline void Update_MpuConfig_Array(u32 Addr, u32 RegSize, u32 RegNum,
 /*****************************************************************************/
 /**
 *
-* Initialize MPU for during bootup with predefined region attributes.
+* Initialize MPU for during boot up with predefined region attributes.
 *
-* @return	None.
-*
-*
+
 ******************************************************************************/
 void Init_MPU(void)
 {
@@ -197,10 +194,10 @@ void Init_MPU(void)
 #ifdef	XPAR_PSU_R5_DDR_0_LOW_ADDR
 	u32 i, Offset = 0;
 	u64 size;
-	/* If the DDR is present, configure region as per DDR size */
+	/**< If the DDR is present, configure region as per DDR size */
 	size = (XPAR_PSU_R5_DDR_0_HIGH_ADDR - XPAR_PSU_R5_DDR_0_LOW_ADDR) + 1;
 	if (size < 0x80000000) {
-		/* Lookup the size.  */
+		/**< Lookup the size. */
 		for (i = 0; i < (sizeof (region_size) / sizeof (region_size[0])); i++) {
 			if (size <= region_size[i].size) {
 				RegSize = region_size[i].encoding;
@@ -233,11 +230,11 @@ void Init_MPU(void)
 			}
 		}
 	} else {
-		/* if the DDR size is > 2GB, truncate it to 2GB */
+		/**< if the DDR size is > 2GB, truncate it to 2GB */
 		RegSize = REGION_2G;
 	}
 #else
-	/* For DDRless system, configure region for TCM */
+	/**< For DDRless system, configure region for TCM */
 	RegSize = REGION_256K;
 #endif
 	if (1U == CreateTCMRegion) {
@@ -276,7 +273,7 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
-	/* 512M of device memory from 0xC0000000 to 0xDFFFFFFF for QSPI */
+	/**< 512M of device memory from 0xC0000000 to 0xDFFFFFFF for QSPI */
 	Addr = 0xC0000000U;
 	RegSize = REGION_512M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
@@ -284,7 +281,7 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
-	/* 256M of device memory from 0xE0000000 to 0xEFFFFFFF for PCIe Low */
+	/**< 256M of device memory from 0xE0000000 to 0xEFFFFFFF for PCIe Low */
 	Addr = 0xE0000000U;
 	RegSize = REGION_256M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
@@ -292,7 +289,7 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
-	/* 16M of device memory from 0xF8000000 to 0xF8FFFFFF for STM_CORESIGHT */
+	/**< 16M of device memory from 0xF8000000 to 0xF8FFFFFF for STM_CORESIGHT */
 	Addr = 0xF8000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
@@ -300,7 +297,7 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
-	/* 1M of device memory from 0xF9000000 to 0xF90FFFFF for RPU_A53_GIC */
+	/**< 1M of device memory from 0xF9000000 to 0xF90FFFFF for RPU_A53_GIC */
 	Addr = 0xF9000000U;
 	RegSize = REGION_1M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
@@ -308,7 +305,7 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
-	/* 16M of device memory from 0xFD000000 to 0xFDFFFFFF for FPS slaves */
+	/**< 16M of device memory from 0xFD000000 to 0xFDFFFFFF for FPS slaves */
 	Addr = 0xFD000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
@@ -316,7 +313,7 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
-	/* 16M of device memory from 0xFE000000 to 0xFEFFFFFF for Upper LPS slaves */
+	/**< 16M of device memory from 0xFE000000 to 0xFEFFFFFF for Upper LPS slaves */
 	Addr = 0xFE000000U;
 	RegSize = REGION_16M;
 	Attrib = DEVICE_NONSHARED | PRIV_RW_USER_RW   ;
@@ -335,14 +332,14 @@ void Init_MPU(void)
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 	RegNum++;
 
-	/* 256K of OCM RAM from 0xFFFC0000 to 0xFFFFFFFF marked as normal memory */
+	/**< 256K of OCM RAM from 0xFFFC0000 to 0xFFFFFFFF marked as normal memory */
 	Addr = 0xFFFC0000U;
 	RegSize = REGION_256K;
 	Attrib = NORM_NSHARED_WB_WA | PRIV_RW_USER_RW  ;
 	Xil_SetAttribute(Addr, RegSize, RegNum, Attrib);
 	Update_MpuConfig_Array(Addr, RegSize, RegNum, Attrib);
 
-	/* A total of 10 MPU regions are allocated with another 6 being free for users */
+	/**< A total of 10 MPU regions are allocated with another 6 being free for users */
 }
 
 /*****************************************************************************/
@@ -351,9 +348,7 @@ void Init_MPU(void)
 * Print warning on console if DDR size mapped to given CortexR5 core is not in
 * power of 2.
 *
-* @return       None.
-*
-*
+
 ******************************************************************************/
 void Print_DDRSize_Warning(void)
 {
@@ -376,13 +371,11 @@ void Print_DDRSize_Warning(void)
 * of the region size defined by reg_size having attributes attrib of region number
 * reg_num
 *
-* @param	addr is the address for which attributes are to be set.
-* @param	attrib specifies the attributes for that memory region.
-* @param	reg_size specifies the size for that memory region.
-* @param	reg_num specifies the number for that memory region.
-* @return	None.
-*
-*
+* @param[in]	addr is the address for which attributes are to be set.
+* @param[in]	attrib specifies the attributes for that memory region.
+* @param[in]	reg_size specifies the size for that memory region.
+* @param[in]	reg_num specifies the number for that memory region.
+
 ******************************************************************************/
 static void Xil_SetAttribute(u32 addr, u32 reg_size, u32 reg_num, u32 attrib)
 {
@@ -393,11 +386,11 @@ static void Xil_SetAttribute(u32 addr, u32 reg_size, u32 reg_num, u32 attrib)
 	dsb();
 	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER, reg_num);
 	isb();
-	mtcp(XREG_CP15_MPU_REG_BASEADDR, addr); 		/* Set base address of a region */
-	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL, attrib); 	/* Set the control attribute */
-	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Local_reg_size);	/* set the region size and enable it*/
+	mtcp(XREG_CP15_MPU_REG_BASEADDR, addr); 		/**< Set base address of a region */
+	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL, attrib); 	/**< Set the control attribute */
+	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Local_reg_size);	/**< set the region size and enable it*/
 	dsb();
-	isb();						/* synchronize context on this processor */
+	isb();						/**< synchronize context on this processor */
 }
 
 /*****************************************************************************/
@@ -405,9 +398,7 @@ static void Xil_SetAttribute(u32 addr, u32 reg_size, u32 reg_num, u32 attrib)
 *
 * Disable all the MPU regions if any of them is enabled
 *
-* @return	None.
-*
-*
+
 ******************************************************************************/
 static void Xil_DisableMPURegions(void)
 {

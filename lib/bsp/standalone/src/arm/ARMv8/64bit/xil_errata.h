@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +27,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 6.4   mus  08/11/17 First release
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -43,7 +45,7 @@ extern "C" {
  * @{
  */
 
-#define ENABLE_ARM_ERRATA 1
+#define ENABLE_ARM_ERRATA 1 /**< Enable ARM errata workarounds globally (undefine to disable). */
 
 #ifdef ENABLE_ARM_ERRATA
 
@@ -54,14 +56,12 @@ extern "C" {
 #define CONFIG_ARM_ERRATA_855873 1
 
 
-/*@}*/
+/** @} */
 #endif  /* ENABLE_ARM_ERRATA */
 
 #ifdef __cplusplus
 }
 #endif
 
+/** @} */
 #endif  /* XIL_ERRATA_H */
-/**
-* @} End of "addtogroup a53_errata".
-*/

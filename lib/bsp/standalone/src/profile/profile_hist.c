@@ -1,7 +1,14 @@
 /******************************************************************************
 * Copyright (c) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file profile_hist.c
+* @brief Histogram profiling implementation for standalone BSP.
+*/
+
 
 
 #include "profile.h"
@@ -18,9 +25,10 @@
 
 #include "xil_types.h"
 
-extern u32 binsize ;
-u32 prof_pc ;
+extern u32 binsize ; /**< Histogram bin size. */
+u32 prof_pc ;        /**< Program counter captured during profiling interrupt. */
 
+/** @brief Profiling timer interrupt handler; records histogram samples. */
 void profile_intr_handler( void )
 {
 

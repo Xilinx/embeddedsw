@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 3.12a asa  11/2/13 First Release
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -34,7 +36,11 @@
 
 /************************** Function Prototypes *****************************/
 
-/* embedded assembler instructions */
+/**
+ * @brief Read the Current Program Status Register (CPSR).
+ *
+ * @return Current value of the CPSR register.
+ */
 s32 mfcpsr (void)
 {
 	s32 rval;

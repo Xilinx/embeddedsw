@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -16,6 +16,7 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -------------------------------------------------------
 * 9.1   mus   10/24/23  Initial version.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -57,7 +58,7 @@ static u32 RISCVFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
 /*****************************************************************************/
 /**
 * @brief	Sets variable which stores RISC-V frequency value
-* @param	Val - Frequency value to be set
+* @param[in]	Val - Frequency value to be set
 * @return	XST_SUCCESS - If frequency updated successfully
 * 			XST_INVALID_PARAM - If specified frequency value is not valid
 *
@@ -91,13 +92,11 @@ u32 Xil_GetRISCVFrequency(void)
  *
  * @brief    Provides delay for requested duration by using RISC-V counter
  *
- * @param        delay - delay time in seconds/milli seconds/micro seconds.
+ * @param[in] delay - delay time in seconds/milli seconds/micro seconds.
  *           frequency - Number of counts per
  *                       second/milli second/micro second.
  *
- * @return       None.
- *
- *
+
   ******************************************************************************/
 static void Xil_SleepRISCVTimer(u32 delay, u64 frequency)
 {
@@ -125,9 +124,8 @@ static void Xil_SleepRISCVTimer(u32 delay, u64 frequency)
 /*****************************************************************************/
 /**
 * @brief    Provides delay for requested duration.
-* @param	useconds - time in useconds.
-* @return	0
-*
+* @param[in]	useconds - time in useconds.
+
 * @note		Instruction cache should be enabled for this to work.
 *
 ******************************************************************************/
@@ -136,7 +134,7 @@ void usleep_riscv(ULONG useconds)
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
 	Xil_SleepRISCVTimer((u32)useconds, ITERS_PER_USEC);
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
-	/* Start Axi timer */
+	/**< Start Axi timer */
 	XTime_StartAxiTimer();
 	Xil_SleepAxiTimer(useconds, COUNTS_PER_USECOND);
 #endif
@@ -146,9 +144,8 @@ void usleep_riscv(ULONG useconds)
 /*****************************************************************************/
 /**
 * @brief    Provides delay for requested duration.
-* @param	seconds - time in useconds.
-* @return	0
-*
+* @param[in]	seconds - time in useconds.
+
 * @note		Instruction cache should be enabled for this to work.
 *
 ******************************************************************************/
@@ -157,7 +154,7 @@ void sleep_riscv(u32 seconds)
 #if defined (XSLEEP_TIMER_IS_DEFAULT_TIMER)
 	 Xil_SleepRISCVTimer(seconds, ITERS_PER_SEC);
 #elif defined (XSLEEP_TIMER_IS_AXI_TIMER)
-	/* Start Axi timer */
+	/**< Start Axi timer */
 	XTime_StartAxiTimer();
 	Xil_SleepAxiTimer(seconds, COUNTS_PER_SECOND);
 #endif
@@ -169,13 +166,11 @@ void sleep_riscv(u32 seconds)
  *
  * @brief    Provides delay for requested duration by using Axi Timer.
  *
- * @param	 delay - delay time in seconds/milli seconds/micro seconds.
+ * @param[in] delay - delay time in seconds/milli seconds/micro seconds.
  *           frequency - Number of counts per
  *                       second/milli second/micro second.
  *
- * @return	 None.
- *
- *
+
   ******************************************************************************/
 #if defined (XSLEEP_TIMER_IS_AXI_TIMER)
 static void Xil_SleepAxiTimer(u32 delay, u64 frequency)
@@ -206,9 +201,7 @@ static void Xil_SleepAxiTimer(u32 delay, u64 frequency)
  *
  * @brief   This API starts the Axi Timer only when the timer is not enabled.
  *
- * @param	None.
- *
- * @return	None.
+ * @param[in] None.
  *
  * @note    Instruction cache should be enabled for this to work.
  *
@@ -217,7 +210,7 @@ static void Xil_SleepAxiTimer(u32 delay, u64 frequency)
   {
 	u32 ControlStatusReg;
 
-	/*  Checking if the timer is enabled  */
+	/**< Checking if the timer is enabled */
 	if(Xil_In32(SLEEP_TIMER_BASEADDR + XSLEEP_TIMER_AXITIMER_TCSR0_OFFSET) &&
 	                                   XSLEEP_TIMER_AXITIMER_CSR_ENABLE_TMR_MASK)
 	{

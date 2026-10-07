@@ -1,9 +1,15 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
-#ifndef XIL_XARMV8_H_ /**< prevent circular inclusions */
-#define XIL_XARMV8_H_ /**< by using protection macros */
+
+/**
+* @file xarmv8.h
+* @brief ARMv8 processor register definitions and hardware configuration.
+*/
+
+#ifndef XIL_XARMV8_H_
+#define XIL_XARMV8_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,10 +20,11 @@ extern "C" {
 #include "xil_types.h"
 
 /**************************** Type Definitions ******************************/
+/** @brief ARM v8 processor configuration parameters. */
 typedef struct {
-		u32 TimestampFreq;
-		u32 CpuFreq;
-		u32 CpuId;	/* CPU Number */
+		u32 TimestampFreq; /**< Frequency of the ARM generic timer in Hz. */
+		u32 CpuFreq; /**< CPU clock frequency in Hz. */
+		u32 CpuId;	/**< CPU Number */
 } XARMv8_Config;
 #endif
 #ifdef __cplusplus

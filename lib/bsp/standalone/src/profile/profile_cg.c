@@ -1,7 +1,14 @@
 /******************************************************************************
 * Copyright (c) 2002 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file profile_cg.c
+* @brief Call-graph profiling implementation for standalone BSP.
+*/
+
 
 
 #include "profile.h"
@@ -29,6 +36,13 @@ s32 searchpc(const struct fromstruct *froms, s32 fromssize, u32 frompc );
 /*extern struct gmonparam *_gmonparam, */
 
 #ifdef PROFILE_NO_FUNCPTR
+/**
+ * @brief Search call-graph table for a given program counter value.
+ * @param[in] cgtable Pointer to the call-graph table.
+ * @param[in] cgtable_size Number of entries in the table.
+ * @param[in] frompc Program counter of the calling function.
+ * @return Index of the matching entry, or -1 if not found.
+ */
 s32 searchpc(const struct fromto_struct *cgtable, s32 cgtable_size, u32 frompc )
 {
 	s32 index = 0 ;
@@ -43,6 +57,13 @@ s32 searchpc(const struct fromto_struct *cgtable, s32 cgtable_size, u32 frompc )
 	}
 }
 #else
+/**
+ * @brief Search call-graph froms array for a given program counter value.
+ * @param[in] froms Pointer to the call-graph from-address array.
+ * @param[in] fromssize Number of entries in the array.
+ * @param[in] frompc Program counter of the calling function.
+ * @return Index of the matching entry, or -1 if not found.
+ */
 s32 searchpc(const struct fromstruct *froms, s32 fromssize, u32 frompc )
 {
 	s32 index = 0 ;
@@ -61,6 +82,14 @@ s32 searchpc(const struct fromstruct *froms, s32 fromssize, u32 frompc )
 #endif		/* PROFILE_NO_FUNCPTR */
 
 
+/*****************************************************************************/
+/**
+* @brief Call-graph profiling hook called on every function entry.
+*
+* @param[in] frompc Program counter of the calling (parent) function.
+* @param[in] selfpc Program counter of the called (child) function.
+*
+******************************************************************************/
 void mcount( u32 frompc, u32 selfpc )
 {
 	register struct gmonparam *p = NULL;
@@ -118,7 +147,7 @@ void mcount( u32 frompc, u32 selfpc )
 		}
 	}
 
-	/*if( toindex == -1 ) { */
+	/**< if( toindex == -1 ) { */
 	p->tos-- ;
 	p->tossize++ ;
 	/* if( toindex >= N_TOS ) {
@@ -134,8 +163,8 @@ void mcount( u32 frompc, u32 selfpc )
  done:
 	p->state = GMON_PROF_ON;
 	goto enable_timer_label ;
- /* overflow: */
-	/*p->state = GMON_PROF_ERROR */
+ /**< overflow: */
+	/**< p->state = GMON_PROF_ERROR */
  enable_timer_label:
 	enable_timer();
 	return ;

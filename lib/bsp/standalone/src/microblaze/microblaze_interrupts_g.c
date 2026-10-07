@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +18,7 @@
 * Ver   Date     Changes
 * ----- -------- -----------------------------------------------
 * 1.00b 10/03/03 First release
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -27,10 +29,7 @@
 
 /* extern void XNullHandler (void *NullParameter) */
 
-/*
-* The interrupt handler table for microblaze processor
-*/
-
+/** @brief Interrupt vector table for MicroBlaze processor. */
 MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_TABLE_ENTRIES] =
 {
    {XNullHandler,

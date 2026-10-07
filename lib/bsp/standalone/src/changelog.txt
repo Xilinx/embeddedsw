@@ -598,7 +598,7 @@
  *            01/29/20  Updated standalone tcl for CortexR5 BSP, Now TTC2 would be used
  *                      for sleep routines, if TTC3 is not present in HW design. If TTC2
  *                      also not present, then CortexR5 PMU cycle counter would be used.
- *                      If user dont want to use PMU cycle counter,
+ *                      If user don't want to use PMU cycle counter,
  *                      -DDONT_USE_PMU_FOR_SLEEP_ROUTINES flag needs to be added in BSP
  *                      compiler flags.
  * 7.2 sd     03/08/20  Addéd clocking support for baremetal drivers, related files have
@@ -617,7 +617,7 @@
  *                      with LTO flags
  *     dp     07/07/20  Added armclang support for Cortex-R5 BSP
  *     mus    07/08/20  Updated standalone.tcl to fix bug in selecting TTC as sleep timer CR#1069210
- *     mus    07/28/20  Updated exception registeration related APIs for ARM
+ *     mus    07/28/20  Updated exception registration related APIs for ARM
  *                      processors, it fixes CR#1069524
  *     mus    08/25/20  Updated makefiles across standalone BSP, to support parallel make
  *                      and incremental builds.

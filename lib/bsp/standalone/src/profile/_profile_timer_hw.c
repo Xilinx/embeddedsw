@@ -1,7 +1,14 @@
 /******************************************************************************
 * Copyright (c) 2004 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+
+/**
+* @file _profile_timer_hw.c
+* @brief Hardware timer implementation for profiling.
+*/
+
 
 
 #include "profile.h"
@@ -210,6 +217,10 @@ s32 powerpc405_init(void)
  *-------------------------------------------------------------------- */
 /* #ifndef PPC_PIT_INTERRUPT */
 #if (!defined PPC_PIT_INTERRUPT && !defined PROC_CORTEXA9)
+/**
+ * @brief Initialise the OPB timer used for profiling.
+ * @return Always 0.
+ */
 s32 opb_timer_init( void )
 {
 	/* set the number of cycles the timer counts before interrupting */
@@ -308,6 +319,7 @@ s32 scu_timer_init( void )
 	return 0;
 }
 
+/** @brief Initialise the Cortex-A9 SCU private timer and GIC for profiling. */
 s32 cortexa9_init(void)
 {
 

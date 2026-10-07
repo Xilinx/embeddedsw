@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2007 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,6 +24,7 @@
 *                     and bumped version to 1.01.a.
 * 2.11a mta  03/21/07 Updated to new coding style.
 *
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -55,14 +56,11 @@
 *
 * Performs a 16-bit endian conversion.
 *
-* @param	Source contains the value to be converted.
-* @param	DestPtr contains a pointer to the location to put the
+* @param[in]	Source contains the value to be converted.
+* @param[in]	DestPtr contains a pointer to the location to put the
 *		converted value.
 *
-* @return	None.
-*
-* @note		None.
-*
+
 ******************************************************************************/
 void XIo_EndianSwap16(u16 Source, u16 *DestPtr)
 {
@@ -74,28 +72,25 @@ void XIo_EndianSwap16(u16 Source, u16 *DestPtr)
 *
 * Performs a 32-bit endian conversion.
 *
-* @param	Source contains the value to be converted.
-* @param	DestPtr contains a pointer to the location to put the
+* @param[in]	Source contains the value to be converted.
+* @param[in]	DestPtr contains a pointer to the location to put the
 *		converted value.
 *
-* @return	None.
-*
-* @note		None.
-*
+
 ******************************************************************************/
 void XIo_EndianSwap32(u32 Source, u32 *DestPtr)
 {
-	/* get each of the half words from the 32 bit word */
+	/**< get each of the half words from the 32 bit word */
 
 	u16 LoWord = (u16) (Source & 0x0000FFFF);
 	u16 HiWord = (u16) ((Source & 0xFFFF0000) >> 16);
 
-	/* byte swap each of the 16 bit half words */
+	/**< byte swap each of the 16 bit half words */
 
 	LoWord = (((LoWord & 0xFF00) >> 8) | ((LoWord & 0x00FF) << 8));
 	HiWord = (((HiWord & 0xFF00) >> 8) | ((HiWord & 0x00FF) << 8));
 
-	/* swap the half words before returning the value */
+	/**< swap the half words before returning the value */
 
 	*DestPtr = (u32) ((LoWord << 16) | HiWord);
 }
@@ -107,19 +102,18 @@ void XIo_EndianSwap32(u32 Source, u32 *DestPtr)
 * specified address and returning the byte-swapped value read from that
 * address.
 *
-* @param	InAddress contains the address to perform the input
+* @param[in]	InAddress contains the address to perform the input
 *		operation at.
 *
 * @return	The byte-swapped value read from the specified input address.
 *
-* @note		None.
-*
+
 ******************************************************************************/
 u16 XIo_InSwap16(XIo_Address InAddress)
 {
 	u16 InData;
 
-	/* get the data then swap it */
+	/**< get the data then swap it */
 	InData = XIo_In16(InAddress);
 
 	return (u16) (((InData & 0xFF00) >> 8) | ((InData & 0x00FF) << 8));
@@ -132,20 +126,19 @@ u16 XIo_InSwap16(XIo_Address InAddress)
 * specified address and returning the byte-swapped value read from that
 * address.
 *
-* @param	InAddress contains the address to perform the input
+* @param[in]	InAddress contains the address to perform the input
 *		operation at.
 *
 * @return	The byte-swapped value read from the specified input address.
 *
-* @note		None.
-*
+
 ******************************************************************************/
 u32 XIo_InSwap32(XIo_Address InAddress)
 {
 	u32 InData;
 	u32 SwapData;
 
-	/* get the data then swap it */
+	/**< get the data then swap it */
 	InData = XIo_In32(InAddress);
 	XIo_EndianSwap32(InData, &SwapData);
 
@@ -159,20 +152,17 @@ u32 XIo_InSwap32(XIo_Address InAddress)
 * specified value to the the specified address. The value is byte-swapped
 * before being written.
 *
-* @param	OutAddress contains the address to perform the output
+* @param[in]	OutAddress contains the address to perform the output
 *		operation at.
-* @param	Value contains the value to be output at the specified address.
+* @param[in]	Value contains the value to be output at the specified address.
 *
-* @return	None.
-*
-* @note		None.
-*
+
 ******************************************************************************/
 void XIo_OutSwap16(XIo_Address OutAddress, u16 Value)
 {
 	u16 OutData;
 
-	/* swap the data then output it */
+	/**< swap the data then output it */
 	OutData = (u16) (((Value & 0xFF00) >> 8) | ((Value & 0x00FF) << 8));
 
 	XIo_Out16(OutAddress, OutData);
@@ -185,20 +175,17 @@ void XIo_OutSwap16(XIo_Address OutAddress, u16 Value)
 * specified value to the the specified address. The value is byte-swapped
 * before being written.
 *
-* @param	OutAddress contains the address at which the
+* @param[in]	OutAddress contains the address at which the
 *		output operation has to be done.
-* @param	Value contains the value to be output at the specified address.
+* @param[in]	Value contains the value to be output at the specified address.
 *
-* @return	None.
-*
-* @note		None.
-*
+
 ******************************************************************************/
 void XIo_OutSwap32(XIo_Address OutAddress, u32 Value)
 {
 	u32 OutData;
 
-	/* swap the data then output it */
+	/**< swap the data then output it */
 	XIo_EndianSwap32(Value, &OutData);
 	XIo_Out32(OutAddress, OutData);
 }

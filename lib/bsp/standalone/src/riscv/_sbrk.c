@@ -2,21 +2,35 @@
 * Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file _sbrk.c
+ * @brief sbrk stub implementation for the RISC-V standalone BSP.
+ */
 
 #include <sys/types.h>
 #include <errno.h>
 #include <stddef.h>
 #include "xil_types.h"
 
-extern u8 _heap_start[];
-extern u8 _heap_end[];
+extern u8 _heap_start[]; /**< Start of heap region (defined by linker script). */
+extern u8 _heap_end[];   /**< End of heap region (defined by linker script). */
 
 #ifdef __cplusplus
 extern "C" {
-  char * _sbrk ( ptrdiff_t incr );
+  /**
+ * @brief Stub for _sbrk(); manages heap end pointer.
+ * @param[in] incr Number of bytes by which to grow the heap.
+ * @return Previous heap end address, or (char*)-1 on failure.
+ */
+char * _sbrk ( ptrdiff_t incr );
 }
 #endif
 
+/**
+ * @brief Stub for _sbrk(); manages heap end pointer.
+ * @param[in] incr Number of bytes by which to grow the heap.
+ * @return Previous heap end address, or (char*)-1 on failure.
+ */
 char * _sbrk ( ptrdiff_t incr )
 {
   static u8 *heap = NULL;

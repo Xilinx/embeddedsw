@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 * 7.2 sd  02/06/20 First release of clocking
 * 7.2 sd  03/20/20 Added checking for isolation case
 * 9.0 ml  03/03/23 Add description to fix doxygen warnings.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -40,8 +41,7 @@ XClockPs_Config *ConfigPtr;
 *
 * @return	Status to indicate success/failure.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockInit(void)
 {
@@ -64,12 +64,11 @@ XStatus Xil_ClockInit(void)
 *
 * This function enables output clock based on clock ID.
 *
-* @param	ClockId is the identifier for output clock.
+* @param[in]	ClockId is the identifier for output clock.
 *
 * @return	Status to indicate success/failure.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockEnable(XClock_OutputClks ClockId)
 {
@@ -85,12 +84,11 @@ XStatus Xil_ClockEnable(XClock_OutputClks ClockId)
 *
 * This function disables output clock based on clock ID.
 *
-* @param 	ClockId is the identifier for output clock.
+* @param[in] 	ClockId is the identifier for output clock.
 *
 * @return	Status to indicate success/failure.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockDisable(XClock_OutputClks ClockId)
 {
@@ -105,13 +103,12 @@ XStatus Xil_ClockDisable(XClock_OutputClks ClockId)
 *
 * This function is used to fetch rate of output clock.
 *
-* @param 	ClockId is the identifier for output clock.
-* @param 	Rate is a pointer to variable storing rate.
+* @param[in] 	ClockId is the identifier for output clock.
+* @param[in] 	Rate is a pointer to variable storing rate.
 *
 * @return	Status to indicate success/failure.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 {
@@ -132,14 +129,13 @@ XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 *
 * This function is used to set rate for output clock.
 *
-* @param 	ClockId is the identifier for output clock.
-* @param 	Rate is the clock rate to set.
-* @param 	SetRate is a pointer to variable holding rate that is set.
+* @param[in] 	ClockId is the identifier for output clock.
+* @param[in] 	Rate is the clock rate to set.
+* @param[in] 	SetRate is a pointer to variable holding rate that is set.
 *
 * @return	Status to indicate success/failure.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockSetRate(XClock_OutputClks ClockId, XClockRate Rate,
 							XClockRate *SetRate)
@@ -165,13 +161,12 @@ XStatus Xil_ClockSetRate(XClock_OutputClks ClockId, XClockRate Rate,
 *
 * This function is used to fetch rate of output clock.
 *
-* @param 	ClockId is the identifier for output clock.
-* @param 	Rate is pointer to variable storing rate.
+* @param[in] 	ClockId is the identifier for output clock.
+* @param[in] 	Rate is pointer to variable storing rate.
 *
 * @return	XST_FAILURE to indicate failure.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 {
@@ -185,14 +180,13 @@ XStatus Xil_ClockGetRate(XClock_OutputClks ClockId, XClockRate *Rate)
 *
 * This function is used to set rate for output clock.
 *
-* @param 	ClockId is the identifier for output clock.
-* @param 	Rate is the clock rate to set.
-* @param 	SetRate is a pointer to variable holding rate that is set.
+* @param[in] 	ClockId is the identifier for output clock.
+* @param[in] 	Rate is the clock rate to set.
+* @param[in] 	SetRate is a pointer to variable holding rate that is set.
 *
 * @return	XST_FAILURE to indicate failure.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockSetRate(XClock_OutputClks ClockId, XClockRate Rate,
 							XClockRate *SetRate) {
@@ -209,8 +203,7 @@ XStatus Xil_ClockSetRate(XClock_OutputClks ClockId, XClockRate Rate,
 *
 * @return	XST_SUCCESS to indicate success.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockInit(void)
 {
@@ -222,12 +215,11 @@ XStatus Xil_ClockInit(void)
 *
 * This function enables output clock based on clock ID.
 *
-* @param 	ClockId is the identifier for output clock.
+* @param[in] 	ClockId is the identifier for output clock.
 *
 * @return	XST_SUCCESS to indicate success.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockEnable(XClock_OutputClks ClockId)
 {
@@ -240,12 +232,11 @@ XStatus Xil_ClockEnable(XClock_OutputClks ClockId)
 *
 * This function disables output clock based on clock ID.
 *
-* @param 	ClockId is the identifier for output clock.
+* @param[in] 	ClockId is the identifier for output clock.
 *
 * @return	XST_SUCCESS to indicate success.
 *
-* @note  	None.
-*
+
 ******************************************************************************/
 XStatus Xil_ClockDisable(XClock_OutputClks ClockId)
 {
@@ -253,4 +244,5 @@ XStatus Xil_ClockDisable(XClock_OutputClks ClockId)
 	return XST_SUCCESS;
 }
 
+/** @} */
 #endif /* XCLOCKING */

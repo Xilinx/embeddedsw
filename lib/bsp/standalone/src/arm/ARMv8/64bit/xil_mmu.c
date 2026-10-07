@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,7 @@
 *                     to fix doxygen warnings.
 * 9.2   ml   09/19/24 Corrected return type to fix compilation warning by
 *                     typecasting from 'UINTPTR'(long unsigned int) to 'void *'
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 * @note
@@ -53,9 +54,9 @@
 #define BLOCK_SIZE_1TB 0x10000000000UL /**< block size 1TB */
 
 #if defined(PLATFORM_ZYNQMP) || defined (VERSAL_NET)
-#define BLOCK_SIZE_2MB_RANGE	4UL
+#define BLOCK_SIZE_2MB_RANGE	4UL /**< Range shift for 2MB block size (platform-specific). */
 #else
-#define BLOCK_SIZE_2MB_RANGE	5UL
+#define BLOCK_SIZE_2MB_RANGE	5UL /**< Range shift for 2MB block size (platform-specific). */
 #endif
 
 #if defined(VERSAL_NET)
@@ -72,10 +73,13 @@
 
 /************************** Variable Definitions *****************************/
 
-extern INTPTR MMUTableL1;
-extern INTPTR MMUTableL2;
+extern INTPTR MMUTableL1; /**< Base address of the Level-1 MMU translation table. */
+extern INTPTR MMUTableL2; /**< Base address of the Level-2 MMU translation table. */
 
 /************************** Function Prototypes ******************************/
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief	It sets the memory attributes for a section, in the translation
@@ -84,25 +88,21 @@ extern INTPTR MMUTableL2;
 *			address (defined by Addr) is greater than 4GB, the memory attribute
 *			(attrib) is set for a section of 1GB memory.
 *
-* @param	Addr: 64-bit address for which attributes are to be set.
-* @param	attrib: Attribute for the specified memory region. xil_mmu.h
-*			contains commonly used memory attributes definitions which can be
-*			utilized for this function.
-*
-* @return	None.
-*
 * @note		The MMU and D-cache need not be disabled before changing an
 *			translation table attribute.
 *
 ******************************************************************************/
+/**
+ *@endcond
+ */
 void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 {
 	INTPTR *ptr;
 	INTPTR section;
 	u64 block_size;
-	/* if region is less than 4GB MMUTable level 2 need to be modified */
+	/**< if region is less than 4GB MMUTable level 2 need to be modified */
 	if (Addr < ADDRESS_LIMIT_4GB) {
-		/* block size is 2MB for addressed < 4GB*/
+		/* block size is 2MB for addressed < 4GB */
 		block_size = BLOCK_SIZE_2MB;
 		section = Addr / block_size;
 		ptr = &MMUTableL2 + section;
@@ -129,6 +129,9 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 
 }
 
+/**
+ *@cond nocomments
+ */
 /*****************************************************************************/
 /**
 * @brief    Memory mapping for ARMv8 based processors. If successful, the
@@ -136,14 +139,16 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 *	    may include more. Specifically, it will be a power of 2 in
 *           size, aligned on a boundary of that size.
 *
-* @param       PhysAddr is base physical address at which to start mapping.
 *                   NULL in Physaddr masks possible mapping errors.
-* @param       size of region to be mapped.
-* @param       flags used to set translation table.
 *
-* @return      Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
-*
-******************************************************************************/
+* @param[in] PhysAddr Physical address to map.
+* @param[in] size Size of the region in bytes.
+* @param[in] flags Memory attributes/flags to apply.
+* @return   Physaddr on success, NULL on error. Ambiguous if Physaddr==NULL
+*******************************************************************************/
+/**
+ *@endcond
+ */
 void *Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags)
 {
 	UINTPTR section_offset;

@@ -1,9 +1,15 @@
 /******************************************************************************
 *
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *
 ******************************************************************************/
+
+/**
+* @file inbyte.c
+* @brief Character input byte stub for standalone BSP.
+*/
+
 #include "bspconfig.h"
 
 #ifdef __cplusplus

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2004 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,7 @@
 * 		 header file to fix misra_c_2012_rule_8_5 violation.
 * 8.0   08/02/22 Update description for microblaze_register_exception_handler
 *                to fix documentation issue with its arguments.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
@@ -57,13 +58,13 @@
 * argument provided in this call as the DataPtr is used as the argument
 * for the handler when it is called.
 *
-* @param    ExceptionId: ExceptionId is the id of the exception to register
+* @param[in]    ExceptionId: ExceptionId is the id of the exception to register
 *           this handler for. It can be one of the value between XIL_EXCEPTION_ID_FIRST
 *           and XIL_EXCEPTION_ID_LAST as defined in xil_exception.h.
-* @param    Handler: Top level Exception handler.
-* @param    DataPtr: DataPtr is a reference to data that will be passed to the handler
+* @param[in]    Handler: Top level Exception handler.
+* @param[in]    DataPtr: DataPtr is a reference to data that will be passed to the handler
 *           when it gets called.
-* @return   None.
+
 *
 ****************************************************************************/
 #if defined(MICROBLAZE_EXCEPTIONS_ENABLED) || defined(SDT)

@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2013 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,21 +40,9 @@
 extern "C" {
 #endif
 
-/**
- *@cond nocomments
- */
-/**
- * @name errata_definitions
- *
- * The errata conditions handled in the standalone BSP are listed below
- * @{
- */
-
+/** @cond nocomments */
 #define ENABLE_ARM_ERRATA 1
-
-/**
- *@endcond
- */
+/** @endcond */
 
 #ifdef ENABLE_ARM_ERRATA
 
@@ -88,7 +77,6 @@ extern "C" {
  */
 #define CONFIG_PL310_ERRATA_727915 1
 
-/*@}*/
 #endif  /* ENABLE_ARM_ERRATA */
 
 #ifdef __cplusplus

@@ -7,10 +7,12 @@
 /****************************************************************************/
 /**
 * @file xil_cryptoalginfo.h
-* @{
-* @details
+*
+* @addtogroup xil_cryptoalginfo Crypto Algorithm Information
 *
 * Crypto algorithm information structure declaration.
+*
+* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -24,6 +26,7 @@
 *                         response-index macros, renamed the canonical type to
 *                         Xil_LibInfo, retaining Xil_CryptoAlgInfo as a
 *                         backward-compatible alias.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -42,7 +45,7 @@ extern "C" {
 
 /*
  * Library-info response layout. These are the ABSOLUTE word indices the server
- * writes in the Features response (i.e. before any client-side status-word
+ * writes in the Features response (that is before any client-side status-word
  * shift). Raw clients (that read InstancePtr->Response directly) use these
  * indices as-is; clients whose transport strips the status word at Response[0]
  * read the same words one slot lower (INDEX - 1U).
@@ -62,15 +65,18 @@ extern "C" {
 /*
  * Index of the first library-info data word in a NON-shifted (raw) response,
  * where the transport leaves the status word at Response[0]. Raw clients (that
- * read the response directly, e.g. xilocp) copy Xil_LibInfo starting here.
+ * read the response directly, for example xilocp) copy Xil_LibInfo starting here.
  */
 #define XIL_LIBINFO_RAW_RESP_BASE	(1U)	/**< First library-info word in a raw response */
 
 /**************************** Type Definitions *******************************/
+/**
+ * @brief NIST compliance status for a cryptographic algorithm or module.
+ */
 typedef enum _Xil_CryptoAlgNistStatus {
-	NOT_APPLICABLE = 0x00,
-	NIST_COMPLIANT = 0x11,
-	NIST_NON_COMPLIANT = 0xFE,
+	NOT_APPLICABLE   = 0x00, /**< NIST status is not applicable. */
+	NIST_COMPLIANT   = 0x11, /**< Algorithm is NIST compliant. */
+	NIST_NON_COMPLIANT = 0xFE, /**< Algorithm is not NIST compliant. */
 } Xil_CryptoAlgNistStatus;
 
 /**
@@ -121,4 +127,5 @@ typedef Xil_LibInfo Xil_CryptoAlgInfo;
 }
 #endif
 
+/** @} */
 #endif /* XIL_CRYPTOALGINFO_H */

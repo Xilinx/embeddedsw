@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,16 +24,17 @@
 * 8.0   mus      02/24/22 Added macro mfcpnotoken and mtcpnotoken.
 * 8.1   asa      02/13/23 Create macros to read ESR, FAR and ELR registers.
 * 9.1   ml       11/15/23 Fix compilation errors reported with -std=c2x compiler flag
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+#ifndef XPSEUDO_ASM_GCC_H
+#define XPSEUDO_ASM_GCC_H
+
 /**
  *@cond nocomments
  */
-
-#ifndef XPSEUDO_ASM_GCC_H  /* prevent circular inclusions */
-#define XPSEUDO_ASM_GCC_H  /* by using protection macros */
 
 /***************************** Include Files ********************************/
 

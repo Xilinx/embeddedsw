@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2011 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,7 +18,6 @@
 * for different configurations which can be used for the event counters to
 * count a set of events.
 *
-*
 * @{
 *
 * <pre>
@@ -29,17 +29,18 @@
 * 3.07a asa  08/30/12 Updated for CR 675636 to provide the L2 Base Address
 *		      inside the APIs
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
 
+
+#ifndef L2CCCOUNTER_H
+#define L2CCCOUNTER_H
+
 /**
 *@cond nocomments
 */
-
-#ifndef L2CCCOUNTER_H /* prevent circular inclusions */
-#define L2CCCOUNTER_H /* by using protection macros */
-
 /***************************** Include Files ********************************/
 
 #include "xpseudo_asm.h"
@@ -90,7 +91,7 @@ void XL2cc_EventCtrStop(u32 *EveCtr0, u32 *EveCtr1);
 }
 #endif /* __cplusplus */
 
-#endif /* L2CCCOUNTER_H */
 /**
 * @} End of "addtogroup l2_event_counter_apis".
 */
+#endif /* L2CCCOUNTER_H */

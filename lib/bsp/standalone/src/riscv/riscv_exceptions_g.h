@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,17 +17,18 @@
 * Ver   Date     Changes
 * ----- -------- -----------------------------------------------
 * 9.00a 05/16/22 First release
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 ******************************************************************************/
-#ifndef RISCV_EXCEPTIONS_G_H /* prevent circular inclusions */
-#define RISCV_EXCEPTIONS_G_H /* by using protection macros */
+#ifndef RISCV_EXCEPTIONS_G_H
+#define RISCV_EXCEPTIONS_G_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define RISCV_EXCEPTIONS_ENABLED   1
+#define RISCV_EXCEPTIONS_ENABLED   1 /**< Exception handling is enabled for RISC-V. */
 
 #ifdef __cplusplus
 }

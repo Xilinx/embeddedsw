@@ -1,8 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
+/**
+ * @file read.c
+ * @brief File read stub implementation for standalone BSP.
+ */
 
 
 /* read.c -- read bytes from a input device.
@@ -28,6 +32,13 @@ __attribute__((weak)) s32 read (s32 fd, char8* buf, s32 nbytes);
 /*
  * read  -- read bytes from the serial port. Ignore fd, since
  *          we only have stdin.
+ */
+/**
+ * @brief Stub for read(); reads from STDIN if configured.
+ * @param[in] fd File descriptor (unused; reads from STDIN).
+ * @param[out] buf Buffer to store the bytes read.
+ * @param[in] nbytes Maximum number of bytes to read.
+ * @return Number of bytes read.
  */
 __attribute__((weak)) s32
 read (s32 fd, char8* buf, s32 nbytes)
@@ -57,6 +68,13 @@ read (s32 fd, char8* buf, s32 nbytes)
 #endif
 }
 
+/**
+ * @brief Stub for _read(); reads from STDIN if configured, otherwise returns 0.
+ * @param[in] fd File descriptor (unused; reads from STDIN).
+ * @param[out] buf Buffer to store the bytes read.
+ * @param[in] nbytes Maximum number of bytes to read.
+ * @return Number of bytes read.
+ */
 __attribute__((weak)) s32
 _read (s32 fd, char8* buf, s32 nbytes)
 {

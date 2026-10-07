@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -24,18 +25,18 @@
 *					  u32 which resolves issue of CR#805869
 * 5.4	pkp	 23/11/15 Added attribute definitions for Xil_SetTlbAttributes API
 * 6.8   aru  09/06/18 Removed compilation warnings for ARMCC toolchain.
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
-*
 *
 ******************************************************************************/
 
-/**
-*@cond nocomments
-*/
 
 #ifndef XIL_MMU_H
 #define XIL_MMU_H
 
+/**
+*@cond nocomments
+*/
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -77,16 +78,19 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
+/** @cond nocomments */
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
+/** @endcond */
 void Xil_EnableMMU(void);
 void Xil_DisableMMU(void);
+/** @brief Map a physical address range. */
 void* Xil_MemMap(UINTPTR PhysAddr, size_t size, u32 flags);
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* XIL_MMU_H */
 /**
 * @} End of "addtogroup a9_mmu_apis".
 */
+#endif /* XIL_MMU_H */

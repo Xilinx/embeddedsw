@@ -1,7 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -11,7 +10,6 @@
 * @file xil_testio.c
 * @addtogroup common_test_utils
 *
-*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -20,6 +18,7 @@
 * 1.00a hbm  08/25/09 First release
 * 9.00  ml   04/26/23 Updated code to fix sizeof_mismatch coverity warnings.
 * 9.3   ml   02/19/25 Fix Incorrect Pointer Arithmetic
+* 9.6   ml   10/01/26 Fix doxygen 1.15.0 and compliance checker warnings
 * </pre>
 *
 *****************************************************************************/
@@ -37,7 +36,7 @@
 /**
  *
  * Endian swap a 16-bit word.
- * @param	Data is the 16-bit word to be swapped.
+ * @param[in]	Data is the 16-bit word to be swapped.
  * @return	The endian swapped value.
  *
  */
@@ -49,7 +48,7 @@ static u16 Swap16(u16 Data)
 /**
  *
  * Endian swap a 32-bit word.
- * @param	Data is the 32-bit word to be swapped.
+ * @param[in]	Data is the 32-bit word to be swapped.
  * @return	The endian swapped value.
  *
  */
@@ -77,9 +76,9 @@ static u32 Swap32(u32 Data)
 *           register is accessed using Xil_Out8 and Xil_In8, and comparing
 *           the written values by reading them back.
 *
-* @param	Addr: a pointer to the region of memory to be tested.
-* @param	Length: Length of the block.
-* @param	Value: constant used for writing the memory.
+* @param[in]	Addr: a pointer to the region of memory to be tested.
+* @param[in]	Length: Length of the block.
+* @param[in]	Value: constant used for writing the memory.
 *
 * @return
 *           - -1 is returned for a failure
@@ -120,12 +119,12 @@ s32 Xil_TestIO8(u8 *Addr, s32 Length, u8 Value)
 *          Compare In-Out values. Whether to swap the read-in value before
 *          comparing is controlled by the 5th argument.
 *
-* @param	Addr: a pointer to the region of memory to be tested.
-* @param	Length: Length of the block.
-* @param	Value: constant used for writing the memory.
-* @param	Kind: Type of test. Acceptable values are:
+* @param[in]	Addr: a pointer to the region of memory to be tested.
+* @param[in]	Length: Length of the block.
+* @param[in]	Value: constant used for writing the memory.
+* @param[in]	Kind: Type of test. Acceptable values are:
 *		    XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
-* @param	Swap: indicates whether to byte swap the read-in value.
+* @param[in]	Swap: indicates whether to byte swap the read-in value.
 *
 * @return
 * - -1 is returned for a failure
@@ -205,12 +204,12 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 *           Xil_Out32BE, Xil_In32, Compare, Xil_Out32, Xil_In32LE/Xil_In32BE, Compare.
 *           Whether to swap the read-in value *before comparing is controlled
 *           by the 5th argument.
-* @param	Addr: a pointer to the region of memory to be tested.
-* @param	Length: Length of the block.
-* @param	Value: constant used for writing the memory.
-* @param	Kind: type of test. Acceptable values are:
+* @param[in]	Addr: a pointer to the region of memory to be tested.
+* @param[in]	Length: Length of the block.
+* @param[in]	Value: constant used for writing the memory.
+* @param[in]	Kind: type of test. Acceptable values are:
 *		    XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
-* @param	Swap: indicates whether to byte swap the read-in value.
+* @param[in]	Swap: indicates whether to byte swap the read-in value.
 *
 * @return
 *           - -1 is returned for a failure

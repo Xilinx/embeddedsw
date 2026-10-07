@@ -24,6 +24,7 @@
 * 7.7	sk	 01/10/22 Include xil_mem.h header file to fix Xil_MemCpy
 * 			  prototype misra_c_2012_rule_8_4 violation.
 * 9.5	hae	 05/02/26 Fixed alignment issue in Xil_MemCpy
+* 9.6   ml   10/02/26  Fix Doxygen 1.15.0 and compliance checker warnings.
 *
 * </pre>
 *
@@ -43,11 +44,11 @@
 /**
 * @brief       This  function copies memory from once location to other.
 *
-* @param       dst: pointer pointing to destination memory
+* @param[out]      dst: pointer pointing to destination memory
 *
-* @param       src: pointer pointing to source memory
+* @param[in]       src: pointer pointing to source memory
 *
-* @param       cnt: 32 bit length of bytes to be copied
+* @param[in]       cnt: 32 bit length of bytes to be copied
 *
 *****************************************************************************/
 void Xil_MemCpy(void* dst, const void* src, u32 cnt)
