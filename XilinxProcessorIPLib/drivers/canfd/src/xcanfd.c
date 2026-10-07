@@ -66,6 +66,7 @@
 * 2.13  vn   07/30/26 Fix Doxygen warnings
 * 2.13  vn   09/08/26 Align Doxygen comments with AMD standards
 * 2.13  vn   09/30/26 Update Doxygen comments to AMD standards
+* 2.13  vn   10/06/26 Fix XPM_SUPPORT build failure on versal_2ve_2vm.
 *
 * </pre>
 *
@@ -83,7 +84,7 @@
 #include "xenv.h"
 #include "xcanfd.h"
 #if defined  (XPM_SUPPORT)
-#include "pm_defs.h"
+#include "xpm_defs.h"
 #include "pm_api_sys.h"
 #include "pm_client.h"
 #include "xstatus.h"
@@ -145,13 +146,15 @@ int XCanFd_CfgInitialize(XCanFd *InstancePtr, XCanFd_Config *ConfigPtr,
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
 #if defined  (XPM_SUPPORT)
-	Status = XPm_RequestNode(XpmGetNodeId((u64)EffectiveAddr), PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_BLOCKING);
+	Status = XPm_RequestNode(XpmGetNodeId((u64)EffectiveAddr),
+			PM_CAP_ACCESS, XPM_MAX_QOS, REQUEST_ACK_BLOCKING);
 	if (XST_SUCCESS != Status) {
 		xil_printf("Canfd: XPm_RequestNode failed \r\n");
 		return Status;
 	}
 
-	Status = XPm_ResetAssert(XpmGetResetId((u64)EffectiveAddr), XILPM_RESET_ACTION_RELEASE);
+	Status = XPm_ResetAssert(XpmGetResetId((u64)EffectiveAddr),
+			PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
 		xil_printf("Canfd: XPm_ResetAssert() ERROR=0x%x \r\n", Status);
 		return Status;
