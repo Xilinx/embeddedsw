@@ -22,6 +22,7 @@
 *       mb   09/26/2025 Minor updates in xilpuf library
 * 2.7   bha  01/22/2026 Added ID - Only regeneration support
 * 2.8   mb   09/19/2026 Clarify TrimPufData for PDI/hash, not eFUSE.
+*       mb   10/05/2026 Pass GlobalVarFilter as u32 and drop a no-op trim branch
 *
 * </pre>
 *
@@ -121,7 +122,7 @@ static inline int XPuf_WaitForPufSynWordRdy(void)
  *		Global Variation Filter in PUF.
  *
  *****************************************************************************/
-static inline void XPuf_CfgGlobalVariationFilter(const u8 GlobalVarFilter)
+static inline void XPuf_CfgGlobalVariationFilter(const u32 GlobalVarFilter)
 {
 	if (GlobalVarFilter == TRUE) {
 		XPuf_WriteReg(XPUF_BASEADDR, XPUF_PUF_CFG0_OFFSET,
@@ -765,18 +766,14 @@ int XPuf_TrimPufData(XPuf_Data *PufData)
 				DIndex++;
 			}
 
+			/*
+			 * XPUF_EFUSE_TRIM_MASK clears only bits [11:0], which the
+			 * >> 12 discards anyway, so the last word needs no masking.
+			 */
 			for (SubIndex = 0U; SubIndex < 3U; SubIndex++) {
-				if (SubIndex == 2U) {
-					PufData->TrimmedSynData[DIndex] =
-						((SynData[SIndex] << 20U) |
-						 ((SynData[SIndex + 1U] &
-						   XPUF_EFUSE_TRIM_MASK) >> 12U));
-
-				} else {
-					PufData->TrimmedSynData[DIndex] =
-						((SynData[SIndex] << 20U) |
-						 (SynData[SIndex + 1U] >> 12U));
-				}
+				PufData->TrimmedSynData[DIndex] =
+					((SynData[SIndex] << 20U) |
+					 (SynData[SIndex + 1U] >> 12U));
 				SIndex++;
 				DIndex++;
 			}

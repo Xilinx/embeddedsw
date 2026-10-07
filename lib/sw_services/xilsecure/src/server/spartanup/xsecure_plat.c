@@ -35,6 +35,7 @@
 * 5.8   ank   09/01/26 Copy SHA residue with Xil_MemCpy to keep Xil_MemCpy64
 *                      out of the image
 *       rap   09/09/26 Return XSECURE_AES_INVALID_PARAM when AES Size is 0
+*       mb    10/05/26 Name unsupported SHA modes in the mode switch
 *
 * </pre>
 *
@@ -424,20 +425,27 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 
 	/** - Initializes the SHA instance based on SHA Mode */
 	switch(ShaMode) {
-        case XSECURE_SHA3_256:
-            ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
-            ShaPlatConfig->ShaMode = (u32)SHA256;
-            break;
+		case XSECURE_SHA3_256:
+			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
+			ShaPlatConfig->ShaMode = (u32)SHA256;
+			break;
 		case XSECURE_SHAKE_256:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
-			ShaPlatConfig->ShaMode = SHAKE256;
+			ShaPlatConfig->ShaMode = (u32)SHAKE256;
 			break;
 #ifdef SPARTANUPLUSAES1
 		case XSECURE_SHA3_384:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA384;
 			break;
+#else
+		case XSECURE_SHA3_384:
 #endif
+		case XSECURE_SHA2_256:
+		case XSECURE_SHA2_384:
+		case XSECURE_SHA2_512:
+		case XSECURE_SHA3_512:
+		case XSECURE_SHAKE_256_SLH_DSA_CHAIN:
 		case XSECURE_SHA_INVALID_MODE:
 		default:
 			Status = (int)XSECURE_SHA_INVALID_PARAM;

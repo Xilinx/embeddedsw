@@ -24,6 +24,8 @@
 * 3.7   mb   03/18/2026 Add support for temperature and voltage before efuse programming
 *       mb   03/25/2026 Use VCCAUX channel to read voltage for efuse programming checks
 * 3.8   mb   09/06/2026 Fix RTF review comments
+*       mb   10/05/2026 Define eFuse temperature and voltage limits only when
+*                       environment checks are enabled
 *
 * </pre>
 *
@@ -56,6 +58,7 @@
 #define Tsu_h_cs(ClkFreq) \
 	XIL_SCEILDIV(u64, 30U * (u64)(ClkFreq), 1000000000U)
 
+#ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
 /**< Temperature limits for Spartan UltraScale Plus eFuses */
 #define XNVM_EFUSE_TEMP_MIN			(-40.0f)
 #define XNVM_EFUSE_TEMP_MAX			(125.0f)
@@ -63,6 +66,7 @@
 /**< Voltage limits for VCCAUX for Spartan UltraScale Plus */
 #define XNVM_EFUSE_VCCAUX_MIN		(1.746f)
 #define XNVM_EFUSE_VCCAUX_MAX		(1.854f)
+#endif
 
 /**
  * @}

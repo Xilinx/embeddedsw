@@ -28,6 +28,7 @@
 *                      XSECURE_AES_KEY_CLEAR_BIT_POS_TO_MASK helper
 * 5.8   ank   09/01/26 Move debug macros and crypto status stub here from
 *                      xsecure_utils.h
+*       mb    10/05/26 Remove redundant XSecure_GetRandomNum declaration
 *
 * </pre>
 *
@@ -309,7 +310,6 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 int XSecure_CryptoCheck(XSecure_CoreSrc CoreSrc);
 #ifdef SPARTANUPLUSAES1
 void XSecure_UpdateTrngCryptoStatus(u32 Op);
-int XSecure_GetRandomNum(u8 *Output, u32 Size);
 int XSecure_ECCRandInit(void);
 #endif /** SPARTANUPLUSAES1 */
 
