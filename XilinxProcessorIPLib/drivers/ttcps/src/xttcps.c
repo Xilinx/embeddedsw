@@ -67,7 +67,7 @@
 #include "xttcps.h"
 #include "xparameters.h"
 #if defined  (XPM_SUPPORT)
-#include "pm_defs.h"
+#include "xpm_defs.h"
 #include "pm_api_sys.h"
 #include "xil_types.h"
 #include "pm_client.h"
@@ -192,13 +192,13 @@ s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr, XTtcPs_Config *ConfigPtr,
 	TtcNodeAddr = ConfigPtr->BaseAddress;
 #endif
 
-	Status = XPm_RequestNode(XpmGetNodeId((UINTPTR)TtcNodeAddr), PM_CAP_ACCESS, MAX_QOS, REQUEST_ACK_BLOCKING);
+	Status = XPm_RequestNode(XpmGetNodeId((UINTPTR)TtcNodeAddr), PM_CAP_ACCESS, XPM_MAX_QOS, REQUEST_ACK_BLOCKING);
 	if (XST_SUCCESS != Status) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Ttc: XPm_RequestNode failed\r\n");
 		return Status;
 	}
 
-	Status = XPm_ResetAssert(XpmGetResetId((UINTPTR)TtcNodeAddr), XILPM_RESET_ACTION_RELEASE);
+	Status = XPm_ResetAssert(XpmGetResetId((UINTPTR)TtcNodeAddr), PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != Status) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "Ttc: XPm_ResetAssert() ERROR=0x%x \r\n", Status);
 		return Status;
