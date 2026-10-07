@@ -730,7 +730,7 @@ done:
 /**
  * @brief  Check whether the caller has registered notifiers covering EVERY
  *         requested event-mask bit for the given subsystem and node. Used by
- *         GET_EVENT_STATUS as the permission gate: the requested Mask must be a
+ *         GET_EVENT_STATUS_REGS as the permission gate: the requested Mask must be a
  *         subset of the bits registered by the caller for {NodeId}, otherwise a
  *         caller registered for one bit could read/clear another bit via an
  *         OR'd mask.
@@ -758,7 +758,7 @@ XStatus XPmNotifier_IsRegistered(u32 SubsystemId, u32 NodeId, u32 Mask)
 	 * Accumulate every event-mask bit the caller has registered for this
 	 * node across all matching entries. The glitch-hardening redundancy for
 	 * this gate is provided by the caller's hand-rolled double CALL of this
-	 * function (XPm_DoGetEventStatus), NOT by XSECURE_TEMPORAL_CHECK - which
+	 * function (XPm_DoGetEventStatusRegs), NOT by XSECURE_TEMPORAL_CHECK - which
 	 * only copies its argument in this tree (xil_sutil.h) and does not
 	 * re-invoke. An in-function duplicate read of the same non-volatile array
 	 * would likewise be collapsed by CSE and add no real check.

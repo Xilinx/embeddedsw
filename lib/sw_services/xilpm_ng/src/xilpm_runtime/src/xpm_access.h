@@ -72,7 +72,7 @@ typedef struct XPm_NodeAper XPm_NodeAper;
 #define NODE_APER_EFLAG1(Ap)			(((Ap) >> NODE_APER_EFLAG1_SHIFT) & NODE_APER_FLAG_MASK)
 
 /*
- * GET_EVENT_STATUS request "Flags" word bit definitions. These live inside
+ * GET_EVENT_STATUS_REGS request "Flags" word bit definitions. These live inside
  * the request buffer, not in the IPI arg words.
  */
 #define XPM_EVENT_STATUS_FLAG_CLEAR_AFTER_READ	(0x1U << 0U)	/**< Clear ISR after read */
@@ -81,7 +81,7 @@ typedef struct XPm_NodeAper XPm_NodeAper;
 #define XPM_EVENT_STATUS_FLAG_EFLAG0		(0x1U << 3U)	/**< Select EFlag0 apertures */
 #define XPM_EVENT_STATUS_FLAG_EFLAG1		(0x1U << 4U)	/**< Select EFlag1 apertures */
 
-/** All defined GET_EVENT_STATUS request flag bits; any bit outside is rejected */
+/** All defined GET_EVENT_STATUS_REGS request flag bits; any bit outside is rejected */
 #define XPM_EVENT_STATUS_FLAG_VALID_MASK	\
 	(XPM_EVENT_STATUS_FLAG_CLEAR_AFTER_READ |	\
 	 XPM_EVENT_STATUS_FLAG_READ_NODE_LIST |		\
@@ -90,7 +90,7 @@ typedef struct XPm_NodeAper XPm_NodeAper;
 	 XPM_EVENT_STATUS_FLAG_EFLAG1)
 
 /*
- * Maximum GET_EVENT_STATUS reply the PLM stages per call, in 32-bit words,
+ * Maximum GET_EVENT_STATUS_REGS reply the PLM stages per call, in 32-bit words,
  * used to size the reply staging buffer (xpm_runtime_api.c). versal_2ve_2vm worst case is
  * 5 controllers x (MAIN 34 + NOC 21) + reply word0 = 276 words (~1.1 KB);
  * 320 gives ~16% headroom. A caller request larger than this
@@ -141,7 +141,7 @@ typedef enum {
 } XPm_NodeAccessTypes;
 
 /**
- * Aperture post-read clear behavior (used by GET_EVENT_STATUS ClearAfterRead).
+ * Aperture post-read clear behavior (used by GET_EVENT_STATUS_REGS ClearAfterRead).
  */
 enum {
 	CLEAR_NONE = 0U,		/**< 0x0 - no clear */
@@ -200,19 +200,18 @@ XStatus XPmAccess_MaskWriteReg(u32 SubsystemId,
 			       u32 Offset, u32 Mask, u32 Value,
 			       u32 CmdType);
 
-/*
- * GET_EVENT_STATUS core: source-trace read of the nodes linked to
+/**
+ * @brief GET_EVENT_STATUS_REGS core: source-trace read of the nodes linked to
  * {EventNodeId, Mask}. Post-read ISR clears are only recorded (and their write
  * permission verified) here; they are applied by XPmAccess_ApplyEventClears()
  * after the reply has been delivered, so a clear failure can never destroy the
  * snapshot.
  */
-XStatus XPmAccess_GetEventStatus(u32 SubsystemId, u32 EventNodeId, u32 Mask,
-				 u32 Flags, const u32 *ReqArgs, u32 ReqArgCnt,
-				 u32 *Reply, u32 ReplyCap, u32 *ReplyUsed,
-				 u32 CmdType);
+XStatus XPmAccess_GetEventStatusRegs(u32 SubsystemId, u32 EventNodeId, u32 Mask,
+				     u32 Flags, const u32 *ReqArgs, u32 ReqArgCnt,
+				     u32 *Reply, u32 *ReplyUsed, u32 CmdType);
 
-/* Apply the ISR clears deferred by the last XPmAccess_GetEventStatus() call */
+/* Apply the ISR clears deferred by the last XPmAccess_GetEventStatusRegs() call */
 XStatus XPmAccess_ApplyEventClears(u32 SubsystemId, u32 CmdType);
 
 #ifdef __cplusplus

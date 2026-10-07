@@ -166,9 +166,9 @@ extern "C" {
 /************************** (2160L) - (2179L) ****************************/
 #define XPM_ERR_MEM_ACCESS_TYPE		(2160L) /**< Invalid memory access type */
 
-/************************ GET_EVENT_STATUS ERRORS ***********************/
+/********************* GET_EVENT_STATUS_REGS ERRORS ********************/
 /************************** (2180L) - (2189L) ****************************/
-#define XPM_PM_EVENT_TOO_MANY_CLEARS	(2180L) /**< GET_EVENT_STATUS deferred
+#define XPM_PM_EVENT_TOO_MANY_CLEARS	(2180L) /**< GET_EVENT_STATUS_REGS deferred
 						     ISR-clear store exhausted;
 						     retry without CLEAR_AFTER_READ
 						     or with fewer mask bits */

@@ -98,7 +98,7 @@ extern "C" {
  * | ^				| ^	| ^		| ^	 | Note: Deprecated in Versal but supported in ZynqMP			     |
  * | PM_FEATURE_CHECK		| 0x3F	| Both		| 2	 | V1 - The API is used to return supported version of the given API	     |
  * | ^				| ^	| ^		| ^	 | V2 - Added support of bitmask payload functionality			     |
- * | PM_GET_EVENT_STATUS	| 0x4F	| versal_2ve_2vm| 1	 | The API reads the raw register snapshot of the nodes linked to an	     |
+ * | PM_GET_EVENT_STATUS_REGS	| 0x4F	| versal_2ve_2vm| 1	 | The API reads the raw register snapshot of the nodes linked to an	     |
  * | ^				| ^	| ^		| ^	 | error/event {NodeId, Mask} for DDR EDAC source tracing		     |
  *
  *****************************************************************************/
@@ -281,7 +281,7 @@ typedef enum {
 	PM_FPGA_GET_FRAME_DATA,				/**< 0x4C */
 	PM_CLOCK_DESCRIBERATE,				/**< 0x4D */
 	PM_CLOCK_PROGRAM_RATE,				/**< 0x4E */
-	PM_GET_EVENT_STATUS,				/**< 0x4F */
+	PM_GET_EVENT_STATUS_REGS,			/**< 0x4F */
 	PM_API_MAX					/**< 0x50 */
 } XPm_ApiId;
 

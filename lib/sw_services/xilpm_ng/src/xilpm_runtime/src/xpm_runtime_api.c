@@ -139,7 +139,7 @@ static XStatus XPm_DoSetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoGetClockParent(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd);
 #ifdef XPLMI_EM_LINK_NODES_SUPPORT
-static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd);
+static XStatus XPm_DoGetEventStatusRegs(XPlmi_Cmd * Cmd);
 #endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 static XStatus XPm_DoGetClockRate(XPlmi_Cmd * Cmd);
 #ifdef XILPM_NG_ENABLE_CLK_SCMI
@@ -504,7 +504,8 @@ XStatus XPm_RuntimeInit(void)
 	XPlmi_PmCmds[PM_FEATURE_CHECK].Handler = (XPlmi_CmdHandler)&XPm_DoFeatureCheck;
 	XPlmi_PmCmds[PM_SET_NODE_ACCESS].Handler = (XPlmi_CmdHandler)&XPm_DoSetNodeAccess;
 #ifdef XPLMI_EM_LINK_NODES_SUPPORT
-	XPlmi_PmCmds[PM_GET_EVENT_STATUS].Handler = (XPlmi_CmdHandler)&XPm_DoGetEventStatus;
+	XPlmi_PmCmds[PM_GET_EVENT_STATUS_REGS].Handler =
+		(XPlmi_CmdHandler)&XPm_DoGetEventStatusRegs;
 #endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 	XPlmi_PmCmds[PM_CLOCK_GETRATE].Handler = (XPlmi_CmdHandler)&XPm_DoGetClockRate;
 #ifdef XILPM_NG_ENABLE_CLK_SCMI
@@ -4532,15 +4533,15 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 
 #ifdef XPLMI_EM_LINK_NODES_SUPPORT
 /*
- * GET_EVENT_STATUS staging: request/reply buffers live in DDR/PMC RAM and are
+ * GET_EVENT_STATUS_REGS staging: request/reply buffers live in DDR/PMC RAM and are
  * referenced by address in the IPI. We DMA them into local staging areas so
  * all packing/bounds checks operate on trusted PLM memory. Sized for versal_2ve_2vm
  * (~1.1 KB reply for 5 controllers); tune via build flags.
  *
- * The whole PM_GET_EVENT_STATUS handler is gated on XPLMI_EM_LINK_NODES_SUPPORT:
+ * The whole PM_GET_EVENT_STATUS_REGS handler is gated on XPLMI_EM_LINK_NODES_SUPPORT:
  * it depends on the error->node linkage backend (XPlmi_GetLinkedNodes, via
- * XPmAccess_GetEventStatus) that only the platforms defining this macro provide.
- * Forks without it (e.g. imt versal_gen2_tr) compile the feature out entirely -
+ * XPmAccess_GetEventStatusRegs) that only the platforms defining this macro provide.
+ * Forks without it (e.g. versal_gen2_tr) compile the feature out entirely -
  * the command is neither registered (below) nor advertised (xpm_feature_check.c).
  */
 #ifndef XPM_EVENT_STATUS_REQ_MAX_WORDS
@@ -4556,7 +4557,7 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 
 /****************************************************************************/
 /**
- * @brief  EEMI handler for PM_GET_EVENT_STATUS (0x4F). Reads the raw register
+ * @brief  EEMI handler for PM_GET_EVENT_STATUS_REGS (0x4F). Reads the raw register
  *         snapshot of every node linked to {EventID, Mask} into the caller's
  *         reply buffer for DDR EDAC source tracing.
  *
@@ -4572,7 +4573,7 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
  *         valid snapshot).
  *
  ****************************************************************************/
-static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd)
+static XStatus XPm_DoGetEventStatusRegs(XPlmi_Cmd * Cmd)
 {
 	volatile XStatus Status = XST_FAILURE;
 	u32 SubsystemId = Cmd->SubsystemId;
@@ -4711,9 +4712,9 @@ static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd)
 	/* Seed reply word0 (capacity) into the staging area for the core */
 	ReplyBuf[0] = ReplyCap;
 
-	Status = XPmAccess_GetEventStatus(SubsystemId, EventId, Mask, Flags,
-					  ReqArgs, ReqArgCnt, ReplyBuf, ReplyCap,
-					  &ReplyUsed, CmdType);
+	Status = XPmAccess_GetEventStatusRegs(SubsystemId, EventId, Mask, Flags,
+					      ReqArgs, ReqArgCnt, ReplyBuf,
+					      &ReplyUsed, CmdType);
 	/*
 	 * Snapshot the volatile Status once before testing it twice so the
 	 * compound condition has no side effect (MISRA 13.5). This is a plain
@@ -4745,7 +4746,7 @@ static XStatus XPm_DoGetEventStatus(XPlmi_Cmd * Cmd)
 		/*
 		 * The snapshot is now safely delivered to the caller. ONLY now
 		 * apply the deferred ISR clears (recorded, write-permission
-		 * verified, but NOT performed by XPmAccess_GetEventStatus) so a
+		 * verified, but NOT performed by XPmAccess_GetEventStatusRegs) so a
 		 * clear-write failure can never destroy the reply the caller
 		 * already received.
 		 *

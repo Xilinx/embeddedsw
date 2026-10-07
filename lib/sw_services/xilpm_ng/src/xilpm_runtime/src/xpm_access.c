@@ -518,7 +518,7 @@ done:
 
 #ifdef XPLMI_EM_LINK_NODES_SUPPORT
 /*
- * The GET_EVENT_STATUS machinery below reads the error->node linkage table via
+ * The GET_EVENT_STATUS_REGS machinery below reads the error->node linkage table via
  * XPlmi_GetLinkedNodes(), which is provided only by the platform xilplmi
  * backend that also defines XPLMI_EM_LINK_NODES_SUPPORT (the same macro that
  * gates the link_nodes store command). Platforms/forks without that backend
@@ -527,7 +527,7 @@ done:
  * cleanly instead of leaving an unresolved reference at link time.
  */
 /*
- * Reply-buffer builder used by GET_EVENT_STATUS. It packs 32-bit words into a
+ * Reply-buffer builder used by GET_EVENT_STATUS_REGS. It packs 32-bit words into a
  * caller-provided reply and always tracks the number of words that *would* be
  * required, so on overflow the caller can report the required size and retry.
  */
@@ -568,7 +568,7 @@ static void XPmAccess_ReplyPut(XPmAccess_ReplyBuilder *Rb, u32 Val)
 }
 
 /**
- * @brief  Select the apertures of a node for GET_EVENT_STATUS based on the
+ * @brief  Select the apertures of a node for GET_EVENT_STATUS_REGS based on the
  *         requested EventStatusFlag0/1 bits.
  *
  * @param  Aper:  Aperture descriptor to test
@@ -632,7 +632,7 @@ typedef struct {
 } XPmAccess_DeferredClear;
 
 /**
- * @brief Upper bound on the number of nodes handled by one GET_EVENT_STATUS
+ * @brief Upper bound on the number of nodes handled by one GET_EVENT_STATUS_REGS
  *        request.
  *
  * The linked-node lists live in xilplmi's ErrLinkPool[] (XPLMI_ERRLINK_POOL_WORDS
@@ -658,13 +658,13 @@ typedef struct {
 #define XPM_EVENT_STATUS_MAX_CLEARS	(XPM_EVENT_STATUS_MAX_NODES)
 
 /*
- * Deferred ISR clears staged by XPmAccess_GetEventStatus() and applied by
+ * Deferred ISR clears staged by XPmAccess_GetEventStatusRegs() and applied by
  * XPmAccess_ApplyEventClears() only AFTER the reply has been DMAed to the
  * caller. File scope (not a function-local) so the two phases share the store;
  * PM command dispatch is serialized, so a single global staging area is safe.
  */
 static XPmAccess_DeferredClear PmEventClears[XPM_EVENT_STATUS_MAX_CLEARS];
-/* Transient scratch counter (reset at the top of every GetEventStatus call);
+/* Transient scratch counter (reset at the top of every GetEventStatusRegs call);
  * NOT restart/live-update state, so it is plain BSS (no XPM_INIT_DATA). */
 static u32 PmEventClearCnt = 0U;
 
@@ -892,7 +892,7 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  GET_EVENT_STATUS core: source-trace the given event by reading the
+ * @brief  GET_EVENT_STATUS_REGS core: source-trace the given event by reading the
  *         raw register snapshot of every node linked to {EventNodeId, Mask},
  *         optionally clearing the ISR aperture afterwards.
  *
@@ -902,8 +902,7 @@ done:
  * @param  Flags:       XPM_EVENT_STATUS_FLAG_* selection/clear flags
  * @param  ReqArgs:     Optional {size/offset} range descriptors (ReadNodes)
  * @param  ReqArgCnt:   Number of ReqArgs words
- * @param  Reply:       Reply buffer (word0 = capacity in bytes, caller-set)
- * @param  ReplyCap:    Reply buffer capacity in bytes
+ * @param  Reply:       Reply buffer; word0 = capacity in bytes (caller-set)
  * @param  ReplyUsed:   Out - bytes used, or bytes required on overflow
  * @param  CmdType:     Secure/Non-Secure command type
  *
@@ -916,10 +915,9 @@ done:
  *         them via XPmAccess_ApplyEventClears() after the reply is delivered.
  *
  ****************************************************************************/
-XStatus XPmAccess_GetEventStatus(u32 SubsystemId, u32 EventNodeId, u32 Mask,
-				 u32 Flags, const u32 *ReqArgs, u32 ReqArgCnt,
-				 u32 *Reply, u32 ReplyCap, u32 *ReplyUsed,
-				 u32 CmdType)
+XStatus XPmAccess_GetEventStatusRegs(u32 SubsystemId, u32 EventNodeId, u32 Mask,
+				     u32 Flags, const u32 *ReqArgs, u32 ReqArgCnt,
+				     u32 *Reply, u32 *ReplyUsed, u32 CmdType)
 {
 	volatile XStatus Status = XST_FAILURE;
 	XPmAccess_ReplyBuilder Rb;
@@ -978,7 +976,7 @@ XStatus XPmAccess_GetEventStatus(u32 SubsystemId, u32 EventNodeId, u32 Mask,
 
 	/* word0 of the reply is the caller-set capacity; skip it when packing */
 	Rb.Buf = &Reply[1];
-	Rb.CapWords = (ReplyCap / (u32)sizeof(u32));
+	Rb.CapWords = (Reply[0] / (u32)sizeof(u32));
 	Rb.CapWords = (Rb.CapWords > 0U) ? (Rb.CapWords - 1U) : 0U;
 	Rb.UsedWords = 0U;
 	Rb.ReqWords = 0U;
@@ -1212,7 +1210,7 @@ done:
 /****************************************************************************/
 /**
  * @brief  Apply the ISR clears deferred by the most recent successful
- *         XPmAccess_GetEventStatus() call.
+ *         XPmAccess_GetEventStatusRegs() call.
  *
  * @param  SubsystemId: Caller subsystem Id (access policy re-enforced per clear)
  * @param  CmdType:     Secure/Non-Secure command type

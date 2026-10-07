@@ -170,7 +170,7 @@ static XPlmi_AccessPerm_t XPlmi_PmAccessPermBuff[PM_API_MAX] XPM_INIT_DATA(XPlmi
 	 * The access table is a designated-initializer array ([ApiId] = ...),
 	 * so the omitted slot simply defaults to no-access.
 	 */
-	XPLMI_ALL_IPI_FULL_ACCESS(PM_GET_EVENT_STATUS),
+	XPLMI_ALL_IPI_FULL_ACCESS(PM_GET_EVENT_STATUS_REGS),
 #endif /* XPLMI_EM_LINK_NODES_SUPPORT */
 	XPLMI_ALL_IPI_NO_ACCESS(PM_BISR),
 	XPLMI_ALL_IPI_NO_ACCESS(PM_APPLY_TRIM),
