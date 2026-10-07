@@ -106,7 +106,6 @@ static int XSecure_MldsaSignVerifyIpi(u32 MldsaParamAddrLow, u32 MldsaParamAddrH
 
 	Status = XSecure_MldsaSignVerify(&MldsaParams);
 
-END:
 	return Status;
 }
 
@@ -136,7 +135,6 @@ static int XSecure_MldsaSignGenerateIpi(u32 MldsaParamAddrLow, u32 MldsaParamAdd
 
 	Status = XSecure_MldsaSignGenerate(&MldsaParams);
 
-END:
 	return Status;
 }
 /** @} */

@@ -123,7 +123,6 @@ static int XSecure_SlhdsaSignVerifyIpi(u32 SlhdsaParamAddrLow, u32 SlhdsaParamAd
 
 	Status = XSecure_SlhdsaVerify(ShaInstPtr, &SlhdsaParams);
 
-END:
 	return Status;
 }
 /** @} */

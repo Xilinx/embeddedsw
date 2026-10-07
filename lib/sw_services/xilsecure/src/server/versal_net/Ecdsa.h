@@ -75,6 +75,7 @@ typedef enum {
  *   obfuscated, as this API is intended for an end-user that does
  *   not necessarily have the rights to the source code of the SDK
  */
+#define XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE	/**< Set when EcdsaCrvInfo includes d14, d15 and d16. */
 typedef struct {
 	EcdsaCrvTyp CrvType;	/**< Curve type */
 	u16 Bits;				/**< Curve bites */

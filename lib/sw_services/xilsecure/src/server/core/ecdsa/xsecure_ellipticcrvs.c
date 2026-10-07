@@ -621,7 +621,7 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP192_d11,
 		XSecure_EllipticNistP192_d12,
 		XSecure_EllipticNistP192_d13,
-#if defined (VERSAL_NET)
+#ifdef XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE
 		NULL,
 		NULL,
 		0U
@@ -648,7 +648,7 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP224_d11,
 		XSecure_EllipticNistP224_d12,
 		XSecure_EllipticNistP224_d13,
-#if defined (VERSAL_NET)
+#ifdef XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE
 		NULL,
 		NULL,
 		0U
@@ -675,7 +675,7 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP384_d11,
 		XSecure_EllipticNistP384_d12,
 		XSecure_EllipticNistP384_d13,
-#if defined (VERSAL_NET)
+#ifdef XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE
 		NULL,
 		NULL,
 		0U
@@ -702,7 +702,7 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP521_d11,
 		XSecure_EllipticNistP521_d12,
 		XSecure_EllipticNistP521_d13,
-#if defined (VERSAL_NET)
+#ifdef XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE
 		NULL,
 		NULL,
 		0U
@@ -729,7 +729,7 @@ EcdsaCrvInfo XSecure_EllipticCrvsDb[] =
 		XSecure_EllipticNistP256_d11,
 		XSecure_EllipticNistP256_d12,
 		XSecure_EllipticNistP256_d13,
-#if defined (VERSAL_NET)
+#ifdef XSECURE_ECC_EXT_CURVE_SUPPORT_ENABLE
 		NULL,
 		NULL,
 		0U
