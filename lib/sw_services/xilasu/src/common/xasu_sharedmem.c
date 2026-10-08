@@ -47,8 +47,8 @@ _Static_assert((XASU_RTCA_MODULE_INFO_ENTRIES * sizeof(XAsu_CryptoAlgInfo)) <=
 	       (XASU_RTCA_DBG_LOG_BUF_INFO_ADDR - XASU_RTCA_MODULE_INFO_BASEADDR),
 	       "RTCA module info region overruns the debug log buffer info at RTCA 0x15C");
 _Static_assert((XASU_RTCA_MODULE_INFO_ENTRIES * sizeof(XAsu_CryptoAlgInfo)) <=
-	       (XASU_CHANNEL_MEMORY_BASEADDR - XASU_RTCA_MODULE_INFO_EXT_BASEADDR),
-	       "RTCA module info extension region overruns the channel memory at RTCA 0x1000");
+	       (XASU_RTCA_PL_CFG_BASE_ADDR - XASU_RTCA_MODULE_INFO_EXT_BASEADDR),
+	       "RTCA module info extension region overruns the PL configuration window");
 
 /*********************************** Macros Definitions ******************************************/
 #define XASU_INVALID_SUBSYS_ID		(0xFFFFFFFFU) /**< Invalid Subsystem ID */

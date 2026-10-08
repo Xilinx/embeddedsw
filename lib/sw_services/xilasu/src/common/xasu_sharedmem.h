@@ -125,10 +125,11 @@ extern "C" {
 #define XASU_RTCA_MODULE_INFO_ENTRIES		(15U)
 						/**< Number of module info entries held by each
 						of the two module info regions */
-#define XASU_RTCA_PL_CFG_BASE_ADDR		(XASU_RTCA_BASEADDR + 0x1B0U)
+#define XASU_RTCA_PL_CFG_BASE_ADDR		(XASU_RTCA_BASEADDR + 0x258U)
 						/**< Base address of the PL configuration
-						 * window */
-#define XASU_RTCA_PL_CFG_SIZE_ADDR		(XASU_RTCA_BASEADDR + 0x1B4U)
+						 * window, placed after the module info
+						 * extension region (RTCA 0x1A4 to 0x257) */
+#define XASU_RTCA_PL_CFG_SIZE_ADDR		(XASU_RTCA_BASEADDR + 0x25CU)
 						/**< Size in bytes of the PL configuration
 						 * window */
 
