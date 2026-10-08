@@ -46,6 +46,7 @@
 *       sk   02/20/2025 EM Set action support for Versal 2VE and 2VM Devices
 *       ias  08/07/2026 Added link_nodes command for DDR EDAC source tracing
 *       ias  08/24/2026 Gate link_nodes command on XPLMI_EM_LINK_NODES_SUPPORT
+*       ias  10/08/2026 Accept and ignore link_nodes when DDR EDAC is unsupported
 *
 * </pre>
 *
@@ -68,7 +69,17 @@
 /* Error Module command Ids */
 #define XPLMI_CMD_ID_EM_FEATURES	(0U)	/**< Command Id of error module features */
 #define XPLMI_CMD_ID_EM_SET_ACTION	(1U)	/**< Command Id of set action error module */
-#ifdef XPLMI_EM_LINK_NODES_SUPPORT
+
+/*
+ * VERSAL_2VE_2VM && VERSAL_2VP_P builds consume the Versal 2VE/2VM topology
+ * CDO, which carries link_nodes, but do not support DDR EDAC source tracing.
+ * Register the command there as a no-op so the CDO still loads.
+ */
+#if defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P)
+#define XPLMI_EM_LINK_NODES_SKIP	/**< Accept and ignore link_nodes */
+#endif
+
+#if defined(XPLMI_EM_LINK_NODES_SUPPORT) || defined(XPLMI_EM_LINK_NODES_SKIP)
 #define XPLMI_CMD_ID_EM_LINK_NODES	(2U)	/**< Command Id of link nodes error module */
 #endif
 
@@ -253,14 +264,16 @@ END:
 	return Status;
 }
 
-#ifdef XPLMI_EM_LINK_NODES_SUPPORT
+#ifdef XPLMI_CMD_ID_EM_LINK_NODES
 /*****************************************************************************/
 /**
  * @brief	This function links a verbatim, CDO-ordered list of node IDs to an
  *		error event so that get_event_status knows which devices to read
  *		for the event. CDO-only (IPI callers are rejected). Registered only
  *		on Versal 2VE/2VM; the parsing body lives in the platform file
- *		(XPlmi_Versal2Ve2VmLinkNodes), mirroring EM_SET_ACTION.
+ *		(XPlmi_Versal2Ve2VmLinkNodes), mirroring EM_SET_ACTION. When
+ *		built for VERSAL_2VE_2VM && VERSAL_2VP_P, the command is accepted
+ *		and ignored.
  *
  * Command payload parameters are:
  * - Event Node ID (e.g. PMC_ERR1)
@@ -275,6 +288,8 @@ END:
  *		- XPLMI_INVALID_NODE_ID on invalid node ID or NODE_ALL sentinel.
  *		- XST_INVALID_PARAM on invalid parameters / IPI caller.
  *		- Error code from XPlmi_LinkNodes on storage failure.
+ *		- For VERSAL_2VE_2VM && VERSAL_2VP_P: XST_SUCCESS (payload
+ *		  ignored), or XST_INVALID_PARAM for an IPI caller.
  *
  *****************************************************************************/
 static int XPlmi_CmdEmLinkNodes(XPlmi_Cmd *Cmd)
@@ -284,11 +299,23 @@ static int XPlmi_CmdEmLinkNodes(XPlmi_Cmd *Cmd)
 	XPLMI_EXPORT_CMD(XPLMI_CMD_ID_EM_LINK_NODES, XPLMI_MODULE_ERROR_ID,
 		XPLMI_CMD_ARG_CNT_THREE, XPLMI_UNLIMITED_ARG_CNT);
 
+#ifdef XPLMI_EM_LINK_NODES_SUPPORT
 	Status = XPlmi_Versal2Ve2VmLinkNodes(Cmd);
+#else
+	/* Keep the CDO-only contract even though the payload is ignored */
+	if (Cmd->IpiMask != 0U) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
 
+	XPlmi_Printf(DEBUG_INFO, "EM link_nodes unsupported, skipped\n\r");
+	Status = XST_SUCCESS;
+
+END:
+#endif
 	return Status;
 }
-#endif /* XPLMI_EM_LINK_NODES_SUPPORT */
+#endif /* XPLMI_CMD_ID_EM_LINK_NODES */
 
 /** @cond xplmi_internal */
 /*****************************************************************************/
@@ -300,7 +327,7 @@ static const XPlmi_ModuleCmd XPlmi_ErrCmds[] =
 {
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmFeatures),
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmSetAction),
-#ifdef XPLMI_EM_LINK_NODES_SUPPORT
+#ifdef XPLMI_CMD_ID_EM_LINK_NODES
 	XPLMI_MODULE_COMMAND(XPlmi_CmdEmLinkNodes),
 #endif
 };
@@ -314,7 +341,7 @@ static XPlmi_AccessPerm_t XPlmi_ErrAccessPermBuff[XPLMI_ARRAY_SIZE(XPlmi_ErrCmds
 {
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_FEATURES),
 	XPLMI_ALL_IPI_FULL_ACCESS(XPLMI_CMD_ID_EM_SET_ACTION),
-#ifdef XPLMI_EM_LINK_NODES_SUPPORT
+#ifdef XPLMI_CMD_ID_EM_LINK_NODES
 	XPLMI_ALL_IPI_NO_ACCESS(XPLMI_CMD_ID_EM_LINK_NODES),
 #endif
 };
