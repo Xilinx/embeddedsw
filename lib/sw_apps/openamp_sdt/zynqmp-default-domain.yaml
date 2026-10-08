@@ -8,7 +8,10 @@ reserved-memory:
   rproc0@9800000:
     label: rproc0
     start: 0x9800000
-    size: 0x20000
+    # RPU0 firmware window 0x9800000-0x987ffff, up to the vrings. The
+    # Vitis FreeRTOS OpenAMP demo keeps .text and .bss in DDR and needs
+    # more than 0x20000.
+    size: 0x80000
     no-map: 1
   vdev0vring0@9880000:
     label: vdev0vring0
@@ -47,6 +50,13 @@ reserved-memory:
     no-map: 1
 
 axi:
+  # TTC3 belongs to RPU0 (rpmsg relation timer: ttc3). Build the RPU0
+  # BSP with XILTIMER_sleep_timer = *_ttc_9 and XILTIMER_tick_timer =
+  # *_ttc_10 (TTC3 counters 0 and 1). Applied only when the Linux domain
+  # is activated (domain_access -t /domains/APU_Linux).
+  timer@ff140000:
+    status!linux: "disabled"
+
   libmetal_uio_desc0@99c8000:
     linux,uio-name: "libmetal-desc0"
     start: 0x99c8000
@@ -81,6 +91,17 @@ domains:
           secure: true
           el: 0x3
     os,type: linux
+    # Linux keeps every device; the !linux overrides above still apply.
+    access:
+      - dev: "*"
+      - dev: timer@ff130000
+      - dev: ipi@ff340000
+      - dev: ipi@ff350000
+      - dev: libmetal_uio_desc0@99c8000
+      - dev: libmetal_uio_desc1@99cc000
+      - dev: libmetal_uio_data@99d0000
+    memory:
+      - "*"
     reserved-memory:
       - vdev0buffer@9888000
       - vdev0vring1@9884000
@@ -92,7 +113,8 @@ domains:
         compatible: openamp,remoteproc-v2
         relation0:
           remote: R5_0_FREERTOS
-          elfload: [ psu_r5_0_atcm_global@ffe00000, psu_r5_0_btcm_global@ffe20000, rproc0@9800000 ]
+          # SDT labels; node names use "_" or "-" depending on the SDT.
+          elfload: [ psu_r5_0_atcm_global, psu_r5_0_btcm_global, rproc0@9800000 ]
 
       rpmsg-relation:
         compatible: openamp,rpmsg-v1
@@ -122,7 +144,7 @@ domains:
     sram:
       - dev: rproc0@9800000
         start: 0x9800000
-        size: 0x20000
+        size: 0x80000
       - dev: psu_r5_0_atcm_global@ffe00000
         size: 64K
         start: 0xffe00000
