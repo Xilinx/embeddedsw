@@ -977,8 +977,15 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - 1], MsaConfig->HStart);
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_VSTART +
 			StreamOffset[Stream - 1], MsaConfig->VStart);
+
+		if (InstancePtr->TxInstance.ColorimetryThroughVsc[Stream - 1] &&
+				(InstancePtr->TxInstance.VscPacket[Stream - 1].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420)) {
+			MsaConfig->Misc0 |= XDP_TX_MAIN_STREAMX_MISC0_EXT_TX_ALIGN_WITH_VSYNC_MASK;
+		}
 		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_MAIN_STREAM_MISC0 +
 			StreamOffset[Stream - 1], MsaConfig->Misc0);
+
 		if (InstancePtr->TxInstance.ColorimetryThroughVsc[Stream - 1]) {
 			MsaConfig->Misc1|= XDP_DPCD_MSA_TIMING_PAR_IGNORED_MASK;
 		}
