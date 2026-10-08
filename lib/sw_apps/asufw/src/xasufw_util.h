@@ -33,6 +33,7 @@
  *       rmv  08/21/26 Added macro for the maximum 64-bit address and default subsystem ID
  *       kk   07/10/26 Added bit-width macros for SLH-DSA
  *       kk   08/30/26 Added byte and integer conversion helper function prototypes.
+ *       vm   10/05/26 Added XAsufw_WaitForEventKeepAlive() function prototype.
  *
  * </pre>
  *
@@ -274,6 +275,7 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
         u32 NumOfWords);
 s32 XAsufw_AsciiToInt(const u8 *Buf, u32 Len, u32 *Value);
 s32 XAsufw_IntToAscii(u8 *Buf, u32 Len, u32 Value);
+s32 XAsufw_WaitForEventKeepAlive(UINTPTR Addr, u32 EventMask, u32 Event, u32 Timeout);
 u32 XAsufw_SwapBytes(const u8 *const Source, u32 Bytes);
 u32 XAsufw_CeilDivU32(u32 Num, u32 Den);
 u64 XAsufw_BeBytesToU64(const u8 *Src, u32 Len);

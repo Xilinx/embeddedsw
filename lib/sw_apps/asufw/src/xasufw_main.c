@@ -42,6 +42,8 @@
  *       vm   07/14/26 Initialize keep-alive counter support.
  *       vm   07/30/26 Trigger preserved PLM events after update
  *       kk   07/10/26 Initialize SLH-DSA module
+ *       vm   10/05/26 Moved keep-alive counter initialization before the boot time operations
+ *                     which advance the counter
  *
  * </pre>
  *
@@ -176,6 +178,18 @@ int main(void)
 	 */
 	XAsufw_SetAsufwPresentBit();
 
+	/**
+	 * Initialize ASUFW keep-alive counter support. It is initialized before KATs, event
+	 * notifier registration and key generation, so that the counter is cleared and the
+	 * periodic task is queued before any of them runs. In case of failure, continue booting
+	 * and supporting other requests.
+	 */
+	Status = XAsufw_KeepAliveInit();
+	if (XASUFW_SUCCESS != Status) {
+		XAsufw_Printf(DEBUG_GENERAL, "ASUFW keep-alive init failed. Error: 0x%x\r\n",
+				Status);
+	}
+
 	/** Pause performance monitoring during KAT execution. */
 	XASUFW_PERF_SET_MONITORING_STATE(XASUFW_PERF_MON_PAUSED);
 
@@ -223,15 +237,6 @@ int main(void)
 		XAsufw_PostUpdateTriggerPendingRequests();
 		XAsufw_PostUpdatePlmEvents();
 		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
-	}
-
-	/**
-	 * Initialize ASUFW keep-alive counter support. In case of failure,
-	 * continue booting and supporting other requests.
-	 */
-	Status = XAsufw_KeepAliveInit();
-	if (XASUFW_SUCCESS != Status) {
-		XAsufw_Printf(DEBUG_GENERAL, "ASUFW keep-alive init failed. Error: 0x%x\r\n", Status);
 	}
 
 	/**

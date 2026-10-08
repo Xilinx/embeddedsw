@@ -16,6 +16,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog   06/25/26 Initial release
+ *       vm    10/05/26 Kept the keep-alive counter advancing while the key transfer done
+ *                      status is awaited
  *
  * </pre>
  *
@@ -28,6 +30,7 @@
 #include "xasufw_keytransfer.h"
 #include "xasufw_ipi.h"
 #include "xasufw_status.h"
+#include "xasufw_util.h"
 #include "xaes.h"
 #include "xil_util.h"
 
@@ -37,7 +40,7 @@
 #define XASUFW_RESPONSE_INDEX_0		(0U) /**< Key transfer response index 0 */
 #define XASUFW_RESPONSE_INDEX_1		(1U) /**< Key transfer response index 1 */
 #define XASUFW_KEY_TRANSFER_DONE_TIMEOUT	(5000000U) /**< Key transfer done wait timeout
-								value in microseconds (5sec) */
+								value as a count of polls */
 
 /************************************** Type Definitions *****************************************/
 
@@ -98,11 +101,14 @@ s32 XAsufw_PmcKeyTransfer(u32 *PufKekGenStatusPtr)
 	}
 
 	/**
-	  * Wait up to 5 seconds for the HW to set the KV interrupt status bit
-	  * indicating key transfer (KT) is done.
+	  * Wait for the HW to set the KV interrupt status bit indicating key transfer (KT) is
+	  * done, for the bounded number of polls the timeout below allows. The wait advances
+	  * the keep-alive counter, because this handler holds the task dispatcher for the whole
+	  * wait, which can outlast the keep-alive window PLM allows.
 	  */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = (s32)Xil_WaitForEvent((XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
+	Status = XAsufw_WaitForEventKeepAlive(
+			(XASU_XKEY_0_BASEADDR + XAES_KV_INTERRUPT_STATUS_OFFSET),
 			XAES_KV_INTERRUPT_STATUS_DONE_MASK, XAES_KV_INTERRUPT_STATUS_DONE_MASK,
 			XASUFW_KEY_TRANSFER_DONE_TIMEOUT);
 	if (Status != XASUFW_SUCCESS) {

@@ -25,6 +25,7 @@
  * 1.3   ma   12/12/24 Added support for DMA non-blocking wait
  *       ma   02/03/25 Update comment for TaskTimeNow to reflect proper units for time.
  * 1.4   am   05/18/25 Fixed implicit conversion of operands
+ *       vm   10/05/26 Defined TaskTimeNow volatile as it is updated from the PIT3 interrupt
  *
  * </pre>
  *
@@ -53,7 +54,7 @@ static XTask_TaskNode TaskList[XTASK_MAX];
 static XLinkList TaskQueue[XTASK_PRIORITIES];
 static u32 NextDispatchTime;
 /** Current time in ms */
-u32 TaskTimeNow = 0U;
+volatile u32 TaskTimeNow = 0U;
 
 /*************************************************************************************************/
 /**

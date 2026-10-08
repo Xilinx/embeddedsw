@@ -21,6 +21,7 @@
  *       ma   07/08/24 Add task based approach at queue level
  *       yog  09/26/24 Added doxygen groupings and fixed doxygen comments.
  * 1.2   ma   12/12/24 Added support for DMA non-blocking wait
+ *       vm   10/05/26 Declared TaskTimeNow volatile as it is updated from the PIT3 interrupt
  *
  * </pre>
  *
@@ -69,8 +70,8 @@ typedef struct {
 } XTask_TaskEvent;
 
 /************************************ Variable Definitions ***************************************/
-/* Current time in ms */
-extern u32 TaskTimeNow;
+/* Current time in ms, updated from the PIT3 interrupt handler */
+extern volatile u32 TaskTimeNow;
 
 /** @endcond */
 /*************************** Macros (Inline Functions) Definitions *******************************/

@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ---------------------------------------------------------------------------
  * 1.0   vm   07/14/2026 Initial release
+ *       vm   10/05/26 Added prototype for advancing the counter from a wait on hardware
  * </pre>
  *
  *************************************************************************************************/
@@ -35,6 +36,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_KeepAliveInit(void);
+void XAsufw_KeepAliveAdvanceIfDue(void);
 
 #ifdef __cplusplus
 }

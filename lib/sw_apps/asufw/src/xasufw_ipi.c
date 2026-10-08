@@ -20,6 +20,8 @@
  *       ma   07/08/24 Add task based approach at queue level
  * 1.1   am   05/18/25 Fixed implicit conversion of operands
  *       rmv  07/16/25 Added "XAsufw_ReadIpiMsgFromPlm" function and PLM event handling
+ *       vm   10/05/26 Bounded the wait for a PLM interrupt acknowledgement and kept the
+ *                     keep-alive counter advancing while it waits
  *
  * </pre>
  *
@@ -38,16 +40,63 @@
 #include "xasufw_hw.h"
 
 /************************************ Constant Definitions ***************************************/
+#define XASUFW_IPI_ACK_MAX_POLLS		(100000000U)
+						/**< Upper bound on the polls of the observation
+						 * register while PLM is given time to acknowledge
+						 * an interrupt, about 135 seconds on a board, which
+						 * is the tolerance of a slow PLM the driver poll it
+						 * replaces allowed */
+
+#define XASUFW_IPI_ACK_OBS_VALUE		(0U)
+						/**< Value the PMC bit of the observation register
+						 * takes once PLM has acknowledged. It is the
+						 * condition XIpiPsu_PollForAck() in the ipipsu
+						 * driver waits for */
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+#if defined(XPAR_XIPIPSU_0_BASEADDR)
+static s32 XAsufw_WaitForPlmAck(void);
+#endif
 
 /************************************ Variable Definitions ***************************************/
 #if defined(XPAR_XIPIPSU_0_BASEADDR)
 static XIpiPsu IpiInst; /**< Instance of IPI Driver */
+
+/*************************************************************************************************/
+/**
+ * @brief	This function waits for PLM to acknowledge an interrupt while keeping the ASUFW
+ *		keep-alive counter advancing.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if PLM acknowledged the interrupt within the maximum wait.
+ *		- XASUFW_FAILURE, if PLM did not acknowledge the interrupt within the maximum
+ *		wait.
+ *
+ * @note	The observation register holds the destination bit set until PLM acknowledges, so
+ *		the acknowledgement is awaited as a register event. The driver poll,
+ *		XIpiPsu_PollForAck() in the ipipsu driver, waits for the same condition on the
+ *		same register, and is not used only because it cannot advance the keep-alive
+ *		counter. The register offset is taken from the driver header, so moving the
+ *		register breaks this build, but the awaited value is not, and
+ *		XASUFW_IPI_ACK_OBS_VALUE has to be revisited if the driver ever waits for a
+ *		different one.
+ *		Sending a message and reading a response are waited on in task context, where
+ *		the counter can advance. Reading a PLM event is waited on in the IPI interrupt
+ *		handler, where interrupts are disabled and the millisecond tick cannot move, so
+ *		that caller takes the bound below but keeps the pre-existing behaviour of
+ *		leaving the counter still for the length of the wait.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_WaitForPlmAck(void)
+{
+	return XAsufw_WaitForEventKeepAlive((IpiInst.Config.BaseAddress + XIPIPSU_OBS_OFFSET),
+					    IPI_ASU_ISR_PMC_MASK, XASUFW_IPI_ACK_OBS_VALUE,
+					    XASUFW_IPI_ACK_MAX_POLLS);
+}
 
 /*************************************************************************************************/
 /**
@@ -158,7 +207,7 @@ s32 XAsufw_SendIpiToPlm(const u32 *MsgBufPtr, u32 MsgBufLen)
 	}
 
 	/** Check if there is any pending IPI message. */
-	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
+	Status = XAsufw_WaitForPlmAck();
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		goto END;
@@ -209,7 +258,7 @@ s32 XAsufw_ReadIpiRespFromPlm(u32 *RespBufPtr, u32 RespBufLen)
 	}
 
 	/** Check if the IPI interrupt is processed. */
-	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
+	Status = XAsufw_WaitForPlmAck();
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		goto END;
@@ -252,7 +301,7 @@ s32 XAsufw_ReadIpiMsgFromPlm(u32 *MsgBufPtr, u32 MsgBufLen)
 	}
 
 	/** Check if the IPI interrupt is processed. */
-	Status = XIpiPsu_PollForAck(&IpiInst, IPI_ASU_ISR_PMC_MASK, 0x1FFFFFFFU);
+	Status = XAsufw_WaitForPlmAck();
 	if (XASUFW_SUCCESS != Status) {
 		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_POLL_FOR_ACK_FAILED, Status);
 		goto END;

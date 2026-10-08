@@ -35,6 +35,8 @@
  *       rmv  08/20/26 Added XAsufw_IntToAscii() function.
  *       kk   08/30/26 Added XAsufw_BeBytesToU64(), XAsufw_U64ToBeBytes(), XAsufw_CeilDivU32()
  *                     and XAsufw_ModPow2U64() functions.
+ *       vm   10/05/26 Added XAsufw_WaitForEventKeepAlive() which advances the keep-alive
+ *                     counter while waiting for hardware.
  *
  * </pre>
  *
@@ -47,9 +49,14 @@
 #include "xasufw_util.h"
 #include "xasufw_status.h"
 #include "xasufw_ipi.h"
+#include "xasufw_keepalive.h"
 #include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
+#define XASUFW_WAIT_EVENT_SLICE_POLLS			(1000U)
+				/**< Polls of the awaited register between two checks of whether
+				 * the keep-alive counter is due to be advanced */
+
 #define XASUFW_ENDIANNESS_SWAP_OFFSET			(1U) /**< Position offset for swapping */
 #define XASUFW_ENDIANNESS_SWAP_MIN_LENGTH		(2U) /**< Minimum length to make a swap */
 
@@ -803,5 +810,70 @@ u64 XAsufw_ModPow2U64(u64 X, u64 K)
 	}
 
 	return Result;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function waits for a hardware event and advances the ASUFW keep-alive counter
+ *		while it waits. It writes the keep-alive counter which PLM samples.
+ *
+ * @param	Addr		Address of the register holding the event.
+ * @param	EventMask	Mask of the bits to be checked.
+ * @param	Event		Value the masked bits must reach.
+ * @param	Timeout		Maximum number of polls of the register, as Xil_WaitForEvent()
+ *				counts them.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the event occurred within the timeout.
+ *	- XASUFW_FAILURE, if the event did not occur within the timeout.
+ *
+ * @note	The task dispatcher runs handlers to completion, so the periodic keep-alive task
+ *		cannot run while a handler waits on hardware, and PLM reports ASUFW as not alive
+ *		once the counter stands still for longer than the window PLM allows. A wait
+ *		which can outlast that window therefore offers the counter an advance between
+ *		its polls, and the keep-alive module decides whether one is due.
+ *		The decision is taken on the milliseconds maintained by the PIT3 interrupt,
+ *		which keeps running through the wait, because Xil_WaitForEvent() counts polls
+ *		rather than measuring time and one poll costs more than the microsecond it
+ *		nominally takes. The poll count between two decisions only bounds how late an
+ *		advance can be, and 1000 polls stay well inside the window even at 100
+ *		microseconds per poll. An advance is offered at every slice boundary, and the
+ *		keep-alive module grants one only once a full interval has passed since the
+ *		counter was last advanced, whoever advanced it. A wait taken with interrupts
+ *		disabled behaves as Xil_WaitForEvent() does, because the milliseconds cannot
+ *		advance there and the module refuses every advance it is offered.
+ *
+ *************************************************************************************************/
+s32 XAsufw_WaitForEventKeepAlive(UINTPTR Addr, u32 EventMask, u32 Event, u32 Timeout)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u32 Remaining = Timeout;
+	u32 Slice;
+
+	/**
+	 * Poll the register in slices and offer the keep-alive counter an advance between them,
+	 * but only while a further slice follows. A wait which ends, with the event or with a
+	 * timeout, leaves the counter to the periodic task.
+	 */
+	while (Remaining > 0U) {
+		if (Remaining > XASUFW_WAIT_EVENT_SLICE_POLLS) {
+			Slice = XASUFW_WAIT_EVENT_SLICE_POLLS;
+		} else {
+			Slice = Remaining;
+		}
+
+		if ((u32)XST_SUCCESS == Xil_WaitForEvent(Addr, EventMask, Event, Slice)) {
+			Status = XASUFW_SUCCESS;
+			goto END;
+		}
+
+		Remaining -= Slice;
+		if (Remaining > 0U) {
+			XAsufw_KeepAliveAdvanceIfDue();
+		}
+	}
+
+END:
+	return Status;
 }
 /** @} */

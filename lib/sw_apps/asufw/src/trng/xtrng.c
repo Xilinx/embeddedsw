@@ -31,6 +31,8 @@
  *       rmv  08/21/26 Moved block length and DF length macros to the header
  *       vm   09/15/26 Added XTrng_FisherYatesShuffle() and the API to report the TRNG health
  *                     state
+ *       vm   10/05/26 Kept the keep-alive counter advancing while waiting for reseed and
+ *                     generate to complete
  *
  * </pre>
  *
@@ -44,6 +46,7 @@
 #include "xtrng_hw.h"
 #include "xasufw_status.h"
 #include "xasufw_hw.h"
+#include "xasufw_util.h"
 #include "sleep.h"
 #include "xil_util.h"
 #include "xfih.h"
@@ -1436,16 +1439,23 @@ static s32 XTrng_WritePersString(const XTrng *InstancePtr, const u8 *PersString)
  * @param	Addr		Address of register to be checked for event(s) occurrence.
  * @param	EventMask	Mask indicating event(s) to be checked.
  * @param	Event		Specific event(s) value to be checked.
- * @param	Timeout		Max number of microseconds to wait for an event(s).
+ * @param	Timeout		Maximum number of polls of the register while waiting for the
+ *				event(s).
  *
  * @return
- * 	- XST_SUCCESS, if occurrence of the event(s) is successful.
- * 	- XST_FAILURE, if timeout occurs.
+ * 	- XASUFW_SUCCESS, if occurrence of the event(s) is successful.
+ * 	- XASUFW_FAILURE, if timeout occurs.
+ *
+ * @note	Reseed and generate are allowed seconds to complete, which is longer than the
+ *		window PLM allows ASUFW before reporting it as not alive, and a command handler
+ *		runs to completion so the periodic keep-alive task cannot run while the wait
+ *		holds the processor. XAsufw_WaitForEventKeepAlive() advances the keep-alive
+ *		counter while it waits.
  *
  *************************************************************************************************/
 static inline s32 XTrng_WaitForEvent(UINTPTR Addr, u32 EventMask, u32 Event, u32 Timeout)
 {
-	return (s32)Xil_WaitForEvent(Addr, EventMask, Event, Timeout);
+	return XAsufw_WaitForEventKeepAlive(Addr, EventMask, Event, Timeout);
 }
 
 /*************************************************************************************************/
