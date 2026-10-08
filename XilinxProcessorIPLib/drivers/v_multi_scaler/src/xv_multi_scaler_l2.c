@@ -365,7 +365,7 @@ void XV_MultiScalerStop(XV_multi_scaler *InstancePtr)
  ******************************************************************************/
 u32 XV_MultiScalerGetNumOutputs(XV_multi_scaler *InstancePtr)
 {
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XV_multi_scaler_Get_HwReg_num_outs(InstancePtr);
 }

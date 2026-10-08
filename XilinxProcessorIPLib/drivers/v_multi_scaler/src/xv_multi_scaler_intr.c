@@ -77,8 +77,8 @@ void *XV_MultiScalerIntrHandler(void *InstancePtr)
 	XV_multi_scaler *MscPtr = (XV_multi_scaler *) InstancePtr;
 
 	/* Verify arguments */
-	Xil_AssertVoid(MscPtr != NULL);
-	Xil_AssertVoid(MscPtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertNonvoid(MscPtr != NULL);
+	Xil_AssertNonvoid(MscPtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	if (XV_multi_scaler_InterruptGetStatus(MscPtr)) {
 		XV_multi_scaler_InterruptClear(MscPtr,
@@ -87,5 +87,7 @@ void *XV_MultiScalerIntrHandler(void *InstancePtr)
 		if (MscPtr->FrameDoneCallback)
 			MscPtr->FrameDoneCallback(MscPtr);
 	}
+
+	return NULL;
 }
 /** @} */
