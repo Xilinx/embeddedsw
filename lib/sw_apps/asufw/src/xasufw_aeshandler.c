@@ -200,7 +200,11 @@ END:
  * 	  request provides a key vault identifier, a key address, or a key size other than
  * 	  256-bit.
  * 	- XASUFW_DMA_COPY_FAIL, if the copy of the key object from the client fails.
- * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if retrieval of the key or IV from the vault fails.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if the key or IV could not be retrieved from
+ * 	  the vault, packed with the key manager cause (XASUFW_KEYMANAGER_KEY_NOT_FOUND,
+ * 	  XASUFW_KEYMANAGER_KEY_EXPIRED, XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR,
+ * 	  XASUFW_KEYMANAGER_ACCESS_DENIED, XASUFW_KEYMANAGER_INVALID_PARAM or
+ * 	  XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH).
  * 	- XASUFW_AES_WRITE_KEY_FAILED, if Key write to AES USER key register fails.
  * 	- XASUFW_AES_EFUSE_USER_KEY_1_STAGE_FAILED, if staging eFUSE User Key 1 fails.
  * 	- XASUFW_PUF_KEK_GEN_FAIL, if PMC key transfer or PUF KEK generation fails.
@@ -329,7 +333,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 							XKEYMANAGER_RSA_OP_NONE,
 							XASU_IV_SUBVAULT_ID);
 			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 				goto END;
 			}
 			LocalIvAddr = IvObject.IvAddr;
@@ -388,7 +393,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 							XKEYMANAGER_RSA_OP_NONE,
 							XASU_AES_SUBVAULT_ID);
 			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+				Status = XAsufw_UpdateErrorStatus(Status,
+						XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 				goto END;
 			}
 		}

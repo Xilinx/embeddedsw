@@ -1348,7 +1348,10 @@ END:
  *		mapping is not repeated here.
  *
  * @param	KeySlot		Reserved slot of the subsystem whose private key ID is requested.
- * @param	KeyIdPtr	Pointer that receives the private key ID on success.
+ * @param	KeyIdPtr	Pointer that receives the private key ID of the reserved slot. It is
+ *				written whenever the ID can be composed, whether or not the slot
+ *				currently holds a key, because the key pair generation guard needs
+ *				it precisely when the slot is free.
  * @param	KeyUseCase	Provisioning use case the slot must carry. Must be the same use case
  *				the slot was resolved for, so the guard tests the key pair which
  *				would actually be replaced.
@@ -1356,15 +1359,17 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if the slot holds a key carrying the requested use case.
  *	- XASUFW_KEYMANAGER_INVALID_PARAM, if KeyIdPtr is NULL.
- *	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if the vault or the slot cannot be resolved, or the slot
- *	  does not carry that use case. Reported only from the branch which observed the slot to
- *	  be empty, because it is the value the key pair generation guard treats as permissive.
- *	- XASUFW_FAILURE, if the lookup did not run to a decision.
+ *	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if the slot holds no key. This is the only value the
+ *	  key pair generation guard treats as a free slot.
+ *	- Other error codes propagated from XKeyManager_GetKeyObjectPtr, if the vault cannot be
+ *	  resolved or the key in the slot is expired, does not carry that use case or cannot be
+ *	  accessed.
  *
  *************************************************************************************************/
 static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	const u8 *KeyObjectPtr = NULL;
 	u32 KeyId = 0U;
 
 	if (KeyIdPtr == NULL) {
@@ -1376,21 +1381,19 @@ static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase)
 					XASU_ECC_PVT_SUBVAULT_ID, KeySlot);
 
 	/**
-	 * Validate the slot without consuming a use of the key: the caller fetches the key object
-	 * itself when it is actually used.
-	 * XASUFW_KEYMANAGER_KEY_NOT_FOUND is the one value which lets the key pair generation
-	 * guard replace the slot contents, so it is reported only from the branch which observed
-	 * the slot to be empty. It is deliberately not the initial value: a lookup whose result is
-	 * disturbed leaves the initial failure and the guard refuses.
+	 * Report the composed ID regardless of what the lookup below decides. It names the
+	 * reserved slot rather than the key currently sitting in it, and the key pair generation
+	 * guard needs it on the path where that slot turns out to be empty.
 	 */
-	if (XKeyManager_GetKeyObjectPtr(KeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID, KeyUseCase,
-			(u8)FALSE) != NULL) {
-		Status = XASUFW_SUCCESS;
-	} else {
-		Status = XASUFW_KEYMANAGER_KEY_NOT_FOUND;
-	}
-
 	*KeyIdPtr = KeyId;
+
+	/**
+	 * Validate the slot without consuming a use of the key, since the caller fetches the key
+	 * object itself when the key is actually used. Nothing here reads the resolved object, so
+	 * it is taken through the const output parameter and left untouched.
+	 */
+	Status = XKeyManager_GetKeyObjectPtr(KeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID, KeyUseCase,
+						(u8)FALSE, &KeyObjectPtr);
 
 END:
 	return Status;
@@ -1425,6 +1428,7 @@ END:
  *		subsystem and use case, with the underlying cause packed into the status.
  *	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if the reserved slot holds no public key for that use
  *		case, i.e. the key pair does not exist in the exportable vault.
+ *	- Error code propagated from XKeyManager_GetKeyObjectPtr, if the public key lookup fails.
  *	- Error code from Xil_SMemCpy, if copying the public key fails.
  *
  *************************************************************************************************/
@@ -1432,6 +1436,7 @@ static s32 XProvision_GetPubKey(u32 SubSystemId, u8 KeyUseCase, u8 *PubKeyBuf)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XKeyManager_EccPubKeyObject *PubKeyObj = NULL;
+	const u8 *KeyObjectPtr = NULL;
 	u16 KeySlot = 0U;
 	u32 PubKeyId = 0U;
 
@@ -1462,13 +1467,14 @@ static s32 XProvision_GetPubKey(u32 SubSystemId, u8 KeyUseCase, u8 *PubKeyBuf)
 	 * halves of a provisioning pair carry the same use-case value, so the private use case
 	 * requested here is a subset of the stored public half's use case and the lookup matches.
 	 */
-	PubKeyObj = (const XKeyManager_EccPubKeyObject *)(void *)XKeyManager_GetKeyObjectPtr(
-			PubKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID, KeyUseCase, (u8)FALSE);
-	if (PubKeyObj == NULL) {
-		Status = XASUFW_KEYMANAGER_KEY_NOT_FOUND;
+	Status = XKeyManager_GetKeyObjectPtr(PubKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID, KeyUseCase,
+					     (u8)FALSE, &KeyObjectPtr);
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
+	PubKeyObj = (const XKeyManager_EccPubKeyObject *)(const void *)KeyObjectPtr;
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Copy the uncompressed public key to the caller buffer. */
 	Status = Xil_SMemCpy(PubKeyBuf, XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES,
 			     PubKeyObj->PublicKey, XASU_ECC_P384_PUB_KEY_SIZE_IN_BYTES,
@@ -2470,7 +2476,8 @@ END:
  *	- XASUFW_PROVISION_INVALID_PARAM, if an input is invalid, the buffers overlap or the output
  *	  buffer is too small, or shared scratch storage is unavailable.
  *	- XASUFW_PROVISION_SCRATCH_TOO_SMALL, if shared storage cannot hold the working set.
- *	- XASUFW_PROVISION_KEY_NOT_FOUND, if either provisioning key pair is unavailable.
+ *	- XASUFW_PROVISION_KEY_NOT_FOUND, if either provisioning key pair is unavailable, with the
+ *		underlying slot lookup or key object error packed into the status.
  *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if the initial key-vault overlay activation fails.
  *	- XASUFW_PROVISION_KEY_WRAP_FAIL, if wrap setup, random generation or ECIES seed wrapping
  *	  fails.
@@ -2551,7 +2558,7 @@ s32 XProvision_WrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Status = XProvision_GetPubKey(SubSystemId,
 			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE, ScratchPtr->WrapPubKey);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_NOT_FOUND);
 		goto END_CLR;
 	}
 
@@ -2559,7 +2566,7 @@ s32 XProvision_WrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 	Status = XProvision_GetKeySlot(SubSystemId, &AuthPvtKeySlot,
 			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_NOT_FOUND);
 		goto END_CLR;
 	}
 
@@ -2573,7 +2580,7 @@ s32 XProvision_WrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE,
 			XKEYMANAGER_RSA_OP_NONE, XASU_ECC_PVT_SUBVAULT_ID);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_NOT_FOUND);
 		goto END_CLR;
 	}
 
@@ -2820,7 +2827,8 @@ END:
  *	- XASUFW_PROVISION_SCRATCH_TOO_SMALL, if shared storage cannot hold the working buffers.
  *	- XASUFW_PROVISION_HDR_VERIFY_FAIL, if the tag, version or algorithm is invalid, or header
  *	  hashing or signature verification fails.
- *	- XASUFW_PROVISION_KEY_NOT_FOUND, if a required authentication or unwrap key is missing.
+ *	- XASUFW_PROVISION_KEY_NOT_FOUND, if a required authentication or unwrap key is missing,
+ *		with the underlying slot lookup or key object error packed into the status.
  *	- XASUFW_OVERLAY_ACTIVATE_FAIL, if the initial ECC overlay activation fails.
  *	- XASUFW_PROVISION_KEY_UNWRAP_FAIL, if the ECIES decrypt of the seed fails.
  *	- XASUFW_PROVISION_KDF_FAIL, if CMAC-KDF, its key-register clear or derived-key validation
@@ -2921,7 +2929,7 @@ s32 XProvision_UnwrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes
 	Status = XProvision_GetPubKey(SubSystemId,
 			XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE, WorkPtr->ChunkBuf);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_NOT_FOUND);
 		goto END;
 	}
 
@@ -2978,7 +2986,7 @@ s32 XProvision_UnwrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes
 	Status = XProvision_GetKeySlot(SubSystemId, &EccPvtKeySlot,
 			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_NOT_FOUND);
 		goto END;
 	}
 
@@ -2992,7 +3000,7 @@ s32 XProvision_UnwrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, XAes
 			XASU_KEYMANAGER_ECC_PVT_PROV_UNWRAP_USE_CASE,
 			XKEYMANAGER_RSA_OP_NONE, XASU_ECC_PVT_SUBVAULT_ID);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_PROVISION_KEY_NOT_FOUND;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_NOT_FOUND);
 		goto END;
 	}
 

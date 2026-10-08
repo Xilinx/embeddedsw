@@ -650,7 +650,7 @@ enum {
 	XASUFW_KEYMANAGER_UPDATE_PVT_KEY_FAIL, /**< 0x1BEU - Error when updating private key fails. */
 	XASUFW_KEYMANAGER_UPDATE_PUB_KEY_FAIL, /**< 0x1BFU - Error when updating public key fails. */
 	XASUFW_RSA_KEY_PAIR_GENERATION_FAIL, /**< 0x1C0U - Error when RSA key pair generation fails. */
-	XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, /**< 0x1C1U - Error when getting key object pointer fails. */
+	XASUFW_ERR_RESERVED_1C1, /**< 0x1C1U - Reserved */
 	XASUFW_SHA_DIGEST_CALC_FAILED, /**< 0x1C2U - Error when SHA digest calculation is failed. */
 	XASUFW_SHA_START_FAILED, /**< 0x1C3U - Error when SHA start operation fails. */
 	XASUFW_LMS_INVALID_PARAM, /**< 0x1C4U - LMS invalid parameter error */

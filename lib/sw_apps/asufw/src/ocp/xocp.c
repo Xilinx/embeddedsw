@@ -273,7 +273,7 @@ s32 XOcp_AttestWithDevAk(XAsufw_Dma *DmaPtr, const XAsu_OcpDevAkAttest *OcpAttes
 	/** Fetch the DevAk private key from the ASU key vault. */
 	Status = XOcp_GetDeviceKeyPvtKeyPtr(&DevAkData[SubsysIdx], &DevAkPvtKey);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 		goto END;
 	}
 
@@ -762,26 +762,29 @@ END:
  *
  * @param	DevKey		Pointer to the device key structure holding the private key
  *				identifier.
- * @param	PvtKeyPtr	Pointer that is updated with the address of the private key material
- *				within the vault.
+ * @param	PvtKeyPtr	Pointer that is updated with the address of the private key
+ *				material within the vault on success. Left as NULL on failure.
  *
  * @return
  *	- XASUFW_SUCCESS, if the private key is fetched successfully.
- *	- XASUFW_FAILURE, in case of failure.
+ *	- Error code propagated from XKeyManager_GetKeyObjectPtr, if the key fetch fails.
  *
  *************************************************************************************************/
 static s32 XOcp_GetDeviceKeyPvtKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **PvtKeyPtr)
 {
-	CREATE_VOLATILE(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XKeyManager_EccPvtKeyObject *PvtKeyObj = NULL;
+	const u8 *KeyObjPtr = NULL;
+
+	*PvtKeyPtr = NULL;
 
 	/** Fetch the private key object from the ASU vault for a signature-generation use case. */
-	PvtKeyObj = (const XKeyManager_EccPvtKeyObject *)XKeyManager_GetKeyObjectPtr(
-			DevKey->PvtKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID,
-			XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE, (u8)TRUE);
-	if (PvtKeyObj != NULL) {
+	Status = XKeyManager_GetKeyObjectPtr(DevKey->PvtKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID,
+			XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE, (u8)TRUE,
+			&KeyObjPtr);
+	if (Status == XASUFW_SUCCESS) {
+		PvtKeyObj = (const XKeyManager_EccPvtKeyObject *)KeyObjPtr;
 		*PvtKeyPtr = PvtKeyObj->PrivateKey;
-		Status = XASUFW_SUCCESS;
 	}
 
 	return Status;
@@ -793,26 +796,30 @@ static s32 XOcp_GetDeviceKeyPvtKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **
  *
  * @param	DevKey		Pointer to the device key structure holding the public key
  *				identifier.
- * @param	PubKeyPtr	Pointer that is updated with the address of the public key material
- *				(X and Y coordinates) within the vault.
+ * @param	PubKeyPtr	Pointer that is updated with the address of the public key
+ *				material (X and Y coordinates) within the vault on success.
+ *				Left as NULL on failure.
  *
  * @return
  *	- XASUFW_SUCCESS, if the public key is fetched successfully.
- *	- XASUFW_FAILURE, in case of failure.
+ *	- Error code propagated from XKeyManager_GetKeyObjectPtr, if the key fetch fails.
  *
  *************************************************************************************************/
 static s32 XOcp_GetDeviceKeyPubKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **PubKeyPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XKeyManager_EccPubKeyObject *PubKeyObj = NULL;
+	const u8 *KeyObjPtr = NULL;
+
+	*PubKeyPtr = NULL;
 
 	/** Fetch the public key object from the ASU vault for a signature-verification use case. */
-	PubKeyObj = (const XKeyManager_EccPubKeyObject *)XKeyManager_GetKeyObjectPtr(
-			DevKey->PubKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID,
-			XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE, (u8)TRUE);
-	if (PubKeyObj != NULL) {
+	Status = XKeyManager_GetKeyObjectPtr(DevKey->PubKeyId, XKEYMANAGER_ASU_SUBSYSTEM_ID,
+			XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE, (u8)TRUE,
+			&KeyObjPtr);
+	if (Status == XASUFW_SUCCESS) {
+		PubKeyObj = (const XKeyManager_EccPubKeyObject *)KeyObjPtr;
 		*PubKeyPtr = PubKeyObj->PublicKey;
-		Status = XASUFW_SUCCESS;
 	}
 
 	return Status;
@@ -827,9 +834,9 @@ static s32 XOcp_GetDeviceKeyPubKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **
  *
  * @return
  *	- XASUFW_SUCCESS, if the DevIk public key is fetched successfully.
- *	- XASUFW_FAILURE, in case of failure.
  *	- XASUFW_OCP_KEY_MGMT_NOT_READY, if the DevIk key pair is not generated.
  *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
+ *	- Error code propagated from XKeyManager_GetKeyObjectPtr, if the key fetch fails.
  *
  *************************************************************************************************/
 s32 XOcp_GetDevIkPublicKey(const u8 **PubKeyPtr)
@@ -937,7 +944,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	/** Fetch the DevIk private key from the ASU key vault. */
 	Status = XOcp_GetDeviceKeyPvtKeyPtr(&DevIkData, &IssuerPvtKey);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 		goto END;
 	}
 
@@ -945,7 +952,7 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XOcp_GetDeviceKeyPubKeyPtr(&DevIkData, &IssuerPubKey);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 		goto END;
 	}
 
@@ -993,7 +1000,8 @@ s32 XOcp_GetX509Cert(u32 SubsystemId, const XAsu_OcpCertParams *OcpCertParam, vo
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XOcp_GetDeviceKeyPubKeyPtr(&DevAkData[SubsysIdx], &SubjectPubKey);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
 		}
 

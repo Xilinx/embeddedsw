@@ -216,6 +216,11 @@ END:
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  * 	- Error codes from XKdf_Generate API, if any failure occurs.
  * 	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID cannot be derived from the IPI mask.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if the key could not be retrieved from the
+ * 	  vault, packed with the key manager cause (XASUFW_KEYMANAGER_KEY_NOT_FOUND,
+ * 	  XASUFW_KEYMANAGER_KEY_EXPIRED, XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR,
+ * 	  XASUFW_KEYMANAGER_ACCESS_DENIED, XASUFW_KEYMANAGER_INVALID_PARAM or
+ * 	  XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH).
  *
  *************************************************************************************************/
 static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -263,7 +268,8 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				XKEYMANAGER_RSA_OP_NONE,
 				XASU_KDF_HMAC_SUBVAULT_ID);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
 		}
 		/* Clear KeyId since keyaddress is fetched. */
