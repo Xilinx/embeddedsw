@@ -31,6 +31,7 @@
  *       rmv  07/30/25 Added function to provide subsystem ID
  *       rmv  09/12/25 Moved shared memory macros to xasufw_memory.h file
  *       vm   07/13/26 Add active crypto operation detection for in-place update
+ *       vm   10/05/26 Scan the whole queue so a request in DMA wait is not stalled
  *
  * </pre>
  *
@@ -100,8 +101,17 @@ static XAsufw_ChannelTasks CommChannelTasks = { 0U };
  * @param	Arg	Task private data.
  *
  * @return
- *	- XASUFW_SUCCESS, if the IPI commands are executed successfully.
- *	- XASUFW_FAILURE, if there is any failure.
+ *	- XASUFW_SUCCESS, if the queue scan completed and the pending requests are either served
+ *	  or left for the next run of this task.
+ *	- XASUFW_VALIDATE_COMMAND_FAILED, if validation of the command which was served failed.
+ *	- Error code from XAsufw_CheckAndAllocateResources(), if the resources of the command
+ *	  which was served could not be allocated.
+ *	- Error code from XAsufw_CommandQueueHandler(), if execution of the command which was
+ *	  served failed.
+ *	- Error code from XTask_TriggerAfterDelay(), if this task could not be triggered again
+ *	  while requests are still pending.
+ *	- XASUFW_FAILURE, if this task could not be found to trigger it again while requests are
+ *	  still pending.
  *
  *************************************************************************************************/
 static s32 XAsufw_QueueTaskHandler(void *Arg)
@@ -110,11 +120,14 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 	u32 ChannelIndex = ((u32)Arg & XASUFW_CHANNELINDEX_MASK) >> XASUFW_CHANNELINDEX_SHIFT;
 	u32 PxQueue = ((u32)Arg & XASUFW_QUEUEINDEX_MASK) >> XASUFW_QUEUEINDEX_SHIFT;
 	u32 BufferIdx;
+	u32 ScanIdx;
+	u32 Offset;
 	XAsu_ChannelQueue *ChannelQueue;
 	XAsu_ChannelQueueBuf *QueueBuf;
 	u32 ReqId = 0x0U;
 	XTask_TaskNode *Task = NULL;
 	u8 WriteResp = FALSE;
+	u8 SkipRequest = (u8)FALSE;
 
 	/** Check which queue (P0/P1) has new command from client. */
 	if (PxQueue == XASUFW_P0_QUEUE) {
@@ -134,11 +147,28 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 	}
 
 	/**
-	 * Check all buffers for any command is present and validate and allocate resource if valid
-	 * and update response after command is executed.
+	 * Keep the saved index inside the queue, so that the scan below can only ever address a
+	 * buffer of the queue.
 	 */
-	for (; BufferIdx < XASU_MAX_BUFFERS; ++BufferIdx) {
-		QueueBuf = &ChannelQueue->ChannelQueueBufs[BufferIdx];
+	if (BufferIdx >= XASU_MAX_BUFFERS) {
+		BufferIdx = 0U;
+	}
+
+	/**
+	 * Check all buffers for any command is present and validate and allocate resource if valid
+	 * and update response after command is executed. The scan starts from the saved buffer
+	 * index and wraps at the end of the queue, so that it covers every buffer and leaves none
+	 * of them out of reach.
+	 */
+	for (Offset = 0U; Offset < XASU_MAX_BUFFERS; ++Offset) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		WriteResp = (u8)FALSE;
+		SkipRequest = (u8)FALSE;
+		ScanIdx = BufferIdx + Offset;
+		if (ScanIdx >= XASU_MAX_BUFFERS) {
+			ScanIdx -= XASU_MAX_BUFFERS;
+		}
+		QueueBuf = &ChannelQueue->ChannelQueueBufs[ScanIdx];
 		/** Create a Request ID with Queue task private data and Req Unique ID from client. */
 		ReqId = ((QueueBuf->ReqBuf.Header & XASU_UNIQUE_REQ_ID_MASK) >>
 				XASU_UNIQUE_REQ_ID_SHIFT) | (u32)Arg;
@@ -147,7 +177,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 			(QueueBuf->ReqBufStatus == XASU_COMMAND_DMA_WAIT_COMPLETE) ||
 			(QueueBuf->ReqBufStatus == XASU_COMMAND_VALIDATED)) {
 			XAsufw_Printf(DEBUG_GENERAL, "Command is present. Channel: %d, Priority Queue: %d, "
-				      "BufferIdx: %d\r\n", ChannelIndex, PxQueue, BufferIdx);
+				      "BufferIdx: %d\r\n", ChannelIndex, PxQueue, ScanIdx);
 			/**
 			 * If the queue buffer's request buffer status is XASU_COMMAND_IS_PRESENT, validate
 			 * the command, check if the required resources are available and allocate the
@@ -176,6 +206,7 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 					Status = XAsufw_CheckAndAllocateResources(&QueueBuf->ReqBuf, ReqId);
 					if (Status == XASUFW_RESOURCE_UNAVAILABLE) {
 						/** - If resources are not available, do not schedule the command. */
+						SkipRequest = (u8)TRUE;
 						break;
 					} else if (Status != XASUFW_SUCCESS) {
 						/** - If resource allocation failed, set WriteResp to TRUE. */
@@ -203,18 +234,22 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 							QueueBuf->ReqBufStatus);
 					break;
 			}
+			/**
+			 * The resources are held by another request, so leave this one pending and
+			 * keep scanning, so that the owner can run and release them.
+			 */
+			if (SkipRequest == (u8)TRUE) {
+				continue;
+			}
 			/** If response is to be written, write the response and increment requests served. */
 			if (WriteResp == TRUE) {
 				XAsufw_CommandResponseHandler(&QueueBuf->ReqBuf, ReqId, Status);
 				ChannelQueue->ReqServed++;
 			}
+			/** Resume the next scan from the buffer which was handled. */
+			BufferIdx = ScanIdx;
 			break;
 		}
-	}
-
-	/** Zeroize buffer index if max buffer index reached. */
-	if (BufferIdx == XASU_MAX_BUFFERS) {
-		BufferIdx = 0U;
 	}
 
 	/** Update buffer index for P0/P1 Queue. */
@@ -226,11 +261,11 @@ static s32 XAsufw_QueueTaskHandler(void *Arg)
 
 	/** If the requests served is not same as requests sent, trigger the queue task with delay. */
 	if (ChannelQueue->ReqSent != ChannelQueue->ReqServed) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Task = XTask_GetInstance(Arg);
 		if (Task != NULL) {
 			XAsufw_Printf(DEBUG_DETAILED, "Pending requests are present in the queue.\r\n"
 					"Triggering the queue task with delay.\r\n");
-			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XTask_TriggerAfterDelay(Task, XASUFW_QUEUE_TASK_DELAY_TIME);
 		}
 	}
