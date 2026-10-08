@@ -76,6 +76,11 @@ extern "C" {
 #define XASU_COMMAND_REQ_ARGS				(22U) /**< Command arguments count */
 #define XASU_COMMAND_RESP_ARGS				(17U) /**< Response arguments count */
 
+#define XASU_MAX_RESPONSE_PAYLOAD_SIZE \
+	((u32)((XASU_COMMAND_RESP_ARGS - XASU_RESPONSE_BUFF_ADDR_INDEX) * sizeof(u32)))
+						/**< Largest response payload a callback
+						     registration may ask for, in bytes */
+
 #define XASU_RTCA_BASEADDR			(0xEBE40000U) /**< ASUFW run time configuration area
 									base address */
 #define XASU_RTCA_COMM_CHANNEL_INFO_ADDR	(XASU_RTCA_BASEADDR + 0x10U) /**< Communication

@@ -66,6 +66,8 @@ enum {
 	XASU_KAT_EXEC_NOT_COMPLETED,	/**< 0x1F - KAT execution is not completed */
 	XASU_FREE_CTX_FAIL,		/**< 0x20 - Failed to free context */
 	XASU_FW_VERSION_MISMATCH,	/**< 0x21 - ASUFW version is not compatible with client */
+	XASU_INVALID_RESPONSE_SIZE,	/**< 0x22 - Registered response size exceeds the queue slot
+					payload area */
 };
 
 /**

@@ -35,6 +35,7 @@
  *                     variable to improve readability.
  *       rmv  09/21/25 Used unique id as an index for AsuContext
  *       ks   09/13/26 Validated client context ownership before accepting or releasing it
+ *      msai  09/29/26 Bounded the registered response size to the queue slot payload area
  *
  * </pre>
  *
@@ -254,6 +255,8 @@ END:
  * 	- XST_SUCCESS, if IPI is sent successfully.
  * 	- XST_FAILURE, if there is any failure.
  * 	- XASU_INVALID_ARGUMENT, if the input parameters are invalid.
+ * 	- XASU_CLIENT_NOT_INITIALIZED, if the client is not initialized.
+ * 	- XASU_QUEUE_FULL, if no free queue buffer is available.
  *
  *************************************************************************************************/
 s32 XAsu_SendCmdToAsu(XAsu_ClientParams *ClientParam, void *ReqBuffer, u32 Size,
@@ -267,6 +270,10 @@ s32 XAsu_SendCmdToAsu(XAsu_ClientParams *ClientParam, void *ReqBuffer, u32 Size,
 
 	/** Validate input parameters. */
 	if (ClientParam == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+	if ((ReqBuffer == NULL) && (Size != 0x0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -336,15 +343,23 @@ END:
  *
  * @return
  * 			- Unique ID used for registration (valid values are 0 to (XASU_UNIQUE_ID_MAX - 1)).
- * 			- XASU_UNIQUE_ID_MAX, if unique ID is unavailable.
+ * 			- XASU_UNIQUE_ID_MAX, if unique ID is unavailable, Size exceeds
+ * 			  XASU_MAX_RESPONSE_PAYLOAD_SIZE, or RespBufferPtr is NULL with a non-zero Size.
  *
  *************************************************************************************************/
 u8 XAsu_RegCallBackNGetUniqueId(XAsu_ClientParams *ClientParamPtr, u8 *RespBufferPtr, u32 Size,
 	u8 IsFinalCall)
 {
-	/** Generate unique ID for the request.*/
-	u8 UniqueId = XAsu_GenerateUniqueId();
+	u8 UniqueId = XASU_UNIQUE_ID_MAX;
 
+	/** Reject a size that overruns the queue slot's payload area or has no buffer to receive it. */
+	if ((Size > XASU_MAX_RESPONSE_PAYLOAD_SIZE) ||
+	    ((RespBufferPtr == NULL) && (Size != 0x0U))) {
+		goto END;
+	}
+
+	/** Generate unique ID for the request. */
+	UniqueId = XAsu_GenerateUniqueId();
 	if (UniqueId == XASU_UNIQUE_ID_MAX) {
 		goto END;
 	}
@@ -371,6 +386,8 @@ END:
  *
  * @return
  *	- XST_SUCCESS, if callback details are updated successfully.
+ *	- XASU_INVALID_RESPONSE_SIZE, if Size exceeds XASU_MAX_RESPONSE_PAYLOAD_SIZE.
+ *	- XASU_INVALID_ARGUMENT, if RespBufferPtr is NULL with a non-zero Size.
  *	- XST_FAILURE, in case of failure.
  *
  *************************************************************************************************/
@@ -380,6 +397,18 @@ s32 XAsu_UpdateCallBackDetails(u8 UniqueId, u8 *RespBufferPtr, u32 Size, u8 IsFi
 
 	/** Validate unique ID. */
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		goto END;
+	}
+
+	/** Reject a response size that would overrun the queue slot's payload area. */
+	if (Size > XASU_MAX_RESPONSE_PAYLOAD_SIZE) {
+		Status = XASU_INVALID_RESPONSE_SIZE;
+		goto END;
+	}
+
+	/** Reject a non-zero response size with no buffer to receive it. */
+	if ((RespBufferPtr == NULL) && (Size != 0x0U)) {
+		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 

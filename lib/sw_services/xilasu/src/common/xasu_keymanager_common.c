@@ -121,7 +121,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates the key attributes field against the key type.
+ * @brief	This function validates the key type and its key attributes field. It rejects a
+ *		key type that has no storable sub-vault (invalid or unknown values) and then
+ *		validates the key attributes against the key type.
  *
  * @param	KeyType		Key type identifier. May include the wrapped-key bit
  *				(XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before
@@ -130,18 +132,29 @@ END:
  *
  * @return
  *	- XST_SUCCESS, if the key attributes are valid for the given key type.
- *	- XST_FAILURE, if the key attributes are invalid.
+ *	- XST_FAILURE, if the key attributes are invalid or the key type has no storable sub-vault.
  *
  *************************************************************************************************/
 s32 XAsu_KmValidateKeyAttributes(u8 KeyType, u8 KeyAttributes)
 {
 	s32 Status = XST_FAILURE;
+	u8 SubVaultId = (u8)(KeyType & (u8)(~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK));
+
+	/**
+	 * Reject a key type that does not map to a storable sub-vault. The sub-vault IDs run
+	 * without gaps from XASU_AES_SUBVAULT_ID up to XASU_INVALID_SUBVAULT_ID, so a single range
+	 * check covers every storable type. Invalid sub-vaults are excluded by design;
+	 * no caller of this helper stores or generates them.
+	 */
+	if (SubVaultId >= (u8)XASU_INVALID_SUBVAULT_ID) {
+		goto END;
+	}
 
 	/**
 	 * For an RSA private key, the key attributes encode the private key format
 	 * (prime/totient presence) and must not exceed the maximum supported value.
 	 */
-	if (((KeyType & (u8)(~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK)) == (u8)XASU_RSA_PVT_SUBVAULT_ID) &&
+	if ((SubVaultId == (u8)XASU_RSA_PVT_SUBVAULT_ID) &&
 	    (KeyAttributes > XASU_KM_RSA_PVT_ATTR_MAX)) {
 		goto END;
 	}
