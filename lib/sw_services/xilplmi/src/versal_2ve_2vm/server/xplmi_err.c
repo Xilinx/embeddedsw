@@ -35,6 +35,7 @@
 *       gnr  05/17/2026 Default error action of IPI_ERR changed to XPLMI_EM_ACTION_SRST
 *       ias  08/07/2026 Added error link table for DDR EDAC source tracing
 *       abh  09/13/2026 Added ISP XMPU FuSa error handling via EAM
+*       ias  10/07/2026 Skip link_nodes during In-Place PLM Update
 *
 * </pre>
 *
@@ -867,7 +868,8 @@ END:
  * @param	Cmd is pointer to the command structure
  *
  * @return
- *		- XST_SUCCESS on success.
+ *		- XST_SUCCESS on success, or when skipped during an In-Place
+ *		  PLM Update.
  *		- XPLMI_INVALID_NODE_ID on invalid node ID or NODE_ALL sentinel.
  *		- XST_INVALID_PARAM on invalid parameters / IPI caller.
  *		- Error code from XPlmi_LinkNodes on storage failure.
@@ -887,6 +889,17 @@ int XPlmi_Versal2Ve2VmLinkNodes(XPlmi_Cmd *Cmd)
 	if (Cmd->IpiMask != 0U) {
 		XPlmi_Printf(DEBUG_INFO, "%s: link_nodes is CDO-only\r\n", __func__);
 		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * - Skip during In-Place PLM Update: the linkage is restored from the
+	 *   persistent ErrLinkTable/ErrLinkPool DS, and the replayed PMC CDO
+	 *   would otherwise re-append it. The restored table is authoritative,
+	 *   as for the xilpm_ng topology commands that also skip on update.
+	 */
+	if (XPlmi_IsPlmUpdateDone() == (u8)TRUE) {
+		Status = XST_SUCCESS;
 		goto END;
 	}
 
