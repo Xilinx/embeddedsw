@@ -584,6 +584,10 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 				if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 					continue;
 				}
+				/** Skip the response if no request owns this unique ID. */
+				if (AsuCallBackRef[UniqueId].ClientParams == NULL) {
+					continue;
+				}
 				/** Copy the response buffer data if any. */
 				if (AsuCallBackRef[UniqueId].RespBufferPtr != NULL) {
 					Status = Xil_SecureMemCpy((void *)AsuCallBackRef[UniqueId].RespBufferPtr,
@@ -632,7 +636,7 @@ static void XAsu_DoorBellToClient(void *CallBackRef)
 static s32 XAsu_CheckAsufwPrsntBit(void)
 {
 	s32 Status = XST_FAILURE;
-	s32 Timeout = 0U;
+	u32 Timeout = 0U;
 
 	for (Timeout = 0U; Timeout != XASU_ASUFW_BIT_CHECK_TIMEOUT_VALUE; Timeout++) {
 		if ((Xil_In32(XASU_RTCA_EXEC_STATUS_ADDR) & XASU_RTCA_FW_IS_PRESENT_STATUS_MASK)
@@ -709,7 +713,7 @@ static u8 XAsu_GetFreeIndex(u8 Priority)
 
 	while ((ChannelQPtr->ChannelQueueBufs[*FreeIndexPtr].ReqBufStatus != 0U) ||
 	       (ChannelQPtr->ChannelQueueBufs[*FreeIndexPtr].RespBufStatus != 0U)) {
-		*FreeIndexPtr = (*FreeIndexPtr + 1) % XASU_MAX_BUFFERS;
+		*FreeIndexPtr = (u8)(((u32)*FreeIndexPtr + 1U) % XASU_MAX_BUFFERS);
 		if (TempIndex == *FreeIndexPtr) {
 			*FreeIndexPtr = XASU_MAX_BUFFERS;
 			break;

@@ -38,6 +38,8 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsu_SlhdsaValidateCtxLen(u32 CtxLen);
+static u8 XAsu_SlhdsaGetPreHashHashId(u8 ParamSet);
+static s32 XAsu_SlhdsaValidateParamSet(u8 ParamSet);
 static s32 XAsu_SlhdsaValidateCtxAddr(u64 CtxAddr, u32 CtxLen);
 static s32 XAsu_SlhdsaValidatePreHashFields(u8 ParamSet, u8 PreHashMode, u8 HashId,
 					    u32 MsgLen);
@@ -217,7 +219,7 @@ u32 XAsu_SlhdsaGetPreHashDigestLen(u8 HashId)
 *		XASU_SLHDSA_HASHID_INVALID if ParamSet is unsupported.
 *
 *************************************************************************************************/
-u8 XAsu_SlhdsaGetPreHashHashId(u8 ParamSet)
+static u8 XAsu_SlhdsaGetPreHashHashId(u8 ParamSet)
 {
 	u8 HashId = XASU_SLHDSA_HASHID_INVALID;
 
@@ -255,7 +257,7 @@ u8 XAsu_SlhdsaGetPreHashHashId(u8 ParamSet)
 *		- XST_INVALID_PARAM, if ParamSet is out of range.
 *
 *************************************************************************************************/
-s32 XAsu_SlhdsaValidateParamSet(u8 ParamSet)
+static s32 XAsu_SlhdsaValidateParamSet(u8 ParamSet)
 {
 	s32 Status = (s32)XST_FAILURE;
 

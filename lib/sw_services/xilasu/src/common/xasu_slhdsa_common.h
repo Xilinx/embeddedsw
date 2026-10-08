@@ -47,8 +47,6 @@ u32 XAsu_SlhdsaGetPkSize(u8 ParamSet);
 u32 XAsu_SlhdsaGetSkSize(u8 ParamSet);
 u32 XAsu_SlhdsaGetSigSize(u8 ParamSet);
 u32 XAsu_SlhdsaGetPreHashDigestLen(u8 HashId);
-u8 XAsu_SlhdsaGetPreHashHashId(u8 ParamSet);
-s32 XAsu_SlhdsaValidateParamSet(u8 ParamSet);
 s32 XAsu_SlhdsaValidateSignParams(const XAsu_SlhdsaSignParams *ParamsPtr);
 s32 XAsu_SlhdsaValidateSignVerifyParams(const XAsu_SlhdsaSignVerifyParams *ParamsPtr);
 

@@ -47,6 +47,7 @@
 /************************** Inline Function Definitions ******************************************/
 
 /************************** Function Prototypes **************************************************/
+static s32 XAsu_KmGetSlhdsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
 
 /*************************************************************************************************/
 /**
@@ -368,7 +369,7 @@ END:
  *	- XST_FAILURE, if a pointer is NULL or the parameter set is unsupported.
  *
  *************************************************************************************************/
-s32 XAsu_KmGetSlhdsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
+static s32 XAsu_KmGetSlhdsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr)
 {
 	s32 Status = XST_FAILURE;
 
