@@ -77,7 +77,7 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv);
 s32 XRsa_EccPwct(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PrivKeyAddr,
 	u64 PubKeyAddr);
 s32 XRsa_EccGeneratePvtKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u8 *PvtKey,
-			   u8 *InputRandBuf, u32 InputRandBufLen);
+			   const u8 *InputRandBuf, u32 InputRandBufLen);
 s32 XRsa_EccGenKeyPair(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PvtKeyAddr,
 		       u64 PubKeyAddr);
 

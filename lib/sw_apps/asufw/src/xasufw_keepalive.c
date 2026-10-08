@@ -36,7 +36,6 @@
 						/**< ASUFW counter increment period (100 ms); PLM polls every 200 ms */
 
 /************************************ Variable Definitions ***************************************/
-static XTask_TaskNode *XAsufwKeepAliveTask;	/**< Periodic task for RTCA counter increments */
 
 /************************** Function Prototypes ******************************/
 static s32 XAsufw_KeepAliveTaskHandler(void *Arg);
@@ -53,19 +52,20 @@ static s32 XAsufw_KeepAliveTaskHandler(void *Arg);
 s32 XAsufw_KeepAliveInit(void)
 {
 	s32 Status = XASUFW_FAILURE;
+	XTask_TaskNode *KeepAliveTask;
 
 	XAsufw_WriteReg(XASU_RTCA_KEEP_ALIVE_COUNTER_ADDR, 0U);
 
 	/** Create a periodic task to increment the keep-alive counter. */
-	XAsufwKeepAliveTask = XTask_Create(XTASK_PRIORITY_0, XAsufw_KeepAliveTaskHandler,
-					   NULL, XASUFW_KEEP_ALIVE_INTERVAL_MS);
-	if (XAsufwKeepAliveTask == NULL) {
+	KeepAliveTask = XTask_Create(XTASK_PRIORITY_0, XAsufw_KeepAliveTaskHandler,
+				     NULL, XASUFW_KEEP_ALIVE_INTERVAL_MS);
+	if (KeepAliveTask == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
 		goto END;
 	}
 
 	/** Kick first increment before the 100 ms periodic schedule starts. */
-	XTask_TriggerNow(XAsufwKeepAliveTask);
+	XTask_TriggerNow(KeepAliveTask);
 
 	Status = XASUFW_SUCCESS;
 

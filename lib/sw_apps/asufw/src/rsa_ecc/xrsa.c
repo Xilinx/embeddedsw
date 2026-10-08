@@ -1057,7 +1057,7 @@ s32 XRsa_GenerateKeyPair(u8 *OutBuf, u32 OutBufSize)
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 	static XASUFW_OVERLAY_PERSISTENT_DATA XRsa_KeyGenState KeyGenState = XRSA_KEY_GEN_INIT_STATE;
 	static XASUFW_OVERLAY_PERSISTENT_DATA XRsa_KeyPtr KeyPairState;
-	static XASUFW_OVERLAY_PERSISTENT_DATA u8 *KeyGenBufAddr = NULL;
+	static XASUFW_OVERLAY_PERSISTENT_DATA const u8 *KeyGenBufAddr = NULL;
 	u8 *PubExpPtr = OutBuf;
 	u8 *ModulusPtr = PubExpPtr + XRSA_PUBEXP_SIZE_IN_BYTES;
 	u8 *PvtExpPtr = ModulusPtr + XRSA_MAX_KEY_SIZE_IN_BYTES;

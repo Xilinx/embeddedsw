@@ -35,7 +35,7 @@
  * blocks in lscript.ld can position them at the base of each overlay image.
  */
 
-#define OVERLAY_SECTION(name)	__attribute__((section(name)))	/**< Place a symbol into the named
+#define OVERLAY_SECTION(name)	__attribute__((section(name), used))	/**< Place a symbol into the named
 								linker section */
 
 #if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
@@ -113,7 +113,7 @@ extern char __overlay_keyvault_data_size[];	/**< Size of the key vault overlay d
 #if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
 /**< ECC overlay header */
 XOVERLAY_ECC_HDR
-const XOverlay_Header XEcc_OverlayHeader = {
+static const XOverlay_Header XEcc_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
 	.AlgoId = XOVERLAY_ALGO_ECC,
 	.Version = XOVERLAY_HEADER_VERSION,
@@ -126,7 +126,7 @@ const XOverlay_Header XEcc_OverlayHeader = {
 #ifdef XASU_RSA_ECC_ENABLE
 /**< RSA overlay header */
 XOVERLAY_RSA_HDR
-const XOverlay_Header XRsa_OverlayHeader = {
+static const XOverlay_Header XRsa_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
 	.AlgoId = XOVERLAY_ALGO_RSA,
 	.Version = XOVERLAY_HEADER_VERSION,
@@ -139,7 +139,7 @@ const XOverlay_Header XRsa_OverlayHeader = {
 #ifdef XASU_LMS_ENABLE
 /**< LMS overlay header */
 XOVERLAY_LMS_HDR
-const XOverlay_Header XLms_OverlayHeader = {
+static const XOverlay_Header XLms_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
 	.AlgoId = XOVERLAY_ALGO_LMS,
 	.Version = XOVERLAY_HEADER_VERSION,
@@ -152,7 +152,7 @@ const XOverlay_Header XLms_OverlayHeader = {
 #ifdef XASU_MLDSA_ENABLE
 /**< ML-DSA overlay header */
 XOVERLAY_MLDSA_HDR
-const XOverlay_Header XMldsa_OverlayHeader = {
+static const XOverlay_Header XMldsa_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
 	.AlgoId = XOVERLAY_ALGO_MLDSA,
 	.Version = XOVERLAY_HEADER_VERSION,
@@ -165,7 +165,7 @@ const XOverlay_Header XMldsa_OverlayHeader = {
 #ifdef XASU_MLKEM_ENABLE
 /**< ML-KEM overlay header */
 XOVERLAY_MLKEM_HDR
-const XOverlay_Header XMlkem_OverlayHeader = {
+static const XOverlay_Header XMlkem_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
 	.AlgoId = XOVERLAY_ALGO_MLKEM,
 	.Version = XOVERLAY_HEADER_VERSION,
@@ -178,7 +178,7 @@ const XOverlay_Header XMlkem_OverlayHeader = {
 #ifdef XASU_SLHDSA_ENABLE
 /**< SLH-DSA overlay header */
 XOVERLAY_SLHDSA_HDR
-const XOverlay_Header XSlhdsa_OverlayHeader = {
+static const XOverlay_Header XSlhdsa_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
 	.AlgoId = XOVERLAY_ALGO_SLHDSA,
 	.Version = XOVERLAY_HEADER_VERSION,
@@ -191,7 +191,7 @@ const XOverlay_Header XSlhdsa_OverlayHeader = {
 #ifdef XASU_KEYMANAGER_ENABLE
 /**< Key vault overlay header */
 XOVERLAY_KEYVAULT_HDR
-const XOverlay_Header XKeyVault_OverlayHeader = {
+static const XOverlay_Header XKeyVault_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
 	.AlgoId = XOVERLAY_ALGO_KEYVAULT,
 	.Version = XOVERLAY_HEADER_VERSION,

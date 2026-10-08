@@ -152,13 +152,13 @@ static s32 XKeyManager_AekvExportWrapChunk0Secrets(XAsufw_Dma *DmaPtr,
 						   XKeyManager_ExportCtx *CtxPtr);
 
 /** Import stages. */
-static s32 XKeyManager_AekvImportCheckRevocation(XKeyManager_ImportCtx *CtxPtr);
+static s32 XKeyManager_AekvImportCheckRevocation(const XKeyManager_ImportCtx *CtxPtr);
 static s32 XKeyManager_AekvImportUnwrapChunk0Secrets(XAsufw_Dma *DmaPtr,
 						     XAes *AesInstancePtr,
 						     XKeyManager_ImportCtx *CtxPtr);
 static s32 XKeyManager_AekvImportChunkBody(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 				      XKeyManager_ImportCtx *CtxPtr, u64 ImportAddr);
-static s32 XKeyManager_AekvImportFinalize(XKeyManager_ImportCtx *CtxPtr);
+static s32 XKeyManager_AekvImportFinalize(const XKeyManager_ImportCtx *CtxPtr);
 
 /************************************ Variable Definitions ***************************************/
 
@@ -950,7 +950,7 @@ END:
  *		- Error codes from the revocation eFUSE read, if the epoch is revoked.
  *
  *************************************************************************************************/
-static s32 XKeyManager_AekvImportCheckRevocation(XKeyManager_ImportCtx *CtxPtr)
+static s32 XKeyManager_AekvImportCheckRevocation(const XKeyManager_ImportCtx *CtxPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
@@ -1123,7 +1123,7 @@ END:
  *		- Error codes from the imported key object validation and the registry rebuild.
  *
  *************************************************************************************************/
-static s32 XKeyManager_AekvImportFinalize(XKeyManager_ImportCtx *CtxPtr)
+static s32 XKeyManager_AekvImportFinalize(const XKeyManager_ImportCtx *CtxPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XFih_Var IdStringFih = XFIH_FAILURE;

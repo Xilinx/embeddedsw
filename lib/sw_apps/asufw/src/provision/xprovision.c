@@ -322,6 +322,8 @@ static s32 XProvision_WriteUserKeyToEfuse(u32 EfuseKeyId, const u32 *KeyData);
 static s32 XProvision_CheckEfuseKeyBlank(u32 EfuseKeyId);
 static s32 XProvision_IsUdeSlotFree(u8 UdeSlot);
 static s32 XProvision_WriteUdeKeyToEfuse(u32 UdeSlot, const u32 *KeyData);
+static s32 XProvision_GenerateKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase);
+static s32 XProvision_DeleteKeyPair(u32 SubSystemId, u8 KeyUseCase);
 static s32 XProvision_GetKeySlot(u32 SubSystemId, u16 *SlotPtr, u8 KeyUseCase);
 static s32 XProvision_GetKeyId(u16 KeySlot, u32 *KeyIdPtr, u8 KeyUseCase);
 static s32 XProvision_GetPubKey(u32 SubSystemId, u8 KeyUseCase, u8 *PubKeyBuf);
@@ -1081,7 +1083,7 @@ END:
  *		and a slot left holding a stranded public half reaches the store.
  *
  *************************************************************************************************/
-s32 XProvision_GenerateKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase)
+static s32 XProvision_GenerateKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 PvtKeyId = 0U;
@@ -1201,7 +1203,7 @@ END:
  *		does not compare equal to XASUFW_KEYMANAGER_KEY_DELETE_ERROR on its own.
  *
  *************************************************************************************************/
-s32 XProvision_DeleteKeyPair(u32 SubSystemId, u8 KeyUseCase)
+static s32 XProvision_DeleteKeyPair(u32 SubSystemId, u8 KeyUseCase)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	static const XAsu_KeyManagerSubVaultType SubVaults[XKEYMANAGER_ASYM_KEY_TYPE_COUNT] = {

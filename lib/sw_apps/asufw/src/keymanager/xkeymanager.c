@@ -254,6 +254,8 @@ static s32 XKeyManager_ClearImportRecord(void);
 static s32 XKeyManager_IsRestoredRegistryUsable(void);
 
 static void XKeyManager_MarkVaultDirty(u32 VaultId, u8 Restrictions);
+static void XKeyManager_MarkVaultClean(void);
+static s32 XKeyManager_GetImportRestorableSize(u32 *SizePtr);
 
 /** Resident stages of a key vault blob export or import. */
 static s32 XKeyManager_ExportSessionReset(void);
@@ -284,11 +286,6 @@ static u8 ImportSavedAsuVault[XKEYMANAGER_ASU_EXPORTABLE_VAULT_SNAPSHOT_SIZE];
 					/**< ASU internal exportable vault as it stood before the
 					     import, which the revert path puts back */
 static u32 ImportSavedAsuVaultLen;	/**< Bytes of that vault the snapshot holds */
-static volatile u32 CmacKdfKatStatus = XASU_STATUS_FAIL;
-					/**< Result of the CMAC based key derivation known answer
-					     test this boot. The RTCA area has a status slot per
-					     module and CMAC has none, so the pass is recorded
-					     here. */
 
 /**
  * @cond xkeymanager_internal
@@ -4265,6 +4262,11 @@ static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u32 Ke
 	XKeyManager *KeyVaultPtr = (XKeyManager *)VaultManager.VaultInfo[VaultId].VaultBasePtr;
 	u8 KeyType = XASU_KM_GET_KEY_TYPE(KeyId);
 
+	if (KeyType >= XKEYMANAGER_MAX_SUB_VAULTS) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
 	AllowedAccessRights = KeyVaultPtr->Header.AccessRights;
 
 	if (SubSystemId == XKEYMANAGER_ASU_SUBSYSTEM_ID) {
@@ -5044,7 +5046,6 @@ END:
  * @return
  *		- XASUFW_SUCCESS, if copy is successful.
  *		- XASUFW_KEYMANAGER_INVALID_PARAM, if inputs are invalid.
- *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if the vault region has no base address.
  *		- XASUFW_KEYMANAGER_VAULT_NOT_FOUND, if a registered vault has no base address.
  *		- XASUFW_MEM_COPY_FAIL, if a copy out of the vault table header or a vault fails.
  *
@@ -5065,12 +5066,6 @@ s32 XKeyManager_ReadExportPlaintext(u32 Offset, u8 *Buf, u32 Len)
 	/** Validate input parameters. */
 	if ((Buf == NULL) || (Len == 0U)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
-		goto END;
-	}
-
-	/** The vault region is read below, so its base is settled with the other inputs. */
-	if (VaultBaseAddr == NULL) {
-		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
 		goto END;
 	}
 
@@ -5184,7 +5179,6 @@ END:
  *		- XASUFW_SUCCESS, if write is successful.
  *		- XASUFW_KEYMANAGER_INVALID_PARAM, if inputs are invalid or the requested range
  *		lies outside the restorable vault region.
- *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if the vault region has no base address.
  *		- XASUFW_MEM_COPY_FAIL, if the copy to the vault region fails.
  *
  *************************************************************************************************/
@@ -5200,12 +5194,6 @@ s32 XKeyManager_WriteImportPlaintext(u32 Offset, const u8 *Buf, u32 Len)
 
 	if ((Buf == NULL) || (Len == 0U) || (ImportRestoreBasePtr == NULL)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
-		goto END;
-	}
-
-	/** The vault region is written below, so its base is settled with the other inputs. */
-	if (VaultBaseAddr == NULL) {
-		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
 		goto END;
 	}
 
@@ -5290,7 +5278,7 @@ static void XKeyManager_MarkVaultDirty(u32 VaultId, u8 Restrictions)
  *		yet.
  *
  *************************************************************************************************/
-void XKeyManager_MarkVaultClean(void)
+static void XKeyManager_MarkVaultClean(void)
 {
 	IsKeyVaultDirty = XKEYMANAGER_VAULT_CLEAN_VALUE;
 }
@@ -5379,7 +5367,7 @@ u8 XKeyManager_IsKeyVaultDirty(void)
  *		region.
  *
  *************************************************************************************************/
-s32 XKeyManager_GetImportRestorableSize(u32 *SizePtr)
+static s32 XKeyManager_GetImportRestorableSize(u32 *SizePtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 AsuVaultSize = VaultManager.VaultInfo[XKEYMANAGER_ASU_VAULT_ID].VaultSize;
@@ -5522,7 +5510,6 @@ END:
  *		- XASUFW_SUCCESS, if the vault is reverted or the import was never prepared.
  *		- XASUFW_MEM_COPY_FAIL, if the header or vault restore fails.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if the wipe fails.
- *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if vault base is invalid.
  *		- Error codes from the ASU internal exportable vault creation, when there was no
  *		vault to restore.
  *
@@ -5540,11 +5527,6 @@ s32 XKeyManager_RevertImportRegion(void)
 
 	if ((ImportRestoreBasePtr == NULL) || (ImportRestoreRegionLen == 0U)) {
 		Status = XASUFW_SUCCESS;
-		goto END;
-	}
-
-	if (VaultBaseAddr == NULL) {
-		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
 		goto END;
 	}
 
@@ -5773,7 +5755,7 @@ s32 XKeyManager_ValidateImportedKeyObjects(void)
 	u32 ConsumedSize = 0U;
 	u16 Capacity = 0U;
 	u8 *SubVaultBase = NULL;
-	XAsu_KeyManagerKeyMetadata *MetaPtr = NULL;
+	const XAsu_KeyManagerKeyMetadata *MetaPtr = NULL;
 
 	if (ImportRestoreBasePtr == NULL) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
@@ -5827,7 +5809,7 @@ s32 XKeyManager_ValidateImportedKeyObjects(void)
 			for (SlotIndex = 0U; SlotIndex < Capacity; SlotIndex++) {
 				ExpectedKeyId = (u16)(SlotIndex +
 						      XKEYMANAGER_KEY_INDEX_OFFSET);
-				MetaPtr = (XAsu_KeyManagerKeyMetadata *)(SubVaultBase +
+				MetaPtr = (const XAsu_KeyManagerKeyMetadata *)(SubVaultBase +
 						(KeyObjectSize * SlotIndex));
 
 				if (XASU_KM_GET_KEY_INDEX(MetaPtr->CompositeKeyId) == 0U) {
@@ -5865,7 +5847,6 @@ END:
  *
  * @return
  *		- XASUFW_SUCCESS, if preparation is successful.
- *		- XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS, if vault base is invalid.
  *		- XASUFW_KEYMANAGER_NO_SPACE, if the main header and the ASU internal
  *		non-exportable vault do not fit in the vault region, or the ASU internal
  *		exportable vault is larger than the buffer reserved for its copy.
@@ -5889,11 +5870,6 @@ s32 XKeyManager_PrepareImportRegion(void)
 	 */
 	ImportRestoreBasePtr = NULL;
 	ImportRestoreRegionLen = 0U;
-
-	if (VaultBaseAddr == NULL) {
-		Status = XASUFW_KEYMANAGER_INVALID_DDR_ADDRESS;
-		goto END;
-	}
 
 	/**
 	 * The sizes are unsigned, so a region which does not hold the main header and the ASU
@@ -6712,6 +6688,7 @@ static s32 XKeyManager_ImportSessionReset(void)
  *************************************************************************************************/
 static s32 XKeyManager_RunCryptoKats(void)
 {
+	static volatile u32 CmacKdfKatStatus = XASU_STATUS_FAIL;
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XAsufw_Dma *DmaPtr = XAsufw_GetDmaInstance(ASUDMA_0_DEVICE_ID);
 	XSha *Sha2InstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);

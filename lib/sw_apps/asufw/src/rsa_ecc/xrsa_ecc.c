@@ -1118,7 +1118,7 @@ END:
  *
  *************************************************************************************************/
 s32 XRsa_EccGeneratePvtKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u8 *PvtKey,
-			   u8 *InputRandBuf, u32 InputRandBufLen)
+			   const u8 *InputRandBuf, u32 InputRandBufLen)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	EcdsaCrvInfo *CrvInfo = NULL;

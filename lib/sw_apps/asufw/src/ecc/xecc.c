@@ -872,7 +872,6 @@ static s32 XEcc_GenNdUpdateRandNumToReg(XEcc *InstancePtr, u32 CurveLen, u32 Cou
 		Status = XASUFW_ECC_SCP_RANDOM_NUM_COUNT_FAIL;
 	}
 
-/* coverity[misra_c_2023_rule_2_6_violation] This label 'END' is used by XFIH_GOTO macro */
 END:
 	/** Clear the local random buffer. */
 	Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize((u8 *)(UINTPTR)ScpRandom,

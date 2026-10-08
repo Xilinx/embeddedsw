@@ -55,8 +55,6 @@ s32 XProvision_GetDevProvisionCert(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
 				   const XAsu_DevProvisionCertParams *ParamsPtr, u32 SubsystemId,
 				   u32 *DpcActualSizePtr);
 s32 XProvision_DeleteDevProvisionCert(u32 SubsystemId);
-s32 XProvision_GenerateKeyPair(XAsufw_Dma *DmaPtr, u32 SubSystemId, u8 KeyUseCase);
-s32 XProvision_DeleteKeyPair(u32 SubSystemId, u8 KeyUseCase);
 #ifdef XASU_ECIES_ENABLE
 s32 XProvision_WrapInstructions(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr,
 				 XAes *AesInstancePtr, u32 SubSystemId,

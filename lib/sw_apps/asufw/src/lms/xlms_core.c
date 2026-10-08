@@ -48,13 +48,13 @@
 #ifdef XASU_LMS_ENABLE
 /************************** Constant Definitions *************************************************/
 #define XLMS_LOCAL_SIGNATURE_BUFF_SIZE (XLMS_OTS_MAX_SIGN_LEN + XLMS_Q_FIELD_SIZE + \
-				XLMS_TYPE_SIZE + (XLMS_M_BYTE_FIELD_SIZE * XLMS_TREE_HEIGHT_25))
+				XLMS_TYPE_SIZE + (XLMS_M_BYTE_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_25))
 				/**< Size of local signature buffer used during LMS signature verification */
 #define XLMS_HSS_LOCAL_SIGNATURE_BUFF_SIZE (XLMS_OTS_MAX_SIGN_LEN + XLMS_Q_FIELD_SIZE + \
-			XLMS_TYPE_SIZE + (XLMS_M_BYTE_FIELD_SIZE * XLMS_TREE_HEIGHT_25) + \
+			XLMS_TYPE_SIZE + (XLMS_M_BYTE_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_25) + \
 			XLMS_PUB_KEY_TOTAL_SIZE + XLMS_HSS_LEVELS_FIELD_SIZE + \
 			XLMS_OTS_MAX_SIGN_LEN + XLMS_Q_FIELD_SIZE + \
-			XLMS_TYPE_SIZE + (XLMS_M_BYTE_FIELD_SIZE * XLMS_TREE_HEIGHT_25))
+			XLMS_TYPE_SIZE + (XLMS_M_BYTE_FIELD_SIZE * (u32)XLMS_TREE_HEIGHT_25))
 			/**< Size of local signature buffer used during HSS signature verification */
 
 #define XLMS_DMA_STATE_IDLE			(0U) /**< No non-blocking DMA pending */
@@ -1992,7 +1992,6 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 CurrentNodeNum = StartNodeNum;
 	volatile u32 PathIndex = 0U;
-	volatile u32 Index = 0U;
 	u32 m = XLMS_M_BYTE_FIELD_SIZE;
 	static const u8 XLMS_D_INTR[XLMS_D_FIELD_SIZE] = {XLMS_D_INTR_BYTE, XLMS_D_INTR_BYTE};
 	XAsu_ShaOperationCmd ShaParamsInput;
