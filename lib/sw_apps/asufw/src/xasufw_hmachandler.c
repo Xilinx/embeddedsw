@@ -170,6 +170,8 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if SHA2 hash operation is successful.
  * 	- XASUFW_FAILURE, in case of failure.
+ * 	- XASUFW_INVALID_PARAM, if the command length is invalid.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if fetching the HMAC key from the key vault fails.
  * 	- XASUFW_SHA_INVALID_SHA_MODE, if input sha mode is invalid
  * 	- XASUFW_HMAC_INITIALIZATION_FAILED, if HMAC initialisation fails.
  * 	- XASUFW_HMAC_UPDATE_FAILED, if HMAC update fails.
@@ -184,6 +186,8 @@ END:
  * 	  XASUFW_KEYMANAGER_KEY_EXPIRED, XASUFW_KEYMANAGER_KEY_USE_CASE_ERROR,
  * 	  XASUFW_KEYMANAGER_ACCESS_DENIED, XASUFW_KEYMANAGER_INVALID_PARAM or
  * 	  XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH).
+ * 	- Buffer-clear failure status via XAsufw_UpdateBufStatus, if zeroizing the HMAC state
+ *	  upon a failure fails.
  *
  *************************************************************************************************/
 static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
@@ -314,6 +318,16 @@ END:
 		XAsufw_HmacModule.AsuDmaPtr = NULL;
 		if ((Status != XASUFW_SUCCESS) ||
 		    ((HmacParamsPtr->OperationFlags & XASU_FINISH) == XASU_FINISH)) {
+			/**
+			 * Upon any failure, abort the HMAC operation left in progress so that the next
+			 * request can start a new HMAC operation. XHmac_Init, XHmac_Update and
+			 * XHmac_Final already reset on their own failures; this covers failures raised
+			 * in the handler, such as a memory access denial after XHmac_Init.
+			 */
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateBufStatus(Status, XHmac_Reset(HmacPtr));
+			}
+
 			/**
 			 * Release resources upon any failure or after HMAC operation is complete.
 			 */

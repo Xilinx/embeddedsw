@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -60,6 +60,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 DataLen,
 		 u32 IsLastUpdate);
 s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr);
+s32 XHmac_Reset(XHmac *InstancePtr);
 #endif /* XASU_HMAC_ENABLE */
 
 #ifdef __cplusplus

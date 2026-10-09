@@ -242,9 +242,11 @@ END_CLR:
 
 END:
 	if ((Status != XASUFW_SUCCESS) && (InstancePtr != NULL)) {
-		/** Set HMAC state to XHMAC_INITIALIZED and set SHA under reset upon any failure. */
-		InstancePtr->HmacState = XHMAC_INITIALIZED;
-		XSha_Reset(InstancePtr->ShaInstancePtr);
+		/** End the HMAC operation and set SHA under reset upon any failure. */
+		XFIH_CALL(XHmac_Reset, XFihBufferClear, ClearStatus, InstancePtr);
+		if (ClearStatus != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+		}
 	}
 
 	return Status;
@@ -357,12 +359,11 @@ s32 XHmac_Update(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u64 DataAddr, u32 Da
 END:
 	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS) &&
 	    (InstancePtr != NULL)) {
-		/** Set HMAC state to XHMAC_INITIALIZED and set SHA under reset upon any failure. */
-		InstancePtr->HmacState = XHMAC_INITIALIZED;
-		XSha_Reset(InstancePtr->ShaInstancePtr);
-		/** Zeroize intermediate hash buffer upon any failure. */
-		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
-			  (InstancePtr->IntHash), XASU_SHA_512_HASH_LEN);
+		/**
+		 * End the HMAC operation, set SHA under reset and zeroize the intermediate buffers
+		 * upon any failure.
+		 */
+		XFIH_CALL(XHmac_Reset, XFihBufferClear, ClearStatus, InstancePtr);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
 
@@ -461,21 +462,69 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 
 END:
 	if (InstancePtr != NULL) {
-		/** Zeroize intermediate hash buffer. */
-		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
-			  (InstancePtr->IntHash), XASU_SHA_512_HASH_LEN);
+		/**
+		 * End the HMAC operation: zeroize the intermediate buffers, update the HMAC state to
+		 * XHMAC_INITIALIZED and set SHA under reset.
+		 */
+		XFIH_CALL(XHmac_Reset, XFihBufferClear, ClearStatus, InstancePtr);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-		/** Zeroize local OpadRes buffer. */
-		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
-			  (InstancePtr->OPadRes), XASUFW_SHAKE_SHA3_256_BLOCK_LEN);
-		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-		/** Update the HMAC state to XHMAC_INITIALIZED and set SHA under reset. */
-		InstancePtr->HmacState = XHMAC_INITIALIZED;
-		XSha_Reset(InstancePtr->ShaInstancePtr);
 	}
 
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ *
+ * @brief	This function ends the current HMAC operation. It sets the SHA instance bound to
+ *		the operation under reset, zeroizes the intermediate hash and the key derived OPAD
+ *		result, and updates the HMAC state to XHMAC_INITIALIZED so that a new HMAC operation
+ *		can be started with XHmac_Init.
+ *
+ * @param	InstancePtr	Pointer to the XHmac instance.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if the HMAC instance is reset successfully.
+ * 	- XASUFW_HMAC_INVALID_PARAM, if InstancePtr is NULL.
+ * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroizing the intermediate buffers fails.
+ *
+ *************************************************************************************************/
+s32 XHmac_Reset(XHmac *InstancePtr)
+{
+	CREATE_VOLATILE(Status, XASUFW_ZEROIZE_MEMSET_FAIL);
+	XFih_Var XFihBufferClear = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
+	CREATE_VOLATILE(IntHashClearStatus, XASUFW_FAILURE);
+	CREATE_VOLATILE(OPadClearStatus, XASUFW_FAILURE);
+
+	/** Validate input parameters. */
+	if (InstancePtr == NULL) {
+		Status = XASUFW_HMAC_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Set the SHA instance bound to the HMAC operation under reset and unbind it. Once
+	 * unbound, the SHA instance can be owned by another request, so a later reset must not
+	 * touch it.
+	 */
+	XSha_Reset(InstancePtr->ShaInstancePtr);
+	InstancePtr->ShaInstancePtr = NULL;
+
+	/** Update HMAC state to XHMAC_INITIALIZED. */
+	InstancePtr->HmacState = XHMAC_INITIALIZED;
+
+	/** Zeroize the intermediate hash buffer and the OPAD result buffer. */
+	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, IntHashClearStatus, (InstancePtr->IntHash),
+		  XASU_SHA_512_HASH_LEN);
+	XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, OPadClearStatus, (InstancePtr->OPadRes),
+		  XASUFW_SHAKE_SHA3_256_BLOCK_LEN);
+
+	/** Report success only when both buffers are confirmed cleared. */
+	if ((IntHashClearStatus == XASUFW_SUCCESS) && (OPadClearStatus == XASUFW_SUCCESS)) {
+		Status = XASUFW_SUCCESS;
+	}
+
+END:
 	return Status;
 }
 

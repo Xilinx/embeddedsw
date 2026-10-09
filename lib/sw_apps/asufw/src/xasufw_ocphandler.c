@@ -360,8 +360,22 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if user certificate is generated successfully.
  *	- XASUFW_FAILURE, in case of failure.
+ *	- XASUFW_INVALID_PARAM, if the command length is invalid.
+ *	- XASUFW_OCP_INVALID_PARAM, if the user certificate request parameters or the user
+ *	  certificate configuration are invalid.
  *	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem id is not retrieved.
+ *	- XASUFW_MEM_REGN_ACCESS_DENIED, if a client buffer lies outside the memory regions the
+ *	  requesting subsystem is permitted to access.
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing the certificate generation working data fails.
+ *	- XASUFW_DMA_COPY_FAIL, if copying the user certificate configuration or the certificate
+ *	  size using DMA fails.
+ *	- XASUFW_OCP_INVALID_PUB_KEY_ID, if fetching the subject or issuer public key from the
+ *	  key vault fails.
+ *	- XASUFW_OCP_INVALID_SIGN_KEY_ID, if fetching the issuer private key from the key vault
+ *	  fails.
+ *	- XASUFW_OCP_ISSUER_KEY_PAIR_MISMATCH, if the issuer public and private keys are not a
+ *	  key pair.
+ *	- XASUFW_OCP_USER_X509_CERT_GEN_FAIL, if user certificate generation fails.
  *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release is not allowed.
  *
  *************************************************************************************************/
@@ -395,6 +409,17 @@ static s32 XAsufw_OcpUserX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
+
+	/**
+	 * Validate the client provided user certificate configuration, certificate and
+	 * certificate size buffers.
+	 */
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpUserCertParam->UserCertCfgAddr,
+				   sizeof(XAsu_X509UserCertCfg));
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, OcpUserCertParam->CertBufAddr,
+				   OcpUserCertParam->CertBufLen);
+	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId,
+				   OcpUserCertParam->CertActualSizeAddr, XASUFW_WORD_LEN_IN_BYTES);
 
 	/** Assign DMA and SHA instance pointers. */
 	PlatData.DmaPtr = XAsufw_OcpModule.AsuDmaPtr;
@@ -500,7 +525,7 @@ static s32 XAsufw_OcpUserX509CertGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	Status = XOcp_GetUserX509Cert(&CertGenParams, &CertSize, (void *)(UINTPTR)&PlatData);
 	if ((Status != XASUFW_SUCCESS) ||
 	    (ReturnStatus != XASUFW_OCP_CERT_GENERATION_SUCCESS)) {
-		Status = XAsufw_UpdateBufStatus(Status, XASUFW_OCP_USER_X509_CERT_GEN_FAIL);
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_USER_X509_CERT_GEN_FAIL);
 		ReturnStatus = XASUFW_FAILURE;
 		goto END;
 	}
