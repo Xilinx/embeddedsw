@@ -72,6 +72,17 @@ _CRYPTO_AUX_BUF_SIZE = 0x210;
 _OVERLAY_DDR_BASE = DEFINED(_OVERLAY_DDR_BASE) ? _OVERLAY_DDR_BASE : 0x7FF00000;
 _OVERLAY_STORE_SIZE = 0x100000;
 _OVERLAY_IMG_ALIGN = 64;
+/*
+ * Split of the 0x40000 instruction RAM into the resident region and the overlay window pinned
+ * at its top. The defaults are the split ML-DSA and ML-KEM need: 0x38800 resident and a 0x7800
+ * window at 0xEBE38800. With both features off, CMake overrides the three symbols so the resident
+ * region is 0x3A800 and the window is 0x5800 at 0xEBE3A800. The two lengths tile the 0x40000, and
+ * the window origin is the end of the resident region; the ASSERTs at the end of this file check
+ * both.
+ */
+_INSTR_CNTLR_LEN = DEFINED(_INSTR_CNTLR_LEN) ? _INSTR_CNTLR_LEN : 0x38800;
+_OVERLAY_WIN_ORIGIN = DEFINED(_OVERLAY_WIN_ORIGIN) ? _OVERLAY_WIN_ORIGIN : 0xEBE38800;
+_OVERLAY_WIN_LEN = DEFINED(_OVERLAY_WIN_LEN) ? _OVERLAY_WIN_LEN : 0x7800;
 
 /* Define Memories in the system */
 
@@ -85,12 +96,12 @@ MEMORY
     * catch-all to claim the per-function .text sections that LTO emits for ML-DSA and ML-KEM
     * (.text.PQCP_*, .text.XMldsa*, .text.XMlkem*, .text.mld_*, .text.mlk_*), and an input
     * section goes to the first output section that matches it.
-    * The two lengths must sum to 0x40000, which the ASSERTs at the end of this file enforce
-    * along with checking that every overlay image fits the window; the linker checks that
-    * resident content fits below it.
+    * The lengths come from _INSTR_CNTLR_LEN and _OVERLAY_WIN_LEN above. They must sum to
+    * 0x40000, which the ASSERTs at the end of this file enforce along with checking that every
+    * overlay image fits the window; the linker checks that resident content fits below it.
     */
-   tmr_ram_instr_cntlr_Mem : ORIGIN = 0xEBE00000, LENGTH = 0x38800
-   tmr_ram_overlay_win_Mem : ORIGIN = 0xEBE38800, LENGTH = 0x7800
+   tmr_ram_instr_cntlr_Mem : ORIGIN = 0xEBE00000, LENGTH = _INSTR_CNTLR_LEN
+   tmr_ram_overlay_win_Mem : ORIGIN = _OVERLAY_WIN_ORIGIN, LENGTH = _OVERLAY_WIN_LEN
    tmr_ram_data_Confg_Mem : ORIGIN = 0xEBE40000, LENGTH = 0x1000
    tmr_ram_data_ipi_shared_Mem : ORIGIN = 0xEBE41000, LENGTH = 0x8000
    tmr_ram_data_log_buf_Mem : ORIGIN = 0xEBE49000, LENGTH = _LOG_BUF_SIZE
@@ -724,6 +735,8 @@ ASSERT(__overlay_keyvault_data_size <= LENGTH(tmr_ram_overlay_data_Mem),
  */
 ASSERT(LENGTH(tmr_ram_instr_cntlr_Mem) + LENGTH(tmr_ram_overlay_win_Mem) == 0x40000,
       "resident region and overlay window must tile the 0x40000 instruction RAM exactly")
+ASSERT(ORIGIN(tmr_ram_overlay_win_Mem) == ORIGIN(tmr_ram_instr_cntlr_Mem) + LENGTH(tmr_ram_instr_cntlr_Mem),
+      "overlay window must start where the resident instruction region ends")
 
 ASSERT(__crypto_aux_buf_end <=
       ORIGIN(tmr_ram_crypto_data_block_Mem) + LENGTH(tmr_ram_crypto_data_block_Mem),

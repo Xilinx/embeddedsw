@@ -29,11 +29,15 @@ PQC_ENABLED := $(shell grep -E '^[[:space:]]*\#define[[:space:]]+XASU_ML(DSA|KEM
 endif
 
 ifeq ($(strip $(PQC_ENABLED)),)
-# lscript.ld defaults to the stack and heap the ML-DSA and ML-KEM paths need: the deep frames of
-# liboqs signing and encapsulation, and a heap for the aligned allocations its SHA3 layer makes.
-# With both features off nothing reaches the allocator and those frames are gone, so hand the
-# space back to the resident instruction RAM the two sections are carved from.
-PQC_SIZE_FLAGS = -Wl,--defsym=_STACK_SIZE=0x1400 -Wl,--defsym=_HEAP_SIZE=0x0
+# lscript.ld defaults to the layout the ML-DSA and ML-KEM paths need: the deep frames of
+# liboqs signing and encapsulation, a heap for the aligned allocations its SHA3 layer makes,
+# and a 0x7800 overlay window at 0xEBE38800 with 0x38800 of resident instruction RAM. With both
+# features off nothing reaches the allocator, those frames are gone, and the largest overlay
+# image is smaller, so hand the space back: a 0x1400 stack, no heap, and a 0x5800 overlay
+# window at 0xEBE3A800 with 0x3A800 of resident instruction RAM.
+PQC_SIZE_FLAGS = -Wl,--defsym=_STACK_SIZE=0x1400 -Wl,--defsym=_HEAP_SIZE=0x0 \
+	-Wl,--defsym=_INSTR_CNTLR_LEN=0x3A800 -Wl,--defsym=_OVERLAY_WIN_ORIGIN=0xEBE3A800 \
+	-Wl,--defsym=_OVERLAY_WIN_LEN=0x5800
 OQS_DEP =
 else
 # Both algorithms share one liboqs archive, so it is linked as soon as either is enabled. The BSP
@@ -47,6 +51,7 @@ endif
 # spend different amounts of that budget on the same configuration.
 LN_FLAGS = -Wl,--start-group,-lxil,-lxilasu$(OQS_DEP),-lgcc,-lc,--end-group \
 	-Wl,--no-warn-rwx-segment,--gc-sections,--build-id=none \
+	-B/proj/xbuilds/2026.2_daily_latest/installs/lin64/2026.2/gnu/riscv/lin/riscv32i-xilinx-elf/usr/lib/rv32imac_zicsr_zifencei/ilp32/ \
 	$(PQC_SIZE_FLAGS)
 
 c_SOURCES := $(wildcard *.c) $(wildcard */*.c)

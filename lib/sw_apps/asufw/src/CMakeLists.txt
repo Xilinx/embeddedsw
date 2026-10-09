@@ -180,7 +180,7 @@ collector_list (_headers PROJECT_LIB_HEADERS)
 list (APPEND _sources ${USER_COMPILE_SOURCES})
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)
 set(ASUFW_COMPILE_OPTIONS " -O2 -flto -ffat-lto-objects")
-set(ASUFW_LINK_OPTIONS " -march=rv32imac_zicsr_zifencei -mabi=ilp32")
+set(ASUFW_LINK_OPTIONS " -march=rv32imac_zicsr_zifencei -mabi=ilp32 -B/proj/xbuilds/2026.2_daily_latest/installs/lin64/2026.2/gnu/riscv/lin/riscv32i-xilinx-elf/usr/lib/rv32imac_zicsr_zifencei/ilp32/")
 string(APPEND CMAKE_C_FLAGS ${ASUFW_COMPILE_OPTIONS})
 string(APPEND CMAKE_CXX_FLAGS ${ASUFW_COMPILE_OPTIONS})
 string(APPEND CMAKE_C_LINK_FLAGS ${ASUFW_LINK_OPTIONS})
@@ -225,12 +225,15 @@ add_dependency_on_bsp(_sources)
 add_executable(${APP_NAME}.elf ${_sources})
 string (REPLACE ";" ",-l" _deps "${_deps}")
 set(_linker_command "-Wl,-Map=${APP_NAME}.map -Wl,--build-id=none -Wl,--gc-sections -T\"${CMAKE_SOURCE_DIR}/lscript.ld\" -L\"${CMAKE_LIBRARY_PATH}/\" -L\"${USER_LINK_DIRECTORIES}/\" -Wl,--start-group,-l${_deps} -Wl,--end-group")
-# lscript.ld defaults to the stack and heap the ML-DSA and ML-KEM paths need: the deep frames of
-# liboqs signing and encapsulation, and a heap for the aligned allocations its SHA3 layer makes.
-# With both features off nothing reaches the allocator and those frames are gone, so hand the
-# space back to the resident instruction RAM the two sections are carved from.
+# lscript.ld defaults to the layout the ML-DSA and ML-KEM paths need: the deep frames of
+# liboqs signing and encapsulation, a heap for the aligned allocations its SHA3 layer makes,
+# and a 0x7800 overlay window at 0xEBE38800 with 0x38800 of resident instruction RAM. With both
+# features off nothing reaches the allocator, those frames are gone, and the largest overlay
+# image is smaller, so hand the space back: a 0x2000 stack, no heap, and a 0x5800 overlay
+# window at 0xEBE3A800 with 0x3A800 of resident instruction RAM.
 if(NOT ASUFW_PQC_CONFIG_LINES)
   string(APPEND _linker_command " -Wl,--defsym=_STACK_SIZE=0x2000 -Wl,--defsym=_HEAP_SIZE=0x0")
+  string(APPEND _linker_command " -Wl,--defsym=_INSTR_CNTLR_LEN=0x3A800 -Wl,--defsym=_OVERLAY_WIN_ORIGIN=0xEBE3A800 -Wl,--defsym=_OVERLAY_WIN_LEN=0x5800")
 endif()
 set_target_properties(${APP_NAME}.elf PROPERTIES LINK_DEPENDS ${CMAKE_SOURCE_DIR}/lscript.ld)
 target_link_libraries(${APP_NAME}.elf ${_linker_command})
