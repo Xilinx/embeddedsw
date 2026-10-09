@@ -87,7 +87,7 @@ static const u8 Oid_RsaPublicKey[] = {0X2AU, 0X86U, 0X48U, 0X86U, 0XF7U, 0X0DU, 
 				      0X01U};	/**< RSA public key OID */
 static const u8 ExtnKeyUsage[] = {0X55U, 0X1DU, 0X0FU};	/**< Key usage extension OID */
 
-/**< X.509 public key OID list */
+/** X.509 public key OID list */
 static X509_OidPublicKeyDescriptor PubKeyOidList[] = {
 	{
 		.PubKeyType = X509_PUB_KEY_ECC,

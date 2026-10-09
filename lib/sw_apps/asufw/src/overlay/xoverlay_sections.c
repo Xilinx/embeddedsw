@@ -111,7 +111,7 @@ extern char __overlay_keyvault_data_size[];	/**< Size of the key vault overlay d
 #endif
 
 #if defined(XASU_ECC_ENABLE) || defined(XASU_RSA_ECC_ENABLE)
-/**< ECC overlay header */
+/** ECC overlay header */
 XOVERLAY_ECC_HDR
 static const XOverlay_Header XEcc_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
@@ -124,7 +124,7 @@ static const XOverlay_Header XEcc_OverlayHeader = {
 #endif
 
 #ifdef XASU_RSA_ECC_ENABLE
-/**< RSA overlay header */
+/** RSA overlay header */
 XOVERLAY_RSA_HDR
 static const XOverlay_Header XRsa_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
@@ -137,7 +137,7 @@ static const XOverlay_Header XRsa_OverlayHeader = {
 #endif
 
 #ifdef XASU_LMS_ENABLE
-/**< LMS overlay header */
+/** LMS overlay header */
 XOVERLAY_LMS_HDR
 static const XOverlay_Header XLms_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
@@ -150,7 +150,7 @@ static const XOverlay_Header XLms_OverlayHeader = {
 #endif /* XASU_LMS_ENABLE */
 
 #ifdef XASU_MLDSA_ENABLE
-/**< ML-DSA overlay header */
+/** ML-DSA overlay header */
 XOVERLAY_MLDSA_HDR
 static const XOverlay_Header XMldsa_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
@@ -163,7 +163,7 @@ static const XOverlay_Header XMldsa_OverlayHeader = {
 #endif /* XASU_MLDSA_ENABLE */
 
 #ifdef XASU_MLKEM_ENABLE
-/**< ML-KEM overlay header */
+/** ML-KEM overlay header */
 XOVERLAY_MLKEM_HDR
 static const XOverlay_Header XMlkem_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
@@ -176,7 +176,7 @@ static const XOverlay_Header XMlkem_OverlayHeader = {
 #endif /* XASU_MLKEM_ENABLE */
 
 #ifdef XASU_SLHDSA_ENABLE
-/**< SLH-DSA overlay header */
+/** SLH-DSA overlay header */
 XOVERLAY_SLHDSA_HDR
 static const XOverlay_Header XSlhdsa_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,
@@ -189,7 +189,7 @@ static const XOverlay_Header XSlhdsa_OverlayHeader = {
 #endif /* XASU_SLHDSA_ENABLE */
 
 #ifdef XASU_KEYMANAGER_ENABLE
-/**< Key vault overlay header */
+/** Key vault overlay header */
 XOVERLAY_KEYVAULT_HDR
 static const XOverlay_Header XKeyVault_OverlayHeader = {
 	.Magic = XOVERLAY_MAGIC,

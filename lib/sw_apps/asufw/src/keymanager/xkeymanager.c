@@ -341,7 +341,7 @@ _Static_assert(offsetof(XAsu_KeyManagerSubVaultParams, MlkemPubKeyVaultCapacity)
 		((XKEYMANAGER_MAX_SUB_VAULTS - 1U) * sizeof(u16))),
 	       "sub-vault capacities must remain contiguous and in identifier order");
 
-/**< Lookup table for key object sizes based on key type */
+/** Lookup table for key object sizes, indexed by key type (sub-vault ID) */
 static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XASU_AES_SUBVAULT_ID] = sizeof(XKeyManager_AesKeyObject),
 	[XASU_IV_SUBVAULT_ID] = sizeof(XKeyManager_IvObject),

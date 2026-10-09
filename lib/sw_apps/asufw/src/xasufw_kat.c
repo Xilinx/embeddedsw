@@ -294,8 +294,16 @@ static const XASUFW_KAT_RSA_DATA u8 RsaPvtExp[XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES
 	0x28U, 0x32U, 0x44U, 0xD1U
 };
 
+/**
+ * Fixed RSA public exponent 65537, stored as byte-swapped 0x00010001 for the RSA input
+ * format. Used by the RSA OAEP, RSA PSS, and key-wrap KATs.
+ */
 static const XASUFW_KAT_RSA_DATA u32 RsaPublicExp = 0x1000100U;
 
+/**
+ * Fixed optional-label (OAEP label) test vector used by the RSA OAEP padding and
+ * key-wrap/unwrap KATs.
+ */
 static const XASUFW_KAT_RSA_DATA char RsaOpt[XASUFW_RSA_OPTIONAL_DATA_SIZE_IN_BYTES + 1U] =
 	"ASUFW";
 

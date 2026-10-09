@@ -42,9 +42,9 @@ extern "C" {
 
 /**
  * @name  CTRL register
+ * Control register offset and definitions
  * @{
  */
-/**< Control register offset and definitions */
 /** Control register offset */
 #define XECC_CTRL_OFFSET			(0x00000010U)
 /** Control register start bit mask */
@@ -73,9 +73,9 @@ extern "C" {
 
 /**
  * @name  Status register
+ * Status register offset and definitions
  * @{
  */
-/**< Status register offset and definitions */
 /** Status register offset */
 #define XECC_STATUS_OFFSET			(0x00000014U)
 /** Status register termination code mask */
@@ -88,27 +88,27 @@ extern "C" {
 
 /**
  * @name  Reset register
+ * Reset register offset and definitions
  * @{
  */
-/**< Reset register offset and definitions */
 #define XECC_RESET_OFFSET			(0x00000040U) /**< Reset register offset */
 #define XECC_RESET_MASK				(0x00000001U) /**< Reset mask */
 /** @} */
 
 /**
  * @name  ISR register
+ * Interrupt Status register offset and definitions
  * @{
  */
-/**< Interrupt Status register offset */
-#define XECC_ISR_OFFSET				(0x00000048U)
-#define XECC_ISR_DONE_MASK			(0x00000001U)
+#define XECC_ISR_OFFSET				(0x00000048U) /**< Interrupt Status offset */
+#define XECC_ISR_DONE_MASK			(0x00000001U) /**< Interrupt Status done mask */
 /** @} */
 
 /**
  * @name  IER register
+ * Interrupt Enable register offset and definitions
  * @{
  */
-/**< Interrupt Enable register offset */
 #define XECC_IER_OFFSET				(0x00000050U) /**< Interrupt Enable register offset */
 #define XECC_IER_DONE_MASK			(0x00000001U) /**< Interrupt Enable done mask */
 /** @} */

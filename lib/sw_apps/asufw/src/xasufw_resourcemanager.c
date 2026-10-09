@@ -97,6 +97,10 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId);
 static u32 XAsufw_IsClientOwnedResource(u32 OwnerId);
 
 /************************************ Variable Definitions ***************************************/
+/**
+ * Resource manager table holding the state, allocated-resource mask and owner ID for each
+ * resource, indexed by the XAsufw_Resource enum
+ */
 static XAsufw_ResourceManager ResourceManager[XASUFW_MAX_RESOURCES];
 
 /*************************************************************************************************/

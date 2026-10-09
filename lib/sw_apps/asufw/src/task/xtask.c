@@ -50,9 +50,15 @@
 /************************************ Function Prototypes ****************************************/
 
 /************************************ Variable Definitions ***************************************/
-static XTask_TaskNode TaskList[XTASK_MAX];
-static XLinkList TaskQueue[XTASK_PRIORITIES];
-static u32 NextDispatchTime;
+static XTask_TaskNode TaskList[XTASK_MAX];	/**< Static pool of task control blocks;
+						     each slot holds one task's parameters. A slot
+						     is free when its TaskHandler is NULL */
+static XLinkList TaskQueue[XTASK_PRIORITIES];	/**< Per-priority linked lists of ready tasks,
+						     including periodic tasks; the scheduler
+						     dispatches from these queues, highest
+						     priority first */
+static u32 NextDispatchTime;	/**< Smallest remaining delay in ms across all delayed and
+				     periodic tasks; 0 when none is pending */
 /** Current time in ms */
 volatile u32 TaskTimeNow = 0U;
 

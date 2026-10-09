@@ -40,11 +40,16 @@
 #include "xil_sutil.h"
 
 /********************************** Constant Definitions *****************************************/
-/**< OIDs used in X.509 Certificate and Certificate Signing Request */
+/**
+ * @name X.509 OIDs
+ * OIDs used in X.509 Certificate and Certificate Signing Request
+ * @{
+ */
 static const u8 Oid_SignAlgoSha3_384[] = {0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U,
 					  0x04U, 0x03U, 0x0BU};
 static const u8 Oid_EccPublicKey[] = {0x2AU, 0x86U, 0x48U, 0xCEU, 0x3DU, 0x02U, 0x01U};
 static const u8 Oid_P384[] = {0x06U, 0x05U, 0x2BU, 0x81U, 0x04U, 0x00U, 0x22U};
+/** @} */
 
 /************************************ Macro Definitions ******************************************/
 #define X509_VERSION_FIELD_LEN					(0x3U)	/**< Length of Version
@@ -130,7 +135,7 @@ typedef struct {
 } X509_CertGenInfo;
 
 /********************************** Variable Definitions *****************************************/
-/**< X.509 public key OID list */
+/** X.509 public key OID list */
 static X509_OidPublicKeyDescriptor PubKeyOidList[X509_PUB_KEY_MAX] = {
 	[X509_PUB_KEY_UNSUPPORTED] = {
 		.PubKeyType = X509_PUB_KEY_UNSUPPORTED,
@@ -144,7 +149,7 @@ static X509_OidPublicKeyDescriptor PubKeyOidList[X509_PUB_KEY_MAX] = {
 	},
 };
 
-/**< X.509 algorithm parameter OID list */
+/** X.509 algorithm parameter OID list */
 static X509_AlgoEccParam ParamOidList[X509_ECC_CURVE_TYPE_MAX] = {
 	[X509_ECC_CURVE_TYPE_384] = {
 		.EccCurveType = X509_ECC_CURVE_TYPE_384,
@@ -153,7 +158,7 @@ static X509_AlgoEccParam ParamOidList[X509_ECC_CURVE_TYPE_MAX] = {
 	},
 };
 
-/**< X.509 signature OID list */
+/** X.509 signature OID list */
 static X509_SignatureOidDescriptor SignOidList[X509_SIGN_TYPE_MAX] = {
 	[X509_SIGN_TYPE_ECC_SHA3_384] = {
 		.SignType = X509_SIGN_TYPE_ECC_SHA3_384,

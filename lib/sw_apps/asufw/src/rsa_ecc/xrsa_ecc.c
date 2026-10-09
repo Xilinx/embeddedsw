@@ -1235,9 +1235,6 @@ s32 XRsa_EccGenKeyPair(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u64 PvtK
 		       u64 PubKeyAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	EcdsaKey Key;
-	EcdsaCrvInfo *CrvInfo = NULL;
-	u32 CurveSize = 0U;
 
 	/** Validate input parameters. */
 	if ((DmaPtr == NULL) || (PvtKeyAddr == 0U) || (PubKeyAddr == 0U)) {

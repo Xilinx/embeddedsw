@@ -310,7 +310,11 @@ typedef struct {
 #define X509_ASN1_BOOLEAN_TRUE				(0xFFU)	/**< ASN.1 value of boolean TRUE */
 #define X509_ASN1_BOOLEAN_FALSE				(0x00U)	/**< ASN.1 value of boolean FALSE */
 
-/**< ASN.1 tags */
+/**
+ * @name ASN.1 tag definitions
+ * ASN.1 tag values used for X.509 certificate encoding and parsing.
+ * @{
+ */
 #define X509_ASN1_TAG_BOOLEAN				(0x01U)	/**< ASN.1 tag for boolean */
 #define X509_ASN1_TAG_INTEGER				(0x02U)	/**< ASN.1 tag for integer */
 #define X509_ASN1_TAG_BIT_STRING			(0x03U)	/**< ASN.1 tag for bit string */
@@ -330,6 +334,7 @@ typedef struct {
 #define X509_ASN1_TAG_OPTIONAL_PARAM_3_CONSTRUCTED_TAG	(0xA3U)	/**< ASN.1 optional parameter 3
 								constructed tag */
 #define X509_ASN1_TAG_CONTEXT_SPECIFIC			(0x80U) /**< ASN.1 tag for context */
+/** @} */
 
 /************************************ Function Prototypes ****************************************/
 s32 X509_ParseCertificate(u64 X509CertAddr, u32 Size, X509_CertInfo *CertInfo);
