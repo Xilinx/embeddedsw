@@ -3960,8 +3960,8 @@ void XHdcp22Tx_RevokeReceiverId(XHdcp22_Tx *InstancePtr,
 	u32 NumDevices;
 
 	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(ReceiverIdPtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ReceiverIdPtr != NULL);
 
 	RevocationListPtr =
 			XHdcp22Tx_GetRevocationReceiverIdList(InstancePtr);
