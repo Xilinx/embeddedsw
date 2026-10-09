@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #ifndef _HALI2CAPI_H_
 #define _HALI2CAPI_H_
 #include <return_codes.h>
@@ -74,7 +74,7 @@ RESULT HalI2cApuInit(HalI2cConfig_t *pConfig);
 RESULT HalI2cInit (HalI2cConfig_t *pConfig);
 RESULT HalI2cDeInit (uint8_t i2cBusId);
 RESULT HalReadI2CReg (uint8_t i2cBusId, uint8_t slaveAddr, uint16_t regAddr, uint8_t regWidth,
-		      uint16_t *data, uint8_t dataWidth);
+		      void *data, uint8_t dataWidth);
 RESULT HalWriteI2CReg (uint8_t i2cBusId, uint8_t slaveAddr, uint16_t regAddr, uint8_t regWidth,
 		       uint16_t data, uint8_t dataWidth);
 

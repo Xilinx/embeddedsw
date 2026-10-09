@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -138,7 +138,7 @@ void enable_IR_power(IsiSensorHandle_t handle)
 		 IR_POWER_DEVICE_SLAVE_ADDRESS, register_addr, 0x1, wr_data[0], 1);
 	if (Status != RET_SUCCESS) {
 		xil_printf("%s: IR write sensor register error!\n", __func__);
-		return (RET_FAILURE);
+		return;
 	}
 
 	register_addr = 0x02;
@@ -1038,7 +1038,7 @@ RESULT Ox05b1s_IsiGetDGainIss(IsiSensorHandle_t handle, IsiSensorGain_t *pSensor
 	return (result);
 }
 
-RESULT Ox05b1s_IsiSetIntTimeIss(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)
+RESULT Ox05b1s_IsiSetIntTimeIss(IsiSensorHandle_t handle, const IsiSensorIntTime_t *pSensorIntTime)
 {
 	RESULT result = RET_SUCCESS;
 	xil_printf("%s: (enter)\n", __func__);

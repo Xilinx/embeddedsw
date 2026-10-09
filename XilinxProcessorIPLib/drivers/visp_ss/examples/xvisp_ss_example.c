@@ -144,6 +144,7 @@ u64 fbwr_bufsize[NUM_FBWR] = {0};
 #ifdef XPAR_XMIPICSISS_NUM_INSTANCES
 #include "xcsiss.h"            /* MIPI CSI2 RX Subsystem driver */
 #include "xintc.h"             /* AXI Interrupt Controller driver */
+#include "xinterrupt_wrap.h"   /* SDT interrupt ID/parent decoding */
 
 #ifdef SDT
 extern XCsiSs_Config XCsiSs_ConfigTable[];
@@ -689,7 +690,7 @@ void setup_frmbuf_wr()
 #endif
 		if (Status != XST_SUCCESS) {
 			xil_printf(TXT_RED "Frame Buffer Write Init failed status = %x.\r\n" TXT_RST, Status);
-			return XST_FAILURE;
+			return;
 		} else
 			xil_printf("Framebuffer write[%d] initilaized\n", i);
 	}
@@ -715,7 +716,7 @@ void setup_frmbuf_wr()
 						(void *) &frmbufwr[i]);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Frame Buffer Write[%d] Call back failed status = %x.\r\n" TXT_RST, i, Status);
-			return XST_FAILURE;
+			return;
 		}
 	}
 
@@ -1387,10 +1388,15 @@ int setup_mipi_csi_interrupts(void)
 		return XST_FAILURE;
 	}
 
-	/* Step 3: Connect MIPI CSI interrupt handlers to AXI IntC */
+	/* Step 3: Connect only MIPI CSI instances wired to the AXI IntC. */
 	for (int i = 0; i < NUM_MIPI_CSI; i++) {
+		if (MipiCsiSsInst[i].Config.IntrParent == XINTC_NO_PARENT) {
+			xil_printf("MIPI CSI SS[%d] interrupt is not connected; skipping\r\n", i);
+			continue;
+		}
+
 		Status = XIntc_Connect(&MipiIntcController,
-				       XPAR_FABRIC_XMIPICSISS_0_INTR + i,
+				       (u8)XGet_IntrId(MipiCsiSsInst[i].Config.IntrId),
 				       (XInterruptHandler)XCsiSs_IntrHandler,
 				       (void *)&MipiCsiSsInst[i]);
 		if (Status != XST_SUCCESS) {
@@ -1400,7 +1406,7 @@ int setup_mipi_csi_interrupts(void)
 
 		/* Enable interrupt for this MIPI CSI instance in AXI IntC */
 		XIntc_Enable(&MipiIntcController,
-			     XPAR_FABRIC_XMIPICSISS_0_INTR + i);
+			     (u8)XGet_IntrId(MipiCsiSsInst[i].Config.IntrId));
 	}
 
 	/* Start the AXI Interrupt Controller in real mode */
@@ -1462,6 +1468,8 @@ int setup_mipi_csi_interrupts(void)
 	 * on each CSI core instance.
 	 */
 	for (int i = 0; i < NUM_MIPI_CSI; i++) {
+		if (MipiCsiSsInst[i].Config.IntrParent == XINTC_NO_PARENT)
+			continue;
 		XCsi_IntrEnable(MipiCsiSsInst[i].CsiPtr,
 				XCSI_ISR_ALLINTR_MASK & ~XCSI_ISR_STOP_MASK);
 		XCsi_SetGlobalInterrupt(MipiCsiSsInst[i].CsiPtr);

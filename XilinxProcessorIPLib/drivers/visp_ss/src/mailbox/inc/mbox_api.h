@@ -96,7 +96,7 @@ typedef struct MboxAckMsg {
  * @brief write data callback
  * @param receiver_id id of receiver core
  */
-typedef void (*MboxDriverCb)(MboxCoreId receiver_id/*,int fd*/);
+typedef int32_t (*MboxDriverCb)(MboxCoreId receiver_id/*,int fd*/);
 
 /**
  * @brief Initialize a Mbox and register the FIFO

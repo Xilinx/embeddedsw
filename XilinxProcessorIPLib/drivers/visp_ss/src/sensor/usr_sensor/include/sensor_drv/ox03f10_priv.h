@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -123,7 +123,7 @@ static RESULT Ox03f10_IsiSetDGainIss(IsiSensorHandle_t handle, IsiSensorGain_t *
 static RESULT Ox03f10_IsiGetIntTimeIss(IsiSensorHandle_t handle,
 				       IsiSensorIntTime_t *pSensorIntTime);
 static RESULT Ox03f10_IsiSetIntTimeIss(IsiSensorHandle_t handle,
-				       IsiSensorIntTime_t *pSensorIntTime);
+				       const IsiSensorIntTime_t *pSensorIntTime);
 static RESULT Ox03f10_SetIntTime(IsiSensorHandle_t handle, float newIntegrationTime);
 
 

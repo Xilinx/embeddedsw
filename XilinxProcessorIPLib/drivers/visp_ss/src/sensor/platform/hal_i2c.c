@@ -156,7 +156,7 @@ int HalI2cInit(HalI2cConfig_t* pHalI2cConfig)
 
 
 RESULT HalReadI2CReg(uint8_t i2cBusId, uint8_t slaveAddr, uint16_t regAddr, uint8_t regWidth,
-		     uint16_t *data, uint8_t dataWidth)
+		     void *data, uint8_t dataWidth)
 {
 	RESULT result = RET_SUCCESS;
 

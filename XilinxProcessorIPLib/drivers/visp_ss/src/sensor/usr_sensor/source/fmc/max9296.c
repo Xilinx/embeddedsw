@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #include <max9296.h>
 #include "dct_assert.h"
 //#include "cpu_info.h"
@@ -1083,7 +1083,7 @@ void Remapping_I2C_addressess(desInterface *desIface)
 #endif
 	}
 #endif
-	return Status;
+	return;
 }
 
 

@@ -975,10 +975,10 @@ int VsiVvdeviceExecuteCaseline
 		}
 		iba_vdev->virtualChannelId = caseCtx->instanceCfgCtx[index].sensorCfg.virtualChannelId; //2026.1
 		if(iba_vdev->hpId%2 == 0) {
-			iba_vdev->ppc = VispSsInst[index].Config.Iba0Ppc;
+			iba_vdev->ppc = VispSsInst[iba_vdev->hpId].Config.Iba0Ppc;
 		}
 		else if(iba_vdev->hpId%2 == 1) {
-			iba_vdev->ppc = VispSsInst[index].Config.Iba4Ppc;
+			iba_vdev->ppc = VispSsInst[iba_vdev->hpId].Config.Iba4Ppc;
 		}
 		result = IBA_init_send_command(pVvbenchInstance->hCamDevice[index], iba_vdev, index);
 		if (result != RET_SUCCESS) {
@@ -995,6 +995,7 @@ int VsiVvdeviceExecuteCaseline
 
 		//OBA Config
 		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType
+		    && CAMDEV_WORK_MODE_STREAM == caseCtx->instanceCfgCtx[index].workCfg.workMode
 		    && (caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_ONLINE
 			|| caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_BOTH
 			|| (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathOutType == 1)

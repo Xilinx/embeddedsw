@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -115,7 +115,7 @@ static RESULT Ox05b1s_IsiSetDGainIss(IsiSensorHandle_t handle, IsiSensorGain_t *
 static RESULT Ox05b1s_IsiGetIntTimeIss(IsiSensorHandle_t handle,
 				       IsiSensorIntTime_t *pSensorIntTime);
 static RESULT Ox05b1s_IsiSetIntTimeIss(IsiSensorHandle_t handle,
-				       IsiSensorIntTime_t *pSensorIntTime);
+				       const IsiSensorIntTime_t *pSensorIntTime);
 
 #if 1
 /* AMD setting, resolution 2592x1944, modify clock and fps to 5fps*/

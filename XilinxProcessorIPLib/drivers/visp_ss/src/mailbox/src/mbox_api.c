@@ -176,7 +176,10 @@ int32_t vpi_mbox_post(MboxFifoCtrl *mbox_fifo, MboxPostMsg *msg, MboxCoreId rece
 	if (mbox_driver_cb == NULL)
 		return VPI_ERR_INVALID;
 
-	mbox_driver_cb(receiver_id);
+	ret = mbox_driver_cb(receiver_id);
+	if (ret != 0)
+		return VPI_ERR_IO;
+
 	return VPI_SUCCESS;
 }
 

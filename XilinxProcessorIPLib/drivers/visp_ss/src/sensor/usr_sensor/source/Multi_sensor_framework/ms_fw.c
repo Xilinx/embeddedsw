@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /*
  * Add License
  * Multi-Sensor Frame-work Code
@@ -134,13 +134,13 @@ void start_sensor(int in_pipe)
 int access_iic_read(u8 i2cBusId, u8 slave_addr, uint16_t addr, uint8_t regWidth, uint16_t *pValue,
 		    uint8_t dataWidth)
 {
-	HalReadI2CReg(i2cBusId, slave_addr, addr, regWidth, pValue, dataWidth);
+	return HalReadI2CReg(i2cBusId, slave_addr, addr, regWidth, pValue, dataWidth);
 }
 
 int access_iic_write(u8 i2cBusId, u8 slave_addr, uint16_t addr, uint8_t regWidth, uint16_t value,
 		     uint8_t dataWidth)
 {
-	HalWriteI2CReg(i2cBusId, slave_addr, addr, regWidth, value, dataWidth);
+	return HalWriteI2CReg(i2cBusId, slave_addr, addr, regWidth, value, dataWidth);
 }
 
 
@@ -351,7 +351,7 @@ void sensor_status(int index)
 void des_stats(int i)
 {
 	u8 des_addr;
-	int pipe_x_s = 0, pipe_y_s = 0, pipe_z_s = 0, pipe_u_s = 0;
+	uint16_t pipe_x_s = 0, pipe_y_s = 0, pipe_z_s = 0, pipe_u_s = 0;
 	int Status;
 
 	if (des_arr[i].des_state == in_running) {

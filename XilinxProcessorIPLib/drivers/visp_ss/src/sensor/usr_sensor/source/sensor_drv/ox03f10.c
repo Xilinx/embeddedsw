@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -793,7 +793,7 @@ RESULT Ox03f10_IsiGetDGainIss(IsiSensorHandle_t handle, IsiSensorGain_t *pSensor
 	return (result);
 }
 
-RESULT Ox03f10_IsiSetIntTimeIss(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)
+RESULT Ox03f10_IsiSetIntTimeIss(IsiSensorHandle_t handle, const IsiSensorIntTime_t *pSensorIntTime)
 {
 	RESULT result = RET_SUCCESS;
 	xil_printf("%s: (enter)\n", __func__);
@@ -917,7 +917,8 @@ RESULT Ox03f10_IsiSetFpsIss(IsiSensorHandle_t handle, uint32_t fps)
 {
 	RESULT result = RET_SUCCESS;
 	int32_t NewVts = 0;
-	int32_t vs_exp = 0, data = 0;
+	int32_t vs_exp = 0;
+	uint16_t data = 0;
 
 	xil_printf("%s: (enter)\n", __func__);
 
@@ -1039,7 +1040,7 @@ RESULT Ox03f10_IsiGetTpgIss(IsiSensorHandle_t handle, IsiSensorTpg_t *pTpg)
 	return (result);
 }
 
-static RESULT Ox03f10_IsiSetWBIss(IsiSensorHandle_t handle, IsiSensorWb_t *pWb)
+static RESULT Ox03f10_IsiSetWBIss(IsiSensorHandle_t handle, const IsiSensorWb_t *pWb)
 {
 	RESULT result = RET_SUCCESS;
 	xil_printf("%s: (enter)\n", __func__);
@@ -1121,7 +1122,7 @@ static RESULT Ox03f10_IsiGetWBIss(IsiSensorHandle_t handle, IsiSensorWb_t *pWb)
 	return (result);
 }
 
-static RESULT Ox03f10_IsiSetBlcIss(IsiSensorHandle_t handle, IsiSensorBlc_t *pBlc)
+static RESULT Ox03f10_IsiSetBlcIss(IsiSensorHandle_t handle, const IsiSensorBlc_t *pBlc)
 {
 	RESULT result = RET_SUCCESS;
 	uint16_t blcGain = 0;
