@@ -106,8 +106,8 @@ s32 XSlhDsa_Chain(XSlhDsa_Instance *InstPtr, const u8 *Input,
 const XSlhDsa_HashOps *XSlhDsa_HashOpsLookup(XSlhDsa_HashFamily Family);
 
 s32 XSlhDsa_HashCtxInit(XSlhDsa_Instance *InstPtr, XSlhDsa_HashCtx *HashCtxPtr);
+s32 XSlhDsa_HashUpdate(XSlhDsa_HashCtx *HashCtxPtr, u64 Addr, u32 Len, u32 EndLast);
 s32 XSlhDsa_HashShakeBegin(XSlhDsa_HashCtx *HashCtxPtr);
-s32 XSlhDsa_HashShakeUpdate(XSlhDsa_HashCtx *HashCtxPtr, u64 Addr, u32 Len, u32 EndLast);
 s32 XSlhDsa_HashShakeFinish(XSlhDsa_HashCtx *HashCtxPtr, u8 *Out, u32 OutLen);
 s32 XSlhDsa_HashShakePkSeedAddrLocal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 			u8 *Out, u32 OutLen);
@@ -117,7 +117,6 @@ s32 XSlhDsa_HashSha2Begin(XSlhDsa_HashCtx *HashCtxPtr, u32 ShaMode);
 s32 XSlhDsa_HashSha2UpdatePkSeedPrefix(XSlhDsa_HashCtx *HashCtxPtr,
 					    XSlhDsa_Instance *InstPtr,
 					    u32 ShaMode);
-s32 XSlhDsa_HashSha2Update(XSlhDsa_HashCtx *HashCtxPtr, u64 Addr, u32 Len, u32 EndLast);
 s32 XSlhDsa_HashSha2FinishTrunc(XSlhDsa_HashCtx *HashCtxPtr, u32 ShaMode, u32 N, u8 *Out);
 s32 XSlhDsa_HashSha2FinishFull(XSlhDsa_HashCtx *HashCtxPtr, u32 ShaMode, u8 *Out);
 s32 XSlhDsa_HashSha2PkSeedAddrLocal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,

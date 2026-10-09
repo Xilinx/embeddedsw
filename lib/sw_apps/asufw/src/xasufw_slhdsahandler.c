@@ -25,9 +25,10 @@
 *    draws the randomness the operation needs from the TRNG and runs the algorithm. Input and
 *    output data referenced by the 64-bit DMA addresses in the parameter structure are accessed
 *    directly or transferred with XAsufw_DmaXfr. See xslhdsa.c.
-* 5. Sign may return XASUFW_CMD_IN_PROGRESS when a cooperative yield slice expires.
-*    Resources stay held and the scheduler keep-alive task covers PLM. The command is
-*    re-dispatched until signing completes. Verify and KAT do not yield.
+* 5. Sign may return XASUFW_CMD_IN_PROGRESS when a cooperative yield slice expires or when
+*    PRF_msg / H_msg is waiting on a non-blocking SHA message DMA. Verify may return the
+*    same status for an H_msg message DMA. Resources stay held. A yield is re-dispatched by
+*    the resume task; a SHA DMA wait is re-dispatched on DMA-done. KAT does not yield.
 * 6. On completion (or error), the driver clears the sensitive state it holds and the handler
 *    releases resources via XAsufw_SlhdsaReleaseResources; the client receives status through
 *    the IPI callback. Resources are not released while status is XASUFW_CMD_IN_PROGRESS.
@@ -83,6 +84,7 @@
 #include "xslhdsa.h"
 #include "xasufw_kat.h"
 #include "xasufw_queuescheduler.h"
+#include "xasufw_dma.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_SLHDSA_RESUME_TASK_PRIORITY	(XTASK_PRIORITIES - 1U)
@@ -102,6 +104,10 @@ static s32 XAsufw_SlhdsaSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_SlhdsaSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_SlhdsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_SlhdsaResumeTaskHandler(void *Arg);
+static s32 XAsufw_SlhdsaArmInProgress(XSlhDsa_Instance *InstPtr, const XAsu_ReqBuf *ReqBuf,
+				     u32 ReqId);
+static inline s32 XAsufw_SlhdsaCheckResume(XSlhDsa_Instance *InstPtr, u32 ReqId, u8 *IsResume);
+static void XAsufw_SlhdsaFinishIfDone(XSlhDsa_Instance *InstPtr, u32 ReqId, s32 *Status);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_SlhdsaModule; /**< ASUFW SLH-DSA module ID and commands array */
@@ -545,11 +551,13 @@ END:
 *	  the underlying callee status via XAsufw_UpdateErrorStatus).
 *	- XASUFW_SLHDSA_SIGN_OUT_DMA_FAILED, if the finished signature cannot be written to the
 *	  client output buffer.
-*	- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and signing will resume.
+*	- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired, or if PRF_msg or H_msg
+*	  is waiting on a non-blocking SHA message DMA. Signing will resume.
 *	- XASUFW_TASK_INVALID_HANDLER, if the yielded command cannot be re-queued.
 *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release fails.
 *	- Buffer-clear failure status via XAsufw_UpdateBufStatus, if zeroizing the state cached
-*	  across yield slices fails.
+*	  across yield slices fails, or if a PRF_msg or H_msg buffer wipe failed during a SHA
+*	  message DMA wait.
 *	- Error code received from called functions in case of other failure from the called
 *	  function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or
 *	  XASUFW_SHA_FINISH_FAILED).
@@ -558,7 +566,6 @@ END:
 static s32 XAsufw_SlhdsaSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	s32 ResumeStatus = XASUFW_FAILURE;
 	XAsu_SlhdsaSignParams *SignParamsPtr;
 	XSlhDsa_Instance *InstPtr = XSlhDsa_GetInstance();
 	u32 SubSystemId = 0U;
@@ -571,19 +578,9 @@ static s32 XAsufw_SlhdsaSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
-	/**
-	 * An active session carrying this ReqId means the scheduler re-entered the handler after
-	 * a yield, so the request was validated and copied on the first slice. Cap the slice
-	 * count, as a signature that never converges would otherwise hold its resources for good.
-	 */
-	if ((InstPtr->Yield.Session.Active != 0U) &&
-			(InstPtr->Yield.Session.ReqId == ReqId)) {
-		IsResume = 1U;
-		InstPtr->Yield.Session.Slices++;
-		if (InstPtr->Yield.Session.Slices > XSLHDSA_MAX_YIELD_SLICES) {
-			Status = XASUFW_SLHDSA_OPERATION_TIMEOUT;
-			goto END;
-		}
+	Status = XAsufw_SlhdsaCheckResume(InstPtr, ReqId, &IsResume);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
 	}
 
 	/** Sign parameters are held on the instance so they survive across yield slices. */
@@ -640,27 +637,11 @@ static s32 XAsufw_SlhdsaSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	Status = XSlhDsa_Sign(XAsufw_SlhdsaModule.AsuDmaPtr, XAsufw_SlhdsaModule.ShaPtr,
 			      SignParamsPtr);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
-		/**
-		 * Resources stay held while the command is in progress, so a reschedule that did
-		 * not happen would strand them for good. Report the failure instead, which makes
-		 * this a terminating exit and frees them below.
-		 */
-		ResumeStatus = XSlhDsa_YieldScheduleResume(InstPtr, ReqBuf, ReqId);
-		if (ResumeStatus != XASUFW_SUCCESS) {
-			Status = ResumeStatus;
-		}
-		goto END;
+		Status = XAsufw_SlhdsaArmInProgress(InstPtr, ReqBuf, ReqId);
 	}
 
 END:
-	if (Status != XASUFW_CMD_IN_PROGRESS) {
-		/** Ending the session also zeroizes the secrets cached across the slices. */
-		if (InstPtr != NULL) {
-			Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_YieldSessionEnd(InstPtr));
-		}
-		/** Release resources on both success and error paths. */
-		XAsufw_SlhdsaReleaseResources(ReqId, &Status);
-	}
+	XAsufw_SlhdsaFinishIfDone(InstPtr, ReqId, &Status);
 
 	return Status;
 }
@@ -676,7 +657,8 @@ END:
 *	- XASUFW_SUCCESS, if signature verification succeeds.
 *	- XASUFW_INVALID_PARAM, if the request length is invalid.
 *	- XASUFW_SLHDSA_COPY_FAILED, if the verify parameter copy fails.
-*	- XASUFW_SLHDSA_INVALID_PARAM, if verify parameters are invalid.
+*	- XASUFW_SLHDSA_INVALID_PARAM, if the SLH-DSA instance is unavailable or verify parameters
+*	  are invalid.
 *	- XASUFW_INVALID_SUBSYSTEM_ID, if the subsystem ID derived from the IPI mask is invalid.
 *	- XASUFW_MEM_REGN_ACCESS_DENIED, if a client buffer lies outside the memory regions the
 *	  requesting subsystem is permitted to access.
@@ -689,7 +671,12 @@ END:
 *	- XASUFW_SLHDSA_HASH_MSG_FAILED, XASUFW_SLHDSA_FORS_FAILED or XASUFW_SLHDSA_HT_FAILED,
 *	  identifying the verification stage that failed for a reason other than a root mismatch
 *	  (combined with the underlying callee status via XAsufw_UpdateErrorStatus).
+*	- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the slice count exceeds XSLHDSA_MAX_YIELD_SLICES.
+*	- XASUFW_CMD_IN_PROGRESS, if H_msg is waiting on a non-blocking SHA message DMA.
+*	  Verification will resume.
 *	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if resource release fails.
+*	- Buffer-clear failure status via XAsufw_UpdateBufStatus, if ending the yield session
+*	  fails, or if an H_msg buffer wipe failed during a SHA message DMA wait.
 *	- Error code received from called functions in case of other failure from the called
 *	  function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or
 *	  XASUFW_SHA_FINISH_FAILED).
@@ -698,52 +685,179 @@ END:
 static s32 XAsufw_SlhdsaSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	XAsu_SlhdsaSignVerifyParams VerifyParams;
+	XAsu_SlhdsaSignVerifyParams *VerifyParamsPtr;
+	XSlhDsa_Instance *InstPtr = XSlhDsa_GetInstance();
 	u32 SubSystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	u8 IsResume = 0U;
 
-	/** Verify command length. */
-	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_SlhdsaSignVerifyParams);
-
-	/** Copy verify parameters from the request buffer. */
-	Status = Xil_SMemCpy(&VerifyParams, sizeof(VerifyParams), ReqBuf->Arg,
-			     sizeof(VerifyParams), sizeof(VerifyParams));
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SLHDSA_COPY_FAILED;
+	/** Validate the SLH-DSA instance, which holds the yield session state and the snapshot. */
+	if (InstPtr == NULL) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Get subsystem ID from IPI mask. */
-	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
-	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
-		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+	Status = XAsufw_SlhdsaCheckResume(InstPtr, ReqId, &IsResume);
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
+	}
+
+	/** Verify parameters are held on the instance so they survive across yield slices. */
+	VerifyParamsPtr = &InstPtr->Yield.Verify.Params;
+
+	/** Validate and snapshot the request on the first slice only. */
+	if (IsResume == 0U) {
+		/** Verify command length. */
+		XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_SlhdsaSignVerifyParams);
+
+		/**
+		 * Copy verify parameters once so resumed slices retain the buffer bindings
+		 * validated during the initial slice.
+		 */
+		Status = Xil_SMemCpy(VerifyParamsPtr, sizeof(*VerifyParamsPtr), ReqBuf->Arg,
+				     sizeof(*VerifyParamsPtr), sizeof(*VerifyParamsPtr));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_SLHDSA_COPY_FAILED;
+			goto END;
+		}
+
+		/** Get subsystem ID from IPI mask. */
+		SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+		if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+			Status = XASUFW_INVALID_SUBSYSTEM_ID;
+			goto END;
+		}
+
+		/**
+		 * Validate the client provided message, public key, signature and context
+		 * buffers. The public key length used for the region check is ParamSet's PK
+		 * size. A zero CtxLen short-circuits its check, which is the empty-context
+		 * case where CtxAddr is unused.
+		 */
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, VerifyParamsPtr->MsgAddr,
+					   VerifyParamsPtr->MsgLen);
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
+					   VerifyParamsPtr->PkObj.PubKeyAddr,
+					   XAsu_SlhdsaGetPkSize(VerifyParamsPtr->ParamSet));
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
+					   VerifyParamsPtr->SignatureAddr,
+					   VerifyParamsPtr->SignatureLen);
+		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, VerifyParamsPtr->CtxAddr,
+					   VerifyParamsPtr->CtxLen);
 	}
 
 	/**
-	 * Validate the client provided message, public key, signature and context buffers. The
-	 * public key length used for the region check is ParamSet's PK size, which PubKeyLen
-	 * must equal, as XSlhDsa_Verify always reads the full key. A zero CtxLen short-circuits
-	 * its check, which is the empty-context case where CtxAddr is unused.
+	 * Start the time slice this call is allowed to run for. The first call for a ReqId also
+	 * clears the checkpoints another command may have left behind.
 	 */
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, VerifyParams.MsgAddr,
-				   VerifyParams.MsgLen);
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, VerifyParams.PkObj.PubKeyAddr,
-				   XAsu_SlhdsaGetPkSize(VerifyParams.ParamSet));
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, VerifyParams.SignatureAddr,
-				   VerifyParams.SignatureLen);
-	XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, VerifyParams.CtxAddr,
-				   VerifyParams.CtxLen);
+	XSlhDsa_YieldSessionBegin(InstPtr, ReqId);
 
-	/** Verify the signature against the client provided public key. */
+	/** Verify the signature from the signature scratch. */
 	Status = XSlhDsa_Verify(XAsufw_SlhdsaModule.AsuDmaPtr, XAsufw_SlhdsaModule.ShaPtr,
-				&VerifyParams);
+				VerifyParamsPtr);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		Status = XAsufw_SlhdsaArmInProgress(InstPtr, ReqBuf, ReqId);
+	}
 
 END:
-	/** Release resources on both success and error paths. */
-	XAsufw_SlhdsaReleaseResources(ReqId, &Status);
+	XAsufw_SlhdsaFinishIfDone(InstPtr, ReqId, &Status);
 
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+* @brief	Park a command that returned XASUFW_CMD_IN_PROGRESS.
+*
+* A SHA message DMA wait arms DMA-done. A FORS/XMSS yield slice uses the resume task.
+*
+* @param	InstPtr	Pointer to the SLH-DSA instance.
+* @param	ReqBuf	Pointer to the active request buffer.
+* @param	ReqId	Active request identifier.
+*
+* @return
+*	- XASUFW_CMD_IN_PROGRESS, if the wait or park was armed.
+*	- XASUFW_SLHDSA_INVALID_PARAM, if XSlhDsa_YieldScheduleResume rejects a NULL instance
+*	  or request buffer.
+*	- XASUFW_TASK_INVALID_HANDLER, if a yield park cannot be scheduled.
+*
+*************************************************************************************************/
+static s32 XAsufw_SlhdsaArmInProgress(XSlhDsa_Instance *InstPtr, const XAsu_ReqBuf *ReqBuf,
+				     u32 ReqId)
+{
+	s32 Status = XASUFW_CMD_IN_PROGRESS;
+	s32 ResumeStatus = XASUFW_FAILURE;
+
+	if (XSlhDsa_YieldIsHashDmaResume(InstPtr) != 0U) {
+		XAsufw_DmaCfgNonBlocking(XAsufw_SlhdsaModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
+					 ReqBuf, ReqId, XASUFW_BLOCK_DMA);
+	} else {
+		ResumeStatus = XSlhDsa_YieldScheduleResume(InstPtr, ReqBuf, ReqId);
+		if (ResumeStatus != XASUFW_SUCCESS) {
+			Status = ResumeStatus;
+		}
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+* @brief	Detect a yield or DMA-wait resume and cap the slice count.
+*
+* @param	InstPtr	Pointer to the SLH-DSA instance.
+* @param	ReqId	Active request identifier.
+* @param	IsResume	Set to 1U when this call continues an active session.
+*
+* @return
+*	- XASUFW_SUCCESS, if the call may proceed.
+*	- XASUFW_SLHDSA_OPERATION_TIMEOUT, if the slice count exceeds
+*	  XSLHDSA_MAX_YIELD_SLICES.
+*
+*************************************************************************************************/
+static inline s32 XAsufw_SlhdsaCheckResume(XSlhDsa_Instance *InstPtr, u32 ReqId, u8 *IsResume)
+{
+	s32 Status = XASUFW_SUCCESS;
+
+	*IsResume = 0U;
+
+	/**
+	 * An active session carrying this ReqId means the scheduler re-entered the handler
+	 * after a yield or DMA wait, so the request was validated on the first slice. Cap
+	 * the slice count so a command that never converges cannot hold its resources.
+	 */
+	if ((InstPtr->Yield.Session.Active != 0U) &&
+			(InstPtr->Yield.Session.ReqId == ReqId)) {
+		*IsResume = 1U;
+		InstPtr->Yield.Session.Slices++;
+		if (InstPtr->Yield.Session.Slices > XSLHDSA_MAX_YIELD_SLICES) {
+			Status = XASUFW_SLHDSA_OPERATION_TIMEOUT;
+		}
+	}
+
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+* @brief	End the session and release resources when the command is no longer waiting.
+*
+* @param	InstPtr	Pointer to the SLH-DSA instance, or NULL if it was unavailable.
+* @param	ReqId	Active request identifier.
+* @param	Status	Pointer to the command status; updated on wipe or release failure.
+*
+*************************************************************************************************/
+static void XAsufw_SlhdsaFinishIfDone(XSlhDsa_Instance *InstPtr, u32 ReqId, s32 *Status)
+{
+	if (*Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Ending the session also zeroizes the secrets cached across the slices. */
+		if (InstPtr != NULL) {
+			*Status = XAsufw_UpdateBufStatus(*Status,
+							 XSlhDsa_YieldSessionEnd(InstPtr));
+		}
+		/** Release resources on both success and error paths. */
+		XAsufw_SlhdsaReleaseResources(ReqId, Status);
+	}
 }
 
 /*************************************************************************************************/
@@ -787,9 +901,8 @@ static s32 XAsufw_SlhdsaKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 static void XAsufw_SlhdsaReleaseResources(u32 ReqId, s32 *Status)
 {
 	/**
-	 * XASUFW_CMD_IN_PROGRESS means the command yielded and was rescheduled, so its resources
-	 * must stay owned until it finally completes. Verify and KAT never return this status,
-	 * so only yielded sign requests skip the release.
+	 * XASUFW_CMD_IN_PROGRESS means the command yielded or is waiting on SHA message DMA, so
+	 * its resources must stay owned until it finally completes. KAT never returns this status.
 	 */
 	if (*Status != XASUFW_CMD_IN_PROGRESS) {
 		/** Clear DMA and SHA pointers so a later command cannot use a stale engine. */

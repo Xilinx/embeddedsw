@@ -1186,12 +1186,6 @@ END:
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		/** Capture key-generation perf stop when measurement is enabled. */
 		XASUFW_MEASURE_PERF_STOP(XASU_MODULE_SLHDSA_ID);
-		if (InstPtr != NULL) {
-			/** Zeroize the yield root buffer and merge the clear result into Status. */
-			Status = XAsufw_UpdateBufStatus(Status,
-					Xil_SecureZeroize(InstPtr->Yield.Keygen.Root,
-							  sizeof(InstPtr->Yield.Keygen.Root)));
-		}
 	}
 	return Status;
 }
@@ -1226,8 +1220,8 @@ END:
 *		  combined with the underlying callee status via XAsufw_UpdateErrorStatus.
 *		- XASUFW_SLHDSA_HASH_MSG_FAILED, if H_msg fails, combined with the underlying
 *		  callee status via XAsufw_UpdateErrorStatus.
-*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and signing
-*		  will resume.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired, or if PRF_msg
+*		  or H_msg is waiting on a non-blocking SHA message DMA. Signing will resume.
 *		- XASUFW_SLHDSA_FORS_FAILED or XASUFW_SLHDSA_HT_FAILED, if the FORS or
 *		  hypertree stage fails, combined with the underlying callee status via
 *		  XAsufw_UpdateErrorStatus.
@@ -1252,6 +1246,7 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const u8 *EntropyPtr;
 	XSlhDsa_YieldCtx *YieldPtr;
+	u8 *CtxDst;
 	u32 HashWidth;
 	u32 PrefixLen;
 
@@ -1275,63 +1270,75 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 	YieldPtr = &InstPtr->Yield;
 
 	if (YieldPtr->Sign.Stage == XSLHDSA_SIGN_STAGE_NONE) {
-		/** Capture signing perf start when measurement is enabled. */
-		XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
+		/**
+		 * A PRF_msg SHA DMA resume re-enters with the stage still NONE, so the inputs
+		 * are staged on the first slice only. The session is torn down solely on a
+		 * non-in-progress exit, so the staged key, the bound buffers and the WorkMem
+		 * prefix all outlive the wait. Re-reading the client secret key here would
+		 * also let it change between the PRF_msg absorb and the rest of signing.
+		 */
+		if (XSlhDsa_YieldIsHashDmaResume(InstPtr) == 0U) {
+			XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
 
-		/** Stage the caller secret key. */
-		if (Sk == InstPtr->KeyScratch) {
-			XSlhDsa_PublishStagedSkViews(InstPtr, InstPtr->Param.n);
-			Status = XASUFW_SUCCESS;
-		} else {
-			Status = XSlhDsa_LoadSk(InstPtr, Sk);
-		}
-		if (Status != XASUFW_SUCCESS) {
-			goto END;
+			/** Stage the caller secret key. */
+			if (Sk == InstPtr->KeyScratch) {
+				XSlhDsa_PublishStagedSkViews(InstPtr, InstPtr->Param.n);
+				Status = XASUFW_SUCCESS;
+			} else {
+				Status = XSlhDsa_LoadSk(InstPtr, Sk);
+			}
+			if (Status != XASUFW_SUCCESS) {
+				goto END;
+			}
+
+			/** Bind the message and signature buffers. */
+			XSlhDsa_SetMsg(InstPtr, Msg, MsgLen);
+			XSlhDsa_SetSig(InstPtr, Sig, SigLen);
+
+			if (InstPtr->PreHashMode == XASU_SLHDSA_MSG_PREHASH) {
+				/**
+				 * HashSLH-DSA: 0x01 || ctx_len || ctx || OID over the
+				 * client-supplied PH(M).
+				 */
+				Status = XSlhDsa_PreparePreHashMsg(InstPtr, Msg, MsgLen, Ctx,
+								  CtxLen);
+				if (Status != XASUFW_SUCCESS) {
+					goto END;
+				}
+			} else {
+				/**
+				 * - slh_sign Step 8: M' <- toByte(0, 1) || toByte(|ctx|, 1) ||
+				 *   ctx || M
+				 *
+				 * The domain separator and context length are staged in WorkMem.
+				 */
+				InstPtr->WorkMem[XASU_SLHDSA_PREFIX_DS_OFFSET] =
+						XASU_SLHDSA_DS_PURE;
+				InstPtr->WorkMem[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
+				if (CtxLen > 0U) {
+					/** - Append the context after the two-octet header. */
+					CtxDst = &InstPtr->WorkMem[
+							XASU_SLHDSA_PREFIX_CTX_OFFSET];
+					Status = Xil_SMemCpy(CtxDst, XSLHDSA_WORK_MEM_BYTES -
+							XASU_SLHDSA_PREFIX_HDR_LEN, Ctx, CtxLen,
+							CtxLen);
+					if (Status != XASUFW_SUCCESS) {
+						goto END;
+					}
+				}
+				/**
+				 * - Record how many WorkMem bytes the hash paths must stream
+				 *   before the message.
+				 */
+				InstPtr->CtxPrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN + CtxLen;
+			}
 		}
 
 		/**
 		 * - Step 2: opt_rand <- addrnd, substituting opt_rand <- PK.seed for the
 		 *   deterministic variant.
-		 *
-		 * Bind the message and signature buffers, then pick the PRF_msg randomness.
 		 */
-		XSlhDsa_SetMsg(InstPtr, Msg, MsgLen);
-		XSlhDsa_SetSig(InstPtr, Sig, SigLen);
 		EntropyPtr = (OptRand != NULL) ? OptRand : InstPtr->PkSeed;
-
-		if (InstPtr->PreHashMode == XASU_SLHDSA_MSG_PREHASH) {
-			/**
-			 * HashSLH-DSA: 0x01 || ctx_len || ctx || OID over the
-			 * client-supplied PH(M).
-			 */
-			Status = XSlhDsa_PreparePreHashMsg(InstPtr, Msg, MsgLen, Ctx, CtxLen);
-			if (Status != XASUFW_SUCCESS) {
-				goto END;
-			}
-		} else {
-			/**
-			 * - slh_sign Step 8: M' <- toByte(0, 1) || toByte(|ctx|, 1) || ctx || M
-			 *
-			 * The domain separator and context length are staged in WorkMem.
-			 */
-			InstPtr->WorkMem[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
-			InstPtr->WorkMem[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
-			if (CtxLen > 0U) {
-				/** - Append the context string after the two-octet header. */
-				Status = Xil_SMemCpy(
-						InstPtr->WorkMem + XASU_SLHDSA_PREFIX_CTX_OFFSET,
-						XSLHDSA_WORK_MEM_BYTES -
-						XASU_SLHDSA_PREFIX_HDR_LEN, Ctx, CtxLen, CtxLen);
-				if (Status != XASUFW_SUCCESS) {
-					goto END;
-				}
-			}
-			/**
-			 * - Record how many WorkMem bytes the hash paths must stream before the
-			 *   message.
-			 */
-			InstPtr->CtxPrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN + CtxLen;
-		}
 
 		/**
 		 * - Step 3: R <- PRF_msg(SK.prf, opt_rand, M)
@@ -1341,6 +1348,9 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSlhDsa_HashPrfMsg(InstPtr, EntropyPtr, Msg, MsgLen, Ctx, CtxLen, Sig);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			goto END;
+		}
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_PRF_MSG_FAILED);
 			goto END;
@@ -1357,6 +1367,9 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 		 */
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XSlhDsa_HashMsg(InstPtr);
+		if (Status == XASUFW_CMD_IN_PROGRESS) {
+			goto END;
+		}
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_HASH_MSG_FAILED);
 			goto END;
@@ -1409,6 +1422,7 @@ END:
 *		  reported on its own, without a stage tag.
 *		- XASUFW_SLHDSA_HASH_MSG_FAILED, if H_msg fails, combined with the
 *		  underlying callee status via XAsufw_UpdateErrorStatus.
+*		- XASUFW_CMD_IN_PROGRESS, if H_msg is waiting on a non-blocking SHA message DMA.
 *		- XASUFW_SLHDSA_FORS_FAILED or XASUFW_SLHDSA_HT_FAILED, if the FORS
 *		  or hypertree stage fails for any reason other than a root mismatch, combined with
 *		  the underlying callee status via XAsufw_UpdateErrorStatus.
@@ -1456,6 +1470,9 @@ s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr)
 
 	/** - Step 8: digest <- H_msg(R, PK.seed, PK.root, M); R is read from the signature. */
 	Status = XSlhDsa_HashMsg(InstPtr);
+	if (Status == XASUFW_CMD_IN_PROGRESS) {
+		goto END;
+	}
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_HASH_MSG_FAILED);
 		goto END;
@@ -1567,6 +1584,7 @@ END:
 *		  XASUFW_SLHDSA_HT_FAILED, if the H_msg, FORS or hypertree stage fails for
 *		  any reason other than a root mismatch, combined with the underlying callee status
 *		  via XAsufw_UpdateErrorStatus.
+*		- XASUFW_CMD_IN_PROGRESS, if H_msg is waiting on a non-blocking SHA message DMA.
 *		- XASUFW_SLHDSA_COPY_FAILED, if loading the public key into the instance
 *		  fails.
 *		- Error code received from called functions in case of other failure from the
@@ -1584,9 +1602,6 @@ s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 			const u8 *Pk)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-
-	/** Capture verification perf start when measurement is enabled. */
-	XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
 
 	/**
 	 * - Step 1: if |ctx| > 255 then return false
@@ -1606,50 +1621,61 @@ s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 		goto END;
 	}
 
-	/** Split the caller public key into PK.seed and PK.root on the instance. */
-	Status = XSlhDsa_LoadPk(InstPtr, Pk);
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
-	}
-
-	/** Bind the buffers; H_msg reads PK.seed, PK.root and R from the head of the signature. */
-	XSlhDsa_SetPkAddr(InstPtr, Pk);
-	XSlhDsa_SetMsg(InstPtr, Msg, MsgLen);
-	XSlhDsa_SetSig(InstPtr, Sig, SigLen);
-
 	/**
-	 * Rebuild the prefix the signer used. The domain-separator octet differs between pure and
-	 * pre-hash, so a signature made in one mode cannot verify in the other.
+	 * A H_msg SHA DMA resume keeps the staged public key and prefix. Re-reading the
+	 * client public key would let it change between the H_msg absorb and the FORS and
+	 * hypertree root check.
 	 */
-	if (InstPtr->PreHashMode == XASU_SLHDSA_MSG_PREHASH) {
-		/** HashSLH-DSA: 0x01 || ctx_len || ctx || OID over the client-supplied PH(M). */
-		Status = XSlhDsa_PreparePreHashMsg(InstPtr, Msg, MsgLen, Ctx, CtxLen);
+	if (XSlhDsa_YieldIsHashDmaResume(InstPtr) == 0U) {
+		XASUFW_MEASURE_PERF_START(XASU_MODULE_SLHDSA_ID);
+
+		/** Split the caller public key into PK.seed and PK.root on the instance. */
+		Status = XSlhDsa_LoadPk(InstPtr, Pk);
 		if (Status != XASUFW_SUCCESS) {
 			goto END;
 		}
-	} else {
+
+		/** Bind the buffers; H_msg reads PK.seed, PK.root and R from SIG. */
+		XSlhDsa_SetPkAddr(InstPtr, Pk);
+		XSlhDsa_SetMsg(InstPtr, Msg, MsgLen);
+		XSlhDsa_SetSig(InstPtr, Sig, SigLen);
+
 		/**
-		 * - Step 4: M' <- toByte(0, 1) || toByte(|ctx|, 1) || ctx || M
-		 *
-		 * The domain separator and context length are staged in WorkMem.
+		 * Rebuild the prefix the signer used. The domain-separator octet differs
+		 * between pure and pre-hash, so a signature made in one mode cannot verify
+		 * in the other.
 		 */
-		InstPtr->WorkMem[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
-		InstPtr->WorkMem[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
-		if (CtxLen > 0U) {
-			/** - Append the context string after the two-octet header. */
-			Status = Xil_SMemCpy(
-					InstPtr->WorkMem + XASU_SLHDSA_PREFIX_CTX_OFFSET,
-					XSLHDSA_WORK_MEM_BYTES -
-					XASU_SLHDSA_PREFIX_HDR_LEN, Ctx, CtxLen, CtxLen);
+		if (InstPtr->PreHashMode == XASU_SLHDSA_MSG_PREHASH) {
+			/** HashSLH-DSA: 0x01 || ctx_len || ctx || OID over PH(M). */
+			Status = XSlhDsa_PreparePreHashMsg(InstPtr, Msg, MsgLen, Ctx, CtxLen);
 			if (Status != XASUFW_SUCCESS) {
 				goto END;
 			}
+		} else {
+			/**
+			 * - Step 4: M' <- toByte(0, 1) || toByte(|ctx|, 1) || ctx || M
+			 *
+			 * The domain separator and context length are staged in WorkMem.
+			 */
+			InstPtr->WorkMem[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
+			InstPtr->WorkMem[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
+			if (CtxLen > 0U) {
+				/** - Append the context after the two-octet header. */
+				Status = Xil_SMemCpy(InstPtr->WorkMem +
+						XASU_SLHDSA_PREFIX_CTX_OFFSET,
+						XSLHDSA_WORK_MEM_BYTES -
+						XASU_SLHDSA_PREFIX_HDR_LEN, Ctx, CtxLen,
+						CtxLen);
+				if (Status != XASUFW_SUCCESS) {
+					goto END;
+				}
+			}
+			/**
+			 * - Record how many WorkMem bytes the hash paths must stream before
+			 *   the message.
+			 */
+			InstPtr->CtxPrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN + CtxLen;
 		}
-		/**
-		 * - Record how many WorkMem bytes the hash paths must stream before the
-		 *   message.
-		 */
-		InstPtr->CtxPrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN + CtxLen;
 	}
 
 	/**
@@ -1663,8 +1689,10 @@ s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 	Status = XSlhDsa_VerifyCore(InstPtr);
 
 END:
-	/** Capture verification perf stop when measurement is enabled. */
-	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_SLHDSA_ID);
+	if (Status != XASUFW_CMD_IN_PROGRESS) {
+		/** Capture verification perf stop when measurement is enabled. */
+		XASUFW_MEASURE_PERF_STOP(XASU_MODULE_SLHDSA_ID);
+	}
 	return Status;
 }
 /*************************************************************************************************/
@@ -1831,8 +1859,8 @@ END:
 *		  XASUFW_SLHDSA_FORS_FAILED or XASUFW_SLHDSA_HT_FAILED, identifying the
 *		  signing stage that failed, combined with the underlying callee status via
 *		  XAsufw_UpdateErrorStatus.
-*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and signing
-*		  will resume.
+*		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired, or if PRF_msg
+*		  or H_msg is waiting on a non-blocking SHA message DMA. Signing will resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or
 *		  XASUFW_SHA_FINISH_FAILED).
@@ -1842,10 +1870,12 @@ END:
 *	memory visible to both client and ASUFW. The signature is built in the signature scratch and
 *	written to the client buffer only once it is complete. SignMode selects FIPS hedged
 *	signing, which draws a fresh add_rand from the TRNG and so needs the TRNG resource, or
-*	deterministic signing. Hedged signing draws add_rand only on the first slice, but the
-*	TRNG remains allocated until the command finishes, so other TRNG users stay blocked
-*	for the full operation. Long parameter sets yield cooperatively and return
-*	XASUFW_CMD_IN_PROGRESS until FORS and hypertree signing complete.
+*	deterministic signing. Hedged signing draws add_rand only on the first slice, not on a
+*	PRF_msg SHA DMA resume, but the TRNG remains allocated until the command finishes, so
+*	other TRNG users stay blocked for the full operation. Long parameter sets yield
+*	cooperatively and return XASUFW_CMD_IN_PROGRESS until FORS and hypertree signing
+*	complete. The same status is returned while PRF_msg or H_msg waits on a non-blocking
+*	SHA message DMA.
 *
 *************************************************************************************************/
 s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *ParamsPtr)
@@ -1904,13 +1934,16 @@ s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *
 
 	/**
 	 * Deterministic signing derives the randomizer from SK.prf alone. Hedged signing, the
-	 * FIPS recommended default, draws a fresh n-byte add_rand from TRNG per signature. The
-	 * randomizer lives on Yield so it is reused across cooperative yield slices.
+	 * FIPS recommended default, draws a fresh n-byte add_rand from TRNG per signature.
+	 * HashDmaResume is already set when PRF_msg returns after a SHA message DMA, so reuse
+	 * the saved add_rand instead of drawing again. Later yield slices skip the draw because
+	 * Sign.Stage has left NONE.
 	 */
 	if (ParamsPtr->SignMode == XASU_SLHDSA_SIGN_MODE_DETERMINISTIC) {
 		OptRandPtr = NULL;
 	} else {
-		if (YieldPtr->Sign.Stage == XSLHDSA_SIGN_STAGE_NONE) {
+		if ((YieldPtr->Sign.Stage == XSLHDSA_SIGN_STAGE_NONE) &&
+		    (XSlhDsa_YieldIsHashDmaResume(InstPtr) == 0U)) {
 			XFIH_CALL(XTrng_GetRandomNumbers, FihVar, Status, YieldPtr->Sign.AddRand,
 				  InstPtr->Param.n);
 			if (Status != XASUFW_SUCCESS) {
@@ -1976,6 +2009,8 @@ END:
 *		  XASUFW_SLHDSA_HT_FAILED, identifying the verification stage that failed for
 *		  a reason other than a root mismatch, combined with the underlying callee status
 *		  via XAsufw_UpdateErrorStatus.
+*		- XASUFW_CMD_IN_PROGRESS, if H_msg is waiting on a non-blocking SHA message DMA.
+*		  Verification will resume.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or
 *		  XASUFW_SHA_FINISH_FAILED).
@@ -2023,13 +2058,20 @@ s32 XSlhDsa_Verify(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignVerify
 		goto END;
 	}
 
-	/** Copy the client signature into the signature scratch before verification reads it. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsufw_DmaXfr(DmaPtr, ParamsPtr->SignatureAddr,
-			       (u64)(UINTPTR)XSlhDsa_SigScratch, ParamsPtr->SignatureLen, 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SLHDSA_SIG_IN_DMA_FAILED;
-		goto END;
+	/**
+	 * Copy the client signature into the signature scratch before verification reads it.
+	 * A SHA message DMA resume keeps the first-slice copy, so the client cannot rewrite the
+	 * signature between the H_msg absorb of R and the FORS and hypertree stages that follow.
+	 */
+	if (XSlhDsa_YieldIsHashDmaResume(InstPtr) == 0U) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, ParamsPtr->SignatureAddr,
+				       (u64)(UINTPTR)XSlhDsa_SigScratch, ParamsPtr->SignatureLen,
+				       0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_SLHDSA_SIG_IN_DMA_FAILED;
+			goto END;
+		}
 	}
 
 	/**
@@ -2075,12 +2117,6 @@ s32 XSlhDsa_Verify(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignVerify
 	Status = XASUFW_SUCCESS;
 
 END:
-	/**
-	 * Clear the instance state. Verification touches only public data, but the instance is
-	 * shared, so it is cleared here too to keep the contract identical on every exit path.
-	 */
-	Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_ClearSensitiveState(InstPtr));
-
 	return Status;
 }
 /*************************************************************************************************/

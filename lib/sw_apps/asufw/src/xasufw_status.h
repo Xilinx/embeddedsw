@@ -899,8 +899,9 @@ enum {
 	XASUFW_SLHDSA_SIGN_FAILED, /**< 0x269U - SLH-DSA sign operation failed */
 	XASUFW_SLHDSA_SIGN_VERIFY_FAILED, /**< 0x26AU - SLH-DSA signature verification failed */
 	XASUFW_SLHDSA_KAT_FAILED, /**< 0x26BU - SLH-DSA KAT failed */
-	XASUFW_SLHDSA_OPERATION_TIMEOUT, /**< 0x26CU - SLH-DSA key generation or signing exceeded
-						the cooperative yield slice cap */
+	XASUFW_SLHDSA_OPERATION_TIMEOUT, /**< 0x26CU - SLH-DSA key generation, signing or
+						verification exceeded the cooperative yield
+						slice cap */
 	XASUFW_SLHDSA_COPY_FAILED, /**< 0x26DU - Error when an SLH-DSA buffer copy fails, covering
 						the sign or verify parameters read out of the
 						request buffer, the generated key fields written

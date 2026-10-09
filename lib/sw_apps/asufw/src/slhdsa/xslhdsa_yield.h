@@ -68,7 +68,10 @@ typedef struct {
 	u32 XmssLeaves;		/**< XMSS leaves built in the current slice. */
 	u32 ForsLeaves;		/**< FORS leaves built in the current slice. */
 	u8 Active;		/**< Non-zero while a yield session is active. */
-	u8 Reserved[7];		/**< Reserved for alignment. */
+	u8 HashDmaResume;	/**< Non-zero: SHA absorb of M is done; next
+				  *  PRF_msg/H_msg only finishes. */
+	u8 HashWipeFail;	/**< Non-zero: a PRF_msg/H_msg buffer wipe failed during a
+				  *  SHA message DMA wait; reported at session end. */
 } XSlhDsa_YieldSession;
 
 /** This structure contains firmware-side SLH-DSA key pair generation parameters. */
@@ -78,7 +81,6 @@ typedef struct {
 	u32 PubKeyLen;		/**< Length of the public key buffer in bytes */
 	u32 PrivKeyLen;		/**< Length of the secret key buffer in bytes */
 	u8  ParamSet;		/**< Parameter set (XASU_SLHDSA_PARAM_*) */
-	u8  Reserved[3];	/**< Reserved for alignment */
 } XSlhDsa_KeyGenParams;
 
 /** This structure contains KeyGen buffers that must outlive yield slices. */
@@ -86,7 +88,6 @@ typedef struct {
 	XAsu_SlhdsaKeyGenParams Params;	/**< First-slice client keygen request, reused on resume. */
 	u8 Root[XSLHDSA_MAX_N];		/**< Top XMSS root. */
 	u8 Stage;			/**< Key-generation progress stage. */
-	u8 Reserved[7];			/**< Reserved for alignment. */
 } XSlhDsa_YieldKeygen;
 
 /** This structure contains hedged-sign state that must outlive yield slices. */
@@ -94,8 +95,13 @@ typedef struct {
 	XAsu_SlhdsaSignParams Params;	/**< First-slice IPI sign parameters, reused on resume. */
 	u8 AddRand[XSLHDSA_MAX_N];	/**< Hedged add_rand. */
 	u8 Stage;			/**< Signature-generation progress stage. */
-	u8 Reserved[7];			/**< Reserved for alignment. */
 } XSlhDsa_YieldSign;
+
+/** This structure contains verify parameters that must outlive a SHA message DMA wait. */
+typedef struct {
+	XAsu_SlhdsaSignVerifyParams Params;
+				/**< First-slice IPI verify parameters, reused on resume. */
+} XSlhDsa_YieldVerify;
 
 /** This structure contains XMSS treehash, emit and auth-path resume state. */
 typedef struct {
@@ -118,7 +124,6 @@ typedef struct {
 	u8 EmitWotsDone;	/**< Non-zero when WOTS+ emit finished before auth path. */
 	u8 AuthPathResume;	/**< Non-zero when XmssWriteAuthPathNodes yield is in
 				  *  progress. */
-	u8 Reserved[4];		/**< Reserved for alignment. */
 } XSlhDsa_YieldXmss;
 
 /** This structure contains FORS treehash and emit resume state. */
@@ -136,7 +141,6 @@ typedef struct {
 				/**< Saved FORS treehash node stack. */
 	u8 TreeResume;		/**< Non-zero when ForsSubtreeRoot yield is in progress. */
 	u8 EmitResume;		/**< Non-zero when ForsEmitSig yield is in progress. */
-	u8 Reserved[2];		/**< Reserved for alignment. */
 } XSlhDsa_YieldFors;
 
 /** This structure contains hypertree upper-layer emit resume state. */
@@ -150,7 +154,6 @@ typedef struct {
 				/**< Stable hypertree layer message (FORS PK then roots). */
 	u8 Resume;		/**< Non-zero when HtEmitUpperLayers yield is in progress. */
 	u8 EmitPending;		/**< Non-zero when XmssEmitSig must finish on resume. */
-	u8 Reserved[6];		/**< Reserved for alignment. */
 } XSlhDsa_YieldHt;
 
 /**
@@ -160,6 +163,7 @@ typedef struct {
 	XSlhDsa_YieldSession Session;	/**< Slice timing and request identity. */
 	XSlhDsa_YieldKeygen Keygen;	/**< Key-generation buffers and stage. */
 	XSlhDsa_YieldSign Sign;		/**< Hedged-sign add_rand and stage. */
+	XSlhDsa_YieldVerify Verify;	/**< Verify request snapshot across a SHA DMA wait. */
 	XSlhDsa_YieldXmss Xmss;		/**< XMSS treehash, emit and auth-path resume. */
 	XSlhDsa_YieldFors Fors;		/**< FORS treehash and emit resume. */
 	XSlhDsa_YieldHt Ht;		/**< Hypertree upper-layer emit resume. */

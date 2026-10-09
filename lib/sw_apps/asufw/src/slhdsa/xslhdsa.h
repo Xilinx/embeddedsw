@@ -172,11 +172,68 @@ struct _XSlhDsa_Instance {
 	u8 *KeyScratch; /**< Staged key region, XSLHDSA_SCRATCH_LEN bytes of shared pool. */
 	u8 PreHashMode; /**< XASU_SLHDSA_MSG_PURE or XASU_SLHDSA_MSG_PREHASH. */
 	u8 HashId; /**< Pre-hash function identifier (SHA256 for 128s, SHA512 for 256s). */
-	u8 Reserved[2]; /**< Reserved for alignment */
 };
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XSLHDSA_BIT_MASK(i) ((1U << (i)) - 1U)	/**< Mask of i low bits: (2^i - 1). */
+
+/*
+ * Accessors for the SHA message DMA resume flag. They live here rather than in xslhdsa_yield.h
+ * because that header only forward declares XSlhDsa_Instance, so it cannot reach Yield.Session.
+ * Keeping the set, test and clear together is what stops the resume rule being restated per
+ * module: the hash layer sets and clears the flag, the sign and verify entry points test it to
+ * skip re-staging first-slice inputs, and the handler tests it to arm DMA-done rather than the
+ * resume task.
+ */
+/*************************************************************************************************/
+/**
+* @brief	This function records that the SHA absorb of the message is complete, so the next
+*		PRF_msg or H_msg entry only has to finish the hash.
+*
+* @param	InstPtr	Pointer to the SLH-DSA instance.
+*
+* @note
+*	The caller validates InstPtr before flagging the pending DMA.
+*
+*************************************************************************************************/
+static inline void XSlhDsa_YieldSetHashDmaResume(XSlhDsa_Instance *InstPtr)
+{
+	InstPtr->Yield.Session.HashDmaResume = 1U;
+}
+
+/*************************************************************************************************/
+/**
+* @brief	This function reports whether a SHA message DMA wait is outstanding, which means
+*		the message absorb is done and only the hash finish is pending.
+*
+* @param	InstPtr	Pointer to the SLH-DSA instance.
+*
+* @return
+*		- 1U, if PRF_msg or H_msg is waiting on, or resuming after, a non-blocking SHA
+*		  message DMA.
+*		- 0U, if InstPtr is NULL, or no SHA message DMA wait is outstanding, which
+*		  includes a first slice and a cooperative yield slice.
+*
+*************************************************************************************************/
+static inline u32 XSlhDsa_YieldIsHashDmaResume(const XSlhDsa_Instance *InstPtr)
+{
+	return ((InstPtr != NULL) && (InstPtr->Yield.Session.HashDmaResume != 0U)) ? 1U : 0U;
+}
+
+/*************************************************************************************************/
+/**
+* @brief	This function clears the SHA message DMA resume flag.
+*
+* @param	InstPtr	Pointer to the SLH-DSA instance.
+*
+* @note
+*	The caller validates InstPtr before clearing the resume flag.
+*
+*************************************************************************************************/
+static inline void XSlhDsa_YieldClearHashDmaResume(XSlhDsa_Instance *InstPtr)
+{
+	InstPtr->Yield.Session.HashDmaResume = 0U;
+}
 
 /************************************ Function Prototypes ****************************************/
 u32 XSlhDsa_WotsMsgChainCount(const XSlhDsa_Param *ParamPtr);

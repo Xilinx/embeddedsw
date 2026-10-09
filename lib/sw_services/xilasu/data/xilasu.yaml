@@ -34,7 +34,9 @@ examples:
     - dependency_files:
       - xasu_ude_keys_enc_input_example.h
   xasu_lms_example.c: []
-  xasu_slhdsa_example.c: []
+  xasu_slhdsa_example.c:
+    - dependency_files:
+      - xasu_slhdsa_example_largemsg.h
   xasu_multi_crypto_example.c: []
   xasu_keymanager_example.c: []
   xasu_ocp_user_cert_example.c: []

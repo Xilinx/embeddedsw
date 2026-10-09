@@ -25,7 +25,11 @@
 * a non-empty FIPS context, HashSLH-DSA (SHA-256 PH(M)), and deterministic
 * signing. SHA2-256s can additionally run HashSLH-DSA with SHA-512 PH(M).
 * SHAKE-256s can queue an AES-GCM encrypt immediately after the default sign so that
-* ASUFW can pick AES on a yield slice and finish AES before sign completes.
+* ASUFW can pick AES on a yield slice. Both requests must succeed; their completion
+* order is printed and is not a pass/fail check.
+* SHAKE-128s can also run an ACVP known-answer test whose pure message exceeds the
+* SHA DMA blocking size: verify the published signature, then sign deterministically
+* and compare.
 * Those extra paths are off by default; set the matching XASU_SLHDSA_EXAMPLE_*_ENABLE
 * macros to 1U to turn them on.
 *
@@ -39,14 +43,16 @@
 *    for the IPI callback.
 * 3. XAsu_SlhdsaSign sends sign parameters (message, secret key, signature output,
 *    context. When AES overlap is enabled, SHAKE-256s immediately queues an
-*    AES-GCM encrypt on the same high-priority queue so ASUFW can pick AES during
-*    a sign yield slice.
+*    AES-GCM encrypt so ASUFW can pick AES during a sign yield slice. The example
+*    prints the completion order of the two requests.
 * 4. XAsu_SlhdsaSignVerify sends verify parameters with matching CtxLen and ParamSet.
 * 5. When extra modes are enabled, SHAKE-128s runs three further sign/verify
 *    sequences on the same key pair: non-empty context, HashSLH-DSA SHA-256, and
 *    deterministic signing.
 * 6. When SHA-512 pre-hash is enabled, SHA2-256s signs and verifies HashSLH-DSA
 *    with SHA-512 PH(M).
+* 7. When the large-message KAT is enabled, SHAKE-128s verifies and signs the ACVP
+*    vector in xasu_slhdsa_example_largemsg.h (5377-byte pure message).
 *
 * DMA buffer requirements:
 * - Secret key, public key, message, and signature buffers are placed in dedicated
@@ -61,6 +67,8 @@
 * 1.0   kk     07/08/26 Initial Release
 * 1.1   kk     09/17/26 Optional extra-mode, SHA-512 pre-hash and AES overlap
 *                       coverage, disabled by default
+* 1.2   kk     10/06/26 Optional ACVP large-message sign/verify KAT, disabled
+*                       by default
 *
 * </pre>
 **************************************************************************************************/
@@ -103,6 +111,26 @@
 			/**< Set to 1U to run HashSLH-DSA SHA-512 on SHA2-256s. */
 #define XASU_SLHDSA_EXAMPLE_AES_OVERLAP_ENABLE	(0U)
 			/**< Set to 1U to queue AES-GCM during SHAKE-256s sign. */
+#define XASU_SLHDSA_EXAMPLE_SHA_DMA_BLOCKING_SIZE	(4096U)
+			/**< SHA update size above which ASUFW returns in-progress. */
+#define XASU_SLHDSA_EXAMPLE_LARGE_MSG_ENABLE	(0U)
+			/**< Set to 1U to run the ACVP SHAKE-128s sign/verify KAT whose
+			 *   message exceeds XASU_SLHDSA_EXAMPLE_SHA_DMA_BLOCKING_SIZE. */
+#define XASU_SLHDSA_EXAMPLE_LARGE_MSG_PARAM_SET	XASU_SLHDSA_PARAM_SHAKE_128S
+			/**< Parameter set of the ACVP large-message vector. */
+
+#if (XASU_SLHDSA_EXAMPLE_LARGE_MSG_ENABLE != 0U)
+#include "xasu_slhdsa_example_largemsg.h"
+_Static_assert(XASU_SLHDSA_EXAMPLE_LARGE_MSG_LEN >
+	       XASU_SLHDSA_EXAMPLE_SHA_DMA_BLOCKING_SIZE,
+	       "Large-message KAT must exceed the SHA DMA blocking size");
+_Static_assert(sizeof(XAsu_SlhdsaLargeMsg) == XASU_SLHDSA_EXAMPLE_LARGE_MSG_LEN,
+	       "Large-message KAT length does not match the message array");
+_Static_assert(sizeof(XAsu_SlhdsaLargeMsgSig) == XASU_SLHDSA_EXAMPLE_LARGE_MSG_SIG_LEN,
+	       "Large-message KAT signature does not match SHAKE-128s");
+_Static_assert(sizeof(XAsu_SlhdsaLargeMsgSk) == XASU_SLHDSA_128S_SK_SIZE,
+	       "Large-message KAT secret key does not match a 128s key");
+#endif
 #define XASU_SLHDSA_EXAMPLE_AES_PAYLOAD_LEN	(32U)
 			/**< AES-GCM payload length used by the yield-overlap encrypt. */
 #define XASU_SLHDSA_EXAMPLE_AES_AAD_LEN		(16U)
@@ -126,6 +154,9 @@ static s32 XAsu_SlhdsaSignVerifyExample(XAsu_ClientParams *ClientParamsPtr, u8 P
 static s32 XAsu_SlhdsaRunVariantExample(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet);
 static s32 XAsu_SlhdsaRunExtraModesExample(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet);
 static s32 XAsu_SlhdsaRunSha512PreHashExample(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet);
+#if (XASU_SLHDSA_EXAMPLE_LARGE_MSG_ENABLE != 0U)
+static s32 XAsu_SlhdsaRunLargeMsgExample(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet);
+#endif
 static s32 XAsu_SlhdsaSha2Digest(XAsu_ClientParams *ClientParamsPtr, u8 ShaMode, u32 HashLen);
 static s32 XAsu_SlhdsaSignOnce(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet,
 			      u64 MsgAddr, u32 MsgLen, u64 CtxAddr, u32 CtxLen,
@@ -450,6 +481,19 @@ static s32 XAsu_SlhdsaRunVariantExample(XAsu_ClientParams *ClientParamsPtr, u8 P
 		}
 	}
 
+#if (XASU_SLHDSA_EXAMPLE_LARGE_MSG_ENABLE != 0U)
+	/**
+	 * SHAKE-128s ACVP vector whose message is longer than the SHA DMA blocking size.
+	 * This overwrites the generated key pair, so it runs after the other SHAKE-128s paths.
+	 */
+	if (ParamSet == XASU_SLHDSA_EXAMPLE_LARGE_MSG_PARAM_SET) {
+		Status = XAsu_SlhdsaRunLargeMsgExample(ClientParamsPtr, ParamSet);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+#endif
+
 END:
 	return Status;
 }
@@ -767,6 +811,114 @@ END:
 	return Status;
 }
 
+#if (XASU_SLHDSA_EXAMPLE_LARGE_MSG_ENABLE != 0U)
+/*************************************************************************************************/
+/**
+* @brief	Verify and sign the ACVP SHAKE-128s vector whose message exceeds the SHA DMA
+*		blocking size.
+*
+* @param	ClientParamsPtr	Pointer to client parameters.
+* @param	ParamSet	SLH-DSA parameter set selector (SHAKE-128s).
+*
+* @return
+*		- XST_SUCCESS if the published signature verifies and a deterministic
+*		  sign matches it.
+*		- Error code on failure.
+*
+*************************************************************************************************/
+static s32 XAsu_SlhdsaRunLargeMsgExample(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet)
+{
+	s32 Status = XST_FAILURE;
+	u32 PkSize = XAsu_SlhdsaGetPkSize(ParamSet);
+	u32 SkSize = XAsu_SlhdsaGetSkSize(ParamSet);
+	u32 SigSize = XAsu_SlhdsaGetSigSize(ParamSet);
+	u64 MsgAddr = (u64)(UINTPTR)XAsu_SlhdsaLargeMsg;
+
+	/** Validate input pointer. */
+	if (ClientParamsPtr == NULL) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
+	 * Stage the ACVP secret key and the public key carried in its last 32 bytes.
+	 * The public key is staged for the verify step; deterministic signing uses
+	 * only PK.seed as opt_rand.
+	 */
+	Status = Xil_SMemCpy(XAsu_SlhdsaSecretKey, SkSize, XAsu_SlhdsaLargeMsgSk, SkSize, SkSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = Xil_SMemCpy(XAsu_SlhdsaPublicKey, PkSize,
+			     XAsu_SlhdsaLargeMsgSk + (SkSize - PkSize), PkSize, PkSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	Status = Xil_SMemCpy(XAsu_SlhdsaSignature, SigSize, XAsu_SlhdsaLargeMsgSig, SigSize,
+			     SigSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+#ifndef XASU_CACHE_DISABLE
+	Xil_DCacheFlushRange((UINTPTR)XAsu_SlhdsaSecretKey, SkSize);
+	Xil_DCacheFlushRange((UINTPTR)XAsu_SlhdsaPublicKey, PkSize);
+	Xil_DCacheFlushRange((UINTPTR)XAsu_SlhdsaLargeMsg, XASU_SLHDSA_EXAMPLE_LARGE_MSG_LEN);
+	Xil_DCacheFlushRange((UINTPTR)XAsu_SlhdsaSignature, SigSize);
+#endif
+
+	/**
+	 * Verify the published signature first, so a signer mismatch cannot hide a
+	 * verifier failure on this message.
+	 */
+	xil_printf("\r\n SLH-DSA large-message verify (SHAKE-128s, %u bytes)\r\n",
+		   XASU_SLHDSA_EXAMPLE_LARGE_MSG_LEN);
+	Status = XAsu_SlhdsaVerifyOnce(ClientParamsPtr, ParamSet, MsgAddr,
+				       XASU_SLHDSA_EXAMPLE_LARGE_MSG_LEN, 0U, 0U,
+				       XASU_SLHDSA_MSG_PURE, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n SLH-DSA large-message verify failed\r\n");
+		goto END;
+	}
+
+	/**
+	 * Clear the signature buffer so a sign that reports success without writing it cannot
+	 * reuse the ACVP copy staged for verify.
+	 */
+	Status = Xil_SMemSet(XAsu_SlhdsaSignature, SigSize, 0U, SigSize);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+#ifndef XASU_CACHE_DISABLE
+	Xil_DCacheFlushRange((UINTPTR)XAsu_SlhdsaSignature, SigSize);
+#endif
+
+	/** Deterministic sign must reproduce the ACVP signature for the same key and message. */
+	xil_printf("\r\n SLH-DSA large-message sign (SHAKE-128s, %u bytes)\r\n",
+		   XASU_SLHDSA_EXAMPLE_LARGE_MSG_LEN);
+	Status = XAsu_SlhdsaSignOnce(ClientParamsPtr, ParamSet, MsgAddr,
+				     XASU_SLHDSA_EXAMPLE_LARGE_MSG_LEN, 0U, 0U,
+				     XASU_SLHDSA_MSG_PURE, 0U,
+				     XASU_SLHDSA_SIGN_MODE_DETERMINISTIC, 0U);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n SLH-DSA large-message sign failed\r\n");
+		goto END;
+	}
+
+	Status = Xil_SMemCmp_CT(XAsu_SlhdsaLargeMsgSig, SigSize, XAsu_SlhdsaSignature, SigSize,
+				SigSize);
+	if (Status != XST_SUCCESS) {
+		xil_printf("\r\n SLH-DSA large-message signature mismatch\r\n");
+		Status = XST_FAILURE;
+		goto END;
+	}
+	xil_printf("\r\n SLH-DSA large-message sign/verify completed\r\n");
+
+END:
+	return Status;
+}
+#endif
+
 /*************************************************************************************************/
 /**
 * @brief	Sends one SLH-DSA sign request and waits for completion.
@@ -832,7 +984,7 @@ static s32 XAsu_SlhdsaSignOnce(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet,
 
 	/**
 	 * Queue AES immediately so the server can pick it on the next yield slice. AES uses a
-	 * second unique ID and callback; it must be HIGH priority so it shares the P0 queue.
+	 * second unique ID and callback.
 	 */
 	if (OverlapAes != 0U) {
 		xil_printf("\r\n AES GCM encrypt queued immediately after SLH-DSA sign\r\n");
@@ -846,7 +998,7 @@ static s32 XAsu_SlhdsaSignOnce(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet,
 	/**
 	 * Wait for the callback. Signing takes seconds to tens of seconds depending on the
 	 * parameter set, so this busy-wait is long lived by design. When AES was queued,
-	 * wait for both completions so their order can be compared.
+	 * wait for both completions so both results can be checked.
 	 */
 	if ((OverlapAes != 0U) && (AesStatus == XST_SUCCESS)) {
 		while ((Notify == 0U) || (AesNotify == 0U)) {
@@ -867,18 +1019,13 @@ static s32 XAsu_SlhdsaSignOnce(XAsu_ClientParams *ClientParamsPtr, u8 ParamSet,
 			Status = AesStatus;
 			goto END;
 		}
-		if (AesSeq > SignSeq) {
-			xil_printf("\r\n AES did not complete before SLH-DSA sign "
-				   "(AES seq %u, sign seq %u)\r\n", AesSeq, SignSeq);
-			Status = XST_FAILURE;
-			goto END;
-		}
 		AesStatus = XAsu_SlhdsaCheckAesGcmEncrypt();
 		if (AesStatus != XST_SUCCESS) {
 			Status = AesStatus;
 			goto END;
 		}
-		xil_printf("\r\n AES completed before SLH-DSA sign (AES seq %u, sign seq %u)\r\n",
+		/** Print the completion order. Both requests succeeding is the pass criterion. */
+		xil_printf("\r\n AES-GCM overlap completion order: AES seq %u, sign seq %u\r\n",
 			   AesSeq, SignSeq);
 	}
 

@@ -68,6 +68,8 @@ void XSlhDsa_YieldSessionBegin(XSlhDsa_Instance *InstPtr, u32 ReqId)
 		InstPtr->Yield.Session.Active = 1U;
 		InstPtr->Yield.Session.ReqId = ReqId;
 		InstPtr->Yield.Session.Slices = 0U;
+		InstPtr->Yield.Session.HashDmaResume = 0U;
+		InstPtr->Yield.Session.HashWipeFail = 0U;
 		InstPtr->Yield.Keygen.Stage = XSLHDSA_KEYGEN_STAGE_NONE;
 		InstPtr->Yield.Sign.Stage = XSLHDSA_SIGN_STAGE_NONE;
 		InstPtr->Yield.Xmss.Resume = 0U;
@@ -97,7 +99,8 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if the session state is cleared and all secrets are zeroized.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr is NULL.
-*		- Buffer-clear failure status via XAsufw_UpdateBufStatus, if any zeroize fails.
+*		- Buffer-clear failure status via XAsufw_UpdateBufStatus, if any zeroize fails or
+*		  if a PRF_msg or H_msg wipe failed during a SHA message DMA wait.
 *
 * @note
 *	Every handler exit that is not XASUFW_CMD_IN_PROGRESS calls this function, including the
@@ -109,6 +112,7 @@ s32 XSlhDsa_YieldSessionEnd(XSlhDsa_Instance *InstPtr)
 {
 	s32 Status = XASUFW_SUCCESS;
 	u8 KeygenStage;
+	u8 HashWipeFail;
 
 	/** Reject a NULL instance. */
 	if (InstPtr == NULL) {
@@ -128,12 +132,21 @@ s32 XSlhDsa_YieldSessionEnd(XSlhDsa_Instance *InstPtr)
 	 */
 	KeygenStage = InstPtr->Yield.Keygen.Stage;
 
+	/**
+	 * Save the deferred wipe failure before the checkpoints are dropped. PRF_msg and H_msg
+	 * cannot report a failed wipe while they are waiting on a SHA message DMA, because the
+	 * buffer-clear bits would stop the status comparing equal to XASUFW_CMD_IN_PROGRESS.
+	 */
+	HashWipeFail = InstPtr->Yield.Session.HashWipeFail;
+
 	/** Clear the session identity and every KeyGen/Sign/tree resume checkpoint. */
 	InstPtr->Yield.Session.Active = 0U;
 	InstPtr->Yield.Session.ReqId = 0U;
 	InstPtr->Yield.Session.Slices = 0U;
 	InstPtr->Yield.Session.XmssLeaves = 0U;
 	InstPtr->Yield.Session.ForsLeaves = 0U;
+	InstPtr->Yield.Session.HashDmaResume = 0U;
+	InstPtr->Yield.Session.HashWipeFail = 0U;
 	InstPtr->Yield.Keygen.Stage = XSLHDSA_KEYGEN_STAGE_NONE;
 	InstPtr->Yield.Sign.Stage = XSLHDSA_SIGN_STAGE_NONE;
 	InstPtr->Yield.Xmss.Resume = 0U;
@@ -174,6 +187,11 @@ s32 XSlhDsa_YieldSessionEnd(XSlhDsa_Instance *InstPtr)
 	Status = XAsufw_UpdateBufStatus(Status,
 			Xil_SecureZeroize(InstPtr->Yield.Keygen.Root,
 					  sizeof(InstPtr->Yield.Keygen.Root)));
+
+	/** Report a PRF_msg or H_msg wipe that failed while a SHA message DMA was in flight. */
+	if (HashWipeFail != 0U) {
+		Status = XAsufw_UpdateBufStatus(Status, XASUFW_FAILURE);
+	}
 
 END:
 	return Status;
