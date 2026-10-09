@@ -72,6 +72,8 @@
 *       obs  08/21/2026 Bounded per image partition count in
 *                       XilPdi_VerifyImgHdrs
 *       obs  09/20/2026 Reduced partition count validation code size
+*       sd   10/09/2026 Corrected optional data length check in
+*                       XilPdi_ReadOptionalData to compare in words
 *
 * </pre>
 *
@@ -430,9 +432,11 @@ int XilPdi_ReadOptionalData(const XilPdi_MetaHdr * MetaHdrPtr, u8 PdiType)
 
 	/**
 	 * - Verify that the length of optional data is less than or equal to 15872 bytes.
+	 * OptionalDataLen is in words, so convert the byte limit to words before comparing.
 	 * Otherwise, return XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA error.
 	 */
-	if (MetaHdrPtr->ImgHdrTbl.OptionalDataLen > XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES) {
+	if (MetaHdrPtr->ImgHdrTbl.OptionalDataLen >
+		(XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES >> XILPDI_WORD_LEN_SHIFT)) {
 		Status = XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA;
 		XilPdi_Printf("Failed, IHT Optional data overflow \n\r");
 		goto END;
