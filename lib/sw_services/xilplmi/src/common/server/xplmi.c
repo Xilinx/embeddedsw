@@ -339,6 +339,17 @@ void XPlmi_PrintPlmBanner(void)
 
 	XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "\n\r");
 
+#ifdef XPLMI_MAKEFILE_BUILD
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"WARNING: Device-agnostic Makefile build flow (non-SHEL).\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"Using hardcoded PMC/PLM/BSP configuration.\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"This configuration may not support all use cases.\n\r");
+	XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+		"Use the SHEL flow for Vivado design-aware configuration.\n\r");
+#endif
+
 	/* For versal, PLM Update is not applicable, and this API returns FALSE */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
 		/* Read the Version */

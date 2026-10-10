@@ -10,7 +10,9 @@ CFLAGS := -Os -flto=16 -ffat-lto-objects
 _LN_XILPM_FLAGS:=--whole-archive
 
 XILPM_BOOT_LIB ?= 1
-XILPM_RUNTIME_LIB ?= 0
+# Match the SDT flow default and pass the selection to copy_bsp.sh.
+XILPM_RUNTIME_LIB ?= SUBSYS
+export XILPM_RUNTIME_LIB
 XILPM_NG_ENABLE_CLK_SCMI ?= 1
 ifeq ($(XILPM_RUNTIME_LIB),1)
 	XILPM_BOOT_LIB = 1
@@ -78,7 +80,7 @@ $(LIBS):
 	echo "Copying BSP files"
 	../../misc/versal_2ve_2vm/copy_bsp.sh
 	echo "Compiling bsp"
-	$(MAKE) _CC_XILPM_FLAGS="$(_CC_XILPM_FLAGS)" -C ../../misc/versal_2ve_2vm/versal_plm_bsp
+	$(MAKE) _CC_XILPM_FLAGS="$(_CC_XILPM_FLAGS) -DXPLMI_MAKEFILE_BUILD" -C ../../misc/versal_2ve_2vm/versal_plm_bsp
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)

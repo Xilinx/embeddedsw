@@ -28,3 +28,24 @@ How to compile versal_net PLM:
    run "make clean" to delete them.
 3. Give "make" to compile the PLM with BSP.
 4. This will create "plm.elf" in the PLM src/versal_net directory.
+
+
+How to compile versal_2ve_2vm PLM:
+================================
+1. Go to "lib/sw_apps/versal_plm/src/versal_2ve_2vm".
+2. Run "make clean" if artifacts from a previous build are present.
+3. Run "make" to build plm.elf with the checked-in BSP and XilPM subsystem
+   runtime support, matching the default runtime mode of the SDT flow.
+
+XILPM_RUNTIME_LIB selects the runtime mode:
+  SUBSYS (default) - EEMI and subsystem support.
+  EEMI or 1       - EEMI support without full subsystem support.
+  0               - Boot-only support for bring-up configurations.
+
+Use SUBSYS for reference images requiring subsystem support, including ASUFW.
+Run "make clean" before changing the runtime mode, for example:
+  make clean
+  make XILPM_RUNTIME_LIB=0
+
+This Makefile uses a checked-in hardware configuration. For custom hardware,
+build the BSP and PLM from the matching System Device Tree using the SDT flow.
