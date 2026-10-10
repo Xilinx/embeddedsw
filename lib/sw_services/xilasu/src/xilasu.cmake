@@ -17,6 +17,11 @@ if(DEFINED TEMPLATE AND "${TEMPLATE}" STREQUAL "asufw" AND NOT XILASU_IS_ASU)
     "ASUFW build requires CMAKE_SYSTEM_PROCESSOR=asu in the domain toolchain.")
 endif()
 
+option(XILASU_stl_support "Enables/Disables STLs in ASUFW." OFF)
+if(XILASU_stl_support)
+    set(XASU_ENABLE_STL " ")
+endif()
+
 option(XILASU_cavp_support "Enables/Disables CAVP related APIs in ASUFW." OFF)
 if(XILASU_cavp_support)
     set(XASU_ENABLE_CAVP_SUPPORT " ")

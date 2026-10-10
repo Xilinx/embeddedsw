@@ -40,6 +40,7 @@
  *       kk   07/10/26 Added SLH-DSA keyGen KAT
  *       vm   09/15/26 Added the known answer test for the CMAC based key derivation
  *       kk   09/23/26 Replace the SLH-DSA keyGen KAT with an ACVP SHAKE-128s sigVer KAT
+ *       tri  10/10/26 Added STL RW register check for ASU SHA, RSA,ECC core, AES, Trng KATS
  *
  * </pre>
  *
@@ -71,6 +72,9 @@
 #include "xasu_mldsainfo.h"
 #include "xslhdsa.h"
 #include "xasu_slhdsainfo.h"
+#ifdef XASU_ENABLE_STL
+#include "xstl_asuinterface.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 
@@ -2395,6 +2399,11 @@ s32 XAsufw_ShaKat(XSha *XAsufw_ShaInstance, XAsufw_Dma *AsuDmaPtr, XAsufw_Resour
 	u32 HashLen = 0U;
 	const u8 *ExpHash = NULL;
 
+#ifdef XASU_ENABLE_STL
+	/** Perform the STL read/write register checks before running the SHA KAT. */
+	XSTL_ASUFW_RW_CHK(ShaResource);
+#endif /* XASU_ENABLE_STL */
+
 	/** Determine expected hash based on mode and resource. */
 	switch (ShaMode) {
 		case XASU_SHA_MODE_256:
@@ -2490,6 +2499,11 @@ s32 XAsufw_RsaEncDecOaepOpKat(XAsufw_Dma *AsuDmaPtr)
 
 	PvtKeyParam.PubKeyComp.Keysize = XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES;
 	PvtKeyParam.PubKeyComp.PubExp = RsaPublicExp;
+
+#ifdef XASU_ENABLE_STL
+	/** Perform the STL read/write register checks before running the RSA KAT. */
+	XSTL_ASUFW_RW_CHK(XASUFW_RSA);
+#endif /* XASU_ENABLE_STL */
 
 	Status = Xil_SMemCpy(PvtKeyParam.PubKeyComp.Modulus, XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES, RsaModulus,
 		XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES, XASUFW_RSA_KAT_KEY_LENGTH_IN_BYTES);
@@ -2705,6 +2719,11 @@ s32 XAsufw_EccCoreKat(XAsufw_Dma *AsuDmaPtr)
 	u8 GenPubKey[XASUFW_DOUBLE_P256_SIZE_IN_BYTES];
 	u8 GenSign[XASUFW_DOUBLE_P256_SIZE_IN_BYTES];
 	XEcc *EccInstance = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+
+#ifdef XASU_ENABLE_STL
+	/** Perform the STL read/write register checks before running the ECC KAT. */
+	XSTL_ASUFW_RW_CHK(XASUFW_ECC);
+#endif /* XASU_ENABLE_STL */
 
 	/** Generate the public key using the provided private key. */
 	Status = XEcc_GeneratePublicKey(EccInstance, AsuDmaPtr, XECC_CURVE_TYPE_NIST_P256,
@@ -2970,6 +2989,11 @@ s32 XAsufw_AesOperationKat(XAsufw_Dma *AsuDmaPtr, u8 EngineMode)
 	KeyObject.KeySrc = XASU_AES_USER_KEY_7;
 	KeyObject.KeySize = XASU_AES_KEY_SIZE_256_BITS;
 	KeyObject.KeyId = 0U;
+
+#ifdef XASU_ENABLE_STL
+	/** Perform the STL read/write register checks before running the AES KAT. */
+	XSTL_ASUFW_RW_CHK(XASUFW_AES);
+#endif /* XASU_ENABLE_STL */
 
 	/** Write key to AES registers. */
 	Status = XAes_WriteKey(AesInstance, AsuDmaPtr, &KeyObject);
@@ -4373,6 +4397,11 @@ static void XAsufw_RunAesKats(XAsufw_Dma *AsuDmaPtr)
 static void XAsufw_RunTrngKats(XTrng *XAsufw_TrngPtr)
 {
 	s32 Status = XASUFW_FAILURE;
+
+#ifdef XASU_ENABLE_STL
+	/** Perform the STL read/write register checks before running the TRNG KATs. */
+	XSTL_ASUFW_RW_CHK(XASUFW_TRNG);
+#endif /* XASU_ENABLE_STL */
 
 	/** Run TRNG KAT. */
 	Status = XTrng_PreOperationalSelfTests(XAsufw_TrngPtr);

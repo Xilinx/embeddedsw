@@ -24,6 +24,7 @@
  *       ma   01/28/25 Fix length validations in XAsufw_DmaMemSet API.
  *       rmv  09/11/25 Rename XAsufw_DmaNonBlockingWait() to XAsufw_DmaCfgNonBlocking()
  *       rmv  09/12/25 Removed XAsufw_DmaMemSet() function as it is not used
+ *       tri  10/10/26 Added STL RW register check for ASU DMA0 and DMA1 in DMA driver init
  *
  * </pre>
  *
@@ -40,6 +41,9 @@
 #include "xasufw_hw.h"
 #include "xasufw_cmd.h"
 #include "xasufw_resourcemanager.h"
+#ifdef XASU_ENABLE_STL
+#include "xstl_asuinterface.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_XASUDMA_DEST_CTRL_OFFSET		(0x80CU) /**< ASU DMA destination control offset. */
@@ -87,6 +91,11 @@ static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XAsuDma_Config *Config;
+
+#ifdef XASU_ENABLE_STL
+	/** Perform ASU R/W register test for DMA */
+	XSTL_ASUFW_RW_CHK(DeviceId);
+#endif /* XASU_ENABLE_STL */
 
 	/**
 	 * Initialize the AsuDma driver so that it's ready to use.

@@ -44,6 +44,7 @@
  *       kk   07/10/26 Initialize SLH-DSA module
  *       vm   10/05/26 Moved keep-alive counter initialization before the boot time operations
  *                     which advance the counter
+ *       tri  10/10/26 Added asu startup STL initialization
  *
  * </pre>
  *
@@ -93,6 +94,12 @@
 #include "xoverlay.h"
 #include "xasufw_update.h"
 #include "xasufw_keepalive.h"
+#ifdef SDT
+#include "xasu_bsp_config.h"
+#endif
+#ifdef XASU_ENABLE_STL
+#include "xstl_asuinterface.h"
+#endif
 
 /************************************ Constant Definitions ***************************************/
 
@@ -498,6 +505,14 @@ static s32 XAsufw_ModulesInit(void)
 #ifdef XASU_PLEXT_ENABLE
 	/** PL extension module initialization. */
 	Status = XAsufw_PlExtInit();
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+#endif
+
+#ifdef XASU_ENABLE_STL
+	/** ASU start-up STLs initialization. */
+	Status = XAsufw_StlInit();
 	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
