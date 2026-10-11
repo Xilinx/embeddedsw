@@ -34,6 +34,8 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "lwip/tcp.h"
+#include "netif/xadapter.h"
+#include "xlwipconfig.h"
 #ifdef STDOUT_IS_16550
 #include "xuartns550_l.h"
 #endif
@@ -60,6 +62,39 @@ void dhcp_coarse_tmr();
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 
+extern struct netif server_netif;
+
+#if defined(PLATFORM_ZYNQ) && defined(XLWIP_CONFIG_INCLUDE_GEM)
+#define RESET_RX_CNTR_LIMIT	20
+
+/*****************************************************************************/
+/**
+ * This function checks if the network interface is ready, and if it
+ * is and it's using the GEM (not AXI Ethernet), it tells the GEM
+ * driver to reset its receive path.
+ *
+ * @param    netif is a pointer to the network interface instance.
+ *
+ * @return   None.
+ *
+ *****************************************************************************/
+static void platform_reset_rx_on_no_rxdata(struct netif *netif)
+{
+	struct xemac_s *xemac;
+
+	/* Timer starts before xemac_add()/netif_set_up(); skip if not ready yet. */
+	if ((netif == NULL) || !(netif->flags & NETIF_FLAG_UP) ||
+	    (netif->state == NULL)) {
+		return;
+	}
+
+	xemac = (struct xemac_s *)netif->state;
+	if (xemac->type == xemac_type_emacps) {
+		xemacpsif_resetrx_on_no_rxdata(netif);
+	}
+}
+#endif
+
 volatile u64_t tickcntr = 0;
 void timer_callback()
 {
@@ -69,6 +104,9 @@ void timer_callback()
 	 */
         static int Tcp_Fasttimer = 0;
         static int Tcp_Slowtimer = 0;
+#if defined(PLATFORM_ZYNQ) && defined(XLWIP_CONFIG_INCLUDE_GEM)
+	static int ResetRxCntr = 0;
+#endif
 
 #if LWIP_DHCP==1
 	static int dhcp_timer = 0;
@@ -82,6 +120,9 @@ void timer_callback()
 
         Tcp_Fasttimer++;
         Tcp_Slowtimer++;
+#if defined(PLATFORM_ZYNQ) && defined(XLWIP_CONFIG_INCLUDE_GEM)
+	ResetRxCntr++;
+#endif
 
 #if LWIP_DHCP==1
         dhcp_finetimer++;
@@ -119,6 +160,14 @@ void timer_callback()
         }
 #endif /* LWIP_DHCP_DOES_ACD_CHECK */
 #endif /*LWIP_DHCP */
+
+#if defined(PLATFORM_ZYNQ) && defined(XLWIP_CONFIG_INCLUDE_GEM)
+	/* Reset GEM Rx path every 1 second if no data is received. */
+	if (ResetRxCntr >= RESET_RX_CNTR_LIMIT) {
+		platform_reset_rx_on_no_rxdata(&server_netif);
+		ResetRxCntr = 0;
+	}
+#endif
 }
 
 #ifndef SDT
