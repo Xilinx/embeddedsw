@@ -17,6 +17,7 @@
 * 1.00  tri  03/13/25 Initial release
 *       pre  09/23/25 Removed unused macros
 * 1.2   pre  01/16/25 Updated comments
+* 1.3   pre  10/09/26 Corrected TPM2_SelfTest command size to 11 bytes
 *
 * </pre>
 *
@@ -50,7 +51,7 @@ extern "C" {
 #define XTPM_TX_HEAD_SIZE				(4U) /**< TPM SPI transmit header size */
 #define XTPM_RX_HEAD_SIZE				(10U) /**< TPM SPI receive header size */
 #define XTPM_START_CMD_SIZE				(12U) /**< TPM startup command size */
-#define XTPM_SELF_TEST_CMD_SIZE			(12U) /**< TPM self-test command size */
+#define XTPM_SELF_TEST_CMD_SIZE			(11U) /**< TPM SelfTest command size */
 #define XTPM_GET_CAP_CMD_SIZE			(22U) /**< TPM get capability command size */
 #define XTPM_SPI_MAX_SIZE				(64U) /**< Maximum SPI transfer size in bytes */
 #define XTPM_PCR_MAX_EVENT_SIZE			(1024U) /**< Maximum PCR event size in bytes */

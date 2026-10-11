@@ -23,6 +23,7 @@
 *       pre  03/13/26 Added support to change TPM interface layer as per customer requirement
 * 1.3   pre  06/26/26 Removed dead code and fixed RxLen variable size in XTpm_DataTransfer function
 *                     to avoid data loss
+*       pre  10/07/26 Added retry limit to TPM status and access polling loops
 *
 * </pre>
 *
@@ -42,8 +43,16 @@
 #include "xtpm.h"
 #include "xtpm_hw.h"
 #include "xtpm_error.h"
+#include "sleep.h"
+#include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
+/**
+ * TCG PC Client PTP timeouts. TIMEOUT_A bounds locality arbitration.
+ * TIMEOUT_B bounds the wait for commandReady and command completion.
+ */
+#define XTPM_TIMEOUT_A_US		(750000U) /**< Access poll timeout in microseconds */
+#define XTPM_TIMEOUT_B_US		(2000000U) /**< Status poll timeout in microseconds */
 
 /**************************** Type Definitions *******************************/
 typedef struct {
@@ -59,6 +68,12 @@ typedef struct {
 /************************** Function Prototypes ******************************/
 static u32 XTpm_SpiInit(void);
 static s32 XTpm_SpiTransfer(void *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr, u32 ByteCount);
+static u32 XTpm_StatusGet(u8* StatusPtr);
+static u32 XTpm_StatusSet(u8 StatusVal);
+static u32 XTpm_AccessGet(u8* AccessPtr);
+static u32 XTpm_PollReg(u32 (*ReadReg)(u8 *ValPtr), u8 Mask, u8 Expected,
+		u32 TimeoutUs, u32 TimeoutErr);
+static u32 XTpm_WaitForStatus(u8 Mask, u8 Expected);
 
 /************************** Variable Definitions *****************************/
 static XSpiPs SpiInstance;
@@ -115,7 +130,7 @@ static s32 XTpm_SpiTransfer(void *InstancePtr, u8 *SendBufPtr, u8 *RecvBufPtr, u
  * 			- Error code if read fails
  *
  ******************************************************************************/
-u32 XTpm_StatusGet(u8* StatusPtr)
+static u32 XTpm_StatusGet(u8* StatusPtr)
 {
 	return XTpm_Transfer(XTPM_STS, NULL, StatusPtr, XTPM_ACCESS_TX_LENGTH);
 }
@@ -131,7 +146,7 @@ u32 XTpm_StatusGet(u8* StatusPtr)
  * 			- Error code if write fails
  *
  ******************************************************************************/
-u32 XTpm_StatusSet(u8 StatusVal)
+static u32 XTpm_StatusSet(u8 StatusVal)
 {
 	return XTpm_Transfer(XTPM_STS, (const u8 *)&StatusVal, NULL, XTPM_ACCESS_TX_LENGTH);
 }
@@ -147,7 +162,7 @@ u32 XTpm_StatusSet(u8 StatusVal)
  * 			- Error code if read fails
  *
  ******************************************************************************/
-u32 XTpm_AccessGet(u8* AccessPtr)
+static u32 XTpm_AccessGet(u8* AccessPtr)
 {
 	return XTpm_Transfer(XTPM_ACCESS, NULL, AccessPtr, XTPM_ACCESS_TX_LENGTH);
 }
@@ -285,6 +300,93 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function polls a TPM register until the masked bits match the expected
+ * 			value or the timeout is reached.
+ *
+ * @param	ReadReg is the register read function
+ * @param	Mask is the bit mask to test
+ * @param	Expected is the expected value of the masked bits
+ * @param	TimeoutUs is the maximum wait in microseconds
+ * @param	TimeoutErr is the error code returned when the wait expires
+ *
+ * @return
+ * 			- XST_SUCCESS if the expected value is observed
+ * 			- XTPM_ERR_GET_ACCESS if the register read fails
+ * 			- TimeoutErr if the expected value is not observed within TimeoutUs
+ *
+ *************************************************************************************************/
+static u32 XTpm_PollReg(u32 (*ReadReg)(u8 *ValPtr), u8 Mask, u8 Expected,
+		u32 TimeoutUs, u32 TimeoutErr)
+{
+	u32 Status = (u32)XST_FAILURE;
+	u8 RegVal = 0U;
+	u32 TimeLapsed = 0U;
+
+	do {
+		/** - Reads the register. Returns XTPM_ERR_GET_ACCESS if the read fails. */
+		Status = ReadReg(&RegVal);
+		if (Status != (u32)XST_SUCCESS) {
+			Status = (u32)XTPM_ERR_GET_ACCESS;
+			goto END;
+		}
+
+		if ((RegVal & Mask) == Expected) {
+			Status = (u32)XST_SUCCESS;
+			goto END;
+		}
+
+		usleep(1U);
+		XPlmi_SetPlmLiveStatus();
+		TimeLapsed++;
+	} while (TimeLapsed < TimeoutUs);
+
+	Status = TimeoutErr;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function polls the TPM status register until the masked bits match the
+ * 			expected value or TIMEOUT_B is reached.
+ *
+ * @param	Mask is the status bit mask to test
+ * @param	Expected is the expected value of the masked status bits
+ *
+ * @return
+ * 			- XST_SUCCESS if the expected status is observed
+ * 			- XTPM_ERR_GET_ACCESS if reading the status register fails
+ * 			- XTPM_ERR_POLL_TIMEOUT if the expected status is not observed within TIMEOUT_B
+ *
+ *************************************************************************************************/
+static u32 XTpm_WaitForStatus(u8 Mask, u8 Expected)
+{
+	return XTpm_PollReg(&XTpm_StatusGet, Mask, Expected, XTPM_TIMEOUT_B_US,
+			(u32)XTPM_ERR_POLL_TIMEOUT);
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function polls the TPM access register until locality is active
+ * 			or TIMEOUT_A is reached.
+ *
+ * @return
+ * 			- XST_SUCCESS if access is valid and locality is active
+ * 			- XTPM_ERR_GET_ACCESS if reading the access register fails
+ * 			- XTPM_ERR_ACCESS_TIMEOUT if locality is not granted within TIMEOUT_A
+ *
+ *************************************************************************************************/
+u32 XTpm_WaitForAccess(void)
+{
+	return XTpm_PollReg(&XTpm_AccessGet,
+			(u8)(XTPM_ACCESS_VALID | XTPM_ACCESS_ACT_LOCAL),
+			(u8)(XTPM_ACCESS_VALID | XTPM_ACCESS_ACT_LOCAL),
+			XTPM_TIMEOUT_A_US, (u32)XTPM_ERR_ACCESS_TIMEOUT);
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function sends a command to TPM and reads response received from TPM.
  *
  * @param	TxBuf is pointer to transmit buffer from which data to be transmitted is read
@@ -296,15 +398,16 @@ END:
  * 			- XTPM_ERR_SET_ACCESS if it fails during setting of access register with command
  * 			  ready/go request
  * 			- XTPM_ERR_GET_ACCESS if it fails during reading of access register
+ * 			- XTPM_ERR_POLL_TIMEOUT if TPM status is not observed within the retry limit
  * 			- XTPM_ERR_SPIPS_FIFO_WRITE if it fails to write to TPM
  * 			- XTPM_ERR_SPIPS_FIFO_READ if it fails to read from TPM
- * 			- XST_FAILURE if received response length is greater than 4096 bytes
+ * 			- XTPM_ERR_DATA_RX_LENGTH_LIMIT if received response length is below 10 bytes
+ * 			  or greater than 4096 bytes
  *
  *************************************************************************************************/
 u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u8 StatusVal = 0U;
 	u32 RxLen;
 
 	/** - Sets command ready request. Returns XTPM_ERR_SET_ACCESS error in case of failure */
@@ -314,14 +417,14 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 		goto END;
 	}
 
-	do {
-		/** - Checks for command ready status. Returns XTPM_ERR_GET_ACCESS error in case of failure */
-		Status = XTpm_StatusGet(&StatusVal);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XTPM_ERR_GET_ACCESS;
-			goto END;
-		}
-	} while ((StatusVal & XTPM_STS_CMD_READY) == 0U);
+	/**
+	 * - Waits for command ready. Returns XTPM_ERR_GET_ACCESS if the status read fails
+	 * and XTPM_ERR_POLL_TIMEOUT if command ready is not set within the retry limit.
+	 */
+	Status = XTpm_WaitForStatus(XTPM_STS_CMD_READY, XTPM_STS_CMD_READY);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/** - Writes Data to device. Returns XTPM_ERR_SPIPS_FIFO_WRITE error in case of failure */
 	Status = XTpm_FifoWrite(TxBuf, Txlen);
@@ -336,20 +439,15 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 		Status = (u32)XTPM_ERR_SET_ACCESS;
 		goto END;
 	}
-	StatusVal = 0U;
-	do {
-		/**
-		 * - Checks for command ready and valid. Returns XTPM_ERR_GET_ACCESS error
-		 * in case of failure
-		 */
-		Status = XTpm_StatusGet(&StatusVal);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XTPM_ERR_GET_ACCESS;
-			goto END;
-		}
-	} while ((StatusVal &
-		(XTPM_STS_VALID | XTPM_STS_DATA_AVAIL)) !=
-		(XTPM_STS_VALID | XTPM_STS_DATA_AVAIL));
+	/**
+	 * - Waits until response data is valid and available. Returns XTPM_ERR_GET_ACCESS
+	 * if the status read fails and XTPM_ERR_POLL_TIMEOUT if the retry limit is reached.
+	 */
+	Status = XTpm_WaitForStatus((u8)(XTPM_STS_VALID | XTPM_STS_DATA_AVAIL),
+			(u8)(XTPM_STS_VALID | XTPM_STS_DATA_AVAIL));
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
 	/** - Reads Data from device. Returns XTPM_ERR_SPIPS_FIFO_READ error in case of failure */
 	Status = XTpm_FifoRead(RxBuf, XTPM_RX_HEAD_SIZE);
@@ -361,8 +459,8 @@ u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen)
 	/* Reads received response length */
 	RxLen = ((u32)RxBuf[XTPM_DATA_SIZE_BYTE0_INDEX] | ((u32)RxBuf[XTPM_DATA_SIZE_BYTE1_INDEX] << 8U) |
 		((u32)RxBuf[XTPM_DATA_SIZE_BYTE2_INDEX] << 16U) | ((u32)RxBuf[XTPM_DATA_SIZE_BYTE3_INDEX] << 24U));
-	if (RxLen > (u32)XTPM_RESP_MAX_SIZE) {
-		Status = (u32)XST_FAILURE;
+	if ((RxLen < (u32)XTPM_RX_HEAD_SIZE) || (RxLen > (u32)XTPM_RESP_MAX_SIZE)) {
+		Status = (u32)XTPM_ERR_DATA_RX_LENGTH_LIMIT;
 		goto END;
 	}
 

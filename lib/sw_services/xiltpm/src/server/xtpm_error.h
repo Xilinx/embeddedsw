@@ -23,6 +23,8 @@
 *       pre  03/16/26 Added error code for invalid hash algorithm
 *       pre  03/21/26 Added error codes related to GetPcrLog feature
 *       pre  04/22/26 Added error code for TPM get access timeout
+*       pre  10/07/26 Added error codes for status poll timeout and TPM
+*                     response length limit
 *
 * </pre>
 *
@@ -76,6 +78,8 @@ enum {
 	XTPM_PCR_ERR_INVALID_LOG_READ_REQUEST, /**<0x1A - Invalid PCR log read request */
 	XTPM_ERR_INVALID_ADDR_RANGE, /**<0x1B - Invalid address range for PCR log read */
 	XTPM_ERR_ACCESS_TIMEOUT, /**<0x1C - Timeout while waiting for TPM access */
+	XTPM_ERR_POLL_TIMEOUT, /**<0x1D - Timeout while polling TPM status */
+	XTPM_ERR_DATA_RX_LENGTH_LIMIT, /**<0x1E - TPM response length is outside the allowed range */
 };
 #endif	/* PLM_TPM */
 

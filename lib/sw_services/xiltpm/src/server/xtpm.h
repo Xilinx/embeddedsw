@@ -22,6 +22,7 @@
  *       pre  03/16/26 Added PCR reading support in TPM
  *       pre  03/21/26 Implemented GetPcrLog feature to fetch PCR event log from TPM
  * 1.3   pre  06/26/26 Added byte index macros for data size field in PCR event command
+ *       pre  10/07/26 Added prototype for TPM access polling and removed unused XTPM_INDEX_5
  *
  * </pre>
  *
@@ -66,7 +67,6 @@ extern "C" {
 #define XTPM_INDEX_2 (2U) /**< Index 2 */
 #define XTPM_INDEX_3 (3U) /**< Index 3 */
 #define XTPM_INDEX_4 (4U) /**< Index 4 */
-#define XTPM_INDEX_5 (5U) /**< Index 5 */
 #define XTPM_INDEX_6 (6U) /**< Index 6 */
 #define XTPM_INDEX_7 (7U) /**< Index 7 */
 #define XTPM_INDEX_8 (8U) /**< Index 8 */
@@ -84,10 +84,8 @@ int XTpm_MeasurePartition(u32 PcrIndex, const u8* ImageHash);
 u32 XilTpm_InterfaceInit(void);
 u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len);
 u32 XTpm_DataTransfer(const u8* TxBuf, u8* RxBuf, u16 Txlen);
-u32 XTpm_StatusGet(u8* StatusPtr);
-u32 XTpm_StatusSet(u8 StatusVal);
-u32 XTpm_AccessGet(u8* AccessPtr);
 u32 XTpm_AccessSet(u8 Access);
+u32 XTpm_WaitForAccess(void);
 u32 XTpm_Event(u32 PcrIndex, u16 size, const u8 *data);
 u32 XTpm_StartUp(void);
 u32 XTpm_SelfTest(void);

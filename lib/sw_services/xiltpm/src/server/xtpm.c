@@ -24,6 +24,8 @@
 *       pre  03/21/26 Implemented GetPcrLog feature to fetch PCR event log from TPM
 *       pre  04/22/26 Addition of access retry mechanism in case of TPM being busy
 * 1.3   pre  06/26/26 Renamed macro 'XTPM_DATA_SIZE_INDEX' to 'XTPM_DATA_SIZE_BYTE0_INDEX'
+*       pre  10/07/26 Added PCR response length check and startup/self-test response checks and
+*                     adapted timeout for TPM locality instead of a fixed retry count
 *
 * </pre>
 *
@@ -55,7 +57,7 @@
 #define XTPM_PCR_READ_CMD_SIZE          (20U) /**< PCR read command size in bytes */
 #define XTPM_HASH_ALGO_INDEX			(15U) /**< Index for hash algorithm in PCR read command */
 #define XTPM_PCR_READ_INDEX				(17U) /**< Index for PCR selection in PCR read command */
-#define XTPM_ACCESS_RETRY_COUNT			(5U)  /**< Number of retries for TPM access */
+#define XTPM_RC_INITIALIZE				(0x00000100U) /**< TPM_RC_INITIALIZE response code */
 #ifdef VERSAL_2VE_2VM
 #define XTPM_PCR_LOG_LCVERSION		(1U)   /**< PCR log LC version */
 #define XTPM_PCR_LOG_VERSION		(1U)   /**< PCR log version */
@@ -84,6 +86,7 @@ static INLINE void XTpm_UpdatePcrIndex(u32 *PcrIndex, u32 Val)
 
 /************************** Function Prototypes ******************************/
 static u32 XTpm_GetCap(void);
+static u32 XTpm_GetResponseCode(void);
 static XTpm_PcrLog_t *XTpm_GetPcrLogInstance(void);
 static u32 XTpm_UpdatePcrLog(u32 PcrNum, u64 ExtHashAddr, u32 DataSize);
 
@@ -104,8 +107,7 @@ static u8 TpmPcrEvent[XTPM_PCR_MAX_EVENT_SIZE + XTPM_PCR_EVENT_CMD_SIZE] =
 
 /*****************************************************************************/
 /**
- * @brief	This function initializes TPM, starts up TPM, performs self-test and
- * 			gets capability of the device.
+ * @brief	This function initializes the TPM interface and requests locality.
  *
  * @return
  * 			- XST_SUCCESS if successful
@@ -115,8 +117,6 @@ static u8 TpmPcrEvent[XTPM_PCR_MAX_EVENT_SIZE + XTPM_PCR_EVENT_CMD_SIZE] =
 u32 XTpm_Init(void)
 {
 	u32 Status = (u32)XST_FAILURE;
-	u32 Count = 0U;
-	u8 Access = 0U;
 
 	/** - Initializes SPI. Returns XTPM_ERR_SPIPS_INIT error if it fails. */
 	Status = XilTpm_InterfaceInit();
@@ -132,40 +132,12 @@ u32 XTpm_Init(void)
 		goto END;
 	}
 
-	do {
-		if (Count > XTPM_ACCESS_RETRY_COUNT) {
-			Status = (u32)XTPM_ERR_ACCESS_TIMEOUT;
-			goto END;
-		}
-		/**
-		 * - Checks for access validity and locality.
-		 * Returns XTPM_ERR_GET_ACCESS error in case of any failure.
-		 */
-		Status = XTpm_AccessGet(&Access);
-		if (Status != (u32)XST_SUCCESS) {
-			Status = (u32)XTPM_ERR_GET_ACCESS;
-			goto END;
-		}
-		Count++;
-	} while (!(((Access & XTPM_ACCESS_VALID) != 0U)
-			&& ((Access & XTPM_ACCESS_ACT_LOCAL) !=0U)));
-
-	/** - Startup of TPM. Returns XTPM_ERR_START_UP error in case of any failure. */
-	Status = XTpm_StartUp();
-	if (Status != (u32)XST_SUCCESS) {
-		Status = (u32)XTPM_ERR_START_UP;
-		goto END;
-	}
-
-	/** - TPM self-test. Returns XTPM_ERR_SELF_TEST error in case of any failure. */
-	Status = XTpm_SelfTest();
-	if (Status != (u32)XST_SUCCESS) {
-		Status = (u32)XTPM_ERR_SELF_TEST;
-		goto END;
-	}
-
-	/** - Gets capability of TPM. Returns XST_SUCCESS on success. Otherwise, returns error code. */
-	Status = XTpm_GetCap();
+	/**
+	 * - Waits until access is valid and locality is active.
+	 * Returns XTPM_ERR_GET_ACCESS if the read fails and XTPM_ERR_ACCESS_TIMEOUT
+	 * if locality is not granted within the retry limit.
+	 */
+	Status = XTpm_WaitForAccess();
 
 END:
 	return Status;
@@ -185,8 +157,26 @@ u32 XTpm_ModuleInit(void)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/** - Initializes TPM. Returns XST_SUCCESS on success. Otherwise, returns error code. */
+	/** - Initializes TPM interface. Returns error code on failure. */
 	Status = XTpm_Init();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	/** - Starts TPM. Returns the startup error code on failure. */
+	Status = XTpm_StartUp();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	/** - Performs TPM self-test. Returns the self-test error code on failure. */
+	Status = XTpm_SelfTest();
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
+
+	/** - Gets capability of TPM. Returns error code on failure. */
+	Status = XTpm_GetCap();
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
@@ -203,16 +193,33 @@ END:
 
 /*****************************************************************************/
 /**
+ * @brief	This function reads the TPM response code from the response buffer.
+ *
+ * @return	TPM response code from bytes 6 to 9 of the response buffer
+ *
+ ******************************************************************************/
+static u32 XTpm_GetResponseCode(void)
+{
+	return (((u32)TpmRespBuffer[XTPM_INDEX_6] << 24U) |
+		((u32)TpmRespBuffer[XTPM_INDEX_7] << 16U) |
+		((u32)TpmRespBuffer[XTPM_INDEX_8] << 8U) |
+		(u32)TpmRespBuffer[XTPM_INDEX_9]);
+}
+
+/*****************************************************************************/
+/**
  * @brief	This function does startup of TPM.
  *
  * @return
- * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XST_SUCCESS if successful or the TPM is already started
+ * 			- XTPM_ERR_START_UP if TPM returns any other failure response code
+ * 			- Error code on transfer failure
  *
  ******************************************************************************/
 u32 XTpm_StartUp(void)
 {
 	u32 Status = (u32)XST_FAILURE;
+	u32 RespCode;
 	/* TPM startup command formation */
 	const u8 TpmStartup[XTPM_START_CMD_SIZE] = {
 		0x80U, 0x01U, /* TPM_ST_NO_SESSIONS */
@@ -223,11 +230,32 @@ u32 XTpm_StartUp(void)
 
 	/**
 	 * - Sends startup command to TPM and gets response.
-	 * Returns XST_SUCCESS on success. Otherwise, returns error code.
+	 * Returns the transfer error code on failure.
 	 */
 	Status = XTpm_DataTransfer(TpmStartup, TpmRespBuffer,
 		TpmStartup[XTPM_DATA_SIZE_BYTE0_INDEX]);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
+	/**
+	 * - Verifies the TPM response code. TPM_RC_INITIALIZE means the TPM is
+	 * already started, which is success. Any other non-zero code is a
+	 * startup failure.
+	 */
+	RespCode = XTpm_GetResponseCode();
+	if (RespCode == XTPM_RC_INITIALIZE) {
+		XPlmi_Printf(DEBUG_INFO, "TPM already started\r\n");
+		Status = (u32)XST_SUCCESS;
+	}
+	else if (RespCode != 0U) {
+		Status = (u32)XTPM_ERR_START_UP;
+	}
+	else {
+		Status = (u32)XST_SUCCESS;
+	}
+
+END:
 	return Status;
 }
 
@@ -237,7 +265,8 @@ u32 XTpm_StartUp(void)
  *
  * @return
  * 			- XST_SUCCESS if successful
- * 			- Error code on failure
+ * 			- XTPM_ERR_SELF_TEST if TPM returns a failure response code
+ * 			- Error code on transfer failure
  *
  ******************************************************************************/
 u32 XTpm_SelfTest(void)
@@ -246,18 +275,33 @@ u32 XTpm_SelfTest(void)
 	/* TPM self-test command formation */
 	const u8 TpmSelfTest[XTPM_SELF_TEST_CMD_SIZE] = {
 		0x80U, 0x01U, /* TPM_ST_NO_SESSIONS */
-		0x00U, 0x00U, 0x00, 0x0CU, /* Command Size */
-		0x00U, 0x00U, 0x01U, 0x43U, /* TPM_CC_Selftest */
-		0x00U, 0x00U /* TPM_SU_CLEAR */
+		0x00U, 0x00U, 0x00U, 0x0BU, /* Command Size */
+		0x00U, 0x00U, 0x01U, 0x43U, /* TPM_CC_SelfTest */
+		0x01U /* fullTest = YES */
 	};
 
 	/**
 	 * - Sends self-test command to TPM and gets response.
-	 * Returns XST_SUCCESS on success. Otherwise, returns error code.
+	 * Returns the transfer error code on failure.
 	 */
 	Status = XTpm_DataTransfer(TpmSelfTest, TpmRespBuffer,
 		TpmSelfTest[XTPM_DATA_SIZE_BYTE0_INDEX]);
+	if (Status != (u32)XST_SUCCESS) {
+		goto END;
+	}
 
+	/**
+	 * - Verifies the TPM response code. Returns XTPM_ERR_SELF_TEST when the
+	 * TPM reports a self-test failure.
+	 */
+	if (XTpm_GetResponseCode() != 0U) {
+		Status = (u32)XTPM_ERR_SELF_TEST;
+	}
+	else {
+		Status = (u32)XST_SUCCESS;
+	}
+
+END:
 	return Status;
 }
 
@@ -485,12 +529,16 @@ END:
  *
  * @return
  * 			- XST_SUCCESS if successful
+ * 			- XTPM_ERR_RESP_POLLING if the response code is non-zero or the
+ * 			  response length is outside the PCR value buffer
  * 			- Error code on failure
  *
  *************************************************************************************************/
 u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 {
 	u32 Status = (u32)XST_FAILURE;
+	u32 RespLen;
+	u32 CopyLen;
 	/* TPM PCR read command formation */
 	u8 TpmPcrRead[XTPM_PCR_READ_CMD_SIZE] = {
 	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
@@ -528,14 +576,34 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 		goto END;
 	}
 
-	/** -
-	 * Copy the PCR read response from local buffer to the response buffer
-	 * address provided by the client
+	/**
+	 * - Checks the TPM response length before copying into the caller buffer.
+	 * A length at or below the PCR value offset underflows the copy size.
+	 * A payload larger than PCR_VALUE_MAX_LEN overruns the caller buffer.
+	 * Returns XTPM_ERR_RESP_POLLING in either case.
+	 */
+	RespLen = ((u32)TpmRespBuffer[XTPM_DATA_SIZE_BYTE0_INDEX] |
+			((u32)TpmRespBuffer[XTPM_DATA_SIZE_BYTE1_INDEX] << 8U) |
+			((u32)TpmRespBuffer[XTPM_DATA_SIZE_BYTE2_INDEX] << 16U) |
+			((u32)TpmRespBuffer[XTPM_DATA_SIZE_BYTE3_INDEX] << 24U));
+	if (RespLen <= (u32)XTPM_PCR_VALUE_START_INDEX) {
+		Status = (u32)XTPM_ERR_RESP_POLLING;
+		goto END;
+	}
+
+	CopyLen = RespLen - (u32)XTPM_PCR_VALUE_START_INDEX;
+	if (CopyLen > PCR_VALUE_MAX_LEN) {
+		Status = (u32)XTPM_ERR_RESP_POLLING;
+		goto END;
+	}
+
+	/**
+	 * - Copies the PCR value from the local buffer to the response buffer
+	 * address provided by the client.
 	 */
 	Xil_MemCpyFrom32To64Addr(ResponseBufAddr,
 			(u32)(UINTPTR)&TpmRespBuffer[XTPM_PCR_VALUE_START_INDEX],
-			((u32)TpmRespBuffer[XTPM_INDEX_5] - (u32)XTPM_PCR_VALUE_START_INDEX));
-
+			CopyLen);
 
 END:
 	return Status;
