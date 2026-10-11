@@ -112,6 +112,7 @@ s32 XSlhDsa_YieldSessionEnd(XSlhDsa_Instance *InstPtr)
 {
 	s32 Status = XASUFW_SUCCESS;
 	u8 KeygenStage;
+	u8 SignStage;
 	u8 HashWipeFail;
 
 	/** Reject a NULL instance. */
@@ -127,10 +128,12 @@ s32 XSlhDsa_YieldSessionEnd(XSlhDsa_Instance *InstPtr)
 	XAsufw_SlhdsaClearParkedRequest();
 
 	/**
-	 * Save the keygen stage before the checkpoints are dropped. An aborted keygen may still
-	 * hold a PWCT signature; sign and verify leave this stage at NONE and skip that wipe.
+	 * Save the stages that tell whether a signature is being built before the checkpoints
+	 * are dropped. An aborted keygen may still hold a PWCT signature, and an aborted sign a
+	 * partial one. A finished sign resets its stage, and verify never leaves NONE.
 	 */
 	KeygenStage = InstPtr->Yield.Keygen.Stage;
+	SignStage = InstPtr->Yield.Sign.Stage;
 
 	/**
 	 * Save the deferred wipe failure before the checkpoints are dropped. PRF_msg and H_msg
@@ -167,11 +170,12 @@ s32 XSlhDsa_YieldSessionEnd(XSlhDsa_Instance *InstPtr)
 	Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_ClearSensitiveState(InstPtr));
 
 	/**
-	 * Wipe the signature scratch only when this session generated a key pair, so the PWCT
-	 * signature made under the new key does not outlive it. A client signature left in the
-	 * scratch is public. Sign and verify leave Keygen.Stage at NONE.
+	 * Wipe the signature scratch when this session was still building a signature, so a
+	 * PWCT or abandoned signature does not outlive it. A verified or delivered signature
+	 * is public and leaves both stages at NONE.
 	 */
-	if (KeygenStage != XSLHDSA_KEYGEN_STAGE_NONE) {
+	if ((KeygenStage != XSLHDSA_KEYGEN_STAGE_NONE) ||
+			(SignStage != XSLHDSA_SIGN_STAGE_NONE)) {
 		Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_ZeroizeSigScratch());
 	}
 

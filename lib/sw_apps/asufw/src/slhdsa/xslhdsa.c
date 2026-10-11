@@ -35,6 +35,7 @@
 *       kk   09/23/26 Run a pairwise consistency test on every generated key pair
 *       kk   09/29/26 Staged sign and verify signatures in the signature scratch and reused the
 *                     caller's keygen parameters on every slice
+*       kk   10/08/26 Addressed FMEA findings
 *
 * </pre>
 *
@@ -51,6 +52,7 @@
 #include "xasufw_dma.h"
 #include "xfih.h"
 #include "xtrng.h"
+#include "xsha_hw.h"
 #include "xasu_slhdsainfo.h"
 #include "xasu_slhdsa_common.h"
 #include "xslhdsa.h"
@@ -75,6 +77,83 @@ _Static_assert(XASU_SLHDSA_SHAKE_256S_SIG_SIZE == XASU_SLHDSA_SHA2_256S_SIG_SIZE
 _Static_assert(XSLHDSA_SIG_SCRATCH_BYTES >= XASU_SLHDSA_SHAKE_256S_SIG_SIZE,
 	       "Signature scratch cannot hold the largest SLH-DSA signature");
 
+/*
+ * FIPS 205 splits the hypertree as h = d * h', so each parameter-set row derives xmss_height by
+ * division. A height that is not a whole number of layers would truncate there instead.
+ */
+_Static_assert((XSLHDSA_256S_H % XSLHDSA_256S_D) == 0U,
+	       "256s hypertree height is not a whole number of layers");
+_Static_assert((XSLHDSA_128S_H % XSLHDSA_128S_D) == 0U,
+	       "128s hypertree height is not a whole number of layers");
+
+/*
+ * Each parameter-set row sets sig_bytes from the client header while its geometry comes from the
+ * XSLHDSA_<set>_<symbol> constants, so these recompute the size from those same constants: a row
+ * whose geometry stops matching the size its client advertises fails the build.
+ */
+_Static_assert(XASU_SLHDSA_SHAKE_256S_SIG_SIZE ==
+	       XSLHDSA_SIG_BYTES(XSLHDSA_256S_K, XSLHDSA_256S_A, XSLHDSA_256S_H,
+				 XSLHDSA_256S_D, XSLHDSA_WOTS_LEN_256S, XSLHDSA_256S_N),
+	       "SHAKE-256s signature size disagrees with its tabled parameters");
+_Static_assert(XASU_SLHDSA_SHA2_128S_SIG_SIZE ==
+	       XSLHDSA_SIG_BYTES(XSLHDSA_128S_K, XSLHDSA_128S_A, XSLHDSA_128S_H,
+				 XSLHDSA_128S_D, XSLHDSA_WOTS_LEN_128S, XSLHDSA_128S_N),
+	       "SHA2-128s signature size disagrees with its tabled parameters");
+_Static_assert(XASU_SLHDSA_SHA2_256S_SIG_SIZE ==
+	       XSLHDSA_SIG_BYTES(XSLHDSA_256S_K, XSLHDSA_256S_A, XSLHDSA_256S_H,
+				 XSLHDSA_256S_D, XSLHDSA_WOTS_LEN_256S, XSLHDSA_256S_N),
+	       "SHA2-256s signature size disagrees with its tabled parameters");
+_Static_assert(XASU_SLHDSA_SHAKE_128S_SIG_SIZE ==
+	       XSLHDSA_SIG_BYTES(XSLHDSA_128S_K, XSLHDSA_128S_A, XSLHDSA_128S_H,
+				 XSLHDSA_128S_D, XSLHDSA_WOTS_LEN_128S, XSLHDSA_128S_N),
+	       "SHAKE-128s signature size disagrees with its tabled parameters");
+
+/*
+ * The WOTS+ digit buffer is indexed by the chain count a parameter set yields, so every set has
+ * to fit it. A set whose len outgrows the buffer fails the build rather than running past it.
+ */
+_Static_assert(XSLHDSA_WOTS_LEN_256S <= XSLHDSA_WOTS_WEIGHT_WORDS,
+	       "WOTS+ chain count exceeds the digit buffer");
+_Static_assert(XSLHDSA_WOTS_LEN_128S <= XSLHDSA_WOTS_WEIGHT_WORDS,
+	       "WOTS+ chain count exceeds the digit buffer");
+
+/*
+ * WorkMem holds the len * n WOTS+ chain tops, the k * n FORS roots and the pre-hash context
+ * prefix, so it is sized for the widest of those. A set that outgrows it fails the build rather
+ * than running past it.
+ */
+_Static_assert((XSLHDSA_WOTS_LEN_256S * XSLHDSA_256S_N) <= XSLHDSA_WORK_MEM_BYTES,
+	       "256s WOTS+ chain tops exceed the work memory buffer");
+_Static_assert((XSLHDSA_WOTS_LEN_128S * XSLHDSA_128S_N) <= XSLHDSA_WORK_MEM_BYTES,
+	       "128s WOTS+ chain tops exceed the work memory buffer");
+_Static_assert((XSLHDSA_256S_K * XSLHDSA_256S_N) <= XSLHDSA_WORK_MEM_BYTES,
+	       "256s FORS roots exceed the work memory buffer");
+_Static_assert((XSLHDSA_128S_K * XSLHDSA_128S_N) <= XSLHDSA_WORK_MEM_BYTES,
+	       "128s FORS roots exceed the work memory buffer");
+_Static_assert((XASU_SLHDSA_PREFIX_HDR_LEN + XASU_SLHDSA_MAX_CTX_LEN +
+		XASU_SLHDSA_PREHASH_OID_LEN) <= XSLHDSA_WORK_MEM_BYTES,
+	       "Pre-hash context prefix exceeds the work memory buffer");
+
+/*
+ * H_msg writes m bytes into the instance digest buffer, which is sized for the widest set.
+ * A set whose m outgrows the buffer fails the build rather than running past it.
+ */
+_Static_assert(XSLHDSA_256S_M <= XSLHDSA_MSG_DIGEST_BYTES,
+	       "256s message digest exceeds the digest buffer");
+_Static_assert(XSLHDSA_128S_M <= XSLHDSA_MSG_DIGEST_BYTES,
+	       "128s message digest exceeds the digest buffer");
+
+/*
+ * Compile-time node stack sizing. A treehash push at depth d writes NodeStack[d], and a
+ * walk over 2^SubHeight leaves reaches d == SubHeight - 1, so a depth greater than the
+ * largest SubHeight leaves one spare slot. XMSS SubHeight can equal h' (full-tree keygen),
+ * while FORS auth-path SubHeight is LevelIdx in 0..(a - 1).
+ */
+_Static_assert(XSLHDSA_XMSS_STACK_DEPTH > XSLHDSA_MAX_XMSS_HEIGHT,
+	       "XMSS node stack depth must exceed max h'");
+_Static_assert(XSLHDSA_FORS_STACK_DEPTH > (XSLHDSA_MAX_FORS_HEIGHT - 1U),
+	       "FORS node stack depth must exceed max (a - 1)");
+
 /** DER OID for SHA-256, id-sha256 (FIPS 205 Algorithm 23, step 10): 2.16.840.1.101.3.4.2.1. */
 static const u8 XSlhDsa_PreHashOidSha256[XASU_SLHDSA_PREHASH_OID_LEN] = {
 	0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U, 0x02U, 0x01U
@@ -90,6 +169,16 @@ static const u8 XSlhDsa_PreHashOidSha512[XASU_SLHDSA_PREHASH_OID_LEN] = {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static s32 XSlhDsa_KeyGenInternal(XSlhDsa_Instance *InstPtr, const u8 *SkSeed,
+				       const u8 *SkPrf, const u8 *PkSeed);
+static s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
+				     const u8 *Ctx, u32 CtxLen, const u8 *Sk, const u8 *OptRand,
+				     u8 *Sig, u32 SigLen);
+static s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr);
+static s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
+				       const u8 *Sig, u32 SigLen, const u8 *Ctx, u32 CtxLen,
+				       const u8 *Pk);
+
 static void XSlhDsa_PublishStagedSkViews(XSlhDsa_Instance *InstPtr, u32 HashWidth);
 static s32 XSlhDsa_KeyWriteSkPrefix(const u8 *SkSeed, const u8 *SkPrf,
 					  const u8 *PkSeed, u32 HashWidth, u8 *SkOut);
@@ -101,6 +190,11 @@ static s32 XSlhDsa_KeyCommitHypertreeRoot(XSlhDsa_Instance *InstPtr,
 
 static s32 XSlhDsa_SignDigestBody(XSlhDsa_Instance *InstPtr, const u8 *Digest,
 				       u8 *SigBody);
+
+static void XSlhDsa_SetMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen);
+static void XSlhDsa_SetSig(XSlhDsa_Instance *InstPtr, const u8 *Sig, u32 SigLen);
+static void XSlhDsa_SetPkAddr(XSlhDsa_Instance *InstPtr, const u8 *Pk);
+static s32 XSlhDsa_SetMsgMode(XSlhDsa_Instance *InstPtr, u8 PreHashMode, u8 HashId);
 
 static s32 XSlhDsa_ParamSetFromAsu(u8 ParamSet, XSlhDsa_ParamSet *TypePtr);
 static s32 XSlhDsa_PrepareInstance(XSlhDsa_Instance *InstPtr, u8 ParamSet, XAsufw_Dma *DmaPtr,
@@ -127,6 +221,9 @@ static const u8 XSlhDsa_PwctEmptyMsg[1U] = { 0U };
 * FIPS set; LookupParamSet primes the output to it until a supported identifier is
 * confirmed.
 *
+* len_1, len_2, len and the signature size follow from those constants and are fixed per
+* parameter set.
+*
 * The two yield budgets are not FIPS constants. They set how many XMSS or FORS leaves a
 * cooperative yield slice builds before the command parks, and are sized from the measured
 * leaf cost of each set so a slice stays near 10 ms and well inside the keep-alive interval.
@@ -142,78 +239,87 @@ static const XSlhDsa_Param XSlhDsa_ParamLookup[XSLHDSA_PARAM_SET_MAX + 1U] = {
 		.fors_height = 0U,
 		.fors_count = 0U,
 		.wots_win_bits = 0U,
+		.wots_len1 = 0U,
+		.wots_len2 = 0U,
+		.wots_len = 0U,
 		.m = 0U,
+		.sig_bytes = 0U,
 		.yield_xmss_leaves = 0U,
 		.yield_fors_leaves = 0U,
 	},
 	/* SLH-DSA-SHAKE-256s: n=32, h=64, d=8, h'=8, a=14, k=22, lg_w=4, m=47 */
 	[XSLHDSA_PARAM_SET_SHAKE_256S] = {
 		.hash_family = XSLHDSA_HASH_SHAKE,
-		.n = 32,
-		.h = 64,
-		.d = 8,
-		.xmss_height = 8,
-		.fors_height = 14,
-		.fors_count = 22,
-		.wots_win_bits = 4,
-		.m = 47,
-		.yield_xmss_leaves = 1U,
-		.yield_fors_leaves = 300U,
+		.n = XSLHDSA_256S_N,
+		.h = XSLHDSA_256S_H,
+		.d = XSLHDSA_256S_D,
+		.xmss_height = (XSLHDSA_256S_H / XSLHDSA_256S_D),
+		.fors_height = XSLHDSA_256S_A,
+		.fors_count = XSLHDSA_256S_K,
+		.wots_win_bits = XSLHDSA_WOTS_LG_W,
+		.wots_len1 = XSLHDSA_WOTS_LEN1_256S,
+		.wots_len2 = XSLHDSA_WOTS_LEN2,
+		.wots_len = XSLHDSA_WOTS_LEN_256S,
+		.m = XSLHDSA_256S_M,
+		.sig_bytes = XASU_SLHDSA_SHAKE_256S_SIG_SIZE,
+		.yield_xmss_leaves = XSLHDSA_SHAKE_256S_YIELD_XMSS_LEAVES,
+		.yield_fors_leaves = XSLHDSA_SHAKE_256S_YIELD_FORS_LEAVES,
 	},
 	/* SLH-DSA-SHA2-128s: n=16, h=63, d=7, h'=9, a=12, k=14, lg_w=4, m=30 */
 	[XSLHDSA_PARAM_SET_SHA2_128S] = {
 		.hash_family = XSLHDSA_HASH_SHA2,
-		.n = 16,
-		.h = 63,
-		.d = 7,
-		.xmss_height = 9,
-		.fors_height = 12,
-		.fors_count = 14,
-		.wots_win_bits = 4,
-		.m = 30,
-		.yield_xmss_leaves = 1U,
-		.yield_fors_leaves = 200U,
+		.n = XSLHDSA_128S_N,
+		.h = XSLHDSA_128S_H,
+		.d = XSLHDSA_128S_D,
+		.xmss_height = (XSLHDSA_128S_H / XSLHDSA_128S_D),
+		.fors_height = XSLHDSA_128S_A,
+		.fors_count = XSLHDSA_128S_K,
+		.wots_win_bits = XSLHDSA_WOTS_LG_W,
+		.wots_len1 = XSLHDSA_WOTS_LEN1_128S,
+		.wots_len2 = XSLHDSA_WOTS_LEN2,
+		.wots_len = XSLHDSA_WOTS_LEN_128S,
+		.m = XSLHDSA_128S_M,
+		.sig_bytes = XASU_SLHDSA_SHA2_128S_SIG_SIZE,
+		.yield_xmss_leaves = XSLHDSA_SHA2_128S_YIELD_XMSS_LEAVES,
+		.yield_fors_leaves = XSLHDSA_SHA2_128S_YIELD_FORS_LEAVES,
 	},
 	/* SLH-DSA-SHA2-256s: n=32, h=64, d=8, h'=8, a=14, k=22, lg_w=4, m=47 */
 	[XSLHDSA_PARAM_SET_SHA2_256S] = {
 		.hash_family = XSLHDSA_HASH_SHA2,
-		.n = 32,
-		.h = 64,
-		.d = 8,
-		.xmss_height = 8,
-		.fors_height = 14,
-		.fors_count = 22,
-		.wots_win_bits = 4,
-		.m = 47,
-		.yield_xmss_leaves = 1U,
-		.yield_fors_leaves = 200U,
+		.n = XSLHDSA_256S_N,
+		.h = XSLHDSA_256S_H,
+		.d = XSLHDSA_256S_D,
+		.xmss_height = (XSLHDSA_256S_H / XSLHDSA_256S_D),
+		.fors_height = XSLHDSA_256S_A,
+		.fors_count = XSLHDSA_256S_K,
+		.wots_win_bits = XSLHDSA_WOTS_LG_W,
+		.wots_len1 = XSLHDSA_WOTS_LEN1_256S,
+		.wots_len2 = XSLHDSA_WOTS_LEN2,
+		.wots_len = XSLHDSA_WOTS_LEN_256S,
+		.m = XSLHDSA_256S_M,
+		.sig_bytes = XASU_SLHDSA_SHA2_256S_SIG_SIZE,
+		.yield_xmss_leaves = XSLHDSA_SHA2_256S_YIELD_XMSS_LEAVES,
+		.yield_fors_leaves = XSLHDSA_SHA2_256S_YIELD_FORS_LEAVES,
 	},
 	/* SLH-DSA-SHAKE-128s: n=16, h=63, d=7, h'=9, a=12, k=14, lg_w=4, m=30 */
 	[XSLHDSA_PARAM_SET_SHAKE_128S] = {
 		.hash_family = XSLHDSA_HASH_SHAKE,
-		.n = 16,
-		.h = 63,
-		.d = 7,
-		.xmss_height = 9,
-		.fors_height = 12,
-		.fors_count = 14,
-		.wots_win_bits = 4,
-		.m = 30,
-		.yield_xmss_leaves = 2U,
-		.yield_fors_leaves = 300U,
+		.n = XSLHDSA_128S_N,
+		.h = XSLHDSA_128S_H,
+		.d = XSLHDSA_128S_D,
+		.xmss_height = (XSLHDSA_128S_H / XSLHDSA_128S_D),
+		.fors_height = XSLHDSA_128S_A,
+		.fors_count = XSLHDSA_128S_K,
+		.wots_win_bits = XSLHDSA_WOTS_LG_W,
+		.wots_len1 = XSLHDSA_WOTS_LEN1_128S,
+		.wots_len2 = XSLHDSA_WOTS_LEN2,
+		.wots_len = XSLHDSA_WOTS_LEN_128S,
+		.m = XSLHDSA_128S_M,
+		.sig_bytes = XASU_SLHDSA_SHAKE_128S_SIG_SIZE,
+		.yield_xmss_leaves = XSLHDSA_SHAKE_128S_YIELD_XMSS_LEAVES,
+		.yield_fors_leaves = XSLHDSA_SHAKE_128S_YIELD_FORS_LEAVES,
 	},
 };
-
-/*
- * Compile-time node stack sizing. A treehash push at depth d writes NodeStack[d], and a
- * walk over 2^SubHeight leaves reaches d == SubHeight - 1, so a depth greater than the
- * largest SubHeight leaves one spare slot. XMSS SubHeight can equal h' (full-tree keygen),
- * while FORS auth-path SubHeight is LevelIdx in 0..(a - 1).
- */
-_Static_assert(XSLHDSA_XMSS_STACK_DEPTH > XSLHDSA_MAX_XMSS_HEIGHT,
-	       "XMSS node stack depth must exceed max h'");
-_Static_assert(XSLHDSA_FORS_STACK_DEPTH > (XSLHDSA_MAX_FORS_HEIGHT - 1U),
-	       "FORS node stack depth must exceed max (a - 1)");
 
 /*************************************************************************************************/
 /**
@@ -301,108 +407,6 @@ END:
 }
 /*************************************************************************************************/
 /**
-* @brief	This function returns the WOTS+ message-chain count (FIPS 205 len_1, Eq. 5.2).
-*
-* @param	ParamPtr	Pointer to parameter descriptor.
-*
-* @return
-*	len_1 value for parameter set ParamPtr.
-*
-*************************************************************************************************/
-u32 XSlhDsa_WotsMsgChainCount(const XSlhDsa_Param *ParamPtr)
-{
-	/** Compute len_1 = ceil(8n / lg_w) using integer ceiling division. */
-	return (((XASUFW_BYTE_LEN_IN_BITS * ParamPtr->n) + ParamPtr->wots_win_bits - 1U) /
-		ParamPtr->wots_win_bits);
-}
-/*************************************************************************************************/
-/**
-* @brief	This function returns the WOTS+ checksum-chain count
-*		(FIPS 205 len_2, Alg. 1 / Eq. 5.3).
-*
-* @param	ParamPtr	Pointer to parameter descriptor.
-*
-* @return
-*	len_2 value for parameter set ParamPtr.
-*
-* @note
-*	Shortcuts the Algorithm 1 loop when lg_w = 4 and 9 <= n <= 136, a range over which
-*	len_2 is constant at 3. The bound is derived from Eq. 5.3, not stated in FIPS 205.
-*
-*************************************************************************************************/
-u32 XSlhDsa_WotsCsChainCount(const XSlhDsa_Param *ParamPtr)
-{
-	u32 Len2;
-	u32 Cap;
-	u32 Maxs;
-
-	/* For lg_w = XSLHDSA_WOTS_LG_W and n in [XSLHDSA_WOTS_LEN2_FAST_N_MIN,
-	 * XSLHDSA_WOTS_LEN2_FAST_N_MAX], Eq. 5.3 always yields
-	 * len_2 = XSLHDSA_WOTS_LEN2_FAST, so the Algorithm 1 search can be skipped. */
-	if ((ParamPtr->wots_win_bits == XSLHDSA_WOTS_LG_W) &&
-	    (ParamPtr->n >= XSLHDSA_WOTS_LEN2_FAST_N_MIN) &&
-	    (ParamPtr->n <= XSLHDSA_WOTS_LEN2_FAST_N_MAX)) {
-		Len2 = XSLHDSA_WOTS_LEN2_FAST;
-		goto END;
-	}
-
-	/** General path: Maxs is the largest possible checksum, len_1 * (w - 1) for w = 2^lg_w. */
-	Maxs = XSlhDsa_WotsMsgChainCount(ParamPtr) *
-	 XSLHDSA_BIT_MASK(ParamPtr->wots_win_bits);
-	Len2 = 1U;
-	Cap = 1U << ParamPtr->wots_win_bits;
-
-	/** Grow len_2 until Cap = w^len_2 covers Maxs, avoiding the Eq. 5.3 logarithm. */
-	while (Cap < Maxs) {
-		Len2++;
-		Cap <<= ParamPtr->wots_win_bits;
-	}
-
-END:
-	return Len2;
-}
-/*************************************************************************************************/
-/**
-* @brief	This function returns the total WOTS+ chain count (FIPS 205 len = len_1 + len_2).
-*
-* @param	ParamPtr	Pointer to parameter descriptor.
-*
-* @return
-*	Total WOTS+ chain count for parameter set ParamPtr.
-*
-*************************************************************************************************/
-u32 XSlhDsa_WotsChainCount(const XSlhDsa_Param *ParamPtr)
-{
-	return XSlhDsa_WotsMsgChainCount(ParamPtr) + XSlhDsa_WotsCsChainCount(ParamPtr);
-}
-/*************************************************************************************************/
-/**
-* @brief	This function returns the SLH-DSA signature size in bytes for a parameter set.
-*
-* @param	ParamPtr	Pointer to parameter descriptor.
-*
-* @return
-*	(1 + k * (1 + a) + h + d * len) * n bytes per FIPS 205 signature encoding.
-*
-* @note
-*	len is the total WOTS+ chain count from XSlhDsa_WotsChainCount().
-*
-*************************************************************************************************/
-u32 XSlhDsa_SignatureBytes(const XSlhDsa_Param *ParamPtr)
-{
-	u32 WotsChains = XSlhDsa_WotsChainCount(ParamPtr);
-
-	/**
-	 * Sum the n-byte blocks of the signature encoding: randomizer R, the FORS signature
-	 * (k private values plus k auth paths of a nodes), and the hypertree signature
-	 * (h auth-path nodes plus one len-block WOTS+ signature per layer, over d layers).
-	 */
-	return (1U + (ParamPtr->fors_count * (1U + ParamPtr->fors_height)) + ParamPtr->h +
-					(ParamPtr->d * WotsChains)) *
-				 ParamPtr->n;
-}
-/*************************************************************************************************/
-/**
 * @brief	This function returns the singleton SLH-DSA instance.
 *
 * Lazily initializes static scratch buffers, the domain-separation address, and binds
@@ -484,8 +488,8 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if the parameter set and hash backend were bound.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr is NULL.
-*		- XASUFW_SLHDSA_UNSUPPORTED_PARAM_SET, if ParamSet is unsupported or its hash ops
-*		  table could not be resolved.
+*		- XASUFW_SLHDSA_UNSUPPORTED_PARAM_SET, if ParamSet is unsupported, or its hash ops
+*		  table could not be resolved or does not match the bound hash family.
 *		- XASUFW_SLHDSA_LOOKUP_GLITCH_ERROR, if the redundant parameter-set
 *		  check during lookup does not match.
 *
@@ -509,9 +513,9 @@ s32 XSlhDsa_BindParam(XSlhDsa_Instance *InstPtr, XSlhDsa_ParamSet ParamSet)
 
 	/**
 	 * Copy the row by value so the instance owns its view of the supplied constants
-	 * (n, h, d, h', a, k, lg_w, m) and the cooperative yield leaf budgets, and the lookup
-	 * table stays immutable. Derived quantities (len_1, len_2, len, signature size) are
-	 * recomputed on demand, not cached here.
+	 * (n, h, d, h', a, k, lg_w, m), the derived quantities the table also carries (len_1,
+	 * len_2, len, signature size) and the cooperative yield leaf budgets, and the lookup
+	 * table stays immutable.
 	 */
 	InstPtr->Param = *ParamPtr;
 
@@ -524,6 +528,20 @@ s32 XSlhDsa_BindParam(XSlhDsa_Instance *InstPtr, XSlhDsa_ParamSet ParamSet)
 
 	/* An unresolved table means no backend is built in for this hash family. */
 	if (InstPtr->HashOps == NULL) {
+		Status = XASUFW_SLHDSA_UNSUPPORTED_PARAM_SET;
+		goto END;
+	}
+
+	/**
+	 * Confirm the bound backend is the one this hash family names. A table left over from an
+	 * earlier parameter set is also non-NULL, so the check above on its own would let a bind
+	 * whose assignment did not take hold run every hash through the previous family while
+	 * the instance reports the set that was asked for.
+	 */
+	if (((InstPtr->Param.hash_family == XSLHDSA_HASH_SHAKE) &&
+			(InstPtr->HashOps != &XSlhDsa_HashOpsShake)) ||
+			((InstPtr->Param.hash_family == XSLHDSA_HASH_SHA2) &&
+			(InstPtr->HashOps != &XSlhDsa_HashOpsSha2))) {
 		Status = XASUFW_SLHDSA_UNSUPPORTED_PARAM_SET;
 		goto END;
 	}
@@ -542,11 +560,11 @@ END:
 * @param	MsgLen	Length of the message in bytes.
 *
 * @note
-*	The message address is stored as a 64-bit DMA address.
+*	The message address is stored as a 64-bit DMA address. The caller validates InstPtr and
+*	Msg before binding the buffers.
 *
 *************************************************************************************************/
-void XSlhDsa_SetMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg,
-			 u32 MsgLen)
+static void XSlhDsa_SetMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen)
 {
 	InstPtr->MsgAddr = (u64)(UINTPTR)Msg;
 	InstPtr->MsgLen = MsgLen;
@@ -560,11 +578,11 @@ void XSlhDsa_SetMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 * @param	SigLen	Length of the signature buffer in bytes.
 *
 * @note
-*	The signature address is stored as a 64-bit DMA address.
+*	The signature address is stored as a 64-bit DMA address. The caller validates InstPtr and
+*	Sig before binding the buffers.
 *
 *************************************************************************************************/
-void XSlhDsa_SetSig(XSlhDsa_Instance *InstPtr, const u8 *Sig,
-			 u32 SigLen)
+static void XSlhDsa_SetSig(XSlhDsa_Instance *InstPtr, const u8 *Sig, u32 SigLen)
 {
 	InstPtr->SigAddr = (u64)(UINTPTR)Sig;
 	InstPtr->SigLen = SigLen;
@@ -577,10 +595,11 @@ void XSlhDsa_SetSig(XSlhDsa_Instance *InstPtr, const u8 *Sig,
 * @param	Pk	Pointer to the public key buffer.
 *
 * @note
-*	The public key address is stored as a 64-bit DMA address.
+*	The public key address is stored as a 64-bit DMA address. The caller validates InstPtr and
+*	Pk before binding the buffers.
 *
 *************************************************************************************************/
-void XSlhDsa_SetPkAddr(XSlhDsa_Instance *InstPtr, const u8 *Pk)
+static void XSlhDsa_SetPkAddr(XSlhDsa_Instance *InstPtr, const u8 *Pk)
 {
 	InstPtr->PkAddr = (u64)(UINTPTR)Pk;
 }
@@ -592,14 +611,23 @@ void XSlhDsa_SetPkAddr(XSlhDsa_Instance *InstPtr, const u8 *Pk)
 * @param	PreHashMode	XASU_SLHDSA_MSG_PURE or XASU_SLHDSA_MSG_PREHASH.
 * @param	HashId	Pre-hash function identifier.
 *
+* @return
+*		- XASUFW_SUCCESS, if the mode is recorded.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if PreHashMode is neither of the two FIPS 205
+*		  message modes; the previously recorded mode is left unchanged.
+*
 * @note
-*	Clears MsgLocalPtr when mode fields are updated.
+*	Clears MsgLocalPtr when mode fields are updated. The caller validates InstPtr before
+*	selecting the message mode. PreHashMode is re-checked here rather than trusted from the
+*	caller's own upstream validation, since an unrecognised value stored unchecked would
+*	later be read back as the pure variant by every PreHashMode == PREHASH comparison.
 *
 *************************************************************************************************/
-void XSlhDsa_SetMsgMode(XSlhDsa_Instance *InstPtr, u8 PreHashMode, u8 HashId)
+static s32 XSlhDsa_SetMsgMode(XSlhDsa_Instance *InstPtr, u8 PreHashMode, u8 HashId)
 {
-	/** Validate input pointer. */
-	if (InstPtr == NULL) {
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+
+	if ((PreHashMode != XASU_SLHDSA_MSG_PURE) && (PreHashMode != XASU_SLHDSA_MSG_PREHASH)) {
 		goto END;
 	}
 
@@ -612,9 +640,10 @@ void XSlhDsa_SetMsgMode(XSlhDsa_Instance *InstPtr, u8 PreHashMode, u8 HashId)
 	InstPtr->HashId = HashId;
 	InstPtr->MsgLocalPtr = NULL;
 	InstPtr->MsgLocalLen = 0U;
+	Status = XASUFW_SUCCESS;
 
 END:
-	return;
+	return Status;
 }
 /*************************************************************************************************/
 /**
@@ -900,8 +929,7 @@ const u8 *XSlhDsa_PreHashGetOid(u8 HashId)
 * @return
 *		- XASUFW_SUCCESS on success.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr or its work memory is NULL, CtxLen exceeds
-*		  the FIPS 205 limit, Ctx is NULL for a non-zero CtxLen, or the resulting prefix
-*		  does not fit work memory.
+*		  the FIPS 205 limit, or Ctx is NULL for a non-zero CtxLen.
 *		- XASUFW_SLHDSA_UNSUPPORTED_PREHASH_ALG, if the instance HashId has no pre-hash OID.
 *		- XASUFW_SLHDSA_COPY_FAILED, if the context string or pre-hash OID copy
 *		  fails.
@@ -930,12 +958,8 @@ s32 XSlhDsa_PreHashBuildPrefix(XSlhDsa_Instance *InstPtr, const u8 *Ctx, u32 Ctx
 		goto END;
 	}
 
-	/** Prefix is 0x01 || ctx_len || ctx || OID; check it fits WorkMem before writing a byte. */
+	/** Prefix is 0x01 || ctx_len || ctx || OID; a static assert bounds it against WorkMem. */
 	PrefixLen = XASU_SLHDSA_PREFIX_HDR_LEN + CtxLen + XASU_SLHDSA_PREHASH_OID_LEN;
-	if (PrefixLen > XSLHDSA_WORK_MEM_BYTES) {
-		Status = XASUFW_SLHDSA_INVALID_PARAM;
-		goto END;
-	}
 
 	/**
 	 * Write the HashSLH-DSA domain separator (0x01) and context length. The separator is what
@@ -1094,8 +1118,8 @@ END:
 *	reads both from there once this returns XASUFW_SUCCESS.
 *
 *************************************************************************************************/
-s32 XSlhDsa_KeyGenInternal(XSlhDsa_Instance *InstPtr, const u8 *SkSeed,
-				 const u8 *SkPrf, const u8 *PkSeed)
+static s32 XSlhDsa_KeyGenInternal(XSlhDsa_Instance *InstPtr, const u8 *SkSeed,
+			       const u8 *SkPrf, const u8 *PkSeed)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_Param *ParamPtr;
@@ -1206,14 +1230,15 @@ END:
 * @param	OptRand	Optional additional randomness (add_rand); NULL for deterministic mode
 *			(PK.seed used as opt_rand per FIPS 205 Algorithm 19, step 2).
 * @param	Sig	Output signature buffer; must be a local buffer.
-* @param	SigLen	Length of the signature output buffer in bytes; must equal
-*			XSlhDsa_SignatureBytes() for the bound parameter set.
+* @param	SigLen	Length of the signature output buffer in bytes; must equal the signature
+*			size of the bound parameter set.
 *
 * @return
 *		- XASUFW_SUCCESS, if signature generation succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr, its work memory, Sk, Sig or Msg is NULL,
-*		  SigLen does not match the bound parameter set signature size, CtxLen exceeds the
-*		  FIPS 205 limit or Ctx is NULL for a non-zero CtxLen.
+*		  SigLen does not match the bound parameter set signature size, MsgLen exceeds the
+*		  DMA transfer limit, CtxLen exceeds the FIPS 205 limit, Ctx is NULL for a
+*		  non-zero CtxLen, or a pre-hash digest is still staged on a pure-mode request.
 *		- XASUFW_SLHDSA_COPY_FAILED, if loading the secret key into the instance
 *		  fails.
 *		- XASUFW_SLHDSA_PRF_MSG_FAILED, if PRF_msg fails to produce the randomizer R,
@@ -1239,7 +1264,7 @@ END:
 *	- CtxLen 1..255: FIPS slh_sign — prefix 0x00 || len || ctx in WorkMem.
 *
 *************************************************************************************************/
-s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
+static s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 		      const u8 *Ctx, u32 CtxLen, const u8 *Sk, const u8 *OptRand,
 		      u8 *Sig, u32 SigLen)
 {
@@ -1261,7 +1286,8 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 	}
 
 	/** The length checks follow the NULL checks because they read the bound parameter set. */
-	if ((SigLen != XSlhDsa_SignatureBytes(&InstPtr->Param)) ||
+	if ((SigLen != InstPtr->Param.sig_bytes) ||
+			(MsgLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
 			(CtxLen > XASU_SLHDSA_MAX_CTX_LEN) || ((CtxLen > 0U) && (Ctx == NULL))) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
@@ -1306,6 +1332,12 @@ s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 					goto END;
 				}
 			} else {
+				/** A staged PH(M) would be signed in place of the message. */
+				if (InstPtr->MsgLocalPtr != NULL) {
+					Status = XASUFW_SLHDSA_INVALID_PARAM;
+					goto END;
+				}
+
 				/**
 				 * - slh_sign Step 8: M' <- toByte(0, 1) || toByte(|ctx|, 1) ||
 				 *   ctx || M
@@ -1415,8 +1447,9 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if signature verification succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if instance state is invalid or SigLen does not match
-*		  the bound parameter set signature size.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if the instance, its ADRS buffer, work memory,
+*		  digest buffer or node buffer is NULL, the signature address is zero, or SigLen
+*		  does not match the bound parameter set signature size.
 *		- XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, if the hypertree root recovered from the
 *		  signature does not match PK.root. This is the verdict for a bad signature and is
 *		  reported on its own, without a stage tag.
@@ -1432,11 +1465,11 @@ END:
 *		  XASUFW_SHA_FINISH_FAILED).
 *
 * @note
-*	On success, sets ReturnStatus to XASUFW_SLHDSA_SIGNATURE_VERIFIED, which XSlhDsa_Verify
-*	confirms as a redundant check on the returned status.
+*	On success, XSlhDsa_HtVerify sets ReturnStatus to XASUFW_SLHDSA_SIGNATURE_VERIFIED,
+*	only after two independent root comparisons agree.
 *
 *************************************************************************************************/
-s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr)
+static s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_Param *ParamPtr;
@@ -1453,14 +1486,14 @@ s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr)
 	 * Instance state is checked alongside the length, because the FORS and hypertree
 	 * offsets computed below derive from the bound parameter set.
 	 */
-	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) ||
+	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) || (InstPtr->WorkMem == NULL) ||
 			(InstPtr->SigAddr == 0U) || (InstPtr->MsgDigest == NULL) ||
 			(InstPtr->NodeBuf == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 
-	if (InstPtr->SigLen != XSlhDsa_SignatureBytes(&InstPtr->Param)) {
+	if (InstPtr->SigLen != InstPtr->Param.sig_bytes) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -1535,21 +1568,13 @@ s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr)
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSlhDsa_HtVerify(InstPtr, InstPtr->NodeBuf, SignHtPtr, &HtIndices);
-	if (Status == XASUFW_SUCCESS) {
-		/*
-		 * Root matched PK.root: raise the additional verified indication that
-		 * XSlhDsa_Verify checks alongside the returned status.
-		 */
-		ReturnStatus = XASUFW_SLHDSA_SIGNATURE_VERIFIED;
-	} else if (Status != XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH) {
-		/*
-		 * A root mismatch is the verification verdict for a bad signature and is
-		 * reported on its own. Any other status is an internal failure, so it keeps its
-		 * cause and gains the hypertree stage tag.
-		 */
+	/**
+	 * A root mismatch is the verification verdict for a bad signature and is reported on
+	 * its own. Any other failure is an internal failure, so it keeps its cause and gains
+	 * the hypertree stage tag.
+	 */
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH)) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SLHDSA_HT_FAILED);
-	} else {
-		/* Do nothing */
 	}
 
 END:
@@ -1566,8 +1591,8 @@ END:
 * @param	Msg	Pointer to message buffer.
 * @param	MsgLen	Length of message in bytes.
 * @param	Sig	Pointer to signature buffer.
-* @param	SigLen	Length of the signature buffer in bytes; must equal
-*			XSlhDsa_SignatureBytes() for the bound parameter set.
+* @param	SigLen	Length of the signature buffer in bytes; must equal the signature size of
+*			the bound parameter set.
 * @param	Ctx	Context bytes when CtxLen is 1..255.
 * @param	CtxLen	FIPS context length 0..255.
 * @param	Pk	Pointer to public key (PK.seed || PK.root).
@@ -1575,8 +1600,9 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if signature verification succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if InstPtr, its work memory, Pk, Sig or Msg is NULL,
-*		  SigLen does not match the bound parameter set signature size, CtxLen exceeds the
-*		  FIPS 205 limit or Ctx is NULL for a non-zero CtxLen.
+*		  SigLen does not match the bound parameter set signature size, MsgLen exceeds the
+*		  DMA transfer limit, CtxLen exceeds the FIPS 205 limit, Ctx is NULL for a
+*		  non-zero CtxLen, or a pre-hash digest is still staged on a pure-mode request.
 *		- XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, if the hypertree root recovered from the
 *		  signature does not match PK.root. This is the verdict for a bad signature and is
 *		  reported on its own, without a stage tag.
@@ -1597,7 +1623,7 @@ END:
 *	- CtxLen 1..255: FIPS slh_verify — prefix 0x00 || len || ctx in WorkMem.
 *
 *************************************************************************************************/
-s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
+static s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 			const u8 *Sig, u32 SigLen, const u8 *Ctx, u32 CtxLen,
 			const u8 *Pk)
 {
@@ -1615,7 +1641,8 @@ s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 	}
 
 	/** The length checks follow the NULL checks because they read the bound parameter set. */
-	if ((SigLen != XSlhDsa_SignatureBytes(&InstPtr->Param)) ||
+	if ((SigLen != InstPtr->Param.sig_bytes) ||
+			(MsgLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
 			(CtxLen > XASU_SLHDSA_MAX_CTX_LEN) || ((CtxLen > 0U) && (Ctx == NULL))) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
@@ -1652,6 +1679,12 @@ s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 				goto END;
 			}
 		} else {
+			/** A staged PH(M) would be verified in place of the message. */
+			if (InstPtr->MsgLocalPtr != NULL) {
+				Status = XASUFW_SLHDSA_INVALID_PARAM;
+				goto END;
+			}
+
 			/**
 			 * - Step 4: M' <- toByte(0, 1) || toByte(|ctx|, 1) || ctx || M
 			 *
@@ -1710,8 +1743,9 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if key generation completes successfully.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if any input pointer is NULL, the singleton instance
-*		  is unavailable, an output address is zero, the parameter set is unsupported or an
-*		  output buffer does not match the key size.
+*		  is unavailable, an output address is zero, the parameter set is unsupported, an
+*		  output buffer does not match the key size, or ShaPtr is not the engine instance
+*		  the parameter set's hash family runs on.
 *		- XASUFW_SLHDSA_KEYGEN_FAILED, if seed generation from the TRNG or the top XMSS tree
 *		  root build fails, combined with the underlying callee status via
 *		  XAsufw_UpdateErrorStatus.
@@ -1849,8 +1883,9 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if signing completes successfully.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if any input pointer is NULL, the singleton instance
-*		  is unavailable, the sign parameters are invalid or the requested signature does
-*		  not fit the signature scratch.
+*		  is unavailable, the sign parameters are invalid, the requested signature does
+*		  not fit the signature scratch, or ShaPtr is not the engine instance the
+*		  parameter set's hash family runs on.
 *		- XASUFW_SLHDSA_SIGN_FAILED, if add_rand generation from the TRNG fails, combined
 *		  with the underlying callee status via XAsufw_UpdateErrorStatus.
 *		- XASUFW_SLHDSA_SIGN_OUT_DMA_FAILED, if the finished signature cannot be written to
@@ -1861,6 +1896,8 @@ END:
 *		  XAsufw_UpdateErrorStatus.
 *		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired, or if PRF_msg
 *		  or H_msg is waiting on a non-blocking SHA message DMA. Signing will resume.
+*		- Buffer-clear failure status via XAsufw_UpdateBufStatus, if wiping the signature
+*		  scratch on a failed attempt fails.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or
 *		  XASUFW_SHA_FINISH_FAILED).
@@ -1868,14 +1905,16 @@ END:
 * @note
 *	The message, secret key and context buffers are read in place, as they already reside in
 *	memory visible to both client and ASUFW. The signature is built in the signature scratch and
-*	written to the client buffer only once it is complete. SignMode selects FIPS hedged
-*	signing, which draws a fresh add_rand from the TRNG and so needs the TRNG resource, or
-*	deterministic signing. Hedged signing draws add_rand only on the first slice, not on a
-*	PRF_msg SHA DMA resume, but the TRNG remains allocated until the command finishes, so
-*	other TRNG users stay blocked for the full operation. Long parameter sets yield
-*	cooperatively and return XASUFW_CMD_IN_PROGRESS until FORS and hypertree signing
-*	complete. The same status is returned while PRF_msg or H_msg waits on a non-blocking
-*	SHA message DMA.
+*	written to the client buffer only once it is complete. Any exit other than success or
+*	XASUFW_CMD_IN_PROGRESS wipes the signature scratch here, and a command abandoned while a
+*	slice was still outstanding is wiped by XSlhDsa_YieldSessionEnd, so an abandoned attempt
+*	leaves no randomizer or partial few-time secret behind for a later command. SignMode selects
+*	FIPS hedged signing, which draws a fresh add_rand from the TRNG and so needs the TRNG
+*	resource, or deterministic signing. Hedged signing draws add_rand only on the first slice,
+*	not on a PRF_msg SHA DMA resume, but the TRNG remains allocated until the command finishes,
+*	so other TRNG users stay blocked for the full operation. Long parameter sets yield
+*	cooperatively and return XASUFW_CMD_IN_PROGRESS until FORS and hypertree signing complete.
+*	The same status is returned while PRF_msg or H_msg waits on a non-blocking SHA message DMA.
 *
 *************************************************************************************************/
 s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *ParamsPtr)
@@ -1926,7 +1965,10 @@ s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *
 	 * the FIPS empty context (prefix 0x00 || 0x00). The signature is built in the signature
 	 * scratch and copied out once it is complete.
 	 */
-	XSlhDsa_SetMsgMode(InstPtr, ParamsPtr->PreHashMode, ParamsPtr->HashId);
+	Status = XSlhDsa_SetMsgMode(InstPtr, ParamsPtr->PreHashMode, ParamsPtr->HashId);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 	MsgPtr = (const u8 *)(UINTPTR)ParamsPtr->MsgAddr;
 	SkPtr = (const u8 *)(UINTPTR)ParamsPtr->SkObj.SkAddr;
 	SigPtr = XSlhDsa_SigScratch;
@@ -1984,6 +2026,15 @@ s32 XSlhDsa_Sign(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignParams *
 	Status = XASUFW_SUCCESS;
 
 END:
+	/**
+	 * A delivered signature is public, so success leaves the scratch alone. A failed attempt
+	 * can hold the randomizer, a raw FORS or WOTS+ one-time secret, or a signature the
+	 * output transfer never delivered, so wipe it. A yield resumes into the same scratch, so
+	 * it is excluded and XSlhDsa_YieldSessionEnd wipes it if that command is abandoned.
+	 */
+	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS)) {
+		Status = XAsufw_UpdateBufStatus(Status, XSlhDsa_ZeroizeSigScratch());
+	}
 	return Status;
 }
 /*************************************************************************************************/
@@ -1997,8 +2048,9 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if signature verification succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if any input pointer is NULL, the singleton instance
-*		  is unavailable, the verify parameters are invalid or the supplied signature does
-*		  not fit the signature scratch.
+*		  is unavailable, the verify parameters are invalid, the supplied signature does
+*		  not fit the signature scratch, or ShaPtr is not the engine instance the
+*		  parameter set's hash family runs on.
 *		- XASUFW_SLHDSA_SIG_IN_DMA_FAILED, if the client signature cannot be copied into
 *		  the signature scratch.
 *		- XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, if the signature does not verify against the
@@ -2079,17 +2131,17 @@ s32 XSlhDsa_Verify(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_SlhdsaSignVerify
 	 * addresses. CtxAddr is zero only when CtxLen is zero, so CtxPtr is NULL exactly for
 	 * the FIPS empty context (prefix 0x00 || 0x00).
 	 */
-	XSlhDsa_SetMsgMode(InstPtr, ParamsPtr->PreHashMode, ParamsPtr->HashId);
+	Status = XSlhDsa_SetMsgMode(InstPtr, ParamsPtr->PreHashMode, ParamsPtr->HashId);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 	MsgPtr = (const u8 *)(UINTPTR)ParamsPtr->MsgAddr;
 	PkPtr = (const u8 *)(UINTPTR)ParamsPtr->PkObj.PubKeyAddr;
 	SigPtr = XSlhDsa_SigScratch;
 	CtxPtr = (const u8 *)(UINTPTR)ParamsPtr->CtxAddr;
 
-	/**
-	 * Clear the global ReturnStatus, the redundant indicator that XSlhDsa_VerifyCore sets
-	 * to XASUFW_SLHDSA_SIGNATURE_VERIFIED, so a stale value from an earlier verification
-	 * is not mistaken for this one succeeding.
-	 */
+	/** Re-arm the status and the ReturnStatus indicator before verification runs. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	ReturnStatus = XASUFW_FAILURE;
 	XFIH_CALL(XSlhDsa_VerifyInternal, FihVar, VerifyStatus, InstPtr, MsgPtr,
 		  ParamsPtr->MsgLen, SigPtr, ParamsPtr->SignatureLen, CtxPtr, ParamsPtr->CtxLen,
@@ -2622,7 +2674,7 @@ static s32 XSlhDsa_Pwct(XSlhDsa_Instance *InstPtr)
 	 * Bound the test signature to the overlay scratch. A zero size is an unbound instance;
 	 * a size past the scratch would write past .overlay_slhdsa_data.
 	 */
-	SigLen = XSlhDsa_SignatureBytes(&InstPtr->Param);
+	SigLen = InstPtr->Param.sig_bytes;
 	if ((SigLen == 0U) || (SigLen > (u32)sizeof(XSlhDsa_SigScratch))) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
@@ -2632,7 +2684,10 @@ static s32 XSlhDsa_Pwct(XSlhDsa_Instance *InstPtr)
 	PkPtr = &InstPtr->KeyScratch[XSLHDSA_SK_PKSEED_FIELD * HashWidth];
 
 	/** Pure SLH-DSA, empty context, empty message, deterministic add_rand. */
-	XSlhDsa_SetMsgMode(InstPtr, XASU_SLHDSA_MSG_PURE, 0U);
+	Status = XSlhDsa_SetMsgMode(InstPtr, XASU_SLHDSA_MSG_PURE, 0U);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	ASSIGN_VOLATILE(SignStatus, XASUFW_FAILURE);
 	XFIH_CALL(XSlhDsa_SignInternal, FihVar, SignStatus, InstPtr, XSlhDsa_PwctEmptyMsg,
@@ -2699,7 +2754,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if the instance is prepared successfully.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if ParamSet is unrecognized or the bind fails.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if ParamSet is unrecognized, the bind fails, or
+*		  ShaPtr is not the engine instance the bound parameter set's hash family runs on.
 *		- XASUFW_SLHDSA_LOOKUP_GLITCH_ERROR, if a redundant parameter-set check during
 *		  mapping or lookup does not match.
 *		- Error code received from called functions in case of other failure from the
@@ -2715,6 +2771,7 @@ static s32 XSlhDsa_PrepareInstance(XSlhDsa_Instance *InstPtr, u8 ParamSet, XAsuf
 {
 	s32 Status = XASUFW_FAILURE;
 	XSlhDsa_ParamSet Type;
+	const XSha *ExpectedShaInst;
 
 	/** Map the client supplied parameter set identifier to the internal type. */
 	Status = XSlhDsa_ParamSetFromAsu(ParamSet, &Type);
@@ -2725,6 +2782,17 @@ static s32 XSlhDsa_PrepareInstance(XSlhDsa_Instance *InstPtr, u8 ParamSet, XAsuf
 	/** Bind the parameter set, filling in the FIPS 205 parameters all sizes derive from. */
 	Status = XSlhDsa_BindParam(InstPtr, Type);
 	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Re-verify ShaPtr against the hash family the bound parameter set runs on. */
+	if (InstPtr->Param.hash_family == XSLHDSA_HASH_SHAKE) {
+		ExpectedShaInst = XSha_GetInstance(XASU_XSHA_1_DEVICE_ID);
+	} else {
+		ExpectedShaInst = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	}
+	if (ShaPtr != ExpectedShaInst) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 

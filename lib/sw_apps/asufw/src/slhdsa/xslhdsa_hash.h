@@ -103,6 +103,8 @@ s32 XSlhDsa_HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 			    const u8 *Msg, u32 MsgLen, const u8 *Ctx, u32 CtxLen, u8 *Output);
 s32 XSlhDsa_Chain(XSlhDsa_Instance *InstPtr, const u8 *Input,
 		       const XSlhDsa_ChainCfg *Cfg, u8 *Output);
+s32 XSlhDsa_WotsCheckChainRange(const XSlhDsa_Param *ParamPtr,
+			const XSlhDsa_ChainCfg *Cfg);
 const XSlhDsa_HashOps *XSlhDsa_HashOpsLookup(XSlhDsa_HashFamily Family);
 
 s32 XSlhDsa_HashCtxInit(XSlhDsa_Instance *InstPtr, XSlhDsa_HashCtx *HashCtxPtr);

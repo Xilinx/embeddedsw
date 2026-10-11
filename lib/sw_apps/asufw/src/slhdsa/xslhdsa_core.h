@@ -19,6 +19,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
+*       kk   10/08/26 Addressed FMEA findings
 *
 * </pre>
 *
@@ -58,7 +59,6 @@ typedef struct
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-void XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut);
 s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst);
 s32 XSlhDsa_ForsPkFromSig(XSlhDsa_Instance *InstPtr, const u8 *SignFors,
 			       const u8 *Md, u8 *PkFors);

@@ -24,6 +24,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
 *       kk   09/18/26 Pass the yield unit to the slice checkpoints
+*       kk   10/08/26 Addressed FMEA findings
 *
 * </pre>
 *
@@ -36,24 +37,32 @@
 #include "xil_sutil.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
+#include "xfih.h"
 #include "xslhdsa.h"
 #include "xslhdsa_core.h"
 #include "xslhdsa_hash.h"
 
 #ifdef XASU_SLHDSA_ENABLE
 /************************************ Constant Definitions ***************************************/
+/** Largest DigitWidth XSlhDsa_Base2b can extract; its accumulator holds DigitWidth + 7 bits. */
+#define XSLHDSA_MAX_BASE2B_DIGIT_WIDTH	(25U)
 
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
+static s32 XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut);
+static s32 XSlhDsa_CheckIndexBufferFits(u32 Count);
+static s32 XSlhDsa_CheckScratchFits(u32 Count, u32 HashWidth);
+static s32 XSlhDsa_ForsCheckDigestFits(const XSlhDsa_Param *ParamPtr);
+
 static s32 XSlhDsa_ForsLeafHash(XSlhDsa_Instance *InstPtr, u32 ApplyF, u8 *Out);
 static s32 XSlhDsa_ForsSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 BaseLeaf,
 					u32 SubHeight, u8 *Root);
 
 static void XSlhDsa_WotsDecodeWin4Digits(const u8 *Src, u32 Count, u32 *DigitsOut);
-static void XSlhDsa_WotsDecodeMsgDigits(const u8 *Msg,
+static s32 XSlhDsa_WotsDecodeMsgDigits(const u8 *Msg,
 					     const XSlhDsa_Param *ParamPtr,
 					     u32 *DigitsOut);
 static u32 XSlhDsa_WotsChecksumValue(const u32 *MsgDigits, u32 MsgChains,
@@ -93,6 +102,7 @@ static s32 XSlhDsa_XmssRebuildLeafPk(XSlhDsa_Instance *InstPtr,
 static s32 XSlhDsa_XmssAscendAuthPath(XSlhDsa_Instance *InstPtr, u32 IdxLeaf,
 					   const u8 *AuthPathPtr,
 					   const XSlhDsa_Param *ParamPtr, u8 *Node);
+static s32 XSlhDsa_XmssCheckLeaf(const XSlhDsa_Param *ParamPtr, u32 IdxLeaf);
 
 static void XSlhDsa_HtMeasureDigestLayout(const XSlhDsa_Param *ParamPtr,
 					       u32 *MdByteLen, u32 *TreeFieldLen,
@@ -115,6 +125,9 @@ static s32 XSlhDsa_HtRecoverBottomNode(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 static s32 XSlhDsa_HtClimbUpperLayers(XSlhDsa_Instance *InstPtr,
 					   const XSlhDsa_Param *ParamPtr, const u8 **SignHt,
 					   u64 *IdxTree, u8 *NodeInOut);
+static s32 XSlhDsa_HtCheckIndices(const XSlhDsa_Instance *InstPtr,
+			const XSlhDsa_Param *ParamPtr, u64 IdxTree, u64 IdxLeaf,
+			const u8 *SignHt);
 static s32 XSlhDsa_HtRootMatchesPk(const u8 *RecoveredRoot, const u8 *PkRoot, u32 HashWidth);
 
 /************************************ Variable Definitions ***************************************/
@@ -124,21 +137,41 @@ static s32 XSlhDsa_HtRootMatchesPk(const u8 *RecoveredRoot, const u8 *PkRoot, u3
 * @brief	Expand a byte string into an array of b-bit unsigned integers (FIPS base_2b).
 *
 * @param	Input		Input byte string to convert.
-* @param	DigitWidth	Width in bits of each output element (must be <= 32).
+* @param	DigitWidth	Width in bits of each output element (must be 1..25).
 * @param	OutLen		Number of b-bit output elements to produce.
 * @param	DigitsOut	Output array of b-bit values; must hold OutLen elements.
 *
+* @return
+*		- XASUFW_SUCCESS, if the expansion succeeds.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if Input or DigitsOut is NULL, DigitWidth is zero
+*		  or above 25, or OutLen is zero or does not fit the shared digit buffer every
+*		  caller draws DigitsOut from.
+*
 * @note
-*	DigitWidth must be <= 32. Consumes Input bytes in big-endian order.
+*	DigitWidth must be <= 25, because the accumulator holds up to DigitWidth + 7 bits in a
+*	u32 before a digit is extracted. Consumes Input bytes in big-endian order.
 *
 *************************************************************************************************/
-void XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut)
+static s32 XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut)
 {
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
 	u32 InIdx = 0;
 	u32 Bits = 0;
 	u32 Total = 0;
 	u32 OutIdx;
-	u32 Mask = XSLHDSA_BIT_MASK(DigitWidth);
+	u32 Mask;
+
+	/** Reject NULL pointers and a width the accumulator cannot hold. */
+	if ((Input == NULL) || (DigitsOut == NULL) ||
+			(DigitWidth == 0U) || (DigitWidth > XSLHDSA_MAX_BASE2B_DIGIT_WIDTH)) {
+		goto END;
+	}
+	Status = XSlhDsa_CheckIndexBufferFits(OutLen);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	Mask = XSLHDSA_BIT_MASK(DigitWidth);
 
 	/** - Step 4: for out from 0 to out_len - 1 do */
 	for (OutIdx = 0; OutIdx < OutLen; OutIdx++) {
@@ -162,7 +195,110 @@ void XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut)
 		Bits -= DigitWidth;
 		DigitsOut[OutIdx] = (Total >> Bits) & Mask;
 	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
 }
+/*************************************************************************************************/
+/**
+* @brief	Validate that a count of index slots fits the shared FORS/WOTS+ digit buffer.
+*
+* @param	Count	Number of index slots requested (fors_count or wots_len).
+*
+* @return
+*		- XASUFW_SUCCESS, if Count is non-zero and fits the shared digit buffer.
+*		- XASUFW_SLHDSA_INVALID_PARAM, otherwise.
+*
+* @note
+*	Zero is rejected too. No FORS or WOTS+ geometry uses zero index slots, so a zero here
+*	is a corrupted parameter set that would otherwise walk no trees or chains at all and
+*	still report success.
+*
+*************************************************************************************************/
+static s32 XSlhDsa_CheckIndexBufferFits(u32 Count)
+{
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+
+	if ((Count != 0U) && (Count <= XSLHDSA_WOTS_WEIGHT_WORDS)) {
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+/*************************************************************************************************/
+/**
+* @brief	Validate that Count hash-width elements fit the shared FORS/WOTS+ scratch area.
+*
+* @param	Count	Number of n-byte elements to be collected (fors_count or wots_len).
+* @param	HashWidth	Hash width n in bytes.
+*
+* @return
+*		- XASUFW_SUCCESS, if Count * HashWidth fits the shared scratch area.
+*		- XASUFW_SLHDSA_INVALID_PARAM, otherwise.
+*
+*************************************************************************************************/
+static s32 XSlhDsa_CheckScratchFits(u32 Count, u32 HashWidth)
+{
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+
+	if (((u64)Count * (u64)HashWidth) <= (u64)XSLHDSA_WORK_MEM_BYTES) {
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+/*************************************************************************************************/
+/**
+* @brief	Validate that the FORS tree indices fit the shared digit buffer and that the
+*		digest bits they are drawn from fit the digest buffer
+*		(fors_sign/fors_pkFromSig Step 1/2 precondition).
+*
+* @param	ParamPtr	Active parameter set.
+*
+* @return
+*		- XASUFW_SUCCESS, if fors_count fits the shared digit buffer and the k * a
+*		  digest bits base_2b splits off fit the digest buffer.
+*		- XASUFW_SLHDSA_INVALID_PARAM, otherwise.
+*
+*************************************************************************************************/
+static s32 XSlhDsa_ForsCheckDigestFits(const XSlhDsa_Param *ParamPtr)
+{
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+	u32 DigestBits;
+
+	/**
+	 * Bound fors_height first: it is the width every shift and multiply below assumes,
+	 * so an oversized value here would make them overflow rather than reject cleanly.
+	 */
+	if ((ParamPtr->fors_height == 0U) || (ParamPtr->fors_height > XSLHDSA_MAX_FORS_HEIGHT)) {
+		goto END;
+	}
+
+	/** One index slot per tree must fit the digit buffer FORS and WOTS+ both share. */
+	Status = XSlhDsa_CheckIndexBufferFits(ParamPtr->fors_count);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * fors_count is now bounded to XSLHDSA_WOTS_WEIGHT_WORDS and fors_height to
+	 * XSLHDSA_MAX_FORS_HEIGHT, so this product cannot overflow.
+	 */
+	DigestBits = ParamPtr->fors_count * ParamPtr->fors_height;
+	if (((DigestBits + (XASUFW_BYTE_LEN_IN_BITS - 1U)) / XASUFW_BYTE_LEN_IN_BITS) >
+			XSLHDSA_MSG_DIGEST_BYTES) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
 /*************************************************************************************************/
 /**
 * @brief	Emit the FORS portion of an SLH-DSA signature (FIPS 205 Algorithm 16: fors_sign).
@@ -173,7 +309,10 @@ void XSlhDsa_Base2b(const u8 *Input, u32 DigitWidth, u32 OutLen, u32 *DigitsOut)
 *
 * @return
 *		- XASUFW_SUCCESS, if FORS signature emission succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL, fors_count does not
+*		  fit the shared digit buffer, the k * a digest bits do not fit the digest
+*		  buffer, a flat leaf slot runs outside the FORS leaf space, or the walk stops
+*		  before every tree is signed.
 *		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
 *		  resume.
 *		- Error code received from called functions in case of other failure from the
@@ -193,7 +332,7 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 	u32 HashWidth;
 	u32 TreeIdx;
 	u32 Pos;
-	u32 LevelIdx;
+	u32 LevelIdx = 0U;
 	u32 SibBase;
 
 	/** Validate input pointers, including the shared digit buffer used for the indices. */
@@ -206,6 +345,15 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 	ParamPtr = &InstPtr->Param;
 	HashWidth = ParamPtr->n;
 	YieldPtr = &InstPtr->Yield;
+
+	/**
+	 * Reject a fors_count that does not fit the shared digit buffer and a k * a digest
+	 * bit span that does not fit the digest buffer, before the digest is split.
+	 */
+	Status = XSlhDsa_ForsCheckDigestFits(ParamPtr);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	if ((YieldPtr->Fors.EmitResume != 0U) && (YieldPtr->Fors.EmitSigBase == Dst)) {
 		TreeStart = YieldPtr->Fors.EmitTreeIdx;
@@ -223,8 +371,11 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 	 *
 	 * Recompute on every slice so the indices do not depend on WotsWeights surviving a yield.
 	 */
-	XSlhDsa_Base2b(Md, ParamPtr->fors_height, ParamPtr->fors_count,
+	Status = XSlhDsa_Base2b(Md, ParamPtr->fors_height, ParamPtr->fors_count,
 			    InstPtr->WotsWeights);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	/**
 	 * - Step 3: for i from 0 to k - 1 do
@@ -234,6 +385,17 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 	 */
 	for (TreeIdx = TreeStart; TreeIdx < ParamPtr->fors_count; TreeIdx++) {
 		Pos = InstPtr->WotsWeights[TreeIdx];
+
+		/**
+		 * Re-verify this tree's leaf number fits the a bits the flat slot reserves for
+		 * it. base_2b already masked it to that width, but this is the point where the
+		 * number is shifted into the tree's own slot and keyed into ADRS, so a wider
+		 * value here would address a leaf belonging to a neighbouring tree.
+		 */
+		if (Pos > XSLHDSA_BIT_MASK(ParamPtr->fors_height)) {
+			Status = XASUFW_SLHDSA_INVALID_PARAM;
+			goto END;
+		}
 
 		if (TreeIdx != TreeStart) {
 			LevelStart = 0U;
@@ -304,6 +466,16 @@ s32 XSlhDsa_ForsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Md, u8 *Dst)
 		}
 	}
 
+	/**
+	 * Confirm the walk actually reached the last tree and the last level of it: a
+	 * short-circuited loop would reach here too, leaving the remaining output blocks
+	 * holding whatever Dst held before.
+	 */
+	if ((TreeIdx != ParamPtr->fors_count) || (LevelIdx != ParamPtr->fors_height)) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
 	YieldPtr->Fors.EmitResume = 0U;
 	Status = XASUFW_SUCCESS;
 
@@ -322,7 +494,10 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if FORS public key recovery succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL, fors_count does
+*		  not fit the shared digit buffer, the k * a digest bits do not fit the digest
+*		  buffer, the k recovered roots do not fit the shared scratch area, or the walk
+*		  stops before every tree is recovered.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL,
 *		  or XASUFW_SHA_FINISH_FAILED).
@@ -341,7 +516,7 @@ s32 XSlhDsa_ForsPkFromSig(XSlhDsa_Instance *InstPtr, const u8 *SignFors,
 	u8 *NodePtr;
 	u32 HashWidth;
 	u32 TreeIdx;
-	u32 NodeIdx;
+	u32 NodeIdx = 0U;
 	u32 Idx;
 
 	/** Validate input pointers, including the root scratch and digit buffers. */
@@ -358,11 +533,30 @@ s32 XSlhDsa_ForsPkFromSig(XSlhDsa_Instance *InstPtr, const u8 *SignFors,
 	SignPtr = SignFors;
 
 	/**
+	 * Reject a fors_count that does not fit the shared digit buffer and a k * a digest
+	 * bit span that does not fit the digest buffer, before the digest is split.
+	 */
+	Status = XSlhDsa_ForsCheckDigestFits(ParamPtr);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Reject k recovered roots that would not fit the shared scratch area. */
+	Status = XSlhDsa_CheckScratchFits(ParamPtr->fors_count, HashWidth);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
 	 * - Step 1: indices <- base_2b(md, a, k)
 	 *
 	 * Recover the same k indices of a bits each that the signer derived from the digest.
 	 */
-	XSlhDsa_Base2b(Md, ParamPtr->fors_height, ParamPtr->fors_count, InstPtr->WotsWeights);
+	Status = XSlhDsa_Base2b(Md, ParamPtr->fors_height, ParamPtr->fors_count,
+			       InstPtr->WotsWeights);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	/** - Step 2: for i from 0 to k - 1 do */
 	for (TreeIdx = 0; TreeIdx < ParamPtr->fors_count; TreeIdx++) {
@@ -425,6 +619,16 @@ s32 XSlhDsa_ForsPkFromSig(XSlhDsa_Instance *InstPtr, const u8 *SignFors,
 	}
 
 	/**
+	 * Confirm the walk actually recovered every tree and folded every level of each: a
+	 * short-circuited loop would reach here too, leaving the compression to run over
+	 * stale roots from an earlier request.
+	 */
+	if ((TreeIdx != ParamPtr->fors_count) || (NodeIdx != ParamPtr->fors_height)) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
 	 * - Step 21 to 23: forspkADRS <- ADRS, setTypeAndClear(FORS_ROOTS) and
 	 *   setKeyPairAddress(ADRS.getKeyPairAddress())
 	 * - Step 24: pk <- T_k(PK.seed, forspkADRS, root)
@@ -449,7 +653,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if chain execution succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL, wots_win_bits is
+*		  zero or wider than a word, or Steps would walk past the chain top.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
 *		  XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL, or XASUFW_SHA_FINISH_FAILED).
@@ -463,6 +668,20 @@ s32 XSlhDsa_WotsChainFromZero(XSlhDsa_Instance *InstPtr, u32 Steps, u8 *Out)
 	/** Validate input pointers. */
 	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) || (Out == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/** chain(sk, 0, Steps): the walk starts at the bottom of the window. */
+	ChainCfg.StartIdx = 0;
+	ChainCfg.Steps = Steps;
+
+	/**
+	 * Bound the step range against the chain top before the secret is derived, so an
+	 * out-of-range digit cannot drive F past it. XSlhDsa_Chain applies the same check
+	 * once the secret is in place.
+	 */
+	Status = XSlhDsa_WotsCheckChainRange(&InstPtr->Param, &ChainCfg);
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
@@ -492,8 +711,6 @@ s32 XSlhDsa_WotsChainFromZero(XSlhDsa_Instance *InstPtr, u32 Steps, u8 *Out)
 	 */
 	XSlhDsa_AddrSetType(InstPtr->Addr, XSLHDSA_ADRS_WOTS_HASH);
 	XSlhDsa_AddrSetIndex(InstPtr->Addr, 0);
-	ChainCfg.StartIdx = 0;
-	ChainCfg.Steps = Steps;
 	Status = XSlhDsa_Chain(InstPtr, Out, &ChainCfg, Out);
 
 END:
@@ -509,7 +726,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if WOTS+ signature emission succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL, wots_len does
+*		  not fit the shared digit buffer, or len_1 and len_2 do not split it.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_ZEROIZE_MEMSET_FAIL,
 *		  XASUFW_SLHDSA_COPY_FAILED, XASUFW_SHA_START_FAILED,
@@ -529,6 +747,13 @@ s32 XSlhDsa_WotsEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Msg, u8 *Dst)
 	}
 
 	ParamPtr = &InstPtr->Param;
+
+	/** Reject a wots_len that does not fit the shared digit buffer, before it is used. */
+	Status = XSlhDsa_CheckIndexBufferFits(ParamPtr->wots_len);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
 	/**
 	 * - Step 1: csum <- 0
 	 * - Step 2: msg <- base_2b(M, lg_w, len_1)
@@ -565,7 +790,9 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if WOTS+ public key recovery succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL, wots_len is
+*		  zero or does not fit the shared digit buffer or the scratch area the chain
+*		  tops are collected in, or len_1 and len_2 do not split it.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_ZEROIZE_MEMSET_FAIL,
 *		  XASUFW_SLHDSA_COPY_FAILED, XASUFW_SHA_START_FAILED,
@@ -575,7 +802,7 @@ END:
 s32 XSlhDsa_WotsPkFromSign(XSlhDsa_Instance *InstPtr, const u8 *WotsSign,
 				const u8 *Msg, u8 *WotsPk)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_Param *ParamPtr;
 	u32 HashWidth;
 	u32 TotalChains;
@@ -590,7 +817,21 @@ s32 XSlhDsa_WotsPkFromSign(XSlhDsa_Instance *InstPtr, const u8 *WotsSign,
 
 	ParamPtr = &InstPtr->Param;
 	HashWidth = ParamPtr->n;
-	TotalChains = XSlhDsa_WotsChainCount(ParamPtr);
+	TotalChains = ParamPtr->wots_len;
+
+	/**
+	 * Reject a wots_len that would not fit the shared digit buffer the decode below fills,
+	 * or the scratch area that holds the recovered chain tops.
+	 */
+	Status = XSlhDsa_CheckIndexBufferFits(TotalChains);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	Status = XSlhDsa_CheckScratchFits(TotalChains, HashWidth);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	/**
 	 * - Step 1 to 7: same as wots_sign; msg <- base_2b(M, lg_w, len_1) followed by the
@@ -621,7 +862,9 @@ s32 XSlhDsa_WotsPkFromSign(XSlhDsa_Instance *InstPtr, const u8 *WotsSign,
 	 *
 	 * ADRS: type = WOTS_PK for H_TL over len chain tops. T_len compresses the len * n
 	 * chain-top bytes into the public key; the kept key-pair field binds it to this leaf.
+	 * The status is re-armed to a failure value before the compression.
 	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	XSlhDsa_AddrSetTypeClearNotKp(InstPtr->Addr, XSLHDSA_ADRS_WOTS_PK);
 	Status = XSlhDsa_HashTl(InstPtr, InstPtr->WorkMem, TotalChains * HashWidth, WotsPk);
 
@@ -641,7 +884,10 @@ END:
 * @return
 *		- XASUFW_SUCCESS, if subtree root computation succeeds.
 *		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL, SubHeight exceeds
-*		  the stack depth, or a restored checkpoint does not match the walk it resumes.
+*		  the stack depth, the bound subtree height is zero or above
+*		  XSLHDSA_MAX_XMSS_HEIGHT, the 2^SubHeight leaves starting at FirstLeaf run
+*		  outside the bound XMSS tree, a restored checkpoint does not match the walk it
+*		  resumes, or the node stack has not fully drained when the walk reports success.
 *		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
 *		  resume.
 *		- XASUFW_SLHDSA_COPY_FAILED, if restoring or saving the treehash node stack fails.
@@ -682,6 +928,26 @@ s32 XSlhDsa_XmssSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 FirstLeaf,
 	ChainScratch = InstPtr->WorkMem;
 	/** The sub-tree spans the 2^SubHeight consecutive leaves starting at FirstLeaf. */
 	LeafCount = (1U << SubHeight);
+
+	/**
+	 * Bound xmss_height before the shift below, and reject the zero-height reserved row.
+	 * The leaf range itself is checked next.
+	 */
+	Status = XSlhDsa_XmssCheckLeaf(ParamPtr, FirstLeaf);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * The sub-tree must fit the bound tree, and its leaves must end inside it. The limit is
+	 * formed by subtraction rather than FirstLeaf + LeafCount, which could wrap and let a
+	 * start index near the top of the range pass.
+	 */
+	if ((SubHeight > ParamPtr->xmss_height) ||
+			(FirstLeaf > ((1U << ParamPtr->xmss_height) - LeafCount))) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
 
 	if ((YieldPtr->Xmss.Resume != 0U) && (YieldPtr->Xmss.FirstLeaf == FirstLeaf) &&
 			(YieldPtr->Xmss.SubHeight == SubHeight) &&
@@ -746,6 +1012,16 @@ s32 XSlhDsa_XmssSubtreeRoot(XSlhDsa_Instance *InstPtr, u32 FirstLeaf,
 		LeafIdx++;
 	}
 
+	/**
+	 * A fully merged sub-tree always drains back to depth 0, with the root left in Root.
+	 * Reject a walk that reports success with nodes still pending, which only an
+	 * early-terminated loop could leave behind.
+	 */
+	if (StackDepth != 0) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
 	YieldPtr->Xmss.Resume = 0U;
 	Status = XASUFW_SUCCESS;
 
@@ -763,7 +1039,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if XMSS signature emission succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL or IdxLeaf is
+*		  outside the bound subtree.
 *		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
 *		  resume.
 *		- Error code received from called functions in case of other failure from the
@@ -775,7 +1052,7 @@ END:
 s32 XSlhDsa_XmssEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 			     u32 IdxLeaf, u8 *LayerSign)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 ResumeAuthPath = 0U;
 	const XSlhDsa_Param *ParamPtr;
 	XSlhDsa_YieldCtx *YieldPtr;
@@ -790,13 +1067,19 @@ s32 XSlhDsa_XmssEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 	}
 
 	ParamPtr = &InstPtr->Param;
+
+	Status = XSlhDsa_XmssCheckLeaf(ParamPtr, IdxLeaf);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
 	YieldPtr = &InstPtr->Yield;
 	/**
 	 * - Step 8: SIG_XMSS <- sig || AUTH
 	 *
 	 * A layer signature is SIG_WOTS || AUTH, so the auth path begins len * n bytes in.
 	 */
-	WotsOctets = XSlhDsa_WotsChainCount(ParamPtr) * ParamPtr->n;
+	WotsOctets = ParamPtr->wots_len * ParamPtr->n;
 	AuthPathPtr = LayerSign + WotsOctets;
 
 	if ((YieldPtr->Xmss.EmitResume != 0U) &&
@@ -828,6 +1111,8 @@ s32 XSlhDsa_XmssEmitSig(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 		YieldPtr->Xmss.EmitWotsDone = 1U;
 	}
 
+	/** Re-arm the status to a failure value before the authentication path is built. */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSlhDsa_XmssWriteAuthPathNodes(InstPtr, IdxLeaf, ParamPtr, AuthPathPtr);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		YieldPtr->Xmss.EmitResume = 1U;
@@ -857,7 +1142,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if XMSS node recovery succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL or IdxLeaf is
+*		  outside the bound subtree.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_ZEROIZE_MEMSET_FAIL,
 *		  XASUFW_SLHDSA_COPY_FAILED, XASUFW_SHA_START_FAILED,
@@ -867,7 +1153,7 @@ END:
 s32 XSlhDsa_XmssPkFromSign(XSlhDsa_Instance *InstPtr, u32 IdxLeaf,
 				const u8 *SignXmss, const u8 *Msg, u8 *Node)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_Param *ParamPtr;
 	const u8 *AuthPathPtr;
 
@@ -879,11 +1165,17 @@ s32 XSlhDsa_XmssPkFromSign(XSlhDsa_Instance *InstPtr, u32 IdxLeaf,
 	}
 
 	ParamPtr = &InstPtr->Param;
+
+	Status = XSlhDsa_XmssCheckLeaf(ParamPtr, IdxLeaf);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
 	/**
 	 * - Step 3: sig <- SIG_XMSS.getWOTSSig(), SIG_XMSS[0 : len * n]
 	 * - Step 4: AUTH <- SIG_XMSS.getXMSSAUTH(), SIG_XMSS[len * n : (len + h') * n]
 	 */
-	AuthPathPtr = SignXmss + (XSlhDsa_WotsChainCount(ParamPtr) * ParamPtr->n);
+	AuthPathPtr = SignXmss + (ParamPtr->wots_len * ParamPtr->n);
 
 	/**
 	 * - Step 1: ADRS.setTypeAndClear(WOTS_HASH)
@@ -901,8 +1193,10 @@ s32 XSlhDsa_XmssPkFromSign(XSlhDsa_Instance *InstPtr, u32 IdxLeaf,
 	 * - Step 6 to 18: fold the h' auth path siblings in, hashing node[0] with AUTH[k] in
 	 *   the order set by the parity of floor(idx / 2^k).
 	 *
-	 * Node ends holding the sub-tree root.
+	 * Node ends holding the sub-tree root. The status is re-armed to a failure value
+	 * before the ascent.
 	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSlhDsa_XmssAscendAuthPath(InstPtr, IdxLeaf, AuthPathPtr, ParamPtr, Node);
 
 END:
@@ -945,7 +1239,9 @@ void XSlhDsa_HtParseDigest(const XSlhDsa_Param *ParamPtr, const u8 *Digest,
 *
 * @return
 *		- XASUFW_SUCCESS, if hypertree signing succeeds.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL, the tree/leaf index
+*		  pair is outside the hypertree structure, or the hypertree signature section
+*		  does not fit the registered signature buffer.
 *		- XASUFW_CMD_IN_PROGRESS, if a cooperative yield slice expired and the walk will
 *		  resume.
 *		- Error code received from called functions in case of other failure from the
@@ -984,6 +1280,21 @@ s32 XSlhDsa_HtEmitSig(XSlhDsa_Instance *InstPtr,
 	}
 
 	if (SkipBottom == 0U) {
+		/**
+		 * Reject a tree/leaf pair outside the hypertree structure and a hypertree
+		 * section that would run past the registered signature buffer, before the
+		 * bottom layer is signed; reused unchanged from XSlhDsa_HtVerify's
+		 * precondition, since SigHt resolves into the same registered signature
+		 * buffer on the sign path. IdxTree/IdxLeaf are still the bottom-layer pair
+		 * here: XSlhDsa_HtPeelLayerIndices only rewrites them once the upper-layer
+		 * loop below starts, so checking this bound after a layer peel would be a
+		 * no-op against the wrong field width.
+		 */
+		Status = XSlhDsa_HtCheckIndices(InstPtr, ParamPtr, IdxTree, IdxLeaf, SigHt);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+
 		/**
 		 * - Step 1: ADRS <- toByte(0, 32)
 		 * - Step 2: ADRS.setTreeAddress(idxtree)
@@ -1028,7 +1339,9 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if the recovered root matches PkRoot.
-*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if any required pointer is NULL, the parsed
+*		  tree/leaf index pair is outside the hypertree structure, or the hypertree
+*		  signature section does not fit the registered signature buffer.
 *		- XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, if the recovered root differs from PkRoot.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SLHDSA_COPY_FAILED,
@@ -1036,6 +1349,11 @@ END:
 *
 * @note
 *	InstPtr->NodeBuf must provide at least n bytes of scratch space for node recovery.
+*
+*	On a match this raises the global ReturnStatus to XASUFW_SLHDSA_SIGNATURE_VERIFIED, and
+*	only after two independent root comparisons agree. It never lowers the indicator, so the
+*	caller must clear ReturnStatus before the call and check it after, so that a value left
+*	by an earlier operation cannot stand in for this verdict.
 *
 *************************************************************************************************/
 s32 XSlhDsa_HtVerify(XSlhDsa_Instance *InstPtr, const u8 *Msg, const u8 *SignHt,
@@ -1048,10 +1366,13 @@ s32 XSlhDsa_HtVerify(XSlhDsa_Instance *InstPtr, const u8 *Msg, const u8 *SignHt,
 	u64 IdxTree;
 	u64 IdxLeaf;
 
-	/** Validate input pointers, including the n-byte node scratch on the instance. */
+	/**
+	 * Validate input pointers, including the n-byte node scratch and the staged PK.root the
+	 * final comparison is made against, so a verdict is never produced from an unstaged key.
+	 */
 	if ((InstPtr == NULL) || (InstPtr->Addr == NULL) ||
 			(Msg == NULL) || (SignHt == NULL) || (HtIndices == NULL) ||
-			(InstPtr->NodeBuf == NULL)) {
+			(InstPtr->NodeBuf == NULL) || (InstPtr->PkRoot == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -1062,6 +1383,17 @@ s32 XSlhDsa_HtVerify(XSlhDsa_Instance *InstPtr, const u8 *Msg, const u8 *SignHt,
 	IdxTree = HtIndices->IdxTree;
 	IdxLeaf = HtIndices->IdxLeaf;
 	SignCursor = SignHt;
+
+	/**
+	 * Reject a tree/leaf pair outside the hypertree structure and a hypertree section that
+	 * would run past the registered signature buffer, before any layer rebinds ADRS or
+	 * reads a signature byte, so neither an out-of-range pair nor an over-long walk can be
+	 * accepted under a tree, leaf, or buffer span the signer never used.
+	 */
+	Status = XSlhDsa_HtCheckIndices(InstPtr, ParamPtr, IdxTree, IdxLeaf, SignHt);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 
 	/**
 	 * - Step 1: ADRS <- toByte(0, 32)
@@ -1090,11 +1422,25 @@ s32 XSlhDsa_HtVerify(XSlhDsa_Instance *InstPtr, const u8 *Msg, const u8 *SignHt,
 	/**
 	 * - Step 13 to 17: if node == PK.root then return true else return false
 	 *
-	 * The signature is accepted only if the top-layer root reproduces PK.root, so the
-	 * status is re-armed to a failure value before the comparison.
+	 * The comparison runs twice, independently: a single disturbed compare must not be
+	 * able to turn a mismatch into the verdict, so both runs have to agree on a match
+	 * before the verified indicator is raised. The status is re-armed to a failure value
+	 * before each call.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XSlhDsa_HtRootMatchesPk(NodePtr, InstPtr->PkRoot, ParamPtr->n);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	Status = XSlhDsa_HtRootMatchesPk(NodePtr, InstPtr->PkRoot, ParamPtr->n);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** Raise the verified indicator only after both independent compares agree. */
+	ReturnStatus = XASUFW_SLHDSA_SIGNATURE_VERIFIED;
 
 END:
 	return Status;
@@ -1351,12 +1697,17 @@ static void XSlhDsa_WotsDecodeWin4Digits(const u8 *Src, u32 Count, u32 *DigitsOu
 * @param	ParamPtr	Active parameter set.
 * @param	DigitsOut	Output buffer for len_1 message-chain digits.
 *
+* @return
+*		- XASUFW_SUCCESS, if the message digits are decoded.
+*		- Error code from XSlhDsa_Base2b() on failure (the win4 fast path cannot fail).
+*
 *************************************************************************************************/
-static void XSlhDsa_WotsDecodeMsgDigits(const u8 *Msg,
+static s32 XSlhDsa_WotsDecodeMsgDigits(const u8 *Msg,
 					     const XSlhDsa_Param *ParamPtr,
 					     u32 *DigitsOut)
 {
-	u32 MsgChains = XSlhDsa_WotsMsgChainCount(ParamPtr);
+	s32 Status = XASUFW_FAILURE;
+	u32 MsgChains = ParamPtr->wots_len1;
 
 	/**
 	 * - Step 2: msg <- base_2b(M, lg_w, len_1)
@@ -1366,10 +1717,13 @@ static void XSlhDsa_WotsDecodeMsgDigits(const u8 *Msg,
 	 */
 	if (ParamPtr->wots_win_bits == XSLHDSA_WOTS_LG_W) {
 		XSlhDsa_WotsDecodeWin4Digits(Msg, MsgChains, DigitsOut);
+		Status = XASUFW_SUCCESS;
 	}
 	else {
-		XSlhDsa_Base2b(Msg, ParamPtr->wots_win_bits, MsgChains, DigitsOut);
+		Status = XSlhDsa_Base2b(Msg, ParamPtr->wots_win_bits, MsgChains, DigitsOut);
 	}
+
+	return Status;
 }
 /*************************************************************************************************/
 /**
@@ -1416,6 +1770,8 @@ static u32 XSlhDsa_WotsChecksumValue(const u32 *MsgDigits, u32 MsgChains,
 * @return
 *		- XASUFW_SUCCESS, if checksum digits are expanded.
 *		- XASUFW_ZEROIZE_MEMSET_FAIL, if the CsOctets staging buffer cannot be cleared.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if the base_2b expansion rejects wots_win_bits or
+*		  CsChains (propagated from XSlhDsa_Base2b).
 *
 *************************************************************************************************/
 static s32 XSlhDsa_WotsExpandChecksumDigits(u32 CsVal,
@@ -1424,7 +1780,7 @@ static s32 XSlhDsa_WotsExpandChecksumDigits(u32 CsVal,
 {
 	s32 Status = XASUFW_FAILURE;
 	u8 CsOctets[XASUFW_WORD_LEN_IN_BYTES];
-	u32 CsChains = XSlhDsa_WotsCsChainCount(ParamPtr);
+	u32 CsChains = ParamPtr->wots_len2;
 	u32 OctetLen = ((CsChains * ParamPtr->wots_win_bits) +
 			XASUFW_MAX_BIT_INDEX_IN_BYTE) / XASUFW_BYTE_LEN_IN_BITS;
 
@@ -1445,12 +1801,11 @@ static s32 XSlhDsa_WotsExpandChecksumDigits(u32 CsVal,
 
 	if (ParamPtr->wots_win_bits == XSLHDSA_WOTS_LG_W) {
 		XSlhDsa_WotsDecodeWin4Digits(CsOctets, CsChains, CsDigitsOut);
+		Status = XASUFW_SUCCESS;
 	}
 	else {
-		XSlhDsa_Base2b(CsOctets, ParamPtr->wots_win_bits, CsChains, CsDigitsOut);
+		Status = XSlhDsa_Base2b(CsOctets, ParamPtr->wots_win_bits, CsChains, CsDigitsOut);
 	}
-
-	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
@@ -1468,15 +1823,22 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS, if chain indices are derived.
-*		- Error code from XSlhDsa_WotsExpandChecksumDigits() on failure.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if len_1 and len_2 do not split the bound wots_len.
+*		- Error code from XSlhDsa_WotsDecodeMsgDigits() or
+*		  XSlhDsa_WotsExpandChecksumDigits() on failure.
+*
+* @note
+*	The caller bounds wots_len against the digit buffer. Only the split checked here ties the
+*	two writes below to that bound.
 *
 *************************************************************************************************/
 static s32 XSlhDsa_WotsDeriveChainIndices(const u8 *Msg,
 					       const XSlhDsa_Param *ParamPtr,
 					       u32 *ChainIndicesOut)
 {
-	u32 MsgChains = XSlhDsa_WotsMsgChainCount(ParamPtr);
-	u32 CsChains = XSlhDsa_WotsCsChainCount(ParamPtr);
+	s32 Status = XASUFW_FAILURE;
+	u32 MsgChains = ParamPtr->wots_len1;
+	u32 CsChains = ParamPtr->wots_len2;
 	u32 WinMax = XSLHDSA_BIT_MASK(ParamPtr->wots_win_bits);
 	u32 PadBits = (XASUFW_BYTE_LEN_IN_BITS -
 		       ((CsChains * ParamPtr->wots_win_bits) &
@@ -1485,16 +1847,34 @@ static s32 XSlhDsa_WotsDeriveChainIndices(const u8 *Msg,
 	u32 CsVal;
 
 	/**
+	 * The two writes below are sized by len_1 and len_2, while the buffer was bounded
+	 * against wots_len, so confirm they still describe that same chain count. The limit is
+	 * formed by subtraction rather than len_1 + len_2, which could wrap and let a pair that
+	 * overruns the buffer pass.
+	 */
+	if ((MsgChains > ParamPtr->wots_len) ||
+			(CsChains != (ParamPtr->wots_len - MsgChains))) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	/**
 	 * PadBits counts the spare low bits of the last packed checksum octet, so shifting by
 	 * it keeps the len_2 digits byte aligned. The len_1 message digits land at the front of
 	 * ChainIndicesOut and the checksum digits computed over them are appended right after,
 	 * giving one start index per WOTS+ chain in chain order.
 	 */
-	XSlhDsa_WotsDecodeMsgDigits(Msg, ParamPtr, ChainIndicesOut);
+	Status = XSlhDsa_WotsDecodeMsgDigits(Msg, ParamPtr, ChainIndicesOut);
+	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
 	CsVal = XSlhDsa_WotsChecksumValue(ChainIndicesOut, MsgChains, WinMax, PadBits);
 
-	return XSlhDsa_WotsExpandChecksumDigits(CsVal, ParamPtr,
+	Status = XSlhDsa_WotsExpandChecksumDigits(CsVal, ParamPtr,
 						     ChainIndicesOut + MsgChains);
+
+END:
+	return Status;
 }
 /*************************************************************************************************/
 /**
@@ -1519,7 +1899,7 @@ static s32 XSlhDsa_WotsWriteSignChains(XSlhDsa_Instance *InstPtr,
 {
 	s32 Status = XASUFW_FAILURE;
 	u32 HashWidth = ParamPtr->n;
-	u32 TotalChains = XSlhDsa_WotsChainCount(ParamPtr);
+	u32 TotalChains = ParamPtr->wots_len;
 	u32 ChainIdx;
 
 	/** - Step 11: for i from 0 to len - 1 do */
@@ -1575,7 +1955,7 @@ static s32 XSlhDsa_WotsRebuildChainTops(XSlhDsa_Instance *InstPtr,
 	u8 *NodeCursor = ScratchOut;
 	u32 HashWidth = ParamPtr->n;
 	u32 WinMax = XSLHDSA_BIT_MASK(ParamPtr->wots_win_bits);
-	u32 TotalChains = XSlhDsa_WotsChainCount(ParamPtr);
+	u32 TotalChains = ParamPtr->wots_len;
 	u32 ChainIdx;
 
 	/** - Step 8: for i from 0 to len - 1 do */
@@ -1636,7 +2016,7 @@ static s32 XSlhDsa_XmssBuildLeafPk(XSlhDsa_Instance *InstPtr, u32 LeafIdx,
 	u8 *ChainOut = ChainScratch;
 	u32 HashWidth = ParamPtr->n;
 	u32 WinTop = XSLHDSA_BIT_MASK(ParamPtr->wots_win_bits);
-	u32 TotalChains = XSlhDsa_WotsChainCount(ParamPtr);
+	u32 TotalChains = ParamPtr->wots_len;
 	u32 ChainIdx;
 
 	/**
@@ -1791,6 +2171,39 @@ static s32 XSlhDsa_XmssIntegrateLeaf(XSlhDsa_Instance *InstPtr, u32 LeafIdx,
 	*StackDepthPtr = StackDepth;
 	Status = XSlhDsa_XmssCollapseCarryLevels(InstPtr, LeafIdx, LeafSeq, NodeStack,
 					       StackDepthPtr, Root);
+
+END:
+	return Status;
+}
+/*************************************************************************************************/
+/**
+* @brief	Validate that a leaf index is inside the bound XMSS subtree.
+*
+* @param	ParamPtr	Active parameter set.
+* @param	IdxLeaf	Leaf index to check against the h'-bit subtree.
+*
+* @return
+*		- XASUFW_SUCCESS, if the leaf slot is inside the subtree, which holds
+*		  2^h' leaves.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if xmss_height is zero, above the widest FIPS
+*		  205 XMSS subtree, or the leaf slot is outside the subtree.
+*
+*************************************************************************************************/
+static s32 XSlhDsa_XmssCheckLeaf(const XSlhDsa_Param *ParamPtr, u32 IdxLeaf)
+{
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+
+	/**
+	 * Reject xmss_height == 0 or above XSLHDSA_MAX_XMSS_HEIGHT first: the shift below is
+	 * undefined once the shift amount reaches the width of IdxLeaf's u32 type.
+	 */
+	if ((ParamPtr->xmss_height == 0U) || (ParamPtr->xmss_height > XSLHDSA_MAX_XMSS_HEIGHT)) {
+		goto END;
+	}
+
+	if (IdxLeaf < ((u32)1U << ParamPtr->xmss_height)) {
+		Status = XASUFW_SUCCESS;
+	}
 
 END:
 	return Status;
@@ -2117,7 +2530,7 @@ static u64 XSlhDsa_HtExtractLeafIndex(const u8 *Digest, u32 MdByteLen, u32 TreeF
 *************************************************************************************************/
 static u32 XSlhDsa_HtLayerSigBytes(const XSlhDsa_Param *ParamPtr)
 {
-	return (ParamPtr->xmss_height + XSlhDsa_WotsChainCount(ParamPtr)) * ParamPtr->n;
+	return (ParamPtr->xmss_height + ParamPtr->wots_len) * ParamPtr->n;
 }
 /*************************************************************************************************/
 /**
@@ -2433,6 +2846,61 @@ END:
 }
 /*************************************************************************************************/
 /**
+* @brief	Validate hypertree geometry, that a tree/leaf index pair fits it, and that
+*		the hypertree signature section fits the registered signature buffer
+*		(ht_verify Steps 1 to 4 precondition).
+*
+* @param	InstPtr	Pointer to SLH-DSA instance with the registered signature buffer.
+* @param	ParamPtr	Active parameter set.
+* @param	IdxTree	Tree index to check against the (h - h')-bit bottom-layer field.
+* @param	IdxLeaf	Leaf index to check against the h'-bit leaf field.
+* @param	SignHt	Pointer to the start of the hypertree signature section.
+*
+* @return
+*		- XASUFW_SUCCESS, if the geometry is sane, both indices fit it, and the d
+*		  layer signatures starting at SignHt fit the registered signature buffer.
+*		- XASUFW_SLHDSA_INVALID_PARAM, otherwise.
+*
+*************************************************************************************************/
+static s32 XSlhDsa_HtCheckIndices(const XSlhDsa_Instance *InstPtr,
+			const XSlhDsa_Param *ParamPtr, u64 IdxTree, u64 IdxLeaf,
+			const u8 *SignHt)
+{
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+	u64 SignAddr = (u64)(UINTPTR)SignHt;
+	u64 HtBytes;
+
+	/** Reject a geometry that cannot be shifted below without underflow or UB. */
+	if ((ParamPtr->xmss_height == 0U) || (ParamPtr->xmss_height >= XASUFW_BITS_IN_U64) ||
+			(ParamPtr->d == 0U) || (ParamPtr->h < ParamPtr->xmss_height)) {
+		goto END;
+	}
+
+	/** Reject a tree index outside the bottom-layer field, skipping a full-width field. */
+	if (((ParamPtr->h - ParamPtr->xmss_height) < XASUFW_BITS_IN_U64) &&
+			(IdxTree >= ((u64)1U << (ParamPtr->h - ParamPtr->xmss_height)))) {
+		goto END;
+	}
+
+	/** Reject a leaf index outside the one XMSS subtree it is meant to address. */
+	if (IdxLeaf >= ((u64)1U << ParamPtr->xmss_height)) {
+		goto END;
+	}
+
+	/** Reject a hypertree section that would read past the registered signature buffer. */
+	HtBytes = (u64)ParamPtr->d * (u64)XSlhDsa_HtLayerSigBytes(ParamPtr);
+	if ((InstPtr->SigAddr == 0U) || (SignAddr < InstPtr->SigAddr) ||
+			((SignAddr + HtBytes) > (InstPtr->SigAddr + (u64)InstPtr->SigLen))) {
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+/*************************************************************************************************/
+/**
 * @brief	Compare a recovered hypertree root against the instance public-key root.
 *
 * Uses a constant-time compare instead of a short-circuit memcmp.
@@ -2442,27 +2910,30 @@ END:
 * @param	HashWidth	Hash width n in bytes.
 *
 * @return
-*		- XASUFW_SUCCESS, if roots match.
-*		- XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, if roots differ.
+*		- XASUFW_SUCCESS, if the roots match.
+*		- XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH, if the roots differ.
+*
+* @note
+*	XSlhDsa_HtVerify calls this twice, independently, and raises the global ReturnStatus
+*	verified indicator only after both calls agree; this function does not raise that
+*	indicator itself, so a single call here can never bypass the double-compare contract.
 *
 *************************************************************************************************/
 static s32 XSlhDsa_HtRootMatchesPk(const u8 *RecoveredRoot, const u8 *PkRoot, u32 HashWidth)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	XFih_Var XFihRoot = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
 
-	/** Re-arm the volatile status to a failure value before the authenticating compare. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/**
 	 * - Step 13: if node == PK.root then return true, else return false
 	 *
-	 * Constant-time compare: the count of matching leading bytes must not leak.
+	 * The compare runs over the whole width, so the position of a mismatch does not leak.
 	 */
-	Status = Xil_SMemCmp_CT(RecoveredRoot, HashWidth, PkRoot, HashWidth, HashWidth);
-	/** Collapse every mismatch to a single failure code; roots must match exactly. */
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH;
-	}
+	XFIH_CALL_GOTO_WITH_SPECIFIC_ERROR(Xil_SMemCmp_CT, XASUFW_SLHDSA_VERIFY_ROOT_MISMATCH,
+					   XFihRoot, Status, END, RecoveredRoot, HashWidth,
+					   PkRoot, HashWidth, HashWidth);
 
+END:
 	return Status;
 }
 #endif /* XASU_SLHDSA_ENABLE */

@@ -23,6 +23,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
+*       kk   10/08/26 Addressed FMEA findings
 *
 * </pre>
 *
@@ -86,6 +87,8 @@ static s32 XSlhDsa_HashShakeAppendPureContext(XSlhDsa_HashCtx *HashCtxPtr, const
 			u32 CtxLen);
 static s32 XSlhDsa_HashSha2AppendPureContext(XSlhDsa_HashCtx *HashCtxPtr, const u8 *Ctx,
 			u32 CtxLen);
+
+static s32 XSlhDsa_HMsgCheckBounds(const XSlhDsa_Instance *InstPtr);
 
 /************************************ Variable Definitions ***************************************/
 /**
@@ -346,11 +349,19 @@ s32 XSlhDsa_HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 			    const u8 *Msg, u32 MsgLen, const u8 *Ctx,
 			    u32 CtxLen, u8 *Output)
 {
-	s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	const XSlhDsa_HashOps *Ops = XSlhDsa_HashGetOps(InstPtr);
 
-	/** Validate the bound ops table and the mandatory buffers; Ctx is optional. */
-	if ((Ops == NULL) || (OptRand == NULL) || (Msg == NULL) || (Output == NULL)) {
+	/**
+	 * Validate the bound ops table, the staged PRF key and the mandatory buffers. Ctx is
+	 * optional, but the prefix carries CtxLen in a single byte, so a longer context would be
+	 * absorbed under a truncated length. MsgLen is bounded to one data mover transfer, as the
+	 * signing entry point already does, so an oversized message is refused before the hash
+	 * engine starts.
+	 */
+	if ((Ops == NULL) || (InstPtr->SkPrf == NULL) || (OptRand == NULL) || (Msg == NULL) ||
+	    (Output == NULL) || (MsgLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+	    (CtxLen > XASU_SLHDSA_MAX_CTX_LEN) || ((CtxLen > 0U) && (Ctx == NULL))) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -420,9 +431,13 @@ END:
 const XSlhDsa_HashOps *XSlhDsa_HashOpsLookup(XSlhDsa_HashFamily Family)
 {
 	const XSlhDsa_HashOps *Ops = NULL;
+	u32 FamilyIdx = (u32)Family;
 
-	/** Family is unsigned and starts at XSLHDSA_HASH_SHAKE, so only the upper bound matters. */
-	if (Family > XSLHDSA_HASH_SHA2) {
+	/**
+	 * Cast through u32 so a negative enum value becomes a large index, then reject anything
+	 * outside the table.
+	 */
+	if (FamilyIdx >= XASUFW_ARRAY_SIZE(XSlhDsa_HashOpsByFamily)) {
 		goto END;
 	}
 
@@ -574,14 +589,13 @@ s32 XSlhDsa_HashShakePkSeedAddrLocal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate the instance and output buffer; Addr is required because ADRS is absorbed. */
-	if ((InstPtr == NULL) || (Out == NULL) || (InstPtr->Addr == NULL)) {
-		Status = XASUFW_SLHDSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** A message buffer is only mandatory when a non-zero message length is requested. */
-	if ((MsgLen > 0U) && (Msg == NULL)) {
+	/**
+	 * Reject a missing instance, address or output buffer, a message length with no buffer,
+	 * and a squeeze width of zero or above the widest node, before the absorb starts.
+	 */
+	if ((InstPtr == NULL) || (Out == NULL) || (InstPtr->Addr == NULL) ||
+			((MsgLen > 0U) && (Msg == NULL)) ||
+			(OutLen == 0U) || (OutLen > XSLHDSA_MAX_N)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -618,14 +632,13 @@ s32 XSlhDsa_HashShakePkSeedAddrDma(XSlhDsa_Instance *InstPtr, u64 MsgAddr, u32 M
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate the instance and output buffer; Addr is required because ADRS is absorbed. */
-	if ((InstPtr == NULL) || (Out == NULL) || (InstPtr->Addr == NULL)) {
-		Status = XASUFW_SLHDSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** A message address is only mandatory when a non-zero message length is requested. */
-	if ((MsgLen > 0U) && (MsgAddr == 0U)) {
+	/**
+	 * Reject a missing instance, address or output buffer, a message length with no transfer
+	 * address, and a squeeze width of zero or above the widest node, before the absorb starts.
+	 */
+	if ((InstPtr == NULL) || (Out == NULL) || (InstPtr->Addr == NULL) ||
+			((MsgLen > 0U) && (MsgAddr == 0U)) ||
+			(OutLen == 0U) || (OutLen > XSLHDSA_MAX_N)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -678,6 +691,12 @@ s32 XSlhDsa_HashSha2UpdatePkSeedPrefix(XSlhDsa_HashCtx *HashCtxPtr,
 		goto END;
 	}
 
+	/** Reject a seed width of zero or wider than the widest node, before it is absorbed. */
+	if ((HashWidth == 0U) || (HashWidth > XSLHDSA_MAX_N)) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Absorb PK.seed; it is never the last segment, so EndLast stays clear. */
 	Status = XSlhDsa_HashUpdate(HashCtxPtr, (u64)(UINTPTR)InstPtr->PkSeed, HashWidth, 0U);
 	if (Status != XASUFW_SUCCESS) {
@@ -710,7 +729,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS on success.
-*		- XASUFW_SLHDSA_INVALID_PARAM on invalid input.
+*		- XASUFW_SLHDSA_INVALID_PARAM on invalid input, including a truncation length
+*		  the digest cannot supply.
 *		- XASUFW_SHA_FINISH_FAILED on XSha_Finish error (underlying XSha cause preserved).
 *		- XASUFW_SLHDSA_COPY_FAILED if truncated digest copy to Out fails.
 *		- Combined buffer-clear failure status via XAsufw_UpdateBufStatus otherwise.
@@ -744,6 +764,12 @@ s32 XSlhDsa_HashSha2FinishTrunc(XSlhDsa_HashCtx *HashCtxPtr, u32 ShaMode, u32 N,
 			XASU_FALSE);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_SHA_FINISH_FAILED);
+		goto END;
+	}
+
+	/** Reject a truncation length the digest cannot supply. */
+	if ((N == 0U) || (N > DigestLen)) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 
@@ -835,14 +861,13 @@ s32 XSlhDsa_HashSha2PkSeedAddrLocal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u3
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate the instance and output buffer; Addr feeds the compressed ADRS field. */
-	if ((InstPtr == NULL) || (Out == NULL) || (InstPtr->Addr == NULL)) {
-		Status = XASUFW_SLHDSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** A message buffer is only mandatory when a non-zero message length is requested. */
-	if ((MsgLen > 0U) && (Msg == NULL)) {
+	/**
+	 * Validate the pointers, the truncation width, and a message buffer when a length is
+	 * given.
+	 */
+	if ((InstPtr == NULL) || (Out == NULL) || (InstPtr->Addr == NULL) ||
+			(N == 0U) || (N > XSLHDSA_MAX_N) ||
+			((MsgLen > 0U) && (Msg == NULL))) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -862,7 +887,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS on success.
-*		- XASUFW_SLHDSA_INVALID_PARAM on invalid input.
+*		- XASUFW_SLHDSA_INVALID_PARAM on invalid input, including a mode other than
+*		  SHA-256 or SHA-512.
 *		- XASUFW_SHA_START_FAILED on XSha_Start error (underlying XSha cause preserved).
 *
 * @note
@@ -873,8 +899,12 @@ s32 XSlhDsa_HashSha2Begin(XSlhDsa_HashCtx *HashCtxPtr, u32 ShaMode)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate the hash context and the bound SHA engine handle. */
-	if ((HashCtxPtr == NULL) || (HashCtxPtr->Sha == NULL)) {
+	/**
+	 * Validate the hash context and the bound SHA engine handle, and reject a mode other
+	 * than the SHA-256 and SHA-512 this path uses.
+	 */
+	if ((HashCtxPtr == NULL) || (HashCtxPtr->Sha == NULL) ||
+			((ShaMode != XASU_SHA_MODE_256) && (ShaMode != XASU_SHA_MODE_512))) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -917,10 +947,9 @@ s32 XSlhDsa_Sha2HashMsg(XSlhDsa_Instance *InstPtr)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate input pointers. The first n bytes at SigAddr hold the randomizer R. */
-	if ((InstPtr == NULL) || (InstPtr->SigAddr == 0U) ||
-			(InstPtr->MsgDigest == NULL)) {
-		Status = XASUFW_SLHDSA_INVALID_PARAM;
+	/** Reject a missing pointer, or an n/m width that would write past a buffer. */
+	Status = XSlhDsa_HMsgCheckBounds(InstPtr);
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
@@ -1178,8 +1207,12 @@ s32 XSlhDsa_Sha2HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	u32 BlockLen;
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate input pointers. */
-	if ((InstPtr == NULL) || (OptRand == NULL) || (Msg == NULL) || (Output == NULL)) {
+	/**
+	 * Validate the input pointers, the context length, which the prefix stores in one byte,
+	 * and a zero SK.prf width, which the HMAC key block below cannot be padded from.
+	 */
+	if ((InstPtr == NULL) || (OptRand == NULL) || (Msg == NULL) || (Output == NULL) ||
+			(CtxLen > XASU_SLHDSA_MAX_CTX_LEN) || (InstPtr->Param.n == 0U)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -1188,6 +1221,12 @@ s32 XSlhDsa_Sha2HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	ShaMode = XSlhDsa_Sha2ModeHtl(InstPtr->Param.n);
 	Status = XSlhDsa_Sha2HmacBlockLen(ShaMode, &BlockLen);
 	if (Status != XASUFW_SUCCESS) {
+		goto END;
+	}
+
+	/** SK.prf is padded out to BlockLen; reject a width that is not shorter than the block. */
+	if (InstPtr->Param.n >= BlockLen) {
+		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
 
@@ -1209,7 +1248,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS on success.
-*		- XASUFW_SLHDSA_INVALID_PARAM on invalid input.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL or the chain
+*		  leaves the Winternitz window.
 *		- XASUFW_SLHDSA_COPY_FAILED, if the initial chain value copy fails.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL,
@@ -1226,10 +1266,15 @@ s32 XSlhDsa_Sha2Chain(XSlhDsa_Instance *InstPtr, const u8 *Input,
 	u32 HashWidth;
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate input pointers. */
+	/** Validate the pointers, then that the chain stays inside the Winternitz window. */
 	if ((InstPtr == NULL) || (Input == NULL) || (Cfg == NULL) || (Output == NULL) ||
 			(InstPtr->Addr == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSlhDsa_WotsCheckChainRange(&InstPtr->Param, Cfg);
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
@@ -1293,10 +1338,9 @@ s32 XSlhDsa_ShakeHashMsg(XSlhDsa_Instance *InstPtr)
 	XSlhDsa_HashCtx HashCtx;
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate input pointers. The first n bytes at SigAddr hold the randomizer R. */
-	if ((InstPtr == NULL) || (InstPtr->SigAddr == 0U) ||
-			(InstPtr->MsgDigest == NULL)) {
-		Status = XASUFW_SLHDSA_INVALID_PARAM;
+	/** Reject a missing pointer, or an n/m width that would squeeze past a buffer. */
+	Status = XSlhDsa_HMsgCheckBounds(InstPtr);
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
@@ -1571,8 +1615,12 @@ s32 XSlhDsa_ShakeHashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	u32 HashWidth;
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate input pointers. */
-	if ((InstPtr == NULL) || (OptRand == NULL) || (Msg == NULL) || (Output == NULL)) {
+	/**
+	 * Validate the input pointers and the context length, which the prefix stores in one
+	 * byte.
+	 */
+	if ((InstPtr == NULL) || (OptRand == NULL) || (Msg == NULL) || (Output == NULL) ||
+			(CtxLen > XASU_SLHDSA_MAX_CTX_LEN)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
 	}
@@ -1674,7 +1722,8 @@ END:
 *
 * @return
 *		- XASUFW_SUCCESS on success.
-*		- XASUFW_SLHDSA_INVALID_PARAM on invalid input.
+*		- XASUFW_SLHDSA_INVALID_PARAM, if a required pointer is NULL or the chain
+*		  leaves the Winternitz window.
 *		- XASUFW_SLHDSA_COPY_FAILED, if the initial chain value copy fails.
 *		- Error code received from called functions in case of other failure from the
 *		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL,
@@ -1691,10 +1740,15 @@ s32 XSlhDsa_ShakeChain(XSlhDsa_Instance *InstPtr, const u8 *Input,
 	u32 HashWidth;
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate input pointers. */
+	/** Validate the pointers, then that the chain stays inside the Winternitz window. */
 	if ((InstPtr == NULL) || (Input == NULL) || (Cfg == NULL) || (Output == NULL) ||
 			(InstPtr->Addr == NULL)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XSlhDsa_WotsCheckChainRange(&InstPtr->Param, Cfg);
+	if (Status != XASUFW_SUCCESS) {
 		goto END;
 	}
 
@@ -2815,7 +2869,7 @@ static s32 XSlhDsa_HashShakeAppendPureContext(XSlhDsa_HashCtx *HashCtxPtr, const
 			u32 CtxLen)
 {
 	u8 PureHdr[XASU_SLHDSA_PREFIX_HDR_LEN];
-	s32 Status;
+	s32 Status = XASUFW_FAILURE;
 
 	PureHdr[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
 	PureHdr[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
@@ -2848,7 +2902,7 @@ static s32 XSlhDsa_HashSha2AppendPureContext(XSlhDsa_HashCtx *HashCtxPtr, const 
 			u32 CtxLen)
 {
 	u8 PureHdr[XASU_SLHDSA_PREFIX_HDR_LEN];
-	s32 Status;
+	s32 Status = XASUFW_FAILURE;
 
 	PureHdr[XASU_SLHDSA_PREFIX_DS_OFFSET] = XASU_SLHDSA_DS_PURE;
 	PureHdr[XASU_SLHDSA_PREFIX_CTXLEN_OFFSET] = (u8)CtxLen;
@@ -2863,6 +2917,77 @@ static s32 XSlhDsa_HashSha2AppendPureContext(XSlhDsa_HashCtx *HashCtxPtr, const 
 	}
 
 	return XASUFW_SUCCESS;
+}
+/*************************************************************************************************/
+/**
+* @brief	Validate instance pointers and the n/m widths H_msg writes within
+*		(FIPS 205 Section 11.1/11.2 precondition).
+*
+* @param	InstPtr	Pointer to SLH-DSA instance.
+*
+* @return
+*		- XASUFW_SUCCESS, if the pointers are set and n and m fit their buffers.
+*		- XASUFW_SLHDSA_INVALID_PARAM, otherwise.
+*
+*************************************************************************************************/
+static s32 XSlhDsa_HMsgCheckBounds(const XSlhDsa_Instance *InstPtr)
+{
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+
+	/**
+	 * Reject a missing instance, signature address or digest buffer, then a hash width
+	 * above the widest node and a digest width of zero or above the digest buffer, so
+	 * H_msg can never write or squeeze past either buffer.
+	 */
+	if ((InstPtr != NULL) && (InstPtr->SigAddr != 0U) && (InstPtr->MsgDigest != NULL) &&
+			(InstPtr->Param.n != 0U) && (InstPtr->Param.n <= XSLHDSA_MAX_N) &&
+			(InstPtr->Param.m != 0U) &&
+			(InstPtr->Param.m <= XSLHDSA_MSG_DIGEST_BYTES)) {
+		Status = XASUFW_SUCCESS;
+	}
+
+	return Status;
+}
+/*************************************************************************************************/
+/**
+* @brief	Validate that a WOTS+ chain step range stays inside the Winternitz window
+*		(FIPS 205 chain() precondition).
+*
+* @param	ParamPtr	Active parameter set.
+* @param	Cfg	Chain start index and step count.
+*
+* @return
+*		- XASUFW_SUCCESS, if the chain never steps past hash slot w - 1.
+*		- XASUFW_SLHDSA_INVALID_PARAM, otherwise, including a NULL argument or a window
+*		  width that cannot form a mask.
+*
+*************************************************************************************************/
+s32 XSlhDsa_WotsCheckChainRange(const XSlhDsa_Param *ParamPtr,
+			const XSlhDsa_ChainCfg *Cfg)
+{
+	s32 Status = XASUFW_SLHDSA_INVALID_PARAM;
+	u32 WinMax;
+
+	/** Validate input pointers. */
+	if ((ParamPtr == NULL) || (Cfg == NULL)) {
+		goto END;
+	}
+
+	/** Bound the window width first: the mask below is formed by shifting by it. */
+	if ((ParamPtr->wots_win_bits == 0U) ||
+			(ParamPtr->wots_win_bits >= XASUFW_BITS_IN_WORD)) {
+		goto END;
+	}
+
+	WinMax = XSLHDSA_BIT_MASK(ParamPtr->wots_win_bits);
+
+	/** Reject a start index past the window, or a step count that would walk past it. */
+	if ((Cfg->StartIdx <= WinMax) && (Cfg->Steps <= (WinMax - Cfg->StartIdx))) {
+		Status = XASUFW_SUCCESS;
+	}
+
+END:
+	return Status;
 }
 #endif /* XASU_SLHDSA_ENABLE */
 /** @} */

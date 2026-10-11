@@ -23,6 +23,7 @@
 * 1.0   kk   07/10/26 Initial release
 *       kk   09/18/26 Size a yield slice by leaves built rather than by elapsed time
 *       kk   09/23/26 Run a pairwise consistency test on every generated key pair
+*       kk   10/08/26 Addressed FMEA findings
 *
 * </pre>
 *
@@ -91,9 +92,13 @@ extern "C" {
 					((((XSLHDSA_SCRATCH_LEN) + 7U) / 8U) * 8U))
 
 #define XSLHDSA_WOTS_LG_W		(4U)	/**< FIPS 205 lg(w) for supported sets. */
-#define XSLHDSA_WOTS_LEN2_FAST_N_MIN	(9U)	/**< Min n for len_2 = 3 fast path. */
-#define XSLHDSA_WOTS_LEN2_FAST_N_MAX	(136U)	/**< Max n for len_2 = 3 fast path. */
-#define XSLHDSA_WOTS_LEN2_FAST	(3U)	/**< FIPS 205 len_2 fast-path value. */
+#define XSLHDSA_WOTS_LEN1_128S	(32U)	/**< len_1 = ceil(8 * 16 / 4) for the 128s sets. */
+#define XSLHDSA_WOTS_LEN1_256S	(64U)	/**< len_1 = ceil(8 * 32 / 4) for the 256s sets. */
+#define XSLHDSA_WOTS_LEN2	(3U)	/**< len_2 = 3 for every supported set, Eq. 5.3. */
+/** len = len_1 + len_2 for the 128s sets. */
+#define XSLHDSA_WOTS_LEN_128S	(XSLHDSA_WOTS_LEN1_128S + XSLHDSA_WOTS_LEN2)
+/** len = len_1 + len_2 for the 256s sets. */
+#define XSLHDSA_WOTS_LEN_256S	(XSLHDSA_WOTS_LEN1_256S + XSLHDSA_WOTS_LEN2)
 /** WOTS+/XMSS/FORS scratch bytes (SHAKE-256s worst case). */
 #define XSLHDSA_WORK_MEM_BYTES	(2144U)
 /** H_msg digest buffer size in bytes (worst case m=47). */
@@ -101,6 +106,39 @@ extern "C" {
 #define XSLHDSA_NODE_BUF_BYTES	(32U)	/**< Single n-byte node buffer for hypertree walks. */
 /** WOTS+ base-2^b digit buffer (max chain count). */
 #define XSLHDSA_WOTS_WEIGHT_WORDS	(67U)
+
+/*
+ * Per-parameter-set geometry (FIPS 205 Table 2). The SHA2 and SHAKE variants of a security
+ * level share these, so four parameter sets need only two sets of constants. The parameter-set
+ * lookup table and the signature-size static asserts both build on these names, which is what
+ * ties a table row to the signature size its client header advertises.
+ */
+#define XSLHDSA_128S_N	(16U)	/**< FIPS n: hash output width in bytes, 128s sets. */
+#define XSLHDSA_128S_H	(63U)	/**< FIPS h: total hypertree height, 128s sets. */
+#define XSLHDSA_128S_D	(7U)	/**< FIPS d: number of hypertree layers, 128s sets. */
+#define XSLHDSA_128S_A	(12U)	/**< FIPS a: FORS tree height, 128s sets. */
+#define XSLHDSA_128S_K	(14U)	/**< FIPS k: number of FORS trees, 128s sets. */
+#define XSLHDSA_128S_M	(30U)	/**< FIPS m: H_msg digest length in bytes, 128s sets. */
+#define XSLHDSA_256S_N	(32U)	/**< FIPS n: hash output width in bytes, 256s sets. */
+#define XSLHDSA_256S_H	(64U)	/**< FIPS h: total hypertree height, 256s sets. */
+#define XSLHDSA_256S_D	(8U)	/**< FIPS d: number of hypertree layers, 256s sets. */
+#define XSLHDSA_256S_A	(14U)	/**< FIPS a: FORS tree height, 256s sets. */
+#define XSLHDSA_256S_K	(22U)	/**< FIPS k: number of FORS trees, 256s sets. */
+#define XSLHDSA_256S_M	(47U)	/**< FIPS m: H_msg digest length in bytes, 256s sets. */
+
+/*
+ * Cooperative yield budgets, in leaves built per slice before a command parks. Unlike the
+ * geometry above these are not FIPS constants: they are tuned per parameter set from its
+ * measured leaf cost so a slice stays near 10 ms, well inside the keep-alive interval.
+ */
+#define XSLHDSA_SHAKE_256S_YIELD_XMSS_LEAVES	(1U)	/**< XMSS leaves per slice, SHAKE-256s. */
+#define XSLHDSA_SHAKE_256S_YIELD_FORS_LEAVES	(300U)	/**< FORS leaves per slice, SHAKE-256s. */
+#define XSLHDSA_SHA2_128S_YIELD_XMSS_LEAVES	(1U)	/**< XMSS leaves per slice, SHA2-128s. */
+#define XSLHDSA_SHA2_128S_YIELD_FORS_LEAVES	(200U)	/**< FORS leaves per slice, SHA2-128s. */
+#define XSLHDSA_SHA2_256S_YIELD_XMSS_LEAVES	(1U)	/**< XMSS leaves per slice, SHA2-256s. */
+#define XSLHDSA_SHA2_256S_YIELD_FORS_LEAVES	(200U)	/**< FORS leaves per slice, SHA2-256s. */
+#define XSLHDSA_SHAKE_128S_YIELD_XMSS_LEAVES	(2U)	/**< XMSS leaves per slice, SHAKE-128s. */
+#define XSLHDSA_SHAKE_128S_YIELD_FORS_LEAVES	(300U)	/**< FORS leaves per slice, SHAKE-128s. */
 
 /************************************** Type Definitions *****************************************/
 /** Supported SLH-DSA parameter set identifiers (FIPS 205 Table 2). */
@@ -134,7 +172,11 @@ typedef struct {
 	u32 fors_height; /**< FIPS a: FORS tree height. */
 	u32 fors_count; /**< FIPS k: number of FORS trees. */
 	u32 wots_win_bits; /**< FIPS lg_w: Winternitz parameter in bits. */
+	u32 wots_len1; /**< FIPS len_1: WOTS+ message chains, Eq. 5.2. */
+	u32 wots_len2; /**< FIPS len_2: WOTS+ checksum chains, Eq. 5.3. */
+	u32 wots_len; /**< FIPS len: total WOTS+ chains, len_1 + len_2. */
 	u32 m; /**< FIPS m: message digest length in bytes. */
+	u32 sig_bytes; /**< FIPS signature size in bytes, Section 10.2. */
 	u32 yield_xmss_leaves; /**< XMSS leaves built per cooperative yield slice. */
 	u32 yield_fors_leaves; /**< FORS leaves built per cooperative yield slice. */
 } XSlhDsa_Param;
@@ -176,6 +218,9 @@ struct _XSlhDsa_Instance {
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XSLHDSA_BIT_MASK(i) ((1U << (i)) - 1U)	/**< Mask of i low bits: (2^i - 1). */
+#define XSLHDSA_SIG_BYTES(k, a, h, d, len, n)	\
+	((1U + ((k) * (1U + (a))) + (h) + ((d) * (len))) * (n))
+						/**< FIPS 205 Section 10.2 signature size. */
 
 /*
  * Accessors for the SHA message DMA resume flag. They live here rather than in xslhdsa_yield.h
@@ -236,23 +281,12 @@ static inline void XSlhDsa_YieldClearHashDmaResume(XSlhDsa_Instance *InstPtr)
 }
 
 /************************************ Function Prototypes ****************************************/
-u32 XSlhDsa_WotsMsgChainCount(const XSlhDsa_Param *ParamPtr);
-u32 XSlhDsa_WotsCsChainCount(const XSlhDsa_Param *ParamPtr);
-u32 XSlhDsa_WotsChainCount(const XSlhDsa_Param *ParamPtr);
-u32 XSlhDsa_SignatureBytes(const XSlhDsa_Param *ParamPtr);
-
 XSlhDsa_Instance *XSlhDsa_GetInstance(void);
 s32 XSlhDsa_BindParam(XSlhDsa_Instance *InstPtr, XSlhDsa_ParamSet ParamSet);
 s32 XSlhDsa_LookupParamSet(XSlhDsa_ParamSet ParamSet,
 				const XSlhDsa_Param **ParamPtrPtr);
 s32 XSlhDsa_LoadPk(XSlhDsa_Instance *InstPtr, const u8 *Pk);
 s32 XSlhDsa_LoadSk(XSlhDsa_Instance *InstPtr, const u8 *Sk);
-void XSlhDsa_SetMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg,
-			u32 MsgLen);
-void XSlhDsa_SetSig(XSlhDsa_Instance *InstPtr, const u8 *Sig,
-			u32 SigLen);
-void XSlhDsa_SetPkAddr(XSlhDsa_Instance *InstPtr, const u8 *Pk);
-void XSlhDsa_SetMsgMode(XSlhDsa_Instance *InstPtr, u8 PreHashMode, u8 HashId);
 s32 XSlhDsa_ClearSensitiveState(XSlhDsa_Instance *InstPtr);
 s32 XSlhDsa_ZeroizeSigScratch(void);
 
@@ -260,15 +294,6 @@ const u8 *XSlhDsa_PreHashGetOid(u8 HashId);
 s32 XSlhDsa_PreHashBuildPrefix(XSlhDsa_Instance *InstPtr, const u8 *Ctx, u32 CtxLen);
 s32 XSlhDsa_PreparePreHashMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
 				   const u8 *Ctx, u32 CtxLen);
-
-s32 XSlhDsa_KeyGenInternal(XSlhDsa_Instance *InstPtr, const u8 *SkSeed,
-			       const u8 *SkPrf, const u8 *PkSeed);
-s32 XSlhDsa_SignInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
-		      const u8 *Ctx, u32 CtxLen, const u8 *Sk, const u8 *OptRand,
-		      u8 *Sig, u32 SigLen);
-s32 XSlhDsa_VerifyCore(XSlhDsa_Instance *InstPtr);
-s32 XSlhDsa_VerifyInternal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
-			const u8 *Sig, u32 SigLen, const u8 *Ctx, u32 CtxLen, const u8 *Pk);
 
 s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr,
 			const XSlhDsa_KeyGenParams *ParamsPtr);
