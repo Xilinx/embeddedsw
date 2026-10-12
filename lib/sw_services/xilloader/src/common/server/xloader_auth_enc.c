@@ -3749,6 +3749,10 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr,
 	u8 SpkHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 ReadAuthReg = 0x0U;
+	volatile u32 IsEfuseAuth = (u32)TRUE;
+	volatile u32 IsEfuseAuthTmp = (u32)TRUE;
+	u32 EfuseAuth;
+	u32 EfuseAuthTmp;
 	u32 AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
 
 	if ((AuthType != XLOADER_PUB_STRENGTH_LMS) &&
@@ -3781,11 +3785,18 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr,
 			goto END;
 		}
 		else {
-			/* Misra-C Compliance */
+			/* Emulated A-HWRoT confirmed: no eFUSE PPK, so the SPK
+			 * revocation check does not apply. Store FALSE to both
+			 * redundant flags (fail-closed default stays TRUE).
+			 */
+			IsEfuseAuth = (u32)FALSE;
+			IsEfuseAuthTmp = (u32)FALSE;
 		}
 	}
 	else {
 		Status = XST_FAILURE;
+		IsEfuseAuth = (u32)TRUE;
+		IsEfuseAuthTmp = (u32)TRUE;
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PpkVerify,
 				SecurePtr,
 				(HBSignParams->ActualPpkSize +
@@ -3829,6 +3840,18 @@ static int XLoader_AuthenticateKeys(XLoader_SecureParams *SecurePtr,
 		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
 		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
 		goto END;
+	}
+
+	/**
+	 * - Check for SPK ID revocation. The SPK key header carries the SPK
+	 *   revoke ID at word index XLOADER_KEY_HDR_REVOKE_ID_IDX.
+	 *   Copy both volatile flags first so the logical OR cannot skip a read.
+	 */
+	EfuseAuth = IsEfuseAuth;
+	EfuseAuthTmp = IsEfuseAuthTmp;
+	if ((EfuseAuth == (u32)TRUE) || (EfuseAuthTmp == (u32)TRUE)) {
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyRevokeId,
+			SecurePtr->AcPtr->SPK.Header[XLOADER_KEY_HDR_REVOKE_ID_IDX]);
 	}
 
 	XPlmi_Printf(DEBUG_INFO, "SPK authentication is successful\n\r");

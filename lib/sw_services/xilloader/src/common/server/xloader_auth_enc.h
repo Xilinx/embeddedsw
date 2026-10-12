@@ -496,6 +496,8 @@ extern "C" {
 	/**< Index of permission field in key header */
 #define XLOADER_KEY_HDR_HYBRID_IDX		(2U)
 	/**< Index of hybrid field in key header */
+#define XLOADER_KEY_HDR_REVOKE_ID_IDX		(1U)
+	/**< Index of revoke ID field in key header */
 #define XLOADER_KEY_IS_PPK			(0U)
 	/**< Key type value for PPK */
 #define XLOADER_KEY_IS_SPK			(1U)
