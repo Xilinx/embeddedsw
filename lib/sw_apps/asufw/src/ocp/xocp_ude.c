@@ -902,6 +902,7 @@ static s32 XOcp_UdeHashData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 
 {
 	XSha *ShaInstancePtr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
 	XAsu_ShaOperationCmd ShaCmd = {0U};
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/**
 	 * Hold the digest to the blocking DMA window. Above it XSha_Digest streams the data
@@ -909,16 +910,17 @@ static s32 XOcp_UdeHashData(XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen, u8 
 	 * a re-dispatch that these callers have no resume point for.
 	 */
 	if (DataLen > XASUFW_DMA_BLOCKING_SIZE) {
-		return XASUFW_OCP_INVALID_PARAM;
+		Status = XASUFW_OCP_INVALID_PARAM;
+	} else {
+		ShaCmd.ShaMode = XASU_SHA_MODE_384;
+		ShaCmd.DataAddr = (u64)(UINTPTR)Data;
+		ShaCmd.DataSize = DataLen;
+		ShaCmd.HashAddr = (u64)(UINTPTR)HashBuf;
+		ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;
+		Status = XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
 	}
 
-	ShaCmd.ShaMode = XASU_SHA_MODE_384;
-	ShaCmd.DataAddr = (u64)(UINTPTR)Data;
-	ShaCmd.DataSize = DataLen;
-	ShaCmd.HashAddr = (u64)(UINTPTR)HashBuf;
-	ShaCmd.HashBufSize = XASU_SHA_384_HASH_LEN;
-
-	return XSha_Digest(ShaInstancePtr, DmaPtr, &ShaCmd);
+	return Status;
 }
 
 /*************************************************************************************************/

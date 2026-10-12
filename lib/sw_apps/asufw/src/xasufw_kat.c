@@ -4139,6 +4139,7 @@ END:
 static void RunKdfAndDependentKat(XAsufw_Dma *AsuDmaPtr)
 {
 	XSha *XAsufw_Sha2Ptr = XSha_GetInstance(XASU_XSHA_0_DEVICE_ID);
+	u8 RunSha512 = XASU_TRUE;
 
 #ifdef XASU_KDF_ENABLE
 	/** Run KDF with SHA2-256 KAT. */
@@ -4163,17 +4164,19 @@ static void RunKdfAndDependentKat(XAsufw_Dma *AsuDmaPtr)
 	}
 #endif /* XASU_HMAC_ENABLE */
 
-	/** Run SHA2-256 KAT. */
+	/** Run SHA2-256 KAT. A failure here skips the SHA2-512 KAT. */
 	if (XAsufw_ShaKat(XAsufw_Sha2Ptr, AsuDmaPtr, XASUFW_SHA2,
 			   XASU_SHA_MODE_256) != XASUFW_SUCCESS) {
-		return;
+		RunSha512 = XASU_FALSE;
 	}
 
 RUN_SHA2_512:
-	if (XAsufw_ShaKat(XAsufw_Sha2Ptr, AsuDmaPtr, XASUFW_SHA2,
-			   XASU_SHA_MODE_512) == XASUFW_SUCCESS) {
-		/** Set KAT status as passed in RTCA area. */
-		XASUFW_SET_KAT_PASSED(XASU_MODULE_SHA2_ID);
+	if (RunSha512 == XASU_TRUE) {
+		if (XAsufw_ShaKat(XAsufw_Sha2Ptr, AsuDmaPtr, XASUFW_SHA2,
+				  XASU_SHA_MODE_512) == XASUFW_SUCCESS) {
+			/** Set KAT status as passed in RTCA area. */
+			XASUFW_SET_KAT_PASSED(XASU_MODULE_SHA2_ID);
+		}
 	}
 }
 

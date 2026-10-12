@@ -609,18 +609,16 @@ void XAsufw_MeasurePerfTime(u64 TimerValStart, XAsufw_PerfTime *PerfTime)
 	u64 TimerValEnd;
 	u64 TDiff;
 
-	if (PerfTime == NULL) {
-		return;
+	if (PerfTime != NULL) {
+		/** Capture the timer value at the end of the measured interval. */
+		TimerValEnd = XAsufw_GetTimerValue();
+
+		/** Capture elapsed time. */
+		TDiff = XAsufw_GetPitElapsedTicks(TimerValStart, TimerValEnd);
+
+		/** Convert elapsed ticks into microseconds. */
+		XAsufw_ConvertPitTicksToTime(TDiff, PerfTime, XASU_TRUE);
 	}
-
-	/** Capture the timer value at the end of the measured interval. */
-	TimerValEnd = XAsufw_GetTimerValue();
-
-	/** Capture elapsed time. */
-	TDiff = XAsufw_GetPitElapsedTicks(TimerValStart, TimerValEnd);
-
-	/** Convert elapsed ticks into microseconds. */
-	XAsufw_ConvertPitTicksToTime(TDiff, PerfTime, XASU_TRUE);
 }
 
 /*************************************************************************************************/
