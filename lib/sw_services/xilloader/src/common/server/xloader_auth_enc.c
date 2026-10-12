@@ -186,6 +186,7 @@
 *       tbk  09/07/26 Bound IHT and partition HashBlockSize in words, PPK and
 *                       HB signature Total/Actual sizes, and reject zero copy lengths
 *       sri  10/05/2026 Use AuthJtagMessagePtr AuthHdr for LMS Auth JTAG signature verify
+*       vss  10/09/2026 Derive LMS/LMS-HSS signature length from the public key
 *
 * </pre>
 *
@@ -335,6 +336,8 @@ static int XLoader_CopyFromSrc(XilPdi_MetaHdr *MetaHdrPtr, XLoader_HashBlock *De
 		u32 SrcOffset, void *Dest, u32 Size);
 static int XLoader_GetKeySizeSignPadding(u32 AuthType,
 		XLoader_HBSignParams *HBSignParams, u32 *SignPaddingSize);
+static int XLoader_GetLmsActualSignSize(u32 AuthType, const u8 *PubKey,
+		const u8 *SignBuff, u32 TotalSignSize, u32 *ActualSignSize);
 static int XLoader_SlhdsaSignVerify(XLoader_SecureParams *SecurePtr,
 		XLoader_HBSignParams *HBSignParams, u32 VerifyType);
 static int XLoader_MldsaSignVerify(XLoader_SecureParams *SecurePtr,
@@ -3373,6 +3376,200 @@ END:
 #else
 /******************************************************************************/
 /**
+ * @brief	Read a big-endian 32-bit field from an LMS/HSS buffer.
+ *
+ * @param	Buf	Pointer to the first byte of the field.
+ *
+ * @return	Host-endian value.
+ *
+ ******************************************************************************/
+static u32 XLoader_ReadBE32(const u8 *Buf)
+{
+	return (((u32)Buf[0] << 24U) | ((u32)Buf[1] << 16U) |
+		((u32)Buf[2] << 8U) | (u32)Buf[3]);
+}
+
+/******************************************************************************/
+/**
+ * @brief	Return the LMS signature length for an LMS public key.
+ *
+ * @param	LmsPubKey	Pointer to an LMS public key (type, OTS type, I, T).
+ * @param	SignLen		Pointer updated with the signature length in bytes.
+ *
+ * @return
+ * 		- XST_SUCCESS if the LMS and OTS types are supported.
+ * 		- XST_FAILURE if either parameter set is unsupported.
+ *
+ ******************************************************************************/
+static int XLoader_GetLmsSignatureLen(const u8 *LmsPubKey, u32 *SignLen)
+{
+	volatile int Status = XST_FAILURE;
+	XSecure_LmsParam *LmsParam = NULL;
+	XSecure_LmsOtsParam *OtsParam = NULL;
+
+	Status = XSecure_LmsLookupParamSet((XSecure_LmsType)XLoader_ReadBE32(
+			&LmsPubKey[XSECURE_LMS_PUB_KEY_TYPE_OFFSET]), &LmsParam);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	Status = XSecure_LmsOtsLookupParamSet((XSecure_LmsOtsType)XLoader_ReadBE32(
+			&LmsPubKey[XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET]), &OtsParam);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	*SignLen = OtsParam->SignLen + XSECURE_LMS_Q_FIELD_SIZE +
+		XSECURE_LMS_TYPE_SIZE + LmsParam->mh;
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	Derive the unpadded LMS or LMS-HSS signature length.
+ *
+ * 		Bootgen pads the signature up to a 16-byte boundary and stores
+ * 		only that padded size. The pad is not constant: it depends on
+ * 		tree height, Winternitz parameter, and the number of HSS levels.
+ * 		A one-level h20/w2 HSS signature is already aligned (pad 0), while
+ * 		a two-level h20/w2 signature needs 12 bytes of pad.
+ *
+ * @param	AuthType	XLOADER_PUB_STRENGTH_LMS or LMS_HSS.
+ * @param	PubKey		Pointer to the verifying public key.
+ * @param	SignBuff	Pointer to the padded signature.
+ * @param	TotalSignSize	Padded signature size from the signature header.
+ * @param	ActualSignSize	Pointer updated with the unpadded signature size.
+ *
+ * @return
+ * 		- XST_SUCCESS if the padded size matches the derived length.
+ * 		- XST_FAILURE if the key, level count, or padded size is invalid.
+ *
+ ******************************************************************************/
+static int XLoader_GetLmsActualSignSize(u32 AuthType, const u8 *PubKey,
+		const u8 *SignBuff, u32 TotalSignSize, u32 *ActualSignSize)
+{
+	volatile int Status = XST_FAILURE;
+	u32 SignLen = 0U;
+	u32 Actual = 0U;
+	u32 Pad = 0U;
+	u32 Levels = 1U;
+	u32 Level = 0U;
+	const u8 *LmsPubKey = PubKey;
+
+	if ((PubKey == NULL) || (SignBuff == NULL) || (ActualSignSize == NULL) ||
+			(TotalSignSize == 0U)) {
+		goto END;
+	}
+
+	if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
+		if (TotalSignSize < XSECURE_LMS_HSS_LEVELS_FIELD_SIZE) {
+			goto END;
+		}
+
+		Levels = XLoader_ReadBE32(
+				&PubKey[XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET]);
+		if ((Levels < XSECURE_LMS_HSS_MIN_LEVELS_SUPPORTED) ||
+				(Levels > XSECURE_LMS_HSS_MAX_LEVELS_SUPPORTED)) {
+			goto END;
+		}
+
+		LmsPubKey = &PubKey[XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET];
+		Actual = XSECURE_LMS_HSS_LEVELS_FIELD_SIZE;
+	}
+	else if (AuthType != XLOADER_PUB_STRENGTH_LMS) {
+		goto END;
+	}
+
+	/*
+	 * Level 0 uses the verifying public key. Each lower HSS level carries
+	 * its own public key in the signature, immediately after the signature
+	 * of the level above it.
+	 */
+	for (Level = 0U; Level < Levels; Level++) {
+		if (Level != 0U) {
+			if (TotalSignSize < (Actual + XSECURE_LMS_PUB_KEY_TOTAL_SIZE)) {
+				Status = XST_FAILURE;
+				goto END;
+			}
+		}
+
+		Status = XST_FAILURE;
+		Status = XLoader_GetLmsSignatureLen(
+				(Level == 0U) ? LmsPubKey : &SignBuff[Actual], &SignLen);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		if (Level != 0U) {
+			Actual += XSECURE_LMS_PUB_KEY_TOTAL_SIZE;
+		}
+
+		if ((SignLen > TotalSignSize) || (Actual > (TotalSignSize - SignLen))) {
+			Status = XST_FAILURE;
+			goto END;
+		}
+		Actual += SignLen;
+	}
+
+	/* Bootgen stores only the size rounded up to a 16-byte boundary. */
+	Pad = Actual % XLOADER_LMS_SIGN_ALIGN;
+	if (Pad != 0U) {
+		Pad = XLOADER_LMS_SIGN_ALIGN - Pad;
+	}
+	if ((TotalSignSize - Actual) != Pad) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	*ActualSignSize = Actual;
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	Replace the header signature length with the unpadded LMS length.
+ *
+ * 		No-op for every other authentication type. LMS callers must pass
+ * 		the padded total from the signature header in TotalAuthSignSize.
+ *
+ * @param	AuthType	Authentication algorithm type.
+ * @param	PubKey		Verifying public key.
+ * @param	SignBuff	Padded signature.
+ * @param	HBSignParams	Updated with the unpadded signature length.
+ *
+ * @return
+ * 		- XST_SUCCESS if this auth type needs no LMS length, or the
+ * 		  derived length matches the padded header size.
+ * 		- XST_FAILURE if the LMS key or padded size is invalid.
+ *
+ ******************************************************************************/
+static int XLoader_SetLmsActualSignSize(u32 AuthType, const u8 *PubKey,
+		const u8 *SignBuff, XLoader_HBSignParams *HBSignParams)
+{
+	volatile int Status = XST_SUCCESS;
+
+	if ((AuthType != XLOADER_PUB_STRENGTH_LMS) &&
+			(AuthType != XLOADER_PUB_STRENGTH_LMS_HSS)) {
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	Status = XLoader_GetLmsActualSignSize(AuthType, PubKey, SignBuff,
+			HBSignParams->TotalAuthSignSize,
+			&HBSignParams->ActualAuthSignSize);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
  * @brief	This function gets key sizes and signature padding for the
  * 		given authentication type.
  *
@@ -3408,11 +3605,12 @@ static int XLoader_GetKeySizeSignPadding(u32 AuthType,
 	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS_HSS) {
 		TotalKeySize = XLOADER_LMS_HSS_TOTAL_KEY_SIZE_IN_BYTES;
 		ActualKeySize = XLOADER_LMS_HSS_KEY_SIZE_IN_BYTES;
-		LocalSignPaddingSize = XLOADER_LMS_HSS_SIGN_PADDING;
+		/* Pad is not constant. Length is derived from the key after the copy. */
+		LocalSignPaddingSize = 0U;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_LMS) {
 		TotalKeySize = XLOADER_LMS_TOTAL_KEY_SIZE_IN_BYTES;
 		ActualKeySize = XLOADER_LMS_KEY_SIZE_IN_BYTES;
-		LocalSignPaddingSize = XLOADER_LMS_SIGN_PADDING;
+		LocalSignPaddingSize = 0U;
 	} else if (AuthType == XLOADER_PUB_STRENGTH_MLDSA) {
 		TotalKeySize = XLOADER_MLDSA_KEY_SIZE_IN_BYTES;
 		ActualKeySize = XLOADER_MLDSA_KEY_SIZE_IN_BYTES;
@@ -3834,6 +4032,15 @@ static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
 		goto END;
 	}
 
+	Status = XST_FAILURE;
+	Status = XLoader_SetLmsActualSignSize(AuthType,
+			(const u8 *)SecurePtr->AcPtr->PPK.Key,
+			SecurePtr->AcPtr->AuthSignature, HBSignParams);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SPK_SIGN_COPY_FAIL, Status);
+		goto END;
+	}
+
 	/**
 	 * - Verify PPK Hash
 	 * - Authenticate the SPK
@@ -3884,6 +4091,16 @@ static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
 	Status = MetaHdrPtr->DeviceCopy(MetaHdrPtr->FlashOfstAddr + *ReadOffset,
 			(u64)(UINTPTR)&SecurePtr->AcPtr->AuthSignature,
 			HBSignParams->TotalAuthSignSize, 0x0U);
+	if (Status != XST_SUCCESS) {
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL,
+				Status);
+		goto END;
+	}
+
+	Status = XST_FAILURE;
+	Status = XLoader_SetLmsActualSignSize(AuthType,
+			(const u8 *)SecurePtr->AcPtr->SPK.Key,
+			SecurePtr->AcPtr->AuthSignature, HBSignParams);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL,
 				Status);

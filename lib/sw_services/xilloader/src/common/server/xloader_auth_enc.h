@@ -526,14 +526,18 @@ extern "C" {
 #define XLOADER_LMS_HSS_TOTAL_KEY_SIZE_IN_BYTES	(64U)
 	/**< Total LMS-HSS key size in bytes including padding */
 #define XLOADER_LMS_HSS_SIGN_PADDING		(12U)
-	/**< LMS-HSS signature padding size in bytes */
+	/**< Legacy LMS-HSS pad for two-level h20/w2 only. Actual length is derived
+	 * from the public key; alignment padding depends on parameter set and levels. */
+#define XLOADER_LMS_SIGN_ALIGN			(16U)
+	/**< LMS and LMS-HSS signatures are padded up to a 16-byte boundary */
 
 #define XLOADER_LMS_KEY_SIZE_IN_BYTES		(56U)
 	/**< LMS key size in bytes */
 #define XLOADER_LMS_TOTAL_KEY_SIZE_IN_BYTES	(64U)
 	/**< Total LMS key size in bytes including padding */
 #define XLOADER_LMS_SIGN_PADDING		(4U)
-	/**< LMS signature padding size in bytes */
+	/**< Legacy LMS pad for h20/w2 and w4. Actual length is derived from the
+	 * public key; see XLOADER_LMS_SIGN_ALIGN. */
 
 #define XLOADER_MLDSA_KEY_SIZE_IN_BYTES		(2592U)
 	/**< MLDSA key size in bytes */
