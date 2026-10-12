@@ -50,6 +50,7 @@
 *       pre  08/05/2026 Added macro to calculate I2C device ID for I2C handshake feature
 *       pre  08/15/2026 Added XLOADER_STORE_PRTN_HASH to gate partition hash table store
 *       pre  08/17/2026 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
+*       pre  10/09/2026 Added XLOADER_ERR_INVALID_ROW_RANGE error code
 *
 * </pre>
 *
@@ -380,6 +381,9 @@ enum {
 
 	/** 0x39 - Error while setting calibration skip flag */
 	XLOADER_ERR_SET_CALIB_SKIP_FLAG,
+
+	/** 0x3A - CFU row count is zero or does not match the rows checked */
+	XLOADER_ERR_INVALID_ROW_RANGE,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 };

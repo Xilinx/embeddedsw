@@ -108,6 +108,8 @@
 *       ng   09/09/2026 Added handler for Get tlbin Load Address command
 *                       for versal_2ve_2vm
 *       aa   09/15/2026 Added IDCODE bypass flag handling in Extract Metaheader
+*       pre  10/09/2026 Publish Image Store PDI entry only after the full DMA
+*                       transfer succeeds in XLoader_WriteImageStorePdi
 *
 * </pre>
 *
@@ -220,6 +222,12 @@ static XPlmi_Module XPlmi_Loader;
 
 #define XLOADER_DDR_ADDR_HIGH_IDX		(0U)
 #define XLOADER_DDR_ADDR_LOW_IDX		(1U)
+
+/* ResumeData layout for XLoader_WriteImageStorePdi */
+#define XLOADER_IMGSTORE_RESUME_ADDR_HIGH_INDEX	(0U)
+#define XLOADER_IMGSTORE_RESUME_ADDR_LOW_INDEX	(1U)
+#define XLOADER_IMGSTORE_RESUME_LIST_INDEX	(2U)
+#define XLOADER_IMGSTORE_RESUME_PDI_ID_INDEX	(3U)
 
 #if (!defined(PLM_SECURE_EXCLUDE))
 #if (defined(VERSAL_NET) && !defined(VERSAL_2VE_2VM))
@@ -791,33 +799,44 @@ static int XLoader_AddImageStorePdi(XPlmi_Cmd *Cmd)
 		if (PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
 			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
-		} else {
-			BufferList.BufferCount = PdiList->Count;
-			XPlmi_Printf(DEBUG_DETAILED, "Img Store add PdiId: 0x%x\n\r",PdiId);
-			BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
-			/* Re-Purpose MoveBuffer func to handle memory re-organisation */
-			Status = XPlmi_MoveBuffer(Index,&BufferList);
-			if (Status != XST_SUCCESS) {
-				goto END;
-			}
-			PdiList->Count--;
 		}
 	} else {
-
 		if(PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
 			Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 			goto END;
 		}
 	}
 
-	Index = PdiList->Count;
-	DestAddr = PdiList->ImgList[Index].PdiAddr;
-	SrcAddr = PdiAddr;
-
+	/**
+	 * Bring DDR up before any image-store update. A failure here must
+	 * leave the PDI list unchanged.
+	 */
 	Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
+
+	if (Index < PdiList->Count) {
+		BufferList.BufferCount = PdiList->Count;
+		XPlmi_Printf(DEBUG_DETAILED, "Img Store add PdiId: 0x%x\n\r",PdiId);
+		BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
+		/* Re-Purpose MoveBuffer func to handle memory re-organisation */
+		Status = XPlmi_MoveBuffer(Index,&BufferList);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/**
+		 * Drop the old entry before the new image is written. An earlier
+		 * image is compacted out by MoveBuffer. The last image has nothing
+		 * after it, so MoveBuffer leaves the bytes in place and this count
+		 * drop unpublishes that slot until the transfer succeeds.
+		 */
+		PdiList->Count--;
+	}
+
+	Index = PdiList->Count;
+	DestAddr = PdiList->ImgList[Index].PdiAddr;
+	SrcAddr = PdiAddr;
 
 	/* Call XPlmi_DmaTransfer with flags DMA0 and INCR */
 	Status = XPlmi_DmaTransfer(DestAddr, SrcAddr, PdiSize, XPLMI_PMCDMA_0);
@@ -847,6 +866,11 @@ END:
  *		- XLOADER_ERR_PDI_IMG_STORE_CFG_NOT_SET if image store configuration
  *		is not enabled or error.
  *		- XLOADER_ERR_PDI_IMG_STORE_FULL on PDI image list is full.
+ *
+ * @note	When replacing an existing PDI, its list entry is removed before
+ *		the first DMA because its storage may be required for the replacement.
+ *		A failure in the first or a later DMA chunk therefore leaves the old
+ *		PDI unpublished.
  *
  *****************************************************************************/
 static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
@@ -896,16 +920,6 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 			if (PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
 				Status = XLOADER_ERR_PDI_IMG_STORE_FULL;
 				goto END;
-			} else {
-				BufferList.BufferCount = PdiList->Count;
-				XPlmi_Printf(DEBUG_DETAILED, "Img Store PdiId : 0x%x\n\r",PdiId);
-				BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
-				/* Re-Purpose MoveBuffer func to handle memory re-organisation */
-				Status = XPlmi_MoveBuffer(Index,&BufferList);
-				if (Status != XST_SUCCESS) {
-					goto END;
-				}
-				PdiList->Count--;
 			}
 		} else {
 			if(PdiSize > (FreeImgStoreSpace/XPLMI_WORD_LEN)) {
@@ -913,24 +927,53 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 				goto END;
 			}
 		}
-		Index = PdiList->Count;
-		CurrPayloadLen = Cmd->PayloadLen - 1U;
-		SrcAddr = (u64)(UINTPTR)(&Cmd->Payload[1U]);
-		DestAddr = PdiList->ImgList[Index].PdiAddr;
-		/* Save the dest address to process remaining payload */
-		Cmd->ResumeData[0U] = (u32)((DestAddr >> 32U)& 0xFFFFFFFFU);
-		Cmd->ResumeData[1U] = (u32)(DestAddr & 0xFFFFFFFFU);
-		PdiList->ImgList[Index].PdiId = PdiId;
-		PdiList->ImgList[Index + 1].PdiAddr = PdiList->ImgList[Index].PdiAddr + (PdiSize * XPLMI_WORD_LEN);
-		PdiList->Count++;
+
+		/**
+		 * Bring DDR up before any image-store update. A failure here must
+		 * leave the PDI list unchanged.
+		 */
 		Status = XLoader_DdrInit(XLOADER_PDI_SRC_DDR);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+
+		if (Index < PdiList->Count) {
+			BufferList.BufferCount = PdiList->Count;
+			XPlmi_Printf(DEBUG_DETAILED, "Img Store PdiId : 0x%x\n\r",PdiId);
+			BufferList.Data = (XPlmi_BufferData*)&PdiList->ImgList[0];
+			/* Re-Purpose MoveBuffer func to handle memory re-organisation */
+			Status = XPlmi_MoveBuffer(Index,&BufferList);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
+			/**
+			 * Drop the old entry before the new image is written. An earlier
+			 * image is compacted out by MoveBuffer. The last image has nothing
+			 * after it, so MoveBuffer leaves the bytes in place and this count
+			 * drop unpublishes that slot until the transfer succeeds.
+			 */
+			PdiList->Count--;
+		}
+		Index = PdiList->Count;
+		CurrPayloadLen = Cmd->PayloadLen - 1U;
+		SrcAddr = (u64)(UINTPTR)(&Cmd->Payload[1U]);
+		DestAddr = PdiList->ImgList[Index].PdiAddr;
+		/* Save the dest address and list slot to process remaining payload */
+		Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_ADDR_HIGH_INDEX] =
+				(u32)((DestAddr >> 32U)& 0xFFFFFFFFU);
+		Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_ADDR_LOW_INDEX] =
+				(u32)(DestAddr & 0xFFFFFFFFU);
+		Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_LIST_INDEX] = Index;
+		/*
+		 * Payload[0] is the PDI ID only on the first chunk. Later chunks
+		 * start with image data, so keep the ID for the final publish.
+		 */
+		Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_PDI_ID_INDEX] = PdiId;
 	} else {
 		SrcAddr = (u64)(UINTPTR)(&Cmd->Payload[0U]);
-		DestAddr = (u64)(Cmd->ResumeData[0U]);
-		DestAddr = ((u64)Cmd->ResumeData[1U] | (DestAddr << 32U));
+		DestAddr = (u64)(Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_ADDR_HIGH_INDEX]);
+		DestAddr = ((u64)Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_ADDR_LOW_INDEX] |
+				(DestAddr << 32U));
 		CurrPayloadLen = Cmd->PayloadLen;
 	}
 
@@ -942,8 +985,23 @@ static int XLoader_WriteImageStorePdi(XPlmi_Cmd *Cmd)
 
 	/* Update destination address to handle resume case */
 	DestAddr += ((u64)CurrPayloadLen * XPLMI_WORD_LEN);
-	Cmd->ResumeData[0U] = (u32)((DestAddr >> 32U)& 0xFFFFFFFFU);
-	Cmd->ResumeData[1U] = (u32)(DestAddr & 0xFFFFFFFFU);
+	Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_ADDR_HIGH_INDEX] =
+			(u32)((DestAddr >> 32U)& 0xFFFFFFFFU);
+	Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_ADDR_LOW_INDEX] =
+			(u32)(DestAddr & 0xFFFFFFFFU);
+
+	/**
+	 * Publish the image-store entry only after the full PDI has been
+	 * written. An earlier failure leaves no new PdiId in the list.
+	 */
+	if (Cmd->Len == (Cmd->ProcessedLen + Cmd->PayloadLen)) {
+		Index = Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_LIST_INDEX];
+		PdiList->ImgList[Index].PdiId =
+				Cmd->ResumeData[XLOADER_IMGSTORE_RESUME_PDI_ID_INDEX];
+		PdiList->ImgList[Index + 1U].PdiAddr =
+				PdiList->ImgList[Index].PdiAddr + ((u64)PdiSize * XPLMI_WORD_LEN);
+		PdiList->Count++;
+	}
 
 END:
 	return Status;

@@ -22,6 +22,7 @@
 *       pre 08/05/26 Removed unused error code
 *       sri 08/24/26 Declare XLoader_CheckAndUpdateSecureState for OCP secure state (Versal Net reuse)
 *       pre 09/02/26 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
+*       pre 10/09/26 Added XLOADER_ERR_INVALID_ROW_RANGE error code
 *
 * </pre>
 *
@@ -351,6 +352,9 @@ enum {
 
 	/** 0x39 - Error while setting calibration skip flag */
 	XLOADER_ERR_SET_CALIB_SKIP_FLAG,
+
+	/** 0x3A - CFU row count is zero or does not match the rows checked */
+	XLOADER_ERR_INVALID_ROW_RANGE,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */

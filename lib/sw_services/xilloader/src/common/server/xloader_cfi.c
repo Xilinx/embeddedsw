@@ -48,6 +48,8 @@
 *       pre   08/25/2024 Fixed build issue for PLM_DEBUG_MODE
 *       pre   10/22/2024 Made CFI_selective_read feature configurable
 * 2.30  obs   08/26/2025 Added support for address range checks
+* 2.5   pre   10/09/2026 Initialize CFU instance before CFI/CFU error handling.
+*                        Fail Cframe data-clear check when CFU row count is zero.
 *
 * </pre>
 *
@@ -106,6 +108,7 @@
                                                        * Error shift */
 
 /************************** Function Prototypes ******************************/
+static void XLoader_CfuInit(XCfupmc *InstancePtr);
 static void XLoader_CfiErrHandler(const XCfupmc *InstancePtr);
 static void XLoader_CfuErrHandler(const XCfupmc *InstancePtr);
 #endif
@@ -161,6 +164,29 @@ END:
 }
 
 #ifndef PLM_DEBUG_MODE
+/*****************************************************************************/
+/**
+ * @brief	This function initializes the CFU driver instance used by the
+ *		CFI and CFU error handlers.
+ *
+ * @param	InstancePtr is a pointer to the XCfupmc instance.
+ *
+ *****************************************************************************/
+static void XLoader_CfuInit(XCfupmc *InstancePtr)
+{
+	XCfupmc_Config CfuConfig = {0U};
+
+	/**
+	 * Error handlers only require a non-NULL instance today, but the CFU
+	 * driver contract is that CfgInitialize runs before any use. The
+	 * instance is zeroed by the caller first so a failed initialize still
+	 * leaves a defined object.
+	 */
+	CfuConfig.BaseAddress = CFU_APB_BASEADDR;
+	(void)XCfupmc_CfgInitialize(InstancePtr, &CfuConfig,
+			(u32)CfuConfig.BaseAddress);
+}
+
 /*****************************************************************************/
 /**
  * @brief	This function is used for Cframe error handling
@@ -224,7 +250,7 @@ void XLoader_CframeErrorHandler(u32 ImageId)
 	u32 CfuIsrStatus = XPlmi_In32(CFU_APB_CFU_ISR);
 	u32 CfuStatus = XPlmi_In32(CFU_APB_CFU_STATUS);
 #ifndef PLM_DEBUG_MODE
-	XCfupmc XLoader_CfuIns; /** CFU Driver Instance */
+	XCfupmc XLoader_CfuIns = {0U}; /** CFU Driver Instance */
 	u8 CfiErrStatus;
 	u32 CountVal = XPlmi_In32(CFU_APB_CFU_QWORD_CNT);
 	u8 PlHouseClean = (u8)(((CountVal != 0U) &&
@@ -244,6 +270,9 @@ void XLoader_CframeErrorHandler(u32 ImageId)
 		CfiErrStatus = (u8)((Err2Status & PMC_GLOBAL_PMC_ERR2_STATUS_CFI_MASK)
 			>> PMC_GLOBAL_PMC_ERR2_STATUS_CFI_SHIFT);
 	}
+
+	/** - Initialize CFU driver instance before error recovery. */
+	XLoader_CfuInit(&XLoader_CfuIns);
 
 	/**
 	 * - Execute CfiErrorHandler.
@@ -282,13 +311,18 @@ void XLoader_CframeErrorHandler(u32 ImageId)
  * 			- XLOADER_CFI_CFRAME_IS_BUSY if CRAM self check fails as CFI
  * 			CFrame is busy.
  * 			- XLOADER_CFRAME_CRC_CHECK_FAILED if CFRAME CRC check fails.
+ * 			- XLOADER_ERR_INVALID_ROW_RANGE if CFU row count is zero or the
+ * 			CRC walk does not cover every row. Zero is not a valid row count;
+ * 			it means the CFU is in reset or not configured, and treating it as
+ * 			success would skip the CRAM clear check.
  *
  *****************************************************************************/
 int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_FAILURE;
 	u32 BlockType = Cmd->Payload[0U];
-	u32 RowRange;
+	volatile u32 RowRange = 0U;
+	volatile u32 RowRangeTmp = 0U;
 	u32 MaxRowRange = XPlmi_In32(CFU_APB_CFU_ROW_RANGE) & CFU_APB_CFU_ROW_RANGE_NUM_MASK;
 	Xuint128 CframeData = {0x0U};
 
@@ -298,6 +332,17 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 	/** - Check if the block type is valid */
 	if (BlockType >= CFRAME_MAX_BLOCK_TYPE_COUNT) {
 		Status = XLOADER_INVALID_BLOCKTYPE;
+		goto END;
+	}
+
+	/**
+	 * - CFU_ROW_RANGE.NUM is the device row count. No supported device
+	 * reports zero rows. Zero means the CFU is in reset or has not been
+	 * configured. A zero count skips the CRC loop and would otherwise
+	 * return success without proving that CRAM was cleared.
+	 */
+	if (MaxRowRange == 0U) {
+		Status = XLOADER_ERR_INVALID_ROW_RANGE;
 		goto END;
 	}
 
@@ -339,6 +384,16 @@ int XLoader_CframeDataClearCheck(XPlmi_Cmd *Cmd)
 			Status = XLOADER_CFRAME_CRC_CHECK_FAILED;
 			goto END;
 		}
+		RowRangeTmp++;
+	}
+
+	/**
+	 * - Fail if both counters do not confirm that the CRC walk covered every
+	 * row. A zero row count is already rejected before the walk.
+	 */
+	if ((RowRange != MaxRowRange) || (RowRangeTmp != MaxRowRange)) {
+		Status = XLOADER_ERR_INVALID_ROW_RANGE;
+		goto END;
 	}
 
 	/** - Clear CRAM Self Check */
