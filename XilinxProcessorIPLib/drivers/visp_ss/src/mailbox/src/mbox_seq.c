@@ -17,7 +17,7 @@
 #define MBOX_SEQ_MAX INT32_MAX
 
 /*
- * Bounds for the "unified receiver rule" shared with visp_mbox/telluride_isp_fw:
+ * Bounds for the "unified receiver rule" shared with visp_mbox
  * a small forward gap is normal message loss and is accepted/resynced
  * immediately, while a backward/stale value or an implausibly large gap is
  * only trusted after it repeats, so a forced resync only happens after a run
