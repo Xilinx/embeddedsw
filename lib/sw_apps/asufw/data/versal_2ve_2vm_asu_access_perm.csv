@@ -7,7 +7,7 @@ sha3_operation,SHA3(0x2),0x200,3,3,3,3,3,3,3,3,Performs SHA3 operation
 sha3_kat,SHA3(0x2),0x201,3,3,3,3,3,3,3,3,Performs Known Answer Test on SHA3 crypto engine
 ecc_sign_generation,ECC(0x3),0x300,3,3,3,3,3,3,3,3,Performs ECC sign generation operation
 ecc_sign_verification,ECC(0x3),0x301,3,3,3,3,3,3,3,3,Performs ECC sign verification operation
-ecc_kat,ECC(0x3),0x302,3,3,3,3,3,3,3,3,Performs Known Answer Test on ECC crypto engine
+ecc_kat,ECC(0x3),0x302,3,3,3,3,3,3,3,3,Performs Known Answer Test on ECC and RSA crypto engines
 ecdh_shared_secret,ECC(0x3),0x303,3,3,3,3,3,3,3,3,Performs ECDH shared secret generation operation
 ecdh_kat,ECC(0x3),0x304,3,3,3,3,3,3,3,3,Performs ECDH Known Answer Test on RSA crypto engine
 ecc_pubkey_generation,ECC(0x3),0x305,3,3,3,3,3,3,3,3,Performs ECC public key generation operation
@@ -47,8 +47,9 @@ ocp_devak_x509_cert_gen,OCP(0xB),0xB01,3,3,3,3,3,3,3,3,Performs DevAK X509 certi
 ocp_devik_csr_x509_cert_gen,OCP(0xB),0xB02,3,3,3,3,3,3,3,3,Performs DevIK CSR X509 certificate generation operation
 ocp_devak_attestation,OCP(0xB),0xB03,3,3,3,3,3,3,3,3,Performs DevAK attestation operation
 ocp_ude_challenge_req,OCP(0xB),0xB04,3,3,3,3,3,3,3,3,Performs UDE challenge request operation
-ocp_ude_pvt_key_encrypt,OCP(0xB),0xB05,3,3,3,3,3,3,3,3,Performs UDE private keys encryption operation
+ocp_reserved,OCP(0xB),0xB05,0,0,0,0,0,0,0,0,Reserved command ID (previously used for UDE private keys encryption)
 ocp_get_huk,OCP(0xB),0xB06,3,3,3,3,3,3,3,3,Performs Hardware Unique Key generation operation
+ocp_user_x509_cert_gen,OCP(0xB),0xB07,3,3,3,3,3,3,3,3,Performs user X509 certificate generation operation using key vault keys
 km_create_keyvault,KeyManager(0xC),0xC00,3,3,3,3,3,3,3,3,Performs key vault creation operation
 km_delete_keyvault,KeyManager(0xC),0xC01,3,3,3,3,3,3,3,3,Performs key vault deletion operation
 km_delete_key,KeyManager(0xC),0xC02,3,3,3,3,3,3,3,3,Performs key deletion operation from key vault
@@ -60,9 +61,29 @@ km_gen_ecc_key_pair,KeyManager(0xC),0xC07,3,3,3,3,3,3,3,3,Performs ECC key pair 
 km_store_key,KeyManager(0xC),0xC08,3,3,3,3,3,3,3,3,Stores a pre-generated key into the key vault
 km_export_keyvault,KeyManager(0xC),0xC09,3,3,3,3,3,3,3,3,Exports the contents of a key vault
 km_import_keyvault,KeyManager(0xC),0xC0A,3,3,3,3,3,3,3,3,Imports a previously exported key vault
+km_set_epoch_time,KeyManager(0xC),0xC0B,3,3,3,3,3,3,3,3,Sets the current epoch time against which key expiry is checked
+km_gen_mldsa_key_pair,KeyManager(0xC),0xC0C,3,3,3,3,3,3,3,3,Performs ML-DSA key pair generation and stores it in the key vault or returns it to the user buffer based on input
+km_gen_mlkem_key_pair,KeyManager(0xC),0xC0D,3,3,3,3,3,3,3,3,Performs ML-KEM key pair generation and stores it in the key vault or returns it to the user buffer based on input
 km_xor_key,KeyManager(0xC),0xC0E,3,3,3,3,3,3,3,3,Combines two AES key splits using XOR and stores the combined key in the specified or first free key vault slot
+km_gen_slhdsa_key_pair,KeyManager(0xC),0xC0F,3,3,3,3,3,3,3,3,Performs SLH-DSA key pair generation and returns it to the user buffers
 lms_sign_verify_sha2,LMS(0xD),0xD00,3,3,3,3,3,3,3,3,Performs LMS signature verification using SHA2 crypto engine
 lms_sign_verify_sha3,LMS(0xD),0xD01,3,3,3,3,3,3,3,3,Performs LMS signature verification using SHA3 crypto engine
 hss_sign_verify_sha2,LMS(0xD),0xD02,3,3,3,3,3,3,3,3,Performs HSS signature verification using SHA2 crypto engine
 hss_sign_verify_sha3,LMS(0xD),0xD03,3,3,3,3,3,3,3,3,Performs HSS signature verification using SHA3 crypto engine
 hss_kat,LMS(0xD),0xD04,3,3,3,3,3,3,3,3,Performs Known Answer Test on HSS/LMS crypto algorithm
+provision_user_efuse,Provision(0xE),0xE00,3,3,3,3,3,3,3,3,Performs USER eFUSE key provisioning
+provision_ude,Provision(0xE),0xE01,3,3,3,3,3,3,3,3,Performs Unique Device Endorsement (UDE) key provisioning
+provision_get_dpc,Provision(0xE),0xE02,3,3,3,3,3,3,3,3,Generates and returns the Device Provisioning Certificate (DPC)
+provision_delete_dpc,Provision(0xE),0xE03,3,3,3,3,3,3,3,3,Deletes the provisioning key pairs backing the DPC
+provision_wrap_instr,Provision(0xE),0xE04,3,3,3,3,3,3,3,3,Performs wrapping of provisioning instructions
+provision_unwrap_instr,Provision(0xE),0xE05,3,3,3,3,3,3,3,3,Performs unwrapping of provisioning instructions
+mldsa_sign,MLDSA(0xF),0xF00,3,3,3,3,3,3,3,3,Performs ML-DSA signature generation operation
+mldsa_verify,MLDSA(0xF),0xF01,3,3,3,3,3,3,3,3,Performs ML-DSA signature verification operation
+mldsa_kat,MLDSA(0xF),0xF02,3,3,3,3,3,3,3,3,Performs Known Answer Test on ML-DSA crypto algorithm
+mlkem_encaps,MLKEM(0x10),0x1000,3,3,3,3,3,3,3,3,Performs ML-KEM encapsulation operation
+mlkem_decaps,MLKEM(0x10),0x1001,3,3,3,3,3,3,3,3,Performs ML-KEM decapsulation operation
+mlkem_kat,MLKEM(0x10),0x1002,3,3,3,3,3,3,3,3,Performs Known Answer Test on ML-KEM crypto algorithm
+plext_operation,PLEXT(0x11),0x1100,3,3,3,3,3,3,3,3,Performs AES operation using the PL crypto block
+slhdsa_sign,SLHDSA(0x12),0x1200,3,3,3,3,3,3,3,3,Performs SLH-DSA signature generation operation using the user provided secret key
+slhdsa_sign_verify,SLHDSA(0x12),0x1201,3,3,3,3,3,3,3,3,Performs SLH-DSA signature verification operation
+slhdsa_kat,SLHDSA(0x12),0x1202,3,3,3,3,3,3,3,3,Performs signature verification Known Answer Test on SLH-DSA crypto algorithm

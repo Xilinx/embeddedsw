@@ -45,7 +45,7 @@
 *   CtxLen 0 uses FIPS empty context (0x00 || 0x00). See xasu_slhdsainfo.h.
 *
 * Supported commands:
-* - XASU_SLHDSA_SIGN_CMD_ID: sign message (secure IPI access).
+* - XASU_SLHDSA_SIGN_CMD_ID: sign message (full IPI access).
 * - XASU_SLHDSA_SIGN_VERIFY_CMD_ID: verify signature (full IPI access).
 * - XASU_SLHDSA_KAT_CMD_ID: run SLH-DSA operation KAT (full IPI access).
 *
@@ -125,7 +125,6 @@ static XTask_TaskNode *XAsufw_SlhdsaParkedQueueTask = NULL; /**< Queue task owni
 *	- XASUFW_SUCCESS, if SLH-DSA module initialization is successful.
 *	- XASUFW_SLHDSA_MODULE_REGISTRATION_FAILED, if module registration fails.
 *	- XASUFW_TASK_INVALID_HANDLER, if the cooperative yield resume task cannot be created.
-*	- XASUFW_FAILURE, if initialization fails.
 *
 *************************************************************************************************/
 s32 XAsufw_SlhdsaInit(void)
@@ -163,11 +162,10 @@ s32 XAsufw_SlhdsaInit(void)
 
 	/**
 	 * The XAsufw_SlhdsaAccessPermBuf contains the IPI access permissions for each supported
-	 * command. Keygen and sign touch secret key material and are restricted to secure IPI
-	 * access; verify and KAT use only public data.
+	 * command.
 	 */
 	static XAsufw_AccessPerm_t XAsufw_SlhdsaAccessPermBuf[XASU_SLHDSA_MAX_CMDS] = {
-		[XASU_SLHDSA_SIGN_CMD_ID] = XASUFW_ALL_IPI_SECURE_ACCESS(XASU_SLHDSA_SIGN_CMD_ID),
+		[XASU_SLHDSA_SIGN_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SLHDSA_SIGN_CMD_ID),
 		[XASU_SLHDSA_SIGN_VERIFY_CMD_ID] =
 			XASUFW_ALL_IPI_FULL_ACCESS(XASU_SLHDSA_SIGN_VERIFY_CMD_ID),
 		[XASU_SLHDSA_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_SLHDSA_KAT_CMD_ID),

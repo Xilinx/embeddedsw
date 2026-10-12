@@ -44,8 +44,8 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 
 /* SHA module command IDs */
-#define XASU_SHA_OPERATION_CMD_ID		(0U) /**< Command ID for SHA3 operation command */
-#define XASU_SHA_KAT_CMD_ID			(1U) /**< Command ID for SHA3 KAT command */
+#define XASU_SHA_OPERATION_CMD_ID		(0U) /**< Command ID for SHA2/3 operation command */
+#define XASU_SHA_KAT_CMD_ID			(1U) /**< Command ID for SHA2/3 KAT command */
 #define XASU_SHA_MAX_CMDS			(2U) /**< Maximum number of commands supported by SHA module */
 
 /* SHA modes */
