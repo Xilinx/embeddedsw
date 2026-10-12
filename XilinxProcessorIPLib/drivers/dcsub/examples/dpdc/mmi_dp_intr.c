@@ -19,6 +19,7 @@
 #include "xmmidp.h"
 #include "mmi_dp_intr.h"
 #include "mmi_dp_init.h"
+#include "mmi_dpdc_platform.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -49,7 +50,8 @@ void XDpDc_DisableDpAudioSdpStreams(XMmiDp *DpPtr)
 *
 
 * This function is the HPD hot plug (connect) callback. It reads sink
-* capabilities, runs link training, and sets up the video stream.
+* capabilities, runs link training, releases the DC block reset, and sets up
+* the video stream.
 *
 * @param	CallbackRef is a pointer to the RunConfig structure.
 *
@@ -72,6 +74,13 @@ void XDpDc_HpdHotplugHandler(void *CallbackRef)
 						    RunCfgPtr->MaxLinkRate);
 	if (Status != XST_SUCCESS) {
 		xil_printf("[HPD] ERROR: Link training failed\r\n");
+		return;
+	}
+
+	/* DP video stream registers latch only after the DC leaves reset */
+	Status = XDpDc_ReleaseDcReset();
+	if (Status != XST_SUCCESS) {
+		xil_printf("[HPD] ERROR: Failed to release DC block reset\r\n");
 		return;
 	}
 

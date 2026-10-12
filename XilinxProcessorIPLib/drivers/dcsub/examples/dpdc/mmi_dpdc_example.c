@@ -29,6 +29,7 @@
 #include "xdcsub.h"
 #include "mmi_dpdc_menus.h"
 #include "mmi_dc_nonlive_test.h"
+#include "mmi_dpdc_platform.h"
 #if defined (XPAR_XVTC_NUM_INSTANCES)
 #include "mmi_dc_live_test.h"
 #include "mmi_dc_mixed_test.h"
@@ -570,6 +571,15 @@ restart:
         xil_printf("--------------------------------------------------\r\n");
         xil_printf("  RESULT: PASS\r\n");
         xil_printf("==================================================\r\n");
+    }
+
+    /*
+     * The DC is configured in block reset. The HPD handler releases it
+     * after DP link training.
+     */
+    if (XDpDc_AssertDcReset() != XST_SUCCESS) {
+        xil_printf("  ERROR: Failed to assert DC block reset\r\n");
+        goto restart;
     }
 
     if (RunCfg.operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {

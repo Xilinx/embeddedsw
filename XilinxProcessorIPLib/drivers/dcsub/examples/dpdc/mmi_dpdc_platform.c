@@ -41,6 +41,11 @@
 #define XDCDMA_INTR_ID			179
 #define XDCDMA_INTR_PARENT		0xe2000000
 
+/** RST_DC write attempts before giving up */
+#define XDPDC_DC_RST_RETRIES		5U
+/** Wait after each RST_DC write, in microseconds */
+#define XDPDC_DC_RST_DELAY_US		10U
+
 static RunConfig *XDpDc_IrqRunCfgPtr;
 static u8 XDpDc_CursorToSdpPending;
 static u32 XDpDc_CursorFramesRemaining;
@@ -89,6 +94,91 @@ u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr)
 		Count++;
 	}
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function writes the DC reset bits in MMI_CRX.RST_DC and waits for them
+* to read back. RST_DC is write protected: WPROTS and WPROTP must be written
+* with XMMI_CRX_WPROT_DISABLE (0) before the RST_DC write takes effect. Their
+* previous values are restored after the write. The write is retried up to
+* XDPDC_DC_RST_RETRIES times.
+*
+* @param	Val is the new value of the XMMI_CRX_RST_DC_MASK bits.
+*
+* @return	XST_SUCCESS if the reset bits read back as Val, else
+*		XST_FAILURE
+*
+* @note		None.
+*
+*****************************************************************************/
+static u32 XDpDc_WriteDcReset(u32 Val)
+{
+	u32 WprotS, WprotP, Reg;
+	u32 Retry;
+
+	for (Retry = 0U; Retry < XDPDC_DC_RST_RETRIES; Retry++) {
+		WprotS = XMmiCrx_ReadReg(XMMI_CRX_BASEADDR, XMMI_CRX_WPROTS);
+		WprotP = XMmiCrx_ReadReg(XMMI_CRX_BASEADDR, XMMI_CRX_WPROTP);
+		XMmiCrx_WriteReg(XMMI_CRX_BASEADDR, XMMI_CRX_WPROTS,
+				 XMMI_CRX_WPROT_DISABLE);
+		XMmiCrx_WriteReg(XMMI_CRX_BASEADDR, XMMI_CRX_WPROTP,
+				 XMMI_CRX_WPROT_DISABLE);
+
+		Reg = XMmiCrx_ReadReg(XMMI_CRX_BASEADDR, XMMI_CRX_RST_DC);
+		XMmiCrx_WriteReg(XMMI_CRX_BASEADDR, XMMI_CRX_RST_DC,
+				 (Reg & ~XMMI_CRX_RST_DC_MASK) | Val);
+
+		XMmiCrx_WriteReg(XMMI_CRX_BASEADDR, XMMI_CRX_WPROTS, WprotS);
+		XMmiCrx_WriteReg(XMMI_CRX_BASEADDR, XMMI_CRX_WPROTP, WprotP);
+		usleep(XDPDC_DC_RST_DELAY_US);
+
+		Reg = XMmiCrx_ReadReg(XMMI_CRX_BASEADDR, XMMI_CRX_RST_DC);
+		if ((Reg & XMMI_CRX_RST_DC_MASK) == Val)
+			return XST_SUCCESS;
+	}
+
+	xil_printf("  ERROR: MMI_CRX.RST_DC reads 0x%x, expected 0x%x\r\n",
+		   Reg & XMMI_CRX_RST_DC_MASK, Val);
+
+	return XST_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function asserts the DC block reset and releases SS_CFG_POR in
+* MMI_CRX.RST_DC, whatever state the boot CDO left them in. The DC is then
+* configured in reset. XDpDc_ReleaseDcReset() takes it out of reset after
+* DP link training.
+*
+* @return	XST_SUCCESS if RST_DC reads back as requested, else
+*		XST_FAILURE
+*
+* @note		None.
+*
+*****************************************************************************/
+u32 XDpDc_AssertDcReset(void)
+{
+	return XDpDc_WriteDcReset(XMMI_CRX_RST_DC_BLK_MASK);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function releases the DC block reset in MMI_CRX.RST_DC. Call it after
+* DP link training and before the DP video stream is configured. The DP video
+* stream registers do not latch while the DC block reset is asserted.
+*
+* @return	XST_SUCCESS if RST_DC reads back released, else XST_FAILURE
+*
+* @note		None.
+*
+*****************************************************************************/
+u32 XDpDc_ReleaseDcReset(void)
+{
+	return XDpDc_WriteDcReset(XMMI_CRX_RST_DC_RELEASE);
 }
 
 /*****************************************************************************/
