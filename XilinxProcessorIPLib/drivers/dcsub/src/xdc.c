@@ -830,8 +830,9 @@ void XDc_SetCursorBlend(XDc *InstancePtr)
 	Cursor = &InstancePtr->Blender.Cursor;
 
 	CoordVal = XDC_CURSOR_ENABLE_MASK;
-	CoordVal |= Cursor->CoordY << XDC_CURSOR_COORD_Y_SHIFT;
-	CoordVal |= Cursor->CoordX;
+	CoordVal |= (Cursor->CoordY << XDC_CURSOR_COORD_Y_SHIFT) &
+		    XDC_CURSOR_COORD_Y_MASK;
+	CoordVal |= Cursor->CoordX & XDC_CURSOR_COORD_X_MASK;
 
 	SizeVal = Cursor->SizeY << XDC_CURSOR_SIZE_Y_SHIFT;
 	SizeVal |= Cursor->SizeX;

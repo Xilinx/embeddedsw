@@ -362,8 +362,8 @@ typedef struct {
  * */
 typedef struct {
 
-	u8 CoordY;
-	u8 CoordX;
+	u16 CoordY;
+	u16 CoordX;
 	u8 SizeY;
 	u8 SizeX;
 
