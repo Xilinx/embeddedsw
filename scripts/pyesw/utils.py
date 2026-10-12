@@ -535,6 +535,7 @@ def runcmd(
     error_message=None,
     verbose_level=None,
     capture_output=False,
+    suppress_regex=None,
 ):
     """
     Run the shell commands.
@@ -542,6 +543,8 @@ def runcmd(
     Args:
         | cmd: shell command that needs to be called
         | logfile: file to save the command output if required
+        | suppress_regex: optional regex; matching output lines are not printed.
+          Applies only when capture_output is True.
     """
 
     try:
@@ -550,6 +553,7 @@ def runcmd(
         if not capture_output:
             subprocess.check_call(cmd, cwd=cwd, shell=True)
         else:
+            pattern = re.compile(suppress_regex) if suppress_regex else None
             with subprocess.Popen(
                 cmd,
                 shell=True,
@@ -560,6 +564,8 @@ def runcmd(
                 cwd=cwd,
             ) as process:
                 for line in process.stdout:
+                    if pattern is not None and pattern.search(line):
+                        continue
                     print(line.strip("\n"))
                 if process.wait() != 0:
                     raise subprocess.CalledProcessError(process.returncode, cmd)

@@ -413,12 +413,19 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                                 error_message="Could not process the domain_yaml",
                             )
             if not domain_dts:
+                # Lopper drops alias/symbol refs whose target nodes were pruned.
+                # Those messages are expected and clutter the Vitis log.
+                dangling_path_ref_warning = (
+                    r"\[tree\.py\]\[WARNING\]: strict: dropping dangling path-ref"
+                )
                 if lops_file:
                     utils.runcmd(
                         f"lopper -f --enhanced -O {self.domain_dir} -i {lops_file} -i lop-ttc-split.dts {self.sdt} {out_dts_path} -- gen_domain_dts {self.proc} {self.app}",
                         log_message=f"Generating Domain-specific DTS for {self.proc}",
                         error_message=f"Domain specific DT generation for {self.proc} failed",
                         verbose_level=0,
+                        capture_output=True,
+                        suppress_regex=dangling_path_ref_warning,
                     )
                 else:
                     utils.runcmd(
@@ -426,6 +433,8 @@ set( CMAKE_SUBMACHINE "VersalNet" CACHE STRING "cmake submachine" FORCE)
                         log_message=f"Generating Domain-specific DTS for {self.proc}",
                         error_message=f"Domain specific DT generation for {self.proc} failed",
                         verbose_level=0,
+                        capture_output=True,
+                        suppress_regex=dangling_path_ref_warning,
                     )
         else:
             out_dts_path = self.sdt
