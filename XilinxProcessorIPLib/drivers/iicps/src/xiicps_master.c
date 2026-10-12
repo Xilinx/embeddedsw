@@ -325,6 +325,8 @@ static s32 XIicPs_MasterWaitSendComplete(XIicPs *InstancePtr,
 		}
 	}
 
+	XIicPs_ClearHold(InstancePtr);
+
 	/*
 	 * Set the status to success if there is no transfer error
 	 * and the operation has not timed out.
@@ -588,8 +590,6 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	IntrStatusReg = XIicPs_MasterSendRemainingData(InstancePtr, Intrs);
 	Status = XIicPs_MasterWaitSendComplete(InstancePtr, Intrs,
 						IntrStatusReg);
-
-	XIicPs_ClearHold(InstancePtr);
 
 	return Status;
 }

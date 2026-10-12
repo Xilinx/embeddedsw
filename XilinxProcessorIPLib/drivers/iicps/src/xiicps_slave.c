@@ -144,8 +144,7 @@ static s32 XIicPs_SlaveSendData(XIicPs *InstancePtr)
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 
-	Value = ((InstancePtr->SendByteCount > (s32)0) &&
-		 (Error == 0));
+	Value = (InstancePtr->SendByteCount > (s32)0);
 
 	while (Value != FALSE) {
 		/*
