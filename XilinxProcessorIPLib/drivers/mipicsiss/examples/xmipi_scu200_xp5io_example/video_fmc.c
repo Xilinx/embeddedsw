@@ -375,7 +375,11 @@ int Vfmc_I2cMuxSelect(XVfmc *VfmcPtr)
 * @note   None.
 *
 ******************************************************************************/
+#ifndef SDT
+u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, u16 GpioDeviceId, void *IicPtr,
+#else
 u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
+#endif
 		XVfmc_Location Loc)
 {
 	int Status;
@@ -409,7 +413,11 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 
 	/* Initialize GPIO for VFMC */
 	Gpio_Vfmc_ConfigPtr =
+#ifndef SDT
+		XGpio_LookupConfig(GpioDeviceId);
+#else
 		XGpio_LookupConfig(GpioBaseAddr);
+#endif
 
 	if(Gpio_Vfmc_ConfigPtr == NULL) {
 		VfmcPtr->Gpio.IsReady = 0;
@@ -489,9 +497,9 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 #if defined (XPS_BOARD_VEK280) || \
 	defined (XPS_BOARD_VEK385) || \
 	defined (XPS_BOARD_SCU200)
-	xil_printf("Before IDT_8T49N24x_Init\r\n");
 
 	Status |= IDT_8T49N24x_Init(Iic_Ptr, VFMC_I2C_IDT8N49_ADDR1);
+
 	Status |= IDT_8T49N24x_GpioLolEnable(Iic_Ptr,
 					VFMC_I2C_IDT8N49_ADDR1);
 
@@ -504,6 +512,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 		xil_printf("Failed to initialize IDT 8T49N241.\r\n");
 		return XST_FAILURE;
 	}
+
+
 
 #if defined (XPS_BOARD_VEK280) || \
     defined (XPS_BOARD_VEK385) || \
@@ -524,6 +534,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 		return XST_FAILURE;
 	}
 #endif
+
+
 
 #ifdef XPAR_XV_HDMITXSS1_NUM_INSTANCES
 	/* Check if mezzanine card is with an active device */
@@ -583,6 +595,7 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 	/* TX Mezzanine Init Done */
 	Vfmc_Gpio_Led_On(VfmcPtr, VFMC_GPIO_TX_LED0, TRUE);
 #endif
+
 
 
 #ifdef XPAR_XV_HDMIRXSS1_NUM_INSTANCES

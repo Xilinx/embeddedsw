@@ -9,8 +9,8 @@
 *
 * @file main.c
 *
-* This file demonstrates how to use Xilinx MIPI CSI RX Subsystem, Demosaic
-* GammaLUT,VPSS CSC, VPSS Scaler , Frame Buffer Read and Write
+* This file demonstrates how to use Xilinx MIPI CSI RX Subsystem, MIPI DSI TX Subsystem
+*Demosaic, GammaLUT,VPSS CSC, VPSS Scaler , Frame Buffer Read and Write
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -24,7 +24,11 @@
 #include "xil_cache.h"
 #include "xgpio_l.h"
 #include "xiic.h"
+#ifndef SDT
+#include "xscugic.h"
+#else
 #include "xinterrupt_wrap.h"
+#endif
 #include "xuartlite_l.h"
 #include "xvidc.h"
 #include "platform.h"
@@ -36,6 +40,7 @@
 #include "xcsiss.h"
 #include "xhdmi_example.h"
 #include "xhdmi_menu.h"
+#include "dsi_txss_display.h"
 
 
 int config_hdmi();
@@ -70,9 +75,18 @@ extern XHdmi_Exdes xhdmi_exdes_ctrlr;
 extern XHdmi_Menu_ExDes_Ctrlr ExDesCtrlr;
 
 #define VPROCSSCSC_BASE	XPAR_XVPROCSS_1_BASEADDR
+#ifndef SDT
+#define DEMOSAIC_BASE	XPAR_XV_DEMOSAIC_0_S_AXI_CTRL_BASEADDR
+#define VGAMMALUT_BASE	XPAR_XV_GAMMA_LUT_0_S_AXI_CTRL_BASEADDR
+#else
 #define DEMOSAIC_BASE_1		XPAR_XV_DEMOSAIC_0_BASEADDR
 #define VGAMMALUT_BASE_1	XPAR_XV_GAMMA_LUT_0_BASEADDR
+#endif
 
+#ifndef SDT
+#define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
+#define XDSITXSS_INTR_ID	XPAR_FABRIC_MIPI_DSI_TX_SUBSYSTEM_0_INTERRUPT_INTR
+#endif
 
 #define DSI_BYTES_PER_PIXEL	(3)
 #define DSI_H_RES		(1920)
@@ -93,7 +107,11 @@ extern XHdmi_Menu_ExDes_Ctrlr ExDesCtrlr;
 XCsiSs CsiSs;
 XCsiSs_Config XCsiSs_ConfigPtr;
 
+#ifndef SDT
+#define XGPIO_TREADY_DEVICE_ID	XPAR_GPIO_0_DEVICE_ID
+#else
 #define XGPIO_TREADY_BASE XPAR_XGPIO_0_BASEADDR
+#endif
 XGpio Gpio_Tready;
 
 extern	XV_HdmiTxSs1  HdmiTxSs;
@@ -115,9 +133,15 @@ extern u8   			  IsTxPresent;
  *****************************************************************************/
 void DisableImageProcessingPipe(void)
 {
+#ifndef SDT
+	Xil_Out32((DEMOSAIC_BASE + 0x00), 0x0   );
+	Xil_Out32((VGAMMALUT_BASE + 0x00), 0x0   );
+	Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
+#else
 	Xil_Out32((DEMOSAIC_BASE_1 + 0x00), 0x0   );
 	Xil_Out32((VGAMMALUT_BASE_1 + 0x00), 0x0   );
 	//Xil_Out32((VPROCSSCSC_BASE + 0x00), 0x0  );
+#endif
 }
 
 
@@ -150,6 +174,22 @@ void InitImageProcessingPipe(u32 width, u32 height)
 
 void SelectHDMIOutput(void) {
 	XGpio_DiscreteWrite(&Gpio_Tready, 1, 0);
+}
+
+/*****************************************************************************/
+/**
+ * This function programs GPIO to '1' to select the DSI output path on the
+ * AXI4-Stream Switch (inverse of SelectHDMIOutput()'s '0'). Polarity is
+ * inferred from SelectHDMIOutput() already using this exact GPIO for HDMI —
+ * verify on hardware and flip if the DSI path doesn't light up.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void SelectDSIOutput(void) {
+	XGpio_DiscreteWrite(&Gpio_Tready, 1, 1);
 }
 
 
@@ -406,6 +446,7 @@ void XMipi_DisplayMainMenu(void)
 	xil_printf("---------------------\r\n");
 
 	xil_printf("h - Select Display Device : HDMI\n\r");
+	xil_printf("d - Select Display Device : DSI\n\r");
 	do {
 
 			u8 Response;
@@ -418,6 +459,10 @@ void XMipi_DisplayMainMenu(void)
 			 if ((Response == 'h') ||(Response =='H')){
 					xil_printf("\r\n HDMI Display is Selected.\r\n");
 					New_Cfg.VideoDestn = XVIDDES_HDMI ;
+					break;
+			}else if ((Response == 'd') ||(Response =='D')){
+					xil_printf("\r\n DSI Display is Selected.\r\n");
+					New_Cfg.VideoDestn = XVIDDES_DSI ;
 					break;
 			}else{
 					New_Cfg.VideoDestn = XVIDDES_HDMI ;
@@ -463,22 +508,20 @@ int main() {
 	xil_printf("Build %s - %s\r\n", __DATE__, __TIME__);
 	xil_printf("------------------------------------------\r\n");
 
-	xil_printf("Please answer the following questions about the hardware setup.");
-	xil_printf("\r\n");
-
-
 	/* Initialize platform */
 	init_platform();
 
+	#ifndef SDT
+	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_DEVICE_ID);
+	#else
 	XGpio_Initialize(&Gpio_Tready,XGPIO_TREADY_BASE);
-
+	#endif
 
 	Status = config_csi_cap_path();
 	if (Status == XST_FAILURE) {
 		xil_printf("CSI Capture Pipe Configuration failed.\r\n");
 		return XST_FAILURE;
 	}
-
 
 
 	Status = config_hdmi();
@@ -489,6 +532,17 @@ int main() {
 			usleep(5000);
 			xil_printf("HDMI  TX Configuration Done.\r\n");
 
+
+		/* Bring up the DSI panel (ATtiny MCU + ILI9881C) regardless of the
+	 * initially selected output, mirroring config_hdmi() above — both
+	 * downstream subsystems are hardware-initialized at boot; only the
+	 * AXI4-Stream Switch GPIO decides which one actually receives video. */
+	Status = DsiPath_Init();
+	if (Status == XST_FAILURE) {
+		xil_printf("DSI TX Configuration failed.\r\n");
+		return XST_FAILURE;
+	}
+	xil_printf("DSI TX Configuration Done.\r\n");
 
 	/* Enable exceptions. */
 	Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
@@ -508,7 +562,28 @@ int main() {
 
 				if (Pipeline_Cfg.VideoDestn == XVIDDES_HDMI) {
 					xil_printf("Set HDMI as destination \r\n");
+
+					/* Full pipeline quiesce before reconfiguring anything —
+					 * ported from the ZCU102 reference's Reconfigure_HDMI()/
+					 * Shutdown_DSI(), which switches HDMI/DSI reliably on
+					 * every attempt. Stop the sensor, CSI, image-processing
+					 * pipe, scaler and DSI TX together, in this order,
+					 * *before* touching the switch or restarting anything —
+					 * no stage is left running into (or starved by) a stage
+					 * that's about to change underneath it. */
+					CamReset();
+					DisableCSI();
+					DisableImageProcessingPipe();
 					Reset_IP_Pipe();
+					DisableScaler();
+					DsiPath_StopVideo();
+					usleep(20000);
+					/* Hardware-reset DSI TX and re-apply its timing config
+					 * so it's left in a clean, ready-but-disabled state —
+					 * a bare disable alone was proven insufficient (caused
+					 * a FIFO under-run on the very next switch to DSI). */
+					DsiPath_Reinit();
+
 					xhdmi_exdes_ctrlr.TxBusy    = (FALSE);
 					if(xhdmi_exdes_ctrlr.TxStartTransmit == FALSE) {
 						xhdmi_exdes_ctrlr.TxStartTransmit = (TRUE);
@@ -519,6 +594,43 @@ int main() {
 					SelectHDMIOutput();
                     start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
 
+				} else if (Pipeline_Cfg.VideoDestn == XVIDDES_DSI) {
+					xil_printf("Set DSI as destination \r\n");
+
+					/* Same full quiesce as the HDMI branch above — applied
+					 * symmetrically in both directions, matching the ZCU102
+					 * reference's Reconfigure_DSI(), which runs the
+					 * identical teardown block before rebuilding. */
+					CamReset();
+					DisableCSI();
+					DisableImageProcessingPipe();
+					Reset_IP_Pipe();
+					DisableScaler();
+					DsiPath_StopVideo();
+					usleep(20000);
+					/* Quiesce the HDMI TX state machine's own stream-(re)start
+					 * logic while DSI is the active output — otherwise it
+					 * keeps retrying to establish an HDMI link (noisy cable-
+					 * connect-change retries when no monitor is attached)
+					 * even though nothing is watching that output right now. */
+					xhdmi_exdes_ctrlr.TxStartTransmit = (FALSE);
+
+					/* Reset + re-time DSI TX *before* the sensor/CSI/scaler
+					 * chain is rebuilt below — matches the ZCU102 reference's
+					 * InitDSI() placement ahead of EnableCSI()/StartSensor()
+					 * inside Reconfigure_DSI(). */
+					DsiPath_Reinit();
+					SelectDSIOutput();
+					/* Rebuilds CSI/scaler/frame-buffers and, internally,
+					 * ends by calling EnableCSI()/SetupCameraSensor()/
+					 * StartSensor() — i.e. the upstream chain is confirmed
+					 * running before we ever touch the DSI TX core again. */
+					start_csi_cap_pipe(Pipeline_Cfg.VideoMode);
+					/* Only now, with real pixel data already flowing into
+					 * its AXI4-Stream input, start driving the panel —
+					 * matches the ZCU102 reference's EnableDSI() being the
+					 * very last call in Reconfigure_DSI(). */
+					DsiPath_StartVideo();
 				}
 
            }

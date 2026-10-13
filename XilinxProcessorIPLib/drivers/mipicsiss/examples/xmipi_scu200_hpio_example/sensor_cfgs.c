@@ -57,20 +57,6 @@ struct regval_list IMX219_config_1080p_60fps_regs[] = {
 {0x016E, 0x04}, // y-output size = 1080
 {0x016F, 0x38},
 {0x0170, 0x01}, //
-
-// {0x015A, 0x03}, // Coarse Integration Time MSB
-// {0x015B, 0xE8}, // Coarse Integration Time LSB  } = 1000 lines exposure
-// {0x0157, 0x80}, // Analogue Gain = 2x (128/256 code)
-// {0x0158, 0x01}, // Digital Gain MSB = 1x (no digital gain)
-// {0x0159, 0x00}, // Digital Gain LSB
-
-{0x015A, 0x04}, // Coarse Integration Time MSB
-{0x015B, 0x50}, // Coarse Integration Time LSB  } = 1104 lines (near max)
-{0x0157, 0xC0}, // Analogue Gain = 4x
-{0x0158, 0x02}, // Digital Gain = 2x
-{0x0159, 0x00},
-
-
 {0x0171, 0x01},
 {0x0174, 0x00},
 {0x0175, 0x00},
@@ -98,6 +84,23 @@ struct regval_list IMX219_config_1080p_60fps_regs[] = {
 {0x4793, 0x10},
 {0x4797, 0x0E},
 {0x479B, 0x0E},
+/* Analog/digital gain + exposure — never set by this table before, so the
+ * sensor ran on power-on-reset defaults (0x0157=0x00 = unity analog gain,
+ * 0x0158/0x0159=0x0100 = unity digital gain), which is why the image was
+ * dark: no AE loop exists in this bare-metal register-list init to
+ * compensate. Values below (~8x combined gain, near-full-frame exposure)
+ * are sourced from the matching upstream Xilinx reference design
+ * (Xilinx/embeddedsw, XilinxProcessorIPLib/drivers/mipicsiss/examples/
+ * xmipi_scu200_hpio_example/sensor_cfgs.c) — same frame_length_lines
+ * (0x0459=1113) and line_length_pixels (0x0D78=3448) as this table, so the
+ * exposure value is guaranteed to stay within the valid
+ * [4, frame_length_lines-4] range. Byte order confirmed MSB-first against
+ * the Linux kernel's imx219.c driver. */
+{0x0157, 0xC0}, // ANA_GAIN_GLOBAL = 0xC0 (~4x analog gain)
+{0x0158, 0x02}, // DIG_GAIN_GLOBAL MSB
+{0x0159, 0x00}, // DIG_GAIN_GLOBAL LSB -> 0x0200 (2x digital gain)
+{0x015A, 0x04}, // COARSE_INTEGRATION_TIME MSB
+{0x015B, 0x50}, // COARSE_INTEGRATION_TIME LSB -> 0x0450 = 1104 lines (of 1113)
 {0x0100, 0x01}
 };
 
