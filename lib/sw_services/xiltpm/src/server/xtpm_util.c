@@ -24,6 +24,7 @@
 * 1.3   pre  06/26/26 Removed dead code and fixed RxLen variable size in XTpm_DataTransfer function
 *                     to avoid data loss
 *       pre  10/07/26 Added retry limit to TPM status and access polling loops
+*       sd   10/13/26 Bounded a receive by the maximum response size in XTpm_Transfer
 *
 * </pre>
 *
@@ -500,6 +501,7 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 	u32 Status = (u32)XST_FAILURE;
 	u8 TranLen;
 	volatile u16 Length = Len;
+	u16 MaxLen;
 	u16 RxOffset = 0U;
 	u16 TxOffset = 0U;
 
@@ -509,11 +511,14 @@ u32 XTpm_Transfer(u16 Address, const u8 *TxBuf, u8 *RxBuf, u16 Len)
 	static u8 TpmRxBuffer[XTPM_RESP_MAX_SIZE + XTPM_TX_HEAD_SIZE] = {0U};
 
 	/**
-	 * - Length validation. Return XTPM_ERR_DATA_TX_LENGTH_LIMIT
-	 * error if the length is greater than 1024 bytes
+	 * - Length validation. Direction is taken from RxBuf to match the read bit set
+	 * below, so a receive is bounded by the maximum response size and a transmit by
+	 * the maximum request size.
 	 */
-	if (Length > XTPM_REQ_MAX_SIZE) {
-		Status = (u32)XTPM_ERR_DATA_TX_LENGTH_LIMIT;
+	MaxLen = (RxBuf != NULL) ? (u16)XTPM_RESP_MAX_SIZE : (u16)XTPM_REQ_MAX_SIZE;
+	if (Length > MaxLen) {
+		Status = (RxBuf != NULL) ? (u32)XTPM_ERR_DATA_RX_LENGTH_LIMIT :
+			(u32)XTPM_ERR_DATA_TX_LENGTH_LIMIT;
 		goto END;
 	}
 

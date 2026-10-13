@@ -26,6 +26,7 @@
 * 1.3   pre  06/26/26 Renamed macro 'XTPM_DATA_SIZE_INDEX' to 'XTPM_DATA_SIZE_BYTE0_INDEX'
 *       pre  10/07/26 Added PCR response length check and startup/self-test response checks and
 *                     adapted timeout for TPM locality instead of a fixed retry count
+*       sd   10/13/26 Matched PCR read response length to the requested digest length
 *
 * </pre>
 *
@@ -58,6 +59,8 @@
 #define XTPM_HASH_ALGO_INDEX			(15U) /**< Index for hash algorithm in PCR read command */
 #define XTPM_PCR_READ_INDEX				(17U) /**< Index for PCR selection in PCR read command */
 #define XTPM_RC_INITIALIZE				(0x00000100U) /**< TPM_RC_INITIALIZE response code */
+#define XTPM_SHA1_PCR_VALUE_LEN			(20U) /**< SHA1 PCR value length in bytes */
+#define XTPM_SHA256_PCR_VALUE_LEN		(32U) /**< SHA256 PCR value length in bytes */
 #ifdef VERSAL_2VE_2VM
 #define XTPM_PCR_LOG_LCVERSION		(1U)   /**< PCR log LC version */
 #define XTPM_PCR_LOG_VERSION		(1U)   /**< PCR log version */
@@ -539,6 +542,7 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 	u32 Status = (u32)XST_FAILURE;
 	u32 RespLen;
 	u32 CopyLen;
+	u32 PcrValueLen;
 	/* TPM PCR read command formation */
 	u8 TpmPcrRead[XTPM_PCR_READ_CMD_SIZE] = {
 	0x80, 0x01, /* TPM_ST_NO_SESSIONS */
@@ -555,7 +559,13 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 		goto END;
 	}
 
-	if ((HashAlgo != (u8)XTPM_HASH_TYPE_SHA1) && (HashAlgo != (u8)XTPM_HASH_TYPE_SHA256)) {
+	if (HashAlgo == (u8)XTPM_HASH_TYPE_SHA1) {
+		PcrValueLen = XTPM_SHA1_PCR_VALUE_LEN;
+	}
+	else if (HashAlgo == (u8)XTPM_HASH_TYPE_SHA256) {
+		PcrValueLen = XTPM_SHA256_PCR_VALUE_LEN;
+	}
+	else {
 		Status = (u32)XTPM_ERR_HASH_ALGO_INVALID;
 		goto END;
 	}
@@ -579,8 +589,8 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 	/**
 	 * - Checks the TPM response length before copying into the caller buffer.
 	 * A length at or below the PCR value offset underflows the copy size.
-	 * A payload larger than PCR_VALUE_MAX_LEN overruns the caller buffer.
-	 * Returns XTPM_ERR_RESP_POLLING in either case.
+	 * A payload that is not the digest length of the requested algorithm is either
+	 * short or overruns the caller buffer. Returns XTPM_ERR_RESP_POLLING in either case.
 	 */
 	RespLen = ((u32)TpmRespBuffer[XTPM_DATA_SIZE_BYTE0_INDEX] |
 			((u32)TpmRespBuffer[XTPM_DATA_SIZE_BYTE1_INDEX] << 8U) |
@@ -592,7 +602,7 @@ u32 XTpm_PcrRead(u32 PcrIndex, u8 HashAlgo, u64 ResponseBufAddr)
 	}
 
 	CopyLen = RespLen - (u32)XTPM_PCR_VALUE_START_INDEX;
-	if (CopyLen > PCR_VALUE_MAX_LEN) {
+	if (CopyLen != PcrValueLen) {
 		Status = (u32)XTPM_ERR_RESP_POLLING;
 		goto END;
 	}
