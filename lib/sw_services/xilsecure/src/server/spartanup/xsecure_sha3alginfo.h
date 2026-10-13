@@ -16,6 +16,7 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     08/18/24 Initial Release
 * 5.7   tbk     04/22/26 Updated version number
+* 5.8   ank     10/07/26 Updated minor version to 6.2
 *
 * </pre>
 *
@@ -34,7 +35,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_SHA3_MAJOR_VERSION	6U /**< Major version of SHA3 */
-#define XSECURE_SHA3_MINOR_VERSION	1U /**< Minor version of SHA3 */
+#define XSECURE_SHA3_MINOR_VERSION	2U /**< Minor version of SHA3 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

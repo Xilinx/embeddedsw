@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ----------------------------------------------------------------------
 * 5.7   tbk     04/22/26 Initial Release
+* 5.8   ank     10/07/26 Updated minor version to 6.2
 *
 * </pre>
 *
@@ -33,7 +34,7 @@ extern "C" {
 
 /************************************ Constant Definitions ****************************************/
 #define XSECURE_LMS_MAJOR_VERSION	6U /**< Major version of LMS */
-#define XSECURE_LMS_MINOR_VERSION	1U /**< Minor version of LMS */
+#define XSECURE_LMS_MINOR_VERSION	2U /**< Minor version of LMS */
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
 
