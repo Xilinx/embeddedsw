@@ -1973,6 +1973,7 @@ static s32 XProvision_ExecStoreKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, con
 	 */
 	KmParams.KeyIdAddr = (u64)(UINTPTR)&KeyId;
 	KmParams.WrappedInputLen = 0U;
+	KmParams.KeyObjectLen = DataLen;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XKeyManager_StoreKeyInVault(DmaPtr, AesInstancePtr, &KmParams, &KeyId, SubSystemId);

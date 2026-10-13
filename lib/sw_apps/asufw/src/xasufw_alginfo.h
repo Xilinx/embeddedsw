@@ -78,7 +78,7 @@ extern "C" {
 #define XASUFW_OCP_MINOR_VERSION		(0U) /**< Minor version number of OCP module */
 
 #define XASUFW_KEYMANAGER_MAJOR_VERSION		(2U) /**< Major version number of Keymanager module */
-#define XASUFW_KEYMANAGER_MINOR_VERSION		(0U) /**< Minor version number of Keymanager module */
+#define XASUFW_KEYMANAGER_MINOR_VERSION		(1U) /**< Minor version number of Keymanager module */
 
 #define XASUFW_LMS_MAJOR_VERSION		(2U) /**< Major version number of LMS module */
 #define XASUFW_LMS_MINOR_VERSION		(0U) /**< Minor version number of LMS module */

@@ -697,6 +697,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAsu_EccKeyObject PvtKeyObj;
 	XAsu_EccKeyObject PubKeyObj;
 	u64 SharedSecretAddr = 0U;
+	u32 SharedSecretLen = 0U;
 	u8 IsSharedSecretVaultStore = (u8)XASU_FALSE;
 #ifdef XASU_KEYMANAGER_ENABLE
 	u8 SharedSecret[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES] = {0U};
@@ -709,6 +710,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Capture the client-selected output mode before processing the request. */
 	SharedSecretAddr = EcdhParamsPtr->SharedSecretAddr;
+	SharedSecretLen = EcdhParamsPtr->SharedSecretLen;
 	IsSharedSecretVaultStore = (SharedSecretAddr == 0U) ? (u8)XASU_TRUE : (u8)XASU_FALSE;
 
 	/** Validate whether the curve type of the private key matches the public key's curve type. */
@@ -716,40 +718,6 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		Status = XASUFW_ECC_INVALID_PARAM;
 		goto END;
 	}
-
-	/** Validate the shared secret address and an object ID address. */
-	if ((IsSharedSecretVaultStore == (u8)XASU_TRUE) &&
-	    (EcdhParamsPtr->SharedSecretObjIdAddr == 0U)) {
-		Status = XASUFW_ECC_INVALID_PARAM;
-		goto END;
-	}
-
-#ifdef XASU_KEYMANAGER_ENABLE
-	/**
-	 * Validate the metadata the shared secret is stored under. The vault range is checked here
-	 * rather than relying on the client, as any subsystem can send this command. The shared
-	 * secret is only ever stored in the KDF/HMAC sub-vault.
-	 */
-	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
-		if (XAsu_KmValidateKeyMetadata(&EcdhParamsPtr->SharedSecretMetadata) !=
-		    XST_SUCCESS) {
-			Status = XASUFW_ECC_INVALID_PARAM;
-			goto END;
-		}
-
-		if (XASU_KM_GET_KEY_TYPE(EcdhParamsPtr->SharedSecretMetadata.CompositeKeyId) !=
-		    (u8)XASU_KDF_HMAC_SUBVAULT_ID) {
-			Status = XASUFW_ECC_INVALID_PARAM;
-			goto END;
-		}
-	}
-#else
-	/** Reject a vault store request, as the key manager is not built in. */
-	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
-		Status = XASUFW_ECC_INVALID_PARAM;
-		goto END;
-	}
-#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Validate the shared secret address and an object ID address. */
 	if ((IsSharedSecretVaultStore == (u8)XASU_TRUE) &&
@@ -828,8 +796,21 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** If no output address is provided, use a local buffer to store the secret in the vault. */
 	if (IsSharedSecretVaultStore == (u8)XASU_TRUE) {
 		SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
+		SharedSecretLen = XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES;
 	}
 #endif /* XASU_KEYMANAGER_ENABLE */
+
+	/**
+	 * When the shared secret is written to client memory, SharedSecretLen must cover the
+	 * curve length that XRsa_EcdhGenSharedSecret will copy (PvtKeyObj.KeyLen). For an
+	 * address-sourced key that is the request KeyLen; after a vault fetch it is the length
+	 * from key metadata.
+	 */
+	if ((IsSharedSecretVaultStore != (u8)XASU_TRUE) &&
+	    (EcdhParamsPtr->SharedSecretLen < PvtKeyObj.KeyLen)) {
+		Status = XASUFW_ECC_INVALID_PARAM;
+		goto END;
+	}
 
 	/**
 	 * Validate the client buffer receiving the shared secret. The secret is written either
@@ -837,7 +818,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	if (IsSharedSecretVaultStore != (u8)XASU_TRUE) {
 		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId, SharedSecretAddr,
-					   PvtKeyObj.KeyLen);
+					   EcdhParamsPtr->SharedSecretLen);
 	} else {
 		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubSystemId,
 					   EcdhParamsPtr->SharedSecretObjIdAddr,
@@ -860,6 +841,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* The client supplied length is overridden, as only the secret is ours to store. */
 		KeyStoreParams.KeyMetadata.Length = (u16)PvtKeyObj.KeyLen;
 		KeyStoreParams.KeyObjectAddr = (u64)(UINTPTR)SharedSecret;
+		KeyStoreParams.KeyObjectLen = PvtKeyObj.KeyLen;
 		KeyStoreParams.KeyIdAddr = EcdhParamsPtr->SharedSecretObjIdAddr;
 
 		SharedSecretObjIdVal =

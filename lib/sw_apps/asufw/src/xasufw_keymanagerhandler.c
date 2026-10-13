@@ -833,7 +833,7 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 * into the vault carries no address, so there is no range to validate.
 	 */
 	XASUFW_VALIDATE_OPTIONAL_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
-					    sizeof(XAsu_RsaKeyPairObject));
+					    XASU_KM_RSA_EXPORT_LEN(Cmd->KeyMetadata.Length));
 
 	/** Perform RSA key pair generation operation. */
 	Status = XKeyManager_GenerateRsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
@@ -1304,7 +1304,8 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/**
 	 * Validate the client provided key buffer. A wrapped key is supplied as a blob of
-	 * WrappedInputLen bytes, whereas a plain key holds the key length given in the metadata.
+	 * WrappedInputLen bytes. A plain key is checked over the KeyObjectLen bytes the client
+	 * declared for the buffer.
 	 */
 	if ((XASU_KM_GET_KEY_TYPE(Cmd->KeyMetadata.CompositeKeyId) &
 			XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) == XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
@@ -1322,8 +1323,12 @@ static s32 XAsufw_KeyManagerStoreKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 						    XASU_AES_KEY_SIZE_128BIT_IN_BYTES :
 						    XASU_AES_KEY_SIZE_256BIT_IN_BYTES);
 	} else {
+		/**
+		 * Range-check the buffer the client declared. The store validator rejects a
+		 * KeyObjectLen smaller than the type-specific object before anything is read.
+		 */
 		XASUFW_VALIDATE_MEM_ACCESS(END, Status, SubsystemId, Cmd->KeyObjectAddr,
-					   Cmd->KeyMetadata.Length);
+					   Cmd->KeyObjectLen);
 	}
 
 	/** Store the key in the vault for the requesting subsystem. */
