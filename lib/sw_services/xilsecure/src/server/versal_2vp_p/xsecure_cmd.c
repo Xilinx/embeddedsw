@@ -22,6 +22,7 @@
 * 5.8   tbk  06/17/26 Added support for getting crypto algorithm's version
 *       ks   09/22/26 Removed the AES KEK decrypt IPI command
 *       mb   09/24/26 Route XSECURE_API_TRNG_KAT to XSecure_TrngIpiHandler
+*       ank  10/07/26 Updated TRNG algorithm version to use trngpsx driver version
 *
 * </pre>
 *
@@ -57,7 +58,7 @@
 #include "xsecure_server_rsaalginfo.h"
 #include "xsecure_server_ellipticalginfo.h"
 #include "xsecure_server_shaalginfo.h"
-#include "xsecure_server_trngalginfo.h"
+#include "xtrngpsx_alginfo.h"
 #include "xsecure_server_mldsaalginfo.h"
 #include "xsecure_server_slhdsaalginfo.h"
 
@@ -205,7 +206,7 @@ static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 		NistStatus = (u32)NIST_COMPLIANT;
 		break;
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
-		AlgoVersion = XIL_BUILD_VERSION(XSECURE_TRNG_MODULE_MAJOR_VERSION, XSECURE_TRNG_MODULE_MINOR_VERSION);
+		AlgoVersion = XIL_BUILD_VERSION(XTRNGPSX_MAJOR_VERSION, XTRNGPSX_MINOR_VERSION);
 		NistStatus = (u32)NIST_COMPLIANT;
 		break;
 	case XSECURE_API(XSECURE_API_KAT):
