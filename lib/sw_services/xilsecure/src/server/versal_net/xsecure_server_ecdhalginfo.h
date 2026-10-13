@@ -17,6 +17,7 @@
 * ----- ------  -------- ---------------------------------------------------------------------------
 * 5.7   tbk     04/24/26 Initial Release
 *       mb      04/28/26 Updated minor version to 6.1
+* 5.8   ank     09/24/26 Updated minor version to 6.2
 *
 * </pre>
 *
@@ -38,7 +39,7 @@ extern "C" {
  */
 
 #define XSECURE_ECDH_MODULE_MAJOR_VERSION (6U) /**< ECDH module major version */
-#define XSECURE_ECDH_MODULE_MINOR_VERSION (1U) /**< ECDH module minor version */
+#define XSECURE_ECDH_MODULE_MINOR_VERSION (2U) /**< ECDH module minor version */
 
 /** @} */
 
