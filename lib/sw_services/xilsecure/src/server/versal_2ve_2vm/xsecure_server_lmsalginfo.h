@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------------------------------
 * 5.7   tvp     04/29/26 Initial Release
+* 5.8   ank     09/24/26 Updated minor version to 6.2
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
  */
 
 #define XSECURE_LMS_MODULE_MAJOR_VERSION (6U) /**< LMS module major version */
-#define XSECURE_LMS_MODULE_MINOR_VERSION (1U) /**< LMS module minor version */
+#define XSECURE_LMS_MODULE_MINOR_VERSION (2U) /**< LMS module minor version */
 
 /** @} */
 
