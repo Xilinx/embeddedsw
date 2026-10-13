@@ -252,13 +252,19 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 
 	/** Validate required parameters for AES update operation. */
 	if ((AesClientParamPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) {
+		/** Validate IsLast flag. */
+		if ((AesClientParamPtr->IsLast != XASU_TRUE) &&
+				(AesClientParamPtr->IsLast != XASU_FALSE)) {
+			Status = XASU_INVALID_ARGUMENT;
+			goto END;
+		}
+
 		/**
 		 * Both AAD and InputData/OutputData address and lengths cannot be zero at once.
 		 * The minimum length of plaintext/AAD must be at least 1 byte, while the
 		 * maximum length can be 0x1FFFFFFC bytes, which is the ASU DMA's maximum supported
 		 * data transfer length.
 		 */
-
 		Status = XAsu_ValidateAadLen(AesClientParamPtr);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -269,17 +275,15 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 			goto END;
 		}
 
-		/** Validate the input data alignment. */
-		if ((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) {
-			if (XASU_AES_MODE_REQUIRES_ALIGNMENT(AesClientParamPtr->EngineMode) ||
-					((AesClientParamPtr->OperationFlags & XASU_FINISH) != XASU_FINISH)) {
-				Status = XASU_INVALID_ARGUMENT;
-				goto END;
-			}
-		}
-
-		/** Validate IsLast flag. */
-		if ((AesClientParamPtr->IsLast != XASU_TRUE) && (AesClientParamPtr->IsLast != XASU_FALSE)) {
+		/**
+		 * An intermediate payload chunk must be a multiple of 16 bytes. IsLast marks
+		 * the last payload chunk. XASU_FINISH does not. ECB and CBC reject an
+		 * unaligned length on every update. DataLen is the payload length. AadLen is
+		 * checked in XAsu_ValidateAadLen().
+		 */
+		if (((AesClientParamPtr->DataLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) &&
+				(XASU_AES_MODE_REQUIRES_ALIGNMENT(AesClientParamPtr->EngineMode) ||
+				(AesClientParamPtr->IsLast != XASU_TRUE))) {
 			Status = XASU_INVALID_ARGUMENT;
 			goto END;
 		}
@@ -556,8 +560,7 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
 		/**
 		 * In MAC only modes (AES-CMAC), AAD is mandatory: AadLen and AadAddr must be non-zero,
 		 * within the allowed DMA limit, and block-size aligned for all intermediate
-		 * transfers (unaligned length allowed only for final transfer).
-		 *
+		 * transfers. A shorter length is valid on the last AAD beat.
 		 * In GCM/CCM modes, AAD is optional: zero AAD is permitted when valid
 		 * input/output data and data length are provided, allowing payload-only,
 		 * AAD-only, or combined operation.
@@ -565,9 +568,19 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
 		Status = XASU_INVALID_ARGUMENT;
 		if ((AesClientParamPtr->AadLen > 0U) && (AesClientParamPtr->AadAddr != 0U) &&
 				(AesClientParamPtr->AadLen <= XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+			/**
+			 * An intermediate AAD chunk must be a multiple of 16 bytes. A shorter
+			 * length is valid on the last AAD beat: IsLast is set, or this command
+			 * has payload. CMAC has no payload, so only IsLast allows a shorter chunk.
+			 * CCM may be shorter. The server reblocks it.
+			 */
 			if (((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) == 0U) ||
-					((AesClientParamPtr->OperationFlags & XASU_FINISH) ==
-					XASU_FINISH)) {
+					(AesClientParamPtr->IsLast == XASU_TRUE) ||
+					(AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE) ||
+					((AesClientParamPtr->EngineMode != XASU_AES_CMAC_MODE) &&
+					(AesClientParamPtr->DataLen != 0U) &&
+					(AesClientParamPtr->InputDataAddr != 0U) &&
+					(AesClientParamPtr->OutputDataAddr != 0U))) {
 				Status = XST_SUCCESS;
 			}
 		}

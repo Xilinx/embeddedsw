@@ -794,10 +794,12 @@ RET:
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	DmaPtr		Pointer to the AsuDma instance.
  * @param	InDataAddr	Address of the input data for encrypt/decrypt operation.
- * @param	OutDataAddr	Address of output buffer where the encrypted/decrypted data to be updated.
- * 						If input data is AAD then, OutDataAddr will be zero.
- * @param	DataLength	Length of the data in bytes shall never be zero.
- * 				For AES-CBC and AES-ECB modes, length shall be aligned to 16 bytes.
+ * @param	OutDataAddr	Address of output buffer where the encrypted/decrypted data to be
+ * 				updated. If input data is AAD then, OutDataAddr will be zero.
+ * @param	DataLength	Length of the data in bytes shall never be zero. For an AAD
+ * 				update this is the AAD length. An intermediate payload chunk must
+ * 				be a multiple of 16 bytes. The last payload chunk may be shorter.
+ * 				ECB and CBC require a multiple of 16 bytes on every payload update.
  * @param	IsLastChunk	For the last update of data, this parameter should be set
  *		 	 	to TRUE. Otherwise, FALSE.
  *
@@ -808,8 +810,9 @@ RET:
  *		- XASUFW_AES_INVALID_INPUT_DATA, if input data address is invalid.
  *		- XASUFW_AES_INVALID_INPUT_DATA_LENGTH, if input data length is invalid.
  *		- XASUFW_AES_INVALID_ISLAST_CHUNK, if IsLastChunk is invalid.
- *		- XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH, if input data length is not 16 bytes
- * 			aligned for CBC and ECB mode.
+ *		- XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH, if an intermediate payload chunk
+ *		  is not a multiple of 16 bytes, or if any ECB or CBC payload update is not a
+ *		  multiple of 16 bytes.
  *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if finalizing AAD update fails.
  *		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if the engine does not become ready in time.
  *
@@ -818,6 +821,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	u32 DataLength, u8 IsLastChunk)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	u8 DmaXferIsLast = IsLastChunk;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -858,12 +862,22 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	}
 
 	/**
-	 * For the ECB and CBC modes, the plaintext must be a sequence of one or more
-	 * complete data blocks.
+	 * An intermediate payload update must be a multiple of 16 bytes. The last
+	 * payload update may be shorter. ECB and CBC require that alignment on
+	 * every payload update.
 	 */
-	if ((XASU_AES_MODE_REQUIRES_ALIGNMENT(InstancePtr->EngineMode)) &&
-			((DataLength % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
+	if ((OutDataAddr != XAES_AAD_UPDATE_NO_OUTPUT_ADDR) &&
+			((DataLength % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) &&
+			(XASU_AES_MODE_REQUIRES_ALIGNMENT(InstancePtr->EngineMode) ||
+			(IsLastChunk != XASU_TRUE))) {
 		Status = XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH;
+		goto END;
+	}
+
+	/** Once the payload phase has started, no further AAD is accepted. */
+	if ((OutDataAddr == XAES_AAD_UPDATE_NO_OUTPUT_ADDR) &&
+			(InstancePtr->AesState == XAES_DATA_UPDATE_IN_PROGRESS)) {
+		Status = XASUFW_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
@@ -913,6 +927,19 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 			XAES_DATA_UPDATE_IN_PROGRESS;
 	}
 
+	/**
+	 * Payload follows this GCM AAD, so the caller cleared IsLast and the state stays
+	 * XAES_AAD_UPDATE_IN_PROGRESS. AUTH_WITH_NO_PAYLOAD stays off. A short final AAD
+	 * block must still be the last AAD beat on the DMA so the engine pads it before
+	 * the payload. Earlier AAD chunks are a multiple of 16 bytes.
+	 */
+	if ((OutDataAddr == XAES_AAD_UPDATE_NO_OUTPUT_ADDR) &&
+			(InstancePtr->EngineMode == XASU_AES_GCM_MODE) &&
+			(IsLastChunk != XASU_TRUE) &&
+			((DataLength % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U)) {
+		DmaXferIsLast = XASU_TRUE;
+	}
+
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/**
 	 * CCM AAD re-blocking: buffer the 2/6-byte prefix + partial block so the engine only
@@ -925,7 +952,7 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 	} else {
 		/** Configure DMA with AES and transfer the data to AES engine. */
 		Status = XAes_CfgDmaWithAesAndXfer(InstancePtr, InDataAddr, OutDataAddr, DataLength,
-			IsLastChunk);
+			DmaXferIsLast);
 	}
 
 	/** Blocking CCM auth-only: finalize now so a later save is a pure register snapshot. */
@@ -1085,6 +1112,42 @@ END:
 	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function checks an AAD chunk length.
+ *
+ * @param	EngineMode		AES engine mode.
+ * @param	AadLen			AAD length in bytes.
+ * @param	IsLast			TRUE for the last AAD beat.
+ * @param	PayloadFollows		TRUE when this command also has payload.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the AAD length is valid.
+ *		- XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH, if an intermediate GCM
+ *		  or CMAC AAD chunk is not a multiple of 16 bytes.
+ *
+ *************************************************************************************************/
+s32 XAes_CheckAadChunk(u8 EngineMode, u32 AadLen, u8 IsLast, u8 PayloadFollows)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+
+	/**
+	 * An intermediate AAD update must be a multiple of 16 bytes. The last AAD
+	 * update may be shorter: IsLast is set, or payload follows in this command.
+	 * CCM is not checked. XAes_CcmReblockAadUpdate() keeps the partial block.
+	 */
+	if ((EngineMode != XASU_AES_CCM_MODE) &&
+			((AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) != 0U) &&
+			(IsLast != XASU_TRUE) &&
+			(PayloadFollows != XASU_TRUE)) {
+		Status = XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH;
+	} else {
+		Status = XASUFW_SUCCESS;
+	}
+
 	return Status;
 }
 
@@ -3695,19 +3758,22 @@ static s32 XAes_WaitForReady(const XAes *InstancePtr)
  *		short-circuits. For AAD-phase DMA (SRC only), the ISR already cleared the source
  *		channel, so interrupt clears are skipped. The engine is then waited idle. For CCM
  *		authenticate-only operations, the deferred final AAD block (residue tail + zero
- *		padding) is finalized on the AAD path.
+ *		padding) is finalized on the AAD path. When this command also has payload, the AAD
+ *		phase is finalized before the ready wait.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
  * @param	DmaPtr		Pointer to the ASU DMA instance used for the transfer.
+ * @param	PayloadFollows	TRUE when this command also has payload.
  *
  * @return
  *		- XASUFW_SUCCESS, if the engine becomes idle within the timeout.
  *		- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr is NULL.
  *		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if the engine does not become ready in time.
- *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if CCM AAD finalization fails.
+ *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if CCM AAD finalization fails, or if
+ *			clearing the AAD setting fails before the ready wait.
  *
  *************************************************************************************************/
-s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
+s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u8 PayloadFollows)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
@@ -3720,6 +3786,21 @@ s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
 	if ((InstancePtr->AesState == XAES_DATA_UPDATE_IN_PROGRESS) ||
 			(InstancePtr->AesState == XAES_UPDATE_COMPLETED)) {
 		XAsuDma_IntrClear(&DmaPtr->AsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	}
+
+	/**
+	 * This command also has payload, so the last AAD beat was sent with IsLast
+	 * clear. Clear the AAD setting before waiting for ready. A later AAD command
+	 * does not take this path.
+	 */
+	if ((PayloadFollows == XASU_TRUE) &&
+			(InstancePtr->AesState == XAES_AAD_UPDATE_IN_PROGRESS)) {
+		Status = XAes_FinalizeAadUpdate(InstancePtr);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+				XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL);
+			goto END;
+		}
 	}
 
 	/** Wait for the AES engine to finish processing the DMA data before proceeding. */

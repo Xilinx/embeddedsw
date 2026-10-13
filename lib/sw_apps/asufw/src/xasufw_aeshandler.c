@@ -198,7 +198,7 @@ END:
  * 	- XASUFW_AES_INVALID_PARAM, if the key or IV source is ambiguous or absent, if a vault
  * 	  sourced IV carries a non-zero length, or if the key object of an eFUSE User Key 1
  * 	  request provides a key vault identifier, a key address, or a key size other than
- * 	  256-bit.
+ * 	  256-bit, or if a non-CMAC payload has no output address.
  * 	- XASUFW_DMA_COPY_FAIL, if the copy of the key object from the client fails.
  * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if the key or IV could not be retrieved from
  * 	  the vault, packed with the key manager cause (XASUFW_KEYMANAGER_KEY_NOT_FOUND,
@@ -213,6 +213,8 @@ END:
  * 	- XASUFW_AES_CCM_AAD_FORMATTING_FAILED, if the CCM B0 header cannot be transmitted.
  * 	- XASUFW_AES_INVALID_ENGINE_MODE, if the initialized engine mode cannot be read back.
  * 	- XASUFW_AES_UPDATE_FAILED, if update of data to AES engine fails.
+ * 	- XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH, if an intermediate GCM or CMAC
+ * 	  AAD chunk is not a multiple of 16 bytes.
  * 	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- An error code from XAsufw_ValidateMemRegnAccess, if a client buffer is not accessible.
@@ -234,6 +236,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
 	static u32 CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 	u8 AadIsLast;
+	u8 PayloadFollows = XASU_FALSE;
 	u8 KeyUsecase = 0U;
 	u64 LocalIvAddr = 0U;
 	u32 LocalIvLen = 0U;
@@ -262,8 +265,25 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	if ((CmdStage == XAES_NON_BLOCKING_AAD_UPDATE_IN_PROGRESS) ||
 			(CmdStage == XAES_NON_BLOCKING_DATA_UPDATE_INPROGRESS)) {
+		/** Use the mode the engine was initialized with, not the request buffer. */
+		EngineMode = XAes_GetEngineMode(XAsufw_Aes);
+		if (EngineMode == (u8)XASUFW_AES_INVALID_ENGINE_MODE) {
+			CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
+			Status = XASUFW_AES_INVALID_ENGINE_MODE;
+			goto END;
+		}
+
 		/** Quiesce the engine after the NB DMA so a context switch sees stable state. */
-		Status = XAes_PostNbDmaRoutine(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr);
+		if (((EngineMode == XASU_AES_GCM_MODE) ||
+				(EngineMode == XASU_AES_CCM_MODE)) &&
+				(AesParamsPtr->InputDataAddr != 0U) &&
+				(AesParamsPtr->DataLen != 0U) &&
+				(AesParamsPtr->OutputDataAddr != 0U)) {
+			PayloadFollows = XASU_TRUE;
+		}
+
+		Status = XAes_PostNbDmaRoutine(XAsufw_Aes, XAsufw_AesModule.AsuDmaPtr,
+				PayloadFollows);
 		if (Status != XASUFW_SUCCESS) {
 			CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_UPDATE_FAILED);
@@ -451,6 +471,15 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 
+		/** A non-CMAC payload must have an output buffer. */
+		if ((EngineMode != XASU_AES_CMAC_MODE) &&
+				(AesParamsPtr->InputDataAddr != 0U) &&
+				(AesParamsPtr->DataLen != 0U) &&
+				(AesParamsPtr->OutputDataAddr == 0U)) {
+			Status = XASUFW_AES_INVALID_PARAM;
+			goto END;
+		}
+
 		/**
 		 * Update AAD data to AES engine.
 		 * User can push data in one go(entire AAD and Plaintext data at once) to the
@@ -477,7 +506,19 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 					(EngineMode == XASU_AES_CCM_MODE)) &&
 					(AesParamsPtr->InputDataAddr != 0U) &&
 					(AesParamsPtr->DataLen != 0U)) {
+				PayloadFollows = XASU_TRUE;
 				AadIsLast = XASU_FALSE;
+			}
+
+			/**
+			 * Reject an intermediate GCM or CMAC AAD chunk that is not a multiple of
+			 * 16 bytes.
+			 */
+			Status = XAes_CheckAadChunk(EngineMode, AesParamsPtr->AadLen,
+					AesParamsPtr->IsLast, PayloadFollows);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_AES_UNALIGNED_BLOCK_SIZE_INPUT_LENGTH;
+				goto END;
 			}
 
 			/** Validate the client provided AAD buffer. */
@@ -497,7 +538,6 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				goto END;
 			}
 		}
-
 
 XAES_STAGE_DATA_UPDATE:
 		/**

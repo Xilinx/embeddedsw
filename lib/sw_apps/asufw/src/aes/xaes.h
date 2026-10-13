@@ -149,7 +149,8 @@ u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr);
 s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr);
 s32 XAes_SaveContext(XAes *InstancePtr);
 s32 XAes_RestoreContext(XAes *InstancePtr, XAsufw_Dma *DmaPtr);
-s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr);
+s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u8 PayloadFollows);
+s32 XAes_CheckAadChunk(u8 EngineMode, u32 AadLen, u8 IsLast, u8 PayloadFollows);
 
 #ifdef __cplusplus
 }
