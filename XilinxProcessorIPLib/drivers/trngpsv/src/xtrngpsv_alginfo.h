@@ -21,6 +21,7 @@
 * 1.5   mb      04/01/24 Update minor version number
 * 1.7   vss     04/25/25 Updated minor version
 * 1.8   mb      04/28/26 Updated minor version to 1.9
+* 1.9   ank     09/24/26 Updated minor version to 1.10
 *
 * </pre>
 *
@@ -38,7 +39,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XTRNGPSV_MAJOR_VERSION	1U /**< Major version of Trngpsv driver */
-#define XTRNGPSV_MINOR_VERSION	9U /**< Minor version of Trngpsv driver */
+#define XTRNGPSV_MINOR_VERSION	10U /**< Minor version of Trngpsv driver */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

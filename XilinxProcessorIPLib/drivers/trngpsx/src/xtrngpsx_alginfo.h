@@ -19,6 +19,7 @@
 * 1.4   vss     04/25/25 Updated minor version
 * 1.5   ank     09/26/25 Fixed MISRA-C Violations
 * 1.6   mb      04/28/26 Updated minor version to 1.6
+* 1.7   ank     09/24/26 Updated minor version to 1.7
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XTRNGPSX_MAJOR_VERSION	1U /**< Major version of Trngpsx driver */
-#define XTRNGPSX_MINOR_VERSION	6U /**< Minor version of Trngpsx driver */
+#define XTRNGPSX_MINOR_VERSION	7U /**< Minor version of Trngpsx driver */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
