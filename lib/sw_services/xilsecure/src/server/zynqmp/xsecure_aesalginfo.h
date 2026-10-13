@@ -19,6 +19,7 @@
 * 5.3   mb      04/01/24 Updated minor version
 * 5.5   vss     04/25/25 Updated minor version
 * 5.7   mb      04/28/26 Updated minor version to 6.1
+* 5.8   ank     09/24/26 Updated minor version to 6.2
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_AES_MAJOR_VERSION	6U /**< Major version of AES */
-#define XSECURE_AES_MINOR_VERSION	1U /**< Minor version of AES */
+#define XSECURE_AES_MINOR_VERSION	2U /**< Minor version of AES */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

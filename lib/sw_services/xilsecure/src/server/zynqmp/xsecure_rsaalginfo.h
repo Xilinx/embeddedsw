@@ -19,6 +19,7 @@
 * 5.3   am      12/18/23 Updated rsaalgoinfo version to 5.3
 * 5.5   vss     04/25/25 Updated minor version
 * 5.7   mb      04/28/26 Updated minor version to 6.1
+* 5.8   ank     09/24/26 Updated minor version to 6.2
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XSECURE_RSA_MAJOR_VERSION	6U /**< Major version of RSA */
-#define XSECURE_RSA_MINOR_VERSION	1U /**< Minor version of RSA */
+#define XSECURE_RSA_MINOR_VERSION	2U /**< Minor version of RSA */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
