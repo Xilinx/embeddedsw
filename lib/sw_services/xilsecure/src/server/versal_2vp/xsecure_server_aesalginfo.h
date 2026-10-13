@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------------------------------
 * 5.8   tbk     06/17/26 Initial Release
+*       ank     10/13/26 Updated version to 5.8
 *
 * </pre>
 *
@@ -31,8 +32,8 @@ extern "C" {
 /****************************************** Include Files *****************************************/
 
 /************************************** Constant Definitions **************************************/
-#define XSECURE_AES_MODULE_MAJOR_VERSION (1U) /**< AES module major version */
-#define XSECURE_AES_MODULE_MINOR_VERSION (0U) /**< AES module minor version */
+#define XSECURE_AES_MODULE_MAJOR_VERSION (5U) /**< AES module major version */
+#define XSECURE_AES_MODULE_MINOR_VERSION (8U) /**< AES module minor version */
 
 /**************************************** Type Definitions ****************************************/
 

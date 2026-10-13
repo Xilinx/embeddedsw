@@ -17,7 +17,6 @@ collect (PROJECT_LIB_HEADERS xsecure_server_aesalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_server_ellipticalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_server_rsaalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_server_shaalginfo.h)
-collect (PROJECT_LIB_HEADERS xsecure_server_trngalginfo.h)
 
 if (${YOCTO})
     set (STATIC_XILSECURE_LIB ${CMAKE_LIBRARY_PATH}/libxilsecure.a)
