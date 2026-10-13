@@ -206,6 +206,10 @@ extern "C" {
 
 /* Key attribute for RSA private decrypt operation. */
 #define XASU_KM_RSA_PVT_ATTR_MAX	(2U) /**< Maximum allowed value for RSA private key attribute */
+#define XASU_KM_RSA_PVT_PRIME_NUM_PRESENT	(2U) /**< RSA private key attribute that RSA key pair
+						generation requires: prime components present.
+						Exact value, unlike the Store upper bound
+						XASU_KM_RSA_PVT_ATTR_MAX. */
 
 #define XASU_KM_ECC_MAX_PUB_KEY_SIZE_IN_BYTES		(132U) /**< Size of NIST P-521 public key
 								size in bytes */
@@ -241,9 +245,14 @@ typedef struct {
 	u32 CompositeKeyId;	/**< Composite key identifier, built with
 				XASU_KM_COMPOSE_KEY_ID():
 				- Bits [31:24]: vault ID. Always required.
-				- Bits [23:16]: key type, an XAsu_KeyManagerSubVaultType value
-				  optionally OR'ed with XASU_KM_KEYTYPE_WRAPPED_BIT_MASK. Required
-				  by the Store Key API only; the Generate Key APIs derive it.
+				- Bits [23:16]: key type, an XAsu_KeyManagerSubVaultType value.
+				  Required by the Store Key API, where it may be OR'ed with
+				  XASU_KM_KEYTYPE_WRAPPED_BIT_MASK. On the Generate Key APIs, set
+				  the same key type the API uses: XASU_AES_SUBVAULT_ID,
+				  XASU_IV_SUBVAULT_ID or XASU_KDF_HMAC_SUBVAULT_ID, and for key
+				  pairs XASU_RSA_PVT_SUBVAULT_ID, XASU_ECC_PVT_SUBVAULT_ID,
+				  XASU_MLDSA_PVT_SUBVAULT_ID or XASU_MLKEM_PVT_SUBVAULT_ID.The
+				  returned key IDs carry the sub-vault type of each stored key.
 				- Bits [15:0]: 1-based key slot within the sub-vault. 0 requests
 				  an auto-assigned slot; other values request a specific slot,
 				  which may be rejected if already in use. Key pair APIs apply
@@ -276,9 +285,23 @@ typedef struct {
 						For Store Key API: This field is mandatory.
 						For Generate Key APIs: This field is optional and should be given only
 						when the key to be stored in key vault. */
-	u32 WrappedInputLen; /**< Length of the wrapped key input data (applicable only for Store Key API).
-						This needs to be filled if input is wrapped key type. */
-	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
+	u32 WrappedInputLen; /**< Length of the wrapped-key ciphertext in bytes (Store Key API,
+						wrapped keys only). Distinct from KeyObjectLen, which is the
+						full capacity of the buffer at KeyObjectAddr. */
+	u32 KeyObjectLen; /**< Byte length of the buffer at KeyObjectAddr.
+						For Store Key API: mandatory; size of the input key buffer. Must be
+						at least KeyMetadata.Length for plain keys of types whose on-wire
+						object equals Length, at least sizeof(XAsu_RsaKeyPairObject) /
+						sizeof(XAsu_RsaPubKeyComp) for RSA private/public store, at least
+						twice the curve length for ECC public store, or at least
+						WrappedInputLen when the key type is wrapped.
+						For Generate Key APIs with export to client memory: mandatory;
+						size of the output buffer. Must be at least KeyMetadata.Length,
+						at least XASU_KM_RSA_EXPORT_LEN(KeyMetadata.Length) for RSA
+						key-pair export, at least sizeof(XAsu_EccKeyPairObject) for ECC
+						key-pair export, or the combined public and private key lengths
+						for PQC key-pair export. Not used when the generated key is stored
+						only in the vault (KeyObjectAddr is zero). */
 } XAsu_KeyManagerParams;
 
 /**
@@ -394,8 +417,9 @@ typedef struct {
 	(((((u32)(VaultId)) << XASU_KM_VAULT_ID_SHIFT) & XASU_KM_VAULT_ID_MASK) | \
 	 ((((u32)(KeyType)) << XASU_KM_KEY_TYPE_SHIFT) & XASU_KM_KEY_TYPE_MASK) | \
 	 (((u32)(KeyIndex)) & XASU_KM_KEY_INDEX_MASK))	/**< Fuse vault ID, key type and key
-					index into a composite key ID. Pass key type 0 on the
-					Generate Key APIs, which derive it themselves. */
+					index into a composite key ID. On the Generate Key APIs,
+					pass the key type listed for
+					XAsu_KeyManagerKeyMetadata.CompositeKeyId. */
 #define XASU_KM_GET_VAULT_ID(KeyId) \
 	((u8)((((u32)(KeyId)) & XASU_KM_VAULT_ID_MASK) >> XASU_KM_VAULT_ID_SHIFT))
 					/**< Extract vault ID from a composite key ID */

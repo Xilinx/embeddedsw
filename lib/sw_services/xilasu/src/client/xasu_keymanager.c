@@ -36,7 +36,6 @@
 #include "xasu_mldsainfo.h"
 #include "xasu_mlkeminfo.h"
 #include "xasu_def.h"
-#include "xasu_ecies_common.h"
 #include "xasu_generic.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -45,8 +44,6 @@
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_KM_NUM_OF_KEY_IDS	(2U) /**< Number of key IDs returned for RSA/ECC key pair generation command */
-#define XASU_KM_RSA_PVT_PRIME_NUM_PRESENT	(2U) /**< Exact RSA private key attribute value
-							indicating presence of prime components */
 
 /************************************ Function Prototypes ****************************************/
 
@@ -137,6 +134,7 @@ END:
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
  * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_QUEUE_FULL, if Queue buffer is full.
  * 		- XST_FAILURE, if sending an IPI request to ASU fails.
  *
  *************************************************************************************************/
@@ -146,6 +144,8 @@ s32 XAsu_KmGenerateAesKey(XAsu_ClientParams *ClientParamPtr,
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 *RespBufferPtr = NULL;
+	u8 RespSize = 0U;
 
 	/** Validations of inputs. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -153,30 +153,28 @@ s32 XAsu_KmGenerateAesKey(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
+	if (KmSubVaultParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateParams(KmSubVaultParamPtr, XASU_KM_VALIDATE_FLOW_GENERATE,
+				      (u8)XASU_AES_SUBVAULT_ID,
+				      KmSubVaultParamPtr->KeyMetadata.Length);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Validate key use case against the key type. */
-	if (XAsu_KmValidateAesKeySplitUseCase((u8)XASU_AES_SUBVAULT_ID,
-			KmSubVaultParamPtr->KeyMetadata.KeyUseCase) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
+	/**
+	 * Generate a unique ID and register the callback function. A key ID is returned only
+	 * when the key is stored in the vault; an exported key is written to KeyObjectAddr.
+	 */
+	if (KmSubVaultParamPtr->KeyIdAddr != 0U) {
+		RespBufferPtr = (u8 *)(UINTPTR)KmSubVaultParamPtr->KeyIdAddr;
+		RespSize = XASU_KM_OUTPUT_ID_SIZE_IN_BYTES;
 	}
-
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
-					  XASU_KM_AES_KEYTYPE);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-						(u8 *)(UINTPTR)KmSubVaultParamPtr->KeyIdAddr,
-						XASU_KM_OUTPUT_ID_SIZE_IN_BYTES, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, RespBufferPtr, RespSize, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -218,6 +216,8 @@ s32 XAsu_KmGenerateAesIv(XAsu_ClientParams *ClientParamPtr,
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 *RespBufferPtr = NULL;
+	u8 RespSize = 0U;
 
 	/** Validations of inputs. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -225,23 +225,28 @@ s32 XAsu_KmGenerateAesIv(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
+	if (KmSubVaultParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateParams(KmSubVaultParamPtr, XASU_KM_VALIDATE_FLOW_GENERATE,
+				      (u8)XASU_IV_SUBVAULT_ID,
+				      KmSubVaultParamPtr->KeyMetadata.Length);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
-					  XASU_KM_IV_KEYTYPE);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
+	/**
+	 * Generate a unique ID and register the callback function. An IV ID is returned only
+	 * when the IV is stored in the vault; an exported IV is written to KeyObjectAddr.
+	 */
+	if (KmSubVaultParamPtr->KeyIdAddr != 0U) {
+		RespBufferPtr = (u8 *)(UINTPTR)KmSubVaultParamPtr->KeyIdAddr;
+		RespSize = XASU_KM_OUTPUT_ID_SIZE_IN_BYTES;
 	}
-
-	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-					(u8 *)(UINTPTR)KmSubVaultParamPtr->KeyIdAddr,
-					XASU_KM_OUTPUT_ID_SIZE_IN_BYTES, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, RespBufferPtr, RespSize, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;
@@ -397,21 +402,15 @@ s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
-	if (Status != XST_SUCCESS) {
+	if (KmSubVaultParamPtr == NULL) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Key attribute should be set to indicate presence of prime components for RSA private key. */
-	if (KmSubVaultParamPtr->KeyMetadata.KeyAttributes != XASU_KM_RSA_PVT_PRIME_NUM_PRESENT) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate key length is either 2048-bit or 3072-bit or 4096-bit for RSA. */
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
-					  XASU_KM_RSA_KEYTYPE);
+	Status = XAsu_KmValidateParams(KmSubVaultParamPtr, XASU_KM_VALIDATE_FLOW_GENERATE,
+				      (u8)XASU_RSA_PVT_SUBVAULT_ID,
+				      XASU_KM_RSA_EXPORT_LEN(
+					      KmSubVaultParamPtr->KeyMetadata.Length));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -483,15 +482,9 @@ s32 XAsu_KmGenerateEccKeyPair(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate the curve length and curve type for ECC. */
-	Status = XAsu_EccValidateCurveInfo(KmSubVaultParamPtr->KeyMetadata.KeyAttributes,
-			KmSubVaultParamPtr->KeyMetadata.Length);
+	Status = XAsu_KmValidateParams(KmSubVaultParamPtr, XASU_KM_VALIDATE_FLOW_GENERATE,
+				      (u8)XASU_ECC_PVT_SUBVAULT_ID,
+				      (u32)sizeof(XAsu_EccKeyPairObject));
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -572,19 +565,17 @@ s32 XAsu_KmGenerateMldsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if (KmSubVaultParamPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_KmValidateVaultParams(&KmSubVaultParamPtr->KmParams);
+	/** Validate the ML-DSA key generation parameters. */
+	Status = XAsu_KmValidateMldsaKeyGenParams(KmSubVaultParamPtr, &PubKeyLen, &PvtKeyLen);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	/** Validate the ML-DSA key generation parameters. */
-	Status = XAsu_KmValidateMldsaKeyGenParams(KmSubVaultParamPtr, &PubKeyLen, &PvtKeyLen);
+	Status = XAsu_KmValidateParams(&KmSubVaultParamPtr->KmParams,
+				      XASU_KM_VALIDATE_FLOW_GENERATE,
+				      (u8)XASU_MLDSA_PVT_SUBVAULT_ID,
+				      PubKeyLen + PvtKeyLen);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -664,22 +655,20 @@ s32 XAsu_KmGenerateMlkemKeyPair(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if (KmSubVaultParamPtr == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	Status = XAsu_KmValidateVaultParams(&KmSubVaultParamPtr->KmParams);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
 	/**
 	 * Validate the seed and the parameter set against the same contract the server validates
 	 * them against, so that the request is rejected here rather than after an IPI round trip.
 	 */
 	Status = XAsu_KmValidateMlkemKeyGenParams(KmSubVaultParamPtr, &PubKeyLen, &PvtKeyLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateParams(&KmSubVaultParamPtr->KmParams,
+				      XASU_KM_VALIDATE_FLOW_GENERATE,
+				      (u8)XASU_MLKEM_PVT_SUBVAULT_ID,
+				      PubKeyLen + PvtKeyLen);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -812,34 +801,9 @@ s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *Ke
 		goto END;
 	}
 
-	if (KeyParams == NULL) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	if ((KeyParams->KeyObjectAddr == 0U) || (KeyParams->KeyIdAddr == 0U)) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate key metadata. */
-	if (XAsu_KmValidateKeyMetadata(&KeyParams->KeyMetadata) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate key attributes against the key type. */
-	if (XAsu_KmValidateKeyAttributes(
-			XASU_KM_GET_KEY_TYPE(KeyParams->KeyMetadata.CompositeKeyId),
-			KeyParams->KeyMetadata.KeyAttributes) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
-	/** Validate key use case against the key type. */
-	if (XAsu_KmValidateAesKeySplitUseCase(
-			XASU_KM_GET_KEY_TYPE(KeyParams->KeyMetadata.CompositeKeyId),
-			KeyParams->KeyMetadata.KeyUseCase) != XST_SUCCESS) {
+	Status = XAsu_KmValidateParams(KeyParams, XASU_KM_VALIDATE_FLOW_STORE,
+				      (u8)XASU_INVALID_SUBVAULT_ID, 0U);
+	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -890,6 +854,8 @@ s32 XAsu_KmGenerateRawKey(XAsu_ClientParams *ClientParamPtr,
 	s32 Status = XST_FAILURE;
 	u32 Header;
 	u8 UniqueId;
+	u8 *RespBufferPtr = NULL;
+	u8 RespSize = 0U;
 
 	/** Validations of inputs. */
 	Status = XAsu_ValidateClientParameters(ClientParamPtr);
@@ -897,23 +863,28 @@ s32 XAsu_KmGenerateRawKey(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateVaultParams(KmSubVaultParamPtr);
+	if (KmSubVaultParamPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_KmValidateParams(KmSubVaultParamPtr, XASU_KM_VALIDATE_FLOW_GENERATE,
+				      (u8)XASU_KDF_HMAC_SUBVAULT_ID,
+				      KmSubVaultParamPtr->KeyMetadata.Length);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
-					  XASU_KM_KDF_HMAC_KEYTYPE);
-	if (Status != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
+	/**
+	 * Generate a unique ID and register the callback function. A key ID is returned only
+	 * when the key is stored in the vault; an exported key is written to KeyObjectAddr.
+	 */
+	if (KmSubVaultParamPtr->KeyIdAddr != 0U) {
+		RespBufferPtr = (u8 *)(UINTPTR)KmSubVaultParamPtr->KeyIdAddr;
+		RespSize = XASU_KM_OUTPUT_ID_SIZE_IN_BYTES;
 	}
-
-	/** Generate a unique ID and register the callback function. */
-	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr,
-						(u8 *)(UINTPTR)KmSubVaultParamPtr->KeyIdAddr,
-						XASU_KM_OUTPUT_ID_SIZE_IN_BYTES, XASU_TRUE);
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamPtr, RespBufferPtr, RespSize, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
 		Status = XASU_INVALID_UNIQUE_ID;
 		goto END;

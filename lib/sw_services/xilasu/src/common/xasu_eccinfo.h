@@ -134,13 +134,19 @@ typedef struct {
 typedef struct {
 	XAsu_EccKeyObject PvtKey; /**< Private key object */
 	XAsu_EccKeyObject PubKey; /**< Peer's public key object */
-	u64 SharedSecretAddr; /**< Address where shared secret will be written (size = PvtKey.KeyLen) */
+	u64 SharedSecretAddr; /**< Address of the client buffer that receives the shared secret;
+					0 to store the secret in the key vault instead */
 	u64 SharedSecretObjIdAddr; /**< Address receiving the object ID of the stored shared secret;
 					used only when SharedSecretAddr is 0 */
 	XAsu_KeyManagerKeyMetadata SharedSecretMetadata; /**< Metadata used when the shared secret is
 					stored as a key in the vault, i.e. when SharedSecretAddr is 0.
 					Length is ignored, as the firmware stores the secret with the
 					curve length */
+	u32 SharedSecretLen; /**< Byte length of the buffer at SharedSecretAddr. Required when
+					SharedSecretAddr is non-zero; must be at least
+					PvtKey.KeyLen (the curve shared-secret length). Unused when
+					SharedSecretAddr is 0. */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EcdhParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

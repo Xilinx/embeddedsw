@@ -53,7 +53,6 @@ void XAsu_ProvisionWriteU16Le(u8 *Ptr, u16 Value);
 void XAsu_ProvisionWriteU32Le(u8 *Ptr, u32 Value);
 s32 XAsu_ProvisionValidateUserVaultId(u32 VaultId);
 s32 XAsu_ProvisionValidateUserKeyId(u32 KeyId);
-s32 XAsu_ProvisionGetStoreKeyDataLen(u32 CompositeKeyId, u16 KeyLen, u32 *DataLenPtr);
 s32 XAsu_ProvisionGetImageSize(u32 RecordBlobLen, u32 *ImageSizePtr);
 s32 XAsu_ProvisionValidateWrapParams(const XAsu_WrapProvisionInstructionsParams *ParamsPtr);
 s32 XAsu_ProvisionValidateUnwrapParams(

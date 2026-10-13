@@ -147,6 +147,7 @@ int main(void)
 	EcdhParams.PvtKey.KeyAddr = (u64)(UINTPTR)PrivKey;
 	EcdhParams.PubKey.KeyAddr = (u64)(UINTPTR)PubKey1;
 	EcdhParams.SharedSecretAddr = (u64)(UINTPTR)SharedSecret;
+	EcdhParams.SharedSecretLen = (u32)sizeof(SharedSecret);
 
 	Status = XAsu_EcdhGenSharedSecret(&ClientParams, &EcdhParams);
 	if (Status != XST_SUCCESS) {
@@ -190,6 +191,7 @@ int main(void)
 	EcdhParams.PvtKey.KeyAddr = (u64)(UINTPTR)PrivKey1;
 	EcdhParams.PubKey.KeyAddr = (u64)(UINTPTR)PubKey;
 	EcdhParams.SharedSecretAddr = (u64)(UINTPTR)SharedSecret1;
+	EcdhParams.SharedSecretLen = (u32)sizeof(SharedSecret1);
 
         Status = XAsu_EcdhGenSharedSecret(&ClientParams, &EcdhParams);
 	if (Status != XST_SUCCESS) {

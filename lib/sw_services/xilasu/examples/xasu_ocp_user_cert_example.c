@@ -381,6 +381,7 @@ static s32 XAsu_OcpUserCertStoreEccPvtKey(u32 VaultId, const u8 *Key, u8 KeyUseC
 	KeyParams.KeyMetadata.Length = XOCP_USER_CERT_CURVE_LEN;
 	KeyParams.KeyMetadata.UsageCount = XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE;
 	KeyParams.KeyObjectAddr = (u64)(UINTPTR)Key;
+	KeyParams.KeyObjectLen = XOCP_USER_CERT_CURVE_LEN;
 	KeyParams.KeyIdAddr = (u64)(UINTPTR)KeyId;
 
 	ErrorStatus = XST_FAILURE;
@@ -430,6 +431,7 @@ static s32 XAsu_OcpUserCertStoreEccPubKey(u32 VaultId, const u8 *Key, u8 KeyUseC
 	KeyParams.KeyMetadata.Length = XOCP_USER_CERT_CURVE_LEN;
 	KeyParams.KeyMetadata.UsageCount = XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE;
 	KeyParams.KeyObjectAddr = (u64)(UINTPTR)Key;
+	KeyParams.KeyObjectLen = XOCP_USER_CERT_PUB_KEY_LEN;
 	KeyParams.KeyIdAddr = (u64)(UINTPTR)KeyId;
 
 	ErrorStatus = XST_FAILURE;

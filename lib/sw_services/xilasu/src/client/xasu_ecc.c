@@ -629,6 +629,18 @@ static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
 		goto END;
 	}
 
+	/**
+	 * When the shared secret is written to client memory, SharedSecretLen must be at least
+	 * the curve shared-secret length. For an address-sourced private key that is KeyLen.
+	 * For a vault-sourced key KeyLen is 0 here; ASUFW rechecks against the length from key
+	 * metadata after vault resolution.
+	 */
+	if ((EcdhParamsPtr->SharedSecretAddr != 0U) && (EcdhParamsPtr->PvtKey.KeyId == 0U)) {
+		if (EcdhParamsPtr->SharedSecretLen < EcdhParamsPtr->PvtKey.KeyLen) {
+			goto END;
+		}
+	}
+
 	/** Both keys must use the same curve. */
 	if (EcdhParamsPtr->PvtKey.CurveType != EcdhParamsPtr->PubKey.CurveType) {
 		goto END;

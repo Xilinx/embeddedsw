@@ -226,7 +226,8 @@ END:
  * @brief	Encode one STORE_KEY provisioning instruction record.
  *
  * @param	ParamsPtr	Pointer to the KeyManager store-key parameters. KeyObjectAddr and
- *				KeyMetadata are encoded; KeyIdAddr and WrappedInputLen must be zero.
+ *				KeyMetadata are encoded. KeyObjectLen must cover the encoded key
+ *				object. KeyIdAddr and WrappedInputLen must be zero.
  * @param	BufAddr		Address of the output record buffer.
  * @param	BufSize		Capacity of the output record buffer.
  * @param	RecordLenPtr	Pointer that receives the encoded record length.
@@ -254,6 +255,12 @@ s32 XAsu_ProvisionEncodeStoreKey(const XAsu_KeyManagerParams *ParamsPtr,
 
 	Status = XAsu_ProvisionValidateStoreKeyMetadata(&ParamsPtr->KeyMetadata, &DataLen);
 	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** The encode copies DataLen bytes, so the caller buffer must cover that object. */
+	if (ParamsPtr->KeyObjectLen < DataLen) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

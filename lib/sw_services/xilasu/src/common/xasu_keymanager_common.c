@@ -31,6 +31,8 @@
 /***************************** Include Files *****************************************************/
 #include "xasu_keymanager_common.h"
 #include "xasu_aesinfo.h"
+#include "xasu_eccinfo.h"
+#include "xasu_ecies_common.h"
 #include "xasu_hmacinfo.h"
 #include "xasu_mldsainfo.h"
 #include "xasu_mlkeminfo.h"
@@ -48,39 +50,42 @@
 
 /************************** Function Prototypes **************************************************/
 static s32 XAsu_KmGetSlhdsaKeyLengths(u8 ParamSet, u32 *PubKeyLenPtr, u32 *PrivKeyLenPtr);
+static s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr);
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates input parameters for keymanager.
+ * @brief	Validate the output destination of a key generate request, and the key metadata
+ *		when the generated key is stored in the vault.
  *
- * @param	KmParamsPtr	Pointer to XAsu_KeyManagerParams structure that holds the input
- *				parameters for Key manager
+ * @param	KmParamsPtr	Pointer to XAsu_KeyManagerParams structure.
  *
  * @return
  *	- XST_SUCCESS, if input validation is successful.
  *	- XST_FAILURE, if input validation fails.
  *
  *************************************************************************************************/
-s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
+static s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 {
 	volatile s32 Status = XST_FAILURE;
 
-	if (KmParamsPtr == NULL) {
-		goto END;
-	}
-
-	/** Validate at least one output destination is provided. */
+	/** Require exactly one destination; the export buffer length is checked by the caller. */
 	Status = XAsu_KmValidateKeyAddrNdKeyId(KmParamsPtr->KeyObjectAddr, 0U,
-				(u32)(KmParamsPtr->KeyIdAddr));
+					       KmParamsPtr->KeyIdAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Validate key metadata. */
+	Status = XST_FAILURE;
+
 	if (KmParamsPtr->KeyObjectAddr == 0U) {
-		Status = XST_FAILURE;
+		/** Validate metadata when storing generated key into vault. */
 		Status = XAsu_KmValidateKeyMetadata(&KmParamsPtr->KeyMetadata);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
+
+	Status = XST_SUCCESS;
 
 END:
 	return Status;
@@ -170,9 +175,9 @@ END:
 /**
  * @brief	This function validates that an AES key does not combine the key split use case
  *		with any other use case. The key type is taken as a parameter rather than read from
- *		the key metadata, because the Generate Key APIs derive it themselves and leave the
- *		key type field unset. For any other key type the function returns success, since the
- *		key split use case bit is reserved there.
+ *		the key metadata, because the Generate Key APIs pass their own key type. For any
+ *		other key type the function returns success, since the key split use case bit is
+ *		reserved there.
  *
  * @param	KeyType		Key type identifier. May include the wrapped-key bit
  *				(XASU_KM_KEYTYPE_WRAPPED_BIT_MASK), which is masked out before
@@ -209,7 +214,7 @@ END:
  * @brief	This function validates key length parameters for a given key.
  *
  * @param	KeyLength	Length of the key material in bytes.
- * @param	KeyType		Type of key to be validated (see XASU_KM_*_KEYTYPE).
+ * @param	KeyType		Type of key to be validated.
  *
  * @return
  *	- XST_SUCCESS, if input validation is successful.
@@ -221,7 +226,7 @@ s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType)
 	volatile s32 Status = XST_FAILURE;
 
 	/** Validate key length is either 128-bit or 256-bit for AES. */
-	if (KeyType == XASU_KM_AES_KEYTYPE) {
+	if (KeyType == (u8)XASU_AES_SUBVAULT_ID) {
 		if ((KeyLength != XASU_AES_KEY_SIZE_128BIT_IN_BYTES) &&
 		    (KeyLength != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
 			goto END;
@@ -229,7 +234,7 @@ s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType)
 	}
 
 	/** Validate IV length is non-zero and does not exceed maximum size. */
-	if (KeyType == XASU_KM_IV_KEYTYPE) {
+	if (KeyType == (u8)XASU_IV_SUBVAULT_ID) {
 		if ((KeyLength == 0U) ||
 		    (KeyLength > XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
 			goto END;
@@ -237,7 +242,7 @@ s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType)
 	}
 
 	/** Validate key length is non-zero and does not exceed maximum size for KDF/HMAC. */
-	if (KeyType == XASU_KM_KDF_HMAC_KEYTYPE) {
+	if (KeyType == (u8)XASU_KDF_HMAC_SUBVAULT_ID) {
 		if ((KeyLength == 0U) ||
 		    (KeyLength > XASU_KM_KDF_HMAC_MAX_KEY_LENGTH)) {
 			goto END;
@@ -245,7 +250,7 @@ s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType)
 	}
 
 	/** Validate key length based on compile-time RSA key generation configuration. */
-	if (KeyType == XASU_KM_RSA_KEYTYPE) {
+	if (KeyType == (u8)XASU_RSA_PVT_SUBVAULT_ID) {
 #if defined(XASU_RSA_3072_KEYGEN_ENABLE)
 		if (KeyLength != XRSA_3072_KEY_SIZE) {
 			goto END;
@@ -573,13 +578,15 @@ END:
 /**
  * @brief	This function validates that exactly one of KeyCompAddr or KeyId is provided, and
  * 		that a vault sourced component carries no length. It applies to anything the key
- * 		vault holds, a key or an IV.
+ * 		vault holds, a key or an IV. KeyId is u64 so the same helper can test either a
+ * 		composite vault KeyId or a full 64-bit KeyIdAddr without truncating high addresses.
  *
  * @param	KeyCompAddr	Address of the key or IV component, 0 when it is taken from the
  * 				key vault.
  * @param	KeyCompLen	Length of the key or IV component buffer in bytes. A component
  * 				whose length the caller does not supply passes 0.
- * @param	KeyId		Composite identifier for vault-based key or IV retrieval.
+ * @param	KeyId		Composite vault key/IV identifier, or a destination KeyIdAddr
+ * 				when used by generate-parameter validation.
  *
  * @return
  * 	- XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero and a vault sourced
@@ -588,7 +595,7 @@ END:
  * 	  a vault sourced component carries a non-zero length.
  *
  *************************************************************************************************/
-s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyCompLen, u32 KeyId)
+s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyCompLen, u64 KeyId)
 {
 	s32 Status = XST_FAILURE;
 
@@ -758,7 +765,235 @@ s32 XAsu_KmValidateXorKeyParams(const XAsu_KmXorKeyParams *ParamsPtr)
 
 	/** Validate the length of the combined key. */
 	Status = XAsu_KmValidateKeyLength((u32)ParamsPtr->OutKeyMetadata.Length,
-					  XASU_KM_AES_KEYTYPE);
+					  (u8)XASU_AES_SUBVAULT_ID);
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Validate key manager Generate and Store requests.
+ *
+ * @param	KmParamsPtr	Pointer to XAsu_KeyManagerParams structure that holds the input
+ *				parameters for Key manager APIs.
+ * @param	ValidationFlow	Validation flow selector (XASU_KM_VALIDATE_FLOW_INVALID is
+ *				rejected):
+ *				- XASU_KM_VALIDATE_FLOW_GENERATE: exactly one of KeyObjectAddr or
+ *				  KeyIdAddr is set; when exporting to client memory, KeyObjectLen must
+ *				  cover the larger of KeyMetadata.Length and MinimumKeyObjectLen;
+ *				  when storing in the vault, KeyMetadata is validated and the key
+ *				  type in CompositeKeyId must equal KeyType.
+ *				- XASU_KM_VALIDATE_FLOW_STORE: KeyObjectAddr, KeyIdAddr, and
+ *				  KeyObjectLen are mandatory; KeyMetadata, key attributes, key type, and
+ *				  plain/wrapped length rules are checked.
+ *				Both flows check that the key type is a valid sub-vault ID and apply
+ *				the AES key split use-case rule.
+ * @param	KeyType		Generate flow key type: the sub-vault ID for AES, IV and
+ *				KDF/HMAC keys, or the private sub-vault ID for RSA, ECC, ML-DSA
+ *				and ML-KEM key pairs. It must be a valid sub-vault ID without the
+ *				wrapped-key bit. It selects the key length rule for AES, IV,
+ *				KDF/HMAC and RSA, the RSA attribute rule, and the ECC curve check.
+ *				ML-DSA and ML-KEM parameters are checked by their
+ *				algorithm-specific validators. Ignored for the Store flow, where
+ *				the key type is obtained from CompositeKeyId.
+ * @param	MinimumKeyObjectLen Size of the complete exported object for the Generate flow.
+ *				When the exported object is only the key bytes, pass
+ *				KeyMetadata.Length; 0U has the same effect. Ignored when the generated
+ *				key is stored in the vault and for the Store flow.
+ *
+ * @return
+ *	- XST_SUCCESS, if input validation is successful.
+ *	- XST_FAILURE, if input validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateParams(const XAsu_KeyManagerParams *KmParamsPtr, u8 ValidationFlow,
+			  u8 KeyType, u32 MinimumKeyObjectLen)
+{
+	volatile s32 Status = XST_FAILURE;
+	u8 ValidatedKeyType = (u8)XASU_INVALID_SUBVAULT_ID;
+	u8 SubVaultId = (u8)XASU_INVALID_SUBVAULT_ID;
+	u32 RequiredKeyObjectLen = 0U;
+
+	if (KmParamsPtr == NULL) {
+		goto END;
+	}
+
+	if (ValidationFlow == XASU_KM_VALIDATE_FLOW_GENERATE) {
+		Status = XAsu_KmValidateVaultParams(KmParamsPtr);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		/** A key stored in the vault must carry the API's key type in CompositeKeyId. */
+		if (KmParamsPtr->KeyObjectAddr == 0U) {
+			Status = XST_FAILURE;
+			ValidatedKeyType =
+				XASU_KM_GET_KEY_TYPE(KmParamsPtr->KeyMetadata.CompositeKeyId);
+			if (ValidatedKeyType != KeyType) {
+				goto END;
+			}
+		}
+
+		/** A Generate key type must not carry the wrapped-key bit, so it is not masked. */
+		SubVaultId = KeyType;
+	} else if (ValidationFlow == XASU_KM_VALIDATE_FLOW_STORE) {
+		/** Store API requires both input key buffer and output key ID address. */
+		if ((KmParamsPtr->KeyObjectAddr == 0U) || (KmParamsPtr->KeyIdAddr == 0U)) {
+			goto END;
+		}
+
+		if (KmParamsPtr->KeyObjectLen == 0U) {
+			goto END;
+		}
+
+		if (XAsu_KmValidateKeyMetadata(&KmParamsPtr->KeyMetadata) != XST_SUCCESS) {
+			goto END;
+		}
+
+		ValidatedKeyType = XASU_KM_GET_KEY_TYPE(KmParamsPtr->KeyMetadata.CompositeKeyId);
+
+		if (XAsu_KmValidateKeyAttributes(ValidatedKeyType,
+						KmParamsPtr->KeyMetadata.KeyAttributes) != XST_SUCCESS) {
+			goto END;
+		}
+
+		SubVaultId = (u8)(ValidatedKeyType & (u8)(~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK));
+	} else {
+		goto END;
+	}
+
+	/** Checks common to both flows. */
+	Status = XST_FAILURE;
+
+	if (SubVaultId >= (u8)XASU_INVALID_SUBVAULT_ID) {
+		goto END;
+	}
+
+	if (XAsu_KmValidateAesKeySplitUseCase(SubVaultId,
+					      KmParamsPtr->KeyMetadata.KeyUseCase) != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (ValidationFlow == XASU_KM_VALIDATE_FLOW_GENERATE) {
+		Status = XAsu_KmValidateKeyLength(KmParamsPtr->KeyMetadata.Length, KeyType);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+		Status = XST_FAILURE;
+
+		if (((KeyType == (u8)XASU_RSA_PVT_SUBVAULT_ID) ||
+		     (KeyType == (u8)XASU_RSA_PUB_SUBVAULT_ID)) &&
+		    (KmParamsPtr->KeyMetadata.KeyAttributes !=
+		     XASU_KM_RSA_PVT_PRIME_NUM_PRESENT)) {
+			goto END;
+		}
+
+		/** Check the ECC curve and its private-key length in the shared generate path. */
+		if ((KeyType == (u8)XASU_ECC_PUB_SUBVAULT_ID) ||
+		    (KeyType == (u8)XASU_ECC_PVT_SUBVAULT_ID)) {
+			if (XAsu_EccValidateCurveInfo(KmParamsPtr->KeyMetadata.KeyAttributes,
+						      KmParamsPtr->KeyMetadata.Length) != XST_SUCCESS) {
+				goto END;
+			}
+		}
+
+		/**
+		 * An export buffer must hold the larger of the key and the complete exported
+		 * object. AES, IV and KDF/HMAC export only the key, so the key length is that
+		 * size. A key pair passes the object size, which is already at least the key
+		 * length.
+		 */
+		RequiredKeyObjectLen = KmParamsPtr->KeyMetadata.Length;
+		if (MinimumKeyObjectLen > RequiredKeyObjectLen) {
+			RequiredKeyObjectLen = MinimumKeyObjectLen;
+		}
+		if ((KmParamsPtr->KeyObjectAddr != 0U) &&
+		    ((KmParamsPtr->KeyObjectLen == 0U) ||
+		     (KmParamsPtr->KeyObjectLen < RequiredKeyObjectLen))) {
+			goto END;
+		}
+	} else {
+		if ((ValidatedKeyType & XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
+		    XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) {
+			if ((KmParamsPtr->WrappedInputLen == 0U) ||
+			    (KmParamsPtr->WrappedInputLen > KmParamsPtr->KeyObjectLen)) {
+				goto END;
+			}
+		} else {
+			/**
+			 * Plain Store Key input size depends on key type (RSA/ECC public objects
+			 * are larger than KeyMetadata.Length alone). Require KeyObjectLen to cover
+			 * the bytes the store path will consume from KeyObjectAddr.
+			 */
+			if (XAsu_KmGetStoreKeyObjectLen(KmParamsPtr->KeyMetadata.CompositeKeyId,
+							KmParamsPtr->KeyMetadata.Length,
+							&RequiredKeyObjectLen) != XST_SUCCESS) {
+				goto END;
+			}
+			if (RequiredKeyObjectLen > KmParamsPtr->KeyObjectLen) {
+				goto END;
+			}
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Compute the minimum KeyObjectLen required for a plain Store Key request.
+ *
+ * Matches the client-facing object sizes used by provisioning store serialization and by the
+ * Store Key DMA/repack path: RSA private and public use fixed object layouts, ECC public uses
+ * twice the curve length, and other types use KeyLen.
+ *
+ * @param	CompositeKeyId		Composite key identifier that encodes the key type.
+ * @param	KeyLen			KeyMetadata.Length from the Store Key request.
+ * @param	KeyObjectLenPtr		Output pointer for the required buffer length in bytes.
+ *
+ * @return
+ *	- XST_SUCCESS, if the required length is returned.
+ *	- XST_FAILURE, if KeyObjectLenPtr is NULL, KeyLen is zero, or ECC public KeyLen is
+ *	  unsupported.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmGetStoreKeyObjectLen(u32 CompositeKeyId, u16 KeyLen, u32 *KeyObjectLenPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 DataLen;
+	u8 KeyType;
+
+	if ((KeyObjectLenPtr == NULL) || (KeyLen == 0U)) {
+		goto END;
+	}
+
+	KeyType = XASU_KM_GET_KEY_TYPE(CompositeKeyId) &
+		  (u8)(~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK);
+
+	switch (KeyType) {
+	case XASU_RSA_PVT_SUBVAULT_ID:
+		DataLen = (u32)sizeof(XAsu_RsaKeyPairObject);
+		break;
+	case XASU_RSA_PUB_SUBVAULT_ID:
+		DataLen = (u32)sizeof(XAsu_RsaPubKeyComp);
+		break;
+	case XASU_ECC_PUB_SUBVAULT_ID:
+		if (KeyLen > XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES) {
+			goto END;
+		}
+		DataLen = XAsu_DoubleCurveLength((u32)KeyLen);
+		break;
+	default:
+		DataLen = (u32)KeyLen;
+		break;
+	}
+
+	*KeyObjectLenPtr = DataLen;
+	Status = XST_SUCCESS;
 
 END:
 	return Status;

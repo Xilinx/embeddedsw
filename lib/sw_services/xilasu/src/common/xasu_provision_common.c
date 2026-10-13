@@ -397,7 +397,7 @@ s32 XAsu_ProvisionValidateStoreKeyMetadata(
 		goto END;
 	}
 
-	Status = XAsu_ProvisionGetStoreKeyDataLen(MetadataPtr->CompositeKeyId,
+	Status = XAsu_KmGetStoreKeyObjectLen(MetadataPtr->CompositeKeyId,
 			MetadataPtr->Length, &DataLen);
 	if ((Status != XST_SUCCESS) ||
 	    (DataLen > XASU_PROVISION_MAX_STORE_KEY_DATA_SIZE)) {
@@ -551,59 +551,6 @@ s32 XAsu_ProvisionValidateUserKeyId(u32 KeyId)
 		Status = XST_SUCCESS;
 	}
 
-	return Status;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	Return the serialized key-object length for an AEPI STORE_KEY record.
- *
- * @param	CompositeKeyId	Composite key ID containing the destination sub-vault type.
- * @param	KeyLen		Key length stored in the key metadata.
- * @param	DataLenPtr	Pointer that receives the serialized key-object length.
- *
- * @return
- *	- XST_SUCCESS, if the serialized length is returned.
- *	- XST_FAILURE, if KeyLen is zero, DataLenPtr is NULL, or an ECC public key length
- *	  exceeds the largest supported coordinate length.
- *
- *************************************************************************************************/
-s32 XAsu_ProvisionGetStoreKeyDataLen(u32 CompositeKeyId, u16 KeyLen, u32 *DataLenPtr)
-{
-	s32 Status = XST_FAILURE;
-	u32 DataLen;
-	u8 KeyType;
-
-	if ((DataLenPtr == NULL) || (KeyLen == 0U)) {
-		Status = XST_FAILURE;
-		goto END;
-	}
-
-	KeyType = XASU_KM_GET_KEY_TYPE(CompositeKeyId) &
-			(u8)(~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK);
-	switch (KeyType) {
-	case XASU_RSA_PVT_SUBVAULT_ID:
-		DataLen = (u32)sizeof(XAsu_RsaKeyPairObject);
-		break;
-	case XASU_RSA_PUB_SUBVAULT_ID:
-		DataLen = (u32)sizeof(XAsu_RsaPubKeyComp);
-		break;
-	case XASU_ECC_PUB_SUBVAULT_ID:
-		if (KeyLen > XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES) {
-			Status = XST_FAILURE;
-			goto END;
-		}
-		DataLen = XAsu_DoubleCurveLength((u32)KeyLen);
-		break;
-	default:
-		DataLen = (u32)KeyLen;
-		break;
-	}
-
-	*DataLenPtr = DataLen;
-	Status = XST_SUCCESS;
-
-END:
 	return Status;
 }
 /** @} */
