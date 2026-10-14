@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -62,14 +62,14 @@
 
 #if LWIP_IGMP
 static err_t xemacpsif_mac_filter_update (struct netif *netif,
-							ip_addr_t *group, u8_t action);
+		const ip4_addr_t *group, enum netif_mac_filter_action action);
 
 static u8_t xemacps_mcast_entry_mask = 0;
 #endif
 
 #if LWIP_IPV6 && LWIP_IPV6_MLD
 static err_t xemacpsif_mld6_mac_filter_update (struct netif *netif,
-							ip_addr_t *group, u8_t action);
+		const ip6_addr_t *group, enum netif_mac_filter_action action);
 
 static u8_t xemacps_mld6_mcast_entry_mask;
 #endif
@@ -558,8 +558,8 @@ static void xemacpsif_mld6_mac_hash_update (struct netif *netif, u8_t *ip_addr,
 	SYS_ARCH_UNPROTECT(lev);
 }
 
-static err_t xemacpsif_mld6_mac_filter_update (struct netif *netif, ip_addr_t *group,
-		u8_t action)
+static err_t xemacpsif_mld6_mac_filter_update (struct netif *netif,
+		const ip6_addr_t *group, enum netif_mac_filter_action action)
 {
 	u8_t temp_mask;
 	unsigned int i;
@@ -665,8 +665,8 @@ static void xemacpsif_mac_hash_update (struct netif *netif, u8_t *ip_addr,
 	SYS_ARCH_UNPROTECT(lev);
 }
 
-static err_t xemacpsif_mac_filter_update (struct netif *netif, ip_addr_t *group,
-		u8_t action)
+static err_t xemacpsif_mac_filter_update (struct netif *netif,
+		const ip4_addr_t *group, enum netif_mac_filter_action action)
 {
 	u8_t temp_mask;
 	unsigned int i;
