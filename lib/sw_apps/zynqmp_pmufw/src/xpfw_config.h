@@ -554,6 +554,18 @@ extern "C" {
 #define DISABLE_UART_IDLING
 #endif
 
+#ifdef SDT
+#if defined(XPAR_XQSPIPSU_0_BASEADDR)
+#define XPAR_XQSPIPSU_0_DEVICE_ID XPAR_XQSPIPSU_0_BASEADDR
+#endif
+#endif
+
+#ifdef SDT
+#if defined(XPAR_XDDRCPSU_0_BASEADDR)
+#define XPAR_DDRCPSU_0_DEVICE_ID XPAR_XDDRCPSU_0_BASEADDR
+#endif
+#endif
+
 #ifdef XPAR_DDRCPSU_0_DEVICE_ID
 #if (ENABLE_POS_VAL) && (!defined(ENABLE_POS))
 #define ENABLE_POS
@@ -652,9 +664,6 @@ extern "C" {
 #endif
 
 #ifdef SDT
-#if defined(XPAR_XDDRCPSU_0_BASEADDR)
-#define XPAR_DDRCPSU_0_DEVICE_ID XPAR_XDDRCPSU_0_BASEADDR
-#endif
 #if defined(XPAR_XDDRCPSU_0_HAS_ECC)
 #define XPAR_PSU_DDRC_0_HAS_ECC XPAR_XDDRCPSU_0_HAS_ECC
 #endif
