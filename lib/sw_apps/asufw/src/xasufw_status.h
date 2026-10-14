@@ -63,6 +63,7 @@
  *                     and import, for random byte rejection sampling retry exhaustion and for
  *                     ASU internal exportable vault creation failure
  *       kk   09/23/26 Added error codes for SLH-DSA pairwise consistency test
+ *       kp   10/08/26 Consolidated ChangeEndianness errors into XASUFW_CHANGE_ENDIANNESS_ERROR
  *
  * </pre>
  *
@@ -355,7 +356,7 @@ enum {
 	XASUFW_KDF_KAT_FAILED, /**< 0xE7U - KDF KAT failed */
 	XASUFW_TRNG_GET_RANDOM_NUMBERS_TIMEDOUT, /**< 0xE8U - TRNG Get Random numbers timed out */
 	XASUFW_TRNG_INVALID_RANDOM_NUMBER, /**< 0xE9U - Invalid random number generated */
-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, /**< 0xEAU - Error when change endianness in RSA fails */
+	XASUFW_CHANGE_ENDIANNESS_ERROR, /**< 0xEAU - Error when change endianness fails */
 	XASUFW_RSA_INVALID_PRIME_TOT_FLAG, /**< 0xEBU - Error when invalid flag for prime number or
 						totient is given */
 	XASUFW_ECIES_INVALID_PARAM, /**< 0xECU - Invalid parameters to ECIES APIs */
@@ -412,8 +413,7 @@ enum {
 							length. */
 	XASUFW_KEYWRAP_INVALID_PAD_VALUE, /**< 0x116U -  Error when output data has invalid padding
 							value i.e other than zeroes. */
-	XASUFW_KEYWRAP_CHANGE_ENDIANNESS_ERROR, /**< 0x117U - Error when change endianness in key
-							wrap fails */
+	XASUFW_ERR_RESERVED_117, /**< 0x117U - Reserved */
 	XASUFW_KEYWRAP_LOOP_INDEX_CMP_ERROR, /**< 0x118U - Error when index of loop comparison failure */
 	XASUFW_ECC_SCP_DISABLE_FAILED, /**< 0x119U - Error when SCP is not disabled for ECC */
 	XASUFW_ECC_SCP_RANDOM_NUM_GEN_FAIL, /**< 0x11AU - Error when SCP random number generation
@@ -593,7 +593,7 @@ enum {
 	XASUFW_OCP_UDE_AES_COMPUTE_FAIL, /**< 0x18EU - Error when UDE AES compute operation fails */
 	XASUFW_OCP_UDE_CHALLENGE_RESPONSE_FAIL, /**< 0x18FU - Error when UDE challenge response operation fails */
 	XASUFW_OCP_SHA_DIGEST_FAIL, /**< 0x190U - Error when SHA digest operation fails */
-	XASUFW_OCP_UDE_CHANGE_ENDIANNESS_ERROR, /**< 0x191U - Error when UDE change endianness operation fails */
+	XASUFW_ERR_RESERVED_191, /**< 0x191U - Reserved */
 	XASUFW_X509_PARSER_TBS_FAIL, /**< 0x192U - Error when TBS parsing is failed. */
 	XASUFW_X509_PARSER_SIGN_INFO_FAIL, /**< 0x193U - Error when signature information parsing
 							is failed. */

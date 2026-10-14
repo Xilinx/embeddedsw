@@ -25,6 +25,7 @@
  *       kd   07/23/25 Fixed gcc warnings
  *       kp   02/25/26 Added client-side AES CBC/CCM encrypt/decrypt KATs
  *       kp   09/09/26 Allow addressless 256-bit KeyObject for eFUSE Red Key 1
+ *       kp   09/23/26 Accept black/red eFUSE User Key 1; KeySrc selects transfer form
  *
  * </pre>
  *
@@ -413,11 +414,13 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 	}
 
 	/**
-	 * eFUSE Red Key 1 is selected from the AES vault after the server stages it, so
-	 * neither a client key buffer nor a vault KeyId is used. Only a 256-bit key is
-	 * programmed into the eFUSE, hence any other key size is invalid.
+	 * Staged eFUSE User Key 1 (black or red) uses neither a client key buffer nor a vault
+	 * KeyId. Only a 256-bit key is programmed into the eFUSE. KeySrc selects which form PMC
+	 * transfers into the matching black or red registers; it does not detect the programmed
+	 * fuse form. Choose KeySrc to match how the key was provisioned.
 	 */
-	if (KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+	if ((KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_RED_1) ||
+	    (KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_1)) {
 		if ((KeyObjectPtr->KeyAddress != 0U) || (KeyObjectPtr->KeyId != 0U)) {
 			goto END;
 		}
@@ -439,7 +442,7 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 
 		if ((KeyObjectPtr->KeySrc >= XASU_AES_MAX_KEY_SOURCES) ||
 			(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_0) ||
-			(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_1)) {
+			(KeyObjectPtr->KeySrc == XASU_AES_EFUSE_KEY_RED_0)) {
 			goto END;
 		}
 	}

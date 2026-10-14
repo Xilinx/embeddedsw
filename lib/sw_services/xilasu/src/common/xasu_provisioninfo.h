@@ -12,9 +12,10 @@
  * server.
  *
  * The Provisioning module implements the ASU Provisioning Interface (SAS section 12.16). It
- * supports programming the USER eFUSE keys. Both USER_EFUSE_KEY_0 and USER_EFUSE_KEY_1 are always
- * programmed in black form (PUF KEK encrypted); a mixed red/black selection across the two user
- * keys is not a supported hardware use case.
+ * supports programming the USER eFUSE keys. USER_EFUSE_KEY_0 is programmed in black form only.
+ * USER_EFUSE_KEY_1 accepts both black (PUF KEK encrypted) and red (unencrypted) via KeyForm.
+ * Red USER key 1 can be used by both PLM and ASU. Black USER key 0 and black USER key 1 are
+ * subsystem-exclusive; choose black provisioning with the intended end use case in mind.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -22,6 +23,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   kp   06/27/26 Initial release
+ *       kp   09/23/26 KeyForm for USER eFUSE key 1 red/black via XASU_EFUSE_*
  *
  * </pre>
  *
@@ -40,6 +42,7 @@ extern "C" {
 /*************************************** Include Files *******************************************/
 #include "xil_types.h"
 #include "xil_util.h"
+#include "xasu_def.h"
 #include "xasu_keymanagerinfo.h"
 #include "xasu_mldsainfo.h"
 #ifdef SDT
@@ -168,8 +171,10 @@ typedef enum {
 
 /**
  * This structure contains the parameters for the USER eFUSE key provisioning command.
- * The key is always programmed in black form (PUF KEK encrypted). The key source is selected
- * explicitly via KeySource:
+ * USER_EFUSE_KEY_0 is always programmed in black form. USER_EFUSE_KEY_1 accepts both black and
+ * red via KeyForm. Red USER key 1 is usable by PLM and ASU; black USER key 0 and black USER
+ * key 1 are subsystem-exclusive, so choose black provisioning with the end use case in mind.
+ * The key source is selected explicitly via KeySource:
  *  - XASU_PROVISION_KEY_SOURCE_ASU_GENERATED: the ASU generates the key with the TRNG; KeyId and
  *    KeyAddr must both be zero. This is the only source permitted for USER_EFUSE_KEY_0.
  *  - XASU_PROVISION_KEY_SOURCE_VAULT: KeyId selects an AKV key (KeyAddr must be zero).
@@ -188,6 +193,11 @@ typedef struct {
 	u8 EfuseKeyId;	/**< Target USER eFUSE key to program (XASU_PROVISION_EFUSE_USER_KEY_0 or
 				XASU_PROVISION_EFUSE_USER_KEY_1). */
 	u8 KeySource;	/**< Source of the key to be programmed (XASU_PROVISION_KEY_SOURCE_*). */
+	u8 KeyForm;	/**< Programmed form (XASU_EFUSE_BLACK_KEY or XASU_EFUSE_RED_KEY).
+				USER_EFUSE_KEY_0 accepts black only;
+				USER_EFUSE_KEY_1 accepts black or red. Red USER key 1 is usable by
+				PLM and ASU; black USER key 1 is subsystem-exclusive. */
+	u8 Reserved[7];	/**< Reserved for alignment. */
 } XAsu_ProvisionUserEfuseParams;
 
 /**

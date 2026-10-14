@@ -38,6 +38,7 @@
  *       am   07/18/25 Modified XAes_SetReset() visibility from static to non-static
  * 1.3   kp   08/21/26 Removed IsContextRestoreReq from XAes_ContextInfo
  *       kp   09/09/26 Added XAes_FetchAndStageEfuseUserKey1() prototype
+ *       kp   09/23/26 Stage eFUSE User Key 1 from the client black or red KeySrc
  *
  * </pre>
  *
@@ -139,7 +140,7 @@ s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr
 	u8 OperationType, u32 SplitMask);
 s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeySel, u8 DecKeySize,
 	u64 IvAddr, u32 IvLen);
-s32 XAes_FetchAndStageEfuseUserKey1(XAes *InstancePtr, XAsufw_Dma *DmaPtr);
+s32 XAes_FetchAndStageEfuseUserKey1(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 KeySrc);
 s32 XAes_EncryptRedKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesParams *AesParams);
 s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesParams);
 u8 XAes_GetEngineMode(const XAes *InstancePtr);

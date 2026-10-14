@@ -29,6 +29,7 @@
  *       am   02/21/25 Added XASUFW_ENABLE_PERF_MEASUREMENT macro
  *       rmv  09/11/25 Added caution message for XASUFW_TRNG_IN_PTRNG_MODE macro
  * 1.2   am   06/24/26 Updated SDK release version
+ *       kp   09/23/26 Dropped the per-key eFUSE red/black build configuration
  *
  * </pre>
  *
@@ -50,15 +51,6 @@ extern "C" {
 /************************************ Constant Definitions ***************************************/
 #define XASUFW_CONFIG_ENABLE		(0x1U) /**< To enable any configuration */
 #define XASUFW_CONFIG_DISABLE		(0x0U) /**< To disable any configuration */
-
-#define XASUFW_EFUSE_BLACK_KEY		(0X00000001U) /**< Efuse black key */
-#define XASUFW_EFUSE_RED_KEY		(0X00000002U) /**< Efuse red key */
-
-/** Configure key transfer for either red key or black key */
-#define XASUFW_PMXC_EFUSE_USER_KEY_0 	(XASUFW_EFUSE_BLACK_KEY) /**< PMX eFuse user key 0
-									configuration */
-#define XASUFW_PMXC_EFUSE_USER_KEY_1 	(XASUFW_EFUSE_BLACK_KEY) /**< PMX eFuse user key 1
-									configuration */
 
 /** SDK release version */
 #define SDK_RELEASE_YEAR		2026	/**< Specifies the SDK release year */

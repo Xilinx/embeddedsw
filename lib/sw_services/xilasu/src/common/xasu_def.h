@@ -22,6 +22,7 @@
  *       rmv  08/11/25 Added macro for PLM event module ID.
  *       rmv  07/16/25 Added macro for OCP module ID.
  *       kk   07/10/26 Added macro for SLH-DSA module ID.
+ *       kp   10/13/26 Added XASU_EFUSE_BLACK_KEY and XASU_EFUSE_RED_KEY
  *
  * </pre>
  *
@@ -93,6 +94,13 @@ extern "C" {
 						XASU_FW_VERSION_MAJOR_SHIFT) | \
 						(u32)XASU_FW_VERSION_MINOR)
 						/**< FW version = 0x00000200 (v2.0) */
+
+/**
+ * USER eFUSE key form encodings. Match the ASU black/red select register values used by
+ * PMC key transfer and by USER eFUSE provisioning KeyForm.
+ */
+#define XASU_EFUSE_BLACK_KEY		(0x00000001U) /**< PUF KEK encrypted (black) form. */
+#define XASU_EFUSE_RED_KEY		(0x00000002U) /**< Unencrypted (red) form. */
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

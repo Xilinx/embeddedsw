@@ -129,7 +129,8 @@ extern "C" {
 								XPLMI_MODULE_XILNVM_ID */
 #define XASUFW_PLM_XILNVM_CMD_HDR_INDEX		(0U)	/**< PLM command payload index of header */
 #define XASUFW_PLM_XILNVM_RESP_LEN		(1U)	/**< Response buffer length */
-#define XASUFW_PLM_XILNVM_ENV_MON_CHECK		(0U)	/**< Perform environment checks */
+#define XASUFW_PLM_XILNVM_ENV_MON_DIS		(0U)	/**< Environment monitoring disable
+								flag: 0 = run, 1 = disable */
 
 /* PLM XilNVM off chip revoke ID write request. */
 #define XASUFW_PLM_XILNVM_WRITE_OFFCHIP_REVOKE_API_ID	(16U) /**< XilNVM Write off chip
@@ -174,7 +175,6 @@ extern "C" {
 							XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS */
 #define XASUFW_PLM_XILNVM_RELOAD_PAYLOAD_LEN	(1U)	/**< Reload request payload length
 							(header only) */
-#define XASUFW_PLM_XILNVM_ENV_MON_DIS		(0U)	/**< Disable environment checks */
 
 /* PLM XilNVM AES key CRC check request. */
 #define XASUFW_PLM_XILNVM_CHECK_CRC_API_ID	(39U)	/**< Must match the PLM command ID of

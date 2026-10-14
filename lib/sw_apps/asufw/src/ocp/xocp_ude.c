@@ -621,7 +621,7 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if the UDE private key is decrypted successfully.
  *	- XASUFW_MEM_COPY_FAIL, if mem copy fails.
- *	- XASUFW_OCP_UDE_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
+ *	- XASUFW_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	- XASUFW_ZEROIZE_MEMSET_FAIL, if mem set fails.
  *	- XASUFW_OCP_UDE_AES_COMPUTE_FAIL, with the XOcp_AesCompute error embedded, if the AES
  *	  operation fails.
@@ -650,7 +650,7 @@ static s32 XOcp_DecryptPvtKey(XAsufw_Dma *DmaPtr, u32 UdeUserKeyAddr, u8* Iv, u8
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness(UdeEncPvtKey, XASU_OCP_UDE_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_UDE_CHANGE_ENDIANNESS_ERROR;
+		Status = XASUFW_CHANGE_ENDIANNESS_ERROR;
 		goto END;
 	}
 
@@ -731,7 +731,8 @@ static s32 XOcp_AesCompute(XAsufw_Dma *DmaPtr, u64 IvAddr, u64 InAddr, u64 OutAd
 	 * Ensure the PUF KEK (and eFUSE keys) are transferred from the PMC before the PUF key is
 	 * selected as the AES key source, and validate the PUF KEK generation status.
 	 */
-	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihUde, Status, END, &PufKekGenStatus);
+	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihUde, Status, END, &PufKekGenStatus,
+			XASU_EFUSE_BLACK_KEY);
 	if (PufKekGenStatus != (u32)XASUFW_SUCCESS) {
 		Status = XASUFW_PUF_KEK_GEN_FAIL;
 		goto END;

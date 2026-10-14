@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog   06/25/26 Initial release
+ *       kp   09/23/26 Program both eFUSE black/red registers from one KeyForm argument
  *       vm    10/05/26 Kept the keep-alive counter advancing while the key transfer done
  *                      status is awaited
  *
@@ -29,6 +30,7 @@
 /*************************************** Include Files *******************************************/
 #include "xasufw_keytransfer.h"
 #include "xasufw_ipi.h"
+#include "xasufw_debug.h"
 #include "xasufw_status.h"
 #include "xasufw_util.h"
 #include "xaes.h"
@@ -52,39 +54,42 @@
 
 /*************************************************************************************************/
 /**
- * @brief	This function gets three 256-bit keys (two red/black and one PUF key) from PMXC to Key
- * receiver engine in ASU using 128-bit dedicated interface between PMXC and ASU.
+ * @brief	This function gets three 256-bit keys (two user keys and one PUF key) from PMXC
+ * 		to the key receiver engine in the ASU using the 128-bit dedicated interface between
+ * 		PMXC and the ASU. Both user keys are transferred in KeyForm. The caller keeps the
+ * 		key it needs and clears the other two.
  *
  * @param	PufKekGenStatusPtr Pointer to the PUF KEK generation status variable.
+ * @param	KeyForm		Form applied to both user keys for this transfer
+ * 				(XASU_EFUSE_BLACK_KEY or XASU_EFUSE_RED_KEY).
  *
  * @return
  *		- XASUFW_SUCCESS, if all three keys are received successfully.
- *		- XASUFW_INVALID_PARAM, if input argument is NULL.
+ *		- XASUFW_INVALID_PARAM, if PufKekGenStatusPtr is NULL or KeyForm is not black
+ *		  or red.
  *		- XASUFW_KEY_TRANSFER_SEND_IPI_FAILED, if failed to send key transfer IPI to PLM.
- *		- XASUFW_KEY_TRANSFER_READ_IPI_FAILED, if failed to read key transfer IPI response from PLM.
+ *		- XASUFW_KEY_TRANSFER_READ_IPI_FAILED, if failed to read key transfer IPI response
+ *		  from PLM.
  *		- XASUFW_ERR_KV_INTERRUPT_DONE_TIMEOUT, if key transfer done timeout occurs.
  *		- XASUFW_FAILURE, if all three keys are not received.
  *
  *************************************************************************************************/
-s32 XAsufw_PmcKeyTransfer(u32 *PufKekGenStatusPtr)
+s32 XAsufw_PmcKeyTransfer(u32 *PufKekGenStatusPtr, u32 KeyForm)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Response[XASUFW_KEY_RX_PAYLOAD_SIZE] = {0U};
 	u32 Payload;
 
-	/** Validate input argument. */
-	if (PufKekGenStatusPtr == NULL) {
+	/** Validate input arguments. One form applies to both user keys. */
+	if ((PufKekGenStatusPtr == NULL) ||
+	    ((KeyForm != XASU_EFUSE_BLACK_KEY) && (KeyForm != XASU_EFUSE_RED_KEY))) {
 		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Transfer efuse key_0 is black or red based on user configuration. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET),
-		XASUFW_PMXC_EFUSE_USER_KEY_0);
-
-	/** Transfer efuse key_1 is black or red based on user configuration. */
-	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_1_BLACK_OR_RED_OFFSET),
-		XASUFW_PMXC_EFUSE_USER_KEY_1);
+	/** Program both eFUSE black/red registers with the form this transfer needs. */
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_0_BLACK_OR_RED_OFFSET), KeyForm);
+	XAsufw_WriteReg((XASU_XKEY_0_BASEADDR + XAES_EFUSE_KEY_1_BLACK_OR_RED_OFFSET), KeyForm);
 
 	Payload = XASUFW_PLM_IPI_HEADER(0U, XASUFW_PLM_ASU_KEY_TX_API_ID,
 			XASUFW_PLM_ASU_MODULE_ID);

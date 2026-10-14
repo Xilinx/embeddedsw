@@ -19,6 +19,7 @@
  *       am   08/01/24 Replaced enums with macros
  * 1.1   am   01/20/25 Added AES CCM nonce macros
  *       am   03/14/25 Updated correct macro value of XASU_AES_CCM_MIN_NONCE_LEN
+ *       kp   09/23/26 Document KEY_1 / KEY_RED_1 as black/red register-form selection
  *
  * </pre>
  *
@@ -91,10 +92,18 @@ extern "C" {
 #define XASU_AES_USER_KEY_6		(0x6U) /**< User Key 6 */
 #define XASU_AES_USER_KEY_7		(0x7U) /**< User Key 7 */
 #define XASU_AES_EFUSE_KEY_0		(0x8U) /**< Efuse key 0 */
-#define XASU_AES_EFUSE_KEY_1		(0x9U) /**< Efuse key 1 */
+#define XASU_AES_EFUSE_KEY_1		(0x9U) /**< Black eFUSE user key 1. Selects a black-form
+							PMC transfer into the black key registers;
+							ASUFW then decrypts into Red Key 1 for use.
+							KeySrc chooses the register form loaded;
+							it does not detect how the fuse was
+							programmed. */
 #define XASU_AES_PUF_KEY		(0xAU) /**< PUF key */
 #define XASU_AES_EFUSE_KEY_RED_0	(0xBU) /**< Efuse Red key 0 */
-#define XASU_AES_EFUSE_KEY_RED_1	(0xCU) /**< Efuse Red key 1 */
+#define XASU_AES_EFUSE_KEY_RED_1	(0xCU) /**< Red eFUSE user key 1. Selects a red-form PMC
+							transfer into the red key registers. KeySrc
+							chooses the register form loaded; it does
+							not detect how the fuse was programmed. */
 #define XASU_AES_EXPANDED_KEYS		(0xDU) /**< Expanded keys in AES engine */
 #define XASU_AES_MAX_KEY_SOURCES	XASU_AES_EXPANDED_KEYS /**< Maximum key source value */
 

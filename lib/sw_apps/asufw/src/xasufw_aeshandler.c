@@ -27,6 +27,7 @@
  *       kp   09/09/26 Use eFUSE User Key 1 for general AES encrypt/decrypt; stage internally
  *                     and clear red key 1 on END
  *       vm   09/15/26 Added the API that hands out the AES instance the firmware drives
+ *       kp   09/23/26 Stage eFUSE User Key 1 for both black and red client key sources
  *
  * </pre>
  *
@@ -381,7 +382,8 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * nor a key vault identifier, and only a 256-bit key is programmed. Reject a
 		 * conflicting key object before the key manager resolves an unrelated key.
 		 */
-		if (KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+		if ((KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) ||
+		    (KeyObject.KeySrc == XASU_AES_EFUSE_KEY_1)) {
 			if ((KeyObject.KeyId != 0U) || (KeyObject.KeyAddress != 0U) ||
 			    (KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS)) {
 				Status = XASUFW_AES_INVALID_PARAM;
@@ -420,10 +422,11 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		}
 #endif /* XASU_KEYMANAGER_ENABLE */
 
-		if (KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+		if ((KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) ||
+		    (KeyObject.KeySrc == XASU_AES_EFUSE_KEY_1)) {
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XAes_FetchAndStageEfuseUserKey1(XAsufw_Aes,
-					XAsufw_AesModule.AsuDmaPtr);
+					XAsufw_AesModule.AsuDmaPtr, KeyObject.KeySrc);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status,
 					XASUFW_AES_EFUSE_USER_KEY_1_STAGE_FAILED);
@@ -606,9 +609,8 @@ END:
 		XAes_SetReset(XAsufw_Aes);
 
 		/**
-		 * Zeroize eFUSE Red Key 1, the only key which XAes_FetchAndStageEfuseUserKey1
-		 * retains in the vault. The remaining transferred keys are already zeroized by
-		 * the staging itself, on both success and failure.
+		 * Zeroize staged eFUSE red vault keys retained after FetchAndStage.
+		 * The remaining transferred keys are already zeroized by staging.
 		 */
 		XFIH_CALL(XAes_KeyClear, XFihVar, VaultClearStatus, XAsufw_Aes,
 			XASU_AES_EFUSE_KEY_RED_1);

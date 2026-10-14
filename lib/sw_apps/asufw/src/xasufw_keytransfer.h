@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   yog   06/25/26 Initial release
+ *       kp   09/23/26 Key transfer takes one red/black form via XASU_EFUSE_*
  *
  * </pre>
  *
@@ -32,7 +33,7 @@ extern "C" {
 #endif
 
 /*************************************** Include Files *******************************************/
-#include "xil_types.h"
+#include "xasu_def.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -41,7 +42,7 @@ extern "C" {
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_PmcKeyTransfer(u32 *PufKekGenStatusPtr);
+s32 XAsufw_PmcKeyTransfer(u32 *PufKekGenStatusPtr, u32 KeyForm);
 
 /************************************ Variable Definitions ***************************************/
 

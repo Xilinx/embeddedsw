@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   kp   06/27/26 Initial release
+ *       kp   09/23/26 Validate KeyForm; USER eFUSE key 0 is black only
  *
  * </pre>
  *
@@ -77,6 +78,19 @@ s32 XAsu_ProvisionValidateUserEfuseParams(const XAsu_ProvisionUserEfuseParams *P
 
 	/** Validate the key length (only 256-bit keys are supported by USER eFUSE keys). */
 	if (ParamsPtr->KeyLen != XASU_PROVISION_USER_EFUSE_KEY_SIZE_IN_BYTES) {
+		goto END;
+	}
+
+	/**
+	 * USER_EFUSE_KEY_0 is the ASU KEK seed and is black only. USER_EFUSE_KEY_1 may be
+	 * black or red.
+	 */
+	if (ParamsPtr->EfuseKeyId == XASU_PROVISION_EFUSE_USER_KEY_0) {
+		if (ParamsPtr->KeyForm != XASU_EFUSE_BLACK_KEY) {
+			goto END;
+		}
+	} else if ((ParamsPtr->KeyForm != XASU_EFUSE_BLACK_KEY) &&
+		   (ParamsPtr->KeyForm != XASU_EFUSE_RED_KEY)) {
 		goto END;
 	}
 

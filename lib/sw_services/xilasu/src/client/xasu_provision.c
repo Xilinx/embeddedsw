@@ -17,6 +17,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   kp   06/27/26 Initial release
+ *       kp   10/13/26 Document KeyForm for USER eFUSE key 1 and black/red use cases
  *
  * </pre>
  *
@@ -393,8 +394,11 @@ END:
  * @brief	This function sends a command to ASUFW to program a USER eFUSE key.
  *
  *		The key to be programmed can be sourced from the AKV, generated internally by the
- *		ASU using the TRNG (benign provisioning), or supplied directly by the user. It is
- *		always stored in the eFUSE in black (PUF KEK encrypted) form.
+ *		ASU using the TRNG (benign provisioning), or supplied directly by the user.
+ *		USER_EFUSE_KEY_0 is always stored in black (PUF KEK encrypted) form.
+ *		USER_EFUSE_KEY_1 is stored in the form selected by ParamsPtr->KeyForm (black or
+ *		red). Red USER key 1 can be used by both PLM and ASU. Black USER key 1 is
+ *		subsystem-exclusive; use black provisioning with the intended end use case in mind.
  *
  * @param	ClientParamPtr	Pointer to the XAsu_ClientParams structure which holds the client
  *				input parameters.

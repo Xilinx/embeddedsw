@@ -624,6 +624,7 @@ END:
  * 	- XASUFW_DMA_COPY_FAIL, if input data copy using DMA fails.
  * 	- XASUFW_KEYWRAP_AES_DATA_CALC_FAIL, if AES operation fails.
  * 	- XASUFW_KEYWRAP_ICV_CMP_FAIL, if ICV comparison with first 4 bytes of output fails.
+ * 	- XASUFW_CHANGE_ENDIANNESS_ERROR, if endianness change of output length fails.
  * 	- Error code from XAsufw_UpdateBufStatus, if local scratch buffer zeroization fails.
  *
  *************************************************************************************************/
@@ -808,7 +809,7 @@ s32 XKeyWrap_UnwrapOp(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAes *AesIns
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ChangeEndianness((u8 *)OutDataLenPtr, XASUFW_WORD_LEN_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_KEYWRAP_CHANGE_ENDIANNESS_ERROR;
+		Status = XASUFW_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 

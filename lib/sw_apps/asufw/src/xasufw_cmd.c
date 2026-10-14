@@ -29,6 +29,7 @@
  *                     relying solely on XAes_Final; recover parked context on resource-handler
  *                     allocation failure too
  *       kp   09/09/26 Restore re-stages eFUSE User Key 1; release DMA before AES ownership
+ *       kp   09/23/26 Allocate DMA to restore a black or red eFUSE User Key 1 context
  *
  * </pre>
  *
@@ -390,7 +391,8 @@ static void XAsufw_CheckAndRestoreAesContext(void)
 		if ((Ctx->IsContextSaved == XASU_TRUE) &&
 				(XAsufw_IsResourceFree(XASUFW_AES) == XASU_TRUE)) {
 			ReqId = Ctx->ReqId;
-			if (Ctx->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) {
+			if ((Ctx->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1) ||
+			    (Ctx->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_1)) {
 				DmaPtr = XAsufw_AllocateDmaResource(XASUFW_AES, ReqId);
 				if (DmaPtr == NULL) {
 					Status = XASUFW_DMA_RESOURCE_ALLOCATION_FAILED;

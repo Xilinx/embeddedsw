@@ -435,7 +435,7 @@ END:
  *	- XASUFW_RSA_ECC_INVALID_PARAM, if any of the input parameter is invalid.
  *	- XASUFW_RSA_ECC_WRITE_DATA_FAIL, if write data through DMA fails.
  *	- XASUFW_RSA_ECC_READ_DATA_FAIL, if read data through DMA fails.
- *	- XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
+ *	- XASUFW_CHANGE_ENDIANNESS_ERROR, if endianness change fails.
  *	- XASUFW_RSA_ECC_EPHEMERAL_KEY_GEN_FAIL, if ephemeral key generation fails.
  *	- XASUFW_RSA_ECC_TRNG_FAILED, if random number generation for the ephemeral key fails.
  *	- XASUFW_RSA_ECC_MOD_ORDER_FAILED, if reducing the ephemeral key modulo the curve
@@ -551,7 +551,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ReverseInPlace(DmaPtr, Hash, CurveSize);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			Status = XASUFW_CHANGE_ENDIANNESS_ERROR;
 			goto END_CLR;
 		}
 
@@ -577,7 +577,7 @@ s32 XRsa_EccGenerateSignature(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XAsufw_ReverseInPlace(DmaPtr, EphemeralKey, CurveLen);
 			if (Status != XASUFW_SUCCESS) {
-				Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+				Status = XASUFW_CHANGE_ENDIANNESS_ERROR;
 				goto END_CLR;
 			}
 		}
@@ -1113,7 +1113,7 @@ END:
  *	-	XASUFW_MEM_COPY_FAIL, if copying random number to PvtKey pointer fails.
  *	-	XASUFW_RSA_ECC_GEN_PVT_KEY_OPERATION_FAIL, if private key generation operation
  *						fails.
- *	-	XASUFW_RSA_CHANGE_ENDIANNESS_ERROR, if changing endianness fails.
+ *	-	XASUFW_CHANGE_ENDIANNESS_ERROR, if changing endianness fails.
  *	-	XASUFW_DMA_SCRUB_FAIL, if the DMA secret-path scrub fails.
  *
  *************************************************************************************************/
@@ -1187,7 +1187,7 @@ s32 XRsa_EccGeneratePvtKey(XAsufw_Dma *DmaPtr, u32 CurveType, u32 CurveLen, u8 *
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_ReverseInPlace(DmaPtr, PvtKey, CurveLen);
 		if (Status != XASUFW_SUCCESS) {
-			Status = XASUFW_RSA_CHANGE_ENDIANNESS_ERROR;
+			Status = XASUFW_CHANGE_ENDIANNESS_ERROR;
 		}
 
 		/** Scrub the DMA secret datapath */

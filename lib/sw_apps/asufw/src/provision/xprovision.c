@@ -10,9 +10,8 @@
 *
 * This file implements provisioning of the USER eFUSE keys. The key comes from one of three sources
 * selected via KeySource: ASU-generated (TRNG), AKV vault (KeyId), or user buffer (KeyAddr).
-* USER_KEY_0 allows only the ASU-generated source; USER_KEY_1 allows all three. The key is always
-* PUF KEK encrypted (black form) in the ASU, then sent to the PLM (XilNVM) over IPI for the eFUSE
-* write.
+* USER_KEY_0 allows only the ASU-generated source; USER_KEY_1 allows all three. USER_KEY_0 is
+* always PUF KEK encrypted (black form). USER_KEY_1 is written in the form selected by KeyForm.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -21,6 +20,8 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kp   06/27/26 Initial release
 *       vm   09/15/26 Dropped the UDE public key cache after a UDE slot write
+*       kp   09/25/26 Program USER eFUSE key 1 red/black from KeyForm; reverse key before
+*                     eFUSE write (not PMC's format)
 *
 * </pre>
 *
@@ -345,8 +346,8 @@ static s32 XProvision_GetWrapScratch(XProvision_WrapScratch **ScratchPtr);
 /**
  * @brief	This function programs a USER eFUSE key (USER_KEY_0 / USER_KEY_1) with a key
  *		from the source selected in ParamsPtr->KeySource (ASU-generated via TRNG, AKV
- *		vault, or user buffer). USER_KEY_0 is restricted to the ASU-generated source.
- *		The key is always stored in black form (PUF KEK encrypted) for both user keys.
+ *		vault, or user buffer). USER_KEY_0 is restricted to the ASU-generated source and
+ *		is stored in black form. USER_KEY_1 is stored in the form selected by KeyForm.
  *
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	AesInstancePtr	Pointer to the XAes instance (used for red key encryption).
@@ -356,18 +357,22 @@ static s32 XProvision_GetWrapScratch(XProvision_WrapScratch **ScratchPtr);
  * @return
  *	- XASUFW_SUCCESS, if the USER eFUSE key is provisioned successfully.
  *	- XASUFW_PROVISION_INVALID_PARAM, if any input parameter is invalid.
- *	- XASUFW_PROVISION_KEY_FETCH_FAIL, if obtaining the key fails.
+ *	- XASUFW_PROVISION_KEY_FETCH_FAIL, if obtaining the key fails or the key is all zeros.
  *	- Error code from XAsufw_PmcKeyTransfer, if the PMC key transfer fails.
  *	- XASUFW_PUF_KEK_GEN_FAIL, if PUF KEK generation fails.
  *	- XASUFW_PROVISION_RED_ENCRYPT_FAIL, if red key encryption fails.
+ *	- XASUFW_CHANGE_ENDIANNESS_ERROR, if reversing the key buffer fails.
  *	- XASUFW_ERR_IPI_RSP_PLM_EFUSE_REQ, if the target key is already programmed, or the PLM
- *		reports a failure for the blank-key check or the eFUSE write.
+ *	  reports a failure for the blank-key check or the eFUSE write.
  *	- Error code from the IPI transport, if the IPI request/response to PLM fails.
- *	- Error code from XAes_KeyClear or Xil_SecureZeroize, if clearing the key vault or zeroizing
- *		the local key buffers fails, even when provisioning itself succeeded.
+ *	- Error code from XAes_KeyClear or Xil_SecureZeroize, if clearing the key vault or
+ *	  zeroizing the local key buffers fails, even when provisioning itself succeeded.
  *
- * @note	Each eFUSE key is checked to be unprogrammed before any key material is produced, so
- *		a given key is encrypted under its RTCA base IV at most once per device.
+ * @note	Each eFUSE key is checked to be unprogrammed before any key material is produced,
+ *		so a given key is encrypted under its RTCA base IV at most once per device. A black
+ *		key programmed here is in ASU-accepted form, which is incompatible with the PMC;
+ *		provision black from this path only for an ASU use case. Red form is the same for
+ *		PMC and ASU.
  *
  *************************************************************************************************/
 s32 XProvision_UserEfuse(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
@@ -376,9 +381,9 @@ s32 XProvision_UserEfuse(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
 	XFih_Var XFihVar = XFih_VolatileAssignXfihVar(XFIH_FAILURE);
-	u8 KeyBuf[XPROVISION_EFUSE_KEY_SIZE_IN_BYTES] = {0U};
-	/* Black key passed to the PLM by address; word-aligned u32 array by type. */
+	u32 RedKeyBuf[XASUFW_NVM_EFUSE_AES_KEY_LEN_IN_WORDS] = {0U};
 	u32 BlackKeyBuf[XASUFW_NVM_EFUSE_AES_KEY_LEN_IN_WORDS] = {0U};
+	u32 *KeyBuf = NULL;
 	u32 PufKekGenStatus = XASUFW_FAILURE;
 
 	/** Validate the server-side resource pointers. */
@@ -397,7 +402,7 @@ s32 XProvision_UserEfuse(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 		goto END;
 	}
 
-	/** User key 0 accepts benign key only from ASU-generated source. */
+	/** User key 0 accepts a benign key only from the ASU-generated source. */
 	if ((ParamsPtr->EfuseKeyId == XASU_PROVISION_EFUSE_USER_KEY_0) &&
 	    (ParamsPtr->KeySource != XASU_PROVISION_KEY_SOURCE_ASU_GENERATED)) {
 		Status = XASUFW_PROVISION_INVALID_PARAM;
@@ -416,7 +421,7 @@ s32 XProvision_UserEfuse(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 
 	/** Obtain the plaintext key from the requested source. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XProvision_AcquireKey(DmaPtr, ParamsPtr, SubsystemId, KeyBuf);
+	Status = XProvision_AcquireKey(DmaPtr, ParamsPtr, SubsystemId, (u8 *)RedKeyBuf);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_KEY_FETCH_FAIL);
 		goto END_CLR;
@@ -424,36 +429,52 @@ s32 XProvision_UserEfuse(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 
 	/** Reject an all-zero key before it is burned, for every key source. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XAsu_IsBufferNonZero(KeyBuf, XPROVISION_EFUSE_KEY_SIZE_IN_BYTES);
+	Status = XAsu_IsBufferNonZero((u8 *)RedKeyBuf, XPROVISION_EFUSE_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_PROVISION_KEY_FETCH_FAIL;
 		goto END_CLR;
 	}
 
 	/**
-	 * Re-transfer the eFUSE keys and PUF KEK from the PMC for this encryption and validate the
-	 * PUF KEK generation status.
+	 * Bring the PUF KEK with the existing black key transfer, then encrypt the plaintext.
+	 * A red USER_KEY_1 is written as plaintext and does not use the PUF key.
 	 */
-	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihVar, Status, END_CLR, &PufKekGenStatus);
+	if ((ParamsPtr->EfuseKeyId == XASU_PROVISION_EFUSE_USER_KEY_1) &&
+	    (ParamsPtr->KeyForm == XASU_EFUSE_RED_KEY)) {
+		KeyBuf = RedKeyBuf;
+	} else {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihVar, Status, END_CLR, &PufKekGenStatus,
+				XASU_EFUSE_BLACK_KEY);
 
-	if (PufKekGenStatus != (u32)XASUFW_SUCCESS) {
-		Status = XASUFW_PUF_KEK_GEN_FAIL;
-		goto END_CLR;
+		if (PufKekGenStatus != (u32)XASUFW_SUCCESS) {
+			Status = XASUFW_PUF_KEK_GEN_FAIL;
+			goto END_CLR;
+		}
+
+		/** PUF KEK encrypt the plaintext inside the ASU. */
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XProvision_EncryptRedKey(DmaPtr, AesInstancePtr, ParamsPtr->EfuseKeyId,
+						 (u8 *)RedKeyBuf, (u8 *)BlackKeyBuf);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+							 XASUFW_PROVISION_RED_ENCRYPT_FAIL);
+			goto END_CLR;
+		}
+		KeyBuf = BlackKeyBuf;
 	}
 
-	/** Both USER eFUSE keys are programmed in black form: PUF KEK encrypt inside the ASU. */
+	/** Byte-reverse KeyBuf for the PLM write. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XProvision_EncryptRedKey(DmaPtr, AesInstancePtr, ParamsPtr->EfuseKeyId, KeyBuf,
-					 (u8 *)BlackKeyBuf);
+	Status = XAsufw_ChangeEndianness((u8 *)KeyBuf, XPROVISION_EFUSE_KEY_SIZE_IN_BYTES);
 	if (Status != XASUFW_SUCCESS) {
-		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_RED_ENCRYPT_FAIL);
+		Status = XASUFW_CHANGE_ENDIANNESS_ERROR;
 		goto END_CLR;
 	}
 
-	/** Request the PLM (XilNVM) to program the selected USER eFUSE key with the black key. */
+	/** Request the PLM (XilNVM) to program the selected USER eFUSE key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XProvision_WriteUserKeyToEfuse((u32)ParamsPtr->EfuseKeyId,
-						(const u32 *)BlackKeyBuf);
+	Status = XProvision_WriteUserKeyToEfuse((u32)ParamsPtr->EfuseKeyId, KeyBuf);
 
 END_CLR:
 	/**
@@ -470,7 +491,7 @@ END_CLR:
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 
 	/** Zeroize the local key buffers. */
-	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, KeyBuf,
+	XFIH_CALL(Xil_SecureZeroize, XFihVar, ClearStatus, (u8 *)RedKeyBuf,
 		  XPROVISION_EFUSE_KEY_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	ClearStatus = Xil_SecureZeroize((u8 *)BlackKeyBuf, XPROVISION_EFUSE_KEY_SIZE_IN_BYTES);
@@ -488,14 +509,14 @@ END:
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	ParamsPtr	Pointer to the XAsu_ProvisionUserEfuseParams structure.
  * @param	SubsystemId	Subsystem ID of the requesting subsystem (used for AKV access).
- * @param	KeyBuf		Pointer to the buffer that receives the 256-bit key.
+ * @param	KeyBuf		Pointer to the 32-byte buffer that receives the plaintext key.
  *
  * @return
  *	- XASUFW_SUCCESS, if the key is obtained successfully.
  *	- XASUFW_PROVISION_INVALID_PARAM, if the key source is invalid or the vault key is not
- *		256-bit.
- *	- Error code from XKeyManager_UpdateKeyObjFromVault, if the AKV key fetch fails, including
- *		XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH when the KeyId is not an AES sub-vault key.
+ *		256-bit, is not non-depleting, or has a non-zero EpochTime.
+ *	- XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH, if the vault KeyId is not an AES sub-vault key.
+ *	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if the AKV key lookup fails.
  *	- XASUFW_MEM_COPY_FAIL, if copying the AKV key (vault path) fails.
  *	- XASUFW_DMA_COPY_FAIL, if the DMA transfer of the user key (buffer path) fails.
  *	- Error code from XTrng_GetRandomNumbers, if TRNG key generation (ASU-generated path) fails.
@@ -506,7 +527,8 @@ static s32 XProvision_AcquireKey(XAsufw_Dma *DmaPtr,
 				 u32 SubsystemId, u8 *KeyBuf)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	XAsu_AesKeyObject KeyObject = {0U};
+	const XKeyManager_AesKeyObject *VaultKeyPtr = NULL;
+	const u8 *KeyObjPtr = NULL;
 
 	/** Obtain the key based on the explicitly selected key source. */
 	switch (ParamsPtr->KeySource) {
@@ -516,23 +538,33 @@ static s32 XProvision_AcquireKey(XAsufw_Dma *DmaPtr,
 			break;
 		case XASU_PROVISION_KEY_SOURCE_VAULT:
 			/** Vault path: fetch the AES key from the AKV by KeyId. */
-			KeyObject.KeyId = ParamsPtr->KeyId;
-			Status = XKeyManager_UpdateKeyObjFromVault(DmaPtr, ParamsPtr->KeyId,
-				(u64)(UINTPTR)&KeyObject, SubsystemId,
-				(u8)(XASU_KEYMANAGER_AES_ENC_USE_CASE |
-				XASU_KEYMANAGER_AES_DEC_USE_CASE),
-				XKEYMANAGER_RSA_OP_NONE, XASU_AES_SUBVAULT_ID);
-			if (Status != XASUFW_SUCCESS) {
+			if (XASU_KM_GET_KEY_TYPE(ParamsPtr->KeyId) != (u8)XASU_AES_SUBVAULT_ID) {
+				Status = XASUFW_KEYMANAGER_KEY_TYPE_MISMATCH;
 				goto END;
 			}
-			/** Only a 256-bit key can be programmed. */
-			if (KeyObject.KeySize != XASU_AES_KEY_SIZE_256_BITS) {
+			Status = XKeyManager_GetKeyObjectPtr(ParamsPtr->KeyId, SubsystemId,
+				(u8)(XASU_KEYMANAGER_AES_ENC_USE_CASE |
+				     XASU_KEYMANAGER_AES_DEC_USE_CASE), (u8)FALSE,
+				&KeyObjPtr);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+				goto END;
+			}
+			VaultKeyPtr = (const XKeyManager_AesKeyObject *)(const void *)KeyObjPtr;
+			/**
+			 * Only a non-expiring (EpochTime 0), non-depleting 256-bit AES vault
+			 * key may be programmed into USER eFUSE.
+			 */
+			if ((VaultKeyPtr->Metadata.EpochTime != 0U) ||
+			    (VaultKeyPtr->Metadata.UsageCount !=
+			     XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE) ||
+			    (VaultKeyPtr->Metadata.Length != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
 				Status = XASUFW_PROVISION_INVALID_PARAM;
 				goto END;
 			}
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = Xil_SMemCpy(KeyBuf, XPROVISION_EFUSE_KEY_SIZE_IN_BYTES,
-					     (const void *)(UINTPTR)KeyObject.KeyAddress,
+					     VaultKeyPtr->Content,
 					     XPROVISION_EFUSE_KEY_SIZE_IN_BYTES,
 					     XPROVISION_EFUSE_KEY_SIZE_IN_BYTES);
 			if (Status != XASUFW_SUCCESS) {
@@ -631,11 +663,12 @@ END:
 /*************************************************************************************************/
 /**
  * @brief	This function sends an IPI request to the PLM to program a USER eFUSE key
- *		(USER_KEY_0 / USER_KEY_1) with the provided black (PUF KEK encrypted) key.
+ *		(USER_KEY_0 / USER_KEY_1) with the provided key bytes. Black provisioning passes
+ *		the PUF KEK ciphertext. Red USER_KEY_1 provisioning passes the plaintext.
  *
  * @param	EfuseKeyId	USER eFUSE key identifier (XASU_PROVISION_EFUSE_USER_KEY_0 or
  *				XASU_PROVISION_EFUSE_USER_KEY_1).
- * @param	KeyData		Pointer to the 256-bit (8-word) black key data to be programmed.
+ * @param	KeyData		Pointer to the 256-bit (8-word) key (red or black) to program.
  *
  * @return
  *	- XASUFW_SUCCESS, if the USER eFUSE key is programmed.
@@ -651,9 +684,9 @@ static s32 XProvision_WriteUserKeyToEfuse(u32 EfuseKeyId, const u32 *KeyData)
 
 	/**
 	 * Build the AES-key-write IPI payload: {hdr, EnvDis|KeyType, KeyAddrLow,
-	 * KeyAddrHigh}. The PLM reads the key by address; KeyData is a u32 array (the black key),
-	 * so it is naturally word (4-byte) aligned as the XilNVM AES key write requires, and it
-	 * stays valid for the duration of this blocking IPI exchange.
+	 * KeyAddrHigh}. The PLM reads the key by address; KeyData is a word-aligned u32 array
+	 * as the XilNVM AES key write requires, and it stays valid for the duration of this
+	 * blocking IPI exchange.
 	 */
 	Payload[XASUFW_PLM_XILNVM_CMD_HDR_INDEX] =
 		XASUFW_PLM_IPI_HEADER(XASUFW_PLM_XILNVM_PLOAD_LEN,
@@ -661,7 +694,7 @@ static s32 XProvision_WriteUserKeyToEfuse(u32 EfuseKeyId, const u32 *KeyData)
 				      XASUFW_PLM_XILNVM_MODULE_ID);
 	Payload[XASUFW_PLM_XILNVM_ENVDIS_KEYTYPE_INDEX] =
 		(EfuseKeyId << XASUFW_PLM_XILNVM_KEYTYPE_SHIFT) |
-		XASUFW_PLM_XILNVM_ENV_MON_CHECK;
+		XASUFW_PLM_XILNVM_ENV_MON_DIS;
 	Payload[XASUFW_PLM_XILNVM_KEY_ADDR_LOW_INDEX] = (u32)(UINTPTR)KeyData;
 	/* ASU is a 32-bit address space; the high address word is always zero. */
 	Payload[XASUFW_PLM_XILNVM_KEY_ADDR_HIGH_INDEX] = 0U;

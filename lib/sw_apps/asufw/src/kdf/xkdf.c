@@ -434,7 +434,8 @@ s32 XKdf_GenerateKekFromEfuse0(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const u
 	 * Ensure the eFUSE keys are transferred from PMXC, as they are required to decrypt the
 	 * eFUSE black key below. Also, validate the PUF KEK generation status.
 	 */
-	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihKdf, Status, END_CLR, &PufKekGenStatus);
+	XFIH_CALL_GOTO(XAsufw_PmcKeyTransfer, XFihKdf, Status, END_CLR, &PufKekGenStatus,
+			XASU_EFUSE_BLACK_KEY);
 	if (PufKekGenStatus != (u32)XASUFW_SUCCESS) {
 		Status = XASUFW_PUF_KEK_GEN_FAIL;
 		goto END_CLR;
