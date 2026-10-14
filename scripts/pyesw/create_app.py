@@ -200,11 +200,19 @@ def create_app(args):
         obj.repo_paths_list, "Linker file directory", "scripts", "linker_files"
     )
     utils.copy_directory(linker_src, linker_dir)
-    # Copy the User Configuration cmake file to the app src dir
-    user_config_cmake = utils.get_high_precedence_path(
-        obj.repo_paths_list, "UserConfig.cmake file", "cmake", "UserConfig.cmake"
+    # Copy the User Configuration cmake file to the app src dir.
+    # zynqmp_fsbl uses UserConfig_bootloader.cmake, installed as UserConfig.cmake.
+    user_config_name = (
+        "UserConfig_bootloader.cmake"
+        if obj.template == "zynqmp_fsbl"
+        else "UserConfig.cmake"
     )
-    utils.copy_file(user_config_cmake, obj.app_src_dir)
+    user_config_cmake = utils.get_high_precedence_path(
+        obj.repo_paths_list, "UserConfig.cmake file", "cmake", user_config_name
+    )
+    utils.copy_file(
+        user_config_cmake, os.path.join(obj.app_src_dir, "UserConfig.cmake")
+    )
 
     # Generate the CMake file specifically for peripheral app
     if obj.template == "peripheral_tests":
