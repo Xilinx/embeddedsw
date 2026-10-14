@@ -29,6 +29,7 @@
 *       pre  08/15/26 Enabled TPM feature for VERSAL_2VP devices
 *       pre  08/17/26 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
 *       pre  10/09/26 Added XLOADER_ERR_INVALID_ROW_RANGE error code
+*       ng   10/14/26 Added error codes for I2C handshake
 *
 * </pre>
 *
@@ -362,6 +363,21 @@ enum {
 
 	/** 0x3A - CFU row count is zero or does not match the rows checked */
 	XLOADER_ERR_INVALID_ROW_RANGE,
+
+	/** 0x3B - Error when I2C handshake buffer address is not word-aligned */
+	XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR,
+
+	/** 0x3C - Error when I2C handshake buffer address is below UB window offset */
+	XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET,
+
+	/** 0x3D - Error when I2C handshake buffer address exceeds UB window */
+	XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW,
+
+	/** 0x3E - Error when I2C handshake transfer length exceeds UB window */
+	XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW,
+
+	/** 0x3F - Error when I2C handshake data size is invalid */
+	XLOADER_ERR_I2C_INVALID_DATA_SIZE,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
 	/** 0x100 - Invalid JTAG/DAP config request */

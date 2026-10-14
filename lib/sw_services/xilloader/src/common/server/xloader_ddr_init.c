@@ -31,6 +31,7 @@
  *       obs  08/21/2026 Bounded the MicroBlaze supplied data buffer offset to
  *                       the DDRMC exchange window
  *       pre  09/17/2026 Reset I2C instance state after release on all platforms
+ *       ng   10/14/2026 Updated I2C handshake error handling
  * </pre>
  *
  *
@@ -91,15 +92,18 @@ static u64 TimeoutNs;
 #define XPLMI_DATA_OFFSET_INDEX              4U
 #define XPLMI_MAX_DATA_SIZE                  30U
 /*
- * Extent of the register window belonging to a single DDRMC UB, used to bound
- * the exchange buffer offset supplied by the memory controller MicroBlaze.
+ * Offset and extent of the register window belonging to a single DDRMC UB,
+ * used to bound the exchange buffer offset supplied by the memory controller
+ * MicroBlaze.
  *
  * Platform DDRMC block-stride definitions place the NOC block 0x10000 below
- * the UB block and the MAIN block 0x30000 below it. Together with the 64KB
- * alignment of every UB base, this confirms 64KB as the UB aperture bound.
- * The in-tree UB register offsets used by firmware are all below 0x1000.
+ * the UB block and the MAIN block 0x30000 below it. The exchange buffer
+ * address is relative to the DDRMC MAIN base address, so the UB window starts
+ * at offset 0x30000 with a 64KB aperture bound.
  */
+#define XLOADER_DDRMC_UB_OFFSET              0x30000U
 #define XLOADER_DDRMC_UB_WINDOW_SIZE         0x10000U
+
 #define XPLMI_BIT_LEN                        1U
 #define XPLMI_SHORT_WORD_LEN                 2U
 #define XPLMI_BYTE                           0xFFU
@@ -117,7 +121,19 @@ static u32 Xloader_CheckForTimeout(void);
  *
  * @param	Cmd is pointer to the command structure.
  *
- * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XLOADER_ERR_HS_TIMEOUT if the handshake times out.
+ *		- XLOADER_ERR_MAX_BASE_ADDR if the maximum base address count is exceeded.
+ *		- XLOADER_ERR_I2C_TRANSACTION if I2C initialization or a transaction fails.
+ *		- XLOADER_ERR_I2C_BUS_BUSY if the I2C bus remains busy.
+ *		- XLOADER_ERR_I2C_DEV_RELEASE if releasing the I2C device fails.
+ *		- XLOADER_ERR_I2C_INVALID_DATA_SIZE if the requested data size is invalid.
+ *		- XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR if the buffer address is unaligned.
+ *		- XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET if the buffer is below the UB window.
+ *		- XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW if the buffer exceeds the UB window.
+ *		- XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW if the transfer exceeds the UB window.
+ *		- XST_FAILURE for other failures.
  *
  *******************************************************************************/
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
@@ -195,7 +211,6 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 				/* Updated status error bit(0x1) in control register */
 				XPlmi_UtilRMW(CtrlRegAddr, XPLMI_STATUS_ERR_MASK,
 					      XPLMI_STATUS_ERR);
-				Status = XLOADER_ERR_I2C_TRANSACTION;
 				break;
 			}
 		}
@@ -252,7 +267,15 @@ END:
  * @param    DataBuffOffset is the data offset to read and write update.
  * @param    CtrlReg contains the control register data.
  *
- * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+ * @return
+ *		- XST_SUCCESS on success.
+ *		- XLOADER_ERR_I2C_TRANSACTION if I2C options or a transaction fail.
+ *		- XLOADER_ERR_I2C_BUS_BUSY if the I2C bus remains busy.
+ *		- XLOADER_ERR_I2C_INVALID_DATA_SIZE if the requested data size is invalid.
+ *		- XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR if the buffer address is unaligned.
+ *		- XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET if the buffer is below the UB window.
+ *		- XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW if the buffer exceeds the UB window.
+ *		- XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW if the transfer exceeds the UB window.
  *
  *******************************************************************************/
 static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
@@ -265,34 +288,46 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 	u8 DataBuff[XPLMI_MAX_DATA_SIZE] = { 0 };
 	u32 RecvData = 0U;
 	u32 TransferLen;
+	u32 UbOffset = 0U;
+	u32 DataSize = 0U;
+
+	DataSize = (CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT;
 
 	/* Size validation  */
-	if (((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT) < (u32)XPLMI_MAX_DATA_SIZE) {
+	if (DataSize <= (u32)XPLMI_MAX_DATA_SIZE) {
 		/* Read the data buffer offset */
 		DataBufAddr = XPlmi_In32(DataBuffOffset);
 
 		/*
-		 * DataBufAddr is written by the memory controller MicroBlaze, which
-		 * sits outside the PLM trust boundary, and it is added to BaseAddress
-		 * to form the address of the PMC privileged accesses below. Constrain
-		 * it, and the extent reached from it, to the exchange window of the
-		 * controller so a chosen value cannot redirect those accesses at some
-		 * other part of the PMC address space.
+		 * BaseAddress is the DDRMC MAIN base address. The UB window starts at
+		 * XLOADER_DDRMC_UB_OFFSET (0x30000) relative to BaseAddress, and has
+		 * an aperture of XLOADER_DDRMC_UB_WINDOW_SIZE (0x10000). Validate
+		 * DataBufAddr against this aperture while preserving BaseAddress +
+		 * DataBufAddr for the actual access.
 		 */
-		TransferLen = ((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT) *
-			      XPLMI_WORD_LEN;
-		if (((DataBufAddr % XPLMI_WORD_LEN) != 0U) ||
-		    (DataBufAddr >= XLOADER_DDRMC_UB_WINDOW_SIZE) ||
-		    (TransferLen > (XLOADER_DDRMC_UB_WINDOW_SIZE - DataBufAddr)) ||
-		    (((u64)BaseAddress + (u64)DataBufAddr + (u64)TransferLen) >
-		     ((u64)1U << 32U))) {
-			Status = XLOADER_ERR_I2C_TRANSACTION;
+		TransferLen = DataSize * XPLMI_WORD_LEN;
+		if ((DataBufAddr % XPLMI_WORD_LEN) != 0U) {
+			Status = XLOADER_ERR_I2C_UNALIGNED_BUF_ADDR;
 			goto END;
 		}
 
-		for (Index = 0;
-		     Index < ((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT);
-		     Index++) {
+		if (DataBufAddr < XLOADER_DDRMC_UB_OFFSET) {
+			Status = XLOADER_ERR_I2C_BUF_ADDR_BELOW_UB_OFFSET;
+			goto END;
+		}
+
+		UbOffset = DataBufAddr - XLOADER_DDRMC_UB_OFFSET;
+		if (UbOffset >= XLOADER_DDRMC_UB_WINDOW_SIZE) {
+			Status = XLOADER_ERR_I2C_BUF_ADDR_EXCEEDS_UB_WINDOW;
+			goto END;
+		}
+
+		if (TransferLen > (XLOADER_DDRMC_UB_WINDOW_SIZE - UbOffset)) {
+			Status = XLOADER_ERR_I2C_TRANSFER_EXCEEDS_UB_WINDOW;
+			goto END;
+		}
+
+		for (Index = 0; Index < DataSize; Index++) {
 			ReadData = XPlmi_In32((BaseAddress + DataBufAddr) + (Index * XPLMI_WORD_LEN));
 			DataBuff[Index] = (u8)(ReadData & XPLMI_BYTE);
 		}
@@ -319,7 +354,7 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 			 * write data offset, data size, slave address.
 			 */
 			Status = XIicPs_MasterSendPolled(Iic, DataBuff,
-							 ((s32)((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT)),
+							 (s32)DataSize,
 							 ((u16)((CtrlReg & XPLMI_SLAVE_ADDR_MASK)
 								>> XPLMI_SLAVE_ADDR_SHIFT)));
 		}
@@ -328,7 +363,7 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 			 * Receiving data from DIMM card as per the read request.
 			 */
 			Status = XIicPs_MasterRecvPolled(Iic, DataBuff,
-							 ((s32)((CtrlReg & XPLMI_SIZE_MASK) >> XPLMI_SIZE_SHIFT)),
+							 (s32)DataSize,
 							 ((u16)((CtrlReg & XPLMI_SLAVE_ADDR_MASK)
 								>> XPLMI_SLAVE_ADDR_SHIFT)));
 		}
@@ -348,16 +383,16 @@ static int XLoader_MbPmcI2cHandshakeProcess(XIicPs *Iic, u32 BaseAddress,
 			}
 		}
 		if ((CtrlReg & XPLMI_TRANS_MASK) != XPLMI_WR_TRANS) {
-			for (Index = 0;
-			     Index
-			     < ((CtrlReg & XPLMI_SIZE_MASK)
-				>> XPLMI_SIZE_SHIFT); Index++) {
+			for (Index = 0; Index < DataSize; Index++) {
 				RecvData = (u8)(DataBuff[Index] & XPLMI_BYTE);
 				XPlmi_Out32(((BaseAddress + DataBufAddr) + (Index * XPLMI_WORD_LEN)),
 					    RecvData);
 			}
 		}
 		Status = XST_SUCCESS;
+	}
+	else {
+		Status = XLOADER_ERR_I2C_INVALID_DATA_SIZE;
 	}
 END:
 	return Status;
