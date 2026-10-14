@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -21,6 +21,29 @@
 #include "xpfw_default.h"
 
 #define MAX_RST_ACTION	3
+
+#if defined(XPMU_I2C_0) || defined(XPMU_I2C_1)
+/**
+ * PmIicPs_ResetHw() - Reset an I2C controller from the node-reset table
+ * @BaseAddress    I2C controller base address
+ */
+static void PmIicPs_ResetHw(u32 BaseAddress)
+{
+	XIicPs_ResetHw((UINTPTR)BaseAddress);
+}
+#endif
+
+#if !defined(REMOVE_GPIO_FROM_NODE_RESET_INFO) && \
+	defined(XPAR_XGPIOPS_0_DEVICE_ID)
+/**
+ * PmGpioPs_ResetHw() - Reset the GPIO controller from the node-reset table
+ * @BaseAddress    GPIO controller base address
+ */
+static void PmGpioPs_ResetHw(u32 BaseAddress)
+{
+	XGpioPs_ResetHw((UINTPTR)BaseAddress);
+}
+#endif
 
 typedef struct PmNodeResetInfo {
 	/*
@@ -437,7 +460,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 			{0U,0U,0U},
 		},
 #ifdef XPMU_I2C_0
-		.SoftRst = XIicPs_ResetHw,
+		.SoftRst = PmIicPs_ResetHw,
 		.SoftRstArgs = XPMU_I2C_0_BASEADDR,
 		.IdleHook = NodeI2cIdle,
 		.IdleHookArgs = XPMU_I2C_0_BASEADDR
@@ -460,7 +483,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 			{0U,0U,0U},
 		},
 #ifdef XPMU_I2C_1
-		.SoftRst = XIicPs_ResetHw,
+		.SoftRst = PmIicPs_ResetHw,
 		.SoftRstArgs = XPMU_I2C_1_BASEADDR,
 		.IdleHook = NodeI2cIdle,
 		.IdleHookArgs = XPMU_I2C_1_BASEADDR
@@ -553,7 +576,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 			{0U,0U,0U},
 		},
 #ifdef XPAR_XGPIOPS_0_DEVICE_ID
-		.SoftRst = XGpioPs_ResetHw,
+		.SoftRst = PmGpioPs_ResetHw,
 		.SoftRstArgs = XPAR_XGPIOPS_0_BASEADDR,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
