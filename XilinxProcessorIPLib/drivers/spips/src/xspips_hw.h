@@ -36,6 +36,8 @@
 * 3.00  kvn     02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.15  vn      08/26/26 Fix Doxygen warnings.
 * 3.15  tb      09/30/26 Align Doxygen comments with AMD documentation standards
+* 3.15  tb      10/12/26 Add XSPIPS_MAX_FIFO_DEPTH to bound the RX FIFO drain
+*                        in XSpiPs_ResetHw().
 *
 * </pre>
 *
@@ -230,6 +232,7 @@ extern "C" {
  * @{
  */
 #define XSPIPS_FIFO_DEPTH	128U /**< FIFO depth of Tx and Rx */
+#define XSPIPS_MAX_FIFO_DEPTH	256U /**< Largest supported FIFO depth */
 /** @} */
 
 /**************************** Type Definitions *******************************/

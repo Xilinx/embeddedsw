@@ -61,6 +61,9 @@
 * 3.14  sb     04/01/26 Fix TX/RX FIFO byte-order handling.
 * 3.15  vn     08/26/26 Fix Doxygen warnings.
 * 3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
+* 3.15  tb     10/12/26 Bound the master mode TX wait in XSpiPs_PolledTransfer()
+*			and the RX FIFO drain in XSpiPs_Abort(), and clean up
+*			the transfer state on mode fault and timeout.
 * </pre>
 *
 ******************************************************************************/
@@ -77,6 +80,8 @@
 
 /************************** Constant Definitions *****************************/
 
+#define XSPIPS_POLL_TIMEOUT_US	1000000U /**< Master mode TX FIFO wait limit
+					  * in microseconds */
 
 /**************************** Type Definitions *******************************/
 
@@ -479,10 +484,18 @@ s32 XSpiPs_Transfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 *		device for transfer.
 *		- XST_DEVICE_BUSY indicates that a data transfer is already in
 *		progress. This is determined by the driver.
+*		- XST_SEND_ERROR if a mode fault occurs.
+*		- XST_FAILURE if, in master mode, the TX FIFO does not empty
+*		within XSPIPS_POLL_TIMEOUT_US.
 *
 * @note		The function is not thread-safe. The higher layer software
 *		must ensure that no two threads are transferring data on the SPI
 *		bus at the same time.
+*		In slave mode the function waits until the external master
+*		clocks the data out; this wait has no timeout.
+*		After XST_SEND_ERROR or XST_FAILURE the device is disabled,
+*		but data left in the TX FIFO can be sent when the device is
+*		next enabled.
 *
 ******************************************************************************/
 s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
@@ -496,6 +509,8 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 	u32 TempData;
 	u32 FifoEntries;
 	u32 Index;
+	u32 Timeout;
+	u32 IsMaster;
 
 	/*
 	 * The RecvBufPtr argument can be NULL.
@@ -526,6 +541,8 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 
 		InstancePtr->RequestedBytes = ByteCount;
 		InstancePtr->RemainingBytes = ByteCount;
+
+		IsMaster = (u32)XSpiPs_IsMaster(InstancePtr);
 
 		/*
 		 * Enable the device.
@@ -588,9 +605,12 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 
 			/*
 			 * Wait for the transfer to finish by polling Tx fifo status.
+			 * Only the master mode wait is bounded; in slave mode
+			 * the external master controls progress.
 			 */
+			Timeout = XSPIPS_POLL_TIMEOUT_US;
 			CheckTransfer = (u32)0U;
-			while (CheckTransfer == 0U) {
+			while ((CheckTransfer == 0U) && (Timeout != 0U)) {
 				StatusReg = XSpiPs_ReadReg(
 						    InstancePtr->Config.BaseAddress,
 						    XSPIPS_SR_OFFSET);
@@ -607,6 +627,15 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 				}
 				CheckTransfer = (StatusReg &
 						 XSPIPS_IXR_TXOW_MASK);
+				if ((CheckTransfer == 0U) &&
+				    (IsMaster == TRUE)) {
+					Timeout--;
+					usleep(1U);
+				}
+			}
+			if (CheckTransfer == 0U) {
+				Status_Polled = (s32)XST_FAILURE;
+				goto END;
 			}
 
 			/*
@@ -634,7 +663,9 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 				TransCount -= FifoEntries;
 			}
 		}
+		Status_Polled = (s32)XST_SUCCESS;
 
+END:
 		/*
 		 * Clear the slave selects now, before terminating the transfer.
 		 */
@@ -646,19 +677,25 @@ s32 XSpiPs_PolledTransfer(XSpiPs *InstancePtr, u8 *SendBufPtr,
 					XSPIPS_CR_OFFSET, ConfigReg);
 		}
 
-		/*
-		 * Clear the busy flag.
-		 */
-		InstancePtr->IsBusy = FALSE;
+		if (Status_Polled != (s32)XST_SUCCESS) {
+			/*
+			 * Drop the partial RX data, clear the byte counts and
+			 * the busy flag, and disable the device.
+			 */
+			XSpiPs_Abort(InstancePtr);
+		} else {
+			/*
+			 * Clear the busy flag.
+			 */
+			InstancePtr->IsBusy = FALSE;
 
-		/*
-		 * Disable the device.
-		 */
-		XSpiPs_Disable(InstancePtr);
-		Status_Polled = (s32)XST_SUCCESS;
+			/*
+			 * Disable the device.
+			 */
+			XSpiPs_Disable(InstancePtr);
+		}
 	}
 
-END:
 	return Status_Polled;
 }
 
@@ -1160,20 +1197,22 @@ void XSpiPs_Abort(XSpiPs *InstancePtr)
 
 	u8 Temp;
 	u32 Check;
-#if !defined(versal)
 	u32 Count;
-#endif
 	XSpiPs_Disable(InstancePtr);
 
 	/*
-	 * Clear the RX FIFO and drop any data.
+	 * Clear the RX FIFO and drop any data. The device is disabled, so at
+	 * most one FIFO depth of entries can be pending; stop there if
+	 * RXNEMPTY stays set.
 	 */
+	Count = 0U;
 	Check = (XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 				XSPIPS_SR_OFFSET) & XSPIPS_IXR_RXNEMPTY_MASK);
-	while (Check != (u32)0U) {
+	while ((Check != (u32)0U) && (Count < InstancePtr->FifoDepth)) {
 		Temp = (u8)XSpiPs_RecvByte(InstancePtr->Config.BaseAddress);
 		if (Temp != (u8)0U) {
 		}
+		Count++;
 		Check = (XSpiPs_ReadReg(InstancePtr->Config.BaseAddress,
 					XSPIPS_SR_OFFSET) & XSPIPS_IXR_RXNEMPTY_MASK);
 	}

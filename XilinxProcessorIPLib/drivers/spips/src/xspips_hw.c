@@ -26,6 +26,7 @@
 *                       avoid changes made for the workaround DT#842463.
 * 3.15  vn     08/26/26 Fix Doxygen warnings.
 * 3.15  tb     09/30/26 Align Doxygen comments with AMD documentation standards
+* 3.15  tb     10/12/26 Bound the RX FIFO drain loop in XSpiPs_ResetHw().
 * </pre>
 *
 ******************************************************************************/
@@ -62,9 +63,7 @@
 void XSpiPs_ResetHw(u32 BaseAddress)
 {
 	u32 Check;
-#if !defined(versal)
 	u32 Count;
-#endif
 
 	/*
 	 * Disable Interrupts
@@ -88,12 +87,16 @@ void XSpiPs_ResetHw(u32 BaseAddress)
 			(XSPIPS_RXWR_RESET_VALUE & XSPIPS_RXWR_MASK));
 
 	/*
-	 * Clear RXFIFO
+	 * Clear RXFIFO. The device is disabled, so no new entries can
+	 * arrive; stop after XSPIPS_MAX_FIFO_DEPTH reads if RXNEMPTY stays
+	 * set.
 	 */
+	Count = 0U;
 	Check = (XSpiPs_ReadReg(BaseAddress,XSPIPS_SR_OFFSET) &
 		XSPIPS_IXR_RXNEMPTY_MASK);
-	while (Check != 0U) {
+	while ((Check != 0U) && (Count < XSPIPS_MAX_FIFO_DEPTH)) {
 		(void)XSpiPs_ReadReg(BaseAddress, XSPIPS_RXD_OFFSET);
+		Count++;
 		Check = (XSpiPs_ReadReg(BaseAddress,XSPIPS_SR_OFFSET) &
 			XSPIPS_IXR_RXNEMPTY_MASK);
 	}
