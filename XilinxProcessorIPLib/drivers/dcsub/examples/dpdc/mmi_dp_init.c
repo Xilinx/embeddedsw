@@ -463,8 +463,15 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 	XMmiDp_ClearVideoController(InstancePtr);
 
 	XMmiDp_SetMsaBpc(InstancePtr, XMMIDP_STREAM_ID1, Bpc);
+
+	/*
+	 * The DC drives DP at 1 pixel/clock in every functional mode; PPC
+	 * there is the PL input width. Only bypass feeds the PL stream to DP.
+	 */
 	XMmiDp_SetPixModeSel(InstancePtr, XMMIDP_STREAM_ID1,
-			     XDpDc_PpcToPixModeSel(RunCfgPtr->PPC));
+			     (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS) ?
+			     XDpDc_PpcToPixModeSel(RunCfgPtr->PPC) :
+			     XMMIDP_SINGLE_PIX_MODE);
 	XMmiDp_SetVideoMapping(InstancePtr, XMMIDP_STREAM_ID1, VidMap);
 
 	XMmiDp_SetVidControllerUseStdVidMode(InstancePtr,
