@@ -219,6 +219,12 @@ u32 XDpDc_MmiDcMixedTest(RunConfig *RunCfgPtr)
 		return XST_INVALID_PARAM;
 	}
 
+	if (AVPG_0_BASEADDR == 0U || VTC_BASEADDR == 0U ||
+	    LIVE_IN_GPIO_BASEADDR == 0U) {
+		xil_printf("  ERROR: Mixed mode PL IP not found in xparameters.h\r\n");
+		return XST_FAILURE;
+	}
+
 	RunCfgPtr->avpg[1] = RunCfgPtr->avpg[0];
 	RunCfgPtr->livevidselect = XDCSUB_LIVVID_SEL_V01;
 	XDpDc_MixedSetLiveStream1Format(RunCfgPtr);

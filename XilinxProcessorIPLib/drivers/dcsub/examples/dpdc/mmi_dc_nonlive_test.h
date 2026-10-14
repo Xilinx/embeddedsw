@@ -27,9 +27,32 @@ extern "C" {
 #include "xmmidp.h"
 
 #include "mmi_dpdc_example.h"
+#include "xparameters.h"
 
-#define CLK_WIZ_BASEADDR	0xB0A00000
-#define CLK_WIZ_AUD_BASEADDR	0xB0A10000
+/*
+ * PL IP base addresses come from xparameters.h. A design with other
+ * instance names can define these on the compiler command line.
+ * 0 means the IP is not in the design.
+ */
+#ifndef CLK_WIZ_BASEADDR
+#if defined(XPAR_MMI_VID_CLK_WIZ_BASEADDR)
+/** Video clock wizard base address */
+#define CLK_WIZ_BASEADDR	XPAR_MMI_VID_CLK_WIZ_BASEADDR
+#else
+/** Video clock wizard is not in the design */
+#define CLK_WIZ_BASEADDR	0U
+#endif
+#endif
+
+#ifndef CLK_WIZ_AUD_BASEADDR
+#if defined(XPAR_MMI_AUD_CLK_WIZ_BASEADDR)
+/** Audio clock wizard base address */
+#define CLK_WIZ_AUD_BASEADDR	XPAR_MMI_AUD_CLK_WIZ_BASEADDR
+#else
+/** Audio clock wizard is not in the design */
+#define CLK_WIZ_AUD_BASEADDR	0U
+#endif
+#endif
 
 /*
  * Video frame buffer addresses -- spaced 64 MB (0x04000000) apart
