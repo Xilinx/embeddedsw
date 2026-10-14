@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -402,7 +402,8 @@ void axieth_link_status(struct netif *netif, xaxiemacif_s *xemacs, XAxiEthernet 
 #if defined(XLWIP_CONFIG_INCLUDE_EMACLITE)
 void emaclite_link_status(struct netif *netif, xemacliteif_s *xemacs, XEmacLite *xemacp)
 {
-	u32_t phy_link_status, status, phy_autoneg_status;
+	u32_t phy_link_status, phy_autoneg_status;
+	u16 status;
 
 	if ((xemacp->IsReady != (u32)XIL_COMPONENT_IS_READY) ||
 			(xemacs->eth_link_status == ETH_LINK_UNDEFINED))
