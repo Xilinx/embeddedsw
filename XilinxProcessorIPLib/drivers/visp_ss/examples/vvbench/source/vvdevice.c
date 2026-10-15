@@ -399,7 +399,6 @@ int VsiVvdeviceExecuteCaseline
 )
 {
 	int result;
-	bool oba_flag = false;
 	LOGI("%s enter \n", __func__);
 
 	if ((caseCtx == NULL) || (cfgCtx == NULL)) {
@@ -957,6 +956,9 @@ int VsiVvdeviceExecuteCaseline
 		return -1;
 	}
 	for (int index = 0; index < totalInstance; index++) {
+		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0)
+			continue;
+
 		///////////////////////////// IBA //////////////////////////////
 		MEMSET(iba_vdev, 0, sizeof(vvbench_vdev_iba_t));
 		iba_vdev->inputType = caseCtx->instanceCfgCtx[index].inputType;
@@ -991,51 +993,52 @@ int VsiVvdeviceExecuteCaseline
 		}
 
 		///////////////////////////////////////////////////////////////////
-		CamDeviceContext_t *hcmdv = pVvbenchInstance->hCamDevice[index];
-
-		//OBA Config
+		/* Configure OBA for every eligible ISP, not just the first instance.
+		 * The sender tracks initialization separately for each ISP/path.
+		 * MEMORY-only (LIMO) output does not use OBA. pathOutType defaults
+		 * to zero and must not override the instance output mode here. */
 		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType
 		    && CAMDEV_WORK_MODE_STREAM == caseCtx->instanceCfgCtx[index].workCfg.workMode
 		    && (caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_ONLINE
 			|| caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_BOTH
-			|| (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathOutType == 1)
-			|| (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathOutType == 0)
-			|| (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathOutType == 1)
-			|| (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathOutType == 0)
 		       )) {
-			if (oba_flag == false) {
-				MEMSET(oba_vdev, 0, sizeof(vvbench_vdev_oba_t));
-				oba_vdev->path[CAMDEV_BUFCHAIN_MP] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].path;
-				oba_vdev->pathEnable[CAMDEV_BUFCHAIN_MP] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable;
-				oba_vdev->pathOutType[CAMDEV_BUFCHAIN_MP] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathOutType;
-				oba_vdev->format[CAMDEV_BUFCHAIN_MP] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].format;
-				oba_vdev->dataBits[CAMDEV_BUFCHAIN_MP] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].dataBits;
+			MEMSET(oba_vdev, 0, sizeof(vvbench_vdev_oba_t));
+			oba_vdev->path[CAMDEV_BUFCHAIN_MP] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].path;
+			oba_vdev->pathEnable[CAMDEV_BUFCHAIN_MP] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable;
+			oba_vdev->pathOutType[CAMDEV_BUFCHAIN_MP] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathOutType;
+			oba_vdev->format[CAMDEV_BUFCHAIN_MP] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].format;
+			oba_vdev->dataBits[CAMDEV_BUFCHAIN_MP] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].dataBits;
 
-				oba_vdev->hpId = caseCtx->instanceCfgCtx[index].hpId;
-				oba_vdev->inputType = caseCtx->instanceCfgCtx[index].inputType;
-				oba_vdev->workMode = caseCtx->instanceCfgCtx[index].workCfg.workMode;
-				oba_vdev->outPutType = caseCtx->instanceCfgCtx[index].outPutType;
+			oba_vdev->hpId = caseCtx->instanceCfgCtx[index].hpId;
+			oba_vdev->inputType = caseCtx->instanceCfgCtx[index].inputType;
+			oba_vdev->workMode = caseCtx->instanceCfgCtx[index].workCfg.workMode;
+			oba_vdev->outPutType = caseCtx->instanceCfgCtx[index].outPutType;
 
+			oba_vdev->path[CAMDEV_BUFCHAIN_SP1] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].path;
+			oba_vdev->pathEnable[CAMDEV_BUFCHAIN_SP1] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable;
+			oba_vdev->pathOutType[CAMDEV_BUFCHAIN_SP1] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathOutType;
+			oba_vdev->format[CAMDEV_BUFCHAIN_SP1] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].format;
+			oba_vdev->dataBits[CAMDEV_BUFCHAIN_SP1] =
+				caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].dataBits;
 
-				oba_vdev->path[CAMDEV_BUFCHAIN_SP1] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].path;
-				oba_vdev->pathEnable[CAMDEV_BUFCHAIN_SP1] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable;
-				oba_vdev->pathOutType[CAMDEV_BUFCHAIN_SP1] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathOutType;
-				oba_vdev->format[CAMDEV_BUFCHAIN_SP1] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].format;
-				oba_vdev->dataBits[CAMDEV_BUFCHAIN_SP1] =
-					caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].dataBits;
-
-
-				OBA_init_send_command(pVvbenchInstance->hCamDevice[index], oba_vdev, index);
-				oba_flag = true;
+			result = OBA_init_send_command(pVvbenchInstance->hCamDevice[index], oba_vdev, index);
+			if (result != RET_SUCCESS) {
+				LOGE("OBA init failed for ISP %u (case %d), status=%d",
+				     oba_vdev->hpId, index, result);
+				VsiVvdeviceUnwindCaseLine(pVvbenchInstance, caseCtx, totalInstance);
+				mm_free(iba_vdev);
+				mm_free(oba_vdev);
+				mm_free(pVvbenchInstance);
+				return -1;
 			}
 		}
 	}

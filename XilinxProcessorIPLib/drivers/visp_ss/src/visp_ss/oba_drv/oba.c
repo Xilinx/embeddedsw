@@ -135,9 +135,7 @@ int oba_map_init(oba_map_t *InstancePtr, VvbenchVvdev_t *caseCtx)
 					    && CAMDEV_WORK_MODE_STREAM == caseCtx->instanceCfgCtx[index].workCfg.workMode
 					    && OBA_DISABLED == ConfigPtr->oba_is_enabled
 					    && ((caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_ONLINE)
-						|| (caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_BOTH)
-						|| (caseCtx->instanceCfgCtx[index].instancePath[(oba_no % 2)].pathOutType == 1)
-						|| (caseCtx->instanceCfgCtx[index].instancePath[(oba_no % 2)].pathOutType == 0))
+						|| (caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_BOTH))
 					   ) {
 						LOGI("AMD-Debug search for tile %d,isp %d,oba %d \n", tile_no, isp_no, oba_no);
 
@@ -235,10 +233,12 @@ RESULT OBA_init_send_command
 {
 	RESULT result = RET_SUCCESS;
 	CamDeviceBufChainId_t path = 0;
-	oba_map_t oba_map;
 	oba_path_t oba_no = 0;
+	(void)index; /* Retained for caller compatibility. */
+	/* Retain the existing wire prefix; the RPU routes by isp_instance. */
 	uint32_t instanceid = 0;
-	memset(&oba_map, 0, sizeof(oba_map));
+	if (hCamDevice == NULL || caseCtx == NULL)
+		return RET_WRONG_CONFIG;
 
 	/*OBA initialization needed only for non-MCM streaming cases.*/
 
@@ -265,16 +265,23 @@ RESULT OBA_init_send_command
 
 		LOGI("AMD-Debug search for isp no. in tile %d,oba %d, path %d \n", isp_no % 2, oba_no, path);
 
-		oba_inst_t *ConfigPtr = oba_LookupConfig(isp_no % 2, oba_no);
+		oba_inst_t *StoredConfig = oba_LookupConfig(isp_no % 2, (oba_id_t)oba_no);
+		/* Stage a copy: a failed send/ACK must not mark this path enabled. */
+		oba_inst_t PendingConfig = *StoredConfig;
+		oba_inst_t *ConfigPtr = &PendingConfig;
 
 		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->inputType
 		    && CAMDEV_WORK_MODE_STREAM == caseCtx->workMode
 		    && OBA_DISABLED == ConfigPtr->oba_is_enabled
+		    /* Match the caller: per-path defaults cannot enable OBA for LIMO. */
 		    && ((caseCtx->outPutType == CAMDEV_OUTPUT_TYPE_ONLINE) ||
-			(caseCtx->outPutType == CAMDEV_OUTPUT_TYPE_BOTH) ||
-			(caseCtx->pathOutType[oba_no % 2] == 1) ||
-			(caseCtx->pathOutType[oba_no % 2] == 0))
+			(caseCtx->outPutType == CAMDEV_OUTPUT_TYPE_BOTH))
 		   ) {
+			if ((caseCtx->format[path] == CAMDEV_PIX_FMT_YUV422SP ||
+			     caseCtx->format[path] == CAMDEV_PIX_FMT_YUV420SP ||
+			     caseCtx->format[path] == CAMDEV_PIX_FMT_YUV400) &&
+			    caseCtx->dataBits[path] != 8 && caseCtx->dataBits[path] != 10)
+				return RET_WRONG_CONFIG;
 
 			ConfigPtr->oba_is_enabled = OBA_ENABLED;
 			ConfigPtr->isp_instance = isp_no;
@@ -362,9 +369,18 @@ RESULT OBA_init_send_command
 			}
 
 			result = Send_Command(APU_2_RPU_MB_CMD_OBA_INIT, &packet, packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-			if (RET_SUCCESS != result)
+			if (RET_SUCCESS != result) {
+				LOGE("OBA send failed: isp=%u path=%u status=%d",
+				     ConfigPtr->isp_instance, ConfigPtr->path_info, result);
 				return RET_FAILURE;
-			apu_wait_for_ACK(packet.cookie, packet.payload_data); //replace with wait_response();
+			}
+			result = apu_wait_for_ACK(packet.cookie, packet.payload_data);
+			if (RET_SUCCESS != result) {
+				LOGE("OBA ACK failed: isp=%u path=%u status=%d",
+				     ConfigPtr->isp_instance, ConfigPtr->path_info, result);
+				return result;
+			}
+			*StoredConfig = PendingConfig;
 		}
 	}
 	return result;
