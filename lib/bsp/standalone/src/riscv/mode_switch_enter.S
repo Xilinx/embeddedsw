@@ -74,7 +74,8 @@
 #define FPREGSIZE		0
 #define FPREGCOUNT		0
 #endif
-#define HANDLER_STACK_SIZE	(REGSIZE * REGCOUNT + FPREGSIZE * FPREGCOUNT)
+#define HANDLER_FRAME_PAYLOAD	(REGSIZE * REGCOUNT + FPREGSIZE * FPREGCOUNT)
+#define HANDLER_STACK_SIZE	(((HANDLER_FRAME_PAYLOAD) + 15) & ~15)
 #define FPREG_OFFSET(regnum)	(FPREGSIZE * regnum + REGSIZE * REGCOUNT)
 
 .extern trap_restore
@@ -127,6 +128,120 @@
 	LOAD	s11, XIL_MS_MCONT_OFF_S11(t2)
 .endm
 
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
+/*
+ * Sanitize FP state before mret into guest _boot: enable FS and zero f0-f31/fcsr
+ * so U-mode does not inherit monitor FPR contents (guest boot also clears FPRs).
+ */
+.macro MS_GUEST_FP_SCRUB
+	li	t0, 0x2000
+	csrs	mstatus, t0
+	csrw	fcsr, x0
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+#if __riscv_xlen == 64
+	fmv.d.x	f0, x0
+	fmv.d.x	f1, x0
+	fmv.d.x	f2, x0
+	fmv.d.x	f3, x0
+	fmv.d.x	f4, x0
+	fmv.d.x	f5, x0
+	fmv.d.x	f6, x0
+	fmv.d.x	f7, x0
+	fmv.d.x	f8, x0
+	fmv.d.x	f9, x0
+	fmv.d.x	f10, x0
+	fmv.d.x	f11, x0
+	fmv.d.x	f12, x0
+	fmv.d.x	f13, x0
+	fmv.d.x	f14, x0
+	fmv.d.x	f15, x0
+	fmv.d.x	f16, x0
+	fmv.d.x	f17, x0
+	fmv.d.x	f18, x0
+	fmv.d.x	f19, x0
+	fmv.d.x	f20, x0
+	fmv.d.x	f21, x0
+	fmv.d.x	f22, x0
+	fmv.d.x	f23, x0
+	fmv.d.x	f24, x0
+	fmv.d.x	f25, x0
+	fmv.d.x	f26, x0
+	fmv.d.x	f27, x0
+	fmv.d.x	f28, x0
+	fmv.d.x	f29, x0
+	fmv.d.x	f30, x0
+	fmv.d.x	f31, x0
+#else
+	fcvt.d.w f0, x0
+	fcvt.d.w f1, x0
+	fcvt.d.w f2, x0
+	fcvt.d.w f3, x0
+	fcvt.d.w f4, x0
+	fcvt.d.w f5, x0
+	fcvt.d.w f6, x0
+	fcvt.d.w f7, x0
+	fcvt.d.w f8, x0
+	fcvt.d.w f9, x0
+	fcvt.d.w f10, x0
+	fcvt.d.w f11, x0
+	fcvt.d.w f12, x0
+	fcvt.d.w f13, x0
+	fcvt.d.w f14, x0
+	fcvt.d.w f15, x0
+	fcvt.d.w f16, x0
+	fcvt.d.w f17, x0
+	fcvt.d.w f18, x0
+	fcvt.d.w f19, x0
+	fcvt.d.w f20, x0
+	fcvt.d.w f21, x0
+	fcvt.d.w f22, x0
+	fcvt.d.w f23, x0
+	fcvt.d.w f24, x0
+	fcvt.d.w f25, x0
+	fcvt.d.w f26, x0
+	fcvt.d.w f27, x0
+	fcvt.d.w f28, x0
+	fcvt.d.w f29, x0
+	fcvt.d.w f30, x0
+	fcvt.d.w f31, x0
+#endif
+#else
+	fmv.w.x	f0, x0
+	fmv.w.x	f1, x0
+	fmv.w.x	f2, x0
+	fmv.w.x	f3, x0
+	fmv.w.x	f4, x0
+	fmv.w.x	f5, x0
+	fmv.w.x	f6, x0
+	fmv.w.x	f7, x0
+	fmv.w.x	f8, x0
+	fmv.w.x	f9, x0
+	fmv.w.x	f10, x0
+	fmv.w.x	f11, x0
+	fmv.w.x	f12, x0
+	fmv.w.x	f13, x0
+	fmv.w.x	f14, x0
+	fmv.w.x	f15, x0
+	fmv.w.x	f16, x0
+	fmv.w.x	f17, x0
+	fmv.w.x	f18, x0
+	fmv.w.x	f19, x0
+	fmv.w.x	f20, x0
+	fmv.w.x	f21, x0
+	fmv.w.x	f22, x0
+	fmv.w.x	f23, x0
+	fmv.w.x	f24, x0
+	fmv.w.x	f25, x0
+	fmv.w.x	f26, x0
+	fmv.w.x	f27, x0
+	fmv.w.x	f28, x0
+	fmv.w.x	f29, x0
+	fmv.w.x	f30, x0
+	fmv.w.x	f31, x0
+#endif
+.endm
+#endif /* FPU */
+
 /*
  * void Xil_EnterUserModeAsm(entry)
  *   a0 = guest _boot address (mepc target)
@@ -150,6 +265,9 @@ Xil_EnterUserModeAsm:
 	csrci	mstatus, 0x8			/* clear MIE before mret */
 	csrw	mscratch, sp			/* M stack anchor = cont. frame base */
 	csrw	mepc, a0
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
+	MS_GUEST_FP_SCRUB
+#endif
 	/*
 	 * ~0x1888 clears MPP/MPIE/MIE/MPP-related bits in mstatus subset before
 	 * U entry; ori 0x80 sets MPIE so mret enables interrupts in U-mode.

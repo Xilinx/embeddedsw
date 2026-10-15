@@ -59,8 +59,51 @@
 #define FPREGCOUNT			0
 #endif
 
-/* Stack macros */
-#define HANDLER_STACK_SIZE		(REGSIZE * REGCOUNT + FPREGSIZE * FPREGCOUNT)
+/*
+ * FPU_MISALIGN_SUPPORT (FPU=1 or FPU=2 in xparameters)
+ *
+ * The trap handler already fixes misaligned integer loads and stores by reading
+ * or writing memory one byte at a time. When the FPU is enabled, the same logic
+ * also covers misaligned floating-point loads and stores (flw/fsw, and fld/fsd
+ * where the core supports them).
+ *
+ * Integer and FP instructions use the same "size" field in the encoding, so we
+ * cannot tell them apart from size alone. We look at the instruction opcode and
+ * set t6 on entry: 0 = integer (result goes to xN), 1 = FP (result goes to fN).
+ */
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
+#define FPU_MISALIGN_SUPPORT		1
+#define OPCODE_LOAD_FP			0x07	/* LOAD-FP class: flw, fld */
+#define OPCODE_STORE_FP			0x27	/* STORE-FP class: fsw, fsd */
+#endif
+
+/*
+ * RV32D_MISALIGN_SUPPORT (32-bit core, FPU=2 / double-precision)
+ *
+ * A double is 8 bytes but a general-purpose register is only 4 bytes. For
+ * misaligned fld/fsd we rebuild all 8 bytes in the scratch area data_0..data_7,
+ * then use fld or fsd to move the value between that buffer and the FP register.
+ * We do not use fmv.d.x/fmv.x.d here (those need the D extension in the asm ISA).
+ */
+#if __riscv_xlen == 32 && defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && \
+    (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+#define RV32D_MISALIGN_SUPPORT		1
+#endif
+
+/*
+ * Compressed-instruction builds: FP dispatch tables use 8-byte entries, but the
+ * decoded register index in t3 is scaled for 4-byte entries — double it before
+ * indexing the FP tables.
+ */
+#if defined(FPU_MISALIGN_SUPPORT) && __riscv_compressed
+#define RESCALE_FP_JUMP_INDEX(reg)	slli reg, reg, 1
+#else
+#define RESCALE_FP_JUMP_INDEX(reg)
+#endif
+
+/* Stack macros: payload matches saved GPR+FPU slots; allocation 16-byte aligned for ABI. */
+#define HANDLER_FRAME_PAYLOAD		(REGSIZE * REGCOUNT + FPREGSIZE * FPREGCOUNT)
+#define HANDLER_STACK_SIZE		(((HANDLER_FRAME_PAYLOAD) + 15) & ~15)
 
 #define REG_OFFSET(regnum)		(REGSIZE * regnum)
 #define NUM_TO_REG(num)			x ## num
@@ -140,6 +183,40 @@
 	mv t4, NUM_TO_REG(regnum); \
 	j  store_tail
 
+#ifdef FPU_MISALIGN_SUPPORT
+/*
+ * FP register placement macros (jump-table entries).
+ *
+ * Single (flw/fsw): 4-byte value in GPR scratch t4, move via fmv.w.x / fmv.x.w
+ * Double (fld/fsd on RV32D): 8 bytes in data_0..7. Before indexing
+ * load_table_fp_d / store_table_fp_d, set t5 to &data_0; each entry is a
+ * single fld/fsd 0(t5) plus j (8-byte stride, same as load_table_fp).
+ *
+ * t6 must already be 1 (FP instruction) when these tables are used.
+ */
+#define T4_TO_FPREG(regnum)	   \
+	.align 2;		   \
+	fmv.w.x NUM_TO_FPREG(regnum), t4; /* 4-byte FP load result into fN */ \
+	j  misalign_done
+
+#define REG_TO_T4_FP(regnum)	   \
+	.align 2;		   \
+	fmv.x.w t4, NUM_TO_FPREG(regnum); /* 4-byte FP store source from fN */ \
+	j  store_tail
+
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+#define T4_TO_FPREG_D(regnum)	   \
+	.align 2;		   \
+	fld NUM_TO_FPREG(regnum), 0(t5); /* t5 = &data_0 before table dispatch */ \
+	j  misalign_done
+
+#define REG_TO_T4_FP_D(regnum)	   \
+	.align 2;		   \
+	fsd NUM_TO_FPREG(regnum), 0(t5); \
+	j  store_double_scatter
+#endif /* double-precision FP */
+#endif /* FPU_MISALIGN_SUPPORT */
+
 /* Extern declarations */
 .extern XNullHandler
 #ifdef RISCV_MODE_SWITCH
@@ -215,6 +292,9 @@ ms_skip_x2_save:
 	PUSH_REG(28)					/* Save t3 = x28 */
 	PUSH_REG(29)					/* Save t4 = x29 */
 	PUSH_REG(30)					/* Save t5 = x30 */
+#endif
+#if defined(FPU_MISALIGN_SUPPORT) && !defined(__riscv_32e)
+	PUSH_REG(31)					/* Save t6 (x31): 0=int load/store, 1=FP */
 #endif
 	csrr		t1, mcause
 #ifdef RISCV_MODE_SWITCH
@@ -422,6 +502,9 @@ ms_epilogue_no_recover:
 	POP_REG(29)					/* Restore t4 = x29 */
 	POP_REG(28)					/* Restore t3 = x28 */
 #endif
+#if defined(FPU_MISALIGN_SUPPORT) && !defined(__riscv_32e)
+	POP_REG(31)					/* Restore t6 (integer vs FP flag) */
+#endif
 	POP_REG(7)					/* Restore t2 = x7 */
 	POP_REG(6)					/* Restore t1 = x6 */
 	addi		sp, sp, (HANDLER_STACK_SIZE)	/* Restore stack frame */
@@ -455,17 +538,22 @@ handle_ecall_umode:
 
 /*
  * Load address misalign exception handler
- *   t1 = faulting virtual address (from mtval)
- *   t2 = transfer size
- *   t3 = destination register index * stride
- *        RV32I: t3=x28   RV32E: t3 aliased to a3=x13
- *   t4 = register data value / jump targets
- *        RV32I: t4=x29   RV32E: t4 aliased to a4=x14
- *   t5 = scratch (fetched instruction word)
- *        RV32I: t5=x30   RV32E: t5 aliased to a5=x15
  *
- * All references to t3/t4/t5 below automatically use the correct physical
- * register for each ISA via the aliases defined at the top of this file.
+ * Register roles during emulation:
+ *   t1 = faulting memory address (from mtval)
+ *   t2 = transfer size in bytes (from instruction funct3)
+ *   t3 = destination register index * stride (for jump table)
+ *   t4 = reconstructed data value / temporary address
+ *   t5 = scratch (instruction fetch, data_0..3 byte store base)
+ *   t6 = is_fp_insn (1 = flw/fld or compressed FP load, 0 = lw/lh/…)
+ *
+ * Data path (after instruction decode):
+ *   1. Byte-read from fault address into data_0.. (width = t2)
+ *   2. Assemble into t4 (4-byte) or data_0..7 (8-byte)
+ *   3. load_tail: if t6==0 write t4 to xN (load_table), else to fN (load_table_fp*)
+ *
+ * RV32I: t3=x28, t4=x29, t5=x30
+ * RV32E: t3/t4/t5 aliased to a3/a4/a5 — see remapping above.
  */
 
 handle_load_misalign:
@@ -489,6 +577,21 @@ load_00: /* Compressed instruction C.LW, C.LD, C.FLW, C.FLD with rd' (bit 4:2) *
 	add	t4, t4, t2
 	lbu	t2, 0(t4)				/* Fetch transfer size */
 
+#ifdef FPU_MISALIGN_SUPPORT
+	/* Compressed FP load: C.FLD (funct3=001), C.FLW on RV32 (funct3=011) */
+	srli	t6, t5, 13
+	andi	t6, t6, 7
+	li	t4, 1
+	beq	t6, t4, 1f				/* C.FLD / C.FLDSP */
+#if __riscv_xlen == 32
+	li	t4, 3
+	beq	t6, t4, 1f				/* C.FLW / C.FLWSP */
+#endif
+	li	t6, 0					/* C.LW / C.LWSP — integer */
+	j	2f
+1:	li	t6, 1					/* FP compressed load */
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
 	addi	t3, t5, 8*4				/* Extract rd destination register * 4 */
 	j	load_continue
 load_01: /* Non-load compressed instruction */
@@ -503,11 +606,36 @@ load_10: /* Compressed instruction C.LWSP, C.LDSP, C.FLWSP, C.FLDSP with rd (bit
 	add	t4, t4, t2
 	lbu	t2, 0(t4)				/* Fetch transfer size */
 
+#ifdef FPU_MISALIGN_SUPPORT
+	/* Same FP vs integer decode as load_00 (C.LWSP / C.FLWSP / C.FLDSP) */
+	srli	t6, t5, 13
+	andi	t6, t6, 7
+	li	t4, 1
+	beq	t6, t4, 1f
+#if __riscv_xlen == 32
+	li	t4, 3
+	beq	t6, t4, 1f
+#endif
+	li	t6, 0
+	j	2f
+1:	li	t6, 1
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
 	srli	t3, t5, 5				/* Extract rd destination register * 4 */
 	j	load_continue
 load_11: /* Uncompressed instruction */
 	addi	t3, t3, 4				/* Increment faulting instruction address */
 	csrw	mepc, t3				/* Set incremented faulting instruction address */
+#ifdef FPU_MISALIGN_SUPPORT
+	/* Uncompressed: opcode 0x07 = LOAD-FP (flw/fld), else integer load */
+	andi	t6, t5, 0x7f
+	li	t4, OPCODE_LOAD_FP
+	beq	t6, t4, 1f
+	li	t6, 0					/* Integer load (lw, lh, …) */
+	j	2f
+1:	li	t6, 1					/* FP load (flw or fld) */
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
 	srli	t2, t5, 12				/* Extract transfer size */
 	andi	t2, t2, 7
 	srli	t3, t5, 5				/* Extract rd destination register * 4 */
@@ -517,21 +645,57 @@ load_continue:
 	lw	t5, (t3)				/* Fetch faulting instruction */
 	addi	t3, t3, 4				/* Increment faulting instruction address */
 	csrw	mepc, t3				/* Set incremented faulting instruction address */
+#ifdef FPU_MISALIGN_SUPPORT
+	/* Uncompressed (no C extension): same opcode check as load_11 */
+	andi	t6, t5, 0x7f
+	li	t4, OPCODE_LOAD_FP
+	beq	t6, t4, 1f
+	li	t6, 0
+	j	2f
+1:	li	t6, 1
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
 	srli	t2, t5, 12				/* Extract transfer size */
 	andi	t2, t2, 7
 	srli	t3, t5, 4				/* Extract rd destination register * 8 */
 	andi	t3, t3, 0xf8
 #endif /* __riscv_compressed */
+
+	/*
+	 * How many bytes to reconstruct from the faulting address (funct3 in t2).
+	 *
+	 * On RV32 with double FP (RV32D), funct3=2 means 4 bytes (lw or flw) and
+	 * funct3=3 means 8 bytes (fld only — there is no 8-byte integer load on RV32).
+	 * We must handle funct3=2 before the 8-byte path, or plain lw would be treated
+	 * as an 8-byte access and break integer misalign fixups.
+	 *
+	 * Whether the value lands in xN or fN is decided later at load_tail using t6.
+	 */
 	li	t4, 1
 	beq	t2, t4, load_half_size
 	li	t4, 5
 	beq	t2, t4, load_half_size_unsigned
 #if __riscv_xlen == 64
 	li	t4, 2
-	beq	t2, t4, load_word_size
+	beq	t2, t4, load_word_size		/* lw / flw (4 bytes) */
 	li	t4, 6
 	beq	t2, t4, load_word_size_unsigned
+#elif defined(RV32D_MISALIGN_SUPPORT)
+	li	t4, 2
+	beq	t2, t4, load_word_size		/* RV32D: lw / flw — must not fall into 8-byte path */
+#endif
+#if __riscv_xlen == 64 || defined(RV32D_MISALIGN_SUPPORT)
+#if __riscv_xlen == 32
+	li	t4, 3
+	beq	t2, t4, load_double_size	/* RV32D: fld only (8 bytes) */
+	j	misalign_done			/* Unknown size on RV32 — nothing to emulate */
+#endif
 load_double_size:
+	/*
+	 * 8-byte misaligned load: rebuild data_0..data_7, then:
+	 *   RV64 — ld into t4, then load_table (integer) or load_table_fp_d (fld, FPU=2 only)
+	 *   RV32D — fld from data_0 into fN (no 64-bit GPR)
+	 */
 	lb	t4, 0(t1)				/* Load double byte-by-byte from destination address and save */
 	sb	t4, data_0, t5
 	lb	t4, 1(t1)
@@ -548,8 +712,33 @@ load_double_size:
 	sb	t4, data_6, t5
 	lb	t4, 7(t1)
 	sb	t4, data_7, t5
-	ld	t4, data_0				/* Load double */
+#if __riscv_xlen == 64
+	ld	t4, data_0				/* RV64: stage 8 bytes in GPR scratch */
+	/*
+	 * RV64 with FPU=1 (single-precision only): misaligned ld still uses load_table;
+	 * there is no fld and load_table_fp_d is not assembled. Only FPU=2 adds fld/fsd.
+	 */
+#if defined(FPU_MISALIGN_SUPPORT) && \
+    defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+	beqz	t6, load_tail			/* Integer ld -> xN */
+	la	t5, data_0
+	la	t2, load_table_fp_d		/* Misaligned fld -> fN from scratch buffer */
+	RESCALE_FP_JUMP_INDEX(t3)
+	add	t2, t2, t3
+	jr	t2
+#endif
 	j	load_tail
+#else /* RV32D: 8-byte path is fld only — no GPR wide enough for 64 bits */
+#ifdef FPU_MISALIGN_SUPPORT
+	la	t5, data_0
+	la	t2, load_table_fp_d		/* fld from data_0..7 into fN */
+	RESCALE_FP_JUMP_INDEX(t3)
+	add	t2, t2, t3
+	jr	t2
+#endif
+#endif /* __riscv_xlen */
+#endif /* RV64 or RV32D 8-byte staging */
+#if __riscv_xlen == 64
 load_word_size_unsigned:
 	lb	t4, 0(t1)				/* Load word byte-by-byte from destination address and save */
 	sb	t4, data_0, t5
@@ -587,7 +776,16 @@ load_half_size_unsigned:
 	sb	t4, data_1, t5
 	lhu	t4, data_0				/* Load unsigned halfword */
 load_tail:
-	la	t2, load_table
+#ifdef FPU_MISALIGN_SUPPORT
+	/* 4-byte loads: t6 picks integer (xN) vs single FP (fN) jump table */
+	beqz	t6, load_tail_gpr
+	la	t2, load_table_fp			/* flw result: t4 -> fN via fmv.w.x */
+	RESCALE_FP_JUMP_INDEX(t3)
+	add	t2, t2, t3
+	jr	t2
+load_tail_gpr:
+#endif
+	la	t2, load_table				/* lw/lh result: t4 -> xN via mv */
 	add	t2, t2, t3
 	jr	t2
 	.align 2
@@ -637,22 +835,106 @@ load_table:
 	T4_TO_REG_V (28)			/* t3=x28: saved early -> write to stack slot */
 	T4_TO_REG_V (29)			/* t4=x29: saved early -> write to stack slot */
 	T4_TO_REG_V (30)			/* t5=x30: saved early -> write to stack slot */
+#if defined(FPU_MISALIGN_SUPPORT) && !defined(__riscv_32e)
+	T4_TO_REG_V (31)			/* t6=x31: FP flag during handler; value on stack */
+#else
 	T4_TO_REG   (31)
+#endif
 #endif /* __riscv_32e */
+
+#ifdef FPU_MISALIGN_SUPPORT
+	.align 2
+load_table_fp:
+	/* Single-precision misalign load: place reconstructed word into f0..f31 */
+	T4_TO_FPREG (0)
+	T4_TO_FPREG (1)
+	T4_TO_FPREG (2)
+	T4_TO_FPREG (3)
+	T4_TO_FPREG (4)
+	T4_TO_FPREG (5)
+	T4_TO_FPREG (6)
+	T4_TO_FPREG (7)
+	T4_TO_FPREG (8)
+	T4_TO_FPREG (9)
+	T4_TO_FPREG (10)
+	T4_TO_FPREG (11)
+	T4_TO_FPREG (12)
+	T4_TO_FPREG (13)
+	T4_TO_FPREG (14)
+	T4_TO_FPREG (15)
+	T4_TO_FPREG (16)
+	T4_TO_FPREG (17)
+	T4_TO_FPREG (18)
+	T4_TO_FPREG (19)
+	T4_TO_FPREG (20)
+	T4_TO_FPREG (21)
+	T4_TO_FPREG (22)
+	T4_TO_FPREG (23)
+	T4_TO_FPREG (24)
+	T4_TO_FPREG (25)
+	T4_TO_FPREG (26)
+	T4_TO_FPREG (27)
+	T4_TO_FPREG (28)
+	T4_TO_FPREG (29)
+	T4_TO_FPREG (30)
+	T4_TO_FPREG (31)
+
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+	.align 2
+load_table_fp_d:
+	/* FPU=2 only: after 8-byte scratch fill, fld into f0..f31 (RV32D and RV64D) */
+	T4_TO_FPREG_D (0)
+	T4_TO_FPREG_D (1)
+	T4_TO_FPREG_D (2)
+	T4_TO_FPREG_D (3)
+	T4_TO_FPREG_D (4)
+	T4_TO_FPREG_D (5)
+	T4_TO_FPREG_D (6)
+	T4_TO_FPREG_D (7)
+	T4_TO_FPREG_D (8)
+	T4_TO_FPREG_D (9)
+	T4_TO_FPREG_D (10)
+	T4_TO_FPREG_D (11)
+	T4_TO_FPREG_D (12)
+	T4_TO_FPREG_D (13)
+	T4_TO_FPREG_D (14)
+	T4_TO_FPREG_D (15)
+	T4_TO_FPREG_D (16)
+	T4_TO_FPREG_D (17)
+	T4_TO_FPREG_D (18)
+	T4_TO_FPREG_D (19)
+	T4_TO_FPREG_D (20)
+	T4_TO_FPREG_D (21)
+	T4_TO_FPREG_D (22)
+	T4_TO_FPREG_D (23)
+	T4_TO_FPREG_D (24)
+	T4_TO_FPREG_D (25)
+	T4_TO_FPREG_D (26)
+	T4_TO_FPREG_D (27)
+	T4_TO_FPREG_D (28)
+	T4_TO_FPREG_D (29)
+	T4_TO_FPREG_D (30)
+	T4_TO_FPREG_D (31)
+#endif /* double-precision FP */
+#endif /* FPU_MISALIGN_SUPPORT */
 
 /*
  * Store address misalign exception handler
- *   t1 = faulting virtual address (from mtval)
- *   t2 = transfer size
- *   t3 = source register index * stride
- *        RV32I: t3=x28   RV32E: t3 aliased to a3=x13
- *   t4 = register data value
- *        RV32I: t4=x29   RV32E: t4 aliased to a4=x14
- *   t5 = scratch (fetched instruction bits)
- *        RV32I: t5=x30   RV32E: t5 aliased to a5=x15
  *
- * All references to t3/t4/t5 below automatically use the correct physical
- * register for each ISA via the aliases defined at the top of this file.
+ * Register roles (same scratch mapping as load handler):
+ *   t1 = faulting memory address (from mtval)
+ *   t2 = transfer size in bytes (from instruction funct3)
+ *   t3 = source register index * stride (for jump table)
+ *   t4 = value to write (read from xN or fN before scatter)
+ *   t5 = scratch
+ *   t6 = is_fp_insn (1 = fsw/fsd or compressed FP store, 0 = sw/sh/…)
+ *
+ * Data path:
+ *   1. store_table*: read source value into t4 (GPR or FP macro)
+ *   2. store_tail: byte-scatter t4 (or data_0..7) to fault address
+ *
+ * FP stores branch to store_table_fp / store_table_fp_d before store_tail
+ * when t6==1. Integer stores use store_table only.
  */
 
 handle_store_misalign:
@@ -676,6 +958,24 @@ store_00: /* Compressed instruction C.SW, C.SD, C.FSW, C.FSD with rs2' (bit 4:2)
 	add	t4, t4, t2
 	lbu	t2, 0(t4)				/* Fetch transfer size */
 
+#ifdef FPU_MISALIGN_SUPPORT
+	/*
+	 * Compressed FP store funct3 [15:13] differs from FP loads (CL format):
+	 * C.FSD=101, C.FSW=111 (RV32). Loads use C.FLD=001, C.FLW=011.
+	 */
+	srli	t6, t5, 13
+	andi	t6, t6, 7
+	li	t4, 5
+	beq	t6, t4, 1f				/* C.FSD / C.FSDSP */
+#if __riscv_xlen == 32
+	li	t4, 7
+	beq	t6, t4, 1f				/* C.FSW / C.FSWSP */
+#endif
+	li	t6, 0					/* C.SW / C.SD — integer */
+	j	2f
+1:	li	t6, 1
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
 	addi	t3, t5, 8*4				/* Extract rs2 source register * 4 */
 	j	store_continue
 store_01: /* Non-store compressed instruction */
@@ -690,9 +990,34 @@ store_10: /* Compressed instruction C.SWSP, C.SDSP, C.FSWSP, C.FSDSP with rs2 (b
 	add	t4, t4, t2
 	lbu	t2, 0(t4)				/* Fetch transfer size */
 
+#ifdef FPU_MISALIGN_SUPPORT
+	/* Same compressed FP store decode as store_00 (C.FSDSP / C.FSWSP on RV32) */
+	srli	t6, t5, 13
+	andi	t6, t6, 7
+	li	t4, 5
+	beq	t6, t4, 1f
+#if __riscv_xlen == 32
+	li	t4, 7
+	beq	t6, t4, 1f
+#endif
+	li	t6, 0
+	j	2f
+1:	li	t6, 1
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
 	mv	t3, t5					/* Extract rs2 source register * 4 */
 	j	store_continue
 store_11: /* Uncompressed instruction with rs2 (bit 24:20) */
+#ifdef FPU_MISALIGN_SUPPORT
+	/* Must run before t5 is overwritten with the instruction high half */
+	andi	t6, t5, 0x7f
+	li	t4, OPCODE_STORE_FP
+	beq	t6, t4, 1f
+	li	t6, 0					/* Integer store (sw, sh, …) */
+	j	2f
+1:	li	t6, 1					/* FP store (fsw or fsd) */
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
 	srli	t2, t5, 12				/* Extract transfer size */
 	andi	t2, t2, 7
 	lhu	t5, 2(t3)				/* Fetch 16 high bits of faulting instruction */
@@ -702,25 +1027,80 @@ store_11: /* Uncompressed instruction with rs2 (bit 24:20) */
 store_continue:
 	andi	t3, t3, 0x7c
 #else
-	lw	t2, (t3)				/* Fetch faulting instruction */
+	lw	t5, (t3)				/* Fetch faulting instruction */
 	addi	t3, t3, 4				/* Increment faulting instruction address */
 	csrw	mepc, t3				/* Set incremented faulting instruction address */
-	srli	t3, t2, 17				/* Extract rs2 source register * 8 */
+#ifdef FPU_MISALIGN_SUPPORT
+	/* Uncompressed (no C extension): opcode 0x27 = STORE-FP (fsw/fsd) */
+	andi	t6, t5, 0x7f
+	li	t4, OPCODE_STORE_FP
+	beq	t6, t4, 1f
+	li	t6, 0
+	j	2f
+1:	li	t6, 1
+2:
+#endif /* FPU_MISALIGN_SUPPORT */
+	srli	t3, t5, 17				/* Extract rs2 source register * 8 */
 	andi	t3, t3, 0xf8
-	srli	t2, t2, 12				/* Extract transfer size */
+	srli	t2, t5, 12				/* Extract transfer size */
 	andi	t2, t2, 7
 #endif /* __riscv_compressed */
-	la	t4, store_table
+
+#ifdef FPU_MISALIGN_SUPPORT
+	/*
+	 * Stores: copy the source register into t4 or data_0..7 before byte-scatter.
+	 * Integer (t6=0) uses store_table (xN). FP uses store_table_fp (fsw / fmv.x.w).
+	 * Double FP stores (fsd) use store_table_fp_d only when FPU=2 (same rule as load).
+	 */
+	beqz	t6, store_dispatch_gpr
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+	li	t4, 3
+	beq	t2, t4, store_dispatch_fp_d	/* 8-byte fsd: fN -> scratch via fsd */
+#endif
+	la	t4, store_table_fp			/* 4-byte fsw: fN -> t4 via fmv.x.w */
+	j	store_dispatch_fp
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+store_dispatch_fp_d:
+	la	t5, data_0
+	la	t4, store_table_fp_d
+	j	store_dispatch_fp
+#endif
+store_dispatch_fp:
+	RESCALE_FP_JUMP_INDEX(t3)
+	add	t4, t4, t3
+	jr	t4
+store_dispatch_gpr:
+#endif
+	la	t4, store_table				/* Integer: xN -> t4 */
 	add	t4, t4, t3
 	jr	t4
 store_tail:
+	/*
+	 * Write the staged value to the misaligned address, one byte at a time.
+	 * Word/halfword paths use t4; 8-byte paths use data_0..data_7 (RV64 sd/fsd
+	 * or RV32D fsd). Same funct3=2 vs 3 routing as on the load side for RV32D.
+	 */
 	li	t3, 1
 	beq	t2, t3, store_half_size
 #if __riscv_xlen == 64
 	li	t3, 2
-	beq	t2, t3, store_word_size
+	beq	t2, t3, store_word_size		/* sw / fsw (4 bytes) */
+#elif defined(RV32D_MISALIGN_SUPPORT)
+	li	t3, 2
+	beq	t2, t3, store_word_size		/* RV32D: sw / fsw — not 8-byte path */
+#endif
+#if __riscv_xlen == 64 || defined(RV32D_MISALIGN_SUPPORT)
+#if __riscv_xlen == 32
+	li	t3, 3
+	beq	t2, t3, store_double_size	/* RV32D: fsd only (via store_table_fp_d) */
+	j	misalign_done
+#endif
 store_double_size:
-	sd	t4, data_0, t3
+#if __riscv_xlen == 64
+	sd	t4, data_0, t3				/* RV64: integer sd or FP fsd staging */
+#endif
+store_double_scatter:
+	/* Write data_0..7 byte-by-byte to misaligned address (fsd / sd) */
 	lbu	t4, data_0				/* Store double byte-by-byte into destination address */
 	sb	t4, 0(t1)
 	lbu	t4, data_1
@@ -738,7 +1118,7 @@ store_double_size:
 	lbu	t4, data_7
 	sb	t4, 7(t1)
 	j	misalign_done
-#endif
+#endif /* RV64 or RV32D 8-byte staging */
 store_word_size:
 	sw	t4, data_0, t3
 	lbu	t4, data_0				/* Store word byte-by-byte into destination address */
@@ -801,15 +1181,102 @@ store_table:
 	REG_TO_T4_V (28)			/* t3=x28: saved early -> read from stack slot */
 	REG_TO_T4_V (29)			/* t4=x29: saved early -> read from stack slot */
 	REG_TO_T4_V (30)			/* t5=x30: saved early -> read from stack slot */
+#if defined(FPU_MISALIGN_SUPPORT) && !defined(__riscv_32e)
+	REG_TO_T4_V (31)			/* t6=x31: read original t6 from stack slot */
+#else
 	REG_TO_T4   (31)
+#endif
 #endif /* __riscv_32e */
+
+#ifdef FPU_MISALIGN_SUPPORT
+	.align 2
+store_table_fp:
+	/* Single-precision misalign store: read source word from f0..f31 into t4 */
+	REG_TO_T4_FP (0)
+	REG_TO_T4_FP (1)
+	REG_TO_T4_FP (2)
+	REG_TO_T4_FP (3)
+	REG_TO_T4_FP (4)
+	REG_TO_T4_FP (5)
+	REG_TO_T4_FP (6)
+	REG_TO_T4_FP (7)
+	REG_TO_T4_FP (8)
+	REG_TO_T4_FP (9)
+	REG_TO_T4_FP (10)
+	REG_TO_T4_FP (11)
+	REG_TO_T4_FP (12)
+	REG_TO_T4_FP (13)
+	REG_TO_T4_FP (14)
+	REG_TO_T4_FP (15)
+	REG_TO_T4_FP (16)
+	REG_TO_T4_FP (17)
+	REG_TO_T4_FP (18)
+	REG_TO_T4_FP (19)
+	REG_TO_T4_FP (20)
+	REG_TO_T4_FP (21)
+	REG_TO_T4_FP (22)
+	REG_TO_T4_FP (23)
+	REG_TO_T4_FP (24)
+	REG_TO_T4_FP (25)
+	REG_TO_T4_FP (26)
+	REG_TO_T4_FP (27)
+	REG_TO_T4_FP (28)
+	REG_TO_T4_FP (29)
+	REG_TO_T4_FP (30)
+	REG_TO_T4_FP (31)
+
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+	.align 2
+store_table_fp_d:
+	/* FPU=2 only: fsd from fN into data_0..7, then store_tail scatters bytes */
+	REG_TO_T4_FP_D (0)
+	REG_TO_T4_FP_D (1)
+	REG_TO_T4_FP_D (2)
+	REG_TO_T4_FP_D (3)
+	REG_TO_T4_FP_D (4)
+	REG_TO_T4_FP_D (5)
+	REG_TO_T4_FP_D (6)
+	REG_TO_T4_FP_D (7)
+	REG_TO_T4_FP_D (8)
+	REG_TO_T4_FP_D (9)
+	REG_TO_T4_FP_D (10)
+	REG_TO_T4_FP_D (11)
+	REG_TO_T4_FP_D (12)
+	REG_TO_T4_FP_D (13)
+	REG_TO_T4_FP_D (14)
+	REG_TO_T4_FP_D (15)
+	REG_TO_T4_FP_D (16)
+	REG_TO_T4_FP_D (17)
+	REG_TO_T4_FP_D (18)
+	REG_TO_T4_FP_D (19)
+	REG_TO_T4_FP_D (20)
+	REG_TO_T4_FP_D (21)
+	REG_TO_T4_FP_D (22)
+	REG_TO_T4_FP_D (23)
+	REG_TO_T4_FP_D (24)
+	REG_TO_T4_FP_D (25)
+	REG_TO_T4_FP_D (26)
+	REG_TO_T4_FP_D (27)
+	REG_TO_T4_FP_D (28)
+	REG_TO_T4_FP_D (29)
+	REG_TO_T4_FP_D (30)
+	REG_TO_T4_FP_D (31)
+#endif /* double-precision FP */
+#endif /* FPU_MISALIGN_SUPPORT */
 
 
 .section .data
+#if __riscv_xlen == 64 || defined(RV32D_MISALIGN_SUPPORT)
+.align 3
+#else
 .align DATAALIGN
+#endif
 
 /*
- * Misaligned data value
+ * Scratch bytes used while emulating a misaligned access.
+ *   data_0..3 — halfword and 32-bit word paths (integer and flw/fsw).
+ *   data_4..7 — extra bytes for 64-bit paths on RV64 (ld/sd) or RV32D (fld/fsd).
+ * The buffer is 8-byte aligned on RV64 and RV32D so fld/fsd to data_0 is valid.
  */
 
 data_0:
@@ -820,7 +1287,7 @@ data_2:
 	.byte 0
 data_3:
 	.byte 0
-#if __riscv_xlen == 64
+#if __riscv_xlen == 64 || defined(RV32D_MISALIGN_SUPPORT)
 data_4:
 	.byte 0
 data_5:
@@ -832,17 +1299,18 @@ data_7:
 #endif
 
 /*
- * Compressed transfer size and op tables
+ * Compressed transfer size and op tables.
+ * Size only — FP vs integer for compressed ops is decoded separately into t6.
  */
 #if __riscv_compressed
 transfer_size_table:
 	.byte 0
-	.byte 3						/* 01: C.FLD, C.FSD, C.FLDSP, C.FSDSP  */
-	.byte 2						/* 10: C.LW,  C.SW,  C.LWSP,  C.SWSP   */
+	.byte 3						/* 01: C.FLD/C.FSD family — 8 bytes */
+	.byte 2						/* 10: C.LW/C.SW family — 4 bytes */
 #if __riscv_xlen == 64
-	.byte 3						/* 11: C.LD,  C.SD,  C.LDSP,  C.SDSP   */
+	.byte 3						/* 11: C.LD/C.SD family — 8 bytes */
 #else
-	.byte 2						/* 11: C.FLW, C.FSW, C.FLWSP, C.FSWPSP */
+	.byte 2						/* 11: C.FLW/C.FSW family — 4 bytes (RV32) */
 #endif
 	.align DATAALIGN
 load_op_table:

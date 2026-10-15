@@ -41,6 +41,8 @@
 * 9.1  mus   25/03/24 Use correct macro for checking FPU enablement.
 * 9.1  ss    01/04/26 Add gp reg initialization and disable interrupts on boot.
 * 9.1  ss    04/27/26 Clear .sbss in boot before _start (crt0 may omit it).
+* 9.2  ss    09/22/26 Enable mstatus.FS before FP init; use XLEN-aware
+*                     fmv.d.x (RV64D) / fcvt.d.w (RV32D) for double init.
 * </pre>
 *
 ******************************************************************************/
@@ -132,8 +134,26 @@ _boot:
 	bltu	t0, t1, .Lsbss_loop
 .Lsbss_done:
 
-/* Clear the floating point registers */
+/*
+ * M-mode only: enable FS in mstatus. RISCV_USER_APP guests cannot write mstatus;
+ * the monitor must set FS before mret (see mode_switch_enter.S). FPR clear below
+ * runs in M-mode or U-mode (fcvt/fmv only) when FPU is enabled.
+ */
+#ifndef RISCV_USER_APP
+#if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU > 0)
+	li	t0, 0x2000
+	csrs	mstatus, t0
+#endif
+#endif /* !RISCV_USER_APP */
+
+/*
+ * Clear FP registers to +0.0. Only use instructions that match the build:
+ *   FPU=1 — fmv.w.x (single precision; no D extension in -march)
+ *   FPU=2, RV64 — fmv.d.x
+ *   FPU=2, RV32 — fcvt.d.w (double +0.0; fmv.w.x only NaN-boxes 32-bit zero)
+ */
 #if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
+#if __riscv_xlen == 64
 	fmv.d.x	f0, x0
 	fmv.d.x	f1, x0
 	fmv.d.x	f2, x0
@@ -166,6 +186,40 @@ _boot:
 	fmv.d.x	f29, x0
 	fmv.d.x	f30, x0
 	fmv.d.x	f31, x0
+#else
+	fcvt.d.w f0, x0
+	fcvt.d.w f1, x0
+	fcvt.d.w f2, x0
+	fcvt.d.w f3, x0
+	fcvt.d.w f4, x0
+	fcvt.d.w f5, x0
+	fcvt.d.w f6, x0
+	fcvt.d.w f7, x0
+	fcvt.d.w f8, x0
+	fcvt.d.w f9, x0
+	fcvt.d.w f10, x0
+	fcvt.d.w f11, x0
+	fcvt.d.w f12, x0
+	fcvt.d.w f13, x0
+	fcvt.d.w f14, x0
+	fcvt.d.w f15, x0
+	fcvt.d.w f16, x0
+	fcvt.d.w f17, x0
+	fcvt.d.w f18, x0
+	fcvt.d.w f19, x0
+	fcvt.d.w f20, x0
+	fcvt.d.w f21, x0
+	fcvt.d.w f22, x0
+	fcvt.d.w f23, x0
+	fcvt.d.w f24, x0
+	fcvt.d.w f25, x0
+	fcvt.d.w f26, x0
+	fcvt.d.w f27, x0
+	fcvt.d.w f28, x0
+	fcvt.d.w f29, x0
+	fcvt.d.w f30, x0
+	fcvt.d.w f31, x0
+#endif
 #endif
 #if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 1)
 	fmv.w.x	f0, x0
@@ -201,6 +255,7 @@ _boot:
 	fmv.w.x	f30, x0
 	fmv.w.x	f31, x0
 #endif
+
 	sw	zero,0(sp)	/* Initialize argc to zero */
 	j 	_start		/* jump to C startup code */
 
