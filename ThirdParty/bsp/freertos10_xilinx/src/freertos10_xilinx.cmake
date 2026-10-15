@@ -70,7 +70,7 @@ and vTaskGetRunTimeStats() functions, which format run-time data \
 into human readable text." ON)
 set(freertos_num_thread_local_storage_pointers 0x0 CACHE STRING "Sets the number \
 of pointers each task has to store thread local values.")
-set(freertos_use_task_fpu_support 0x1 CACHE STRING "Set to 1 to create tasks \
+set(freertos_use_task_fpu_support 0x2 CACHE STRING "Set to 1 to create tasks \
 without FPU context, set to 2 to have tasks with FPU context by default.")
 set_property(CACHE freertos_use_task_fpu_support PROPERTY STRINGS 0x0 0x1 0x2)
 set(freertos_generate_runtime_stats 0x0 CACHE STRING "Set to 1 generate \
