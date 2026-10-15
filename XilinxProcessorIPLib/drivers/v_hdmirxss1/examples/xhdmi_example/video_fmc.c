@@ -414,7 +414,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 	}
 
 #if !(defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385))
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200))
 	Vfmc_I2cMuxSelect(VfmcPtr);
 #endif
 
@@ -434,7 +435,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 #endif
 
 #if !(defined (XPS_BOARD_VEK280) || \
-    defined (XPS_BOARD_VEK385))
+    defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200))
 	ByteCount = Vfmc_I2cSend(IicPtr, VFMC_I2C_IOEXP_0_ADDR,
 			(u8*)Buffer, 1, I2C_STOP);
 	if (ByteCount != 1) {
@@ -470,7 +472,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 	 */
 #endif
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 	Status |= IDT_8T49N24x_Init(Iic_Ptr, VFMC_I2C_IDT8N49_ADDR1);
 	Status |= IDT_8T49N24x_GpioLolEnable(Iic_Ptr,
 					VFMC_I2C_IDT8N49_ADDR1);
@@ -485,7 +488,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 	}
 
 #if defined (XPS_BOARD_VEK280) || \
-    defined (XPS_BOARD_VEK385)
+    defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 
 #else
 
@@ -532,7 +536,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 				RevisionNumber);
 		VfmcPtr->isTxTi = 0;
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 	} else if (TI_TMDS1204_CheckDeviceID(Iic_Ptr,
 			VFMC_MEZZ_I2C_TMDS1204_TX_ADDR) == XST_SUCCESS) {
 		RevisionNumber = TI_TMDS1204_CheckDeviceVersion(Iic_Ptr,
@@ -591,7 +596,8 @@ u32 Vfmc_HdmiInit(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr,
 				RevisionNumber);
 		VfmcPtr->isRxTi = 0;
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 	} else if (TI_TMDS1204_CheckDeviceID(Iic_Ptr,
 			VFMC_MEZZ_I2C_TMDS1204_RX_ADDR) == XST_SUCCESS) {
 		RevisionNumber = TI_TMDS1204_CheckDeviceVersion(Iic_Ptr,
@@ -815,7 +821,8 @@ void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 {
 	if (VfmcPtr->TxMezzType != VFMC_MEZZ_HDMI_PASSIVE) {
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 		if (VfmcPtr->isTxTi) {
 			TI_TMDS1204_LineRateReconfig(VfmcPtr->IicPtr,
 				VFMC_MEZZ_I2C_TMDS1204_TX_ADDR,
@@ -830,7 +837,8 @@ void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 						VFMC_MEZZ_HDMI_ONSEMI_R0),
 				IsFRL, LineRate, 1);
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 		}
 #endif
 	}
@@ -851,7 +859,8 @@ void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 		u64 LineRate, u8 Lanes)
 {
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 	if (VfmcPtr->isRxTi) {
 		xil_printf ("programming rx ti\r\n");
 		if (VfmcPtr->RxMezzType == VFMC_MEZZ_HDMI_TI_R3) {
@@ -871,7 +880,8 @@ void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(XVfmc *VfmcPtr, u8 IsFRL,
 				IsFRL, LineRate, 0);
 		}
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 	}
 #endif
 }
