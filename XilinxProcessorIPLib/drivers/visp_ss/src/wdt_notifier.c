@@ -262,7 +262,8 @@ int WdtSendTest(void)
 
 	memset(&packet, 0, sizeof(Payload_packet));
 
-	packet.cookie = 0xABCD;
+	/* Fire-and-forget (no ACK wait): bypass RPU cookie dedup, as APU Linux. */
+	packet.cookie = MBOX_COOKIE_NOT_USED;
 	packet.type = CMD;
 	packet.payload_size = 0;
 

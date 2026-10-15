@@ -18,6 +18,14 @@
 
 #define MAX_MSGS_PER_BOX 30
 
+/**
+ * @brief Sentinel cookie marking a fire-and-forget mailbox command.
+ *
+ * Matches the APU Linux driver: a command stamped with this cookie bypasses
+ * the outbound cookie allocator and the RPU replay dedup.
+ */
+#define MBOX_COOKIE_NOT_USED 0xFFFFFFFFu
+
 /* Forward declaration for MboxFifoCtrl */
 struct MboxFifoCtrl;
 

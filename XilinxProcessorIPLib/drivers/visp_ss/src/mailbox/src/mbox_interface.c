@@ -110,6 +110,35 @@ void mbox_interface_close(void)
 	rx_command = NULL;
 }
 
+/*
+ * Outbound cookie allocator, aligned with the APU Linux driver: every
+ * command gets a unique, monotonically increasing cookie (skipping 0 and
+ * MBOX_COOKIE_NOT_USED) so the RPU integrity layer correlates and dedups
+ * baremetal-APU commands exactly as it does Linux-APU ones. A single global
+ * counter suffices because the baremetal APU issues commands strictly
+ * sequentially (send, then busy-wait for the ACK).
+ */
+static uint32_t mbox_outbound_cookie_next;
+
+/**
+ * @brief Allocate the next unique outbound mailbox cookie.
+ *
+ * Advances the global counter and returns a monotonically increasing cookie,
+ * skipping the reserved values 0 and MBOX_COOKIE_NOT_USED.
+ *
+ * @return Next unique, non-reserved cookie value.
+ */
+static uint32_t mbox_next_cookie(void)
+{
+	uint32_t ck = mbox_outbound_cookie_next;
+
+	do {
+		ck++;
+	} while (ck == 0u || ck == MBOX_COOKIE_NOT_USED);
+	mbox_outbound_cookie_next = ck;
+	return ck;
+}
+
 /**
  * @brief Builds, stamps, and sends a mailbox command.
  */
@@ -130,6 +159,14 @@ int32_t mbox_interface_send_command(MBCmdId_E cmd, void *data, uint32_t size,
 	}
 
 	payload->resp_field.error_subcode_t = RET_SUCCESS;
+
+	/*
+	 * Stamp the Linux-aligned cookie into the caller's packet before it is
+	 * copied/sent, so the subsequent apu_wait_for_ACK(packet.cookie) matches
+	 * the value the RPU echoes. MBOX_COOKIE_NOT_USED is left untouched.
+	 */
+	if (payload->cookie != MBOX_COOKIE_NOT_USED)
+		payload->cookie = mbox_next_cookie();
 
 	(void)size;
 	memset(&tmp_msg, 0, sizeof(tmp_msg));

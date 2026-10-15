@@ -140,7 +140,7 @@ int mailbox_wrapper()
 		Payload_packet init_packet;
 		memset(&init_packet, 0, sizeof(Payload_packet));
 		init_packet.type = CMD;
-		init_packet.cookie = 0;
+		init_packet.cookie = MBOX_COOKIE_NOT_USED;
 		init_packet.payload_size = sizeof(uint32_t);
 		/* instance_id in payload_data[0] */
 		init_packet.payload_data[0] = 0;
@@ -169,7 +169,7 @@ int mailbox_wrapper()
 		Payload_packet init_packet;
 		memset(&init_packet, 0, sizeof(Payload_packet));
 		init_packet.type = CMD;
-		init_packet.cookie = 0;
+		init_packet.cookie = MBOX_COOKIE_NOT_USED;
 		init_packet.payload_size = sizeof(uint32_t);
 		init_packet.payload_data[0] = 0;
 
