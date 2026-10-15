@@ -25,6 +25,8 @@
  *       rmv  09/11/25 Rename XAsufw_DmaNonBlockingWait() to XAsufw_DmaCfgNonBlocking()
  *       rmv  09/12/25 Removed XAsufw_DmaMemSet() function as it is not used
  *       tri  10/10/26 Added STL RW register check for ASU DMA0 and DMA1 in DMA driver init
+ *       vm   10/17/26 Restored XAsufw_DmaMemSet() to wipe the key vault region with
+ *                     advancing transfers, advancing the keep-alive counter after each
  *
  * </pre>
  *
@@ -41,6 +43,7 @@
 #include "xasufw_hw.h"
 #include "xasufw_cmd.h"
 #include "xasufw_resourcemanager.h"
+#include "xasufw_keepalive.h"
 #ifdef XASU_ENABLE_STL
 #include "xstl_asuinterface.h"
 #endif
@@ -53,6 +56,13 @@
 #define XASUFW_DMA_ENDIAN_DISABLE			(0U) /**< DMA endianness swap disabled. */
 #define XASUFW_DMA_ENDIAN_ENABLE			(1U) /**< DMA endianness swap enabled. */
 #define XASUFW_DMA_FIXED_TRANSFER_SIZE		(16U) /**< DMA fixed transfer source size in bytes */
+#define XASUFW_DMA_MEMSET_SEED_SIZE		(512U) /**< Memory set seed size in bytes */
+#define XASUFW_DMA_MEMSET_MAX_CHUNK		(0x100000U) /**< Largest memory set transfer in bytes */
+#define XASUFW_DMA_MEMSET_VERIFY_STRIDE		(0x1000U) /**< Memory set read-back stride */
+
+/** Byte of Val the memory set seed puts at the given offset from the start of the buffer. */
+#define XASUFW_DMA_MEMSET_SEED_BYTE(Val, Offset) \
+	((u8)((Val) >> (((Offset) % XASUFW_WORD_LEN_IN_BYTES) * XASUFW_BYTE_LEN_IN_BITS)))
 
 /**
  * 2 x word-aligned P-521 (136). B-Fix-6: 2*max CurveLen so src_ram,
@@ -457,6 +467,143 @@ s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Siz
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_WaitForDmaDone(AsuDmaPtr, XCSUDMA_DST_CHANNEL);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function sets the memory at the given address to the given value using DMA.
+ *
+ * @param	DmaPtr		Pointer to the DMA instance.
+ * @param	DestAddr	Starting address of the buffer to be filled. Need not be word
+ *				aligned, both the DMA and the processor serving byte-aligned
+ *				accesses.
+ * @param	Val		Value the buffer is filled with. The buffer repeats all 32 bits
+ *				of it from DestAddr on, not its least significant byte.
+ * @param	Len		Size of the memory to be set, in bytes. Any length, a whole
+ *				number of words or not.
+ *
+ * @return
+ *	- XASUFW_SUCCESS, if the memory is set.
+ *	- XASUFW_ERR_DMA_INSTANCE_NULL, if DmaPtr is NULL.
+ *	- XASUFW_INVALID_PARAM, if DestAddr is zero, or if the buffer runs past the address
+ *	  the processor can reach.
+ *	- XASUFW_DMA_MEMSET_VERIFY_FAIL, if the written value does not read back, or if the
+ *	  transfers do not cover the whole buffer.
+ *	- XASUFW_DMA_WAIT_FOR_DONE_TIMED_OUT, if the DMA transfer does not complete.
+ *	- XASUFW_FAILURE, if there is any other failure.
+ *
+ * @note	The processor seeds XASUFW_DMA_MEMSET_SEED_SIZE bytes at DestAddr, a processor
+ *		address, then the DMA doubles that span over the rest of the buffer,
+ *		XASUFW_DMA_MEMSET_MAX_CHUNK per transfer at most. Both addresses advance, a
+ *		fixed-address transfer not being served by every memory the buffer may lie in.
+ *		The keep-alive counter is advanced after every transfer, the cap bounding that
+ *		wait, as the dispatcher runs a handler to completion. The seed is read back in
+ *		full and the transfers are sampled, one word per XASUFW_DMA_MEMSET_VERIFY_STRIDE.
+ *
+ *************************************************************************************************/
+s32 XAsufw_DmaMemSet(XAsufw_Dma *DmaPtr, u32 DestAddr, u32 Val, u32 Len)
+{
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
+	volatile u32 Index;
+	volatile u32 VerifyIndex;
+	u32 SeedBytes;
+	volatile u32 Filled;
+	u32 Chunk;
+	u32 Offset;
+
+	/** Validate input parameters. */
+	if (DmaPtr == NULL) {
+		Status = XASUFW_ERR_DMA_INSTANCE_NULL;
+		goto END;
+	}
+
+	if (Len == 0U) {
+		Status = XASUFW_SUCCESS;
+		goto END;
+	}
+
+	if (DestAddr == 0U) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Reject a buffer which wraps past the end of the address space. */
+	if ((DestAddr + Len) < DestAddr) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Seed the start of the buffer, which the DMA then grows. */
+	if (Len <= XASUFW_DMA_MEMSET_SEED_SIZE) {
+		SeedBytes = Len;
+	} else {
+		SeedBytes = XASUFW_DMA_MEMSET_SEED_SIZE;
+	}
+
+	/** Set a byte at a time, so a buffer shorter than a word is covered. */
+	for (Index = 0U; Index < SeedBytes; ++Index) {
+		Xil_Out8(DestAddr + Index, XASUFW_DMA_MEMSET_SEED_BYTE(Val, Index));
+	}
+
+	/** Read the seed back, since the rest of the buffer is grown from it. */
+	for (VerifyIndex = 0U; VerifyIndex < SeedBytes; ++VerifyIndex) {
+		if (Xil_In8(DestAddr + VerifyIndex) !=
+		    XASUFW_DMA_MEMSET_SEED_BYTE(Val, VerifyIndex)) {
+			Status = XASUFW_DMA_MEMSET_VERIFY_FAIL;
+			goto END;
+		}
+	}
+
+	/** Both loops must have run to the end for the seed to hold Val. */
+	if ((Index != SeedBytes) || (VerifyIndex != SeedBytes)) {
+		Status = XASUFW_DMA_MEMSET_VERIFY_FAIL;
+		goto END;
+	}
+
+	Filled = SeedBytes;
+
+	/** Copy what is set onto what is not, so the span doubles until the transfer cap. */
+	while (Filled < Len) {
+		Chunk = Filled;
+		if (Chunk > XASUFW_DMA_MEMSET_MAX_CHUNK) {
+			Chunk = XASUFW_DMA_MEMSET_MAX_CHUNK;
+		}
+		if (Chunk > (Len - Filled)) {
+			Chunk = Len - Filled;
+		}
+
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)DestAddr, ((u64)DestAddr + (u64)Filled), Chunk,
+				       0U);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
+		}
+
+		/** Sample the span, so an unwritten run longer than the stride is caught. */
+		for (Offset = 0U; (Offset + XASUFW_WORD_LEN_IN_BYTES) <= Chunk;
+		     Offset += XASUFW_DMA_MEMSET_VERIFY_STRIDE) {
+			if (XAsufw_ReadReg(DestAddr + Filled + Offset) != Val) {
+				Status = XASUFW_DMA_MEMSET_VERIFY_FAIL;
+				goto END;
+			}
+		}
+
+		Filled += Chunk;
+
+		/** Advanced after the last transfer too, as the caller has more work to do. */
+		XAsufw_KeepAliveAdvanceIfDue();
+	}
+
+	/** Report the buffer set only once the transfers covered all of it. */
+	if (Filled != Len) {
+		Status = XASUFW_DMA_MEMSET_VERIFY_FAIL;
+		goto END;
+	}
+
+	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;

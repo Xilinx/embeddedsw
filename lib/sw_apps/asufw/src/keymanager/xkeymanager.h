@@ -26,6 +26,8 @@
  *       vm   09/15/26 Added the vault side interfaces of key vault export and import, the ASU
  *                     internal exportable vault identifier, its key capacity and creation
  *                     interface, and the resident key vault export and import sequencers
+ *       vm   10/17/26 Passed the DMA instance to the import region prepare and revert
+ *                     interfaces, which now wipe the region with it
  *
  * </pre>
  *
@@ -314,8 +316,8 @@ s32 XKeyManager_WriteImportPlaintext(u32 Offset, const u8 *Buf, u32 Len);
 u8 XKeyManager_IsKeyVaultDirty(void);
 s32 XKeyManager_RebuildVaultRegistryFromImport(void);
 s32 XKeyManager_ValidateImportedKeyObjects(void);
-s32 XKeyManager_PrepareImportRegion(void);
-s32 XKeyManager_RevertImportRegion(void);
+s32 XKeyManager_PrepareImportRegion(XAsufw_Dma *DmaPtr);
+s32 XKeyManager_RevertImportRegion(XAsufw_Dma *DmaPtr);
 s32 XKeyManager_ValidateClientBuffer(u64 Addr, u32 Len);
 u8 *XKeyManager_GetVaultBasePtr(void);
 

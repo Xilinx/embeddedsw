@@ -67,6 +67,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 1.0   vm   09/15/26 Initial release
+ *       vm   10/17/26 Passed the DMA instance to the import region prepare and revert
+ *                     interfaces
  *
  * </pre>
  *
@@ -1263,7 +1265,7 @@ s32 XKeyManager_AekvImportBody(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 	 * every failure from here on is reverted rather than returned outright.
 	 */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XKeyManager_PrepareImportRegion();
+	Status = XKeyManager_PrepareImportRegion(DmaPtr);
 	if (XASUFW_SUCCESS != Status) {
 		goto END_CLR;
 	}
@@ -1287,7 +1289,7 @@ s32 XKeyManager_AekvImportBody(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 END_CLR:
 	/** An import that got past the region preparation and then failed is reverted. */
 	if (XASUFW_SUCCESS != Status) {
-		ClearStatus = XKeyManager_RevertImportRegion();
+		ClearStatus = XKeyManager_RevertImportRegion(DmaPtr);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
 

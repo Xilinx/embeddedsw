@@ -64,6 +64,7 @@
  *                     ASU internal exportable vault creation failure
  *       kk   09/23/26 Added error codes for SLH-DSA pairwise consistency test
  *       kp   10/08/26 Consolidated ChangeEndianness errors into XASUFW_CHANGE_ENDIANNESS_ERROR
+ *       vm   10/17/26 Added XASUFW_DMA_MEMSET_VERIFY_FAIL error code
  *
  * </pre>
  *
@@ -1049,6 +1050,8 @@ enum {
 						cannot be read into the signature scratch */
 	XASUFW_FEATURE_NOT_SUPPORTED, /**< 0x2B2U - Error when a request needs a crypto engine
 							that this build does not have */
+	XASUFW_DMA_MEMSET_VERIFY_FAIL, /**< 0x2B3U - Error when a memory set does not read back
+						the value written, or does not cover the buffer */
 
 	/* Additional status success codes */
 	XASUFW_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate

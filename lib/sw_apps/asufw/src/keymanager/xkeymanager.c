@@ -32,6 +32,8 @@
  *                     added the resident export and import sequencers that phase the key vault
  *                     and RSA-ECC overlay images and hold the header signing and verification
  *       kk   09/23/26 Document the SLH-DSA pairwise consistency test on key generation
+ *       vm   10/17/26 Wiped the restorable key vault region with the DMA instead of the
+ *                     processor, packing the status a failed wipe gives up
  *
  * </pre>
  *
@@ -252,7 +254,7 @@ static s32 XKeyManager_UpdateMlkemPubKeyObjectFromVault(u64 KeyObjectAddr, u32 S
 	u8 KeyUsecase, u32 KeyId);
 #endif /* XASU_MLKEM_ENABLE */
 static s32 XKeyManager_RollbackKeyPair(u32 *KeyIdPtr, u32 SubSystemId, s32 Status);
-static s32 XKeyManager_ClearRestorableVaultRegion(void);
+static s32 XKeyManager_ClearRestorableVaultRegion(XAsufw_Dma *DmaPtr);
 static s32 XKeyManager_ClearImportRecord(void);
 static s32 XKeyManager_IsRestoredRegistryUsable(void);
 
@@ -5440,6 +5442,8 @@ END:
  *		and the ASU internal exportable vault is restored from the copy taken before the
  *		import started.
  *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ *
  * @return
  *		- XASUFW_SUCCESS, if the vault is reverted or the import was never prepared.
  *		- XASUFW_MEM_COPY_FAIL, if the header or vault restore fails.
@@ -5452,7 +5456,7 @@ END:
  *		only on a clean revert, so a revert that failed part way can be retried.
  *
  *************************************************************************************************/
-s32 XKeyManager_RevertImportRegion(void)
+s32 XKeyManager_RevertImportRegion(XAsufw_Dma *DmaPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
@@ -5477,7 +5481,7 @@ s32 XKeyManager_RevertImportRegion(void)
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XKeyManager_ClearRestorableVaultRegion();
+	Status = XKeyManager_ClearRestorableVaultRegion(DmaPtr);
 	if ((XASUFW_SUCCESS != Status) && (XASUFW_SUCCESS == RevertStatus)) {
 		RevertStatus = Status;
 	}
@@ -5779,6 +5783,8 @@ END:
  *		vault header and the ASU internal exportable vault are copied aside first, so a
  *		failed import can put both back.
  *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ *
  * @return
  *		- XASUFW_SUCCESS, if preparation is successful.
  *		- XASUFW_KEYMANAGER_NO_SPACE, if the main header and the ASU internal
@@ -5788,7 +5794,7 @@ END:
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memory clear fails.
  *
  *************************************************************************************************/
-s32 XKeyManager_PrepareImportRegion(void)
+s32 XKeyManager_PrepareImportRegion(XAsufw_Dma *DmaPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u8 *VaultBaseAddr = XKEYMANAGER_GET_VAULT_BASE_PTR();
@@ -5866,7 +5872,7 @@ s32 XKeyManager_PrepareImportRegion(void)
 	ImportRestoreRegionLen = RestoreVaultLen;
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
-	Status = XKeyManager_ClearRestorableVaultRegion();
+	Status = XKeyManager_ClearRestorableVaultRegion(DmaPtr);
 
 END:
 	return Status;
@@ -5878,20 +5884,33 @@ END:
  *		describe it, leaving the vault with neither user key vaults nor the ASU internal
  *		exportable vault.
  *
+ * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
+ *
  * @return
  *		- XASUFW_SUCCESS, if the region and registry are cleared.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if memory clear fails.
  *
+ * @note	The region is the key vault allocation past the main header and the ASU internal
+ *		non-exportable vault, sized by the integrator and held in DDR, so the DMA wipes
+ *		it rather than Xil_SecureZeroize(), whose processor write and byte-wise
+ *		read-back take far longer than the keep-alive window allows.
+ *
+ *		The wipe is not hardened against fault injection, unlike the clears of the
+ *		snapshots held in ASU RAM. Status starts at failure, so a skipped call is
+ *		reported as one, and the region is bound to the encrypted DDR window, so what
+ *		a skipped wipe leaves behind is not readable off the device.
+ *
  *************************************************************************************************/
-static s32 XKeyManager_ClearRestorableVaultRegion(void)
+static s32 XKeyManager_ClearRestorableVaultRegion(XAsufw_Dma *DmaPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
 	/** Wipe the key vault content the region holds. */
-	Status = Xil_SMemSet(ImportRestoreBasePtr, ImportRestoreRegionLen, 0U,
-			     ImportRestoreRegionLen);
+	Status = XAsufw_DmaMemSet(DmaPtr, (u32)(UINTPTR)ImportRestoreBasePtr, 0U,
+				  ImportRestoreRegionLen);
 	if (XASUFW_SUCCESS != Status) {
-		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
+		/** Keep the status the wipe failed with inside the code this clear reports. */
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_ZEROIZE_MEMSET_FAIL);
 		goto END;
 	}
 
