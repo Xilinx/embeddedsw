@@ -265,12 +265,12 @@ static XDc_VideoFormat MapFormat(u32 format)
 * @param    userConfig - User configuration from menu
 * @param    runConfig - Platform RunConfig structure
 *
-* @return   None
+* @return   XST_SUCCESS if configuration is valid, XST_FAILURE otherwise.
 *
 * @note     None
 *
 ******************************************************************************/
-static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfig)
+static u32 XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfig)
 {
     u32 idx;
 
@@ -300,11 +300,13 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
         userConfig->width, userConfig->height,
         userConfig->frame_rate, FALSE);
     if (runConfig->VideoMode == XVIDC_VM_NOT_SUPPORTED) {
-        xil_printf("WARNING: No standard mode for %dx%d@%dHz, "
-                   "defaulting to 1920x1080@60\r\n",
+        xil_printf("ERROR: Unsupported timing mode %dx%d@%dHz\r\n",
                    userConfig->width, userConfig->height,
                    userConfig->frame_rate);
-        runConfig->VideoMode = XVIDC_VM_1920x1080_60_P;
+        if (userConfig->width == 640U && userConfig->height == 480U)
+            xil_printf("       640x480 supports 60/72/75/85 Hz only\r\n");
+        xil_printf("Exiting application.\r\n");
+        return XST_FAILURE;
     }
     runConfig->PixelClkHz = XVidC_GetPixelClockHzByVmId(runConfig->VideoMode);
     xil_printf("VideoMode:              %s\r\n",
@@ -467,6 +469,8 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     xil_printf("Stream1 PartialBlend:   %s\r\n", runConfig->Stream1PbEnable == PB_ENABLE ? "ENABLED" : "DISABLED");
     xil_printf("Stream2 PartialBlend:   %s\r\n", runConfig->Stream2PbEnable == PB_ENABLE ? "ENABLED" : "DISABLED");
     xil_printf("=========================================\r\n\r\n");
+
+    return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -505,7 +509,9 @@ restart:
     xil_printf("\r\n=== Starting Platform Initialization ===\r\n");
 
     /* Apply user configuration to platform RunConfig */
-    XDpDc_ApplyUserConfig(&userConfig, &RunCfg);
+    Status = XDpDc_ApplyUserConfig(&userConfig, &RunCfg);
+    if (Status != XST_SUCCESS)
+        return 0;
 
     XDpDc_Warn8kRgbIfNeeded(&userConfig);
 
