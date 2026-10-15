@@ -43,6 +43,9 @@
 *       mkr  10/03/2026 Renamed affected error codes to XNVM_EFUSE_ERR_ prefix
 *                       and removed duplicate XNVM_EFUSE_WORD_LEN macro, now
 *                       defined in xnvm_common_defs.h
+*       sri  10/15/2026 Staged XNvm_EfuseRead in a local buffer and copied it
+*                       to the 64-bit destination. Reject a span past the
+*                       cache and a destination that overlaps that buffer
 *
 * </pre>
 *
@@ -67,11 +70,16 @@
 #include "xplmi_hw.h"
 #include "xplmi_plat.h"
 #include "xnvm_efuse_common_hw.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef XNVM_ACCESS_PUF_USER_DATA
 #define XNVM_EFUSE_NUM_OF_PUF_FUSES	(128U) /**< Number of PUF fuses available for user data */
 #endif
+#define XNVM_EFUSE_READ_CACHE_CHUNK_WORDS	(8U)
+	/**< Words copied per ReadCacheRange call from IPI */
+#define XNVM_EFUSE_CACHE_NUM_ROWS		(768U)
+	/**< Rows accepted by XNvm_EfuseReadCache on Versal */
 
 /************************** Function Prototypes *****************************/
 static int XNvm_EfuseDataWrite(u32 SubsystemId, u32 AddrLow, u32 AddrHigh);
@@ -1306,28 +1314,75 @@ END:
  *
  * @return
  * 		- XST_SUCCESS - If the copy is successful
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On a bad size, row span, or
+ * 		  destination that overlaps the local buffer
+ * 		- XNVM_EFUSE_ERR_INVALID_ADDR_RANGE - On an address outside the
+ * 		  subsystem range
  * 		- XST_FAILURE - If there is a failure
  *
  *****************************************************************************/
 int XNvm_EfuseRead(u32 SubsystemId, u32 Offset, u32 AddrLow, u32 AddrHigh, u32 Size)
 {
 	int Status = XST_FAILURE;
+	int ClearStatus = XST_FAILURE;
 	u64 ReadDataAddr = ((u64)AddrHigh << 32U) | (u64)AddrLow;
-	u32 RowCount = (u32)(Size / XNVM_EFUSE_WORD_LEN);
+	u32 RowData[XNVM_EFUSE_READ_CACHE_CHUNK_WORDS] = {0U};
+	u32 Words = 0U;
+	u32 Done = 0U;
+	u32 Chunk = 0U;
+	u32 StartRow = 0U;
 
-	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReadDataAddr, Size, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
-
-	/* RowCount is passed as u8; reject requests that would overflow it */
-	if (RowCount > 0xFFU) {
-		Status = XST_INVALID_PARAM;
+	if (((Offset % XNVM_EFUSE_WORD_LEN) != 0U) ||
+			((Size % XNVM_EFUSE_WORD_LEN) != 0U) ||
+			(Size == 0U)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	/*< Offset indicates lower nibble of the eFuse cache row offset */
-	Status = XNvm_EfuseReadCacheRange(Offset / XNVM_EFUSE_WORD_LEN,
-					  (u8)RowCount, (u32 *)(UINTPTR)ReadDataAddr);
+	Words = Size / XNVM_EFUSE_WORD_LEN;
+	StartRow = Offset / XNVM_EFUSE_WORD_LEN;
+	/*
+	 * Reject a span past the last cache row before any store. Each call
+	 * copies at most one chunk, so a read of the whole cache is allowed.
+	 */
+	if (((u64)StartRow + (u64)Words) > (u64)XNVM_EFUSE_CACHE_NUM_ROWS) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ReadDataAddr, Size, Status, XNVM_EFUSE_ERR_INVALID_ADDR_RANGE, END);
+
+	/*
+	 * The copy helper skips a destination that overlaps RowData and does
+	 * not report it. That buffer is on the PMC stack, below 4GB.
+	 */
+	if ((AddrHigh == 0U) &&
+			(AddrLow < ((u32)(UINTPTR)RowData + (u32)sizeof(RowData))) &&
+			((AddrLow + Size) > (u32)(UINTPTR)RowData)) {
+		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	while (Done < Words) {
+		Chunk = Words - Done;
+		if (Chunk > XNVM_EFUSE_READ_CACHE_CHUNK_WORDS) {
+			Chunk = XNVM_EFUSE_READ_CACHE_CHUNK_WORDS;
+		}
+		Status = XNvm_EfuseReadCacheRange(StartRow + Done, (u8)Chunk, RowData);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		Xil_MemCpyFrom32To64Addr(ReadDataAddr + ((u64)Done * XNVM_EFUSE_WORD_LEN),
+					 (u32)(UINTPTR)RowData,
+					 Chunk * XNVM_EFUSE_WORD_LEN);
+		Done += Chunk;
+	}
 
 END:
+	ClearStatus = Xil_SecureZeroize((u8 *)RowData, sizeof(RowData));
+	if ((Status == XST_SUCCESS) && (ClearStatus != XST_SUCCESS)) {
+		Status = ClearStatus;
+	}
 	return Status;
 }
 
