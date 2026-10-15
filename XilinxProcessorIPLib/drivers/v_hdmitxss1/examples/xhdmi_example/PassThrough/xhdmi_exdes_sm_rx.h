@@ -75,6 +75,10 @@
 	defined (XPS_BOARD_VEK385_1)
 #define XPS_BOARD_VEK385
 #endif
+
+#if defined (XPS_BOARD_SCU200_P)
+#define XPS_BOARD_SCU200
+#endif
 /**************************** Type Definitions ******************************/
 
 /**

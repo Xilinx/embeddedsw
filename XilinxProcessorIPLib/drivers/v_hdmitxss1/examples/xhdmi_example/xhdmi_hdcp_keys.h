@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -70,6 +70,10 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key);
 #if defined (XPS_BOARD_VEK385) || \
 	defined (XPS_BOARD_VEK385_1)
 #define XPS_BOARD_VEK385
+#endif
+
+#if defined (XPS_BOARD_SCU200_P)
+#define XPS_BOARD_SCU200
 #endif
 
 #ifdef __cplusplus

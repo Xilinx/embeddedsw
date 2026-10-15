@@ -2440,7 +2440,8 @@ static void XV_Rx_HdmiRx_EnterStateFrlConfig(XV_Rx *InstancePtr)
 
 #endif
 
-#ifdef XPS_BOARD_ZCU106
+#if (defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_SCU200))
 
 	XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
 			XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 0);
@@ -2565,7 +2566,9 @@ static void XV_Rx_HdmiRx_EnterStateTmdsConfig(XV_Rx *InstancePtr)
 
 	InstancePtr->RxClkSrcConfig(InstancePtr->RxClkSrcConfigCallbackRef);
 
-#if defined(XPS_BOARD_VCU118) || defined(XPS_BOARD_ZCU106)
+#if defined (XPS_BOARD_VCU118) || \
+	defined (XPS_BOARD_ZCU106) || \
+	defined (XPS_BOARD_SCU200)
 	//Set GT in LPM Mode for TMDS
 	XHdmiphy1_SetRxLpm(&Hdmiphy1, 0,
 	XHDMIPHY1_CHANNEL_ID_CHA, XHDMIPHY1_DIR_RX, 1);

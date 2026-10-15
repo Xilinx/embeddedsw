@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,8 @@
 #include "ti_tmds1204.h"
 
 #if defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385)
+	defined (XPS_BOARD_VEK385) || \
+	defined (XPS_BOARD_SCU200)
 #if (defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
@@ -53,8 +54,13 @@ const Ti_RegisterField TiRegisterFields[] = {
 	{TX_TI_R1_INIT, 0x0A, 0x8E}, //lanes swap
 	{TX_TI_R1_INIT, 0x0B, 0x43},
 	{TX_TI_R1_INIT, 0x0C, 0x70},
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_R1_INIT, 0x0D, 0xA2}, //was e3
+	{TX_TI_R1_INIT, 0x0E, 0x96},
+#else
 	{TX_TI_R1_INIT, 0x0D, 0x22}, //was e3
 	{TX_TI_R1_INIT, 0x0E, 0x97},
+#endif
 	{TX_TI_R1_INIT, 0x11, 0x0F},
 	{TX_TI_R1_INIT, 0x09, 0x02},
 
@@ -101,50 +107,106 @@ const Ti_RegisterField TiRegisterFields[] = {
 	{TX_TI_TMDS_20_R1, 0x11, 0x0F},
 
 	{TX_TI_FRL_3G_R1, 0x11, 0x00},
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_3G_R1, 0x0D, 0x92},
+	{TX_TI_FRL_3G_R1, 0x12, 0x00},
+#else
 	{TX_TI_FRL_3G_R1, 0x0D, 0x22},
 	{TX_TI_FRL_3G_R1, 0x12, 0x03},
+#endif
 	{TX_TI_FRL_3G_R1, 0x13, 0x00},
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_3G_R1, 0x14, 0x00},
+#else
 	{TX_TI_FRL_3G_R1, 0x14, 0x03},
+#endif
 	{TX_TI_FRL_3G_R1, 0x15, 0x05}, // value
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_3G_R1, 0x16, 0x00},
+#else
 	{TX_TI_FRL_3G_R1, 0x16, 0x03},
+#endif
 	{TX_TI_FRL_3G_R1, 0x17, 0x05}, //value
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_3G_R1, 0x18, 0x00},
+#else
 	{TX_TI_FRL_3G_R1, 0x18, 0x03},
+#endif
 	{TX_TI_FRL_3G_R1, 0x19, 0x05}, //value
 	{TX_TI_FRL_3G_R1, 0x20, 0x00},
 	{TX_TI_FRL_3G_R1, 0x31, 0x01}, // 3gx3
 	{TX_TI_FRL_3G_R1, 0x11, 0x0F},
 
 	{TX_TI_FRL_6G_3_R1, 0x11, 0x00},
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_3_R1, 0x0D, 0xA2},
+	{TX_TI_FRL_6G_3_R1, 0x12, 0x01}, //0x01 working
+#else
 	{TX_TI_FRL_6G_3_R1, 0x0D, 0x22},
 	{TX_TI_FRL_6G_3_R1, 0x12, 0x03},
+#endif
 	{TX_TI_FRL_6G_3_R1, 0x13, 0x00},
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_3_R1, 0x14, 0x01},
+#else
 	{TX_TI_FRL_6G_3_R1, 0x14, 0x03},
+#endif
 	{TX_TI_FRL_6G_3_R1, 0x15, 0x05}, // value
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_3_R1, 0x16, 0x01},
+#else
 	{TX_TI_FRL_6G_3_R1, 0x16, 0x03},
+#endif
 	{TX_TI_FRL_6G_3_R1, 0x17, 0x05}, //value
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_3_R1, 0x18, 0x01},
+#else
 	{TX_TI_FRL_6G_3_R1, 0x18, 0x03},
+#endif
 	{TX_TI_FRL_6G_3_R1, 0x19, 0x05}, //value
 	{TX_TI_FRL_6G_3_R1, 0x20, 0x00},
 	{TX_TI_FRL_6G_3_R1, 0x31, 0x02}, // 6gx3
 	{TX_TI_FRL_6G_3_R1, 0x11, 0x0F},
 
 	{TX_TI_FRL_6G_4_R1, 0x11, 0x00},
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_4_R1, 0x0D, 0xA2},
+	{TX_TI_FRL_6G_4_R1, 0x12, 0x01}, //0x01 working
+#else
 	{TX_TI_FRL_6G_4_R1, 0x0D, 0x22},
 	{TX_TI_FRL_6G_4_R1, 0x12, 0x03},
+#endif
 	{TX_TI_FRL_6G_4_R1, 0x13, 0x05}, //value
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_4_R1, 0x14, 0x01},
+#else
 	{TX_TI_FRL_6G_4_R1, 0x14, 0x03},
+#endif
 	{TX_TI_FRL_6G_4_R1, 0x15, 0x05}, // value
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_4_R1, 0x16, 0x01},
+#else
 	{TX_TI_FRL_6G_4_R1, 0x16, 0x03},
+#endif
 	{TX_TI_FRL_6G_4_R1, 0x17, 0x05}, //value
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_6G_4_R1, 0x18, 0x01},
+#else
 	{TX_TI_FRL_6G_4_R1, 0x18, 0x03},
+#endif
 	{TX_TI_FRL_6G_4_R1, 0x19, 0x05}, //value
 	{TX_TI_FRL_6G_4_R1, 0x20, 0x00},
 	{TX_TI_FRL_6G_4_R1, 0x31, 0x03}, // 6gx4
 	{TX_TI_FRL_6G_4_R1, 0x11, 0x0F},
 
 	{TX_TI_FRL_8G_R1, 0x11, 0x00},
+#if defined (XPS_BOARD_SCU200)
+	{TX_TI_FRL_8G_R1, 0x0D, 0xA2},
+	{TX_TI_FRL_8G_R1, 0x12, 0x03}, //0x03
+#else
 	{TX_TI_FRL_8G_R1, 0x0D, 0x22},
 	{TX_TI_FRL_8G_R1, 0x12, 0x03},
+#endif
 	{TX_TI_FRL_8G_R1, 0x13, 0x05}, //value
 	{TX_TI_FRL_8G_R1, 0x14, 0x03},
 	{TX_TI_FRL_8G_R1, 0x15, 0x05}, // value
@@ -211,8 +273,13 @@ const Ti_RegisterField TiRegisterFields[] = {
 	{RX_TI_R1_INIT, 0x0A, 0x4E}, //B}, // enabling RXOUTCLK
 	{RX_TI_R1_INIT, 0x0B, 0x43},
 	{RX_TI_R1_INIT, 0x0C, 0x70},
+#if defined (XPS_BOARD_SCU200)
+	{RX_TI_R1_INIT, 0x0D, 0xD2}, //E3
+	{RX_TI_R1_INIT, 0x0E, 0x16}, //97
+#else
 	{RX_TI_R1_INIT, 0x0D, 0xE3}, //E3
 	{RX_TI_R1_INIT, 0x0E, 0x17}, //97
+#endif
 	{RX_TI_R1_INIT, 0x1E, 0x00},
 	{RX_TI_R1_INIT, 0x11, 0x0F},
 	{RX_TI_R1_INIT, 0x09, 0x02}, //00
@@ -268,8 +335,13 @@ const Ti_RegisterField TiRegisterFields[] = {
 
 //	{RX_TI_FRL_3G_R1, 0x11, 0x00},
 	{RX_TI_FRL_3G_R1, 0x0A, 0x0E}, // disabling RXOUTCLK
+#if defined (XPS_BOARD_SCU200)
+	{RX_TI_FRL_3G_R1, 0x0D, 0xD2}, //D3 almost working for SCU200
+	{RX_TI_FRL_3G_R1, 0x0E, 0x16},
+#else
 	{RX_TI_FRL_3G_R1, 0x0D, 0xE3},
 	{RX_TI_FRL_3G_R1, 0x0E, 0x17},
+#endif
 	{RX_TI_FRL_3G_R1, 0x12, 0x03},
 	{RX_TI_FRL_3G_R1, 0x13, 0x05},//value
 	{RX_TI_FRL_3G_R1, 0x14, 0x03},
@@ -284,8 +356,13 @@ const Ti_RegisterField TiRegisterFields[] = {
 
 //	{RX_TI_FRL_6G_3_R1, 0x11, 0x00},
 	{RX_TI_FRL_6G_3_R1, 0x0A, 0x0E}, // disabling RXOUTCLK
+#if defined (XPS_BOARD_SCU200)
+	{RX_TI_FRL_6G_3_R1, 0x0D, 0xD2},
+	{RX_TI_FRL_6G_3_R1, 0x0E, 0x16},
+#else
 	{RX_TI_FRL_6G_3_R1, 0x0D, 0xE3},
 	{RX_TI_FRL_6G_3_R1, 0x0E, 0x17},
+#endif
 	{RX_TI_FRL_6G_3_R1, 0x12, 0x02},
 	{RX_TI_FRL_6G_3_R1, 0x13, 0x05}, //value
 	{RX_TI_FRL_6G_3_R1, 0x14, 0x02},
@@ -300,8 +377,13 @@ const Ti_RegisterField TiRegisterFields[] = {
 
 //	{RX_TI_FRL_6G_4_R1, 0x11, 0x00},
 	{RX_TI_FRL_6G_4_R1, 0x0A, 0x0E}, // disabling RXOUTCLK
+#if defined (XPS_BOARD_SCU200)
+	{RX_TI_FRL_6G_4_R1, 0x0D, 0xD2},
+	{RX_TI_FRL_6G_4_R1, 0x0E, 0x16},
+#else
 	{RX_TI_FRL_6G_4_R1, 0x0D, 0xE3},
 	{RX_TI_FRL_6G_4_R1, 0x0E, 0x17},
+#endif
 	{RX_TI_FRL_6G_4_R1, 0x12, 0x02},
 	{RX_TI_FRL_6G_4_R1, 0x13, 0x05}, //value
 	{RX_TI_FRL_6G_4_R1, 0x14, 0x02},
@@ -316,8 +398,13 @@ const Ti_RegisterField TiRegisterFields[] = {
 
 //	{RX_TI_FRL_8G_R1, 0x11, 0x00},
 	{RX_TI_FRL_8G_R1, 0x0A, 0x0E}, // disabling RXOUTCLK
+#if defined (XPS_BOARD_SCU200)
+	{RX_TI_FRL_8G_R1, 0x0D, 0xD2}, //D3, D7 almost working for SCU200
+	{RX_TI_FRL_8G_R1, 0x0E, 0x16},
+#else
 	{RX_TI_FRL_8G_R1, 0x0D, 0xF3},
 	{RX_TI_FRL_8G_R1, 0x0E, 0x17},
+#endif
 	{RX_TI_FRL_8G_R1, 0x12, 0x02},
 	{RX_TI_FRL_8G_R1, 0x13, 0x05}, //value
 	{RX_TI_FRL_8G_R1, 0x14, 0x02},

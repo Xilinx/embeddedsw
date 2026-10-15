@@ -55,10 +55,15 @@
 	defined (XPS_BOARD_VEK385_1)
 #define XPS_BOARD_VEK385
 #endif
+#if defined (XPS_BOARD_SCU200_P)
+#define XPS_BOARD_SCU200
+#endif
 #if defined (XPS_BOARD_VEK280)
 #include "ti_tmds1204.h"
 #include "rc21008adrv.h"
 #elif defined (XPS_BOARD_VEK385)
+#include "ti_tmds1204.h"
+#elif defined (XPS_BOARD_SCU200)
 #include "ti_tmds1204.h"
 #endif
 #if (XPAR_HDMIPHY1_0_TRANSCEIVER == 6) /*GTYE4*/
