@@ -103,7 +103,6 @@ static const char* format_to_string(u32 format)
         /* RGB 8-bit */
         case RGB888: return "RGB888";
         case RGB565: return "RGB565";
-        case RGB888_GFX: return "RGB888_GFX";
         case RGB888dc: return "RGB888dc";
 
         /* RGBA 8-bit */
@@ -364,7 +363,6 @@ void XDpDc_ListNonliveFormats(void)
     xil_printf("  %2d     %-20s  YV16 4:2:0\r\n", YV16_420, "YV16_420");
     xil_printf("  %2d     %-20s  RGBA 32-bit\r\n", RGBA8888, "RGBA8888");
     xil_printf("  %2d     %-20s  ABGR 32-bit\r\n", ABGR8888, "ABGR8888");
-    xil_printf("  %2d     %-20s  RGB 24-bit (GFX)\r\n", RGB888_GFX, "RGB888_GFX");
     xil_printf("  %2d     %-20s  BGR 24-bit\r\n", BGR888, "BGR888");
     xil_printf("  %2d     %-20s  RGBA 16-bit (5551)\r\n", RGBA5551, "RGBA5551");
     xil_printf("  %2d     %-20s  RGBA 16-bit (4444)\r\n", RGBA4444, "RGBA4444");
@@ -1123,11 +1121,10 @@ u32 XDpDc_ConfigureFormat(u32 *format, const char *format_name)
     xil_printf("3. RGB565 (%d)\r\n", RGB565);
     xil_printf("4. YV16 (%d)\r\n", YV16);
     xil_printf("5. YV16_420 (%d)\r\n", YV16_420);
-    xil_printf("6. RGB888_GFX (%d)\r\n", RGB888_GFX);
-    xil_printf("7. Custom (enter format number)\r\n");
+    xil_printf("6. Custom (enter format number)\r\n");
     xil_printf("n. List All Non-Live Input Formats\r\n");
     xil_printf("l. List All Live Output Formats\r\n");
-    xil_printf("Enter choice (1-7, n, l): ");
+    xil_printf("Enter choice (1-6, n, l): ");
 
     choice = read_char();
     xil_printf("\r\n");
@@ -1149,9 +1146,6 @@ u32 XDpDc_ConfigureFormat(u32 *format, const char *format_name)
             *format = YV16_420;
             break;
         case '6':
-            *format = RGB888_GFX;
-            break;
-        case '7':
             xil_printf("Enter format number: ");
             *format = read_uint();
             xil_printf("%s set to: %s (%d)\r\n", format_name, format_to_string(*format), *format);

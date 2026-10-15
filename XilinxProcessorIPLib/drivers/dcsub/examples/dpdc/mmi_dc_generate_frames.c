@@ -941,8 +941,7 @@ void XDpDc_GenerateFrames(RunConfig *RunCfgPtr)
 		}
 			break;
 
-		case RGB888_GFX: /* Format 64 - RGB888dc: 32-bit container B[7:0]G[7:0]R[7:0] */
-		case RGB888dc:
+		case RGB888dc: /* 32-bit container B[7:0]G[7:0]R[7:0] */
 			for (u32 y = 0; y < height; y++) {
 				for (u32 x = 0; x < width; x++) {
 					u32 pixel_idx = y * width + x;

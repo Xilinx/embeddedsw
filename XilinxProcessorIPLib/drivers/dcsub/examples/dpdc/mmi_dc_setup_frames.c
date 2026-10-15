@@ -121,7 +121,6 @@ static u32 XDpDc_GetFormatBpc(XDc_VideoFormat fmt)
 
 	case RGB888:
 	case YUV444:
-	case RGB888_GFX:
 	case BGR888:
 	case RGBA8880:
 		return 3;

@@ -124,7 +124,6 @@ static const char* format_to_string(XDc_VideoFormat format)
         /* RGB 8-bit */
         case RGB888: return "RGB888";
         case RGB565: return "RGB565";
-        case RGB888_GFX: return "RGB888_GFX";
         case RGB888dc: return "RGB888dc";
 
         /* RGBA 8-bit */
