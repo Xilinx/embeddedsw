@@ -36,7 +36,7 @@ extern "C" {
 #define XDC_PL_CLK              0x0
 #define XDC_PS_CLK              0x1
 
-#define XDC_NUM_SUPPORTED	121
+#define XDC_NUM_SUPPORTED	120
 
 #define XDC_BUF_4BIT_SF 	0x11111
 #define XDC_BUF_5BIT_SF 	0x10842

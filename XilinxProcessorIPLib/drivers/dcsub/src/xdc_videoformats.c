@@ -171,11 +171,6 @@ const XDc_VideoAttribute XDc_SupportedFormats[XDC_NUM_SUPPORTED] = {
 		FALSE, TRUE, TRUE, FALSE,  32
 	},
 	{
-		RGB888_GFX, 34, Interleaved,
-		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
-		FALSE, TRUE, TRUE, FALSE,  24
-	},
-	{
 		BGR888, 35, Interleaved,
 		{XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF, XDC_BUF_8BIT_SF},
 		FALSE, TRUE, TRUE, FALSE,  24
