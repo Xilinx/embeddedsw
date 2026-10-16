@@ -187,6 +187,9 @@
 *                       HB signature Total/Actual sizes, and reject zero copy lengths
 *       sri  10/05/2026 Use AuthJtagMessagePtr AuthHdr for LMS Auth JTAG signature verify
 *       vss  10/09/2026 Derive LMS/LMS-HSS signature length from the public key
+*       vss  10/14/2026 Allow multiple algorithm bits in the hybrid field and
+*                       require each key algorithm to be present in the other
+*                       key's hybrid mask
 *
 * </pre>
 *
@@ -328,7 +331,9 @@ static int XLoader_ValidateHBSignParams(const XLoader_HBSignParams *HBSignParams
 static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
                                 XLoader_HBAesParams *HBParams);
 #ifdef VERSAL_2VP_P
-static int XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Algo2);
+static u32 XLoader_GetHybridAlgoClass(u32 Algo);
+static s32 XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Hybrid1,
+		u32 Algo2, u32 Hybrid2);
 static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
 		XLoader_HBSignParams *HBSignParams, u32 *ReadOffset,
 		u32 AuthType, u32 SignPaddingSize, u8 *HashBlockHash);
@@ -3872,41 +3877,99 @@ END:
 	return Status;
 }
 
+/** Classical algorithm bits in a 2VP_P key-header hybrid field. */
+#define XLOADER_HYBRID_CLASSICAL_MASK	((u32)XLOADER_PUB_STRENGTH_RSA_4096 | \
+					 (u32)XLOADER_PUB_STRENGTH_ECDSA_P384 | \
+					 (u32)XLOADER_PUB_STRENGTH_ECDSA_P521)
+/** PQC algorithm bits in a 2VP_P key-header hybrid field. */
+#define XLOADER_HYBRID_PQC_MASK		((u32)XLOADER_PUB_STRENGTH_LMS_HSS | \
+					 (u32)XLOADER_PUB_STRENGTH_LMS | \
+					 (u32)XLOADER_PUB_STRENGTH_MLDSA | \
+					 (u32)XLOADER_PUB_STRENGTH_SLHDSA)
+/** All algorithm bits valid in a 2VP_P key-header hybrid field. */
+#define XLOADER_HYBRID_ALGO_MASK	(XLOADER_HYBRID_CLASSICAL_MASK | \
+					 XLOADER_HYBRID_PQC_MASK)
+/** Algorithm is not a known hybrid-field value. */
+#define XLOADER_HYBRID_CLASS_NONE	(0U)
+
 /******************************************************************************/
 /**
- * @brief	This function validates the set of keypairs in case of hybrid
- * 		signing. Supported combinations are; one keypair of Non-PQC
- * 		algorithm and one of PQC algorithm.
+ * @brief	This function returns the hybrid class of one key algorithm.
  *
- * @param	Algo1	Algorithm type for first keypair.
- * @param	Algo2	Algorithm type for second keypair.
+ * @param	Algo is the key algorithm value from the key header.
  *
  * @return
- * 		- XST_SUCCESS	If hybrid keypairs set is valid.
- * 		- XST_FAILURE	If hybrid keypairs set is invalid.
+ * 		- XLOADER_HYBRID_CLASSICAL_MASK if Algo is RSA or ECDSA.
+ * 		- XLOADER_HYBRID_PQC_MASK if Algo is LMS, LMS-HSS, ML-DSA, or SLH-DSA.
+ * 		- XLOADER_HYBRID_CLASS_NONE otherwise.
  *
  ******************************************************************************/
-static int XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Algo2)
+static u32 XLoader_GetHybridAlgoClass(u32 Algo)
 {
-	volatile int Status = XST_FAILURE;
+	u32 Class = XLOADER_HYBRID_CLASS_NONE;
 
-	if (((Algo1 == XLOADER_PUB_STRENGTH_RSA_4096 ||
-	      Algo1 == XLOADER_PUB_STRENGTH_ECDSA_P384 ||
-	      Algo1 == XLOADER_PUB_STRENGTH_ECDSA_P521) &&
-	     (Algo2 == XLOADER_PUB_STRENGTH_LMS ||
-	      Algo2 == XLOADER_PUB_STRENGTH_LMS_HSS ||
-	      Algo2 == XLOADER_PUB_STRENGTH_MLDSA ||
-	      Algo2 == XLOADER_PUB_STRENGTH_SLHDSA)) ||
-	    ((Algo2 == XLOADER_PUB_STRENGTH_RSA_4096 ||
-	      Algo2 == XLOADER_PUB_STRENGTH_ECDSA_P384 ||
-	      Algo2 == XLOADER_PUB_STRENGTH_ECDSA_P521) &&
-	     (Algo1 == XLOADER_PUB_STRENGTH_LMS ||
-	      Algo1 == XLOADER_PUB_STRENGTH_LMS_HSS ||
-	      Algo1 == XLOADER_PUB_STRENGTH_MLDSA ||
-	      Algo1 == XLOADER_PUB_STRENGTH_SLHDSA))) {
+	if ((Algo == XLOADER_PUB_STRENGTH_RSA_4096) ||
+	    (Algo == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
+	    (Algo == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		Class = XLOADER_HYBRID_CLASSICAL_MASK;
+	}
+	else if ((Algo == XLOADER_PUB_STRENGTH_LMS_HSS) ||
+		 (Algo == XLOADER_PUB_STRENGTH_LMS) ||
+		 (Algo == XLOADER_PUB_STRENGTH_MLDSA) ||
+		 (Algo == XLOADER_PUB_STRENGTH_SLHDSA)) {
+		Class = XLOADER_HYBRID_PQC_MASK;
+	}
+	else {
+		Class = XLOADER_HYBRID_CLASS_NONE;
+	}
+
+	return Class;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function validates a hybrid key pair.
+ *
+ * 		The hybrid field is a bitmask and may name more than one
+ * 		algorithm. Pairing is valid when the keys are one classical
+ * 		algorithm and one PQC algorithm, and each key's algorithm is set
+ * 		in the other key's hybrid field.
+ *
+ * @param	Algo1	Algorithm bit of the first key.
+ * @param	Hybrid1	Hybrid bitmask of the first key.
+ * @param	Algo2	Algorithm bit of the second key.
+ * @param	Hybrid2	Hybrid bitmask of the second key.
+ *
+ * @return
+ * 		- XST_SUCCESS	If the hybrid key pair is valid.
+ * 		- XST_FAILURE	If the hybrid key pair is invalid.
+ *
+ ******************************************************************************/
+static s32 XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Hybrid1,
+		u32 Algo2, u32 Hybrid2)
+{
+	volatile s32 Status = XST_FAILURE;
+	u32 Algo1Check = Algo1;
+	u32 Hybrid1Check = Hybrid1;
+	u32 Algo2Check = Algo2;
+	u32 Hybrid2Check = Hybrid2;
+	u32 Algo1Class;
+	u32 Algo2Class;
+
+	Algo1Class = XLoader_GetHybridAlgoClass(Algo1Check);
+	Algo2Class = XLoader_GetHybridAlgoClass(Algo2Check);
+
+	if ((((Algo1Class == XLOADER_HYBRID_CLASSICAL_MASK) &&
+	      (Algo2Class == XLOADER_HYBRID_PQC_MASK)) ||
+	     ((Algo1Class == XLOADER_HYBRID_PQC_MASK) &&
+	      (Algo2Class == XLOADER_HYBRID_CLASSICAL_MASK))) &&
+	    ((Hybrid2Check & Algo1Check) == Algo1Check) &&
+	    ((Hybrid1Check & Algo2Check) == Algo2Check) &&
+	    ((Hybrid1Check & ~XLOADER_HYBRID_ALGO_MASK) ==
+			XLOADER_HYBRID_CLASS_NONE) &&
+	    ((Hybrid2Check & ~XLOADER_HYBRID_ALGO_MASK) ==
+			XLOADER_HYBRID_CLASS_NONE)) {
 		Status = XST_SUCCESS;
-	} else {
-		Status = XST_FAILURE;
 	}
 
 	return Status;
@@ -4210,6 +4273,8 @@ int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
 	XLoader_HashBlock *TmpDestHBPtr = XLoader_GetHashBlockInstance();
 	u32 ReadOffset;
 	u32 AuthType;
+	u32 AuthTypeTmp = 0U;
+	u32 HybridMask1 = 0U;
 	u32 SignPaddingSize;
 	u32 IsHybridSign = (u32)FALSE;
 
@@ -4295,23 +4360,15 @@ int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
 	}
 
 	AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+	AuthTypeTmp = AuthType;
+	HybridMask1 = SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX];
 
-	/* Check whether hybrid signing is enabled or not in PPK Header */
-	if (SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX] != 0U) {
+	/*
+	 * The hybrid field is a bitmask. Pairing can be checked only after the
+	 * second key header is available, so record it here and validate below.
+	 */
+	if (HybridMask1 != 0U) {
 		IsHybridSign = (u32)TRUE;
-		Status = XLoader_ValidateHybridKeyAlgo(AuthType,
-				SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX]);
-		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_INFO, "Hybrid signing requires PQC and Non-PQC "
-					"sets of key pair\r\n");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_HYBRID_KEYPAIR, Status);
-			goto END;
-		}
-		XPlmi_Printf(DEBUG_GENERAL,
-			"Authentication Algorithm: Hybrid (%s - %s)\r\n",
-			XLoader_GetAuthAlgoStr(AuthType),
-			XLoader_GetAuthAlgoStr(
-				SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX]));
 	}
 	else {
 		XPlmi_Printf(DEBUG_GENERAL, "Authentication Algorithm: %s\r\n",
@@ -4351,6 +4408,26 @@ int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
 		}
 
 		AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
+		if (XLoader_GetHybridAlgoClass(AuthType) ==
+				XLOADER_HYBRID_CLASS_NONE) {
+			XPlmi_Printf(DEBUG_INFO, "Hybrid key algorithm is invalid\r\n");
+			Status = XPlmi_UpdateStatus(
+					XLOADER_ERR_INVALID_HYBRID_KEYPAIR, XST_FAILURE);
+			goto END;
+		}
+
+		Status = XLoader_ValidateHybridKeyAlgo(AuthTypeTmp, HybridMask1,
+				AuthType,
+				SecurePtr->AcPtr->PPK.Header[XLOADER_KEY_HDR_HYBRID_IDX]);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Hybrid key pair is invalid\r\n");
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_HYBRID_KEYPAIR, Status);
+			goto END;
+		}
+		XPlmi_Printf(DEBUG_GENERAL,
+			"Authentication Algorithm: Hybrid (%s - %s)\r\n",
+			XLoader_GetAuthAlgoStr(AuthTypeTmp),
+			XLoader_GetAuthAlgoStr(AuthType));
 
 		Status = XLoader_GetKeySizeSignPadding(AuthType, HBSignParams,
 				&SignPaddingSize);
