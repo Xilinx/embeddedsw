@@ -269,7 +269,11 @@ done:
  *		wakes-up).
  *
  ****************************************************************************/
+#if defined(XILPM_NG_FPD_OFF)
+XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap)
+#else
 maybe_unused static XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap)
+#endif
 {
 	XStatus Status = XST_FAILURE;
 	XPm_ReqmInfo TempReq;

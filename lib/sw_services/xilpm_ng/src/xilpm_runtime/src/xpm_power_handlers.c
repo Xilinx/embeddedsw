@@ -6,6 +6,10 @@
 #include "xpm_power_handlers.h"
 #include "xpm_power_core.h"
 #include "xpm_runtime_core.h"
+#if defined(XILPM_NG_FPD_OFF)
+#include "xpm_runtime_device.h"
+#include "xpm_requirement.h"
+#endif
 
 CREATE_TABLE_APU_PWRUPDOWNHANDLER(4, 2)
 CREATE_TABLE_RPU_PWRUPDOWNHANDLER(5, 2)
@@ -19,6 +23,9 @@ static XStatus XPm_DispatchRpuPwrDwnHandler(u32 PwrDwnStatus, u32 PwrDwnIntMask,
 static XStatus XPm_DispatchApuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
 static XStatus XPm_DispatchRpuWakeupHandler(u32 WakeupStatus, u32 WakeupIntMask);
 static XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask);
+#if defined(XILPM_NG_FPD_OFF)
+static XStatus ApplyScheduledReqmOnSuspend(const XPm_Core *Core);
+#endif
 
 CREATE_TABLE_RPU_WAKEUP_HANDLER(5, 2)
 CREATE_TABLE_APU_WAKEUP_HANDLER(4, 2)
@@ -498,6 +505,50 @@ done:
 	return Status;
 }
 
+#if defined(XILPM_NG_FPD_OFF)
+/*****************************************************************************/
+/**
+ * @brief Applies the requirements a subsystem scheduled during suspend.
+ *
+ * @param[in] Core	Core that has just powered down
+ *
+ * @return XST_SUCCESS on success, XST_FAILURE or error code during failure
+ *****************************************************************************/
+static XStatus ApplyScheduledReqmOnSuspend(const XPm_Core *Core)
+{
+	XStatus Status = XST_FAILURE;
+	u32 SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
+	XPm_Subsystem *Subsystem = NULL;
+
+	if (INVALID_SUBSYSID == SubsystemId) {
+		Status = XPM_INVALID_SUBSYSID;
+		goto done;
+	}
+
+	Subsystem = XPmSubsystem_GetById(SubsystemId);
+	if (NULL == Subsystem) {
+		goto done;
+	}
+
+	/* Requirements are only scheduled while the subsystem is suspending */
+	if ((u8)SUSPENDING != Subsystem->State) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * Linux only lowered each device to PM_CAP_UNUSABLE while it was still
+	 * running, which left the scheduled capability of 0 in Next. Applying it
+	 * now takes every device to UNUSED, and the resulting power parent
+	 * release is what lets FPD reach UseCount 0.
+	 */
+	Status = XPmRequirement_UpdateScheduled(Subsystem, 0U);
+
+done:
+	return Status;
+}
+#endif /* XILPM_NG_FPD_OFF */
+
 /*****************************************************************************/
 /**
  * @brief APU and RPU power control interrupt handler
@@ -558,6 +609,19 @@ static XStatus XPm_DispatchPwrCtrlHandler(u32 PwrCtrlStatus, u32 PwrCtrlMask)
 				/* Ack the service */
 				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_STATUS, ApuSleepHandlerTable[Index].Mask);
 				XPm_Out32(PSXC_LPX_SLCR_POWER_DWN_IRQ_DIS, ApuSleepHandlerTable[Index].Mask);
+
+#if defined(XILPM_NG_FPD_OFF)
+				/*
+				 * The core has executed WFI, so nothing in the subsystem runs
+				 * any more and the scheduled requirements can be applied.
+				 */
+				Status = ApplyScheduledReqmOnSuspend(Core);
+				if (XST_SUCCESS != Status) {
+					PmErr("Failed to apply scheduled reqm for core 0x%x: 0x%x\r\n",
+						Core->Device.Node.Id, Status);
+					goto done;
+				}
+#endif
 			}
 		}
 	}

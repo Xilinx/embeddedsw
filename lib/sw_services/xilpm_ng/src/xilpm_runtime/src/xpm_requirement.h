@@ -119,6 +119,23 @@ void XPmRequirement_Clear(XPm_Requirement* Reqm);
  *
  ****************************************************************************/
 XStatus XPmRequirement_ReleaseFromAllSubsystem(const XPm_Device* Device);
+#if defined(XILPM_NG_FPD_OFF)
+/****************************************************************************/
+/**
+ * @brief	Applies the requirements a subsystem has scheduled in Next.
+ *
+ * @param[in]	Subsystem	Subsystem whose scheduled requirements are applied
+ * @param[in]	Swap		Save the current requirements as next when set
+ *
+ * @return	XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ * @note	Called once the subsystem has stopped running, since applying a
+ *		scheduled capability of 0 takes the device to UNUSED and drops
+ *		its power parent reference. Only built for FPD power-off.
+ *
+ ****************************************************************************/
+XStatus XPmRequirement_UpdateScheduled(const XPm_Subsystem *Subsystem, u32 Swap);
+#endif
 
 XPm_Requirement* FindReqm(const XPm_Device *Device, const XPm_Subsystem *Subsystem);
 #ifdef __cplusplus

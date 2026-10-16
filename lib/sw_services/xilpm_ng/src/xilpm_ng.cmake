@@ -52,6 +52,15 @@ if(XILPM_NG_DOMAIN_CONTROL_GPIO)
   add_compile_definitions(XILPM_NG_DOMAIN_CONTROL_GPIO)
 endif()
 
+# Apply the requirements a subsystem scheduled during suspend once its core has
+# stopped. That release is what lets FPD reach UseCount 0 and power off.
+# By default, this is disabled.
+option(XILPM_NG_FPD_OFF "Apply scheduled requirements on suspend so FPD can power off" OFF)
+if(XILPM_NG_FPD_OFF)
+  message(STATUS "FPD power-off on suspend is enabled.")
+  add_compile_definitions(XILPM_NG_FPD_OFF)
+endif()
+
 # If the part used in BSP is one of the following speed-grades, it can be subject to
 # VID adjustment.  Depending on to which HW SKU the part belongs, voltage on different
 # power rails needs to be adjusted.  The VID_SPGD_INDEX macro setting identifies to
