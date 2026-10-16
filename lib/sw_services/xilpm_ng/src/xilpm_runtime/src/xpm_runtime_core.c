@@ -424,6 +424,13 @@ static XStatus XPmCore_ProcessPendingForcePwrDwn(XPm_Subsystem *Subsystem, const
 			PmInfo("Subsystem 0x%x is pending power off\r\n", Subsystem->Id);
 			Subsystem->Flags = 0U;
 			Status = XPmSubsystem_ForcePwrDwn(Subsystem->Id);
+			if (XST_SUCCESS == Status) {
+				/*
+				 * Same shared state cleanup (APU GIC reset, CMN
+				 * flush) as an immediate subsystem power down.
+				 */
+				Status = XPmSubsystem_ShutdownSystemCleanup(Subsystem->Id);
+			}
 		}
 	} else if ((u8)PENDING_RESTART == Subsystem->State) {
 		/* Process pending subsystem restart if all cores are powered off */

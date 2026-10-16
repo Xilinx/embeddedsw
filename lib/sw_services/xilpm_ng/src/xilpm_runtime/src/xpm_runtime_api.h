@@ -36,6 +36,7 @@ XStatus XPm_SelfSuspend(const u32 SubsystemId, const u32 DeviceId,
  * @return XST_SUCCESS on success, error code otherwise
  */
 XStatus XPm_SubsystemIdleCores(const XPm_Subsystem *Subsystem);
+XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId);
 
 XStatus XPm_RequestWakeUp(u32 SubsystemId, const u32 DeviceId,
 			  const u32 SetAddress, const u64 Address,

@@ -104,7 +104,6 @@ static void XPm_CoreIdle(XPm_Core *Core);
 static XStatus XPm_DoAbortSuspend(XPlmi_Cmd* Cmd);
 
 static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd);
-static XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId);
 static XStatus XPm_SubsystemPwrUp(u32 SubsystemId);
 static XStatus SetSubsystemState_ByCore(const XPm_Core* Core, const u32 State);
 static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd);
@@ -2460,6 +2459,12 @@ static XStatus XPm_ForcePowerdown(u32 SubsystemId, const u32 NodeId, const u32 A
 			 */
 			PmErr("Force power down of subsystem 0x%x failed: 0x%x\r\n",
 			      NodeId, Status);
+			goto done;
+		}
+		/* Same shared state cleanup (APU GIC reset, CMN flush) as a restart */
+		Status = XPmSubsystem_ShutdownSystemCleanup(NodeId);
+		if (XST_SUCCESS != Status) {
+			goto done;
 		}
 	}
 
@@ -2819,12 +2824,23 @@ done:
 	return Status;
 }
 
-/* Cleanup system activities after subsystem shutdown */
-static XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId)
+/****************************************************************************/
+/**
+ * @brief  Clean up shared system state after a subsystem has been powered
+ *	   down: APU GIC pulse reset and CMN flush of its memory regions.
+ *	   The CMN flush is skipped when FPD is off.
+ *
+ * @param SubsystemId	Subsystem that has been powered down
+ *
+ * @return XST_SUCCESS on success, error code otherwise
+ *
+ ****************************************************************************/
+XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_Requirement *Reqm = NULL;
 	const XPm_Subsystem *Subsystem = NULL;
+	const XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
 
 	Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
@@ -2845,6 +2861,12 @@ static XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId)
 		}
 
 		/* TODO: SMMU disable if required */
+	}
+
+	/* The CMN is in FPD: there is nothing to flush once FPD is off */
+	if ((NULL != Fpd) && ((u8)XPM_POWER_STATE_OFF == Fpd->Node.State)) {
+		Status = XST_SUCCESS;
+		goto done;
 	}
 
 	/* Flush LLC in CMN block before reloading subsystem Image */
