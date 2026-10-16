@@ -5,7 +5,7 @@
 
 
 CC := riscv64-unknown-elf-gcc
-CC_FLAGS := -MMD -MP -mabi=ilp32 -march=rv32imac_zicsr_zifencei
+CC_FLAGS := -MMD -MP -mabi=ilp32 -march=rv32imac_zicsr_zifencei_zaamo_zalrsc
 CFLAGS := -O2 -flto -ffat-lto-objects
 # ML-DSA and ML-KEM are configured in misc/xparameters.h, which copy_bsp.sh publishes verbatim to
 # the BSP include directory. Read the source rather than the published copy: this file is parsed
@@ -51,7 +51,6 @@ endif
 # spend different amounts of that budget on the same configuration.
 LN_FLAGS = -Wl,--start-group,-lxil,-lxilasu$(OQS_DEP),-lgcc,-lc,--end-group \
 	-Wl,--no-warn-rwx-segment,--gc-sections,--build-id=none \
-	-B/proj/xbuilds/2026.2_daily_latest/installs/lin64/2026.2/gnu/riscv/lin/riscv32i-xilinx-elf/usr/lib/rv32imac_zicsr_zifencei/ilp32/ \
 	$(PQC_SIZE_FLAGS)
 
 c_SOURCES := $(wildcard *.c) $(wildcard */*.c)

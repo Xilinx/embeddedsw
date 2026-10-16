@@ -79,7 +79,7 @@ same 599 defined symbols:
 
 | | |
 |---|---|
-| Vitis 2026.2 `riscv64-unknown-elf-gcc` 13.4.0 | used for the archive currently checked in |
+| Vitis 2026.2 `riscv64-unknown-elf-gcc` 15.3.0 | used for the archive currently checked in |
 | [xPack `riscv-none-elf-gcc`](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases) 15.2.0 | public download, no AMD tooling needed |
 
 Put the compiler on `PATH` before running the script. This is the step that is
@@ -374,7 +374,7 @@ this.
 | Tag | `0.16.0` |
 | Commit | `5a1a854b0dc9f2141bdc771c555ee60c37950183` |
 | Upstream source modified? | One file, at build time only: `KeccakP-1600-opt64.c`, restoring the unrolling dispatch XKCP has and liboqs' vendored copy dropped ([§3](#3-why-the-keccak-permutation-has-to-be-rolled)) |
-| ABI / arch | `-march=rv32imac_zicsr_zifencei -mabi=ilp32` |
+| ABI / arch | `-march=rv32imac_zicsr_zifencei_zaamo_zalrsc -mabi=ilp32` |
 | Optimisation | `-O2 -flto -ffat-lto-objects` |
 | OpenSSL | not used, not linked |
 | Parameter sets | ML-KEM-512/768/1024, ML-DSA-44/65/87 |
@@ -384,7 +384,7 @@ this.
 | Field | Value |
 |---|---|
 | Produced by | `bash build_liboqs.sh -o liboqs.a`, written here directly |
-| Built with | Vitis 2026.2 `riscv64-unknown-elf-gcc` 13.4.0 |
+| Built with | Vitis 2026.2 `riscv64-unknown-elf-gcc` 15.3.0 |
 | Members | 74 |
 | Defined symbols | 599 |
 | ML-DSA / ML-KEM contract symbols | 18 of 18, 9 of 9 |
@@ -496,7 +496,7 @@ EOF
 the generated `flags.make`, and no other generator emits it.
 
 ```bash
-ASU_FLAGS="-march=rv32imac_zicsr_zifencei -mabi=ilp32 -ffreestanding \
+ASU_FLAGS="-march=rv32imac_zicsr_zifencei_zaamo_zalrsc -mabi=ilp32 -ffreestanding \
 -DMLK_CONFIG_SERIAL_FIPS202_ONLY -DMLD_CONFIG_SERIAL_FIPS202_ONLY -DMLD_CONFIG_REDUCE_RAM \
 -Dshake128ctx=OQS_SHA3_shake128_inc_ctx -Dshake128_release=shake128_inc_ctx_release"
 

@@ -158,7 +158,7 @@ say "configuring"
 # arguments the callee does not expect. Note it must be paired with
 # MLD_CONFIG_CONTEXT_PARAMETER_TYPE; mldsa-native #errors on one without the
 # other, so only defining both produces the silent mismatch.
-ASU_FLAGS="-march=rv32imac_zicsr_zifencei -B/proj/xbuilds/2026.2_daily_latest/installs/lin64/2026.2/gnu/riscv/lin/riscv32i-xilinx-elf/usr/lib/rv32imac_zicsr_zifencei/ilp32/ -mabi=ilp32 -ffreestanding \
+ASU_FLAGS="-march=rv32imac_zicsr_zifencei_zaamo_zalrsc -mabi=ilp32 -ffreestanding \
 -DMLK_CONFIG_SERIAL_FIPS202_ONLY -DMLD_CONFIG_SERIAL_FIPS202_ONLY -DMLD_CONFIG_REDUCE_RAM \
 -Dshake128ctx=OQS_SHA3_shake128_inc_ctx -Dshake128_release=shake128_inc_ctx_release"
 
