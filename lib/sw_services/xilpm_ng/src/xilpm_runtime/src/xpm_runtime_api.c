@@ -105,6 +105,7 @@ static XStatus XPm_DoAbortSuspend(XPlmi_Cmd* Cmd);
 
 static XStatus XPm_DoWakeUp(XPlmi_Cmd* Cmd);
 static XStatus XPm_SubsystemPwrUp(u32 SubsystemId);
+static u8 XPmSubsystem_HasApuCore(const XPm_Subsystem *Subsystem);
 static XStatus SetSubsystemState_ByCore(const XPm_Core* Core, const u32 State);
 static XStatus XPm_DoSystemShutdown(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoSetMaxLatency(XPlmi_Cmd* Cmd);
@@ -2826,6 +2827,39 @@ done:
 
 /****************************************************************************/
 /**
+ * @brief  Check whether a subsystem owns APU cores.
+ *
+ * Requirements are matched whether or not they are currently allocated, as a
+ * subsystem that is powered down still owns its cores.
+ *
+ * @param Subsystem	Subsystem to check
+ *
+ * @return 1U if the subsystem has an APU core requirement, 0U otherwise
+ *
+ ****************************************************************************/
+static u8 XPmSubsystem_HasApuCore(const XPm_Subsystem *Subsystem)
+{
+	u8 HasApuCore = 0U;
+
+	/* Check every requirement, allocated or not */
+	LIST_FOREACH(Subsystem->Requirements, ReqmNode) {
+		const XPm_Requirement *Reqm = ReqmNode->Data;
+
+		/* Any APU core device is enough */
+		if ((NULL != Reqm) &&
+		    (NULL != Reqm->Device) &&
+		    ((u32)XPM_NODESUBCL_DEV_CORE == NODESUBCLASS(Reqm->Device->Node.Id)) &&
+		    ((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(Reqm->Device->Node.Id))) {
+			HasApuCore = 1U;
+			break;
+		}
+	}
+
+	return HasApuCore;
+}
+
+/****************************************************************************/
+/**
  * @brief  Clean up shared system state after a subsystem has been powered
  *	   down: APU GIC pulse reset and CMN flush of its memory regions.
  *	   The CMN flush is skipped when FPD is off.
@@ -2838,7 +2872,6 @@ done:
 XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Requirement *Reqm = NULL;
 	const XPm_Subsystem *Subsystem = NULL;
 	const XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
 
@@ -2848,8 +2881,7 @@ XStatus XPmSubsystem_ShutdownSystemCleanup(u32 SubsystemId)
 		goto done;
 	}
 
-	Reqm = XPmDevice_FindRequirement(PM_DEV_ACPU_0_0, SubsystemId);
-	if (NULL != Reqm) {
+	if (1U == XPmSubsystem_HasApuCore(Subsystem)) {
 		/*
 		 * Do APU GIC pulse reset:
 		 * if all the cores are in power OFF state & FPD is ON

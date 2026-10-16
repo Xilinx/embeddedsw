@@ -558,27 +558,44 @@ XStatus XPmCore_ReleaseFromSubsys(const XPm_Core *Core)
 	return Status;
 }
 
-
+/****************************************************************************/
+/**
+ * @brief  Pulse the APU GIC reset if every APU core is off
+ *
+ * The APU GIC is shared by all APU clusters, so it is only reset while FPD
+ * is on and no APU core device is up.
+ *
+ * @param DeviceId	Any APU core device ID; only its type is checked, any
+ *			other type leaves the GIC untouched
+ *
+ * @return XST_SUCCESS if the GIC was reset or did not need a reset, or the
+ *	   error of the reset otherwise
+ *
+ ****************************************************************************/
 XStatus ResetAPUGic(const u32 DeviceId)
 {
 	XStatus Status = XST_FAILURE;
-	const XPm_Power *AcpuPwrNode = NULL;
+	const XPm_Core *AcpuCore = NULL;
 	const XPm_Power *FpdPwrNode = XPmPower_GetById(PM_POWER_FPD);
 	u32 NodeId;
 
 	if (((u32)XPM_NODETYPE_DEV_CORE_APU == NODETYPE(DeviceId)) &&
 	    (NULL != FpdPwrNode) && ((u8)XPM_POWER_STATE_OFF != FpdPwrNode->Node.State)) {
-		for (NodeId = PM_POWER_ACPU_0_0; NodeId <= PM_POWER_ACPU_3_1; NodeId++) {
-			AcpuPwrNode = XPmPower_GetById(NodeId);
-			if (AcpuPwrNode == NULL) {
-				continue;
-			}
-			if ((NULL != AcpuPwrNode) &&
-			    ((u8)XPM_POWER_STATE_OFF != AcpuPwrNode->Node.State)) {
+		/*
+		 * The topology has no per-core ACPU power island nodes (the
+		 * cores have FPD as their power parent), so check the APU core
+		 * devices themselves: the GIC is shared by all clusters and must
+		 * not be reset under a core that is still up. The APU core device
+		 * IDs PM_DEV_ACPU_0_0..PM_DEV_ACPU_3_3 are contiguous; IDs with no
+		 * device in the topology are skipped.
+		 */
+		for (NodeId = PM_DEV_ACPU_0_0; NodeId <= PM_DEV_ACPU_3_3; NodeId++) {
+			AcpuCore = (const XPm_Core *)XPmDevice_GetById(NodeId);
+			if ((NULL != AcpuCore) && (1U == AcpuCore->isCoreUp)) {
 				break;
 			}
 		}
-		if (PM_POWER_ACPU_3_1 < NodeId) {
+		if (PM_DEV_ACPU_3_3 < NodeId) {
 			PmInfo("Resetting APU GIC, all APU cores are off\r\n");
 			Status = XPmReset_AssertbyId(PM_RST_ACPU_GIC, (u32)PM_RESET_ACTION_PULSE);
 			if (XST_SUCCESS != Status) {
