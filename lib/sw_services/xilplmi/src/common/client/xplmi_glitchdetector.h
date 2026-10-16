@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -20,6 +20,7 @@
 *       pre  07/17/2024 Used register node to access PMC analog registers and fixed misrac warnings
 *       pre  07/26/2024 Enabled server mode as default mode
 *       pre  10/19/2024 Added support for PL microblaze
+*       pre  10/14/2026 Added GD_STATUS and GD_FUSE_CTRL1 offsets
 *
 * </pre>
 *
@@ -44,9 +45,11 @@ extern "C" {
 /************************** Constant Definitions *************************************************/
 //#define XPLMI_GLITCHDETECTOR_SECURE_MODE /* Enable this to access in client mode */
 #define PM_REG_PMC_ANALOG_ID     0x30100002 /**< PMC analog register node ID */
-#define PMC_ANALOG_BASE_ADDR     0xF1160000 /**< PMC analog base address */
-#define GD_CTRL_OFFSET              0x00000 /**< GD_CTRL register offset */
-#define GD_FUSE_CTRL0_OFFSET        0x00020 /**< GD_FUSE_CTRL0 register offset */
+#define PMC_ANALOG_BASE_ADDR     (0xF1160000U) /**< PMC analog base address */
+#define GD_CTRL_OFFSET              (0x00000U) /**< GD_CTRL register offset */
+#define GD_STATUS_OFFSET            (0x00004U) /**< GD_STATUS register offset */
+#define GD_FUSE_CTRL0_OFFSET        (0x00020U) /**< GD_FUSE_CTRL0 register offset */
+#define GD_FUSE_CTRL1_OFFSET        (GD_FUSE_CTRL0_OFFSET + 4U) /**< GD_FUSE_CTRL1 register offset */
 #ifdef XPLMI_GLITCHDETECTOR_SECURE_MODE
 #define XGLITCHDETECTOR_SECURE_DEFAULT_PAYLOAD_SIZE  (3U) /**< Payload size of command in
                                                           secure mode*/

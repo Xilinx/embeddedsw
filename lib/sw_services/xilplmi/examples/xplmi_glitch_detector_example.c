@@ -40,6 +40,8 @@
  *       pre  10/19/2024 Added support for PL microblaze
  * 2.5   rap  08/18/2026 Added explicit void to function definitions and
  *                       declarations with empty parameter lists.
+ *       pre  10/16/2026 Treat the glitch interrupt as detection since PLM
+ *                       clears GD status before the ISR runs.
  *
  * </pre>
  *
@@ -62,7 +64,6 @@
 #include "xil_io.h"
 
 /************************************ Constant Definitions ***************************************/
-#define GD_STATUS_OFFSET         0x00004 /**< GD_STATUS register offset */
 #define RESET_GD_STATUS_VAL      0x02000200U /**< Value to reset glitch detectors */
 #define GD_IRQ_STATUS_CLEAR      0x80000000U /**< Value to clear IRQ status of glitch detector */
 #define GD0_TEST_GLITCH_GENVALUE 0x00F800FEU /**< Value to generate test glitch on
@@ -94,6 +95,7 @@ static void GlitchDetectorISR(void);
 /************************************ Variable Definitions ***************************************/
 static u8 GlitchDetected0; /* Flag to indicate glitch detection on glitch detector0 */
 static u8 GlitchDetected1; /* Flag to indicate glitch detection on glitch detector1 */
+static volatile u8 ActiveGd; /* Glitch detector on which the test glitch is being generated */
 
 #ifdef __microblaze__
 static XIntc InterruptController; /* Instance of the Interrupt Controller */
@@ -105,15 +107,12 @@ static XScuGic_Config *GicConfig; /* The configuration parameters of the control
 /*************************************************************************************************/
 /**
  * @brief	This is interrupt service routine of glitch detector. User code
- *          can be written here. Some default actions like reading the glitch detector status and
+ *          can be written here. Some default actions like resetting the glitch detector and
  *          clearing IRQ status, disabling interrupt on entry and enabling at exit is done here.
  *
   ************************************************************************************************/
 static void GlitchDetectorISR(void)
 {
-	u32 RegVal = 0U;
-	int Status = XST_FAILURE;
-
 #ifdef __microblaze__
 	XIntc_Disable(&InterruptController, DEVICE_INT_ID);
 #else
@@ -126,34 +125,21 @@ static void GlitchDetectorISR(void)
 	 * during glitch generation i.e., before reading its response. So,
 	 * to avoid of loss of next IPI command, polling for ack is done here
 	 */
-	Status = XPlmi_PollforDone();
-	if (Status != XST_SUCCESS)
-	{
-		goto END;
-	}
+	(void)XPlmi_PollforDone();
 #endif
 
-	/* Reading glitch detector status */
-	Status = XPlmi_ReadReg32(GD_STATUS_OFFSET, &RegVal);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
 	/* Reset glitch detectors */
-	Status = XPlmi_WriteReg32(GD_CTRL_OFFSET, RESET_GD_STATUS_VAL);
+	(void)XPlmi_WriteReg32(GD_CTRL_OFFSET, RESET_GD_STATUS_VAL);
 
-	xil_printf("\n\rGlitchDetectorISR(): GD0 = %d, GD1 = %d", (RegVal & 1U), ((RegVal >> 1)& 1U));
-
-END:
 	/* Clear IRQ status of glitch detector in PMC GLOBAL */
 	Xil_Out32(GICP4_IRQ_STATUS_ADDR, GD_IRQ_STATUS_CLEAR);
-
-	if (RegVal & 1U) {
+	/* PLM clears GD status before this ISR runs, so the interrupt itself is the detection */
+	if (ActiveGd == GLITCH_DETECTOR0) {
 		GlitchDetected0 = XPLMI_SET;
-	}
-	if (((RegVal >> 1)& 1U)) {
+	} else {
 		GlitchDetected1 = XPLMI_SET;
 	}
+	xil_printf("\n\rGlitchDetectorISR(): glitch detected on GD%u\n\r", ActiveGd);
 
 #ifdef __microblaze__
 	XIntc_Enable(&InterruptController, DEVICE_INT_ID);
@@ -184,6 +170,7 @@ void GenerateTestGlitch(u8 GdNum)
            (PMC_ANALOG_BASE_ADDR + GD_CTRL_OFFSET), value);
 
 	/* Generate glitch */
+	ActiveGd = GdNum;
 	Status = XPlmi_WriteReg32(GD_CTRL_OFFSET, value);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Glitch generation failed\n\r");
