@@ -144,6 +144,7 @@ s32 XAes_FetchAndStageEfuseUserKey1(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 K
 s32 XAes_EncryptRedKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesParams *AesParams);
 s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesParams);
 u8 XAes_GetEngineMode(const XAes *InstancePtr);
+u32 XAes_GetUserKeySrc(const XAes *InstancePtr);
 s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc);
 void XAes_SetReset(XAes *InstancePtr);
 u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr);

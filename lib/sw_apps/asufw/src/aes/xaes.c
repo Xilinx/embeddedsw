@@ -220,6 +220,8 @@ struct _XAes {
 	u8 CcmAadResidue[XASU_AES_BLOCK_SIZE_IN_BYTES]; /**< Partial CCM CBC-MAC block (prefix + AAD
 						tail) so the engine only ingests whole 16B
 						blocks. */
+	u32 UserKeySrc;		/**< USER KEY slot programmed by this instance, or
+					XAES_INVALID_CFG when none is programmed. */
 };
 /** @endcond */
 
@@ -365,6 +367,7 @@ static s32 XAes_CcmReblockAadUpdate(XAes *InstancePtr, u64 InDataAddr, u32 DataL
 static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr);
 static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize);
 static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc);
+static s32 XAes_ClearStaleContext(void);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
 static s32 XAes_SaveEngineContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr);
@@ -436,6 +439,7 @@ s32 XAes_CfgInitialize(XAes *InstancePtr)
 	/** Initialize AES instance. */
 	InstancePtr->AesBaseAddress = CfgPtr->AesBaseAddress;
 	InstancePtr->KeyBaseAddress = CfgPtr->KeyBaseAddress;
+	InstancePtr->UserKeySrc = XAES_INVALID_CFG;
 
 	InstancePtr->AesState = XAES_INITIALIZED;
 
@@ -479,6 +483,7 @@ END:
  *		- XASUFW_AES_WRITE_KEY_FAILED, if key write to AES key registers fails.
  *		- XASUFW_AES_KEY_ZEROED, if the key is zeroed.
  *		- XASUFW_AES_KEY_CONFIG_READBACK_ERROR, if key configuration readback fails.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the key on failure fails.
  *		- Error code from XAsufw_UpdateBufStatus, if local key buffer zeroization fails.
  *
  * @note	When KeySrc is XASU_AES_EFUSE_KEY_1, the DDR context keeps that source and
@@ -627,6 +632,11 @@ s32 XAes_WriteKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, XAsu_AesKeyObject *KeyO
 		goto END_CLR;
 	}
 
+	/** Track the USER KEY slot, so that it is zeroized when the operation ends. */
+	if (KeyObjectPtr->KeySrc <= XASU_AES_USER_KEY_7) {
+		InstancePtr->UserKeySrc = KeyObjectPtr->KeySrc;
+	}
+
 END_CLR:
 	if (Status != XASUFW_SUCCESS) {
 		/** Clear the key loaded into the engine (Red Key 1 for either
@@ -669,6 +679,8 @@ END:
  *		  does not match.
  *		- XASUFW_ZEROIZE_MEMSET_FAIL, if zeroizing the stale saved MAC fails.
  *		- XASUFW_AES_ECB_CBC_DUMMY_ENCRYPTION_FAILED, if dummy encryption fails for CBC or ECB mode.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the expanded keys or the USER KEY on
+ *		  failure fails.
  *
  *************************************************************************************************/
 s32 XAes_Init(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 IvAddr, u32 IvLen,
@@ -800,9 +812,11 @@ END:
 		/**
 		 * Side Effects / Error Handling:
 		 *   - Set AES under reset upon any failure.
-		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) upon any failure.
+		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) and the USER KEY upon any
+		 *     failure.
 		 */
-		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 RET:
@@ -838,6 +852,8 @@ RET:
  *		  multiple of 16 bytes.
  *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if finalizing AAD update fails.
  *		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if the engine does not become ready in time.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the expanded keys or the USER KEY on
+ *		  failure fails.
  *
  *************************************************************************************************/
 s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDataAddr,
@@ -999,9 +1015,11 @@ END:
 		/**
 		 * Side Effects / Error Handling:
 		 *   - Set AES under reset upon any failure.
-		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) upon any failure.
+		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) and the USER KEY upon any
+		 *     failure.
 		 */
-		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 RET:
@@ -1029,6 +1047,7 @@ RET:
  *		- XASUFW_DMA_COPY_FAIL, if replaying a saved auth-only tag fails to copy it.
  *		- XASUFW_AES_TAG_COMPARE_FAILED, if replaying a saved auth-only tag fails
  *		  verification.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the expanded keys fails.
  *
  *************************************************************************************************/
 s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
@@ -1125,14 +1144,18 @@ END:
 	 */
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_AES_ID);
 
+	/** Set AES under reset after AES operation is complete. */
+	XAes_SetReset(InstancePtr);
+	/** Clear the XASU_AES_EXPANDED_KEYS. */
+	Status = XAsufw_UpdateErrorStatus(Status,
+		XAes_KeyClear(InstancePtr, XASU_AES_EXPANDED_KEYS));
+	Status = XAsufw_UpdateBufStatus(Status, XAes_ClearStaleContext());
+
 	/** Clear the replay flag and zeroize the saved MAC after the operation. */
 	InstancePtr->UseSavedMac = XASU_FALSE;
 	XFIH_CALL(Xil_SecureZeroize, XFihMacClear, ClearStatus,
 		(u8 *)InstancePtr->SavedMac, (u32)sizeof(InstancePtr->SavedMac));
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-
-	/** Set AES under reset and clear the expanded key after AES operation is complete. */
-	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
 	return Status;
@@ -1197,6 +1220,8 @@ s32 XAes_CheckAadChunk(u8 EngineMode, u32 AadLen, u8 IsLast, u8 PayloadFollows)
  *		- XASUFW_DMA_COPY_FAIL, if DMA copy of nonce fails.
  *		- XASUFW_MEM_COPY_FAIL, if seeding the AAD-length prefix into the residue fails.
  *		- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if DMA transfer to AES engine fails.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the expanded keys or the USER KEY on
+ *		  failure fails.
  *
  *************************************************************************************************/
 s32 XAes_CcmSendB0Header(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 NonceAddr, u8 NonceLen,
@@ -1354,8 +1379,12 @@ END:
 	 * XASUFW_CMD_IN_PROGRESS.
 	 */
 	if ((Status != XASUFW_SUCCESS) && (Status != XASUFW_CMD_IN_PROGRESS)) {
-		/** Set AES under reset and clear the expanded key upon any failure. */
-		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
+		/**
+		 * Set AES under reset and clear the expanded keys (XASU_AES_EXPANDED_KEYS) and
+		 * the USER KEY upon any failure.
+		 */
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 	}
 
 RET:
@@ -1385,6 +1414,7 @@ RET:
  *		- XASUFW_AES_INVALID_KEY_SRC, if key source is invalid.
  *		- XASUFW_AES_INVALID_KEY_SIZE, if key size is invalid.
  *		- XASUFW_AES_INVALID_IV, if IV is invalid.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the expanded keys or the USER KEY fails.
  *
  * @note
  *      Prerequisite: The PUF KEK must be transferred to the PUF Key selection value before calling this function.
@@ -1479,7 +1509,7 @@ s32 XAes_DecryptEfuseBlackKey(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 DecKeyS
 	Status = XAes_WaitForDone(InstancePtr);
 
 END_CLR:
-	/** Set AES under reset and clear the expanded key upon any failure. */
+	/** Set AES under reset and clear the expanded keys and the USER KEY. */
 	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 	/** Disable the key decryption operation. */
@@ -1714,6 +1744,7 @@ END:
  * 	- XASUFW_AES_INVALID_OPERATION_TYPE, if operation type is invalid.
  *	- XASUFW_AES_INVALID_IV, if IV is invalid.
  *	- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if configuring SSS with DMA transfer fails.
+ *	- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the expanded keys or the USER KEY fails.
  *
  *************************************************************************************************/
 s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
@@ -1766,6 +1797,9 @@ s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr
 
 	/** Configure AES engine to encrypt/decrypt operation. */
 	XAes_ConfigAesOperation(InstancePtr);
+
+	/** Track USER KEY 0, so that the masked key is zeroized when the operation ends. */
+	InstancePtr->UserKeySrc = XASU_AES_USER_KEY_0;
 
 	/** Load masked key to user key registers. */
 	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
@@ -1839,7 +1873,7 @@ END:
 	/** Clear the split configuration. */
 	XAsufw_WriteReg((InstancePtr->AesBaseAddress + XAES_SPLIT_CFG_OFFSET), 0U);
 
-	/** Set AES under reset and clear the expanded key upon any failure. */
+	/** Set AES under reset and clear the expanded keys and the USER KEY. */
 	Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 
 RET:
@@ -1964,8 +1998,9 @@ END:
  * 		- XASUFW_AES_READ_TAG_FAIL, if reading the finalized auth-only tag fails.
  * 		- XASUFW_AES_ERR_CTX_SAVED_GLITCH, if the saved state read-back does not match,
  * 		  or a finalized auth-only session did not stage its tag.
- * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded key fails. The key is
- * 		  cleared on every exit, so this can surface even after a successful save.
+ * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded keys or the USER KEY fails.
+ * 		  The keys are cleared on every exit, so this can surface even after a
+ * 		  successful save.
  * 		- Error code from XAes_KeyClear, if zeroizing eFUSE Red Key 1 of a parked eFUSE
  * 		  User Key 1 session fails. The saved context is then dropped, as the parked
  * 		  owner must not resume while its key is still live in the vault.
@@ -2123,7 +2158,7 @@ END:
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
 
-	/** Set AES under reset and clear the expanded key on every exit. */
+	/** Set AES under reset and clear the expanded keys and the USER KEY on every exit. */
 	XFIH_CALL(XAes_ResetAndClearKey, XFihAesReset, ClearStatus, InstancePtr,
 		XASU_AES_EXPANDED_KEYS);
 
@@ -2162,8 +2197,8 @@ RET:
  * 		- XASUFW_MEM_COPY_FAIL, if copying the CCM AAD residue or the saved MAC fails.
  * 		- XASUFW_AES_CONTEXT_RESTORE_FAIL, if restoring the AES engine context fails, or
  * 		  if re-staging eFUSE User Key 1 fails.
- * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded key or Red Key 1
- * 		  on a failed restore fails.
+ * 		- XASUFW_AES_KEY_CLEAR_ERROR, if clearing the expanded keys, the USER KEY or
+ * 		  Red Key 1 on a failed restore fails.
  *
  *************************************************************************************************/
 s32 XAes_RestoreContext(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
@@ -2225,6 +2260,11 @@ s32 XAes_RestoreContext(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
 
 	/** Configure AES DPA counter measures. */
 	XASUFW_TEMPORAL_REDUNDANT_CALL(XAes_ConfigCounterMeasures, InstancePtr);
+
+	/** Track the USER KEY slot before it is restored, so that a failed restore zeroizes it. */
+	if (CtxPtr->KeyObject.KeySrc <= XASU_AES_USER_KEY_7) {
+		InstancePtr->UserKeySrc = CtxPtr->KeyObject.KeySrc;
+	}
 
 	/** Check and restore the keys if provided key source is a user key. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -2350,10 +2390,13 @@ END:
 		/**
 		 * Side Effects / Error Handling:
 		 *   - Set AES under reset upon any failure.
+		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) and the USER KEY upon any
+		 *     failure.
 		 *   - Zeroize the staged red vault if the saved key source is a staged eFUSE USER
 		 *     key. The staged Red Key is in the red vault.
 		 */
-		Status = XAsufw_UpdateErrorStatus(Status, XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));
 		if ((CtxPtr != NULL) &&
 				((CtxPtr->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_1) ||
 				 (CtxPtr->KeyObject.KeySrc == XASU_AES_EFUSE_KEY_RED_1))) {
@@ -3418,6 +3461,23 @@ u8 XAes_GetEngineMode(const XAes *InstancePtr)
 
 /*************************************************************************************************/
 /**
+ * @brief	This function returns the USER KEY slot last programmed into the AES engine.
+ *
+ * @param	InstancePtr	Pointer to the XAes instance.
+ *
+ * @return
+ *		- XASU_AES_USER_KEY_0 to XASU_AES_USER_KEY_7, if a USER KEY slot was programmed.
+ *		- A value above XASU_AES_USER_KEY_7, if no USER KEY slot was programmed or
+ *		  InstancePtr is NULL.
+ *
+ *************************************************************************************************/
+u32 XAes_GetUserKeySrc(const XAes *InstancePtr)
+{
+	return (InstancePtr != NULL) ? InstancePtr->UserKeySrc : XAES_INVALID_CFG;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function checks whether the AES instance is in a valid data update state.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
@@ -3721,8 +3781,8 @@ static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize)
 /*************************************************************************************************/
 /**
  * @brief    This API performs secure AES cleanup by placing the AES hardware
- *           core into reset state and clearing the specified key source from
- *           the AES key vault.
+ *           core into reset state and clearing the specified key source and the
+ *           USER KEY slot tracked in UserKeySrc from the AES key vault.
  *
  * @param    InstancePtr    Pointer to the XAes instance.
  * @param    KeySrc         Key source to be cleared.
@@ -3738,7 +3798,8 @@ static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize)
  * @return
  *          - XASUFW_SUCCESS, if reset and key clear are successful.
  *          - XASUFW_AES_INVALID_PARAM, if InstancePtr is NULL or KeySrc is invalid.
- *          - XASUFW_AES_KEY_CLEAR_ERROR, if key zeroization fails.
+ *          - XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the key source or the tracked USER KEY
+ *            fails.
  *          - Buffer clear status bits, if clearing the DDR context fails.
  *
  *************************************************************************************************/
@@ -3746,7 +3807,6 @@ static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	CREATE_VOLATILE(ClearStatus, XASUFW_FAILURE);
-	XAes_ContextInfo *CtxPtr = NULL;
 
 	/** Validate the input arguments. */
 	if (InstancePtr == NULL) {
@@ -3760,16 +3820,42 @@ static s32 XAes_ResetAndClearKey(XAes *InstancePtr, u32 KeySrc)
 	/** Zeroize the specified key source. */
 	Status = XAes_KeyClear(InstancePtr, KeySrc);
 
-	/** Clear the DDR context when it holds data no request is owed. */
+	/** Zeroize the tracked USER KEY slot. */
+	if (InstancePtr->UserKeySrc <= XASU_AES_USER_KEY_7) {
+		ClearStatus = XAes_KeyClear(InstancePtr, InstancePtr->UserKeySrc);
+		if (ClearStatus == XASUFW_SUCCESS) {
+			InstancePtr->UserKeySrc = XAES_INVALID_CFG;
+		}
+		Status = XAsufw_UpdateErrorStatus(Status, ClearStatus);
+	}
+
+	Status = XAsufw_UpdateBufStatus(Status, XAes_ClearStaleContext());
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function zeroizes the DDR context when it holds data no request is owed.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if the context is cleared or does not need clearing.
+ *		- Buffer clear status bits, if clearing the DDR context fails.
+ *
+ *************************************************************************************************/
+static s32 XAes_ClearStaleContext(void)
+{
+	s32 Status = XASUFW_SUCCESS;
+	XAes_ContextInfo *CtxPtr = NULL;
+
 	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
 		if ((CtxPtr->ReqId != 0U) && (CtxPtr->IsContextSaved != XASU_TRUE)) {
-			ClearStatus = Xil_SecureZeroize((u8 *)(UINTPTR)CtxPtr,
+			Status = Xil_SecureZeroize((u8 *)(UINTPTR)CtxPtr,
 				sizeof(XAes_ContextInfo));
-			Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 		}
 	}
 
-END:
 	return Status;
 }
 
@@ -3839,6 +3925,8 @@ static s32 XAes_WaitForReady(const XAes *InstancePtr)
  *		- XASUFW_AES_WAIT_FOR_DONE_TIMEOUT, if the engine does not become ready in time.
  *		- XASUFW_AES_FINALIZE_AAD_UPDATE_FAIL, if CCM AAD finalization fails, or if
  *			clearing the AAD setting fails before the ready wait.
+ *		- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the expanded keys or the USER KEY on
+ *		  failure fails.
  *
  *************************************************************************************************/
 s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u8 PayloadFollows)
@@ -3898,7 +3986,8 @@ END:
 		/**
 		 * Side Effects / Error Handling:
 		 *   - Set AES under reset upon any failure.
-		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) upon any failure.
+		 *   - Clear the expanded keys (XASU_AES_EXPANDED_KEYS) and the USER KEY upon any
+		 *     failure.
 		 */
 		Status = XAsufw_UpdateErrorStatus(Status,
 			XAes_ResetAndClearKey(InstancePtr, XASU_AES_EXPANDED_KEYS));

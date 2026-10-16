@@ -236,6 +236,7 @@ END:
  * 	- XASUFW_KDF_INVALID_PARAM, if input parameters are invalid.
  * 	- XASUFW_KDF_ERROR, if any operation fails.
  * 	- XASUFW_DMA_COPY_FAIL, if DMA copy fails.
+ * 	- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing the USER KEY fails.
  * 	- Errors codes from AES-CMAC, if AES-CMAC operation fails.
  *
  *************************************************************************************************/
@@ -377,6 +378,12 @@ s32 XKdf_CmacGenerate(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const XAsu_KdfPa
 	}
 
 END_CLR:
+	/** Clear the USER KEY written for CMAC. */
+	if (AesKeySrc <= XASU_AES_USER_KEY_7) {
+		Status = XAsufw_UpdateErrorStatus(Status,
+			XAes_KeyClear(AesInstancePtr, AesKeySrc));
+	}
+
 	/** Zeroize the intermediate KOut buffer and locally created KeyOutAddr variable. */
 	KeyOutAddr = 0U;
 	if (KeyOutAddr != 0U) {

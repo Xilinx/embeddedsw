@@ -219,7 +219,8 @@ END:
  * 	- XASUFW_AES_FINAL_FAILED, if completion of final AES operation fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
  * 	- An error code from XAsufw_ValidateMemRegnAccess, if a client buffer is not accessible.
- * 	- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing eFUSE red key 1 or the expanded keys fails.
+ * 	- XASUFW_AES_KEY_CLEAR_ERROR, if zeroizing eFUSE red key 1, the expanded keys or the
+ * 	  USER KEY fails.
  *
  * @note	The PMC-transferred keys other than eFUSE red key 1 are zeroized by the staging
  * 		itself, and eFUSE red key 1 is zeroized on failure or XASU_FINISH. There is no
@@ -235,6 +236,7 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	XAes *XAsufw_Aes = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	const XAsu_AesParams *AesParamsPtr = (const XAsu_AesParams *)ReqBuf->Arg;
 	u8 EngineMode = XASUFW_AES_INVALID_ENGINE_MODE;
+	u32 UserKeySrc = XASU_AES_MAX_KEY_SOURCES;
 	static u32 CmdStage = XAES_NON_BLOCKING_CMD_STAGE_INIT;
 	u8 AadIsLast;
 	u8 PayloadFollows = XASU_FALSE;
@@ -617,6 +619,12 @@ END:
 		Status = XAsufw_UpdateErrorStatus(Status, VaultClearStatus);
 		Status = XAsufw_UpdateErrorStatus(Status,
 			XAes_KeyClear(XAsufw_Aes, XASU_AES_EXPANDED_KEYS));
+		/** Zeroize the USER KEY programmed for this operation. */
+		UserKeySrc = XAes_GetUserKeySrc(XAsufw_Aes);
+		if (UserKeySrc <= XASU_AES_USER_KEY_7) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+				XAes_KeyClear(XAsufw_Aes, UserKeySrc));
+		}
 		XAsufw_AesModule.AsuDmaPtr = NULL;
 	}
 
@@ -705,6 +713,7 @@ s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	XAes_ContextInfo *Ctx = NULL;
 	u8 EngineMode = XAes_GetEngineMode(AesInstancePtr);
+	u32 UserKeySrc = XAes_GetUserKeySrc(AesInstancePtr);
 	u32 OwnerId = 0U;
 
 	if (XAes_GetContextDdrPtr(&Ctx) == XASUFW_SUCCESS) {
@@ -738,6 +747,13 @@ s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
 				Status = XAes_KeyClear(AesInstancePtr, XASU_AES_EXPANDED_KEYS);
 				if (Status != XASUFW_SUCCESS) {
 					goto END;
+				}
+				/** Zeroize the USER KEY of the dropped owner. */
+				if (UserKeySrc <= XASU_AES_USER_KEY_7) {
+					Status = XAes_KeyClear(AesInstancePtr, UserKeySrc);
+					if (Status != XASUFW_SUCCESS) {
+						goto END;
+					}
 				}
 			}
 
