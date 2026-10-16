@@ -24,6 +24,7 @@
 *       pre 09/02/26 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
 *       pre 10/09/26 Added XLOADER_ERR_INVALID_ROW_RANGE error code
 *       ng  10/14/26 Added error codes for I2C handshake
+*       tbk 10/13/26 Measure PCR from the hash block, same as versal_2ve_2vm
 *
 * </pre>
 *
@@ -168,6 +169,7 @@ extern "C" {
 #define XLOADER_MEASURE_START		(0U) /**< Data measure start */
 #define XLOADER_MEASURE_UPDATE		(1U) /**< Data measure update */
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
+#define XLOADER_MEASURE_LAST		(3U) /**< Last SHA update before finish */
 
 #if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 /* I2C Master Device IDs */

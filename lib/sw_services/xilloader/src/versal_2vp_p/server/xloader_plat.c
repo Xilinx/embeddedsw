@@ -31,6 +31,7 @@
 *       tvp 09/02/26 Fix build when PLM_SECURE_EXCLUDE is enabled with PLM_OCP
 *       pre 09/02/26 Implemented DDRMC calibration skip flag clearing if PComplete is not set
 *       vss 09/09/26 Added ECDSA P-521 to XLoader_SpkMeasurement
+*       tbk 10/13/26 Extend PCR from the hash block, same as versal_2ve_2vm
 *
 * </pre>
 *
@@ -694,12 +695,13 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 	volatile int Status = XST_FAILURE;
 #ifdef PLM_OCP
 	XLoader_ImageMeasureInfo ImageMeasureInfo = {0U};
+	u32 PrtnNum = PdiPtr->PrtnNum;
+	u32 NoOfPrtns = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 	u32 PcrInfo = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].PcrInfo;
 	u32 Index;
-	XSecure_Sha384Hash *PtrnHashTablePtr;
+	XLoader_HashBlock *HBPtr = XLoader_GetHashBlockInstance();
 	u32 ChecksumType;
-	ChecksumType = XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum]);
-	PtrnHashTablePtr = XLoader_GetPtrnHashTable();
+	ChecksumType = XilPdi_GetChecksumType(&PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 	PdiPtr->DigestIndex = (PcrInfo & XLOADER_PCR_MEASUREMENT_INDEX_MASK) >>
 			       XLOADER_PCR_MEASUREMENT_INDEX_SHIFT;
 	ImageMeasureInfo.DigestIndex = &PdiPtr->DigestIndex;
@@ -725,13 +727,28 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		for(Index = 0U; Index < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns; Index++)
-		{
+		for (Index = 0U; Index < NoOfPrtns; Index++) {
+			if ((PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) &&
+			    (PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU)) {
+				ImageMeasureInfo.DataAddr =
+					(u64)(UINTPTR)HBPtr->HashData[PrtnNum].PrtnHash;
+			} else {
+				ImageMeasureInfo.DataAddr =
+					(u64)(UINTPTR)HBPtr->HashData[PrtnNum +
+					XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET].PrtnHash;
+			}
 			ImageMeasureInfo.DataSize = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 			ImageMeasureInfo.PcrInfo = PcrInfo;
 			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
-			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
-			ImageMeasureInfo.DataAddr = (u64)(UINTPTR)PtrnHashTablePtr[Index].Hash;
+			/**
+			 * sha_pmxc requires IsLastUpdate before the final ShaUpdate.
+			 * Set that on the last partition hash of this image.
+			 */
+			if ((NoOfPrtns - Index) > 1U) {
+				ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
+			} else {
+				ImageMeasureInfo.Flags = XLOADER_MEASURE_LAST;
+			}
 
 			/* Update the data for measurement */
 			XPlmi_Printf(DEBUG_INFO, "Partition Measurement started\r\n");
@@ -739,6 +756,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
+			PrtnNum++;
 		}
 		ImageMeasureInfo.Flags = XLOADER_MEASURE_FINISH;
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
@@ -820,6 +838,14 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 		Status = XSecure_ShaStart(Sha3InstPtr, XSECURE_SHA3_384);
 		break;
 	case XLOADER_MEASURE_UPDATE:
+		Status = XSecure_ShaUpdate(Sha3InstPtr,
+				ImageInfo->DataAddr, ImageInfo->DataSize);
+		break;
+	case XLOADER_MEASURE_LAST:
+		Status = XSecure_ShaLastUpdate(Sha3InstPtr);
+		if (Status != XST_SUCCESS) {
+			break;
+		}
 		Status = XSecure_ShaUpdate(Sha3InstPtr,
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
