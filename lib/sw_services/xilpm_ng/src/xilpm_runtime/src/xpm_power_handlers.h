@@ -29,6 +29,8 @@ extern "C" {
 #define X_APU_MACRO_ENTRIES(HandlerTable) \
 HandlerTable(0, 0) \
 HandlerTable(0, 1) \
+HandlerTable(0, 2) \
+HandlerTable(0, 3) \
 HandlerTable(1, 0) \
 HandlerTable(1, 1) \
 HandlerTable(2, 0) \
