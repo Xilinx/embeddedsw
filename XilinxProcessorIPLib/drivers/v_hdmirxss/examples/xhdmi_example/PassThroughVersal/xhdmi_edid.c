@@ -71,7 +71,7 @@ void EdidScdcCheck(XV_HdmiTxSs          *HdmiTxSsPtr,
 
         /*Check whether the Sink able to support HDMI 2.0 by checking the
         maximum supported video bandwidth*/
-        if (CheckHdmi20Param->EdidCtrlParam.MaxTmdsMhz >= 340) {
+        if (CheckHdmi20Param->EdidCtrlParam.MaxTmdsMhz > 340) {
             /*Sink's EDID indicated HDMI 2.0 Capable*/
             CheckHdmi20Param->IsHDMI20SinkCapable = (TRUE);
 
