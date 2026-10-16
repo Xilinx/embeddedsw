@@ -802,8 +802,10 @@ END:
  *	- XASUFW_PROVISION_UDE_SLOT_PROGRAMMED, if the target UDE slot is already programmed.
  *	- XASUFW_PROVISION_UDE_ENCRYPT_FAIL, if UDE key pair generation, private key encryption or
  *	  certificate generation fails.
- *	- XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL, if the eFUSE write request to the PLM fails.
+ *	- XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL, if the eFUSE write fails, packed with
+ *	  XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL if the key type rollback also fails.
  *	- XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL, if updating the key vault header fails.
+ *	- XASUFW_ZEROIZE_MEMSET_FAIL, if clearing the local key buffer fails.
  *	- XASUFW_OCP_DISABLED, if OCP is disabled.
  *
  *************************************************************************************************/
@@ -898,6 +900,13 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_ProvisionUdePara
 	Status = XProvision_WriteUdeKeyToEfuse((u32)ParamsPtr->UdeSlot, (const u32 *)EncPvtKey);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_PROVISION_UDE_EFUSE_WRITE_FAIL);
+		ClearStatus = XKeyManager_UpdateUdeKeyType(ParamsPtr->UdeSlot,
+				XPROVISION_UDE_KEY_TYPE_CODE_UNPROGRAMMED);
+		if (ClearStatus != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status,
+					XASUFW_PROVISION_UDE_KEY_TYPE_UPDATE_FAIL);
+		}
+		*CertActualSizePtr = 0U;
 	}
 
 #ifdef XASU_OCP_ENABLE
@@ -2102,8 +2111,16 @@ static s32 XProvision_ExecRecord(const XProvision_SinkCtx *Ctx)
 	}
 
 	Rec = Ctx->RecBuf;
-	CmdId = Rec[XPROVISION_INSTR_CMDID_OFFSET];
 	Size = (u32)XAsu_ProvisionReadU16Le(&Rec[XPROVISION_INSTR_SIZE_OFFSET]);
+
+	/* The assembler already derived RecLen from Size; re-derive it as a glitch check. */
+	if ((Ctx->RecLen < XPROVISION_INSTR_HDR_LEN) ||
+	    (Size != (Ctx->RecLen - XPROVISION_INSTR_HDR_LEN))) {
+		Status = XASUFW_PROVISION_INSTR_PROCESS_FAIL;
+		goto END;
+	}
+
+	CmdId = Rec[XPROVISION_INSTR_CMDID_OFFSET];
 
 	switch (CmdId) {
 		case XASU_KM_CREATE_KEYVAULT_CMD_ID:

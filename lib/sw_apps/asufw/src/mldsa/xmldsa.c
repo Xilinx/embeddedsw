@@ -677,6 +677,9 @@ END:
 		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
 			Base + XMLDSA_SLOT_KEY_OFFSET, ExpPrivKeyLen);
 		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
+		XFIH_CALL(Xil_SecureZeroize, XFihBufferClear, ClearStatus,
+			Base + XMLDSA_SLOT_SIG_OFFSET, ExpSignLen);
+		Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
 	}
 
 RET:
@@ -942,6 +945,9 @@ END:
 	 * measurement is always closed even when the command fails.
 	 */
 	XASUFW_MEASURE_PERF_STOP(XASU_MODULE_MLDSA_ID);
+	if (Base != NULL) {
+		Status = XAsufw_UpdateBufStatus(Status, Xil_SecureZeroize(Base, XMLDSA_SIGN_SCRATCH_LEN));
+	}
 
 RET:
 	return Status;

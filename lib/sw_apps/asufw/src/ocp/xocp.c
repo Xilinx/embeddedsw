@@ -65,6 +65,8 @@ _Static_assert(sizeof(XOcp_CdoData) <= XASUFW_OCP_CDO_DATA_SIZE,
 
 #define XOCP_SUBSYS_EVENT_MASK		(0x01U)		/**< Subsystem event mask */
 #define XOCP_SUBSYS_EVENT_SHIFT		(1U)		/**< Subsystem event size */
+/** Valid event mask bits: bit 0 is DevIK and bits 1 to XOCP_MAX_USER_OCP_SUBSYS are the DevAKs */
+#define XOCP_EVENT_MASK_VALID_BITS	((u32)((1U << (XOCP_MAX_USER_OCP_SUBSYS + 1U)) - 1U))
 #define XOCP_X509_CERT_FIELD_LEN	(4U)		/**< Certificate size field length */
 
 /************************************ Type Definitions *******************************************/
@@ -105,6 +107,8 @@ static s32 XOcp_GetDeviceKeyPubKeyPtr(const XOcp_DeviceKeys *DevKey, const u8 **
  *	- XASUFW_OCP_INVALID_PARAM, if input parameter is invalid.
  *	- XASUFW_OCP_SEND_IPI_REQ_FAIL, if IPI request is failed.
  *	- XASUFW_OCP_READ_IPI_RESP_FAIL, if IPI read response is failed.
+ *	- XASUFW_OCP_INVALID_EVENT_MASK, if the mask received from PLM has bits set outside DevIK
+ *	  and the supported subsystems.
  *
  *************************************************************************************************/
 s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask)
@@ -136,8 +140,14 @@ s32 XOcp_GetOcpEventMaskFromPlm(u32 *EventMask)
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XAsufw_ReadIpiRespFromPlm(Response, XOCP_GET_OCP_EVENT_MASK_PAYLOAD_RESP_SIZE);
 	if ((Status != XASUFW_SUCCESS) ||
-	    (Response[XASUFW_BUFFER_INDEX_ZERO] != (u32)XASUFW_SUCCESS)) {
+		(Response[XASUFW_BUFFER_INDEX_ZERO] != (u32)XASUFW_SUCCESS)) {
 		Status = XASUFW_OCP_READ_IPI_RESP_FAIL;
+		goto END;
+	}
+
+	/** Reject a mask with bits set outside DevIK and the supported subsystems. */
+	if ((Response[XASUFW_BUFFER_INDEX_ONE] & ~XOCP_EVENT_MASK_VALID_BITS) != 0U) {
+		Status = XASUFW_OCP_INVALID_EVENT_MASK;
 		goto END;
 	}
 
@@ -1183,8 +1193,6 @@ s32 XOcp_GetUserX509Cert(const XOcp_X509CertGenParams *CertGenParams, u32 *CertS
 		goto END;
 	}
 
-	/** Validate the destination buffer is large enough to hold the certificate. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (CertGenParams->CertBufMaxSize < GenCertSize) {
 		Status = XASUFW_OCP_INVALID_BUF_SIZE;
 		goto END;

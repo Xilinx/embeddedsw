@@ -1053,7 +1053,9 @@ enum {
 	XASUFW_DMA_MEMSET_VERIFY_FAIL, /**< 0x2B3U - Error when a memory set does not read back
 						the value written, or does not cover the buffer */
 	XASUFW_KEYMANAGER_KEY_COUNT_INVALID, /**< 0x2B4U - Error when a sub-vault key counter
-						  disagrees with the key slots it describes */
+						disagrees with the key slots it describes */
+	XASUFW_OCP_INVALID_EVENT_MASK, /**< 0x2B5U - Error when the OCP event mask received from PLM
+						has bits set outside DevIK and the supported subsystems */
 
 	/* Additional status success codes */
 	XASUFW_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate
