@@ -171,3 +171,9 @@ set(USER_LINK_OPTIONS
     " ${USER_LINK_OMIT_ALL_SYMBOL_INFO}"
     " ${USER_LINK_OTHER_FLAGS}"
 )
+
+#Vitis/SDT only: Yocto manages CFLAGS via the recipe, so don’t add UserConfig options to CMAKE_C_FLAGS
+if (NOT YOCTO)
+  string(APPEND CMAKE_C_FLAGS ${USER_COMPILE_OPTIONS})
+  string(APPEND CMAKE_CXX_FLAGS ${USER_COMPILE_OPTIONS})
+endif()
