@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2024 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -358,7 +358,7 @@ int osFseek(osFile* pVsiFile, long int offset, int origin)
 		return -1;
 	}
 	if (origin == SEEK_END) {
-		uint32_t NumBytesRead = 1;
+		UINT NumBytesRead = 1;
 		uint32_t fileReadLen = 0;
 		char readBuf[256] = {0};
 		while (NumBytesRead) {
