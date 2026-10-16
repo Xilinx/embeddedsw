@@ -78,13 +78,6 @@
 
 #define XPROVISION_UDE_PVT_KEY_LEN_IN_WORDS	(XASU_PROVISION_UDE_PVT_KEY_SIZE_IN_BYTES >> 2U)
 							/**< UDE private key length in words */
-
-/*
- * UDE key type codes recorded in the key vault header (two bits per UDE slot; the KeyManager packs
- * the code into the slot's position).
- */
-#define XPROVISION_UDE_KEY_TYPE_CODE_P384	(0x0U)	/**< 2-bit UDE key type code: ECC P-384 */
-#define XPROVISION_UDE_KEY_TYPE_CODE_MLDSA	(0x1U)	/**< 2-bit UDE key type code: ML-DSA */
 #define XPROVISION_UDE_KEY_TYPE_CODE_UNPROGRAMMED	(0x3U)	/**< 2-bit UDE key type code:
 								slot unprogrammed (matches the
 								all-slots-unprogrammed default) */
@@ -880,9 +873,9 @@ s32 XProvision_Ude(XAsufw_Dma *DmaPtr, XSha *ShaPtr, const XAsu_ProvisionUdePara
 	 * the other slots.
 	 */
 	if (ParamsPtr->UdeKeyType == XASU_PROVISION_UDE_KEY_TYPE_ECC_P384) {
-		UdeKeyTypeCode = XPROVISION_UDE_KEY_TYPE_CODE_P384;
+		UdeKeyTypeCode = XKEYMANAGER_UDE_KEY_TYPE_CODE_P384;
 	} else {
-		UdeKeyTypeCode = XPROVISION_UDE_KEY_TYPE_CODE_MLDSA;
+		UdeKeyTypeCode = XKEYMANAGER_UDE_KEY_TYPE_CODE_MLDSA;
 	}
 
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);

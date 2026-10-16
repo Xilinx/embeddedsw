@@ -586,6 +586,7 @@ s32 XKeyManager_CfgInitialize(void)
 	u32 Index = 0U;
 	u32 AllocatedDdrSize = 0U;
 	u32 KeyVaultAddr = 0U;
+	u32 ChnlMaxSize = 0U;
 
 	/** Validate that vault base address is within lower DDR memory. */
 	if (XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_HIGH) != 0U) {
@@ -659,7 +660,15 @@ s32 XKeyManager_CfgInitialize(void)
 
 		/** Calculate total size allocated for vaults including ASU vault based on RTCA register values. */
 		for (Index = 0U; Index <= XASU_MAX_CHANNELS_SUPPORTED; Index++) {
-			TotalSizeAllocated += XAsufw_ReadReg(XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR + (Index * XASUFW_WORD_LEN_IN_BYTES));
+			/* One read per channel, so the bound check and the sum see one value. */
+			ChnlMaxSize = XAsufw_ReadReg(XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR +
+						     (Index * XASUFW_WORD_LEN_IN_BYTES));
+			if (((XASUFW_MAX_32BIT_ADDRESS - XKEYMANAGER_VAULT_MAIN_HEADER_SIZE) -
+					TotalSizeAllocated) < ChnlMaxSize) {
+				Status = XASUFW_KEYMANAGER_NO_SPACE;
+				goto END;
+			}
+			TotalSizeAllocated += ChnlMaxSize;
 		}
 
 		if (VaultManager.TotalVaultSize < (TotalSizeAllocated + XKEYMANAGER_VAULT_MAIN_HEADER_SIZE)) {
@@ -695,14 +704,16 @@ END:
  * @param	UdeSlot		UDE slot to update (0 to XKEYMANAGER_UDE_MAX_SLOTS - 1). When set to
  * 				XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED, UdeKeyType is written
  * 				to the header as the complete UDE key type byte.
- * @param	UdeKeyType	UDE key type value. For a specific slot only the lower two bits are
- * 				used; for XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED the full
- * 				byte is written to the header.
+ * @param	UdeKeyType	UDE key type value. For a specific slot it must be a defined two-bit
+ * 				code, 0x0 for ECC P-384 or 0x1 for ML-DSA; for
+ * 				XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED the full byte is
+ * 				written to the header.
  *
  * @return
  * 	- XASUFW_SUCCESS, if the UDE key type is updated successfully.
  * 	- XASUFW_KEYMANAGER_KEY_VAULT_DDR_INIT_FAILED, if the key vault DDR space is not configured.
- * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the UDE slot is invalid.
+ * 	- XASUFW_KEYMANAGER_INVALID_PARAM, if the UDE slot is invalid, or the key type of a
+ * 	  per-slot update is not a defined code.
  *
  *************************************************************************************************/
 s32 XKeyManager_UpdateUdeKeyType(u8 UdeSlot, u8 UdeKeyType)
@@ -717,9 +728,10 @@ s32 XKeyManager_UpdateUdeKeyType(u8 UdeSlot, u8 UdeKeyType)
 		goto END;
 	}
 
-	/** Validate the UDE slot. */
+	/** Validate the UDE slot and the key type of a per-slot update. */
 	if ((UdeSlot != XKEYMANAGER_UDE_ALL_KEY_SLOTS_UNPROGRAMMED) &&
-	    (UdeSlot >= XKEYMANAGER_UDE_MAX_SLOTS)) {
+		((UdeSlot >= XKEYMANAGER_UDE_MAX_SLOTS) ||
+		(UdeKeyType > XKEYMANAGER_UDE_KEY_TYPE_MAX))) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
@@ -1101,6 +1113,8 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 END_CLR:
 	/* Clear vault info on failure. */
 	if (Status != XASUFW_SUCCESS) {
+		*VaultIdPtr = 0U;
+
 		ClearStatus = Xil_SMemSet(&VaultManager.VaultInfo[VaultId], sizeof(XKeyManager_VaultInfo),
 					0U, sizeof(XKeyManager_VaultInfo));
 		if (ClearStatus != XASUFW_SUCCESS) {
@@ -1257,6 +1271,8 @@ END:
  * 	- XASUFW_KEYMANAGER_ACCESS_DENIED, if subsystem is not the vault owner.
  * 	- XASUFW_KEYMANAGER_INVALID_KEY_TYPE, if the key type has no key object.
  * 	- XASUFW_KEYMANAGER_KEY_NOT_FOUND, if key is not found or already deleted.
+ * 	- XASUFW_KEYMANAGER_KEY_COUNT_INVALID, if the sub-vault counter does not account for the
+ * 	  key being deleted.
  * 	- XASUFW_ZEROIZE_MEMSET_FAIL, if memory zeroization fails.
  *
  *************************************************************************************************/
@@ -1285,7 +1301,8 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
 	}
 
 	/** Validate vault exists. */
-	if (VaultManager.VaultInfo[VaultId].VaultSize == 0U) {
+	if ((VaultManager.VaultInfo[VaultId].VaultSize == 0U) ||
+	    (VaultManager.VaultInfo[VaultId].VaultBasePtr == NULL)) {
 		Status = XASUFW_KEYMANAGER_VAULT_NOT_FOUND;
 		goto END;
 	}
@@ -1323,17 +1340,22 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
 		goto END;
 	}
 
+	/** The key exists, so a zero counter means the sub-vault header disagrees with it. */
+	if (((MetadataPtr->UsageCount > 0U) &&
+	     (KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys == 0U)) ||
+	    ((MetadataPtr->UsageCount == 0U) &&
+	     (KeyVaultPtr->SubVaultHeaders[KeyType].DeactivatedKeys == 0U))) {
+		Status = XASUFW_KEYMANAGER_KEY_COUNT_INVALID;
+		goto END;
+	}
+
 	/** Update sub-vault header counters based on key state. */
 	if (MetadataPtr->UsageCount > 0U) {
 		/** Key is active (has remaining uses or is non-depleting). */
-		if (KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys != 0U) {
-			KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys--;
-		}
+		KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys--;
 	} else {
 		/** Key was deactivated (expired). */
-		if (KeyVaultPtr->SubVaultHeaders[KeyType].DeactivatedKeys != 0U) {
-			KeyVaultPtr->SubVaultHeaders[KeyType].DeactivatedKeys--;
-		}
+		KeyVaultPtr->SubVaultHeaders[KeyType].DeactivatedKeys--;
 	}
 
 	/** Securely zeroize the entire key object (metadata + content). */
@@ -5226,12 +5248,16 @@ static void XKeyManager_MarkVaultClean(void)
  *
  * @return
  *		- Pointer to the vault main header in DDR.
+ *		- NULL, if the key vault DDR space is not configured.
  *
  *************************************************************************************************/
 u8 *XKeyManager_GetVaultBasePtr(void)
 {
 	u8 *BasePtr = XKEYMANAGER_GET_VAULT_BASE_PTR();
 
+	if (VaultManager.TotalVaultSize == 0U) {
+		BasePtr = NULL;
+	}
 	return BasePtr;
 }
 
@@ -6979,7 +7005,10 @@ static s32 XKeyManager_AekvVerifyHeader(XAsufw_Dma *DmaPtr, const XKeyManager_Im
  *		clean. The result reports the size the blob actually occupies and whether the
  *		vault had changes no earlier blob carried.
  *
- * @param	CtxPtr	Pointer to export context.
+ * @param	ResultAddr	Caller address the export result is written to.
+ * @param	BlobSize	Size the exported blob occupies, in bytes.
+ * @param	ModifiedValue	Value reporting whether the vault held changes no earlier blob
+ *				carried.
  *
  *************************************************************************************************/
 static void XKeyManager_ExportPublishResult(u64 ResultAddr, u32 BlobSize, u32 ModifiedValue)

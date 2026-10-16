@@ -64,7 +64,8 @@ typedef struct {
 	u64 SaltAddr; /**< Address of the buffer holding salt used for generating the HKDF */
 	u32 SaltLen; /**< Length of the Salt */
 	u32 ContextLen; /**< Length of the Context */
-	u32 DataLength; /**< Length of the Plaintext/Ciphertext in bytes */
+	u32 DataLength; /**< Length of the Plaintext/Ciphertext in bytes, from 1 up to
+			XASU_ASU_DMA_BLOCKING_SIZE. */
 	u8 EccCurveType; /**< ECC curve type */
 	u8 ShaType; /**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode; /**< SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type

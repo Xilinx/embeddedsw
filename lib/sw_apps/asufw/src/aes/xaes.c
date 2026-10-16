@@ -904,6 +904,9 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 		goto END;
 	}
 
+	/** Initialize the AES instance with ASU DMA pointer. */
+	InstancePtr->AsuDmaPtr = DmaPtr;
+
 	/**
 	 * During initial payload update, finalize the AAD update phase by optionally sending
 	 * zero padding (for CCM mode) and clearing the AAD configuration for all modes.
@@ -927,9 +930,6 @@ s32 XAes_Update(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 InDataAddr, u64 OutDa
 			}
 		}
 	}
-
-	/** Initialize the AES instance with ASU DMA pointer. */
-	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	/**
 	 * If the output data address is zero, the input data will be considered as AAD data.
@@ -1061,11 +1061,14 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 		Status = XASUFW_AES_INVALID_TAG;
 		goto END;
 	}
+
+	/** Initialize the AES instance with ASU DMA pointer. */
+	InstancePtr->AsuDmaPtr = DmaPtr;
+
 	/** Replay the saved MAC and skip engine finalize, if resuming a finalized auth-only MAC. */
 	UseSavedMacFih = XFih_VolatileAssignU32((u32)((InstancePtr->UseSavedMac == XASU_TRUE) &&
 		(InstancePtr->AesState == XAES_ONLY_AAD_UPDATE_IN_PROGRESS)));
 	XFIH_IF_FAILOUT_WITH_VALUE (UseSavedMacFih, ==, (u32)XASU_TRUE) {
-		InstancePtr->AsuDmaPtr = DmaPtr;
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAes_ProcessSavedTag(InstancePtr, TagAddr, TagLen);
 		goto END;
@@ -1084,9 +1087,6 @@ s32 XAes_Final(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u64 TagAddr, u32 TagLen)
 			goto END;
 		}
 	}
-
-	/** Initialize the AES instance with ASU DMA pointer. */
-	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	if (InstancePtr->AesState == XAES_UPDATE_COMPLETED) {
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
@@ -1192,6 +1192,8 @@ s32 XAes_CheckAadChunk(u8 EngineMode, u32 AadLen, u8 IsLast, u8 PayloadFollows)
  *		- XASUFW_SUCCESS, if B0 header formatting and transfer is successful.
  *		- XASUFW_AES_INVALID_PARAM, if any input argument is invalid.
  *		- XASUFW_AES_STATE_MISMATCH_ERROR, if AES state is not XAES_STARTED.
+ *		- XASUFW_AES_GLITCH_ERROR, if the payload or AAD length encoding loop did not
+ *		  complete.
  *		- XASUFW_DMA_COPY_FAIL, if DMA copy of nonce fails.
  *		- XASUFW_MEM_COPY_FAIL, if seeding the AAD-length prefix into the residue fails.
  *		- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if DMA transfer to AES engine fails.
@@ -1707,7 +1709,8 @@ END:
  * @return
  *	- XASUFW_SUCCESS, if decryption of data is successful.
  *	- XASUFW_AES_INVALID_PARAM, if InstancePtr or DmaPtr or MaskedOutputPtr is NULL or
- * 		MaskedKeyPtr or IvPtr is NULL, or ASU DMA is not ready, or input or output address is invalid.
+ * 		MaskedTagPtr or MaskedKeyPtr or IvPtr is NULL, or ASU DMA is not ready, or input or
+ * 		output address is invalid.
  * 	- XASUFW_AES_INVALID_OPERATION_TYPE, if operation type is invalid.
  *	- XASUFW_AES_INVALID_IV, if IV is invalid.
  *	- XASUFW_AES_CFG_SSS_WITH_DMA_XFER_FAIL, if configuring SSS with DMA transfer fails.
@@ -1736,7 +1739,8 @@ s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr
 		goto END;
 	}
 
-	if ((MaskedOutputPtr == NULL) || (MaskedKeyPtr == NULL) || (IvPtr == NULL)) {
+	if ((MaskedOutputPtr == NULL) || (MaskedKeyPtr == NULL) || (IvPtr == NULL) ||
+			(MaskedTagPtr == NULL)) {
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
@@ -1857,6 +1861,8 @@ RET:
  * @return
  * 		- XASUFW_SUCCESS, if initialization is successful.
  * 		- XASUFW_AES_INVALID_PARAM, if InstancePtr or AsuDmaPtr is NULL or AesParams is NULL.
+ * 		- XASUFW_AES_INVALID_INPUT_DATA_LENGTH, if the AAD or payload length exceeds the DMA
+ * 		  blocking size.
  * 		- XASUFW_AES_INIT_FAILED, if AES initialization fails.
  * 		- XASUFW_AES_UPDATE_FAILED, if AES AAD or data update fails.
  * 		- XASUFW_AES_FINAL_FAILED, if AES final fails.
@@ -1874,6 +1880,12 @@ s32 XAes_Compute(XAes *InstancePtr, XAsufw_Dma *AsuDmaPtr, XAsu_AesParams *AesPa
 	/** Validate mode (CCM mode is not supported). */
 	if (AesParams->EngineMode == XASU_AES_CCM_MODE) {
 		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((AesParams->AadLen > XASUFW_DMA_BLOCKING_SIZE) ||
+			(AesParams->DataLen > XASUFW_DMA_BLOCKING_SIZE)) {
+		Status = XASUFW_AES_INVALID_INPUT_DATA_LENGTH;
 		goto END;
 	}
 
@@ -2135,6 +2147,8 @@ RET:
  * @return
  * 		- XASUFW_SUCCESS, if context was successfully restored.
  * 		- XASUFW_AES_INVALID_PARAM, if any parameter is invalid.
+ * 		- XASUFW_AES_INVALID_KEY_SRC, if the key source read back from the saved context is
+ * 		  out of range.
  * 		- XASUFW_AES_GET_CONTEXT_FAIL, if the DDR context address is not available.
  * 		- XASUFW_AES_CONTEXT_USER_KEY_RESTORE_FAIL, if user key context restore fails.
  * 		- XASUFW_AES_KEY_CONFIG_READBACK_ERROR, if the key configuration read-back
@@ -2178,6 +2192,12 @@ s32 XAes_RestoreContext(XAes *InstancePtr, XAsufw_Dma *DmaPtr)
 
 	if (CtxPtr->IsContextSaved != XASU_TRUE) {
 		Status = XASUFW_AES_INVALID_PARAM;
+		goto END;
+	}
+
+	/** The saved key source indexes the key lookup table, so bound it before any use. */
+	if (CtxPtr->KeyObject.KeySrc >= XASU_AES_MAX_KEY_SOURCES) {
+		Status = XASUFW_AES_INVALID_KEY_SRC;
 		goto END;
 	}
 
@@ -3623,7 +3643,8 @@ END:
  *
  * @return
  *		- XASUFW_SUCCESS, if DDR context address is valid.
- *		- XASUFW_AES_INVALID_PARAM, if CtxPtrPtr is NULL or DDR is not configured.
+ *		- XASUFW_AES_INVALID_PARAM, if CtxPtrPtr is NULL.
+ *		- XASUFW_AES_GET_CONTEXT_FAIL, if the DDR region is smaller than the context needs.
  *
  *************************************************************************************************/
 s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr)
@@ -3828,6 +3849,9 @@ s32 XAes_PostNbDmaRoutine(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u8 PayloadFollo
 		Status = XASUFW_AES_INVALID_PARAM;
 		goto END;
 	}
+
+	/** The CCM finalize below drives the engine through the instance DMA pointer. */
+	InstancePtr->AsuDmaPtr = DmaPtr;
 
 	/** Payload-phase NB DMA is ISR-cleared on DST only, leaving the SRC done bit stale. */
 	if ((InstancePtr->AesState == XAES_DATA_UPDATE_IN_PROGRESS) ||

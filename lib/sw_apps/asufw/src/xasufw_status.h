@@ -1052,6 +1052,8 @@ enum {
 							that this build does not have */
 	XASUFW_DMA_MEMSET_VERIFY_FAIL, /**< 0x2B3U - Error when a memory set does not read back
 						the value written, or does not cover the buffer */
+	XASUFW_KEYMANAGER_KEY_COUNT_INVALID, /**< 0x2B4U - Error when a sub-vault key counter
+						  disagrees with the key slots it describes */
 
 	/* Additional status success codes */
 	XASUFW_PROVISION_DPC_SUCCESS = 0x3F4U, /**< 0x3F4U - Device Provisioning Certificate

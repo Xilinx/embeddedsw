@@ -84,7 +84,7 @@ s32 XAsu_ValidateEciesParameters(const XAsu_EciesParams *EciesParams)
 	if ((EciesParams->ContextLen == 0U) ||
 	    (EciesParams->ContextLen > XASU_KDF_MAX_CONTEXT_LEN) ||
 	    (EciesParams->DataLength == 0U) ||
-	    (EciesParams->DataLength > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+	    (EciesParams->DataLength > XASU_ASU_DMA_BLOCKING_SIZE)) {
 		goto END;
 	}
 	/** Validate ECC curve type. */

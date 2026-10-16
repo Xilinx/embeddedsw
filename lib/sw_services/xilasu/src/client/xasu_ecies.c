@@ -50,7 +50,8 @@
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
  * @param	EciesParamsPtr	Pointer to XAsu_EciesParams structure which holds the parameters of
- * 				ECIES encryption input arguments.
+ * 				ECIES encryption input arguments. Its DataLength may not exceed
+ * 				XASU_ASU_DMA_BLOCKING_SIZE.
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
@@ -112,7 +113,8 @@ END:
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
  * 				input parameters.
  * @param	EciesParamsPtr	Pointer to XAsu_EciesParams structure which holds the parameters of
- * 				ECIES decryption input arguments.
+ * 				ECIES decryption input arguments. Its DataLength may not exceed
+ * 				XASU_ASU_DMA_BLOCKING_SIZE.
  *
  * @return
  * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.

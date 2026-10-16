@@ -100,7 +100,7 @@ static s32 XEcies_ValidateParameters(const XAsu_EciesParams *EciesParams,
 		    (EciesParams->IvLength != XASU_AES_IV_SIZE_96BIT_IN_BYTES) ||
 		    (EciesParams->MacLength != XASU_AES_MAX_TAG_LENGTH_IN_BYTES) ||
 		    (EciesParams->DataLength == 0U) ||
-		    (EciesParams->DataLength > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
+		    (EciesParams->DataLength > XASUFW_DMA_BLOCKING_SIZE) ||
 		    (EciesParams->EccCurveType != XASU_ECC_NIST_P384) ||
 		    (EciesParams->EccKeyLength != XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES) ||
 		    (EciesParams->InDataAddr == 0U) || (EciesParams->IvAddr == 0U) ||

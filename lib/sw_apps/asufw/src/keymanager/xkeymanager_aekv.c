@@ -1222,7 +1222,8 @@ END:
  *
  * @return
  *		- XASUFW_SUCCESS, if the vault is restored.
- *		- XASUFW_KEYMANAGER_INVALID_PARAM, if an argument pointer is NULL.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if an argument pointer is NULL or the import
+ *		  address disagrees with the one staged in the session context.
  *
  * @note	This runs from the key vault overlay image and takes over once the resident
  *		sequencer has staged the header, checked its structure and verified its
@@ -1239,6 +1240,11 @@ s32 XKeyManager_AekvImportBody(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 	XKeyManager_ImportCtx *CtxPtr = &XKEYMANAGER_IMPORT_SESSION.Ctx;
 
 	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (ParamsPtr == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	if (ParamsPtr->ImportAddr != CtxPtr->ImportAddr) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}

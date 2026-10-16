@@ -743,7 +743,8 @@ END:
  *
  * @return
  *		- XASUFW_SUCCESS, if the parameters are usable.
- *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a pointer is NULL or sizes disagree.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a pointer is NULL, sizes disagree, or the
+ *		  chunk count this plaintext needs cannot be sized in a word.
  *
  *************************************************************************************************/
 static s32 XKeyManager_ValidateExportParams(const XKeyManager_ExportParams *ParamsPtr,
@@ -762,6 +763,13 @@ static s32 XKeyManager_ValidateExportParams(const XKeyManager_ExportParams *Para
 	    (ParamsPtr->Chunk0SecretsPtr == NULL) || (ParamsPtr->Chunk0HashPtr == NULL) ||
 	    (ParamsPtr->BodySize == 0U) || (ParamsPtr->PlaintextSize == 0U) ||
 	    ((ParamsPtr->BodySize % XKEYMANAGER_CHUNK_SIZE) != 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** A chunk count past this wraps the body size below, which would then compare equal. */
+	if (XKeyManager_CalcNumChunks(XKeyManager_CalcNumBlocks(ParamsPtr->PlaintextSize)) >
+	    (XASUFW_MAX_32BIT_ADDRESS / XKEYMANAGER_CHUNK_SIZE)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
@@ -1031,7 +1039,8 @@ END:
  * @return
  *		- XASUFW_SUCCESS, if the parameters are usable.
  *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a pointer or callback is NULL, a size is
- *		  zero, or the body size is not a whole number of chunks.
+ *		  zero, the body size is not a whole number of chunks, or the chunk count the
+ *		  declared plaintext needs cannot be sized in a word.
  *
  *************************************************************************************************/
 static s32 XKeyManager_ValidateImportParams(const XKeyManager_ImportParams *ParamsPtr,
@@ -1049,6 +1058,13 @@ static s32 XKeyManager_ValidateImportParams(const XKeyManager_ImportParams *Para
 	    (ParamsPtr->SecretsUnwrapFn == NULL) ||
 	    (ParamsPtr->BodySize == 0U) || (ParamsPtr->MaxPlaintextSize == 0U) ||
 	    ((ParamsPtr->BodySize % XKEYMANAGER_CHUNK_SIZE) != 0U)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** A chunk count past this wraps the body size below, which would then compare equal. */
+	if (XKeyManager_CalcNumChunks(XKeyManager_CalcNumBlocks(ParamsPtr->MaxPlaintextSize)) >
+	    (XASUFW_MAX_32BIT_ADDRESS / XKEYMANAGER_CHUNK_SIZE)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}
@@ -1127,7 +1143,8 @@ END:
  *
  * @return
  *		- XASUFW_SUCCESS, if every piece is processed.
- *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a pointer is NULL.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a pointer is NULL or the chunk index is past
+ *		  the range of piece IVs a word can address.
  *		- XASUFW_KEYMANAGER_IV_GEN_ERROR, if the IV of a piece cannot be advanced from the
  *		  base IV.
  *		- XASUFW_RAND_GEN_ERROR, with the TRNG error embedded, if the piece order cannot be
@@ -1160,6 +1177,14 @@ static s32 XKeyManager_SecretsCrypt(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr,
 	if ((DmaPtr == NULL) || (AesInstancePtr == NULL) || (ParamsPtr == NULL) ||
 	    (ParamsPtr->KeyMaterial == NULL) || (ParamsPtr->BaseIv == NULL) ||
 	    (ParamsPtr->Input == NULL) || (ParamsPtr->Output == NULL)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	/** A chunk index past this wraps the piece IV index below, which would reuse an IV. */
+	if (ParamsPtr->ChunkIndex >
+	    ((XASUFW_MAX_32BIT_ADDRESS - (XKEYMANAGER_SECRETS_PIECE_COUNT - 1U)) /
+	     XKEYMANAGER_SECRETS_PIECE_COUNT)) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
 	}

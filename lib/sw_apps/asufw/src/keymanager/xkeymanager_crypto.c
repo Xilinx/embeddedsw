@@ -196,6 +196,8 @@ END:
  *		- XASUFW_SUCCESS, if the IV is advanced.
  *		- XASUFW_KEYMANAGER_INVALID_PARAM, if a pointer is NULL.
  *		- XASUFW_MEM_COPY_FAIL, if the base IV cannot be copied into the output.
+ *		- XASUFW_KEYMANAGER_IV_GEN_ERROR, if the step loop did not run to completion, or a
+ *		  non-zero step left the counter unmoved.
  *
  * @note	The IV is treated as a big-endian 128-bit counter. Both users of this - the blocks
  *		of a chunk and the pieces of the secrets of a chunk - store one IV and give every
@@ -207,7 +209,7 @@ END:
 s32 XKeyManager_AdvanceIv(const u8 *BaseIv, u32 Increment, u8 *OutIv)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
-	u32 ByteIdx;
+	volatile u32 ByteIdx = 0U;
 	u8 StepVal;
 
 	if ((BaseIv == NULL) || (OutIv == NULL)) {
@@ -235,6 +237,24 @@ s32 XKeyManager_AdvanceIv(const u8 *BaseIv, u32 Increment, u8 *OutIv)
 		}
 	}
 
+	/** A loop cut short drops the higher step bytes, which still moves the counter. */
+	if (ByteIdx != (u32)sizeof(Increment)) {
+		Status = XASUFW_KEYMANAGER_IV_GEN_ERROR;
+		goto END;
+	}
+
+	/** A skipped step loop would reuse the base IV under a key that already used it. */
+	if (Increment != 0U) {
+		/** A mismatch is the pass here, so the preset must not be XASUFW_FAILURE. */
+		ASSIGN_VOLATILE(Status, XASUFW_KEYMANAGER_IV_GEN_ERROR);
+		Status = Xil_SMemCmp_CT(OutIv, XKEYMANAGER_AES_IV_SIZE, BaseIv,
+					XKEYMANAGER_AES_IV_SIZE, XKEYMANAGER_AES_IV_SIZE);
+		if (Status != XASUFW_FAILURE) {
+			Status = XASUFW_KEYMANAGER_IV_GEN_ERROR;
+			goto END;
+		}
+	}
+
 	Status = XASUFW_SUCCESS;
 
 END:
@@ -245,7 +265,7 @@ END:
 /**
  * @brief	This function computes a SHA-384 digest over the given data.
  *
- * @param	ShaInstancePtr	Pointer to the XSha instance, which must be the SHA-3 one.
+ * @param	ShaInstancePtr	Pointer to the XSha instance.
  * @param	DmaPtr		Pointer to the XAsufw_Dma instance.
  * @param	Data		Pointer to input data.
  * @param	DataLen		Input length in bytes.
@@ -259,10 +279,9 @@ END:
  *		- XASUFW_SHA_FINISH_FAILED, with the SHA error embedded, if the digest cannot be
  *		  read.
  *
- * @note	The data is fed in segments of XKEYMANAGER_SHA_UPDATE_MAX_LEN, a whole number of
- *		SHA3-384 blocks, because the engine pads only the last update of a digest. That
- *		length is not a multiple of the SHA2-384 block, so a SHA-2 instance would break
- *		the invariant the static assert at the top of this file holds.
+ * @note	Segments are capped at XKEYMANAGER_SHA_UPDATE_MAX_LEN only to keep each update on
+ *		the blocking DMA path, not to align it to blocks. The engine pads only the last
+ *		update of a digest, so either SHA engine can be used.
  *
  *************************************************************************************************/
 s32 XKeyManager_Sha384Digest(XSha *ShaInstancePtr, XAsufw_Dma *DmaPtr, const u8 *Data, u32 DataLen,

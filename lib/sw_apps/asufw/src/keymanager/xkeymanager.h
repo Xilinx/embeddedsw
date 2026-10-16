@@ -97,6 +97,15 @@ extern "C" {
 #define XKEYMANAGER_UDE_KEY_TYPE_SLOT_MASK	(0x3U)	/**< 2-bit mask for a single UDE slot */
 #define XKEYMANAGER_UDE_MAX_SLOTS		(3U)	/**< Maximum number of UDE slots in the byte */
 
+/*
+ * UDE key type codes a slot may be programmed with. The key vault header update accepts a code
+ * only up to the bound below, so a code added here has to be named by that bound as well.
+ */
+#define XKEYMANAGER_UDE_KEY_TYPE_CODE_P384	(0x0U)	/**< UDE key type code: ECC P-384 */
+#define XKEYMANAGER_UDE_KEY_TYPE_CODE_MLDSA	(0x1U)	/**< UDE key type code: ML-DSA */
+#define XKEYMANAGER_UDE_KEY_TYPE_MAX		XKEYMANAGER_UDE_KEY_TYPE_CODE_MLDSA
+							/**< Highest defined UDE key type code */
+
 #define XKEYMANAGER_KEY_INDEX_OFFSET		(1U) /**< Offset for key index */
 #define XKEYMANAGER_KEY_PAIR_ID_COUNT	(2U) /**< Number of key IDs written by a key pair
 							generation: public key ID followed by

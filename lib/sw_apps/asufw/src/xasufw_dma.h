@@ -47,8 +47,10 @@ extern "C" {
 #define XASUFW_DST_CH_AXI_FIXED		((u32)0x1U << 16U) /**< DMA XFER flags for destination channel */
 /** DMA XFER flag: enable per-32-bit-word byte reversal on the source channel */
 #define XASUFW_DMA_ENDIAN_SWAP		((u32)0x1U << 1U)
-#define XASUFW_DMA_BLOCKING_SIZE	(4096U) /**< DMA blocking size. If the SHA/AES update contains
-	data size more than this size, DMA transfer will happen in non-blocking mode */
+/** DMA blocking size. If the SHA/AES update contains data size more than this size, DMA transfer
+	will happen in non-blocking mode. It is taken from the shared definition so a client which
+	bounds a request against it and the server which enforces it cannot drift apart. */
+#define XASUFW_DMA_BLOCKING_SIZE	XASU_ASU_DMA_BLOCKING_SIZE
 
 /************************************** Type Definitions *****************************************/
 /**
