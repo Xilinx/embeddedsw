@@ -1274,10 +1274,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 
 			if (InstancePtr->Config.TransceiverWidth == 4) {
 				/* Link clock: TMDS clock ratio 1/40. */
-				if ((LineRate / 1000000) >= 3400) {
+				if ((LineRate / 1000000) > 3400) {
 					if ((Dir == XVPHY_DIR_TX) &&
 							(((LineRate / 1000000) / InstancePtr->
-									HdmiTxSampleRate) < 3400)) {
+									HdmiTxSampleRate) <= 3400)) {
 						MmcmPtr->ClkOut0Div = MultDiv * 4;
 					}
 					else {
@@ -1291,10 +1291,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			}
 			else { /* 2 Byte Mode */
 				/* Link clock: TMDS clock ratio 1/40. */
-				if ((LineRate / 1000000) >= 3400) {
+				if ((LineRate / 1000000) > 3400) {
 					if ((Dir == XVPHY_DIR_TX) &&
 							(((LineRate / 1000000) / InstancePtr->
-									HdmiTxSampleRate) < 3400)) {
+									HdmiTxSampleRate) <= 3400)) {
 						MmcmPtr->ClkOut0Div = MultDiv * 2;
 					}
 					else {
@@ -1432,10 +1432,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 					}
 				}
 				/* TX. */
-				else if ((((LineRate / 1000000) >= 3400) &&
+				else if ((((LineRate / 1000000) > 3400) &&
 							(InstancePtr->HdmiTxSampleRate == 1)) ||
 						 (((LineRate / 1000000) / InstancePtr->
-								HdmiTxSampleRate) >= 3400)) {
+								HdmiTxSampleRate) > 3400)) {
 					if ((MmcmPtr->ClkOut2Div % 4) == 0) {
 						MmcmPtr->ClkOut2Div = MmcmPtr->ClkOut2Div / 4;
 					}
@@ -1486,10 +1486,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 
 			if (InstancePtr->Config.TransceiverWidth == 4) {
 				/* Link clock: TMDS clock ratio 1/40. */
-				if ((LineRate / 1000000) >= 3400) {
+				if ((LineRate / 1000000) > 3400) {
 					if ((Dir == XVPHY_DIR_TX) &&
 							(((LineRate / 1000000) / InstancePtr->
-									HdmiTxSampleRate) < 3400)) {
+									HdmiTxSampleRate) <= 3400)) {
 						MmcmPtr->ClkOut2Div = MultDiv * 4;
 					}
 					else {
@@ -1503,10 +1503,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			}
 			else { /* 2 Byte Mode */
 				/* Link clock: TMDS clock ratio 1/40. */
-				if ((LineRate / 1000000) >= 3400) {
+				if ((LineRate / 1000000) > 3400) {
 					if ((Dir == XVPHY_DIR_TX) &&
 							(((LineRate / 1000000) / InstancePtr->
-									HdmiTxSampleRate) < 3400)) {
+									HdmiTxSampleRate) <= 3400)) {
 						MmcmPtr->ClkOut2Div = MultDiv * 2;
 					}
 					else {
@@ -1644,10 +1644,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 					}
 				}
 				/* TX. */
-				else if ((((LineRate / 1000000) >= 3400) &&
+				else if ((((LineRate / 1000000) > 3400) &&
 							(InstancePtr->HdmiTxSampleRate == 1)) ||
 						 (((LineRate / 1000000) / InstancePtr->
-								HdmiTxSampleRate) >= 3400)) {
+								HdmiTxSampleRate) > 3400)) {
 					if ((MmcmPtr->ClkOut1Div % 4) == 0) {
 						MmcmPtr->ClkOut1Div = MmcmPtr->ClkOut1Div / 4;
 					}
@@ -1923,7 +1923,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		InstancePtr->HdmiTxSampleRate = 1;
 
 		/* Check if the linerate is above the 340 Mcsc. */
-		if ((TxLineRate) >= 3400) {
+		if ((TxLineRate) > 3400) {
 			(*RefClkPtr) = (*RefClkPtr) / 4;
 		}
 	}
@@ -1940,7 +1940,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 				RefClk = ((*RefClkPtr) * SRValue);
 
 				/* Calculate scaled line rate. */
-				if (TxLineRate >= 3400) {
+				if (TxLineRate > 3400) {
 					XVphy_CfgLineRate(InstancePtr, QuadId,
 						XVPHY_CHANNEL_ID_CMNA,
 						(u64)(RefClk * 40));
@@ -1958,7 +1958,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 				RefClk = (*RefClkPtr);
 
 				/* Calculate scaled line rate. */
-				if (TxLineRate >= 3400) {
+				if (TxLineRate > 3400) {
 					XVphy_CfgLineRate(InstancePtr, QuadId,
 						XVPHY_CHANNEL_ID_CMNA,
 						(u64)(RefClk * 40 *SRValue));
@@ -2105,7 +2105,7 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		TxLineRate = (*RefClkPtr)  / 100000;
 
 		/* Check if the line rate is above the 340 Mcsc. */
-		if (TxLineRate >= 3400) {
+		if (TxLineRate > 3400) {
 			(*RefClkPtr) = (*RefClkPtr) / 4;
 		}
 	}
@@ -2244,7 +2244,7 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			RefClk = ((*RefClkPtr) * SRValue);
 
 			/* Calculate scaled line rate. */
-			if (TxLineRate >= 3400) {
+			if (TxLineRate > 3400) {
 				XVphy_CfgLineRate(InstancePtr, QuadId,
 					ChannelId, (RefClk * 40));
 			}
@@ -2507,7 +2507,7 @@ void XVphy_PatgenSetRatio(XVphy *InstancePtr, u8 QuadId, u64 TxLineRate)
 							XVPHY_PATGEN_CTRL_REG)
 				& ~XVPHY_PATGEN_CTRL_RATIO_MASK);
 
-	if ((TxLineRate >= 3400) && (InstancePtr->HdmiTxSampleRate == 1)) {
+	if ((TxLineRate > 3400) && (InstancePtr->HdmiTxSampleRate == 1)) {
 		RegVal |= XVPHY_Patgen_Ratio_40 & XVPHY_PATGEN_CTRL_RATIO_MASK;
 	}
 	else {
