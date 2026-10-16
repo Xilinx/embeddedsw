@@ -46,6 +46,7 @@
 #include "xpm_debug.h"
 #include "xpm_pldevice.h"
 #include "xpm_powerdomain.h"
+#include "xpm_repair_regs.h"
 #define XPm_RegisterWakeUpHandler(GicId, SrcId, NodeId)	\
 	{ \
 		Status = XPlmi_GicRegisterHandler(GicId, SrcId, \
@@ -246,9 +247,15 @@ int XPm_PlatProcessCmd(XPlmi_Cmd *Cmd)
 		/* After successful domain BISR, set shared memory flags
 		 * so PSM can re-trigger per-core BISR on hot-swap */
 		if (XST_SUCCESS == Status) {
-			if ((u32)FPX_TAG_ID == Pload[0]) {
+			if (((u32)FPX_TAG_ID == Pload[0]) &&
+				((Xil_In32(FPD_SLCR_BISR_CACHE_STATUS0) & FPD_SLCR_BISR_CACHE_STATUS0_BISR_PASS_MASK) ==
+					FPD_SLCR_BISR_CACHE_STATUS0_BISR_PASS_MASK ) &&
+				((Xil_In32(FPD_SLCR_BISR_CACHE_STATUS1) & FPD_SLCR_BISR_CACHE_STATUS1_BISR_PASS_MASK) ==
+					FPD_SLCR_BISR_CACHE_STATUS1_BISR_PASS_MASK)) {
 				BisrBitmask |= BISR_BITMASK_FPX;
-			} else if ((u32)LPX_TAG_ID == Pload[0]) {
+			} else if (((u32)LPX_TAG_ID == Pload[0]) &&
+				(Xil_In32(LPD_SLCR_BISR_CACHE_STATUS) & LPD_SLCR_BISR_CACHE_STATUS_BISR_PASS_MASK) ==
+				LPD_SLCR_BISR_CACHE_STATUS_BISR_PASS_MASK) {
 				BisrBitmask |= BISR_BITMASK_LPX;
 			} else {
 				/* No bitmask update for other domains */
