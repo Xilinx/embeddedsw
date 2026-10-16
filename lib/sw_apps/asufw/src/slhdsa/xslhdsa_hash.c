@@ -24,6 +24,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
 *       kk   10/08/26 Addressed FMEA findings
+*       kk   10/14/26 Fed PRF_msg and H_msg from the message DMA address
 *
 * </pre>
 *
@@ -61,14 +62,12 @@ static inline s32 XSlhDsa_HashUpdateMsg(XSlhDsa_HashCtx *HashCtxPtr, u64 Addr,
 					u32 Len, u32 EndLast);
 static inline s32 XSlhDsa_HashZeroizeKeepWait(XSlhDsa_Instance *InstPtr, s32 Status, u8 *Buf,
 					      u32 Len);
-static s32 XSlhDsa_HashShakePkSeedAddrStream(XSlhDsa_Instance *InstPtr,
-			u64 MsgAddr, const u8 *MsgLocal,
+static s32 XSlhDsa_HashShakePkSeedAddrStream(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 			u32 MsgLen, u8 *Out, u32 OutLen);
 static s32 XSlhDsa_HashSha2DigestLen(u32 ShaMode, u32 *DigestLenPtr);
 static s32 XSlhDsa_HashSha2BlockLen(u32 ShaMode, u32 *BlockLenPtr);
-static s32 XSlhDsa_HashSha2PkSeedAddrStream(XSlhDsa_Instance *InstPtr, u64 MsgAddr,
-			const u8 *MsgLocal, u32 MsgLen, u32 ShaMode,
-			u8 *Out, u32 N);
+static s32 XSlhDsa_HashSha2PkSeedAddrStream(XSlhDsa_Instance *InstPtr, const u8 *Msg,
+			u32 MsgLen, u32 ShaMode, u8 *Out, u32 N);
 
 static u32 XSlhDsa_Sha2ModeHtl(u32 HashWidth);
 static s32 XSlhDsa_Sha2MgfBlock(u32 ShaMode, u32 *MgfBlockPtr);
@@ -77,7 +76,7 @@ static s32 XSlhDsa_Sha2Mgf1Expand(XSlhDsa_Instance *InstPtr, u8 *Seed, u32 SeedL
 			u32 ShaMode, u8 *Out);
 static s32 XSlhDsa_Sha2HashMsgImpl(XSlhDsa_Instance *InstPtr, u32 ShaMode, u8 *Out);
 static s32 XSlhDsa_Sha2HashPrfMsgImpl(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-			const u8 *Msg, u32 MsgLen, const u8 *Ctx, u32 CtxLen,
+			u64 MsgAddr, u32 MsgLen, const u8 *Ctx, u32 CtxLen,
 			u32 HashWidth, u32 BlockLen, u32 ShaMode, u8 *Out);
 
 static s32 XSlhDsa_ShakeFeedHmsgInputs(XSlhDsa_HashCtx *HashCtxPtr,
@@ -327,7 +326,7 @@ END:
 *
 * @param	InstPtr	Pointer to SLH-DSA instance with SkPrf loaded.
 * @param	OptRand	Optional randomizer (n bytes).
-* @param	Msg	Message buffer.
+* @param	MsgAddr	DMA address of the message buffer.
 * @param	MsgLen	Message length in bytes.
 * @param	Ctx	Optional context string for pure mode.
 * @param	CtxLen	FIPS context length 0..255.
@@ -346,7 +345,7 @@ END:
 *
 *************************************************************************************************/
 s32 XSlhDsa_HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-			    const u8 *Msg, u32 MsgLen, const u8 *Ctx,
+			    u64 MsgAddr, u32 MsgLen, const u8 *Ctx,
 			    u32 CtxLen, u8 *Output)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
@@ -359,7 +358,7 @@ s32 XSlhDsa_HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	 * signing entry point already does, so an oversized message is refused before the hash
 	 * engine starts.
 	 */
-	if ((Ops == NULL) || (InstPtr->SkPrf == NULL) || (OptRand == NULL) || (Msg == NULL) ||
+	if ((Ops == NULL) || (InstPtr->SkPrf == NULL) || (OptRand == NULL) || (MsgAddr == 0U) ||
 	    (Output == NULL) || (MsgLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) ||
 	    (CtxLen > XASU_SLHDSA_MAX_CTX_LEN) || ((CtxLen > 0U) && (Ctx == NULL))) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
@@ -367,7 +366,7 @@ s32 XSlhDsa_HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	}
 
 	/** Compute FIPS 205 PRF_msg(SK.prf, OptRand, M); the backend prepends the pure prefix. */
-	Status = Ops->HashPrfMsg(InstPtr, OptRand, Msg, MsgLen, Ctx, CtxLen, Output);
+	Status = Ops->HashPrfMsg(InstPtr, OptRand, MsgAddr, MsgLen, Ctx, CtxLen, Output);
 
 END:
 	return Status;
@@ -600,52 +599,8 @@ s32 XSlhDsa_HashShakePkSeedAddrLocal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u
 		goto END;
 	}
 
-	/** Absorb through the shared stream helper with M taken from local memory. */
-	Status = XSlhDsa_HashShakePkSeedAddrStream(InstPtr, 0U, Msg, MsgLen, Out, OutLen);
-
-END:
-	return Status;
-}
-/*************************************************************************************************/
-/**
-* @brief	Compute SHAKE256(PK.seed || ADRS || M) over DMA-resident message data.
-*
-* @param	InstPtr	Pointer to SLH-DSA instance with PkSeed and Addr loaded.
-* @param	MsgAddr	DMA address of message data M.
-* @param	MsgLen	Message length in bytes.
-* @param	Out	Output buffer.
-* @param	OutLen	Number of output bytes to squeeze.
-*
-* @return
-*		- XASUFW_SUCCESS on success.
-*		- XASUFW_SLHDSA_INVALID_PARAM on invalid input.
-*		- Error code received from called functions in case of other failure from the
-*		  called function (including XASUFW_SHA_START_FAILED, XASUFW_SHA_UPDATE_FAIL,
-*		  or XASUFW_SHA_FINISH_FAILED).
-*
-* @note
-* Uses ASU SHA3/SHAKE256 engine.
-*
-*************************************************************************************************/
-s32 XSlhDsa_HashShakePkSeedAddrDma(XSlhDsa_Instance *InstPtr, u64 MsgAddr, u32 MsgLen,
-			u8 *Out, u32 OutLen)
-{
-	s32 Status = XASUFW_FAILURE;
-
-	/**
-	 * Reject a missing instance, address or output buffer, a message length with no transfer
-	 * address, and a squeeze width of zero or above the widest node, before the absorb starts.
-	 */
-	if ((InstPtr == NULL) || (Out == NULL) || (InstPtr->Addr == NULL) ||
-			((MsgLen > 0U) && (MsgAddr == 0U)) ||
-			(OutLen == 0U) || (OutLen > XSLHDSA_MAX_N)) {
-		Status = XASUFW_SLHDSA_INVALID_PARAM;
-		goto END;
-	}
-
-	/** Absorb through the shared stream helper; a NULL local pointer selects the DMA path. */
-	Status = XSlhDsa_HashShakePkSeedAddrStream(InstPtr, MsgAddr, NULL, MsgLen,
-							Out, OutLen);
+	/** Absorb M through the shared stream helper. */
+	Status = XSlhDsa_HashShakePkSeedAddrStream(InstPtr, Msg, MsgLen, Out, OutLen);
 
 END:
 	return Status;
@@ -872,8 +827,8 @@ s32 XSlhDsa_HashSha2PkSeedAddrLocal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u3
 		goto END;
 	}
 
-	/** Hash through the shared stream helper with M taken from local memory. */
-	Status = XSlhDsa_HashSha2PkSeedAddrStream(InstPtr, 0U, Msg, MsgLen, ShaMode, Out, N);
+	/** Hash M through the shared stream helper. */
+	Status = XSlhDsa_HashSha2PkSeedAddrStream(InstPtr, Msg, MsgLen, ShaMode, Out, N);
 
 END:
 	return Status;
@@ -1178,7 +1133,7 @@ END:
 *
 * @param	InstPtr	Pointer to SLH-DSA instance with SkPrf loaded.
 * @param	OptRand	Optional randomizer (n bytes).
-* @param	Msg	Message buffer.
+* @param	MsgAddr	DMA address of the message buffer.
 * @param	MsgLen	Message length in bytes.
 * @param	Ctx	Optional context string for pure mode.
 * @param	CtxLen	FIPS context length 0..255.
@@ -1200,7 +1155,7 @@ END:
 *
 *************************************************************************************************/
 s32 XSlhDsa_Sha2HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-				const u8 *Msg, u32 MsgLen,
+				u64 MsgAddr, u32 MsgLen,
 				const u8 *Ctx, u32 CtxLen, u8 *Output)
 {
 	u32 ShaMode;
@@ -1211,7 +1166,7 @@ s32 XSlhDsa_Sha2HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	 * Validate the input pointers, the context length, which the prefix stores in one byte,
 	 * and a zero SK.prf width, which the HMAC key block below cannot be padded from.
 	 */
-	if ((InstPtr == NULL) || (OptRand == NULL) || (Msg == NULL) || (Output == NULL) ||
+	if ((InstPtr == NULL) || (OptRand == NULL) || (MsgAddr == 0U) || (Output == NULL) ||
 			(CtxLen > XASU_SLHDSA_MAX_CTX_LEN) || (InstPtr->Param.n == 0U)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
@@ -1231,7 +1186,7 @@ s32 XSlhDsa_Sha2HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	}
 
 	/** FIPS 205 PRF_msg = Trunc_n(HMAC-SHA-X(SK.prf, OptRand || [ctx prefix] || M)). */
-	Status = XSlhDsa_Sha2HashPrfMsgImpl(InstPtr, OptRand, Msg, MsgLen, Ctx, CtxLen,
+	Status = XSlhDsa_Sha2HashPrfMsgImpl(InstPtr, OptRand, MsgAddr, MsgLen, Ctx, CtxLen,
 						 InstPtr->Param.n, BlockLen, ShaMode, Output);
 
 END:
@@ -1587,7 +1542,7 @@ END:
 *
 * @param	InstPtr	Pointer to SLH-DSA instance with SkPrf loaded.
 * @param	OptRand	Optional randomizer (n bytes).
-* @param	Msg	Message buffer.
+* @param	MsgAddr	DMA address of the message buffer.
 * @param	MsgLen	Message length in bytes.
 * @param	Ctx	Optional context string for pure mode.
 * @param	CtxLen	FIPS context length 0..255.
@@ -1607,7 +1562,7 @@ END:
 *
 *************************************************************************************************/
 s32 XSlhDsa_ShakeHashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-				 const u8 *Msg, u32 MsgLen,
+				 u64 MsgAddr, u32 MsgLen,
 				 const u8 *Ctx, u32 CtxLen,
 				 u8 *Output)
 {
@@ -1619,7 +1574,7 @@ s32 XSlhDsa_ShakeHashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	 * Validate the input pointers and the context length, which the prefix stores in one
 	 * byte.
 	 */
-	if ((InstPtr == NULL) || (OptRand == NULL) || (Msg == NULL) || (Output == NULL) ||
+	if ((InstPtr == NULL) || (OptRand == NULL) || (MsgAddr == 0U) || (Output == NULL) ||
 			(CtxLen > XASU_SLHDSA_MAX_CTX_LEN)) {
 		Status = XASUFW_SLHDSA_INVALID_PARAM;
 		goto END;
@@ -1684,17 +1639,10 @@ s32 XSlhDsa_ShakeHashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
 	}
 
 	/**
-	 * - Absorb the message and close the absorb phase, preferring the client supplied
-	 *   PH(M) digest when the instance is in pre-hash mode.
+	 * - Absorb the message and close the absorb phase. In pre-hash mode the message is
+	 *   the client supplied PH(M) digest.
 	 */
-	if (InstPtr->MsgLocalPtr != NULL) {
-		Status = XSlhDsa_HashUpdateMsg(&HashCtx,
-					       (u64)(UINTPTR)InstPtr->MsgLocalPtr,
-					       InstPtr->MsgLocalLen, 1U);
-	}
-	else {
-		Status = XSlhDsa_HashUpdateMsg(&HashCtx, (u64)(UINTPTR)Msg, MsgLen, 1U);
-	}
+	Status = XSlhDsa_HashUpdateMsg(&HashCtx, MsgAddr, MsgLen, 1U);
 
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XSlhDsa_YieldSetHashDmaResume(InstPtr);
@@ -1989,13 +1937,12 @@ static inline s32 XSlhDsa_HashZeroizeKeepWait(XSlhDsa_Instance *InstPtr, s32 Sta
 }
 /*************************************************************************************************/
 /**
-* @brief	Internal: SHAKE256(PK.seed || ADRS || M) over local or DMA message data.
+* @brief	Internal: SHAKE256(PK.seed || ADRS || M) over a local message.
 *
 * FIPS 205 SHAKE instantiation absorb sequence for F, H, T_l, and PRF (Section 11.1).
 *
 * @param	InstPtr	Pointer to SLH-DSA instance with PkSeed and Addr loaded.
-* @param	MsgAddr	DMA address of M (used when MsgLocal is NULL).
-* @param	MsgLocal	Local pointer to M (preferred when non-NULL).
+* @param	Msg	Local message buffer M.
 * @param	MsgLen	Message length in bytes.
 * @param	Out	Output buffer.
 * @param	OutLen	Number of output bytes to squeeze.
@@ -2011,8 +1958,7 @@ static inline s32 XSlhDsa_HashZeroizeKeepWait(XSlhDsa_Instance *InstPtr, s32 Sta
 * Uses ASU SHA3/SHAKE256 engine throughout.
 *
 *************************************************************************************************/
-static s32 XSlhDsa_HashShakePkSeedAddrStream(XSlhDsa_Instance *InstPtr,
-			u64 MsgAddr, const u8 *MsgLocal,
+static s32 XSlhDsa_HashShakePkSeedAddrStream(XSlhDsa_Instance *InstPtr, const u8 *Msg,
 			u32 MsgLen, u8 *Out, u32 OutLen)
 {
 	XSlhDsa_HashCtx HashCtx;
@@ -2047,19 +1993,12 @@ static s32 XSlhDsa_HashShakePkSeedAddrStream(XSlhDsa_Instance *InstPtr,
 		goto END;
 	}
 
-	/** Absorb M as the last segment; a non-NULL MsgLocal wins over the DMA address. */
+	/** Absorb M as the last segment when the message is non-empty. */
 	if (MsgLen > 0U) {
-		if (MsgLocal != NULL) {
-			Status = XSlhDsa_HashUpdate(&HashCtx, (u64)(UINTPTR)MsgLocal, MsgLen, 1U);
+		Status = XSlhDsa_HashUpdate(&HashCtx, (u64)(UINTPTR)Msg, MsgLen, 1U);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
 		}
-		else {
-			Status = XSlhDsa_HashUpdate(&HashCtx, MsgAddr, MsgLen, 1U);
-		}
-	}
-
-	/** A single check covers both branches of the message absorb. */
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
 	}
 
 	/**
@@ -2146,13 +2085,12 @@ END:
 }
 /*************************************************************************************************/
 /**
-* @brief	Internal: truncated SHA2(PK.seed || ADRS || M) over local or DMA message data.
+* @brief	Internal: truncated SHA2(PK.seed || ADRS || M) over a local message.
 *
 * FIPS 205 SHA2 instantiation absorb sequence for F, H, T_l, and PRF (Section 11.2).
 *
 * @param	InstPtr	Pointer to SLH-DSA instance with PkSeed and Addr loaded.
-* @param	MsgAddr	DMA address of M (used when MsgLocal is NULL).
-* @param	MsgLocal	Local pointer to M (preferred when non-NULL).
+* @param	Msg	Local message buffer M.
 * @param	MsgLen	Message length in bytes.
 * @param	ShaMode	SHA mode: XASU_SHA_MODE_256 or XASU_SHA_MODE_512.
 * @param	Out	Output buffer (N bytes).
@@ -2169,9 +2107,8 @@ END:
 * Uses ASU SHA2 engine throughout.
 *
 *************************************************************************************************/
-static s32 XSlhDsa_HashSha2PkSeedAddrStream(XSlhDsa_Instance *InstPtr, u64 MsgAddr,
-			const u8 *MsgLocal, u32 MsgLen, u32 ShaMode,
-			u8 *Out, u32 N)
+static s32 XSlhDsa_HashSha2PkSeedAddrStream(XSlhDsa_Instance *InstPtr, const u8 *Msg,
+			u32 MsgLen, u32 ShaMode, u8 *Out, u32 N)
 {
 	XSlhDsa_HashCtx HashCtx;
 	u8 Sha2AddrField[XSLHDSA_SHA2_ADDR_FIELD_BYTES];
@@ -2208,19 +2145,12 @@ static s32 XSlhDsa_HashSha2PkSeedAddrStream(XSlhDsa_Instance *InstPtr, u64 MsgAd
 		goto END;
 	}
 
-	/** Feed M as the last segment; a non-NULL MsgLocal wins over the DMA address. */
+	/** Feed M as the last segment when the message is non-empty. */
 	if (MsgLen > 0U) {
-		if (MsgLocal != NULL) {
-			Status = XSlhDsa_HashUpdate(&HashCtx, (u64)(UINTPTR)MsgLocal, MsgLen, 1U);
+		Status = XSlhDsa_HashUpdate(&HashCtx, (u64)(UINTPTR)Msg, MsgLen, 1U);
+		if (Status != XASUFW_SUCCESS) {
+			goto END;
 		}
-		else {
-			Status = XSlhDsa_HashUpdate(&HashCtx, MsgAddr, MsgLen, 1U);
-		}
-	}
-
-	/** A single check covers both branches of the message update. */
-	if (Status != XASUFW_SUCCESS) {
-		goto END;
 	}
 
 	/** Read the digest and truncate it to N bytes, which zeroizes the scratch digest. */
@@ -2525,16 +2455,11 @@ static s32 XSlhDsa_Sha2HashMsgImpl(XSlhDsa_Instance *InstPtr, u32 ShaMode, u8 *O
 	}
 
 	/**
-	 * - Absorb the message and close the inner hash. A pre-hashed digest PH(M) supplied
-	 *   by the client is used when present, otherwise the DMA-resident message. An empty
-	 *   message leaves the hash open and it is closed by the padding in XSha_Finish.
+	 * - Absorb the message and close the inner hash. In pre-hash mode the message is the
+	 *   client supplied PH(M) digest. An empty message leaves the hash open and it is
+	 *   closed by the padding in XSha_Finish.
 	 */
-	if (InstPtr->MsgLocalPtr != NULL) {
-		Status = XSlhDsa_HashUpdateMsg(&HashCtx,
-					       (u64)(UINTPTR)InstPtr->MsgLocalPtr,
-					       InstPtr->MsgLocalLen, 1U);
-	}
-	else if ((InstPtr->MsgAddr != 0U) && (InstPtr->MsgLen > 0U)) {
+	if ((InstPtr->MsgAddr != 0U) && (InstPtr->MsgLen > 0U)) {
 		Status = XSlhDsa_HashUpdateMsg(&HashCtx, InstPtr->MsgAddr, InstPtr->MsgLen, 1U);
 	}
 	else {
@@ -2595,7 +2520,7 @@ END:
 *
 * @param	InstPtr	SLH-DSA instance with SkPrf loaded.
 * @param	OptRand	Signature randomizer R (n bytes).
-* @param	Msg	Message buffer M.
+* @param	MsgAddr	DMA address of the message buffer M.
 * @param	MsgLen	Message length in bytes.
 * @param	Ctx	Optional pure-signing context string C.
 * @param	CtxLen	FIPS context length 0..255.
@@ -2619,7 +2544,7 @@ END:
 *
 *************************************************************************************************/
 static s32 XSlhDsa_Sha2HashPrfMsgImpl(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-			const u8 *Msg, u32 MsgLen, const u8 *Ctx, u32 CtxLen,
+			u64 MsgAddr, u32 MsgLen, const u8 *Ctx, u32 CtxLen,
 			u32 HashWidth, u32 BlockLen, u32 ShaMode, u8 *Out)
 {
 	XSlhDsa_HashCtx HashCtx;
@@ -2709,17 +2634,10 @@ static s32 XSlhDsa_Sha2HashPrfMsgImpl(XSlhDsa_Instance *InstPtr, const u8 *OptRa
 	}
 
 	/**
-	 * - Absorb the message and close the inner hash, preferring the client supplied
-	 *   PH(M) digest when the instance is in pre-hash mode.
+	 * - Absorb the message and close the inner hash. In pre-hash mode the message is the
+	 *   client supplied PH(M) digest.
 	 */
-	if (InstPtr->MsgLocalPtr != NULL) {
-		Status = XSlhDsa_HashUpdateMsg(&HashCtx,
-					       (u64)(UINTPTR)InstPtr->MsgLocalPtr,
-					       InstPtr->MsgLocalLen, 1U);
-	}
-	else {
-		Status = XSlhDsa_HashUpdateMsg(&HashCtx, (u64)(UINTPTR)Msg, MsgLen, 1U);
-	}
+	Status = XSlhDsa_HashUpdateMsg(&HashCtx, MsgAddr, MsgLen, 1U);
 
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		XSlhDsa_YieldSetHashDmaResume(InstPtr);
@@ -2835,17 +2753,12 @@ static s32 XSlhDsa_ShakeFeedHmsgInputs(XSlhDsa_HashCtx *HashCtxPtr,
 	}
 
 	/**
-	 * Absorb the message and close the absorb phase. A pre-hashed digest PH(M) supplied
-	 * by the client is used when present, otherwise the DMA-resident message. With no
-	 * message bytes to absorb, Status carries the result of the preceding update and the
-	 * hash is closed by the padding applied in XSlhDsa_HashShakeFinish.
+	 * Absorb the message and close the absorb phase. In pre-hash mode the message is the
+	 * client supplied PH(M) digest. With no message bytes to absorb, Status carries the
+	 * result of the preceding update and the hash is closed by the padding applied in
+	 * XSlhDsa_HashShakeFinish.
 	 */
-	if (InstPtr->MsgLocalPtr != NULL) {
-		Status = XSlhDsa_HashUpdateMsg(HashCtxPtr,
-					       (u64)(UINTPTR)InstPtr->MsgLocalPtr,
-					       InstPtr->MsgLocalLen, 1U);
-	}
-	else if ((InstPtr->MsgAddr != 0U) && (InstPtr->MsgLen > 0U)) {
+	if ((InstPtr->MsgAddr != 0U) && (InstPtr->MsgLen > 0U)) {
 		Status = XSlhDsa_HashUpdateMsg(HashCtxPtr, InstPtr->MsgAddr, InstPtr->MsgLen, 1U);
 	}
 
@@ -2876,14 +2789,15 @@ static s32 XSlhDsa_HashShakeAppendPureContext(XSlhDsa_HashCtx *HashCtxPtr, const
 	Status = XSlhDsa_HashUpdate(HashCtxPtr, (u64)(UINTPTR)PureHdr,
 				    XASU_SLHDSA_PREFIX_HDR_LEN, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	if ((CtxLen > 0U) && (Ctx != NULL)) {
-		return XSlhDsa_HashUpdate(HashCtxPtr, (u64)(UINTPTR)Ctx, CtxLen, 0U);
+		Status = XSlhDsa_HashUpdate(HashCtxPtr, (u64)(UINTPTR)Ctx, CtxLen, 0U);
 	}
 
-	return XASUFW_SUCCESS;
+END:
+	return Status;
 }
 /*************************************************************************************************/
 /**
@@ -2909,14 +2823,15 @@ static s32 XSlhDsa_HashSha2AppendPureContext(XSlhDsa_HashCtx *HashCtxPtr, const 
 	Status = XSlhDsa_HashUpdate(HashCtxPtr, (u64)(UINTPTR)PureHdr,
 				    XASU_SLHDSA_PREFIX_HDR_LEN, 0U);
 	if (Status != XASUFW_SUCCESS) {
-		return Status;
+		goto END;
 	}
 
 	if ((CtxLen > 0U) && (Ctx != NULL)) {
-		return XSlhDsa_HashUpdate(HashCtxPtr, (u64)(UINTPTR)Ctx, CtxLen, 0U);
+		Status = XSlhDsa_HashUpdate(HashCtxPtr, (u64)(UINTPTR)Ctx, CtxLen, 0U);
 	}
 
-	return XASUFW_SUCCESS;
+END:
+	return Status;
 }
 /*************************************************************************************************/
 /**

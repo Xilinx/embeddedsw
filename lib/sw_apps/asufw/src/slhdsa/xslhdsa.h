@@ -24,6 +24,8 @@
 *       kk   09/18/26 Size a yield slice by leaves built rather than by elapsed time
 *       kk   09/23/26 Run a pairwise consistency test on every generated key pair
 *       kk   10/08/26 Addressed FMEA findings
+*       kk   10/14/26 Carried the message and pre-hash digest as 64-bit DMA addresses and
+*                     dropped CPU-pointer secret- and public-key loads
 *
 * </pre>
 *
@@ -81,6 +83,9 @@ extern "C" {
 
 /** Signature scratch: largest supported signature (SHAKE/SHA2-256s). */
 #define XSLHDSA_SIG_SCRATCH_BYTES	(XASU_SLHDSA_MAX_SIG_SIZE)
+
+/** Context scratch: longest FIPS context, rounded up so a staging DMA stays in the buffer. */
+#define XSLHDSA_CTX_SCRATCH_BYTES	((((XASU_SLHDSA_MAX_CTX_LEN) + 7U) / 8U) * 8U)
 
 /**
  * Start of the pool above the scratch, on an 8-byte boundary so that the DMA transfers and the
@@ -183,18 +188,16 @@ typedef struct {
 /**
  * ASUFW SLH-DSA runtime context.
  *
- * Unlike reference slh_var_t, this structure binds external DMA buffers, firmware
- * scratch memory, and optional SHA/DMA engine handles for hardware-accelerated paths.
+ * Binds the client buffer addresses, the firmware scratch memory, and the SHA and DMA engine
+ * handles the hardware-accelerated paths run on.
  */
 struct _XSlhDsa_Instance {
 	XSlhDsa_YieldCtx Yield; /**< Cooperative yield/resume state for long ops. */
 	u64 MsgAddr; /**< DMA address of the message buffer. */
 	u64 SigAddr; /**< DMA address of the signature buffer. */
-	u64 PkAddr; /**< DMA address of the external public-key buffer. */
 
 	XSlhDsa_Adrs *Addr; /**< Active domain-separation address for hash calls. */
 	const XSlhDsa_HashOps *HashOps; /**< Hash backend bound at param-set init. */
-	const u8 *MsgLocalPtr; /**< Client-supplied PH(M) digest buffer. */
 	u8 *WorkMem; /**< Firmware scratch for WOTS+/XMSS/FORS intermediates. */
 	u8 *MsgDigest; /**< Buffer holding the H_msg digest output. */
 	u8 *NodeBuf; /**< Single n-byte node buffer for hypertree operations. */
@@ -204,7 +207,6 @@ struct _XSlhDsa_Instance {
 	XSlhDsa_Param Param; /**< Materialized parameter view for the active set. */
 	u32 MsgLen; /**< Message length in bytes. */
 	u32 SigLen; /**< Signature buffer length in bytes. */
-	u32 MsgLocalLen; /**< Length of MsgLocalPtr (32 or 64 for pre-hash). */
 	u32 CtxPrefixLen; /**< Context prefix length in WorkMem (pure or pre-hash). */
 
 	const u8 *PkSeed; /**< Public-key seed (n bytes), NULL when unstaged. */
@@ -285,14 +287,12 @@ XSlhDsa_Instance *XSlhDsa_GetInstance(void);
 s32 XSlhDsa_BindParam(XSlhDsa_Instance *InstPtr, XSlhDsa_ParamSet ParamSet);
 s32 XSlhDsa_LookupParamSet(XSlhDsa_ParamSet ParamSet,
 				const XSlhDsa_Param **ParamPtrPtr);
-s32 XSlhDsa_LoadPk(XSlhDsa_Instance *InstPtr, const u8 *Pk);
-s32 XSlhDsa_LoadSk(XSlhDsa_Instance *InstPtr, const u8 *Sk);
 s32 XSlhDsa_ClearSensitiveState(XSlhDsa_Instance *InstPtr);
 s32 XSlhDsa_ZeroizeSigScratch(void);
 
 const u8 *XSlhDsa_PreHashGetOid(u8 HashId);
 s32 XSlhDsa_PreHashBuildPrefix(XSlhDsa_Instance *InstPtr, const u8 *Ctx, u32 CtxLen);
-s32 XSlhDsa_PreparePreHashMsg(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
+s32 XSlhDsa_PreparePreHashMsg(XSlhDsa_Instance *InstPtr, u32 MsgLen,
 				   const u8 *Ctx, u32 CtxLen);
 
 s32 XSlhDsa_KeyGen(XAsufw_Dma *DmaPtr, XSha *ShaPtr,

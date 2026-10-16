@@ -20,6 +20,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 1.0   kk   07/10/26 Initial release
+*       kk   10/14/26 Took the PRF_msg message as a 64-bit DMA address
 *
 * </pre>
 *
@@ -83,7 +84,7 @@ struct _XSlhDsa_HashOps
 		      u32 InputLen, u8 *Output); /**< T_l hash primitive. */
 	s32 (*HashPrf)(XSlhDsa_Instance *InstPtr, u8 *Output); /**< PRF on sk_seed. */
 	s32 (*HashPrfMsg)(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-			  const u8 *Msg, u32 MsgLen, const u8 *Ctx, u32 CtxLen,
+			  u64 MsgAddr, u32 MsgLen, const u8 *Ctx, u32 CtxLen,
 			  u8 *Output); /**< Message PRF for signing. */
 	s32 (*Chain)(XSlhDsa_Instance *InstPtr, const u8 *Input,
 		     const XSlhDsa_ChainCfg *Cfg, u8 *Output); /**< WOTS+ chain of F. */
@@ -100,7 +101,7 @@ s32 XSlhDsa_HashTl(XSlhDsa_Instance *InstPtr, const u8 *Input, u32 InputLen,
 			u8 *Output);
 s32 XSlhDsa_HashPrf(XSlhDsa_Instance *InstPtr, u8 *Output);
 s32 XSlhDsa_HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-			    const u8 *Msg, u32 MsgLen, const u8 *Ctx, u32 CtxLen, u8 *Output);
+			    u64 MsgAddr, u32 MsgLen, const u8 *Ctx, u32 CtxLen, u8 *Output);
 s32 XSlhDsa_Chain(XSlhDsa_Instance *InstPtr, const u8 *Input,
 		       const XSlhDsa_ChainCfg *Cfg, u8 *Output);
 s32 XSlhDsa_WotsCheckChainRange(const XSlhDsa_Param *ParamPtr,
@@ -112,8 +113,6 @@ s32 XSlhDsa_HashUpdate(XSlhDsa_HashCtx *HashCtxPtr, u64 Addr, u32 Len, u32 EndLa
 s32 XSlhDsa_HashShakeBegin(XSlhDsa_HashCtx *HashCtxPtr);
 s32 XSlhDsa_HashShakeFinish(XSlhDsa_HashCtx *HashCtxPtr, u8 *Out, u32 OutLen);
 s32 XSlhDsa_HashShakePkSeedAddrLocal(XSlhDsa_Instance *InstPtr, const u8 *Msg, u32 MsgLen,
-			u8 *Out, u32 OutLen);
-s32 XSlhDsa_HashShakePkSeedAddrDma(XSlhDsa_Instance *InstPtr, u64 MsgAddr, u32 MsgLen,
 			u8 *Out, u32 OutLen);
 s32 XSlhDsa_HashSha2Begin(XSlhDsa_HashCtx *HashCtxPtr, u32 ShaMode);
 s32 XSlhDsa_HashSha2UpdatePkSeedPrefix(XSlhDsa_HashCtx *HashCtxPtr,
@@ -133,7 +132,7 @@ s32 XSlhDsa_Sha2HashTl(XSlhDsa_Instance *InstPtr, const u8 *Input,
 			u32 InputLen, u8 *Output);
 s32 XSlhDsa_Sha2HashPrf(XSlhDsa_Instance *InstPtr, u8 *Output);
 s32 XSlhDsa_Sha2HashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-			const u8 *Msg, u32 MsgLen,
+			u64 MsgAddr, u32 MsgLen,
 			const u8 *Ctx, u32 CtxLen, u8 *Output);
 s32 XSlhDsa_Sha2Chain(XSlhDsa_Instance *InstPtr, const u8 *Input,
 			const XSlhDsa_ChainCfg *Cfg, u8 *Output);
@@ -147,7 +146,7 @@ s32 XSlhDsa_ShakeHashTl(XSlhDsa_Instance *InstPtr, const u8 *Input,
 			u32 InputLen, u8 *Output);
 s32 XSlhDsa_ShakeHashPrf(XSlhDsa_Instance *InstPtr, u8 *Output);
 s32 XSlhDsa_ShakeHashPrfMsg(XSlhDsa_Instance *InstPtr, const u8 *OptRand,
-			const u8 *Msg, u32 MsgLen,
+			u64 MsgAddr, u32 MsgLen,
 			const u8 *Ctx, u32 CtxLen, u8 *Output);
 s32 XSlhDsa_ShakeChain(XSlhDsa_Instance *InstPtr, const u8 *Input,
 			const XSlhDsa_ChainCfg *Cfg, u8 *Output);

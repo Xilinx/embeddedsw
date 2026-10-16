@@ -11,7 +11,7 @@
 * This file contains cooperative yield support for long-running SLH-DSA key generation
 * and signing in ASUFW firmware.
 *
-* Declares the yield context stored on the SLH-DSA instance, slice timing constants,
+* Declares the yield context stored on the SLH-DSA instance, slice budget constants,
 * and the session begin, end, poll and resume interfaces used by the command handlers
 * and the tree primitives.
 *
@@ -160,7 +160,7 @@ typedef struct {
  * This structure contains saved cooperative-yield context for SLH-DSA long operations.
  */
 typedef struct {
-	XSlhDsa_YieldSession Session;	/**< Slice timing and request identity. */
+	XSlhDsa_YieldSession Session;	/**< Slice budget state and request identity. */
 	XSlhDsa_YieldKeygen Keygen;	/**< Key-generation buffers and stage. */
 	XSlhDsa_YieldSign Sign;		/**< Hedged-sign add_rand and stage. */
 	XSlhDsa_YieldVerify Verify;	/**< Verify request snapshot across a SHA DMA wait. */
