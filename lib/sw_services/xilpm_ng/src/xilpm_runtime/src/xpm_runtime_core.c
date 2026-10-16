@@ -14,6 +14,7 @@
 #include "xpm_runtime_clock.h"
 #include "xpm_core.h"
 #include "xpm_update.h"
+#include "xpm_runtime_power.h"
 
 static XPmRuntime_CoreList *RuntimeCoreList XPM_INIT_DATA(RuntimeCoreList) = NULL;
 
@@ -466,6 +467,7 @@ static XStatus XPmCore_ReleaseAndProcessPending(const XPm_Core *Core,
 {
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
+	XPm_Power *Fpd = NULL;
 
 	/* Resolve the core's owning subsystem before attempting its release. */
 	*SubsystemId = XPmDevice_GetSubsystemIdOfCore(&Core->Device);
@@ -475,9 +477,22 @@ static XStatus XPmCore_ReleaseAndProcessPending(const XPm_Core *Core,
 		goto done;
 	}
 
+	/*
+	 * While a restart, forced power down or subsystem shutdown is pending,
+	 * the cores power down one by one and the last one completes the
+	 * request. As in XPmSubsystem_ForcePwrDwn(), hold a reference on FPD
+	 * across the core release and that completion, so that neither can
+	 * switch FPD off: the APU_PCIL write and the subsystem power up need it
+	 * on.
+	 */
+	if (((u8)PENDING_POWER_OFF == Subsystem->State) ||
+	    ((u8)PENDING_RESTART == Subsystem->State)) {
+		Fpd = XPmPower_HoldFpd();
+	}
+
 	/* Record both endpoint states before the release changes either one. */
 	PmInfo("Releasing core 0x%x (state: 0x%x) from subsystem 0x%x (state: 0x%x)\r\n",
-		Core->Device.Node.Id, Core->Device.Node.Id, *SubsystemId, Subsystem->State);
+	       Core->Device.Node.Id, Core->Device.Node.State, *SubsystemId, Subsystem->State);
 
 	/* Release the subsystem's allocation of the core first. */
 	Status = XPmDevice_Release(*SubsystemId, Core->Device.Node.Id,
@@ -499,6 +514,8 @@ static XStatus XPmCore_ReleaseAndProcessPending(const XPm_Core *Core,
 	PmInfo("Success, Core 0x%x released from 0x%x\r\n", Core->Device.Node.Id, *SubsystemId);
 
 done:
+	/* Drop the FPD reference taken for a pending request, if any */
+	XPmPower_ReleaseFpd(Fpd);
 	/*
 	 * Single exit carrying the FIRST failure: later stages are skipped once
 	 * one fails, so the returned status identifies the stage that stopped

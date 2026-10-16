@@ -2961,7 +2961,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 	XStatus Status = XST_FAILURE;
 	XPm_Subsystem *Subsystem;
 	const XPm_ResetNode *Rst;
-	XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
+	XPm_Power *Fpd = NULL;
 
 	PmDbg("%s: SubsystemId=0x%x, Type=0x%x, SubType=0x%x\r\n",
 		SubsystemId, Type, SubType);
@@ -3018,9 +3018,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 		 * switch the domain off. FPD is not meant to be power cycled by
 		 * a subsystem restart.
 		 */
-		if (NULL != Fpd) {
-			Fpd->UseCount++;
-		}
+		Fpd = XPmPower_HoldFpd();
 
 		if (0U != (SUBSYSTEM_IDLE_SUPPORTED & Subsystem->Flags)) {
 			/* Arm recovery monitoring before waiting for cores to idle. */
@@ -3060,9 +3058,7 @@ XStatus XPm_SystemShutdown(u32 SubsystemId, u32 Type, u32 SubType, u32 CmdType)
 
 fpd_restore:
 		/* Restart finished or aborted: release the FPD reference */
-		if ((NULL != Fpd) && (0U < Fpd->UseCount)) {
-			Fpd->UseCount--;
-		}
+		XPmPower_ReleaseFpd(Fpd);
 		break;
 	case PM_SHUTDOWN_SUBTYPE_RST_SYSTEM:
 		/*

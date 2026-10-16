@@ -12,6 +12,9 @@
 extern "C" {
 #endif
 
+XPm_Power *XPmPower_HoldFpd(void);
+void XPmPower_ReleaseFpd(XPm_Power *Fpd);
+
 #ifdef __cplusplus
 }
 #endif

@@ -6,6 +6,7 @@
 #include "xpm_subsystem.h"
 #include "xpm_alloc.h"
 #include "xpm_update.h"
+#include "xpm_runtime_power.h"
 
 static XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId);
 
@@ -269,26 +270,39 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Handler for idle subsystem and force down cleanup
+ * @brief  Release all devices of a subsystem that is being restarted,
+ *	   forced down or shut down
  *
  * @param SubsystemId     Target Subsystem ID
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or an error code
  * or a reason code
  *
- * @note   None
+ * @note   FPD is held on across the release, see XPmPower_HoldFpd()
  *
  ****************************************************************************/
 XStatus XPmSubsystem_ForcePwrDwn(u32 SubsystemId)
 {
 	XStatus Status = XST_FAILURE;
+	XPm_Power *Fpd = NULL;
 	XPm_Subsystem *Subsystem = XPmSubsystem_GetById(SubsystemId);
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 	const XPm_SubsystemOps *Ops = XPmSubsystem_GetOps(Subsystem);
+
+	/*
+	 * FPD is not powered off by a subsystem level request: a restart, a
+	 * forced power down or a subsystem shutdown. Hold it while the
+	 * subsystem's devices are released, so that releasing its last FPD
+	 * users cannot switch the domain off. When the last FPD users are
+	 * released, FPD stays on, unused, until a device requests it again or a
+	 * power management flow such as suspend to RAM switches it off.
+	 */
+	Fpd = XPmPower_HoldFpd();
 	Status = Ops->ShutDown(Subsystem);
+	XPmPower_ReleaseFpd(Fpd);
 done:
 	return Status;
 }

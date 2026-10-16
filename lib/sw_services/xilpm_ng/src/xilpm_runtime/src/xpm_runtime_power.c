@@ -128,3 +128,95 @@ maybe_unused static XStatus XPmPower_ForcePwrDwn(u32 NodeId)
 done:
 	return Status;
 }
+
+/****************************************************************************/
+/**
+ * @brief  Hold FPD on across a subsystem level request
+ *
+ * Takes one reference on FPD so that releasing devices during a subsystem
+ * restart, forced power down or subsystem shutdown cannot switch it off.
+ * The reference goes through the power state machine, so that taking an
+ * unused FPD to used also requests its power parent, as for any other user.
+ * When FPD is not on, nothing is held: it has no users that the scope could
+ * release, and a power up inside the scope is counted by the power state
+ * machine itself.
+ *
+ * @return FPD if a reference was taken, NULL otherwise. Pass the result to
+ *	   XPmPower_ReleaseFpd() at the end of the scope.
+ *
+ ****************************************************************************/
+XPm_Power *XPmPower_HoldFpd(void)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Fpd = XPmPower_GetById(PM_POWER_FPD);
+
+	/* Nothing to hold unless FPD is on */
+	if ((NULL == Fpd) || ((u8)XPM_POWER_STATE_ON != Fpd->Node.State)) {
+		Fpd = NULL;
+		goto done;
+	}
+
+	/* Take the reference through the power state machine */
+	Status = Fpd->HandleEvent(&Fpd->Node, (u32)XPM_POWER_EVENT_PWR_UP);
+	if (XST_SUCCESS != Status) {
+		PmErr("FPD hold failed: 0x%x\r\n", Status);
+		/* No reference was taken, so there is nothing to release */
+		Fpd = NULL;
+	}
+
+done:
+	return Fpd;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Drop the FPD reference taken by XPmPower_HoldFpd()
+ *
+ * FPD is never powered off here. If this is its last reference while it is
+ * on, FPD is left on and unused, and its power parent is released as the power
+ * state machine does when a domain goes from used to unused, so that the next
+ * request of FPD requests the parent again and the parent use count stays
+ * balanced.
+ *
+ * Assumption of use: FPD is not the only user of its power parent. Otherwise
+ * releasing the last hold makes the parent's state machine power the parent
+ * down while FPD stays on. LPD always has other users, such as the ASU and
+ * RPU IPIs.
+ *
+ * @param Fpd	Result of XPmPower_HoldFpd(); NULL if no reference was taken
+ *
+ ****************************************************************************/
+void XPmPower_ReleaseFpd(XPm_Power *Fpd)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_Power *Parent = NULL;
+
+	if (NULL == Fpd) {
+		/* XPmPower_HoldFpd() took no reference */
+		goto done;
+	}
+
+	if (0U == Fpd->UseCount) {
+		/* Unbalanced release: there is no reference left to drop */
+		PmErr("FPD hold already released\r\n");
+	} else if ((1U == Fpd->UseCount) &&
+		   ((u8)XPM_POWER_STATE_ON == Fpd->Node.State) &&
+		   (NULL != Fpd->Parent)) {
+		/*
+		 * Last reference: leave FPD on and unused, and release its
+		 * parent as the power state machine does from used to unused.
+		 */
+		Fpd->UseCount = 0U;
+		Parent = Fpd->Parent;
+		Status = Parent->HandleEvent(&Parent->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
+		if (XST_SUCCESS != Status) {
+			PmErr("FPD parent release failed: 0x%x\r\n", Status);
+		}
+	} else {
+		/* Otherwise only drop this reference, without a state change */
+		Fpd->UseCount--;
+	}
+
+done:
+	return;
+}
