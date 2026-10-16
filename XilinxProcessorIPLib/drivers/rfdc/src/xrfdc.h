@@ -953,6 +953,7 @@ typedef struct {
 #define XRFDC_BUS_NAME "platform"
 #define XRFDC_SIGNATURE "usp_rf_data_converter" /**< String in RFDC node
 						 * name. */
+#define XRFDC_SIGNATURE_SDT "usp-rf-data-converter" /**< SDT/Lopper flow. */
 #define XRFDC_CONFIG_DATA_PROPERTY "param-list" /**< Device tree property. */
 #define XRFDC_COMPATIBLE_PROPERTY "compatible" /**< Device tree property. */
 #define XRFDC_NUM_INSTANCES_PROPERTY "num-insts" /**< Device tree property. */

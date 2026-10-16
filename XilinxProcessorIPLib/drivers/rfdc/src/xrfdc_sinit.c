@@ -146,17 +146,20 @@ s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 {
 	s32 Status = XRFDC_FAILURE;
 	u32 Data = 0;
+	s32 CloseStatus;
 	char CompatibleString[NAME_MAX];
 	struct metal_device *DevicePtr;
 	DIR *DirPtr;
 	struct dirent *DirentPtr;
 	char Len = strlen(XRFDC_COMPATIBLE_STRING);
 	char SignLen = strlen(XRFDC_SIGNATURE);
+	char SignSdtLen = strlen(XRFDC_SIGNATURE_SDT);
 
 	DirPtr = opendir(XRFDC_PLATFORM_DEVICE_DIR);
 	if (DirPtr) {
 		while ((DirentPtr = readdir(DirPtr)) != NULL) {
-			if (XRFdc_Strrncmp(DirentPtr->d_name, XRFDC_SIGNATURE, SignLen) == 0) {
+			if ((XRFdc_Strrncmp(DirentPtr->d_name, XRFDC_SIGNATURE, SignLen) == 0) ||
+                    (XRFdc_Strrncmp(DirentPtr->d_name, XRFDC_SIGNATURE_SDT, SignSdtLen) == 0)) {
 				Status = metal_device_open("platform", DirentPtr->d_name, &DevicePtr);
 				if (Status) {
 					metal_log(METAL_LOG_ERROR, "\n Failed to open device %s", DirentPtr->d_name);
@@ -183,11 +186,10 @@ s32 XRFdc_GetDeviceNameByDeviceId(char *DevNamePtr, u16 DevId)
 		}
 	}
 
-   Status = (s32)closedir(DirPtr);
-   if (Status < 0) {
-      metal_log(METAL_LOG_ERROR, "\n Failed to close directory");
-   }
-
+    CloseStatus = (s32)closedir(DirPtr);
+    if (CloseStatus < 0) {
+        metal_log(METAL_LOG_ERROR, "\n Failed to close directory");
+    }
 	return Status;
 }
 #endif
