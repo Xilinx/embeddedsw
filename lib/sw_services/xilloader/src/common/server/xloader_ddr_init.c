@@ -32,6 +32,7 @@
  *                       the DDRMC exchange window
  *       pre  09/17/2026 Reset I2C instance state after release on all platforms
  *       ng   10/14/2026 Updated I2C handshake error handling
+ *       sd   10/08/2026 Added range bound check for NumBaseAddr
  * </pre>
  *
  *
@@ -163,12 +164,23 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 		}
 	}
 
+	/* Reject a command shorter than the two fixed header words the parser reads */
+	if (Cmd->Len < XPLMI_SHORT_WORD_LEN) {
+		Status = XLOADER_ERR_MAX_BASE_ADDR;
+		goto END;
+	}
+
 	/* Parse the PLM-UB handshake command */
 	Status = XLoader_PmcI2cParseHandshakeCmd(&I2cHsCmd, Cmd);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
+	/* Reject if NumBaseAddr exceeds the base addresses supplied in the command */
+	if ((I2cHsCmd.NumBaseAddr + XPLMI_SHORT_WORD_LEN) > Cmd->Len) {
+		Status = XLOADER_ERR_MAX_BASE_ADDR;
+		goto END;
+	}
 
 	TimeoutNs = ((u64) I2cHsCmd.CmdTimeout * XPLMI_MEGA);
 	TimeStart = XPlmi_GetTimerValue();
