@@ -218,6 +218,9 @@ XIntc       Intc;
 #if defined (ARMR5) || ((__aarch64__) && (!defined XPS_BOARD_ZCU104))
 XIicPs Ps_Iic0, Ps_Iic1;
 #define PS_IIC_CLK 100000
+#ifdef versal
+static XIic Axi_Iic0;	/* AXI IIC instance, separate from PS IIC (Ps_Iic0) */
+#endif
 #endif
 
 
@@ -1549,8 +1552,6 @@ void EnableColorBar(XHdmiphy1                *Hdmiphy1Ptr,
 
 void enable_hdmi_interrupt(void)
 {
-int Status;
-
 XEnableIntrId( XV_HdmiTxSs_ConfigPtr->IntrId[0],
 				XV_HdmiTxSs_ConfigPtr->IntrParent);
 xil_printf("Registered HDMI TX interrupt handler");
@@ -1696,7 +1697,7 @@ int config_hdmi() {
 		return XST_FAILURE;
 	}
 
-	Status = XIic_CfgInitialize(&Ps_Iic0, ConfigPtr,
+	Status = XIic_CfgInitialize(&Axi_Iic0, ConfigPtr,
 			ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
