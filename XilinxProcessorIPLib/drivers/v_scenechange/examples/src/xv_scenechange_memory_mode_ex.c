@@ -62,16 +62,20 @@
  */
 #define MAX_PATTERNS		8
 
-#if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
-#define PS_ACPU_GIC_DEVICE_ID XPAR_PSU_ACPU_GIC_DEVICE_ID
-#elif defined XPAR_SCUGIC_0_DEVICE_ID
-#define PS_ACPU_GIC_DEVICE_ID XPAR_SCUGIC_0_DEVICE_ID
-#else
-#warning No GIC Device ID found
-#endif
-
 #if defined XPAR_GPIO_0_BASEADDR
 #define GPIO_BASE XPAR_GPIO_0_BASEADDR
+#elif defined XPAR_XGPIO_0_BASEADDR
+#define GPIO_BASE XPAR_XGPIO_0_BASEADDR
+#endif
+
+/**
+ * Base of the frame buffer region. On MicroBlaze RISC-V platforms DDR does
+ * not start at 0, and its beginning holds the application image.
+ */
+#if defined(__riscv) && defined(XPAR_LPDDRMC_0_BASEADDR)
+#define FRAME_BUF_BASE		(XPAR_LPDDRMC_0_BASEADDR + 0x10000000)
+#else
+#define FRAME_BUF_BASE		0x10000000
 #endif
 
 
@@ -86,8 +90,10 @@ volatile u32 local_mem[8] = {0xFF00FF, 0xFFFF00, 0xFF0000, 0x00FFFF,
 	0xFFFF00, 0xFF00FF, 0x00FFFF, 0xFF0000};
 
 /* Different memory location for the streams */
-u64 memaddr[8] = {0x10000000, 0x20000000, 0x20400000, 0x20800000,
-	0x30000000, 0x30400000, 0x30800000, 0x40000000};
+u64 memaddr[8] = {FRAME_BUF_BASE, FRAME_BUF_BASE + 0x10000000,
+	FRAME_BUF_BASE + 0x10400000, FRAME_BUF_BASE + 0x10800000,
+	FRAME_BUF_BASE + 0x20000000, FRAME_BUF_BASE + 0x20400000,
+	FRAME_BUF_BASE + 0x20800000, FRAME_BUF_BASE + 0x30000000};
 
 /* below are the configurable parameters: user can give height and width
  * to 4320, 8192 and stride value, histbits, color format, threshold is
@@ -101,7 +107,6 @@ u32 scd_clrfmt[XV_SCD_IP_MAX_STREAMS]	= {XV_SCD_HAS_Y8, 0, 0, 0, 0, 0, 0, 0};
 u32 scd_threshold[XV_SCD_IP_MAX_STREAMS] = {1, 0, 0, 0, 0, 0, 0, 0};
 
 volatile u8 is_detected, sc_detected;
-XScuGic    Intc;
 XV_scenechange ScdPtr;
 
 /*****************************************************************************/
@@ -196,7 +201,7 @@ int XV_SceneChange_init()
 				xil_printf("ERR:: Unable to configure SD Layer\r\n");
 				return XST_FAILURE;
 			}
-			memset((char *)memaddr[streams], local_mem[streams],
+			memset((char *)(UINTPTR)memaddr[streams], local_mem[streams],
 					scd_height[streams] * scd_width[streams]);
 		}
 	}
@@ -238,8 +243,8 @@ int XV_SceneChange_init()
 void reset_pipe(void)
 {
 
-#if defined XPAR_GPIO_0_BASEADDR
-	u32 count;
+#if defined GPIO_BASE
+	volatile u32 count;
 	*(u32 *)(GPIO_BASE) = 0xFF;
 	for (count = 0; count <1000; count++);
 	*(u32 *)(GPIO_BASE) = 0x0;
@@ -316,7 +321,7 @@ int main()
 		}
 
 		/* pattern is changing on Layer-0 to test - used can configure*/
-		memset((char *)memaddr[SCD_LAYER_0], local_mem[state],
+		memset((char *)(UINTPTR)memaddr[SCD_LAYER_0], local_mem[state],
 				scd_height[SCD_LAYER_0] * scd_width[SCD_LAYER_0]);
 		sleep(1);
 	} while(1);
