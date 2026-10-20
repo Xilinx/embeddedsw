@@ -910,33 +910,25 @@ void Dp21RxSs_PtMst_CalculateCRC(u8 Stream)
 		      (VidFrameCRC_rx_3.TEST_CRC_SUPPORTED << 5 |
 		       VidFrameCRC_rx_3.TEST_CRC_CNT));
 
+	/*
+	 * Store the actual color-format code (XVidC_ColorSpaceFormat:
+	 * RGB=0, YCbCr444=1, YCbCr422=2, YCbCr420=3) so that
+	 * XVidFrameCrc_SetVideoFormat() sets the CRC engine's 4:2:2/4:2:0
+	 * mode (VIDEO_FRAME_CRC_CONFIG bit 31) for Format 2 and 3.
+	 * Passing the old 0/1 "Mode_422" flag never satisfied the
+	 * (Format == 2 || Format == 3) condition, so bit 31 was never set.
+	 */
 	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID1);
-	if (color_mode == 2) {
-		VidFrameCRC_rx.Mode_422 = 0x1;
-	} else {
-		VidFrameCRC_rx.Mode_422 = 0x0;
-	}
+	VidFrameCRC_rx.Mode_422 = color_mode;
 
 	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID2);
-	if (color_mode == 2) {
-		VidFrameCRC_rx_1.Mode_422 = 0x1;
-	} else {
-		VidFrameCRC_rx_1.Mode_422 = 0x0;
-	}
+	VidFrameCRC_rx_1.Mode_422 = color_mode;
 
 	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID3);
-	if (color_mode == 2) {
-		VidFrameCRC_rx_2.Mode_422 = 0x1;
-	} else {
-		VidFrameCRC_rx_2.Mode_422 = 0x0;
-	}
+	VidFrameCRC_rx_2.Mode_422 = color_mode;
 
 	color_mode = XDpRxss_GetColorComponent(&DpRxSsInst, XDP_TX_STREAM_ID4);
-	if (color_mode == 2) {
-		VidFrameCRC_rx_3.Mode_422 = 0x1;
-	} else {
-		VidFrameCRC_rx_3.Mode_422 = 0x0;
-	}
+	VidFrameCRC_rx_3.Mode_422 = color_mode;
 
 	if (Stream == 0) {
 		VidFrameCRC_rx_4.Mode_422 = VidFrameCRC_rx.Mode_422;
@@ -1336,7 +1328,7 @@ int Dp21RxSs_PtMst_ConfigWrFb(u32 StrideInBytes,
 
 	Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer Write\r\n");
+		xil_printf("ERROR:: Unable to configure Frame Buffer Write: 0x%x: 0x%x\r\n", Status, Cfmt);
 		return(XST_FAILURE);
 	}
 
@@ -1392,7 +1384,7 @@ int Dp21RxSs_PtMst_ConfigRdFb(u32 StrideInBytes,
 	 */
 	Status = XVFrmbufRd_SetMemFormat(&frmbufrd, StrideInBytes, Cfmt, StreamPtr);
 	if(Status != XST_SUCCESS) {
-		xil_printf("ERROR:: Unable to configure Frame Buffer Read\r\n");
+		xil_printf("ERROR:: Unable to configure Frame Buffer Read: 0x%x: 0x%x\r\n", Status, Cfmt);
 		return(XST_FAILURE);
 	}
 
@@ -1561,6 +1553,11 @@ void Dp21RxSs_PtMst_WrFbStart(XDpTxSs_MainStreamAttributes Msa[4], u8 Stream)
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[8].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+		} else if (Msa[Stream].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV8 semi-planar */
+			Cfmt = ColorFormats[6].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[6].StreamFormat;
 		}else {
 			Cfmt = ColorFormats[7].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
@@ -1576,6 +1573,11 @@ void Dp21RxSs_PtMst_WrFbStart(XDpTxSs_MainStreamAttributes Msa[4], u8 Stream)
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[4].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
+		} else if (Msa[Stream].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV10 semi-planar */
+			Cfmt = ColorFormats[10].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[10].StreamFormat;
 		} else {
 			Cfmt = ColorFormats[3].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
@@ -1644,6 +1646,11 @@ void Dp21RxSs_PtMst_RdFbStart(XDpTxSs_MainStreamAttributes Msa[4], u8 Stream)
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[8].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[8].StreamFormat;
+		} else if (Msa[Stream].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV8 semi-planar */
+			Cfmt = ColorFormats[6].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[6].StreamFormat;
 		} else {
 			Cfmt = ColorFormats[7].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[7].StreamFormat;
@@ -1659,6 +1666,11 @@ void Dp21RxSs_PtMst_RdFbStart(XDpTxSs_MainStreamAttributes Msa[4], u8 Stream)
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444) {
 			Cfmt = ColorFormats[4].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[4].StreamFormat;
+		} else if (Msa[Stream].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			/* YCbCr 4:2:0 (signalled via VSC SDP) - Y_UV10 semi-planar */
+			Cfmt = ColorFormats[10].MemFormat;
+			VidStream.ColorFormatId = ColorFormats[10].StreamFormat;
 		} else {
 			Cfmt = ColorFormats[3].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[3].StreamFormat;
@@ -1861,14 +1873,26 @@ u32 naud_dup = 0;
  */
 u8 tx_ppc_set = 0;
 
+extern u8 use_vsc;	/**< 1 when the link carries colorimetry via VSC SDP */
+
 int Dp21RxSs_PtMst_DetectResolution(void *InstancePtr, u8 Stream)
 {
 	(void)InstancePtr;
-	char *color;
+	char *color = "RGB";
 	u8 i;
+	u32 misc1;
 	i = 0;
 
 	Msa_test = XDpRxss_GetMsa(&DpRxSsInst);
+
+	/*
+	 * MSA MISC1 bit-6 indicates that colorimetry is being carried over the
+	 * VSC SDP (as opposed to the legacy MISC0/MISC1 fields). Track it so the
+	 * 's' menu option can report whether the VSC SDP colorimetry path is in
+	 * use (required for extended colorimetry / static-HDR).
+	 */
+	misc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
+	use_vsc = (misc1 >> 6) & 0x1;
 	Dp21RxSs_PtMst_WrFbStop();
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
 
@@ -1893,17 +1917,21 @@ int Dp21RxSs_PtMst_DetectResolution(void *InstancePtr, u8 Stream)
 			color="YUV422";
 		} else if (Msa_test[i].ComponentFormat == 2) {
 			color="YUV444";
+		} else if (Msa_test[i].ComponentFormat ==
+				XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420) {
+			color="YUV420";
 		}
 
 		xil_printf ("****Stream %d************\r\n",i+1);
 		if (DpRxSsInst.link_up_trigger == 1) {
 			xil_printf("*** Resolution: "
-				   "%d x %d @ %dHz, BPC = %d, Color = %s ***\r\n",
+				   "%d x %d @ %dHz, BPC = %d, Color = %s, (VSC %d) ***\r\n",
 				   (int)Msa_test[i].Vtm.Timing.HActive,
 				   (int)Msa_test[i].Vtm.Timing.VActive,
 				   (int)Msa_test[i].Vtm.FrameRate,
 				   (int)Msa_test[i].BitsPerColor,
-				   color);
+				   color,
+				   use_vsc);
 
 			/*
 			 * Print Audio information based on DP version

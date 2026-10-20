@@ -62,6 +62,21 @@ void Dp21RxSs_PtMst_PtHelpMenu();
 void Dp21RxSs_PtMst_LaneLinkRateHelpMenu(void);
 
 volatile u8 tx_after_rx = 0;
+
+/*
+ * SDP / VSC colorimetry (HDR) capture state, populated by the RX info/ext
+ * packet handlers in rx.c and displayed via the 's' menu option.
+ */
+XDp_TxVscExtPacket ExtFrame_tx_vsc;	/**< Last captured VSC extended packet */
+u8  use_vsc = 0;			/**< VSC SDP colorimetry seen in MISA MISC1 */
+u8  type_vsc = 0;			/**< Non-zero once a VSC packet is captured */
+volatile u8  rx_last_sdp_type = 0;	/**< HB1 of last received SDP */
+volatile u32 rx_vsc_ext_cta_count = 0;	/**< VSC/EXT colorimetry packet count */
+
+/* Static-HDR (DRM) InfoFrame capture state. */
+u32          hdr_if_frame[8];		/**< Last captured 0x87 InfoFrame */
+volatile u8  hdr_if_valid = 0;		/**< Set once a 0x87 InfoFrame seen */
+volatile u32 rx_drm_if_count = 0;	/**< DRM/static-HDR InfoFrame count */
 volatile u8 Video_valid = 0;
 
 u8 LineRate_init_tx;
@@ -421,6 +436,45 @@ void Dp21RxSs_PtMst_PtSetup(void)
 
 					break;
 
+				case 's':
+#ifdef Rx
+					/*
+					 * Show the last received SDP / VSC colorimetry
+					 * and static-HDR (DRM) packets captured by the RX
+					 * info/ext packet handlers.
+					 */
+					Dp21RxSs_PtMst_RxPrint_ExtPkt();
+
+					xil_printf("Last SDP type (HB1)      : 0x%02x\r\n",
+						   rx_last_sdp_type);
+					xil_printf("VSC/EXT colorimetry pkts : %d\r\n",
+						   rx_vsc_ext_cta_count);
+					xil_printf("VSC SDP colorimetry (MISC1 bit6) : %s\r\n",
+						   use_vsc ? "YES" : "NO");
+
+					if (use_vsc) {
+						int vi;
+						xil_printf("Captured VSC Extended Packet:\r\n");
+						xil_printf("  Header  : 0x%08x\r\n",
+							   ExtFrame_tx_vsc.Header);
+						for (vi = 0; vi < 8; vi++) {
+							xil_printf("  Payload[%d] : 0x%08x\r\n",
+								   vi,
+								   ExtFrame_tx_vsc.Payload[vi]);
+						}
+					}
+
+					xil_printf("DRM/static-HDR InfoFrames: %d\r\n",
+						   rx_drm_if_count);
+					if (hdr_if_valid) {
+						Dp21RxSs_PtMst_RxPrint_HdrInfoPkt();
+					} else {
+						xil_printf("No DRM/static-HDR InfoFrame "
+							   "received yet\r\n");
+					}
+#endif
+					break;
+
 				case 'n':
 #ifdef Tx
 					/*
@@ -666,6 +720,10 @@ void Dp21RxSs_PtMst_StartTxAfterRx (void)
 	} else if(Msa_test_tx[0].ComponentFormat ==
 			XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444){
 		user_config.user_format = XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 + 1;
+	} else if(Msa_test_tx[0].ComponentFormat ==
+			XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420){
+		/* YCbCr 4:2:0 is conveyed via the VSC SDP (ComponentFormat 0x3) */
+		user_config.user_format = XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420 + 1;
 	} else {
 		user_config.user_format = XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB + 1;
 	}

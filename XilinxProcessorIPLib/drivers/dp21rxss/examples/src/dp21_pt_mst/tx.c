@@ -60,6 +60,10 @@ volatile u8 prev_line_rate;			/*
 extern XVphy VPhyInst;				/**< The DPRX Subsystem instance.*/
 extern XAxis_Switch axis_switch;
 
+/* VSC SDP colorimetry / static-HDR pass-through (defined in passthrough.c) */
+extern XDp_TxVscExtPacket ExtFrame_tx_vsc;
+extern u8 use_vsc;
+
 u8 num_sinks = 0;
 extern volatile u8 Tx_only;
 /************************** Variable Definitions *****************************/
@@ -772,8 +776,21 @@ u32 Dp21RxSs_PtMst_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_
 	usleep(100000);
 	Dp21RxSs_PtMst_Write(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x1);
 
-	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d\r\n",
-		   line_rate,lane_count, bpc);
+	/*
+	 * DP TX supports sending colorimetry info over the VSC extended SDP.
+	 * If VSC information is to be sent, the TX has to be configured for VSC
+	 * mode before training is started. The packet captured from the RX
+	 * during pass-through is replayed here so the colorimetry needed for
+	 * static-HDR content is preserved towards the sink. In MST all four
+	 * streams are configured with the captured colorimetry.
+	 */
+	for (i = XDP_TX_STREAM_ID1; i <= XDP_TX_STREAM_ID4; i++) {
+		XDpTxss_EnableVscColorimetry(&DpTxSsInst, i, use_vsc);
+		XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, i, ExtFrame_tx_vsc);
+	}
+
+	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d, (VSC %d)\r\n",
+		   line_rate,lane_count, bpc, use_vsc);
 
 	Status = XDpTxSs_SetLinkRate(&DpTxSsInst, line_rate);
 	if(Status != XST_SUCCESS){
@@ -810,6 +827,9 @@ u32 Dp21RxSs_PtMst_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_
 		format = XVIDC_CSF_YCRCB_422;
 	} else if(format == 2) {
 		format = XVIDC_CSF_YCRCB_444;
+	} else if(format == 3) {
+		/* ComponentFormat 0x3 == YCbCr 4:2:0 (carried over VSC SDP) */
+		format = XVIDC_CSF_YCRCB_420;
 	}
 
 	XDp_TxCfgSetColorEncode(DpTxSsInst.DpPtr, XDP_TX_STREAM_ID1, \

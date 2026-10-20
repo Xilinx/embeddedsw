@@ -98,8 +98,8 @@ extern "C" {
 * The following constants map to the names of the hardware instances.
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
-* There is only one interrupt controlled to be selected from SCUGIC and GPIO
-* INTC. INTC selection is based on INTC parameters defined xparameters.h file.
+* There is only one interrupt controller to be selected from SCUGIC and GPIO
+* INTC. INTC selection is based on INTC parameters defined in xparameters.h file.
 */
 
 #define AXIMMWIDTH 512

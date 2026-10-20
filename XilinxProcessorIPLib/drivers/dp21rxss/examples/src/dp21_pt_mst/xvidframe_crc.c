@@ -113,11 +113,11 @@ void XVidFrameCrc_Reset(Video_CRC_Config *VidFrameCRC)
 ******************************************************************************/
 void XVidFrameCrc_SetVideoFormat(Video_CRC_Config *VidFrameCRC, u8 Format)
 {
-	if (Format != 2) {
+	if (Format != 2 && Format != 3) {
 		XVidFrameCrc_WriteReg(VidFrameCRC->Base_Addr,
 				      VIDEO_FRAME_CRC_CONFIG,
 				      CRC_CFG);
-	} else { /**< 422 */
+	} else { /**< 422/420 */
 		XVidFrameCrc_WriteReg(VidFrameCRC->Base_Addr,
 				      VIDEO_FRAME_CRC_CONFIG,
 				      CRC_CFG | 0x80000000);

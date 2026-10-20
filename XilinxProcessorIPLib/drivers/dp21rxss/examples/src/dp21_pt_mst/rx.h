@@ -162,6 +162,8 @@ void Dprx_InterruptHandlerDownReq(void *InstancePtr);
 void Dprx_InterruptHandlerDownReply(void *InstancePtr);
 void Dprx_InterruptHandlerPayloadAlloc(void *InstancePtr);
 void Dprx_InterruptHandlerActRx(void *InstancePtr);
+void Dp21RxSs_PtMst_RxPrint_ExtPkt(void);
+void Dp21RxSs_PtMst_RxPrint_HdrInfoPkt(void);
 
 /************************** Variable Definitions *****************************/
 #define XACR_WriteReg(BaseAddress, RegOffset, Data)   \
