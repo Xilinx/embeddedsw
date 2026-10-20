@@ -326,9 +326,8 @@ u32 InitBypassPlatform(RunConfig *RunCfgPtr)
 		return Status;
 	}
 
-	/* Restore full pixel clock for DP MSA / downstream (clk wiz uses Ã—2/PPC) */
-	RunCfgPtr->PixelClkHz = (RunCfgPtr->PixelClkHz * XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE) /
-				BYPASS_CLK_NUMERATOR;
+	/* Restore full pixel clock for DP MSA / downstream */
+	RunCfgPtr->PixelClkHz *= XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE;
 
 	/* DC subsystem init */
 	xil_printf("  Configuring DC subsystem (bypass)...\r\n");
@@ -423,12 +422,10 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 
 	/*
 	 * Clock scaling for bypass:
-	 * dc_1x_clk = pixel_clock / PPC
-	 * clk_wiz output = pl_dc_2x_clk = dc_1x_clk * 2
-	 * => program clk wiz to pixel_clock * 2 / PPC
+	 * The clk wiz output drives the PL video pipeline and
+	 * pl_mmi_dc_1x_clk directly, so it must run at pixel_clock / PPC.
 	 */
-	RunCfgPtr->PixelClkHz = (RunCfgPtr->PixelClkHz * BYPASS_CLK_NUMERATOR) /
-				XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE;
+	RunCfgPtr->PixelClkHz /= XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE;
 
 	return XST_SUCCESS;
 }

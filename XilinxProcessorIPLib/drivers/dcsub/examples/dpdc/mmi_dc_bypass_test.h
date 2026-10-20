@@ -103,9 +103,6 @@ extern "C" {
 /* DC Video Frame Switch register value for bypass */
 #define BYPASS_DC_FRAME_SWITCH_VAL	0x3F
 
-/* Clock scaling factor: clk_wiz = pixel_clock * 2 / PPC */
-#define BYPASS_CLK_NUMERATOR		2
-
 /* Per-stream PPC from xparameters.h (fixed by XSA) */
 #ifndef XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE
 #define XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE	4
