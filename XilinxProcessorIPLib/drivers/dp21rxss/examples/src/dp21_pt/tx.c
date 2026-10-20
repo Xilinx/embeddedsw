@@ -1013,6 +1013,24 @@ u32 Dp21RxSs_Pt_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_con
 	u8 format = user_config.user_format-1;
 	int lr, lc = 0;
 	u32 Status;
+
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	/*
+	 * On VCK190/VEK385 the RX supports all link rates, but the TX GT does
+	 * not support UHBR13.5 (13.5 Gbps) or UHBR20 (20 Gbps). When the RX is
+	 * trained at one of these rates, cap the TX link rate to UHBR10
+	 * (10 Gbps) only.
+	 */
+	if (line_rate == XDP_TX_LINK_BW_SET_UHBR135
+			|| line_rate == XDP_TX_LINK_BW_SET_UHBR20) {
+		xil_printf("INFO: TX does not support %s on VCK190/VEK385; "
+			   "capping TX link rate to UHBR10 (10 Gbps)\r\n",
+			   (line_rate == XDP_TX_LINK_BW_SET_UHBR135) ?
+			   "UHBR13.5 (13.5 Gbps)" : "UHBR20 (20 Gbps)");
+		line_rate = XDP_TX_LINK_BW_SET_UHBR10;
+	}
+#endif /* Added for VCK190/VEK385 support */
+
 	lanecount_tx_run = lane_count;
 	linkrate_tx_run = line_rate;
 

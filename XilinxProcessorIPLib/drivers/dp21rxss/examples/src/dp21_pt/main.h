@@ -309,15 +309,6 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
  */
 #define GT_POWERGOOD_GPIO_DEVICE_ID XPAR_PROCESSOR_HIER_0_AXI_GPIO_0_DEVICE_ID
 #define GT_POWERGOOD_GPIO_BASEADDR  XPAR_PROCESSOR_HIER_0_AXI_GPIO_0_BASEADDR
-/*
- * TX path in this design is only ever GT/PHY-configured for UHBR10 (see
- * Dp21RxSs_Pt_Init()'s TX bring-up) - clamp any higher rate (mirrored from
- * RX, or reported by the sink) down to UHBR10 wherever a TX line rate is
- * chosen.
- */
-#define TX_CAP_LINERATE_VCK190(rate) \
-	(((rate) == XDP_TX_LINK_BW_SET_UHBR20 || (rate) == XDP_TX_LINK_BW_SET_UHBR135) ? \
-	 XDP_TX_LINK_BW_SET_UHBR10 : (rate))
 #endif /* Added for VCK190/VEK385 support */
 
 /*

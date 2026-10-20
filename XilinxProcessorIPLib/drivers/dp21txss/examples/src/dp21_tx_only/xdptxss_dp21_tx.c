@@ -684,7 +684,7 @@ u32 DpTxSs_PhyInit(UINTPTR BaseAddress)
 	u32 retry = 0;
 	(void)BaseAddress;
 
-	ReadModifyWrite(0x1F00, (0xA << 8));   /* vswing = 5 */
+	ReadModifyWrite(0x1F00, (0x5 << 8));   /* vswing = 5 */
 	ReadModifyWrite(0x1, (0 << 0));        /* release GT reset */
 
 	while ((dptx_sts != ALL_LANE) && retry < 10000) {

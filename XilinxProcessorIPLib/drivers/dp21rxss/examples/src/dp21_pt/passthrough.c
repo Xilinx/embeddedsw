@@ -480,11 +480,7 @@ void Dp21RxSs_Pt_Setup(void)
 					break;
 
 				case '4': /**< Re-start Tx side */
-#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
-					LineRate_init_tx = TX_CAP_LINERATE_VCK190(DpRxSsInst.UsrOpt.LinkRate);
-#else /* Added for VCK190/VEK385 support */
 					LineRate_init_tx = DpRxSsInst.UsrOpt.LinkRate;
-#endif /* Added for VCK190/VEK385 support */
 					LaneCount_init_tx = DpRxSsInst.UsrOpt.LaneCount;
 
 					user_config.user_bpc = Msa_Pt[0].BitsPerColor;
@@ -1003,7 +999,7 @@ void Dp21RxSs_Pt_StartTxAfterRx (void)
 	(void)supports_135g;
 	(void)supports_20g;
 
-	LineRate_init_tx = TX_CAP_LINERATE_VCK190(DpRxSsInst.UsrOpt.LinkRate);
+	LineRate_init_tx = DpRxSsInst.UsrOpt.LinkRate;
 #else /* Added for VCK190/VEK385 support */
 	/*
 	 * Determine what should be the TX rate
@@ -1379,14 +1375,8 @@ void Dp21RxSs_Pt_TxTracking(void)
 		user_config_txo.user_bpc = 8;
 		user_config_txo.user_format = 1;
 		user_config_txo.user_pattern = 1;
-#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
-		u8 TxOnlyLineRate = TX_CAP_LINERATE_VCK190(SinkMaxLinkrate);
-		Dp21RxSs_Pt_PhyConfig(&VPhyInst, TxOnlyLineRate, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
-		Dp21RxSs_Pt_StartTx(TxOnlyLineRate, SinkMaxLanecount, user_config_txo, 0);
-#else /* Added for VCK190/VEK385 support */
 		Dp21RxSs_Pt_PhyConfig(&VPhyInst, SinkMaxLinkrate, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 		Dp21RxSs_Pt_StartTx(SinkMaxLinkrate, SinkMaxLanecount, user_config_txo, 0);
-#endif /* Added for VCK190/VEK385 support */
 		XV_tpg_Start(&TpgInst);
 	}
 	else {
