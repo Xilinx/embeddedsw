@@ -96,6 +96,7 @@ u32 CalcStride(XVidC_ColorFormat Cfmt,
 					  u16 AXIMMDataWidth,
 					  XVidC_VideoStream *StreamPtr);
 extern XDp_MainStreamAttributes* Msa_Pt;
+extern u8 use_vsc;	/**< 1 when stream carries colorimetry via VSC SDP */
 
 
 //DDR Addresses of Frame Buffer
@@ -1952,6 +1953,17 @@ int Dppt_DetectResolution(void *InstancePtr){//,
 	(void)InstancePtr;
 	char *color;
 	Msa_Pt = XDpRxss_GetMsa(&DpRxSsInst);
+
+	/*
+	 * Detect whether the incoming stream carries its colorimetry through the
+	 * VSC SDP. MSA MISC1 bit-6 (VSC_SDP colorimetry indication) is set by the
+	 * upstream source when colorimetry is conveyed via the VSC SDP (used for
+	 * wide-gamut / static-HDR content). This drives the TX to replay the
+	 * colorimetry over the VSC SDP during pass-through.
+	 */
+	use_vsc = (XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+			       XDP_RX_MSA_MISC1) >> 6) & 0x1;
+
 	frameBuffer_stop_wr();
 	XDp_RxSetLineReset(DpRxSsInst.DpPtr,XDP_TX_STREAM_ID1);
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
@@ -1965,9 +1977,9 @@ int Dppt_DetectResolution(void *InstancePtr){//,
 	if (DpRxSsInst.link_up_trigger == 1) {
 		xil_printf(
 			"*** Resolution: "
-				"%lu x %lu @ %luHz, BPC = %lu, Color = %s ***\r\n",
+				"%lu x %lu @ %luHz, BPC = %lu, Color = %s, (VSC %d) ***\r\n",
 				Msa_Pt[0].Vtm.Timing.HActive, Msa_Pt[0].Vtm.Timing.VActive,Msa_Pt[0].Vtm.FrameRate,Msa_Pt[0].BitsPerColor,
-				color);
+				color, use_vsc);
 	}
 	if (DpRxSsInst.link_up_trigger == 1) {
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES

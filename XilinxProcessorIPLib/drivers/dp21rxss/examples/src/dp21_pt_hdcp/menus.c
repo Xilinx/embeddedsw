@@ -115,6 +115,7 @@ void pt_help_menu()
 	print(" 4 = Restart TX path \n\r");
 	//print(" 6 = Switch TX back to RX video data\n\r");
 	print(" c = Check SUM on Rx and Tx\n\r");
+	print(" s = Show received SDP / VSC colorimetry (HDR) packet\r\n");
 	print(" n = Clone EDID from Monitor\r\n");
 	print(" z = Display this menu again\r\n");
 	print(" x = Return to Main menu\r\n");
