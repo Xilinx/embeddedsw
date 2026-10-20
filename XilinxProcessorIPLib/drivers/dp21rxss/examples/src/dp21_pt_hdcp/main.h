@@ -144,7 +144,7 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
 * There is only one interrupt controller to be selected from SCUGIC and GPIO
-* INTC. INTC selection is based on INTC parameters defined xparameters.h file.
+* INTC. INTC selection is based on INTC parameters defined in xparameters.h file.
 */
 #define XINTC_DEVICE_ID 	XPAR_INTC_0_DEVICE_ID
 #define XINTC_HANDLER 		XIntc_InterruptHandler

@@ -117,6 +117,9 @@ void pt_help_menu()
 	print(" c = Check SUM on Rx and Tx\n\r");
 	print(" s = Show received SDP / VSC colorimetry (HDR) packet\r\n");
 	print(" n = Clone EDID from Monitor\r\n");
+#if ENABLE_HDCP_IN_DESIGN
+	print(" p = RX & TX HDCP debug info\r\n");
+#endif
 	print(" z = Display this menu again\r\n");
 	print(" x = Return to Main menu\r\n");
 	print("\n\r");
