@@ -322,6 +322,7 @@ void Dp21RxSs_Pt_FfeAdjustHandler(void *InstancePtr)
 			break;
 		}
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 		XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
 				diff_swing);
 		XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2,
@@ -335,6 +336,10 @@ void Dp21RxSs_Pt_FfeAdjustHandler(void *InstancePtr)
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, preemp);
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, preemp);
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, preemp);
+#else /* Added for VCK190/VEK385 support */
+		(void)preemp;
+		(void)diff_swing;
+#endif /* Added for VCK190/VEK385 support */
 }
 
 void Dp21RxSs_Pt_TxVsyncHandler(void *InstancePtr)
@@ -500,6 +505,7 @@ void Dp21RxSs_Pt_TxPeVsAdjustHandler(void *InstancePtr)
 				break;
 		}
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 		/*
 		 * Setting vswing
 		 */
@@ -519,6 +525,10 @@ void Dp21RxSs_Pt_TxPeVsAdjustHandler(void *InstancePtr)
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH2, preemp);
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH3, preemp);
 		XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4, preemp);
+#else /* Added for VCK190/VEK385 support */
+		GtCtrl(GT_VSWING_MASK, (diff_swing << 8), 1);
+		GtCtrl(GT_POSTCUR_MASK, (preemp << 18), 1);
+#endif /* Added for VCK190/VEK385 support */
 	}
 }
 
@@ -1030,6 +1040,7 @@ u32 Dp21RxSs_Pt_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_con
 
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_ENABLE, 0x1);
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	/*
 	 * DP TX supports sending colorimetry info over the VSC extended SDP.
 	 * If VSC information is to be sent, the TX has to be configured for VSC
@@ -1040,6 +1051,7 @@ u32 Dp21RxSs_Pt_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_con
 	 */
 	XDpTxss_EnableVscColorimetry(&DpTxSsInst, XDP_TX_STREAM_ID1, use_vsc);
 	XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, XDP_TX_STREAM_ID1, ExtFrame_tx_vsc);
+#endif
 
 	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d, (VSC %d)\r\n",
 		   line_rate,lane_count, bpc, use_vsc);

@@ -446,6 +446,7 @@ void Dp21RxSs_Pt_Setup(void)
 					xil_printf ("Tx Frame count %d\r\n",vsync_counter);
 #endif
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 					u8 pll = XVphy_GetPllType(&VPhyInst, 0, XVPHY_DIR_TX, VPHY_TX_CHANNEL_TYPE);
 					if (pll == 0x3) {
 						xil_printf ("TX is using QPLL0\r\n");
@@ -459,6 +460,7 @@ void Dp21RxSs_Pt_Setup(void)
 					} else if (pll == 0x4) {
 						xil_printf ("RX is using QPLL1\r\n");
 					}
+#endif /* Added for VCK190/VEK385 support */
 					break;
 
 				case '3':
@@ -478,7 +480,11 @@ void Dp21RxSs_Pt_Setup(void)
 					break;
 
 				case '4': /**< Re-start Tx side */
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+					LineRate_init_tx = TX_CAP_LINERATE_VCK190(DpRxSsInst.UsrOpt.LinkRate);
+#else /* Added for VCK190/VEK385 support */
 					LineRate_init_tx = DpRxSsInst.UsrOpt.LinkRate;
+#endif /* Added for VCK190/VEK385 support */
 					LaneCount_init_tx = DpRxSsInst.UsrOpt.LaneCount;
 
 					user_config.user_bpc = Msa_Pt[0].BitsPerColor;
@@ -521,6 +527,7 @@ void Dp21RxSs_Pt_Setup(void)
 #endif
 					break;
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 				case 's':
 #ifdef Rxo
 				{
@@ -561,6 +568,7 @@ void Dp21RxSs_Pt_Setup(void)
 				}
 #endif
 					break;
+#endif
 
 				case 'n':
 					/*
@@ -603,9 +611,11 @@ void Dp21RxSs_Pt_Setup(void)
 #ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 					Vpg_Audio_stop();
 #endif
+#ifdef Txo
 					Dp21RxSs_Pt_TxStart(&DpTxSsInst, 0);
 					XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x140);
 					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,0x144,0xFFF);
+#endif
 #if ENABLE_HDCP22_IN_RX
 					XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 									XDP_RX_SOFT_RESET,
@@ -988,6 +998,13 @@ void Dp21RxSs_Pt_StartTxAfterRx (void)
 	}
 
 #ifdef Txo
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	(void)supports_10g;
+	(void)supports_135g;
+	(void)supports_20g;
+
+	LineRate_init_tx = TX_CAP_LINERATE_VCK190(DpRxSsInst.UsrOpt.LinkRate);
+#else /* Added for VCK190/VEK385 support */
 	/*
 	 * Determine what should be the TX rate
 	 * Assuming 20G will support 20, 13.5, 10
@@ -1061,6 +1078,7 @@ void Dp21RxSs_Pt_StartTxAfterRx (void)
 	} else {
 		LineRate_init_tx = DpRxSsInst.UsrOpt.LinkRate;
 	}
+#endif /* Added for VCK190/VEK385 support */
 	LaneCount_init_tx = DpRxSsInst.UsrOpt.LaneCount;
 #endif
 	user_config.user_bpc = Msa_Pt[0].BitsPerColor;
@@ -1166,6 +1184,7 @@ void Dp21RxSs_Pt_UnplugProc (void)
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 	XDpTxSs_Stop(&DpTxSsInst);
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	/*
 	 * Setting vswing to 0
 	 */
@@ -1189,6 +1208,7 @@ void Dp21RxSs_Pt_UnplugProc (void)
 		XVPHY_GTHE4_PREEMP_DP_L0);
 	XVphy_SetTxPostCursor(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH4,
 		XVPHY_GTHE4_PREEMP_DP_L0);
+#endif /* Added for VCK190/VEK385 support */
 
 	Dp21RxSs_Pt_TxAudio (&DpTxSsInst, 0);
 
@@ -1359,8 +1379,14 @@ void Dp21RxSs_Pt_TxTracking(void)
 		user_config_txo.user_bpc = 8;
 		user_config_txo.user_format = 1;
 		user_config_txo.user_pattern = 1;
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+		u8 TxOnlyLineRate = TX_CAP_LINERATE_VCK190(SinkMaxLinkrate);
+		Dp21RxSs_Pt_PhyConfig(&VPhyInst, TxOnlyLineRate, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
+		Dp21RxSs_Pt_StartTx(TxOnlyLineRate, SinkMaxLanecount, user_config_txo, 0);
+#else /* Added for VCK190/VEK385 support */
 		Dp21RxSs_Pt_PhyConfig(&VPhyInst, SinkMaxLinkrate, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 		Dp21RxSs_Pt_StartTx(SinkMaxLinkrate, SinkMaxLanecount, user_config_txo, 0);
+#endif /* Added for VCK190/VEK385 support */
 		XV_tpg_Start(&TpgInst);
 	}
 	else {

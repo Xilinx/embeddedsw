@@ -41,17 +41,42 @@ extern "C" {
 #include "xintc.h"
 #endif
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include "xvphy.h"
 #include "xvphy_i.h"
+#else /* Added for VCK190/VEK385 support */
+/* Versal (VCK190/VEK385) has no XVphy GT-PHY IP/driver. These are minimal
+ * stand-in types so existing XVphy-typed globals/prototypes below still
+ * compile; none of their real fields are read on this board - the VCK190/
+ * VEK385 path drives the DP core with raw register writes instead. */
+typedef struct { UINTPTR BaseAddr; } XVphy;
+typedef u8 XVphy_ChannelId;
+typedef u8 XVphy_PllType;
+typedef u8 XVphy_PllRefClkSelType;
+#define XVPHY_CHANNEL_ID_CH1   0
+#define XVPHY_CHANNEL_ID_CH2   1
+#define XVPHY_CHANNEL_ID_CH3   2
+#define XVPHY_CHANNEL_ID_CH4   3
+#define XVPHY_DIR_TX           0
+#include "xgpio.h"
+#include "xclk_wiz.h"
+#endif /* Added for VCK190/VEK385 support */
 #if !defined (PLATFORM_MB) && !defined (__riscv)
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include "xuartps_hw.h"
+#endif /* Added for VCK190/VEK385 support */
 #include "xiicps.h"
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+#include "xuartpsv_hw.h"
+#endif /* Added for VCK190/VEK385 support */
 #else
 #include "xuartlite.h"
 #include "xuartlite_l.h"
 #endif
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include "xiic.h"
 #include "xiic_l.h"
+#endif /* Added for VCK190/VEK385 support */
 #include "xtmrctr.h"
 #include "xvidc_edid.h"
 #include "sleep.h"
@@ -66,7 +91,7 @@ extern "C" {
 * The following constants map to the names of the hardware instances.
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
-* There is only one interrupt controlled to be selected from SCUGIC and GPIO
+* There is only one interrupt controller to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
 #if !defined (PLATFORM_MB) && !defined (__riscv)
@@ -143,9 +168,17 @@ extern "C" {
 #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
 #endif
 
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+#define XVPHY_DEVICE_ID			0	/* unused on VCK190/VEK385; no XVphy instance exists */
+#else
 #define XVPHY_DEVICE_ID			XPAR_VPHY_0_DEVICE_ID
+#endif /* Added for VCK190/VEK385 support */
 
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+#define IIC_BASE_ADDR			0	/* unused on VCK190/VEK385; no PL AXI IIC core exists */
+#else /* Added for VCK190/VEK385 support */
 #define IIC_BASE_ADDR			XPAR_XIIC_0_BASEADDR
+#endif /* Added for VCK190/VEK385 support */
 
 #define IIC_DEVICE_ID			XPAR_IIC_0_DEVICE_ID
 #define PE_VS_ADJUST			1
@@ -196,6 +229,31 @@ extern "C" {
 #define CRC_CFG				0x4
 #endif
 
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+#define GT_QUAD_BASE                XPAR_GT_QUAD_HIER_0_GTWIZ_VERSAL_0_BASEADDR
+#define TXCLKDIV_REG                0x3694
+#define DIV3                        0x00000278
+#define DIV                         0x00000260
+#define DIV_MASK                    0x000003FF
+#define SINGLE_LANE                 0x00000011
+#define ALL_LANE                    0x0000003F
+#define VERSAL_200G                 6
+#define VERSAL_135G                 5
+#define VERSAL_100G                 4
+#define VERSAL_810G                 3
+#define VERSAL_540G                 2
+#define VERSAL_270G                 1
+#define VERSAL_162G                 0
+#define DP_LINK_RATE_HZ_162GBPS     1620000000LL
+#define DP_LINK_RATE_HZ_270GBPS     2700000000LL
+#define DP_LINK_RATE_HZ_540GBPS     5400000000LL
+#define DP_LINK_RATE_HZ_810GBPS     8100000000LL
+#define DP_LINK_RATE_HZ_10GBPS      10000000000LL
+#define DP_LINK_RATE_HZ_135GBPS     13500000000LL
+#define DP_LINK_RATE_HZ_20GBPS      20000000000LL
+#define VERSAL_FABRIC_8B10B         1
+#endif /* Added for VCK190/VEK385 support */
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
@@ -238,6 +296,9 @@ void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
 u32 DpTxSs_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_config);
 u32 DpTxSs_PhyConfig(int LineRate_init_tx, XVphy_PllType Tx_Pll, XVphy_ChannelId Tx_Channel);
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+void ReadModifyWrite(u32 MaskValue, u32 data);
+#endif /* Added for VCK190/VEK385 support */
 #ifdef PARRETO_FMC
 int i2c_write_freq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress,
                 u32 Value);

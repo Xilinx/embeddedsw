@@ -42,7 +42,8 @@ extern "C" {
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
-    defined (XPS_BOARD_VCK190)
+    defined (XPS_BOARD_VCK190) || \
+    defined (XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include "xiicps.h"
 #else
 #include "xiic.h"

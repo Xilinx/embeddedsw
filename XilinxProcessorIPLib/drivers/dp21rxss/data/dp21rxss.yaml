@@ -96,6 +96,12 @@ properties:
   interrupt-parent:
     description: Interrupt parent
 
+  xlnx,examplemodes:
+    description: Example mode value used to select this example. The
+      generator compares this against the design's xlnx,examplemodes
+      value, so each example entry must specify a single integer.
+    type: integer
+
 required:
     - compatible
     - reg
@@ -209,9 +215,32 @@ examples:
             - src/dp21_pt/xvid_clk_gen.c
             - src/dp21_pt/xvidframe_crc.c
             - src/dp21_pt/xvidframe_crc.h
-        - xlnx,examplemodes: 1
         - xlnx,hdcp-enable: 0
         - xlnx,num-streams: 1
+        - xlnx,examplemodes: 1
+
+    dummy/xdprxss_dp21_pt_versal.txt:
+        - dependency_files:
+            - src/dp21_pt/clk_set.c
+            - src/dp21_pt/clk_set.h
+            - src/dp21_pt/main.h
+            - src/dp21_pt/menus.c
+            - src/dp21_pt/passthrough.c
+            - src/dp21_pt/rx.c
+            - src/dp21_pt/rx.h
+            - src/dp21_pt/si570.c
+            - src/dp21_pt/si570drv.c
+            - src/dp21_pt/si570drv.h
+            - src/dp21_pt/tx.c
+            - src/dp21_pt/tx.h
+            - src/dp21_pt/videofmc_defs.h
+            - src/dp21_pt/xdprxss_dp21_pt.c
+            - src/dp21_pt/xvid_clk_gen.c
+            - src/dp21_pt/xvidframe_crc.c
+            - src/dp21_pt/xvidframe_crc.h
+        - xlnx,hdcp-enable: 0
+        - xlnx,num-streams: 1
+        - xlnx,examplemodes: 18
 
     dummy/xdprxss_dp21_pt_vcu.txt:
         - dependency_files:

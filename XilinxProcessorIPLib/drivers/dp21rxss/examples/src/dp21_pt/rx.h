@@ -27,9 +27,11 @@ extern "C" {
 #include <xparameters.h>
 #include <xstatus.h>
 #include <xtmrctr.h>
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include <xvphy.h>
 #include <xvphy_dp.h>
 #include <xvphy_hw.h>
+#endif /* Added for VCK190/VEK385 support */
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */

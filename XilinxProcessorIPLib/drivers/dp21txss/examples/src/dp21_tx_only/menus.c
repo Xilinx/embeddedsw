@@ -28,7 +28,9 @@ XDpTxSs DpTxSsInst;			/**< The DPTX Subsystem instance. */
 volatile u8 HpdPulseConEvent;	/**< This variable triggers DpTxSs_HpdPulseCon. */
 extern volatile u8 PrevLineRate;
 extern XTmrCtr TmrCtr;			/**< Timer instance. */
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 extern XVphy VPhyInst;			/**< The DPRX Subsystem instance. */
+#endif /* Added for VCK190/VEK385 support */
 u32 Ext_frame[3];
 
 lane_link_rate_struct lane_link_table[] =
@@ -510,7 +512,9 @@ void main_loop()
 	XDp_TxAudioInfoFrame xilInfoFrame;
 	int m_aud, n_aud;
 	u8 in_pwr_save = 0;
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1)
 	u16 DrpVal = 0;
+#endif
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 					  0x15, 0x16, 0x17}; /**< Duplicate */
 
@@ -831,6 +835,15 @@ void main_loop()
 										done = 0;
 										break;
 									}
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+#if (VERSAL_FABRIC_8B10B == 0)
+								if (user_tx_LineRate == XDP_TX_LINK_BW_SET_810GBPS) {
+									xil_printf ("The device on VCK190/VEK385 does not support 8.1G\r\n");
+									xil_printf ("Setting linerate to 5.4G\r\n");
+									user_tx_LineRate = XDP_TX_LINK_BW_SET_540GBPS;
+								}
+#endif
+#endif /* Added for VCK190/VEK385 support */
 								PrevLineRate = user_tx_LineRate;
 								XDpTxSs_Stop(&DpTxSsInst);
 								audio_on = 0;
@@ -1041,6 +1054,7 @@ void main_loop()
 				 * Display VideoPHY status
 				 */
 			case 'b':
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 				xil_printf("Video PHY Config/Status --->\r\n");
 				xil_printf(" RCS (0x10) = 0x%x\r\n",
 						XVphy_ReadReg(VPhyInst.Config.BaseAddr,
@@ -1091,6 +1105,10 @@ void main_loop()
 						" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_TXOUT_DIV,
 						DrpVal
 					  );
+#else /* Added for VCK190/VEK385 support */
+				xil_printf("Video PHY Config/Status not supported on VCK190/VEK385"
+						" (no XVphy IP)\r\n");
+#endif /* Added for VCK190/VEK385 support */
 				break;
 				/*
 				 * CRC read
@@ -1226,7 +1244,11 @@ static u32 xil_gethex(u8 num_chars){
 static char RecvByte_NonBlocking()
 {
 	u32 RecievedByte;
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	RecievedByte = XUartPsv_ReadReg(STDIN_BASEADDRESS, XUARTPSV_UARTDR_OFFSET);
+#else /* Added for VCK190/VEK385 support */
 	RecievedByte = XUartPs_ReadReg(STDIN_BASEADDRESS, XUARTPS_FIFO_OFFSET);
+#endif /* Added for VCK190/VEK385 support */
 
 	/*
 	 * Return the byte received
@@ -1266,7 +1288,11 @@ char xil_getc(u32 timeout_ms){
 	}
 
 #if !defined (PLATFORM_MB) && !defined (__riscv)
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	while((!XUartPsv_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)){
+#else /* Added for VCK190/VEK385 support */
 	while((!XUartPs_IsReceiveData(STDIN_BASEADDRESS)) && (timeout == 0)){
+#endif /* Added for VCK190/VEK385 support */
 #else
 	while(XUartLite_IsReceiveEmpty(STDIN_BASEADDRESS) && (timeout == 0)){
 #endif

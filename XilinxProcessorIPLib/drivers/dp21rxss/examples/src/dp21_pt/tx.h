@@ -28,19 +28,25 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xdptxss.h"
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include "xvphy.h"
+#endif /* Added for VCK190/VEK385 support */
 #include "xil_printf.h"
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include "xiic.h"
 #include "xiic_l.h"
+#endif /* Added for VCK190/VEK385 support */
 #include "xtmrctr.h"
 #include "xvidc_edid.h"
 #include "sleep.h"
 #include "stdlib.h"
 #include "xvidframe_crc.h"
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #include "xvphy_i.h"
+#endif /* Added for VCK190/VEK385 support */
 
 /************************** Constant Definitions *****************************/
 

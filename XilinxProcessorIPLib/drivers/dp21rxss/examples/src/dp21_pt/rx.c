@@ -216,6 +216,7 @@ u32 Dp21RxSs_Pt_RxSetup(void)
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1600, 0x1);
         XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x0);
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	/*
 	 * Enable colorimetry information over the VSC SDP in the RX. This is
 	 * required to receive extended colorimetry (e.g. BT.2020 for HDR) and
@@ -225,6 +226,7 @@ u32 Dp21RxSs_Pt_RxSetup(void)
 	xil_printf(ANSI_COLOR_GREEN
 		   "DP RX enabled for VSC Colorimetry support"
 		   ANSI_COLOR_RESET " \r\n");
+#endif
 
 	/*
 	 * Enable Rx
@@ -825,10 +827,12 @@ void Dp21RxSs_Pt_RxLinkBandwidthHandler(void *InstancePtr)
 {
 	(void)InstancePtr;
 	u32 Status = XST_SUCCESS;
+
 	Status = Dp21RxSs_Pt_PhyConfig(&VPhyInst, DpRxSsInst.UsrOpt.LinkRate, VPHY_RX_PLL_TYPE, VPHY_RX_CHANNEL_TYPE, XVPHY_DIR_RX);
 	if (Status != XST_SUCCESS) {
 		xil_printf ("PHY Config on RX failed\r\n");
 	}
+
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
 	DpRxSsInst.no_video_trigger = 1;
@@ -864,11 +868,20 @@ void Dp21RxSs_Pt_RxPllResetHandler(void *InstancePtr)
 	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr,
 		     XDP_RX_AUX_CLK_DIVIDER, ReadVal);
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	Status = XVphy_DP21PhyReset(&VPhyInst, 0, VPHY_RX_CHANNEL_TYPE,
 				    XVPHY_DIR_RX);
 	if (Status == XST_FAILURE) {
 		xil_printf ("Rx Issue encountered in PHY config and reset\r\n");
 	}
+#else /* Added for VCK190/VEK385 support */
+	/*
+	 * No XVphy on VCK190 - RX GT reset only happens once, at bring-up
+	 * (Dp21RxSs_Pt_Init()); there is no per-PLL-reset-event replacement
+	 * here (matches the DP1.4 VCK190 PT reference).
+	 */
+	(void)Status;
+#endif /* Added for VCK190/VEK385 support */
 
 	/*
 	 * Enable all interrupts
@@ -993,6 +1006,7 @@ void Dp21RxSs_Pt_RxCRCTestEventHandler(void *InstancePtr)
 void Dp21RxSs_Pt_RxAccessLinkQualHandler(void *InstancePtr)
 {
 	(void)InstancePtr;
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	u32 ReadVal;
 	u32 DrpVal;
 	u32 LinkQualConfig;
@@ -1053,6 +1067,10 @@ void Dp21RxSs_Pt_RxAccessLinkQualHandler(void *InstancePtr)
 #ifdef DEBUG
 	xil_printf("Dp21RxSs_Pt_RxAccessLinkQualHandler : 0x%x\r\n", ReadVal);
 #endif
+#else /* Added for VCK190/VEK385 support */
+	xil_printf("Link quality (PRBS) access not available on VCK190"
+			" (no XVphy IP)\r\n");
+#endif /* Added for VCK190/VEK385 support */
 }
 
 /*****************************************************************************/
@@ -1069,6 +1087,7 @@ void Dp21RxSs_Pt_RxAccessLinkQualHandler(void *InstancePtr)
 ******************************************************************************/
 void Dp21RxSs_Pt_RxAccessErrorCounterHandler(void *InstancePtr)
 {
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	u16 DrpVal = 0;
 	u16 DrpVal_lower_lane0 = 0;
 	u16 DrpVal_lower_lane1 = 0;
@@ -1181,6 +1200,11 @@ void Dp21RxSs_Pt_RxAccessErrorCounterHandler(void *InstancePtr)
 			       XVPHY_RX_CONTROL_REG, DrpValConfig);
     }
 #endif
+#else /* Added for VCK190/VEK385 support */
+	(void)InstancePtr;
+	xil_printf("Error counter access not available on VCK190"
+			" (no XVphy IP)\r\n");
+#endif /* Added for VCK190/VEK385 support */
 }
 
 /*****************************************************************************/
@@ -1219,7 +1243,9 @@ void Dp21RxSs_Pt_RxInfoPacketHandler(void *InstancePtr)
 #if ENABLE_AUDIO
 	int i;
 	u32 w[8];
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	u8  iftype;
+#endif
 
 	/*
 	 * Drain the 8 words (32 bytes) of the received InfoFrame SDP from the
@@ -1259,6 +1285,7 @@ void Dp21RxSs_Pt_RxInfoPacketHandler(void *InstancePtr)
 		fifocount++;
 	}
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	/*
 	 * Additionally capture the DRM / static-HDR InfoFrame (SDP type 0x87)
 	 * into hdr_if_frame[] so it can be decoded/displayed via the 's' menu.
@@ -1280,6 +1307,7 @@ void Dp21RxSs_Pt_RxInfoPacketHandler(void *InstancePtr)
 		hdr_if_valid = 1;
 		rx_drm_if_count++;
 	}
+#endif
 #endif
 }
 
@@ -1314,6 +1342,7 @@ void Dp21RxSs_Pt_RxExtPacketHandler(void *InstancePtr)
         SdpExtFrame.Header[2] = (ExtFrame[0]&0xFF0000)>>16;
         SdpExtFrame.Header[3] = (ExtFrame[0]&0xFF000000)>>24;
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
         /*
          * HB1 (Header[1]) is the Secondary-data Packet Type.
          */
@@ -1329,6 +1358,7 @@ void Dp21RxSs_Pt_RxExtPacketHandler(void *InstancePtr)
 		 * For future use (e.g. VSC_EXT_VESA/VSC_EXT_CTA HDR metadata)
                  */
         }
+#endif
 
         /*
 	 * Payload Information
@@ -1341,10 +1371,12 @@ void Dp21RxSs_Pt_RxExtPacketHandler(void *InstancePtr)
                 SdpExtFrame.Payload[(i*4)+1] = (ExtFrame[i+1]&0xFF00)>>8;
                 SdpExtFrame.Payload[(i*4)+2] = (ExtFrame[i+1]&0xFF0000)>>16;
                 SdpExtFrame.Payload[(i*4)+3] = (ExtFrame[i+1]&0xFF000000)>>24;
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
                 if (type_vsc == 0x13) {
                         /* Forward the colorimetry VSC payload to the TX */
                         ExtFrame_tx_vsc.Payload[i] = ExtFrame[i+1];
                 }
+#endif
         }
 }
 

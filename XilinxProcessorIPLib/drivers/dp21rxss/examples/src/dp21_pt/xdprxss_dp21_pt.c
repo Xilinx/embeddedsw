@@ -149,8 +149,15 @@ u8 password_valid = 0;
 Video_CRC_Config VidFrameCRC_rx; /**< Video Frame CRC instance */
 Video_CRC_Config VidFrameCRC_tx;
 XTmrCtr TmrCtr; 		/**< Timer instance.*/
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 XIic IicInstance;		/**< I2C bus for MC6000 and IDT */
+#endif /* Added for VCK190/VEK385 support */
 XVphy VPhyInst;			/**< The DPRX Subsystem instance.*/
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+XClk_Wiz_Config *CfgPtr_Dynamic;
+XClk_Wiz ClkWiz_Dynamic;
+XGpio Gpio;
+#endif /* Added for VCK190/VEK385 support */
 
 typedef u8 AddressType;
 
@@ -215,6 +222,7 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	   4320, 3, 5, 53, 4381, 0, 0, 0, 0, 1}},
 };
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 /*
  * Set the TX PLL and Channel based on the VPHY config
  */
@@ -251,6 +259,14 @@ XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK1;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = XVPHY_REF_CLK_SEL_XPLL_GTREFCLK0;
 XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = XVPHY_REF_CLK_SEL_XPLL_GTNORTHREFCLK0;
 #endif
+#else /* Added for VCK190/VEK385 support */
+XVphy_PllType VPHY_TX_PLL_TYPE = 0;
+XVphy_ChannelId VPHY_TX_CHANNEL_TYPE = 0;
+XVphy_PllType VPHY_RX_PLL_TYPE = 0;
+XVphy_ChannelId VPHY_RX_CHANNEL_TYPE = 0;
+XVphy_PllRefClkSelType VPHY_REFCLK_SEL_270 = 0;
+XVphy_PllRefClkSelType VPHY_REFCLK_SEL_400 = 0;
+#endif /* Added for VCK190/VEK385 support */
 
 #if !defined (PLATFORM_MB) && !defined (__riscv)
 XIicPs Ps_Iic1;
@@ -259,7 +275,9 @@ XIicPs_Config *XIic1Ps_ConfigPtr;
 int Dp21RxSs_Pt_I2cMuxPs(u8 Data);
 #endif
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 XIic_Config *ConfigPtr_IIC;	/**< Pointer to configuration data */
+#endif /* Added for VCK190/VEK385 support */
 
 XV_tpg TpgInst;
 XDpRxSs DpRxSsInst;		/**< The DPRX Subsystem instance.*/
@@ -319,11 +337,12 @@ int Dp21RxSs_Pt_VideoFMC_Init(void)
 	int Status = XST_SUCCESS;
 	u8 Buffer[2];
 	int ByteCount;
-	XIic_Config *ConfigPtr_IIC;	/**< Pointer to configuration data */
 
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	XIic_Config *ConfigPtr_IIC;	/**< Pointer to configuration data */
 	ConfigPtr_IIC = XIic_LookupConfig(XPAR_XIIC_0_BASEADDR);
 	if (ConfigPtr_IIC == NULL) {
 		return XST_FAILURE;
@@ -350,6 +369,17 @@ int Dp21RxSs_Pt_VideoFMC_Init(void)
 		xil_printf("Failed to set the I2C Mux.\n\r");
 		return XST_FAILURE;
 	}
+#else /* Added for VCK190/VEK385 support */
+#ifndef VERSAL_2VE_2VM
+	Buffer[0] = 0x01; /**< Enable HPC0 */
+	Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)Buffer, 1, I2C_MUX_ADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Failed to set the I2C Mux.\n\r");
+		return XST_FAILURE;
+	}
+#endif
+	(void)ByteCount;
+#endif /* Added for VCK190/VEK385 support */
 #if 0
 	/*
 	 * Required for previous version of FMC cards.
@@ -383,13 +413,16 @@ int Dp21RxSs_Pt_I2cWriteFreq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 Register
 	xil_printf ("%x, %x, %x, %x\r\n",Buffer[1], Buffer[2], Buffer[3], Buffer[4]);
 
 	while (1) {
-#ifndef versal
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1)
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 5, XIIC_STOP);
 		if (ByteCount == 5)
 			Status = XST_SUCCESS;
 		else
 			Status = XST_FAILURE;
 #else
+		(void)ByteCount;
+		(void)I2CBaseAddress;
+
 		Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 2, I2CSlaveAddress);
 #endif
 		if (Status != XST_SUCCESS) {
@@ -416,6 +449,7 @@ u8 Dp21RxSs_Pt_I2cReadFreq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterA
 	Exit = FALSE;
 	Data = 0;
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	do {
 		/*
 		 * Set Address
@@ -442,6 +476,29 @@ u8 Dp21RxSs_Pt_I2cReadFreq(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterA
 			Exit = TRUE;
 		}
 	} while (!Exit);
+#else /* Added for VCK190/VEK385 support */
+	{
+		u32 Status;
+		(void)ByteCount;
+		(void)I2CBaseAddress;
+
+		do {
+			Buffer[0] = RegisterAddress & 0xff;
+			Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)Buffer, 1, I2CSlaveAddress);
+
+			if (Status != XST_SUCCESS) {
+				Retry++;
+				if (Retry == 255) {
+					Exit = TRUE;
+				}
+			} else {
+				XIicPs_MasterRecvPolled(&Ps_Iic1, (u8 *)Buffer, 1, I2CSlaveAddress);
+				Data = Buffer[0];
+				Exit = TRUE;
+			}
+		} while (!Exit);
+	}
+#endif /* Added for VCK190/VEK385 support */
 
 	return Data;
 }
@@ -461,13 +518,16 @@ int Dp21RxSs_Pt_I2cWriteTdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 	Buffer[1] = Value;
 
 	while (1) {
-#ifndef versal
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1)
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress, (u8*)Buffer, 2, XIIC_STOP);
 		if (ByteCount == 2)
 			Status = XST_SUCCESS;
 		else
 			Status = XST_FAILURE;
 #else
+		(void)ByteCount;
+		(void)I2CBaseAddress;
+
 		Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)&Buffer, 2, I2CSlaveAddress);
 #endif
 		if (Status != XST_SUCCESS) {
@@ -495,6 +555,7 @@ u8 Dp21RxSs_Pt_I2cReadTdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 Regist
 	Exit = FALSE;
 	Data = 0;
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	do {
 		/*
 		 * Set Address
@@ -519,6 +580,29 @@ u8 Dp21RxSs_Pt_I2cReadTdp2004(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 Regist
 			Exit = TRUE;
 		}
 	} while (!Exit);
+#else /* Added for VCK190/VEK385 support */
+	{
+		u32 Status;
+		(void)ByteCount;
+		(void)I2CBaseAddress;
+
+		do {
+			Buffer[0] = RegisterAddress & 0xff;
+			Status = XIicPs_MasterSendPolled(&Ps_Iic1, (u8 *)Buffer, 1, I2CSlaveAddress);
+
+			if (Status != XST_SUCCESS) {
+				Retry++;
+				if (Retry == 255) {
+					Exit = TRUE;
+				}
+			} else {
+				XIicPs_MasterRecvPolled(&Ps_Iic1, (u8 *)Buffer, 1, I2CSlaveAddress);
+				Data = Buffer[0];
+				Exit = TRUE;
+			}
+		} while (!Exit);
+	}
+#endif /* Added for VCK190/VEK385 support */
 
 	return Data;
 }
@@ -711,24 +795,101 @@ static int Dp21RxSs_Pt_Init(void)
 #endif
 
 #ifdef Txo
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
+#else /* Added for VCK190/VEK385 support */
+	{
+		u32 dptx_sts = 0;
+		u32 retry = 0;
+
+		/*
+		 * GT power-good gate - shared for both TX and RX GT bring-up,
+		 * polled once here before either direction's GT reset release.
+		 */
+		while (!((XGpio_DiscreteRead(&Gpio, 1)) & 0x1));
+
+		GtCtrl(GT_VSWING_MASK, (0x5 << 8), 1);	/* vswing = 5 */
+
+		GtCtrl(GT_RST_MASK, 0x00000000, 1);	/* release TX GT reset */
+
+		while ((dptx_sts != ALL_LANE) && retry < 10000) {
+			dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280) & ALL_LANE;
+			retry++;
+		}
+		if (retry == 10000) {
+			/* GT did not come up on first try - pulse reset again */
+			GtCtrl(GT_RST_MASK, 0x00000001, 1);
+			GtCtrl(GT_RST_MASK, 0x00000000, 1);
+		}
+
+		dptx_sts = 0;
+		retry = 0;
+		while ((dptx_sts != ALL_LANE) && retry < 10000) {
+			dptx_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280) & ALL_LANE;
+			retry++;
+		}
+		if (retry == 10000) {
+			xil_printf("+++++++ TX GT configuration encountered a failure init2 +++++++ \r\n");
+		}
+	}
+#endif /* Added for VCK190/VEK385 support */
 
 	/*
 	 * This configures the vid_phy for line rate to start with
 	 * Even though CPLL can be used in limited case,
 	 * using QPLL is recommended for more coverage.
 	 */
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	Status = Dp21RxSs_Pt_PhyConfig(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR10, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
+#else /* Added for VCK190/VEK385 support */
 #if defined (PLATFORM_MB) || defined (__riscv)
 	Status = Dp21RxSs_Pt_PhyConfig(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR20, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 #else
 	Status = Dp21RxSs_Pt_PhyConfig(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR10, VPHY_TX_PLL_TYPE, VPHY_TX_CHANNEL_TYPE, XVPHY_DIR_TX);
 #endif
+#endif /* Added for VCK190/VEK385 support */
 	if (Status != XST_SUCCESS) {
 		xil_printf ("Configuration of PHY for TX failed\r\n");
 	}
 #endif
 
 #ifdef Rxo
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	{
+		u32 dprx_sts = 0;
+		u32 retry = 0;
+
+		/*
+		 * GT power-good gate - shared for both TX and RX GT bring-up,
+		 * polled once here before either direction's GT reset release.
+		 */
+		while (!((XGpio_DiscreteRead(&Gpio, 1)) & 0x1));
+
+		GtCtrl(GT_RST_MASK, 0x00000000, 0);	/* release RX GT reset */
+
+		dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208) & ALL_LANE;
+		while ((dprx_sts != ALL_LANE) && retry < 10000) {
+			dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208) & ALL_LANE;
+			retry++;
+		}
+		if (retry == 10000) {
+			GtCtrl(GT_RST_MASK, 0x00000001, 0);
+			GtCtrl(GT_RST_MASK, 0x00000000, 0);
+		}
+
+		dprx_sts = 0;
+		retry = 0;
+		dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208) & ALL_LANE;
+		while ((dprx_sts != ALL_LANE) && retry < 10000) {
+			dprx_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208) & ALL_LANE;
+			Dp21RxSs_Pt_CustomWaitUs(DpRxSsInst.DpPtr, 100);
+			retry++;
+		}
+		if (retry == 10000) {
+			xil_printf("+++++++ RX GT configuration encountered a failure init2 +++++++ \r\n");
+		}
+	}
+#endif /* Added for VCK190/VEK385 support */
 	Status = Dp21RxSs_Pt_PhyConfig(&VPhyInst, XDP_TX_LINK_BW_SET_UHBR10, VPHY_RX_PLL_TYPE, VPHY_RX_CHANNEL_TYPE, XVPHY_DIR_RX);
 	if (Status != XST_SUCCESS) {
 		xil_printf ("Configuration of PHY for RX failed\r\n");
@@ -775,12 +936,14 @@ static int Dp21RxSs_Pt_ConfigTxAudioClock(u32 AudioClkHz)
 	 *
 	 * opening the mux for on board Si570 programming
 	 */
+#ifndef VERSAL_2VE_2VM
 	Dp21RxSs_Pt_I2cMuxPs(0x04);
 	Dp21RxSs_Pt_Si570_SetFreq (&Ps_Iic1, IIC_SI570_ADDRESS, AudioClkHz);
 	/*
 	 * Closing the Mux 0x74
 	 */
 	Dp21RxSs_Pt_I2cMuxPs(0x0);
+#endif
 #endif
 	/*
 	 * Issue reset after Aud clock is programmed
@@ -882,7 +1045,11 @@ u32 Dp21RxSs_Pt_Main(void)
 	/*
 	 * Setup Video Phy, left to the user for implementation
 	 */
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	Dp21RxSs_Pt_PhyInit(0);	/* unused on VCK190; no XVphy instance exists */
+#else /* Added for VCK190/VEK385 support */
 	Dp21RxSs_Pt_PhyInit(XPAR_VID_PHY_CONTROLLER_0_BASEADDR);
+#endif /* Added for VCK190/VEK385 support */
 
 	Status = Dp21RxSs_Pt_Init();
 	if (Status != XST_SUCCESS) {
@@ -953,8 +1120,38 @@ u32 Dp21RxSs_Pt_Main(void)
 	return XST_SUCCESS;
 }
 
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+/*****************************************************************************/
+/**
+ *
+ * This function reads-modifies-writes the DP core's raw GT-control register
+ * (offset 0x4C) - VCK190 has no XVphy IP, so PHY/GT control on both the RX
+ * and TX cores is done via direct register pokes instead of the XVphy driver.
+ * `is_tx` selects which core's register gets touched.
+ *
+ ******************************************************************************/
+void GtCtrl(u32 mask, u32 data, u8 is_tx)
+{
+	u32 readval = 0;
+
+	if (is_tx) {
+		readval = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x04C);
+	} else {
+		readval = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x04C);
+	}
+	readval &= (~mask);
+	readval |= data;
+	if (is_tx) {
+		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x04C, readval);
+	} else {
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x04C, readval);
+	}
+}
+#endif /* Added for VCK190/VEK385 support */
+
 void Dp21RxSs_Pt_PLLRefClkSel (XVphy *InstancePtr, u8 link_rate, XVphy_ChannelId Channel)
 {
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	XVphy_CfgQuadRefClkFreq(InstancePtr, 0, VPHY_REFCLK_SEL_270, 270000000);
 	XVphy_CfgQuadRefClkFreq(InstancePtr, 0, VPHY_REFCLK_SEL_400, 400000000);
 
@@ -1002,6 +1199,11 @@ void Dp21RxSs_Pt_PLLRefClkSel (XVphy *InstancePtr, u8 link_rate, XVphy_ChannelId
 						XVPHY_CHANNEL_ID_CHA, XVPHY_DP_LINK_RATE_HZ_270GBPS);
 			break;
 	}
+#else /* Added for VCK190/VEK385 support */
+	(void)InstancePtr;
+	(void)link_rate;
+	(void)Channel;
+#endif /* Added for VCK190/VEK385 support */
 }
 
 /*****************************************************************************/
@@ -1021,6 +1223,7 @@ u32 Dp21RxSs_Pt_PhyConfig(XVphy *InstancePtr, int LineRate, XVphy_PllType Pll,
 {
 	u32 Status = XST_SUCCESS;
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	XVphy_PllRefClkSelType Refclk;
 
 	/*
@@ -1062,6 +1265,67 @@ u32 Dp21RxSs_Pt_PhyConfig(XVphy *InstancePtr, int LineRate, XVphy_PllType Pll,
 	if (Status == XST_FAILURE) {
 		xil_printf ("Issue encountered in PHY config and reset\r\n");
 	}
+#else /* Added for VCK190/VEK385 support */
+
+	u8 linerate;
+	u32 dp_sts = 0;
+	u32 retry = 0;
+	u8 is_tx = (Dir == XVPHY_DIR_TX) ? 1 : 0;
+
+	(void)InstancePtr;
+	(void)Pll;
+	(void)Channel;
+
+
+	switch (LineRate) {
+		case XDP_TX_LINK_BW_SET_162GBPS:
+			linerate = VERSAL_162G;
+			break;
+		case XDP_TX_LINK_BW_SET_270GBPS:
+			linerate = VERSAL_270G;
+			break;
+		case XDP_TX_LINK_BW_SET_540GBPS:
+			linerate = VERSAL_540G;
+			break;
+		case XDP_TX_LINK_BW_SET_810GBPS:
+			linerate = VERSAL_810G;
+			break;
+		case XDP_TX_LINK_BW_SET_UHBR10:
+			linerate = VERSAL_100G;
+			break;
+		case XDP_TX_LINK_BW_SET_UHBR20:
+			linerate = VERSAL_200G;
+			break;
+		case XDP_TX_LINK_BW_SET_UHBR135:
+			linerate = VERSAL_135G;
+			break;
+	}
+
+	GtCtrl(GT_RATE_MASK, (linerate << 1), is_tx);
+
+	dp_sts = 0;
+	retry = 0;
+
+	if (is_tx) {
+		while ((dp_sts != ALL_LANE) && retry < 255) {
+			dp_sts = XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x280) & ALL_LANE;
+			Dp21RxSs_Pt_CustomWaitUs(DpTxSsInst.DpPtr, 100);
+			retry++;
+		}
+	} else {
+		while ((dp_sts != ALL_LANE) && retry < 255) {
+			dp_sts = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, 0x208) & ALL_LANE;
+			Dp21RxSs_Pt_CustomWaitUs(DpRxSsInst.DpPtr, 100);
+			retry++;
+		}
+	}
+	if (retry == 255) {
+		Status = XST_FAILURE;
+		xil_printf ("+++++++ %s GT configuration encountered a failure config+++++++\r\n",
+			is_tx ? "TX" : "RX");
+	}
+
+#endif
 
 	return Status;
 }
@@ -1193,6 +1457,21 @@ u32 Dp21RxSs_Pt_PlatformInit(void)
 	XTmrCtr_Start(&TmrCtr, XTC_TIMER_0);
 
 #if !defined (PLATFORM_MB) && !defined (__riscv)
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(TX_CLK_WIZ_BASEADDR);
+	if (!CfgPtr_Dynamic)
+		return XST_FAILURE;
+	Status = XClk_Wiz_CfgInitialize(&ClkWiz_Dynamic, CfgPtr_Dynamic, CfgPtr_Dynamic->BaseAddr);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	Status = XGpio_Initialize(&Gpio, GT_POWERGOOD_GPIO_BASEADDR);
+	if (Status != XST_SUCCESS) {
+		xil_printf("Gpio Initialization Failed\r\n");
+		return XST_FAILURE;
+	}
+	XGpio_SetDataDirection(&Gpio, 1, 0x01);
+#endif /* Added for VCK190/VEK385 support */
 	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
 	if (NULL == XIic1Ps_ConfigPtr) {
 		return XST_FAILURE;
@@ -1401,6 +1680,7 @@ u32 Dp21RxSs_Pt_SetupIntrSystem(void)
 ******************************************************************************/
 u32 Dp21RxSs_Pt_PhyInit(UINTPTR BaseAddress)
 {
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	XVphy_Config *ConfigPtr;
 
 	/*
@@ -1420,6 +1700,9 @@ u32 Dp21RxSs_Pt_PhyInit(UINTPTR BaseAddress)
 			   VPHY_TX_PLL_TYPE,
 			   VPHY_RX_PLL_TYPE,
 			   XDP_TX_LINK_BW_SET_UHBR10);
+#else
+	(void)BaseAddress;
+#endif /* Added for VCK190/VEK385 support */
 
 	return XST_SUCCESS;
 }
@@ -1855,13 +2138,13 @@ void Dp21RxSs_Pt_FbStartRd(XDpTxSs_MainStreamAttributes Msa[4])
 void Dp21RxSs_Pt_ResetRdFb()
 {
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x1);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x1);
 	usleep(10000);          /**< hold reset line */
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x3);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x3);
 	usleep(10000);          /**< hold reset line */
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x1);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x1);
 	usleep(10000);          /**< hold reset line */
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x3);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x3);
 	usleep(10000);          /**< hold reset line */
 #endif
 }
@@ -1869,13 +2152,13 @@ void Dp21RxSs_Pt_ResetRdFb()
 void Dp21RxSs_Pt_ResetWrFb()
 {
 #if XPAR_XV_FRMBUFWR_NUM_INSTANCES
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x2);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x2);
 	usleep(10000);          //hold reset line
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x3);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x3);
 	usleep(10000);          //hold reset line
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x2);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x2);
 	usleep(10000);          //hold reset line
-	Xil_Out32(XPAR_PROC_HIER_0_HLS_RST_0_BASEADDR, 0x3);
+	Xil_Out32(PROC_HIER_HLS_RST_BASEADDR, 0x3);
 	usleep(10000);          //hold reset line
 #endif
 }
@@ -2003,6 +2286,49 @@ int Dp21RxSs_Pt_DetectResolution(XDpRxSs *InstancePtr)
 
 	Msa_Pt = XDpRxss_GetMsa(InstancePtr);
 
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+	/*
+	 * During a DP1.4<->DP2.1 rate-class switch, the RX core's MSA capture
+	 * registers can be read mid-transition (XDpRxss_GetMsa's channel-coding
+	 * branch vs the H/V-active registers settling at slightly different
+	 * times), producing an incoherent read (e.g. tens of thousands of
+	 * active lines, absurd frame rate). Feeding that straight into
+	 * Dp21RxSs_Pt_FbStartWr() below would misconfigure the frame buffer
+	 * write IP's stride/dimensions and can wedge it. Instead of bailing
+	 * immediately, re-read and wait for the values to settle here so the
+	 * link still comes up on this call - only give up (and let the
+	 * VBlank-count-gated caller retry later) if the link drops or a
+	 * generous timeout expires.
+	 */
+	{
+		u32 msa_retry = 0;
+		const u32 msa_max_retry = 500; /**< ~500 * 2ms = up to 1s of settle time */
+
+		while (((Msa_Pt[0].Vtm.Timing.HActive == 0) ||
+			(Msa_Pt[0].Vtm.Timing.HActive > 7680) ||
+			(Msa_Pt[0].Vtm.Timing.VActive == 0) ||
+			(Msa_Pt[0].Vtm.Timing.VActive > 4320) ||
+			(Msa_Pt[0].Vtm.FrameRate == 0) ||
+			(Msa_Pt[0].Vtm.FrameRate > 240) ||
+			(Msa_Pt[0].BitsPerColor > 16)) &&
+		       (msa_retry < msa_max_retry) &&
+		       (InstancePtr->link_up_trigger == 1)) {
+			usleep(2000);
+			Msa_Pt = XDpRxss_GetMsa(InstancePtr);
+			msa_retry++;
+		}
+
+		if ((Msa_Pt[0].Vtm.Timing.HActive == 0) ||
+		    (Msa_Pt[0].Vtm.Timing.HActive > 7680) ||
+		    (Msa_Pt[0].Vtm.Timing.VActive == 0) ||
+		    (Msa_Pt[0].Vtm.Timing.VActive > 4320) ||
+		    (Msa_Pt[0].Vtm.FrameRate == 0) ||
+		    (Msa_Pt[0].Vtm.FrameRate > 240) ||
+		    (Msa_Pt[0].BitsPerColor > 16)) {
+			return 0;
+		}
+	}
+#endif /* Added for VCK190/VEK385 support */
 	/*
 	 * Detect whether the incoming stream carries its colorimetry through the
 	 * VSC SDP. MSA MISC1 bit-6 (VSC_SDP colorimetry indication) is set by the

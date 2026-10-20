@@ -32,7 +32,8 @@
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
-    defined (XPS_BOARD_VCK190)
+    defined (XPS_BOARD_VCK190) || \
+    defined (XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 #define I2C_REPEATED_START 0x01
 #define I2C_STOP 0x00
 #else
@@ -78,7 +79,8 @@ static unsigned SI5344_I2cSend(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr,
 #if defined (XPS_BOARD_ZCU102) || \
 	defined (XPS_BOARD_ZCU104) || \
 	defined (XPS_BOARD_ZCU106) || \
-    defined (XPS_BOARD_VCK190)
+    defined (XPS_BOARD_VCK190) || \
+    defined (XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	XIicPs *Iic_Ptr = IicPtr;
 	u32 Status;
 

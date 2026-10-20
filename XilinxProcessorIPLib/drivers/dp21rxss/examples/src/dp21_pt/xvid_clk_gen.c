@@ -27,6 +27,11 @@
 #define DIV_MAX 128
 #define DIV_MIN 1
 
+#if defined(XPS_BOARD_VCK190) || defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
+extern XClk_Wiz ClkWiz_Dynamic;
+extern XClk_Wiz_Config *CfgPtr_Dynamic;
+#endif /* Added for VCK190/VEK385 support */
+
 /************************** Function Prototypes ******************************/
 void ComputeMandD(u32 VidFreq);
 void Dp21RxSs_Pt_GenVidClk(XDp *InstancePtr, u8 Stream);
@@ -198,6 +203,7 @@ void Dp21RxSs_Pt_GenVidClk(XDp *InstancePtr, u8 Stream)
 	XDp_TxMainStreamAttributes *MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 
+#if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 	/*
 	 * The clock generated from clk_wiz is not accurate. For example in case of 148.5Mhz
 	 * clock generated would be 148. Hence adding 1Mhz. This will make the TX vid_clk
@@ -218,4 +224,19 @@ void Dp21RxSs_Pt_GenVidClk(XDp *InstancePtr, u8 Stream)
 		ComputeMandD(((MsaConfig->PixelClockHz/1000)/
 				MsaConfig->UserPixelWidth));
 	}
+#else /* Added for VCK190/VEK385 support */
+	u32 Count = 0;
+
+	XClk_Wiz_WriteReg(ClkWiz_Dynamic.Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0x0);
+	XClk_Wiz_SetRateHz(&ClkWiz_Dynamic, ((MsaConfig->PixelClockHz)/MsaConfig->UserPixelWidth));
+	XClk_Wiz_WriteReg(ClkWiz_Dynamic.Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET, 0x3);
+	while(!((XClk_Wiz_ReadReg(ClkWiz_Dynamic.Config.BaseAddr, 0x4)) & CLK_LOCK)) {
+		if(Count == 10000)
+			break;
+		usleep(100);
+		Count++;
+	}
+	if (Count == 10000)
+		xil_printf ("Clk_wizard failed to lock\r\n");
+#endif /* Added for VCK190/VEK385 support */
 }
