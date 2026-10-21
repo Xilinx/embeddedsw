@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -27,7 +27,7 @@ typedef struct XPm_PinFunc XPm_PinFunc;
  * The Pin Function class.
  */
 struct XPm_PinFunc {
-	char Name[FUNC_NAME_SIZE]; /**< Function name */
+	__attribute__((nonstring)) char Name[FUNC_NAME_SIZE]; /**< Function name, may lack a NULL terminator */
 	u8 Id; /**< Function ID */
 	u8 NumPins; /**< Number of pins needed for this function */
 	u8 NumGroups; /**< Number of groups for this function */
