@@ -110,6 +110,8 @@
 *       aa   09/15/2026 Added IDCODE bypass flag handling in Extract Metaheader
 *       pre  10/09/2026 Publish Image Store PDI entry only after the full DMA
 *                       transfer succeeds in XLoader_WriteImageStorePdi
+*       gnr  10/21/2026 Defined XLOADER_HB payload index macros only for
+*                       VERSAL_2VE_2VM without VERSAL_2VP_P
 *
 * </pre>
 *
@@ -236,7 +238,7 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_HASH_HIGH_ADDR_IDX		(2U)
 #define XLOADER_AC_LOW_ADDR_IDX			(3U)
 #define XLOADER_AC_HIGH_ADDR_IDX		(4U)
-#elif defined(VERSAL_2VE_2VM)
+#elif defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
 #define XLOADER_HB_SIGN_PARAMS_LOW_ADDR_IDX     (0U)
 		/**< Payload index for the low 32 bits of the hash block sign parameters address */
 #define XLOADER_HB_SIGN_PARAMS_HIGH_ADDR_IDX    (1U)

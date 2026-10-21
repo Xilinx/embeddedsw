@@ -145,6 +145,10 @@
 *       sri  08/14/26 Updated XLoader_CopyHashBlock to support caller-supplied
 *                     destination HashBlock for client auth PDI validation
 *       tbk  09/07/26 Bound HashBlockSize before DeviceCopy
+*       gnr  10/08/2026 Defined XLOADER_ENTRY_SIZE_IN_HASHBLOCK only for
+*                       VERSAL_2VE_2VM and VERSAL_2VP_P, and declared ReadReg
+*                       and ReadRegTmp only when the DEC_ONLY efuse check
+*                       is compiled
 *
 * </pre>
 *
@@ -191,7 +195,9 @@
 #define XLOADER_HB0_INDEX_4     (4U) /**< HB0 4th is filled by all 0s now */
 #define XLOADER_HB0_INDEX_5     (5U) /**< HB0 5th is filled by all 0s now */
 #endif
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 #define XLOADER_ENTRY_SIZE_IN_HASHBLOCK     (52U)	/**< Each entry size in HashBlock */
+#endif
 
 /************************** Function Prototypes ******************************/
 static int XLoader_StartNextChunkCopy(XLoader_SecureParams *SecurePtr,
@@ -1130,8 +1136,10 @@ u32 XLoader_GetSHWRoT(const u32* SHWRoTPtr)
 int XLoader_SetSecureState(void)
 {
 	volatile int Status = XST_FAILURE;
+#if !(defined(VERSAL_2VE_2VM) && defined(VERSAL_2VP_P))
 	volatile u32 ReadReg;
 	volatile u32 ReadRegTmp;
+#endif
 	volatile u32 PlmEncStatus;
 	volatile u32 PlmEncStatusTmp;
 	volatile u32 AHWRoT = XPLMI_RTCFG_SECURESTATE_AHWROT;

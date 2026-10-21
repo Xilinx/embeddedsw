@@ -190,6 +190,8 @@
 *       vss  10/14/2026 Allow multiple algorithm bits in the hybrid field and
 *                       require each key algorithm to be present in the other
 *                       key's hybrid mask
+*       gnr  10/21/2026 Fixed enum-conversion warning in XLoader_AuthNCopyHashBlock
+*                       for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -4283,7 +4285,8 @@ int XLoader_AuthNCopyHashBlock(XLoader_SecureParams *SecurePtr,
 	 *   VERSAL_2VP_P is server-only; DestHBPtr must be the PLM hash block instance.
 	 */
 	if (DestHBPtr != TmpDestHBPtr) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_PARAM, XST_INVALID_PARAM);
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)XLOADER_ERR_INVALID_PARAM,
+				XST_INVALID_PARAM);
 		goto END;
 	}
 
