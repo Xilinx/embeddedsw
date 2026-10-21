@@ -35,6 +35,7 @@
 * 3.23  vlt     03/30/26 Implemented bus recovery feature.
 * 3.24  vn      08/26/26 Fix Doxygen warnings
 * 3.24  tb      09/30/26 Align Doxygen comments with AMD standards
+* 3.24  vlt     10/21/26 Initialize Is10BitAddr to 0 in XIicPs_CfgInitialize
 *
 * </pre>
 *
@@ -140,6 +141,9 @@ s32 XIicPs_CfgInitialize(XIicPs *InstancePtr, XIicPs_Config *ConfigPtr,
 
 	/* Initialize repeated start flag to 0 */
 	InstancePtr->IsRepeatedStart = 0;
+
+	/* Initialize the 10-bit address flag to 0 */
+	InstancePtr->Is10BitAddr = 0;
 
 	return (s32)XST_SUCCESS;
 }
