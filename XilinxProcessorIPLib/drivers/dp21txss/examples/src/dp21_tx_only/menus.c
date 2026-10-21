@@ -139,7 +139,7 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
 		{7680, 8, 32, 40, 7760, 0,
 			4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
-	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz(RB2)", XVIDC_FR_100HZ,
 		{3840, 8, 32, 40, 3920, 0,
 			2160, 91, 8, 6, 2265, 0, 0, 0, 0, 1}},
 	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
@@ -207,7 +207,7 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	{ (XVidC_VideoMode)XVIDC_VM_5120x2160_60_P_CTA, "5120x2160@60Hz (CTA)", XVIDC_FR_60HZ,
 		{5120, 164, 88, 128, 5500, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
-	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_144_P_RB2, "3840x2160@144Hz (RB2)", XVIDC_FR_144HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_144_P_RB2, "3840x2160@144Hz(RB2)", XVIDC_FR_144HZ,
 		{3840, 8, 32, 40, 3920, 1,
 			2160, 140, 8, 6, 2314, 0, 0, 0, 0, 0} },
 	{ (XVidC_VideoMode)XVIDC_VM_4096x2160_60_P_RB1, "4096x2160@60Hz (RB1)", XVIDC_FR_60HZ,
@@ -225,10 +225,10 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_30_P_RB, "7680×4320@30Hz (RB)", XVIDC_FR_30HZ,
 		{7680, 48, 32, 80, 7840, 1,
 		4320, 3, 5, 53, 4381, 0, 0, 0, 0, 0} },
-	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_24_P_RB2, "7680×4320@24Hz (RB2)", XVIDC_FR_24HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_24_P_RB2, "7680×4320@24Hz(RB2)", XVIDC_FR_24HZ,
 		{7680, 8, 32, 40, 7760, 1,
 		4320, 35, 8, 6, 4369, 0, 0, 0, 0, 0} },
-	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_60_P_RB3, "3840×2160@60Hz (RB3)", XVIDC_FR_60HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_60_P_RB3, "3840×2160@60Hz(RB3)", XVIDC_FR_60HZ,
 		{3840, 8, 32, 120, 4000, 1,
 		2160, 48, 8, 6, 2222, 0, 0, 0, 0, 0} },
 	{ (XVidC_VideoMode)XVIDC_VM_2048x1536_60_P_RB2, "2048x1536@60Hz (RB2)", XVIDC_FR_60HZ,
@@ -448,6 +448,8 @@ void sub_help_menu(void)
 			"d - Power Up/Down sink\r\n"
 			"e - Read EDID from sink\r\n"
 			"m - Read CRC checker value\r\n"
+			"r - Read DPCD register (full address in one prompt)\r\n"
+			"w - Write DPCD register\r\n"
 			"z - Display this Menu again\r\n"
 			"- - - - - - - - - - - - - - - - - - - - - - - - - \r\n");
 }
@@ -1115,6 +1117,66 @@ void main_loop()
 				 */
 			case 'm' :
 				XVidFrameCrc_Report();
+				break;
+
+				/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+			case 'r' :
+				/*
+				 * r - DPCD read (full address entered in one prompt)
+				 */
+				xil_printf(
+						"\r\n Give 6 digit Hex value of base register 0x");
+				aux_reg_address = xil_gethex(6) & 0xFFFFFF;
+				xil_printf("\r\n Give number of registers that you "
+						"want to read (1 to 9): ");
+				num_of_aux_registers = xil_gethex(1);
+				if((num_of_aux_registers<1)||(num_of_aux_registers>9))
+				{
+					xil_printf("\r\n!!!Warning: Invalid number "
+							"selected, hence reading only one register\r\n");
+					num_of_aux_registers = 1;
+				}
+				xil_printf("\r\nGiven base address offset is 0x%x\r\n",
+						aux_reg_address);
+				for(i = 0; i < num_of_aux_registers; i++)
+				{
+					Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+							(aux_reg_address+i), 1, &Data);
+					if(Status == XST_SUCCESS)
+					{
+						xil_printf("Value at address offset "
+								"0x%x, is = 0x%x\r\n",
+								(aux_reg_address+i),
+								((Data[0]) & 0xFF));
+					} else {
+						xil_printf("Aux Read failure\r\n");
+						break;
+					}
+				}
+				break;
+
+				/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+			case 'w' :
+				/*
+				 * w - DPCD write
+				 */
+				xil_printf(
+						"\r\n Give 6 digit Hex value of base register 0x");
+				aux_reg_address = xil_gethex(6) & 0xFFFFFF;
+				xil_printf(
+						"\r\n Give 2 digit Hex value to write 0x");
+				Data[0] = xil_gethex(2) & 0xFF;
+				Status = XDp_TxAuxWrite(DpTxSsInst.DpPtr,
+						aux_reg_address, 1, &Data);
+				if(Status == XST_SUCCESS)
+				{
+					xil_printf("\r\nWrote 0x%x at address offset 0x%x\r\n",
+							(Data[0] & 0xFF), aux_reg_address);
+				} else {
+					xil_printf("\r\nAux Write failure\r\n");
+				}
 				break;
 
 				/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */

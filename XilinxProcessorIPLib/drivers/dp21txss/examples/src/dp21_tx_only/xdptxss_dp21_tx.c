@@ -1775,7 +1775,12 @@ void DpTxSs_HpdCon(XDpTxSs *InstancePtr, u8 Edid_org[128])
 				}
 			}
 
-			user_config.user_pattern = 1;
+			/*
+			 * The VPG only supports the color square pattern for
+			 * YCbCr formats; the color ramp pattern is RGB-only.
+			 */
+			user_config.user_pattern =
+				(user_config.user_format != XVIDC_CSF_RGB) ? 3 : 1;
 
 #if !defined(XPS_BOARD_VCK190) && !defined(XPS_BOARD_VEK385_1) /* Added for VCK190/VEK385 support */
 			XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
