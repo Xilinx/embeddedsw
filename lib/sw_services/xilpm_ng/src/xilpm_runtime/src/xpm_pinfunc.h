@@ -25,7 +25,7 @@ typedef struct XPm_PinFunc XPm_PinFunc;
  * The Pin Function class.
  */
 struct XPm_PinFunc {
-	char Name[FUNC_NAME_SIZE]; /**< Function name */
+	__attribute__((nonstring)) char Name[FUNC_NAME_SIZE]; /**< Function name, may lack a NULL terminator */
 	u8 Id; /**< Function ID */
 	u8 NumPins; /**< Number of pins needed for this function */
 	u8 NumGroups; /**< Number of groups for this function */
