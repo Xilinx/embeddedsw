@@ -1,6 +1,6 @@
 ;/******************************************************************************
 ;* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-;* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+;* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
@@ -51,6 +51,10 @@
 ;* 7.2   mus     01/08/19 Added support for versal
 ;*       sd      02/23/20 Clock Init is called
 ;*       sd      03/21/20 Added XCLOCKING flag
+;* 9.6   asa	 10/21/26 Fix bug in invalidate_dcaches API. It puts the
+;*                        set field at the wrong bit offset in X7 before
+;*                        calling DC CISW. Set field must start at 6th
+;*                        bit for ARMv8 architecture.
 ;* </pre>
 ;******************************************************************************/
 
@@ -377,7 +381,7 @@ invalidateCaches_flush_level
    isb						; ISB required to reflect new CSIDR
    mrs	x4, CCSIDR_EL1				; w4 = CSIDR
    ubfx	w3, w4, #0, #3
-   add	w3, w3, #2				; w3 = log2(line size)
+   add	w3, w3, #4				; w3 = log2(line size)
    ubfx	w5, w4, #13, #15
    ubfx	w4, w4, #3, #10				; w4 = Way number
    clz	w6, w4					; w6 = 32 - log2(number of ways)
