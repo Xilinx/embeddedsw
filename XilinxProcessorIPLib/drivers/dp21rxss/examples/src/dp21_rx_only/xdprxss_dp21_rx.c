@@ -121,6 +121,11 @@
 /** Default DP RX lane count configuration */
 #define DPRXSS_LANE_COUNT 		XDPRXSS_LANE_COUNT_SET_4
 
+#define XDP_RX_CRC_CONFIG 		0x074
+#define XDP_RX_CRC_COMP0 		0x078
+#define XDP_RX_CRC_COMP1 		0x07C
+#define XDP_RX_CRC_COMP2 		0x080
+
 /*
  * User can tune these variables as per their system
  *
@@ -478,6 +483,7 @@ void PrintLinkInfo()
 {
 	u32 Linkrate=0;
 	int lk_int=0,lk_dec=0;
+	char *color = "RGB";
 
 	Linkrate = XDpRxSs_GetLinkRate(&DpRxSsInst);
 	if (Linkrate == 0x6) {
@@ -503,13 +509,24 @@ void PrintLinkInfo()
 		lk_dec = 0;
 	}
 
+	if (DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].ComponentFormat == 0) {
+		color="RGB";
+	} else if (DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].ComponentFormat == 1) {
+		color="YUV422";
+	} else if (DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].ComponentFormat == 2) {
+		color="YUV444";
+	} else if (DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].ComponentFormat == 3) {
+		color="YUV420";
+	}
+
 	xil_printf("Video Detected --> Link Config: %d.%dx%d, "
-		   "Frame: %dx%d, MISC0: 0x%x,",
+		   "Frame: %dx%d, MISC0: 0x%x, Color: %s ",
 		   lk_int,lk_dec,
 		   (int)DpRxSsInst.UsrOpt.LaneCount,
 		   (int)DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].Vtm.Timing.HActive,
 		   (int)DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].Vtm.Timing.VActive,
-		   (int)DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].Misc0);
+		   (int)DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].Misc0,
+		   color);
 
 	if ((Linkrate == 0x1) || (Linkrate == 0x2) || (Linkrate == 0x4)) {
 		xil_printf("VFreq %u\r\n",
@@ -752,6 +769,10 @@ u32 DpRxSs_Main(u32 BaseAddress)
 					XDpRxSs_ReportCoreInfo(&DpRxSsInst);
 					break;
 
+				case 'a':
+					Print_InfoPkt();
+					break;
+
 				case '.':
 					AppHelp();
 					break;
@@ -761,17 +782,6 @@ u32 DpRxSs_Main(u32 BaseAddress)
 					break;
 			}
 		} /**< end if */
-
-		/*
-		 * Info Frame Handling
-		 * Info frame is sent once per frame and
-		 * is static for that config
-		 * Capture new Info Frame whenever config changes
-		 */
-		if (AudioinfoFrame.frame_count != 0) {
-			Print_InfoPkt();
-			AudioinfoFrame.frame_count=0;
-		}
 
 		/*
 		 * Ext Frame Handling
@@ -1641,6 +1651,7 @@ void AppHelp()
 	xil_printf(" r = Reset DTG  \n\r");
 	xil_printf(" m = Report Audio/Video MSA Attributes, Time Stamps, CRC "
 	                "Values  \n\r");
+	xil_printf(" a = Report Info/Audio frame status \n\r");
 	xil_printf(" . = Show Menu  \n\r");
 	xil_printf("\n\r");
 	xil_printf("-----------------------------------------------------\n\r");
@@ -1731,6 +1742,10 @@ void CalculateCRC(void)
 	 */
 	VidFrameCRC.TEST_CRC_CNT = 0;
 
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
+		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
+		      VidFrameCRC.TEST_CRC_CNT));
+
 	CustomWaitUs(DpRxSsInst.DpPtr, 100000);
 
 	VidFrameCRC.Mode_422 = (XVidFrameCrc_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
@@ -1790,6 +1805,12 @@ void CalculateCRC(void)
 	/*
 	 * Write CRC values to DPCD TEST CRC space
 	 */
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+					VidFrameCRC.Pixel_r);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+					VidFrameCRC.Pixel_g);
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+					VidFrameCRC.Pixel_b);
 
 	if (overflow == 0 && misses == 0) {
 		/*
@@ -1797,7 +1818,12 @@ void CalculateCRC(void)
 		 */
 		VidFrameCRC.TEST_CRC_CNT = 1;
 	} else if (overflow && misses) {
-
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+			     0x2);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+			     0x2);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+			     0x2);
 		/*
 		 * Not setting CRC available bit
 		 * for overflow CRC forced to 0x0
@@ -1806,12 +1832,28 @@ void CalculateCRC(void)
 		 */
 	} else if (overflow) {
 		overflow_count++;
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+			     0x0);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+			     0x0);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+			     0x0);
 
 	} else if (misses) {
 		missed_count++;
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP0,
+			     0x1);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP1,
+			     0x1);
+		XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_COMP2,
+			     0x1);
 	}
 
 	VidFrameCRC.TEST_CRC_CNT = 1;
+
+	XDp_WriteReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_CRC_CONFIG,
+		     (VidFrameCRC.TEST_CRC_SUPPORTED << 5 |
+		      VidFrameCRC.TEST_CRC_CNT));
 
 	xil_printf("[Video CRC] R/Cr: 0x%x, G/Y: 0x%x, B/Cb: 0x%x\r\n\n",
 		   VidFrameCRC.Pixel_r, VidFrameCRC.Pixel_g, VidFrameCRC.Pixel_b);
