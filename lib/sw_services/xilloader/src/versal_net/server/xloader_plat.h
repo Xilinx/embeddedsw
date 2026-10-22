@@ -56,6 +56,9 @@
 *       pre  08/17/2026 Added XLOADER_DDRMC_LIST, default XPAR calib params, and DDRMC calib accessor macros
 *       pre  10/09/2026 Added XLOADER_ERR_INVALID_ROW_RANGE error code
 *       ng   10/14/2026 Added error codes for I2C handshake
+*       pre  10/22/2026 Dropped XPAR calib source, filename, and warm-boot tables.
+*                       DDR MC list macros are under PLM_ENABLE_DDR_CALIB_RESTORE
+*                       and are disabled by default
 *
 * </pre>
 *
@@ -76,7 +79,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XLOADER_SECURE_CHUNK_SIZE	(0x8000U) /**< Secure chunk size 32K */
 
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 /**
  * Expands Param once per DDR MC for this platform (MAX_DEV_DDRMC = 8)
  */
@@ -86,103 +89,14 @@ extern "C" {
 	Param(XLOADER_DDRMC_4), Param(XLOADER_DDRMC_5), \
 	Param(XLOADER_DDRMC_6), Param(XLOADER_DDRMC_7)
 
-/*
- * xparameters.h defines the calibration data source parameters only for the DDR MCs
- * present in the design. Default the remaining ones so that the lookup tables can be
- * built for all the DDR MCs unconditionally.
- */
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_0
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_0	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_1
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_1	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_2
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_2	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_3
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_3	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_4
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_4	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_5
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_5	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_6
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_6	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_7
-#define XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_7	(XLOADER_INVALID_ADDR)
-#endif
-
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_0
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_0	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_1
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_1	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_2
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_2	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_3
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_3	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_4
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_4	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_5
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_5	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_6
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_6	(XLOADER_INVALID_ADDR)
-#endif
-#ifndef XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_7
-#define XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_7	(XLOADER_INVALID_ADDR)
-#endif
-
-#ifndef XPAR_WARM_BOOT_AXI_NOC_0
-#define XPAR_WARM_BOOT_AXI_NOC_0	(FALSE)
-#endif
-#ifndef XPAR_WARM_BOOT_AXI_NOC_1
-#define XPAR_WARM_BOOT_AXI_NOC_1	(FALSE)
-#endif
-#ifndef XPAR_WARM_BOOT_AXI_NOC_2
-#define XPAR_WARM_BOOT_AXI_NOC_2	(FALSE)
-#endif
-#ifndef XPAR_WARM_BOOT_AXI_NOC_3
-#define XPAR_WARM_BOOT_AXI_NOC_3	(FALSE)
-#endif
-#ifndef XPAR_WARM_BOOT_AXI_NOC_4
-#define XPAR_WARM_BOOT_AXI_NOC_4	(FALSE)
-#endif
-#ifndef XPAR_WARM_BOOT_AXI_NOC_5
-#define XPAR_WARM_BOOT_AXI_NOC_5	(FALSE)
-#endif
-#ifndef XPAR_WARM_BOOT_AXI_NOC_6
-#define XPAR_WARM_BOOT_AXI_NOC_6	(FALSE)
-#endif
-#ifndef XPAR_WARM_BOOT_AXI_NOC_7
-#define XPAR_WARM_BOOT_AXI_NOC_7	(FALSE)
-#endif
-
-/** DDR MC token-paste helpers and calib/device accessors */
+/** DDR MC token-paste helpers and device ID accessor */
 #define XLOADER_DDRMC_CONCAT(A, B)		XLOADER_DDRMC_CONCAT_I(A, B)
 #define XLOADER_DDRMC_CONCAT_I(A, B)	A##B
 
-#define XLOADER_CALIBDATA_SRC_ADDR(Index)	\
-	((void *)(UINTPTR)XLOADER_DDRMC_CONCAT(XPAR_CALIBDATA_SRC_ADDR_AXI_NOC_, Index))
-		/**< Calibration data source address of the given DDR MC */
-#define XLOADER_CALIBDATA_SRC_FILENAME(Index)	\
-	((void *)(UINTPTR)XLOADER_DDRMC_CONCAT(XPAR_CALIBDATA_SRC_FILENAME_AXI_NOC_, Index))
-		/**< Calibration data source filename of the given DDR MC */
-#define XLOADER_WARM_BOOT_ENABLED(Index)	\
-	((u32)XLOADER_DDRMC_CONCAT(XPAR_WARM_BOOT_AXI_NOC_, Index))
-		/**< Warm boot enabled flag of the given DDR MC */
 #define XLOADER_DDRMC_DEVICE_ID(Index)	\
 	(XLOADER_DDRMC_CONCAT(PM_DEV_DDRMC_, Index))
 		/**< Device ID of the given DDR MC */
-#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
+#endif
 
 /* Boot Modes */
 #define XLOADER_PDI_SRC_JTAG		(0x0U) /**< PDI source JTAG */
@@ -401,7 +315,7 @@ enum {
 	/** 0x33 - Error when reserved Image Store PDI ID is used in IPI command */
 	XLOADER_ERR_PDI_IMG_STORE_RESERVED_PDI_ID,
 
-	/** 0x34 - Error when calibration data storage mode is invalid */
+	/** 0x34 - Error when primary boot mode cannot store calibration data */
 	XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE,
 
 	/** 0x35 - Error when non-volatile storage address is invalid */
@@ -410,8 +324,8 @@ enum {
 	/** 0x36 - Error when XRAM destination address is invalid */
 	XLOADER_ERR_INVALID_XRAM_ADDR,
 
-	/** 0x37 - Error while fetching calibration data */
-	XLOADER_ERR_CALIBDATA_FETCH,
+	/** 0x37 - Error when the DDR MC physical address does not match a DDR MC */
+	XLOADER_ERR_INVALID_PHYS_ADDR,
 
 	/** 0x38 - Error while writing calibration data */
 	XLOADER_ERR_CALIBDATA_WRITE,

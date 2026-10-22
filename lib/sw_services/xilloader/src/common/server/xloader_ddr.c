@@ -35,6 +35,11 @@
 *       ng   03/30/2023 Updated algorithm and return values in doxygen comments
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
 *       pre  08/17/2026 Added DDR calibration data restore and status check APIs
+*       pre  10/22/2026 Added DDR calibration restore for primary boot PDI
+*                       loading using DDRMC physical address and offset pairs,
+*                       the primary boot mode as the storage device, and no RTCA
+*                       mask. Accepts a short CDO chunk until the full payload
+*                       arrives, and is disabled by default under PLM_ENABLE_DDR_CALIB_RESTORE
 *
 * </pre>
 *
@@ -68,7 +73,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 #define XLOADER_CALIBDATA_IDCODE_INDEX      (0U)
         /**< Index of the IDCODE word in a calibration data record */
 #define XLOADER_CALIBDATA_CHECKSUM_START_INDEX  (1U)
@@ -76,11 +81,27 @@
 #define XLOADER_CALIBDATA_METADATA_SIZE     (2U)
         /**< Number of words of a calibration data record taken by the IDCODE word and the
              checksum word */
+#define XLOADER_CALIBDATA_CMD_WORDS_PER_MC	(2U)
+		/**< Payload words per warm-boot DDR MC: physical address, then offset */
+#define XLOADER_CALIBDATA_PHYS_ADDR_INDEX	(0U)
+		/**< Index of the DDR MC physical address within one payload pair */
+#define XLOADER_CALIBDATA_OFFSET_INDEX		(1U)
+		/**< Index of the DDR MC storage offset within one payload pair */
+#define XLOADER_CALIBDATA_FILE_NAME		"calib00.bin"
+		/**< SD/UFS calibration data filename template */
+#define XLOADER_CALIBDATA_FILE_TENS_INDEX	(5U)
+		/**< Index of the DDR MC number tens digit in the filename */
+#define XLOADER_CALIBDATA_FILE_UNITS_INDEX	(6U)
+		/**< Index of the DDR MC number units digit in the filename */
+#define XLOADER_CALIBDATA_FILE_RADIX		(10U)
+		/**< Radix used to encode the DDR MC number in the filename */
+#endif
 
 /************************** Function Prototypes ******************************/
-static void *XLoader_GetCalibDataNvStorageAddr(u32 DDRMCNumber, u8 StorageIndex);
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+static void *XLoader_GetCalibDataSrc(u8 StorageIndex, u32 DDRMCNumber, u32 Offset);
 static int XLoader_GetCalibDataStorageIndex(u8 *StorageIndex);
-static u32 XLoader_GetWarmBootEnabled(u32 DDRMCNumber);
+static int XLoader_GetDdrMcNumber(u32 PhysAddr, u32 *DDRMCNumber);
 static int XLoader_FetchCalibDataFromNvStorage(u8 StorageIndex, void *CalibDataSrc,
 		u32 *DestBuffer);
 static int XLoader_ReleaseCalibDataStorage(u8 StorageIndex);
@@ -91,8 +112,10 @@ static int XLoader_SetDdrMcCalibSkipFlag(u32 DDRMCNumber, u8 Enable);
 
 /************************** Variable Definitions *****************************/
 static u8 DdrRequested = (u8)FALSE;
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 static u32 CalibDataTempBuffer[XLOADER_CALIBDATA_SIZE];
+/** SD/UFS calibration filename. The two digits are updated for each DDR MC. */
+static char CalibDataFileName[] = XLOADER_CALIBDATA_FILE_NAME;
 #endif
 
 /*****************************************************************************/
@@ -242,66 +265,45 @@ END:
 	return Status;
 }
 
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 /*************************************************************************************************/
 /**
- * @brief	This function returns the source address or filename of the calibration data
- *		based on the DDR MC number and storage index.
+ * @brief	This function returns the calibration data source for one DDR MC.
+ *		For QSPI/OSPI the source is the flash offset from the command. For
+ *		SD/UFS the source is calibNN.bin, where NN is the DDR MC number.
  *
- * @param	DDRMCNumber is the DDR MC number
  * @param	StorageIndex is the storage index
+ * @param	DDRMCNumber is the DDR MC number matched from the physical address
+ * @param	Offset is the flash offset from the command, used for QSPI/OSPI
  *
  * @return
  * 		- Source address or filename pointer.
+ * 		- XLOADER_INVALID_ADDR when the source cannot be determined.
  *
  **************************************************************************************************/
-static void *XLoader_GetCalibDataNvStorageAddr(u32 DDRMCNumber, u8 StorageIndex)
+static void *XLoader_GetCalibDataSrc(u8 StorageIndex, u32 DDRMCNumber, u32 Offset)
 {
-	static void *const CalibDataSrcAddr[MAX_DEV_DDRMC] = {
-		XLOADER_DDRMC_LIST(XLOADER_CALIBDATA_SRC_ADDR)
-	};
-	static void *const CalibDataSrcFilename[MAX_DEV_DDRMC] = {
-		XLOADER_DDRMC_LIST(XLOADER_CALIBDATA_SRC_FILENAME)
-	};
 	void *CalibDataSrc = (void *)(UINTPTR)XLOADER_INVALID_ADDR;
 
-	if (DDRMCNumber < (u32)MAX_DEV_DDRMC) {
-		/** If QSPI/OSPI is used for calibration data storage */
-		if ((StorageIndex == XLOADER_QSPI_INDEX) || (StorageIndex == XLOADER_OSPI_INDEX)) {
-			CalibDataSrc = CalibDataSrcAddr[DDRMCNumber];
+	/** QSPI/OSPI: the command offset is the flash address of the record */
+	if ((StorageIndex == XLOADER_QSPI_INDEX) || (StorageIndex == XLOADER_OSPI_INDEX)) {
+		if (Offset != (u32)XLOADER_INVALID_ADDR) {
+			CalibDataSrc = (void *)(UINTPTR)Offset;
 		}
-		/** If SD/UFS is used for calibration data storage */
-		else {
-			CalibDataSrc = CalibDataSrcFilename[DDRMCNumber];
-		}
+	}
+	/** SD/UFS: file name follows the DDR MC whose base address matched */
+	else if (DDRMCNumber < (u32)MAX_DEV_DDRMC) {
+		CalibDataFileName[XLOADER_CALIBDATA_FILE_TENS_INDEX] =
+			(char)('0' + (DDRMCNumber / XLOADER_CALIBDATA_FILE_RADIX));
+		CalibDataFileName[XLOADER_CALIBDATA_FILE_UNITS_INDEX] =
+			(char)('0' + (DDRMCNumber % XLOADER_CALIBDATA_FILE_RADIX));
+		CalibDataSrc = (void *)CalibDataFileName;
+	}
+	else {
+		/* Required by MISRA */
 	}
 
 	return CalibDataSrc;
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function returns whether warm boot is enabled for the given DDR MC.
- *
- * @param	DDRMCNumber is the DDR MC number
- *
- * @return
- * 		- TRUE if warm boot is enabled for the DDR MC.
- * 		- FALSE otherwise.
- *
- **************************************************************************************************/
-static u32 XLoader_GetWarmBootEnabled(u32 DDRMCNumber)
-{
-	static u32 const WarmBootEnabled[MAX_DEV_DDRMC] = {
-		XLOADER_DDRMC_LIST(XLOADER_WARM_BOOT_ENABLED)
-	};
-	u32 IsEnabled = (u32)FALSE;
-
-	if (DDRMCNumber < (u32)MAX_DEV_DDRMC) {
-		IsEnabled = WarmBootEnabled[DDRMCNumber];
-	}
-
-	return IsEnabled;
 }
 
 /*************************************************************************************************/
@@ -312,7 +314,8 @@ static u32 XLoader_GetWarmBootEnabled(u32 DDRMCNumber)
  * @param	DDRMCNumber is the DDR MC number
  *
  * @return
- * 		- Base address pointer.
+ * 		- Base address of the DDR MC.
+ * 		- XLOADER_INVALID_ADDR when the DDR MC number or node is not valid.
  *
  **************************************************************************************************/
 static u32 XLoader_GetDdrMcBaseAddr(u32 DDRMCNumber)
@@ -333,6 +336,52 @@ static u32 XLoader_GetDdrMcBaseAddr(u32 DDRMCNumber)
 	}
 
 	return BaseAddr;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function maps a DDR MC physical address to its DDR MC number
+ *		by comparing it with the base address of each XLOADER_DDRMC_n.
+ *
+ * @param	PhysAddr is the DDR MC physical address from the command
+ * @param	DDRMCNumber is the pointer in which the matched DDR MC number is stored.
+ *
+ * @return
+ * 		- XST_SUCCESS if the physical address matches a DDR MC base address.
+ * 		- XST_INVALID_PARAM if the output pointer or physical address is not valid.
+ * 		- XST_FAILURE if the physical address does not match any DDR MC.
+ *
+ **************************************************************************************************/
+static int XLoader_GetDdrMcNumber(u32 PhysAddr, u32 *DDRMCNumber)
+{
+	int Status = XST_FAILURE;
+	u32 Index;
+	u32 BaseAddr;
+
+	if (DDRMCNumber == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	/** No match leaves the DDR MC number outside the valid range. */
+	*DDRMCNumber = (u32)MAX_DEV_DDRMC;
+
+	if (PhysAddr == (u32)XLOADER_INVALID_ADDR) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	for (Index = 0U; Index < (u32)MAX_DEV_DDRMC; Index++) {
+		BaseAddr = XLoader_GetDdrMcBaseAddr(Index);
+		if (BaseAddr == PhysAddr) {
+			*DDRMCNumber = Index;
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+END:
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -366,13 +415,13 @@ static int XLoader_FetchCalibDataFromNvStorage(u8 StorageIndex, void *CalibDataS
 	switch (StorageIndex) {
 #ifdef XLOADER_QSPI
 		case XLOADER_QSPI_INDEX:
-			Status = XLoader_QspiReadDdrCalibData(CalibDataSrc,
+			Status = XLoader_QspiReadDdrCalibData((u32)(UINTPTR)CalibDataSrc,
 					(u32)(UINTPTR)DestBuffer);
 			break;
 #endif
 #ifdef XLOADER_OSPI
 		case XLOADER_OSPI_INDEX:
-			Status = XLoader_OspiReadDdrCalibData(CalibDataSrc,
+			Status = XLoader_OspiReadDdrCalibData((u32)(UINTPTR)CalibDataSrc,
 					(u32)(UINTPTR)DestBuffer);
 			break;
 #endif
@@ -399,10 +448,9 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function releases the storage device that the calibration data was fetched
- *		from. The copies keep the device requested and initialized so that all the DDR
- *		MCs are served without repeating that work, so this is what undoes it, once the
- *		restore is over.
+ * @brief	This function releases the calibration storage used by the copies.
+ *		QSPI and OSPI stay initialized as the primary boot device. SD and UFS
+ *		unmount a volume only when these copies mounted it.
  *
  * @param	StorageIndex is the index of the storage device holding the calibration data
  *
@@ -416,16 +464,6 @@ static int XLoader_ReleaseCalibDataStorage(u8 StorageIndex)
 	int Status = XST_FAILURE;
 
 	switch (StorageIndex) {
-#ifdef XLOADER_QSPI
-		case XLOADER_QSPI_INDEX:
-			Status = XLoader_QspiCalibDataRelease();
-			break;
-#endif
-#ifdef XLOADER_OSPI
-		case XLOADER_OSPI_INDEX:
-			Status = XLoader_OspiCalibDataRelease();
-			break;
-#endif
 #if defined(XLOADER_SD_0) || defined(XLOADER_SD_1)
 		case XLOADER_SD_INDEX:
 			Status = XLoader_SdCalibDataRelease();
@@ -587,48 +625,41 @@ u32 XLoader_IsWarmBootFlagSet(u32 BaseAddr)
 
 /*************************************************************************************************/
 /**
- * @brief	This function returns the storage index for calibration data based on
- *		the primary boot mode and calibration data storage mode configuration.
+ * @brief	This function returns the storage index for calibration data from
+ *		the PDI source selected by XLoader_PdiInit. That index distinguishes
+ *		SD/eMMC filesystem boot from raw boot. The boot-mode map does not.
  *
  * @param	StorageIndex is the pointer to store the calibration data storage index
  *
  * @return
  * 		- XST_SUCCESS on success.
- * 		- XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE if boot mode or storage index is invalid.
- * 		- XST_FAILURE on failure.
+ * 		- XST_FAILURE when the PDI source is not a supported calibration data
+ *		  storage device, including JTAG, SMAP/SBI, PCIe and SD/eMMC raw
+ *		  boot. The caller skips the restore in that case.
  *
  **************************************************************************************************/
 static int XLoader_GetCalibDataStorageIndex(u8 *StorageIndex)
 {
 	int Status = XST_FAILURE;
-	PdiSrc_t PrimaryBootMode = XLoader_GetBootMode();
-	u8 DeviceFlags;
-	const PdiSrcMap PdiSourceMap[] = XLOADER_GET_PDISRC_INFO();
+	u8 Index = XLoader_GetPdiInstance()->PdiIndex;
 
-	/** Check compatibility of primary boot mode and calibration data storage mode */
-	if (PrimaryBootMode != XPAR_CALIBDATA_STORAGEDEVICE) {
-		goto END;
-	}
+	/**
+	 * Use the source opened for this PDI. SD/eMMC raw boot shares the
+	 * filesystem boot-mode value, and XLoader_PdiInit selects
+	 * XLOADER_SD_RAW_INDEX only after reading the multiboot register.
+	 */
+	*StorageIndex = Index;
 
-	/** Fetch device flags */
-	DeviceFlags = (u8)(XPAR_CALIBDATA_STORAGEDEVICE & XLOADER_PDISRC_FLAGS_MASK);
-	if (DeviceFlags >= XPLMI_ARRAY_SIZE(PdiSourceMap)) {
-		goto END;
-	}
-
-	/** Fetch storage index */
-	*StorageIndex = PdiSourceMap[DeviceFlags].Index;
-
-	/** Proceed only if QSPI/OSPI/SD/UFS is used for calibration data storage */
-	if ((*StorageIndex == XLOADER_QSPI_INDEX) || (*StorageIndex == XLOADER_OSPI_INDEX) ||
-		(*StorageIndex == XLOADER_SD_INDEX)
+	/** Proceed only if QSPI/OSPI/SD filesystem/UFS holds the calibration data */
+	if ((Index == XLOADER_QSPI_INDEX) || (Index == XLOADER_OSPI_INDEX) ||
+		(Index == XLOADER_SD_INDEX)
 #ifdef VERSAL_2VE_2VM
-		|| (*StorageIndex == XLOADER_UFS_INDEX)
+		|| (Index == XLOADER_UFS_INDEX)
 #endif
 	) {
 		Status = XST_SUCCESS;
 	}
-END:
+
 	return Status;
 }
 
@@ -660,18 +691,25 @@ int XLoader_CheckDdrMcCalibStatus(u32 BaseAddr)
 
 	return Status;
 }
-#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
+#endif
 
 /*****************************************************************************/
 /**
- * @brief	This function restores the calibration data of all the DDR memory
- *		controllers of the device which are requested for warm boot in the
- *		XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR RTCA register and for which warm
- *		boot is enabled in the design.
+ * @brief	This function restores the calibration data of the warm-boot DDR
+ *		memory controllers carried in the command. The storage device is
+ *		the primary boot device. JTAG, SMAP/SBI, PCIe and SD/eMMC raw boot
+ *		skip the restore and return success. A fetch or integrity failure
+ *		for one DDR MC clears its calibration skip flag so that MC
+ *		cold-calibrates, and the command continues.
  *
- *  This command takes no payload parameters.
- *
- * @param	Cmd is pointer to the command structure
+ * @param	Cmd is pointer to the command structure. Cmd->Len is the full
+ *		payload, one pair per warm-boot DDR MC, and may be empty when no
+ *		DDR MC requested warm boot:
+ *		- Physical address of the DDR MC.
+ *		- Storage offset. For QSPI/OSPI this is the flash address of the
+ *		  record. A CDO chunk can deliver fewer words than Cmd->Len. That
+ *		  chunk is accepted, and the restore runs only on the chunk that
+ *		  finishes the command.
  *
  * @return
  * 		- XST_SUCCESS on success.
@@ -680,66 +718,152 @@ int XLoader_CheckDdrMcCalibStatus(u32 BaseAddr)
  *****************************************************************************/
 int XLoader_CalibDataRestore(XPlmi_Cmd *Cmd)
 {
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 	int Status = XST_FAILURE;
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
 	u8 StorageIndex = XLOADER_INVALID_INDEX;
 	void *CalibDataSrc = (void *)(UINTPTR)XLOADER_INVALID_ADDR;
 	u32 XRamAddr = (u32)XLOADER_INVALID_ADDR;
-	u32 DDRMCNumber;
-	u32 DDRMCWarmBootMask;
+	u32 DDRMCNumber = (u32)MAX_DEV_DDRMC;
+	u32 PayloadIndex;
+	u32 ChunkIndex;
+	u32 PhysAddr;
+	u32 Offset;
+	const u32 *CmdPayload = NULL;
 	int RelStatus = XST_FAILURE;
 	int ClrStatus = XST_FAILURE;
+	const XilPdi *PdiPtr = XLoader_GetPdiInstance();
+	/**
+	 * Payload words kept across CDO chunks. The chunk that finishes the
+	 * command is the one that runs the restore.
+	 */
+	static u32 CalibCmdPayload[MAX_DEV_DDRMC * XLOADER_CALIBDATA_CMD_WORDS_PER_MC];
 
-	(void)Cmd;
-
-	/** Fetch storage index for calibration data */
+	/**
+	 * Cmd->Len is the full payload, in address/offset pairs. PayloadLen is
+	 * only the words in this CDO chunk. With 16 words left in the chunk the
+	 * loader executes the command instead of moving it, so a 16-word payload
+	 * arrives here as 15 words and the rest follows on resume.
+	 * A zero length means no DDR MC requested warm boot.
+	 */
+	if (Cmd == NULL) {
+		Status = XLOADER_ERR_INVALID_PARAM;
+		goto END;
+	}
+	/**
+	 * Restore only while the primary boot PDI is loading. The boot device is
+	 * still open then. A secondary or later partial PDI has no supported way
+	 * back to that device.
+	 */
+	if (PdiPtr->PdiType != XLOADER_PDI_TYPE_FULL) {
+		if (Cmd->ProcessedLen == 0U) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"DDRMC calibration data restore is skipped\r\n");
+		}
+		Status = XST_SUCCESS;
+		goto END_CHUNK;
+	}
+	if ((Cmd->PayloadLen == 0U) && (Cmd->ProcessedLen == 0U)) {
+		Status = XST_SUCCESS;
+		goto END;
+	}
+	/**
+	 * JTAG, SMAP/SBI, PCIe and SD/eMMC raw have no calibration data to
+	 * restore. Skip the command so those boots continue.
+	 */
 	Status = XLoader_GetCalibDataStorageIndex(&StorageIndex);
 	if (Status != XST_SUCCESS) {
-		Status = XLOADER_ERR_INVALID_CALIBDATA_STORAGE_MODE;
+		if (Cmd->ProcessedLen == 0U) {
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS,
+				"DDRMC calibration data restore is skipped: boot device "
+				"cannot store calibration data\n");
+		}
+		Status = XST_SUCCESS;
+		goto END_CHUNK;
+	}
+	if (((Cmd->Len % XLOADER_CALIBDATA_CMD_WORDS_PER_MC) != 0U) ||
+		(Cmd->Len > ((u32)MAX_DEV_DDRMC * XLOADER_CALIBDATA_CMD_WORDS_PER_MC)) ||
+		(Cmd->Len == 0U) || (Cmd->Payload == NULL) ||
+		(Cmd->ProcessedLen > Cmd->Len) ||
+		(Cmd->PayloadLen > (Cmd->Len - Cmd->ProcessedLen))) {
+		Status = XLOADER_ERR_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fetch the bit mask of the DDR MCs to be warm booted from RTCA */
-	DDRMCWarmBootMask = XPlmi_In32(XPLMI_RTCFG_DDRMC_WARM_BOOT_MASK_ADDR);
+	/**
+	 * This chunk does not finish the command. Keep its words and accept it.
+	 * The restore runs only from the chunk that delivers the last word.
+	 */
+	if ((Cmd->ProcessedLen + Cmd->PayloadLen) < Cmd->Len) {
+		for (ChunkIndex = 0U; ChunkIndex < Cmd->PayloadLen; ChunkIndex++) {
+			CalibCmdPayload[Cmd->ProcessedLen + ChunkIndex] =
+					Cmd->Payload[ChunkIndex];
+		}
+		Status = XST_SUCCESS;
+		goto END_CHUNK;
+	}
 
-	for (DDRMCNumber = 0U; DDRMCNumber < (u32)MAX_DEV_DDRMC; DDRMCNumber++) {
+	if (Cmd->ProcessedLen == 0U) {
+		CmdPayload = Cmd->Payload;
+	}
+	else {
+		for (ChunkIndex = 0U; ChunkIndex < Cmd->PayloadLen; ChunkIndex++) {
+			CalibCmdPayload[Cmd->ProcessedLen + ChunkIndex] =
+					Cmd->Payload[ChunkIndex];
+		}
+		CmdPayload = CalibCmdPayload;
+	}
+
+	for (PayloadIndex = 0U; PayloadIndex < Cmd->Len;
+			PayloadIndex += XLOADER_CALIBDATA_CMD_WORDS_PER_MC) {
+		PhysAddr = CmdPayload[PayloadIndex + XLOADER_CALIBDATA_PHYS_ADDR_INDEX];
+		Offset = CmdPayload[PayloadIndex + XLOADER_CALIBDATA_OFFSET_INDEX];
+
 		/**
-		 * Skip the DDR MC if it is not requested for warm boot in RTCA or if
-		 * warm boot is not enabled for it in the design
+		 * Map the physical address to a DDR MC. The SD/UFS file name is
+		 * selected from that DDR MC number.
 		 */
-		if (((DDRMCWarmBootMask & ((u32)1U << DDRMCNumber)) == 0U) ||
-			(XLoader_GetWarmBootEnabled(DDRMCNumber) != (u32)TRUE)) {
-			continue;
+		Status = XLoader_GetDdrMcNumber(PhysAddr, &DDRMCNumber);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Calibration data physical address 0x%08x does not "
+				"match a DDR MC base address\n", PhysAddr);
+			Status = XLOADER_ERR_INVALID_PHYS_ADDR;
+			goto END;
 		}
 
 		/** Fetch Non-volatile storage address or filename */
-		CalibDataSrc = XLoader_GetCalibDataNvStorageAddr(DDRMCNumber, StorageIndex);
+		CalibDataSrc = XLoader_GetCalibDataSrc(StorageIndex, DDRMCNumber, Offset);
 		if (CalibDataSrc == (void *)(UINTPTR)XLOADER_INVALID_ADDR) {
 			Status = XLOADER_ERR_INVALID_NVSTORAGE_ADDR;
 			goto END;
 		}
 
-		/** Fetch XRAM address */
-		XRamAddr = XLoader_GetDdrMcBaseAddr(DDRMCNumber);
-		if (XRamAddr == (u32)XLOADER_INVALID_ADDR) {
+		/** Reject a destination that would wrap past the end of the address space */
+		if (PhysAddr > ((u32)XLOADER_INVALID_ADDR - XLOADER_DDRMC_CALIB_DATA_OFFSET)) {
 			Status = XLOADER_ERR_INVALID_XRAM_ADDR;
 			goto END;
 		}
-		XRamAddr += XLOADER_DDRMC_CALIB_DATA_OFFSET;
+		XRamAddr = PhysAddr + XLOADER_DDRMC_CALIB_DATA_OFFSET;
 
 		/** Fetch calibration data from Non-volatile storage to Temporary buffer */
 		Status = XLoader_FetchCalibDataFromNvStorage(StorageIndex,
 				CalibDataSrc, CalibDataTempBuffer);
 		if (Status != XST_SUCCESS) {
-			Status = XLOADER_ERR_CALIBDATA_FETCH;
-			goto END;
+			/**
+			 * A missing record is normal on the first boot. Fall back to
+			 * cold calibration instead of failing the PDI load.
+			 */
+			XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Calibration data fetch failed for the DDR MC %u "
+				"with error code 0x%08x\n", DDRMCNumber, (u32)Status);
 		}
-
-		/** Check integrity of the calibration data */
-		Status = XLoader_CheckCalibDataIntegrity(CalibDataTempBuffer);
+		else {
+			/** Check integrity of the calibration data */
+			Status = XLoader_CheckCalibDataIntegrity(CalibDataTempBuffer);
+			if (Status != XST_SUCCESS) {
+				XPlmi_Printf(DEBUG_PRINT_ALWAYS, "Integrity check failed for calibration data "
+					"record for the DDR MC %d in storage device\n", DDRMCNumber);
+			}
+		}
 		if (Status != XST_SUCCESS) {
-			XPlmi_Printf(DEBUG_INFO, "Integrity check failed for calibration data "
-				"record for the DDR MC %d in storage device\n", DDRMCNumber);
 			/** Clear the calibration skip flag for the DDR MC to get cold boot */
 			Status = XLoader_SetDdrMcCalibSkipFlag(DDRMCNumber, (u8)0U);
 			if (Status != XST_SUCCESS) {
@@ -795,11 +919,13 @@ END:
 			Status = RelStatus;
 		}
 	}
+
+END_CHUNK:
+	return Status;
 #else
 	(void)Cmd;
-	Status = XST_SUCCESS;
+	return XST_SUCCESS;
 #endif
-	return Status;
 }
 
 /** @} end of xloader_server_apis group */

@@ -36,6 +36,7 @@
 #       aa   02/04/2026 Added configurable option for Macronix OSPI DDR support
 #       pre  03/12/2026 Updated description for TPM enable option
 # 2.5   am   06/24/2026 Update library version for 2026.2
+#       pre  10/22/2026 Added configurable option for DDR calibration data restore
 #
 ##############################################################################
 
@@ -78,6 +79,7 @@ BEGIN LIBRARY xilplmi
   PARAM name = xplmi_cache_disable, desc = "Enables/Disables Cache for XilPlmi client library", type = bool, default = true;
   PARAM name = plm_version_user_defined, desc = "User defined PLM version", type = int, default = 0;
   PARAM name = timestamp_en, desc = "Enables or Disables Time Stamp prints", type = bool, default = true;
+  PARAM name = plm_ddr_calib_restore_en, desc = "Enables or Disables DDR calibration data restore.", type = bool, default = false;
   PARAM name = cfi_selective_read_en, desc = "Enables or Disables CFI selective read", type = bool, default = false;
   PARAM name = aes_and_sha_events_queuing_en, desc = "Enables or Disables queuing mechanism of AES and SHA events for Versal (This feature is enabled by default for other devices)", type = bool, default = false;
   PARAM name = plm_i2c_mb_handshake, desc = "Enable I2C to MB Handshake", type = bool, default = false;

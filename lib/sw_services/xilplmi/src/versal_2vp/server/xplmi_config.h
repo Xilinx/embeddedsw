@@ -27,6 +27,7 @@
 * 2.4   rmv  01/30/2026 Refactor OCP library
 *       pre  08/05/2026 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 *       pre  08/15/2026 Enabled TPM feature for VERSAL_2VP devices
+*       pre  10/22/2026 Added PLM_ENABLE_DDR_CALIB_RESTORE for the versionless flow
 *
 * </pre>
 *
@@ -226,6 +227,11 @@ extern "C" {
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
+
+/* DDR calibration data restore. Disabled by default.
+ * Uncomment for the versionless flow.
+ */
+//#define PLM_ENABLE_DDR_CALIB_RESTORE
 
 /**
  * Enable the below define to enable address range validation in PLM.

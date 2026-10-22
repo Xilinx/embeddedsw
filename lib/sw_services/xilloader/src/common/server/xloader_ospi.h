@@ -42,7 +42,8 @@
 * 2.5   aa   07/02/2026 Added timeout macro for OSPI 4B address mode polling
 *       gnr  09/02/2026 Added PDI-based OSPI RX tuning pattern support
 *       pre  08/18/2026 Added XLoader_OspiReadDdrCalibData for calib data restore
-*
+*       pre  10/22/2026 OSPI calib data restore API is under
+*                       PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default
 * </pre>
 *
 * @note
@@ -181,9 +182,8 @@ int XLoader_OspiInit(u32 DeviceFlags);
 int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
 int XLoader_OspiRelease(void);
 int XLoader_FlashSetupRxTuningPattern(const XilPdi_MetaHdr *MetaHdrPtr);
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-int XLoader_OspiReadDdrCalibData(void *SrcAddr, u32 DestAddr);
-int XLoader_OspiCalibDataRelease(void);
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+int XLoader_OspiReadDdrCalibData(u32 SrcAddr, u32 DestAddr);
 #endif
 
 /************************** Variable Definitions *****************************/

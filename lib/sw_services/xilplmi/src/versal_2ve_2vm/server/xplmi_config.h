@@ -42,6 +42,7 @@
 * 2.4   rmv  01/30/2026 Refactor OCP library
 *       pre  03/12/2026 Added configurable option for TPM support
 *       ias  08/24/2026 Added XPLMI_EM_LINK_NODES_SUPPORT for DDR EDAC
+*       pre  10/22/2026 Added PLM_ENABLE_DDR_CALIB_RESTORE for the versionless flow
 *
 * </pre>
 *
@@ -229,6 +230,11 @@ extern "C" {
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
+
+/* DDR calibration data restore. Disabled by default.
+ * Uncomment for the versionless flow.
+ */
+//#define PLM_ENABLE_DDR_CALIB_RESTORE
 
 /* Enable the below define to enable PMC I2C Handshake Feature based on DDR5 IP*/
 #ifdef NOC_MC_DDR5

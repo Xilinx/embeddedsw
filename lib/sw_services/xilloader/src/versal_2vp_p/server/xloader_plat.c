@@ -32,6 +32,8 @@
 *       pre 09/02/26 Implemented DDRMC calibration skip flag clearing if PComplete is not set
 *       vss 09/09/26 Added ECDSA P-521 to XLoader_SpkMeasurement
 *       tbk 10/13/26 Extend PCR from the hash block, same as versal_2ve_2vm
+*       pre 10/21/26 DDRMC calibration restore operation is always enabled and
+*                    the calibration check is kept off the deferred CDO error
 *
 * </pre>
 *
@@ -64,9 +66,7 @@
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 #include "xocp_pcr.h"
 #endif
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
 #include "xplmi_err_common.h"
-#endif
 
 /************************************ Constant Definitions ****************************************/
 #define XLOADER_TCM_0			(0U) /**< TCM 0 */
@@ -1493,6 +1493,9 @@ END:
 static int XLoader_DumpDdrmcRegisters(void)
 {
 	int Status = XST_FAILURE;
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+	int CalibStatus = XST_FAILURE;
+#endif
 	u32 PcsrCtrl;
 	u32 DevId;
 	u8 Ub = 0U;
@@ -1556,9 +1559,9 @@ static int XLoader_DumpDdrmcRegisters(void)
 			XPlmi_In32(BaseAddr + DdrmcRegisters[LoopCount].Offset));
 		}
 
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-		Status = XLoader_CheckDdrMcCalibStatus(BaseAddr);
-		if (Status != XST_SUCCESS) {
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+		CalibStatus = XLoader_CheckDdrMcCalibStatus(BaseAddr);
+		if (CalibStatus != XST_SUCCESS) {
 			if (XLoader_IsWarmBootFlagSet(BaseAddr) == (u32)TRUE) {
 				XPlmi_Printf(DEBUG_GENERAL,
 					"DDRMC_%u calibration failed during warm boot. Force a cold boot to recalibrate.\n\r",

@@ -26,6 +26,7 @@
 * 2.5   sd  03/03/26 Added PLM_ENABLE_ADDR_RANGE_VALIDATION macro and enable by default
 *       pre 08/05/26 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 *       sri 08/24/26 Enable OCP for Versal_2VP_P (PLM_OCP, PLM_HW_PCR, native key mgmt)
+*       pre 10/22/26 Added PLM_ENABLE_DDR_CALIB_RESTORE for the versionless flow
 *
 * </pre>
 *
@@ -218,6 +219,11 @@ extern "C" {
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
+
+/* DDR calibration data restore. Disabled by default.
+ * Uncomment for the versionless flow.
+ */
+//#define PLM_ENABLE_DDR_CALIB_RESTORE
 
 /* Enable the below define to enable PMC I2C Handshake Feature  based on DDR5 IP */
 #ifdef NOC_MC_DDR5

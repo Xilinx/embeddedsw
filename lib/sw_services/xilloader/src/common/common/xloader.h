@@ -142,6 +142,8 @@
 *                       XLoader_GetTlbinLoadAddr for versal_2ve_2vm
 *       aa   09/15/2026 Added XLoader_SetIdCodeBypassFlag and
 *                       XLoader_ClearIdCodeBypassFlag prototypes
+*       pre  10/22/2026 DDR MC index and calibration data macros are under
+*                       PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default
 * </pre>
 *
 ******************************************************************************/
@@ -292,7 +294,7 @@ extern "C" {
 #define XLOADER_INVALID_INDEX	(8U)
 /** @} */
 
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 /**
  * @name DDR MC indices
  * @{
@@ -328,7 +330,7 @@ extern "C" {
 /**< Offset from the base address of a DDR MC at which the calibration data is restored */
 #define XLOADER_DDRMC_CALIB_DATA_OFFSET		(0x37000U)
 /** @} */
-#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
+#endif
 
 #define PdiSrc_t			u32	/**< Alias for u32 */
 

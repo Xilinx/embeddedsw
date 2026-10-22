@@ -110,6 +110,9 @@
 *       ng   08/23/2026 Added register definitions for slave error handlers
 *       pre  08/25/2026 Added DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
 *                       and DDRMC_PCSR_STATUS_CALERROR_MASK macros
+*       pre  10/22/2026 Made DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
+*                       and DDRMC_PCSR_STATUS_CALERROR_MASK macros conditional on
+*                       PLM_ENABLE_DDR_CALIB_RESTORE
 *
 * </pre>
 *
@@ -1194,9 +1197,11 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define DDRMC_PCSR_CONTROL_OFFSET	(0x00000004U)
 #define DDRMC_PCSR_CONTROL_PCOMPLETE_MASK	(0x00000001U)
 #define DDRMC_PCSR_STATUS_OFFSET	(0x00000008U)
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 #define DDRMC_PCSR_STATUS_INCAL_MASK		(0x00000008U)
 #define DDRMC_PCSR_STATUS_CALDONE_MASK		(0x00000010U)
 #define DDRMC_PCSR_STATUS_CALERROR_MASK	(0x00000020U)
+#endif
 
 /* PMC master and Slave SLR base addresses */
 #define XPLMI_PMC_LOCAL_BASEADDR		(0xF0000000U)

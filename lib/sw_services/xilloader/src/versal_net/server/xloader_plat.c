@@ -68,6 +68,8 @@
 *       vns  04/04/2026 Lock DAP during PLM update via XLoader_DisableJtagIfOpenedByAuthJtag
 *       obs  02/05/2026 Implement peripheral pre-allocation at handoff time
 *       pre  08/19/2026 Implemented DDRMC calibration skip flag clearing if PComplete is not set
+*       pre  10/21/2026 DDRMC calibration restore operation is always enabled and
+*                    the calibration check is kept off the deferred CDO error
 *
 * </pre>
 *
@@ -1046,6 +1048,9 @@ END:
 int XLoader_DumpDdrmcRegisters(void)
 {
 	int Status = XST_FAILURE;
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+	int CalibStatus = XST_FAILURE;
+#endif
 	u32 PcsrCtrl;
 	u32 DevId;
 	u8 Ub = 0U;
@@ -1128,9 +1133,9 @@ int XLoader_DumpDdrmcRegisters(void)
 			XPlmi_In32(BaseAddr + DDRMC_OFFSET_CAL_ERROR_PHY_LOC_1 + (LoopCount * 0x4U)));
 		}
 
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-		Status = XLoader_CheckDdrMcCalibStatus(BaseAddr);
-		if (Status != XST_SUCCESS) {
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+		CalibStatus = XLoader_CheckDdrMcCalibStatus(BaseAddr);
+		if (CalibStatus != XST_SUCCESS) {
 			if (XLoader_IsWarmBootFlagSet(BaseAddr) == (u32)TRUE) {
 				XPlmi_Printf(DEBUG_GENERAL,
 					"DDRMC_%u calibration failed during warm boot. Force a cold boot to recalibrate.\n\r",

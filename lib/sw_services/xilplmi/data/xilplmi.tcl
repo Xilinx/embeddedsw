@@ -43,6 +43,7 @@
 #       pre  08/07/2026 Reduced print level to level0 when DDR IP and I2C instances
 #                       are present in design.
 #       gnr  09/03/2026 Reduced print level to level0 when OSPI is enabled for Versal
+#       pre  10/22/2026 Added configurable option for DDR calibration data restore
 #
 ##############################################################################
 
@@ -517,6 +518,14 @@ proc xgen_opts_file {libhandle} {
 			puts $file_handle "\n/* Time Stamp Disable */"
 			puts $file_handle "#define PLM_BANNER_TIMESTAMP_EXCLUDE"
 		}
+	}
+
+	# Get plm_ddr_calib_restore_en value set by user, by default it is FALSE.
+	# When false, the calibration restore command returns success.
+	set value [common::get_property CONFIG.plm_ddr_calib_restore_en $libhandle]
+	if {$value == true} {
+		puts $file_handle "\n/* DDR calibration data restore enable */"
+		puts $file_handle "#define PLM_ENABLE_DDR_CALIB_RESTORE"
 	}
 
 	# Get cfi_selective_read_en value set by user, by default it is FALSE

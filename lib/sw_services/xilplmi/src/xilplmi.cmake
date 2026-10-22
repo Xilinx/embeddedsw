@@ -213,6 +213,11 @@ if (NOT XILPLMI_timestamp_en)
   set(PLM_BANNER_TIMESTAMP_EXCLUDE " ")
 endif()
 
+option(XILPLMI_plm_ddr_calib_restore_en "Enables or disables DDR calibration data restore. Disabled by default." OFF)
+if (XILPLMI_plm_ddr_calib_restore_en)
+  set(PLM_ENABLE_DDR_CALIB_RESTORE " ")
+endif()
+
 option(XILPLMI_cfi_selective_read_en "Enables or disables CFI selective read" OFF)
 if (XILPLMI_cfi_selective_read_en)
   set(PLM_ENABLE_CFI_SELECTIVE_READ " ")

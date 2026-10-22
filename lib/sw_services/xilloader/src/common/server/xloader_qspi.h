@@ -35,8 +35,9 @@
 *		prt	 04/02/2025 Added support for Infineon QSPI flash parts
 * 2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts
 * 2.5   aa   07/29/2026 Added support for Macronix 256M flash parts
- *       pre  08/18/2026 Added XLoader_QspiReadDdrCalibData for calib data restore
-*
+*       pre  08/18/2026 Added XLoader_QspiReadDdrCalibData for calib data restore
+*       pre  10/22/2026 QSPI calib data restore API is under
+*                       PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default
 * </pre>
 *
 * @note
@@ -165,9 +166,8 @@ int XLoader_QspiInit(u32 DeviceFlags);
 int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags);
 int XLoader_QspiGetBusWidth(u64 ImageOffsetAddress);
 int XLoader_QspiRelease(void);
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-int XLoader_QspiReadDdrCalibData(void *SrcAddr, u32 DestAddr);
-int XLoader_QspiCalibDataRelease(void);
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+int XLoader_QspiReadDdrCalibData(u32 SrcAddr, u32 DestAddr);
 #endif
 
 /************************** Variable Definitions *****************************/

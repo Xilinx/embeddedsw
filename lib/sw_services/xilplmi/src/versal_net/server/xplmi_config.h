@@ -36,6 +36,7 @@
 * 2.0 	sk   10/16/2025 Enabling PLM_I2C_MB_HANDSHAKE macro based on DDR5 IP
 * 2.4   rmv  01/30/2026 Refactor OCP library
 *       ng   09/25/2026 Added PLM_ENABLE_ADDR_RANGE_VALIDATION config option
+*       pre  10/22/2026 Added PLM_ENABLE_DDR_CALIB_RESTORE for the versionless flow
 *
 * </pre>
 *
@@ -217,6 +218,11 @@ extern "C" {
 
 /* Enable the below define to enable CFI selective read */
 //#define PLM_ENABLE_CFI_SELECTIVE_READ
+
+/* DDR calibration data restore. Disabled by default.
+ * Uncomment for the versionless flow.
+ */
+//#define PLM_ENABLE_DDR_CALIB_RESTORE
 
 /* Enable the below define to enable PMC I2C Handshake Feature based on DDR5 IP*/
 #ifdef NOC_MC_DDR5

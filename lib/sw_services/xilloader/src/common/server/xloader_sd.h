@@ -36,7 +36,8 @@
 * 1.04  bm   12/15/2020 Removed XLOADER_SD_MAX_BOOT_FILES_LIMIT macro
 * 1.05  bsv  08/31/2021 Code clean up
 *       dd   09/11/2023 MISRA-C violation Rule 17.8 fixed
-*
+*       pre  10/22/2026 SD calib data restore APIs are under
+*                       PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default
 * </pre>
 *
 * @note
@@ -79,7 +80,7 @@ int XLoader_SdRelease(void);
 int XLoader_RawInit(u32 DeviceFlags);
 int XLoader_RawCopy(u64 SrcAddress, u64 DestAddress, u32 Len, u32 Flags);
 int XLoader_RawRelease(void);
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 int XLoader_SdReadDdrCalibData(const char *FileName, u32 DestAddr);
 int XLoader_SdCalibDataRelease(void);
 #endif

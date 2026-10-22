@@ -58,6 +58,8 @@
 *       ng   07/13/2026 Reduced debug print levels on error paths
 *       pre  09/04/2026 Added XLoader_SdReadDdrCalibData for calib data restore
 *       pre  09/26/2026 Fail SD copy when f_read returns fewer bytes than requested
+*       pre  10/22/2026 SD calib data restore uses the PDI logical drive and is
+*                       under PLM_ENABLE_DDR_CALIB_RESTORE, disabled by default
 *
 * </pre>
 *
@@ -93,9 +95,6 @@
 /************************** Function Prototypes ******************************/
 static int XLoader_MakeSdFileName(u32 MultiBootOffsetVal);
 static u8 XLoader_GetDrvNumSD(u8 DeviceFlags);
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-static void XLoader_SdRetainForCalibData(u32 DeviceNode);
-#endif
 
 /************************** Variable Definitions *****************************/
 static FIL FFil;		/* File object */
@@ -104,15 +103,9 @@ static char BootFile[XLOADER_BASE_FILE_NAME_LEN_SD + 1U] = {'\0'};
 static u32 SdCdnVal = 0U;
 static u32 SdCdnReg = 0U;
 static u32 SdDeviceNode;
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-static u8 CalibSdCopyComplete = (u8)FALSE;	/* Set after all SD calib copies finish */
-static u8 CalibSdRetained = (u8)FALSE;	/* PLM owns the SD retain policy */
-static u8 CalibSdRequested = (u8)FALSE;	/* The copies own an SD device request */
-static u8 CalibSdCdnUpdated = (u8)FALSE;/* The copies overrode the card detect */
-static u32 CalibSdDeviceNode = 0U;	/* Node the copies requested */
-static u32 CalibSdSkipMask = 0U;	/* Retain policy bit the PLM set */
-static u32 CalibSdCdnReg = 0U;
-static u32 CalibSdCdnVal = 0U;
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
+static u8 CalibSdMounted = (u8)FALSE;	/* The copies registered the calib volume */
+static char CalibSdPath[XLOADER_BASE_FILE_NAME_LEN_SD] = {'\0'};
 #endif
 
 /*****************************************************************************/
@@ -469,10 +462,6 @@ END:
 	int PmStatus = XST_FAILURE;
 	FRESULT Rc;
 
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-	XLoader_SdRetainForCalibData(SdDeviceNode);
-#endif
-
 	/** - Close PDI file. */
 	Rc = f_close(&FFil);
 	if (Rc != FR_OK) {
@@ -513,57 +502,7 @@ END:
 	return Status;
  }
 
-#ifdef XPAR_CALIBDATA_STORAGEDEVICE
-/*****************************************************************************/
-/**
- * @brief	This function makes the PMC retain SD when the DDR calibration
- *		data is stored on it.
- *
- * @param	DeviceNode is the SDIO node that is about to be released
- *
- *****************************************************************************/
-static void XLoader_SdRetainForCalibData(u32 DeviceNode)
-{
-#ifdef VERSAL_2VE_2VM
-	u32 CalibDataSrc = (u32)XPAR_CALIBDATA_STORAGEDEVICE &
-				XLOADER_PDISRC_FLAGS_MASK;
-	u32 PrimBootMode = (u32)XLoader_GetBootMode() & XLOADER_PDISRC_FLAGS_MASK;
-	u32 SkipMask;
-
-	/**
-	 * Calibration data is only restored from the primary boot device, so a
-	 * mismatch means that it is not on this SD instance.
-	 */
-	if ((CalibDataSrc != PrimBootMode) || (CalibSdCopyComplete == (u8)TRUE) ||
-		(CalibSdRetained == (u8)TRUE)) {
-		goto END;
-	}
-
-	if (DeviceNode == PM_DEV_SDIO_0) {
-		SkipMask = XPLMI_SKIP_BOOT_DEV_SD0_MASK;
-	}
-	else {
-		SkipMask = XPLMI_SKIP_BOOT_DEV_SD1_MASK;
-	}
-
-	/**
-	 * A policy that the design configured itself is left alone, so that the
-	 * release at the end of the copies does not undo it.
-	 */
-	if ((XPlmi_In32(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE) & SkipMask) == 0U) {
-		XPlmi_UtilRMW(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE, SkipMask, SkipMask);
-		CalibSdRetained = (u8)TRUE;
-		CalibSdSkipMask = SkipMask;
-	}
-
-END:
-	return;
-#else
-	/** The retain policy is only honored by the PMC on versal_2ve_2vm. */
-	(void)DeviceNode;
-#endif
-}
-
+#ifdef PLM_ENABLE_DDR_CALIB_RESTORE
 /*****************************************************************************/
 /**
  * @brief	This function releases SD once the calibration data of all the
@@ -577,34 +516,19 @@ END:
 int XLoader_SdCalibDataRelease(void)
 {
 	int Status = XST_FAILURE;
+	FRESULT Rc;
 
-	CalibSdCopyComplete = (u8)TRUE;
-
-	if (CalibSdRetained == (u8)TRUE) {
-		CalibSdRetained = (u8)FALSE;
-		XPlmi_UtilRMW(XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE, CalibSdSkipMask, 0U);
-	}
-
-	/** - Restore the card detect override that the copies put in place. */
-	if (CalibSdCdnUpdated == (u8)TRUE) {
-		CalibSdCdnUpdated = (u8)FALSE;
-		XPlmi_Out32(CalibSdCdnReg, CalibSdCdnVal);
-	}
-
-	/** - Release only the request that the copies made. */
-	if (CalibSdRequested == (u8)TRUE) {
-		CalibSdRequested = (u8)FALSE;
-#ifdef VERSAL_2VE_2VM
-		Status = XPm_PmcReleaseDevice(CalibSdDeviceNode);
-#else
-		Status = XPm_ReleaseDevice(PM_SUBSYS_PMC, CalibSdDeviceNode,
-			XPLMI_CMD_SECURE);
-#endif
-		/**
-		 * The design can keep its own retain policy, in which case the PMC
-		 * holds the device on purpose. That is not an error.
-		 */
-		if (Status == (int)XPM_PMC_BOOT_DEV_RETAINED) {
+	/**
+	 * Unmount only a volume this copy registered. The primary boot file may
+	 * already be open on the same drive.
+	 */
+	if (CalibSdMounted == (u8)TRUE) {
+		CalibSdMounted = (u8)FALSE;
+		Rc = f_unmount(CalibSdPath);
+		if (Rc != FR_OK) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_UMOUNT, (int)Rc);
+		}
+		else {
 			Status = XST_SUCCESS;
 		}
 	}
@@ -633,21 +557,14 @@ int XLoader_SdReadDdrCalibData(const char *FileName, u32 DestAddr)
 {
 	int Status = XST_FAILURE;
 	const XilPdi *PdiPtr = XLoader_GetPdiInstance();
-	u32 PrimBootMode = 0U;
-	u32 SecPdiSrc = 0U;
+	u32 DeviceFlags = 0U;
 	FRESULT Rc;
 	UINT Br = 0U;
+	u8 PdiSrc = 0U;
 	u8 DrvNum;
-	char Path[XLOADER_BASE_FILE_NAME_LEN_SD] = {0};
 	char FilePath[XLOADER_BASE_FILE_NAME_LEN_SD] = {0};
 	static FATFS CalibFatFs;
 	FIL CalibFil;
-#ifndef VERSAL_2VE_2VM
-	u32 CapSecureAccess = (u32)PM_CAP_ACCESS | (u32)PM_CAP_SECURE;
-#endif
-	u32 ErrorCode;
-	u32 LocalSdCdnReg = 0U;
-	u32 LocalSdDeviceNode = 0U;
 	u8 FileOpened = (u8)FALSE;
 
 	/** Verify input parameters */
@@ -656,63 +573,30 @@ int XLoader_SdReadDdrCalibData(const char *FileName, u32 DestAddr)
 		goto END;
 	}
 
-	/** Primary boot mode from PMC; secondary from current PDI source */
-	PrimBootMode = (u32)XLoader_GetBootMode() & XLOADER_PDISRC_FLAGS_MASK;
-	SecPdiSrc = PdiPtr->PdiSrc & XLOADER_PDISRC_FLAGS_MASK;
-	DrvNum = XLoader_GetDrvNumSD((u8)PrimBootMode);
-
-	/** Select SD device node based on primary boot mode */
-	if ((XLoader_IsPdiSrcSD0((u8)PrimBootMode) == (u8)TRUE) ||
-		(PrimBootMode == XLOADER_PDI_SRC_EMMC0)) {
-		LocalSdDeviceNode = PM_DEV_SDIO_0;
-		LocalSdCdnReg = PMC_IOU_SLCR_SD0_CDN_CTRL;
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_SDIO_0;
-	}
-	else {
-		LocalSdDeviceNode = PM_DEV_SDIO_1;
-		LocalSdCdnReg = PMC_IOU_SLCR_SD1_CDN_CTRL;
-		ErrorCode = (u32)XLOADER_ERR_PM_DEV_SDIO_1;
-	}
-
 	/**
-	 * Request SD on the first call only, and only when the current PDI source
-	 * is not the primary boot device. When they match, SD is already requested
-	 * as boot device. Retaining it first keeps the request and the release from
-	 * resetting the controller and losing the card initialization.
+	 * Use the drive XLoader_SdInit mounted. PdiSrc bits [3:0] select the
+	 * controller. Bits [23:20] are the logical drive. For primary boot those
+	 * bits are multiboot [19:16], which selects the FAT partition.
 	 */
-	if ((SecPdiSrc != PrimBootMode) && (CalibSdRequested == (u8)FALSE)) {
-		XLoader_SdRetainForCalibData(LocalSdDeviceNode);
-#ifdef VERSAL_2VE_2VM
-		Status = XPm_PmcRequestDevice(LocalSdDeviceNode);
-#else
-		Status = XPm_RequestDevice(PM_SUBSYS_PMC, LocalSdDeviceNode,
-			CapSecureAccess, XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
-#endif
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, Status);
-			goto END;
-		}
-		CalibSdRequested = (u8)TRUE;
-		CalibSdDeviceNode = LocalSdDeviceNode;
-
-		CalibSdCdnReg = LocalSdCdnReg;
-		CalibSdCdnVal = XPlmi_In32(LocalSdCdnReg);
-		XPlmi_Out32(LocalSdCdnReg, PMC_IOU_SLCR_SD0_CDN_CTRL_SD0_CDN_CTRL_MASK);
-		CalibSdCdnUpdated = (u8)TRUE;
-	}
+	DeviceFlags = PdiPtr->PdiSrc;
+	PdiSrc = (u8)(DeviceFlags & XLOADER_PDISRC_FLAGS_MASK);
+	DrvNum = XLoader_GetDrvNumSD(PdiSrc);
+	DeviceFlags >>= XLOADER_SD_ADDR_SHIFT;
+	DeviceFlags >>= XLOADER_LOGICAL_DRV_SHIFT;
+	DrvNum += (u8)(DeviceFlags & XLOADER_LOGICAL_DRV_MASK);
 
 	/** Build the logical drive path */
-	Path[0U] = (char)DrvNum + 48;
-	Path[1U] = ':';
-	Path[2U] = '/';
-	Path[3U] = '\0';
+	CalibSdPath[0U] = (char)DrvNum + 48;
+	CalibSdPath[1U] = ':';
+	CalibSdPath[2U] = '/';
+	CalibSdPath[3U] = '\0';
 
 	/**
 	 * A path without a volume prefix is resolved against drive 0, so prefix the
 	 * file name with the drive number.
 	 */
-	Status = Xil_SStrCat((u8 *)FilePath, (u32)sizeof(FilePath), (const u8 *)Path,
-			(u32)sizeof(Path));
+	Status = Xil_SStrCat((u8 *)FilePath, (u32)sizeof(FilePath),
+			(const u8 *)CalibSdPath, (u32)sizeof(CalibSdPath));
 	if (Status == XST_SUCCESS) {
 		Status = Xil_SStrCat((u8 *)FilePath, (u32)sizeof(FilePath),
 				(const u8 *)FileName, (u32)XLOADER_BASE_FILE_NAME_LEN_SD);
@@ -730,17 +614,18 @@ int XLoader_SdReadDdrCalibData(const char *FileName, u32 DestAddr)
 	 */
 	Rc = f_open(&CalibFil, FilePath, (BYTE)FA_READ);
 	if (Rc == FR_NOT_ENABLED) {
-		Rc = f_mount(&CalibFatFs, Path, 0U);
+		Rc = f_mount(&CalibFatFs, CalibSdPath, 0U);
 		if (Rc != FR_OK) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_INIT, (int)Rc);
-			XLoader_Printf(DEBUG_INFO, "SD calib: f_mount failed %d\r\n", Rc);
+			XLoader_Printf(DEBUG_INFO, "SD calib data copy: f_mount failed %d\r\n", Rc);
 			goto END;
 		}
+		CalibSdMounted = (u8)TRUE;
 		Rc = f_open(&CalibFil, FilePath, (BYTE)FA_READ);
 	}
 	if (Rc != FR_OK) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_OPEN, (int)Rc);
-		XLoader_Printf(DEBUG_INFO, "SD calib: Unable to open file %s: %d\n",
+		XLoader_Printf(DEBUG_GENERAL, "SD calib data copy: Unable to open file %s: %d\n",
 				FilePath, Rc);
 		goto END;
 	}
@@ -750,7 +635,7 @@ int XLoader_SdReadDdrCalibData(const char *FileName, u32 DestAddr)
 	Rc = f_lseek(&CalibFil, 0U);
 	if (Rc != FR_OK) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_LSEEK, (int)Rc);
-		XLoader_Printf(DEBUG_INFO, "SD calib: f_lseek failed %d\r\n", Rc);
+		XLoader_Printf(DEBUG_INFO, "SD calib data copy: f_lseek failed %d\r\n", Rc);
 		goto END;
 	}
 
@@ -758,13 +643,13 @@ int XLoader_SdReadDdrCalibData(const char *FileName, u32 DestAddr)
 	Rc = f_read(&CalibFil, (void *)(UINTPTR)DestAddr, XLOADER_CALIBDATA_SIZE_BYTES, &Br);
 	if (Rc != FR_OK) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, (int)Rc);
-		XLoader_Printf(DEBUG_INFO, "SD calib: f_read failed %d\r\n", Rc);
+		XLoader_Printf(DEBUG_INFO, "SD calib data copy: f_read failed %d\r\n", Rc);
 		goto END;
 	}
 	if ((u32)Br != XLOADER_CALIBDATA_SIZE_BYTES) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_F_READ, (int)FR_DENIED);
 		XLoader_Printf(DEBUG_INFO,
-				"SD calib: f_read short, requested 0x%x got 0x%x\r\n",
+				"SD calib data copy: f_read short, requested 0x%x got 0x%x\r\n",
 				XLOADER_CALIBDATA_SIZE_BYTES, (u32)Br);
 		goto END;
 	}
@@ -779,11 +664,8 @@ END:
 	}
 
 	/**
-	 * The copies of the remaining DDR MCs still need the device, so it is kept
-	 * requested here on both paths, and the card detect override stays in place
-	 * with it. XLoader_SdCalibDataRelease undoes both once the restore is over,
-	 * on the error path as well. Do not call XLoader_SdRelease; that closes the
-	 * boot PDI file.
+	 * SD remains owned by the primary boot flow across all calibration copies.
+	 * Do not call XLoader_SdRelease here because it closes the boot PDI file.
 	 */
 	if (Status != XST_SUCCESS) {
 		XLoader_Printf(DEBUG_GENERAL, "SD calib data copy failed: 0x%x\n\r",
@@ -792,8 +674,8 @@ END:
 
 	return Status;
 }
+#endif
 
-#endif /* XPAR_CALIBDATA_STORAGEDEVICE */
 
 /*****************************************************************************/
 /**
