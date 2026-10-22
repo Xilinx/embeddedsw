@@ -49,9 +49,9 @@ static int MuxInit(void);
 
 #define DEBUG_EEPROM_READ_SETADDR 	1
 
-static void SendHandler(XIic *InstancePtr);
-static void ReceiveHandler(XIic *InstancePtr);
-static void StatusHandler(XIic *InstancePtr, int Event);
+static void SendHandler(void *CallBackRef, int ByteCount);
+static void ReceiveHandler(void *CallBackRef, int ByteCount);
+static void StatusHandler(void *CallBackRef, int Event);
 
 /************************** Function Definitions *****************************/
 
@@ -109,11 +109,11 @@ int IicSetHandler(){
 
 	/* Set the Handlers for transmit and reception. */
 	XIic_SetSendHandler(&IicInstance, &IicInstance,
-				(XIic_Handler) SendHandler);
+				SendHandler);
 	XIic_SetRecvHandler(&IicInstance, &IicInstance,
-				(XIic_Handler) ReceiveHandler);
+				ReceiveHandler);
 	XIic_SetStatusHandler(&IicInstance, &IicInstance,
-				  (XIic_StatusHandler) StatusHandler);
+				  StatusHandler);
 
 	/* Bring the MUX out of Reset */
 	Status = SetGPOMuxReset(mux_resetn);
@@ -421,8 +421,10 @@ int EepromReadDataOffset(u8 *BufferPtr, u16 ByteCount, u32 offset){
 * @note		None.
 *
 ******************************************************************************/
-static void SendHandler(XIic *InstancePtr)
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	TransmitComplete = 0;
 }
 
@@ -439,8 +441,10 @@ static void SendHandler(XIic *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void ReceiveHandler(XIic *InstancePtr)
+static void ReceiveHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
 	ReceiveComplete = 0;
 }
 
@@ -458,9 +462,10 @@ static void ReceiveHandler(XIic *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static void StatusHandler(XIic *InstancePtr, int Event)
+static void StatusHandler(void *CallBackRef, int Event)
 {
-
+	(void)CallBackRef;
+	(void)Event;
 }
 
 #ifdef IIC_MUX_ENABLE

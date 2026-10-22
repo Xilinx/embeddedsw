@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -257,6 +258,7 @@ int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time)
 ******************************************************************************/
 void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 {
+	(void)InstancePtr;
 #if !NEW_PAT_GEN
 	if (XDp_ReadReg(InstancePtr->Config.BaseAddr,
 				(XDP_TX_USER_PIXEL_WIDTH)) == 0x4) {
@@ -300,6 +302,8 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 {
 	u8 StreamIndex = 1;
+
+	(void)InstancePtr;
 
 	                for (StreamIndex = 1; StreamIndex < 5; StreamIndex++) {
 #if !NEW_PAT_GEN
@@ -417,7 +421,7 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 	XDp_TxLinkConfig *LinkConfig = &InstancePtr->TxInstance.LinkConfig;
 	u32 UserPixelWidth;
-	u8 DSBypass;
+	u8 DSBypass = 0;
 	XVidC_VideoMode VmId;
 //	u32 Status;
     u32 Count = 0;
@@ -520,6 +524,12 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 		MsaConfig->Vtm.Timing.HActive / 4;
 
 #endif
+	(void)VSplitMode;
+	(void)first_time;
+	(void)UserPixelWidth;
+	(void)DSBypass;
+	(void)VmId;
+	(void)Count;
 }
 
 /*****************************************************************************/

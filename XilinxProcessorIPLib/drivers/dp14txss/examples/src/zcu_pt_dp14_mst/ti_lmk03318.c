@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -128,6 +129,11 @@ static int TI_LMK03318_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 int TI_LMK03318_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				int FIn, int FOut, u8 FreeRun)
 {
+	(void)I2CBaseAddress;
+	(void)I2CSlaveAddress;
+	(void)FIn;
+	(void)FOut;
+	(void)FreeRun;
 	return XST_FAILURE;
 }
 
@@ -427,7 +433,7 @@ void TI_LMK03318_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 	for (i = 0 ; i < 10 ; i++)
 		xil_printf("---");
 	
-	for (i = 0 ; i < ByteCount ; i++) {
+	for (i = 0 ; i < (int)ByteCount ; i++) {
 		if ((i % 10) == 0) {
 			xil_printf("\n\r%02d : ", i);
 		}

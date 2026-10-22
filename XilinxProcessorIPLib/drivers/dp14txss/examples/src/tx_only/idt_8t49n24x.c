@@ -121,6 +121,7 @@ static u8 IDT_8T49N24x_GetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				ByteCount = 1;
 			}
 #else
+			(void)Status;
 			ByteCount = XIic_Recv(I2CBaseAddress, I2CSlaveAddress,
 						(u8*)Buffer, 1, XIIC_STOP);
 #endif
@@ -181,6 +182,8 @@ static int IDT_8T49N24x_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 			ByteCount = 3;
 		}
 #else
+		(void)Status;
+
 		ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 					(u8*)Buffer, 3, XIIC_STOP);
 #endif
@@ -305,7 +308,7 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 	int NS2Temp;
 	int OutDivTemp;
 	u32 VCOTemp;
-	int i;
+	u32 i;
 
 	int OutDivMin = (int)ceil_func(IDT_8T49N24X_FVCO_MIN/FOut);
 	int OutDivMax = (int)floor_func(IDT_8T49N24X_FVCO_MAX/FOut);

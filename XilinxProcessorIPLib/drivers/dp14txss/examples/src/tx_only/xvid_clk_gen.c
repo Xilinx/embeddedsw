@@ -11,7 +11,9 @@
 #include "xclk_wiz.h"
 
 #ifndef versal
+#ifndef CLK_WIZ_BASE
 #define CLK_WIZ_BASE      				XPAR_XCLK_WIZ_0_BASEADDR
+#endif
 
 #endif
 #define CLK_LOCK                        1
@@ -196,6 +198,8 @@ void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 	XDp_TxMainStreamAttributes *MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 #ifndef versal
+	(void)Count;
+
 	ComputeMandD(((MsaConfig->PixelClockHz/1000)/MsaConfig->UserPixelWidth) );
 #else
 	XClk_Wiz_WriteReg(ClkWiz_Dynamic.Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0x0);

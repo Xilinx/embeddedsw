@@ -1177,7 +1177,7 @@ s32 Si5328_SetClock_Ps(XIicPs *InstancePtr, u16 IICAddress, u8 ClkSrc,
     }
 
     // Sanity check
-    if (i != sizeof(buf)) {
+    if (i != (int)sizeof(buf)) {
         if (SI5328_DEBUG) {
             xil_printf("Si5328: FATAL ERROR: Incorrect buffer size while "
 			                     "programming frequency settings!");
@@ -1452,7 +1452,7 @@ int Si5328_FindN2ls(si5328_settings_t *settings) {
                 xil_printf("\t\t\t                fosc = %dkHz f3 = %dHz.\n",
                     (u32)((fosc_actual >> 28) / 1000), (u32)(f3_actual >> 28));
             }
-            if (((u64)llabs(delta_fout)) < settings->best_delta_fout) {
+            if (delta_fout < settings->best_delta_fout) {
                 // Found a better solution: remember this one!
                 if (SI5328_DEBUG) {
                     xil_printf("\t\t\tThis solution is the best yet!\n");
@@ -1463,7 +1463,7 @@ int Si5328_FindN2ls(si5328_settings_t *settings) {
                 settings->best_n2_ls = settings->n2_ls;
                 settings->best_n3 = settings->n3;
                 settings->best_fout = fout_actual;
-                settings->best_delta_fout = llabs(delta_fout);
+                settings->best_delta_fout = delta_fout;
                 if (delta_fout == 0) {
               // Best possible result found. Skip the rest of the possibilities.
                     result = 1;
@@ -1839,7 +1839,7 @@ int Si5328_SetClock(u32 IICBaseAddress, u8 IICAddress, u8 ClkSrc,
     i += 2;
 
     // Sanity check
-    if (i != sizeof(buf)) {
+    if (i != (int)sizeof(buf)) {
         if (SI5328_DEBUG) {
             xil_printf("Si5328: FATAL ERROR: Incorrect buffer size while "
 			"						programming frequency settings!");

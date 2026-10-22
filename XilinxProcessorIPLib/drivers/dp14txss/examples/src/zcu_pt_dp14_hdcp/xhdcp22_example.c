@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -57,6 +57,7 @@ static void XHdcp22_UpstreamAuthenticatedCallback(void *HdcpInstancePtr)
 ******************************************************************************/
 static void XHdcp22_UpstreamUnauthenticatedCallback(void *HdcpInstancePtr)
 {
+	(void)HdcpInstancePtr;
 	/* Nothing to be done here for now Implement
 	 * enforce blanking, topology and stream type reset
 	 * if TX HDCP is present*/
@@ -77,6 +78,7 @@ static void XHdcp22_UpstreamUnauthenticatedCallback(void *HdcpInstancePtr)
 ******************************************************************************/
 static void XHdcp22_UpstreamEncryptionUpdateCallback(void *HdcpInstancePtr)
 {
+	(void)HdcpInstancePtr;
 	/* Nothing to be done here for now Implement
 	 * enforce blanking if TX HDCP is present*/
 }
@@ -184,6 +186,10 @@ extern u8 XHdcp22RxPrivateKey[];
 int XHdcp22_LoadKeys_rx(uint8_t *Hdcp22Lc128, uint32_t Hdcp22Lc128Size,
 		uint8_t *Hdcp22RxPrivateKey, uint32_t Hdcp22RxPrivateKeySize)
 {
+	(void)Hdcp22Lc128;
+	(void)Hdcp22Lc128Size;
+	(void)Hdcp22RxPrivateKey;
+	(void)Hdcp22RxPrivateKeySize;
 	/* This is a Dummy function, This should load the keys from its
 	 * stored location and return those.
 	 * For HDMI there is an EEPROM in which all the encrypted keys have stored,
@@ -402,6 +408,8 @@ void XV_DpTxSs_Hdcp22SetKey(XDpTxSs *InstancePtr, XV_DpTxSs_Hdcp22KeyType KeyTyp
 
 int XHdcp22_LoadKeys_tx(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size)
 {
+	(void)Hdcp22Lc128;
+	(void)Hdcp22Lc128Size;
 	/* This is a Dummy function, This should load the keys from its
 	 * stored location and return those.
 	 * For HDMI there is an EEPROM in which all the encrypted keys have stored,

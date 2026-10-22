@@ -110,7 +110,7 @@ int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey,
 		u8 *Hdcp14KeyA, u32 Hdcp14KeyASize, u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize)
 {
 	u8 i;
-	u8 HdcpSignature[16] = {"xilinx_hdcp_keys"};
+	u8 HdcpSignature[16] __attribute__((nonstring)) = {"xilinx_hdcp_keys"};
 	u8 Buffer[1024];
 	u8 Password[32];
 	u8 Key[32];

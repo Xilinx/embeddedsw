@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -274,6 +274,8 @@ void Vpg_VidgenSetTestPattern(XDp *InstancePtr, u8 Stream)
 			StreamPattern_vpg[Stream - 1]);
 	}
 #else
+	(void)InstancePtr;
+
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 		StreamOffset[Stream - 1], TestPatternControl,
 			(QuadPixelMode | StreamPattern_vpg[Stream - 1]));
@@ -319,6 +321,8 @@ void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern)
 			Pattern);
 	}
 #else
+	(void)InstancePtr;
+
 	XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 		StreamOffset[0], TestPatternControl,
 			(QuadPixelMode | Pattern));
@@ -414,8 +418,8 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 	u32 UserPixelWidth;
 	u8 DSBypass;
 	XVidC_VideoMode VmId;
-//	u32 Status;
-    u32 Count = 0;
+
+	(void)first_time;
 	VmId = MsaConfig->Vtm.VmId;
 
 	/* Configure MSA values from the Display Monitor Timing (DMT) table.
@@ -509,6 +513,10 @@ static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 				VidgenConfig->Timing.F0PVSyncWidth +
 				VidgenConfig->Timing.F0PVBackPorch - 1;
 #else
+	(void)VmId;
+	(void)DSBypass;
+	(void)UserPixelWidth;
+	(void)VSplitMode;
 
 	VidgenConfig->Timing.VActive = MsaConfig->Vtm.Timing.VActive;
 	VidgenConfig->Timing.HActive =

@@ -217,7 +217,6 @@ typedef struct
 void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_update);
 //void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
-static u32 xil_gethex(u8 num_chars);
 //void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 void Vpg_Audio_start(void);
 void Vpg_Audio_stop(void);
@@ -381,7 +380,6 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, u8 only_tx);
 int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 //void LMK04906_init(XSpi *SPI_LMK04906);
-static u8 CalculateChecksum(u8 *Data, u8 Size);
 XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
 void ReportVideoCRC(void);
 extern void main_loop(void);

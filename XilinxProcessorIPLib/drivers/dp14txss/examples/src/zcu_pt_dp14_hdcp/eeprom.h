@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,9 @@ typedef u8 AddressType;
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifndef IIC_DEVICE_ID
 #define IIC_DEVICE_ID	XPAR_IIC_0_DEVICE_ID
+#endif
 
 #ifdef XPAR_INTC_0_DEVICE_ID
  #define INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID

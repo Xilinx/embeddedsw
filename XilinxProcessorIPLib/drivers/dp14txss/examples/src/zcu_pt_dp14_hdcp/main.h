@@ -97,6 +97,10 @@ extern "C" {
 #include "keymgmt.h"
 #include "xhdcp22_example.h"
 extern XHdcp22_Repeater     Hdcp22Repeater;
+int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size,
+		u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize,
+		u8 *Hdcp14KeyA, u32 Hdcp14KeyASize,
+		u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize);
 
 
 #define TxOnly
@@ -273,9 +277,6 @@ typedef struct
 /************************** Function Prototypes ******************************/
 void Dprx_HdcpAuthCallback(void *InstancePtr);
 void Dprx_HdcpUnAuthCallback(void *InstancePtr);
-#if ENABLE_HDCP_IN_DESIGN
-static void Dppt_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
-#endif
 u32 DpSs_Main();
 u32 DpSs_PlatformInit(void);
 u32 DpRxSs_VideoPhyInit(u16 DeviceId);

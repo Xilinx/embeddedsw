@@ -187,7 +187,6 @@ void ComputeMandD(u32 VidFreq){
 
 void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 {
-	u32 Count = 0;
 	XDp_TxMainStreamAttributes *MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 

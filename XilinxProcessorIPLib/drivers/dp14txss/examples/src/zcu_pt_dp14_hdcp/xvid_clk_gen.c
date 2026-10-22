@@ -12,6 +12,7 @@
 #include "xclk_wiz.h"
 
 #ifndef versal
+#undef CLK_WIZ_BASE
 #define CLK_WIZ_BASE                    XPAR_XCLK_WIZ_0_BASEADDR
 #endif
 #define CLK_LOCK                        1
@@ -194,7 +195,6 @@ void ComputeMandD(u32 VidFreq){
 
 void Gen_vid_clk(XDp *InstancePtr, u8 Stream)
 {
-	u32 Count = 0;
 	XDp_TxMainStreamAttributes *MsaConfig =
 			&InstancePtr->TxInstance.MsaConfig[Stream - 1];
 	//	xil_printf ("MSA pixel width is %d\r\n",MsaConfig->UserPixelWidth);

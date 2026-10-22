@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -59,7 +60,7 @@ static tHandler  gMyHandlers[MAX_NUM_HANDLERS];
 // user. Xilinx does not provide these
 // ******************************************************
 
-static uint8_t   gDefaultKey[32] =
+static uint8_t   gDefaultKey[32] __attribute__((unused)) =
 {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -116,7 +117,7 @@ ntohll(
  * \return  The extracted value
  *
  ******************************************************************************/
-static uint32_t
+static uint32_t __attribute__((unused))
 doBeBufToU32(
   const uint8_t* theBuf
 )
@@ -394,6 +395,8 @@ KEYFILE_Validate(
   void*       theKey
 )
 {
+  (void)theFileName;
+  (void)theKey;
 #ifndef USE_EEPROM_HDCP_KEYS
   /* Locals */
   KEYFILE_tHandle theHandle = KEYFILE_HANDLE_NULL;

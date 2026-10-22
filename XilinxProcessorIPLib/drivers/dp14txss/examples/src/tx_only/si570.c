@@ -21,7 +21,8 @@
 *
 ******************************************************************************/
 
-#include "xbasic_types.h"
+#include "xil_types.h"
+#include "xil_assert.h"
 #include "xdptxss_dp14_tx.h"
 
 #if defined (PLATFORM_MB) || defined (__riscv)
@@ -36,19 +37,26 @@ typedef u8 AddressType;
 u8 WriteBuffer[sizeof(AddressType) + PAGE_SIZE];
 u8 ReadBuffer[PAGE_SIZE];
 
-static void ReceiveHandler(XIic * InstancePtr)
+static void ReceiveHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
+
         ReceiveComplete = 0;
 }
 
-static void SendHandler(XIic * InstancePtr)
+static void SendHandler(void *CallBackRef, int ByteCount)
 {
+	(void)CallBackRef;
+	(void)ByteCount;
+
         TransmitComplete = 0;
 }
 
-static void StatusHandler(XIic * InstancePtr, int Event)
+static void StatusHandler(void *CallBackRef, int Event)
 {
-
+	(void)CallBackRef;
+	(void)Event;
 }
 
 int iic_write(u16 ByteCount)

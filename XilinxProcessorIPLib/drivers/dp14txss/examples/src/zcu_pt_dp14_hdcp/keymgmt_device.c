@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,7 +68,7 @@ static int      gIsInitialized = FALSE;
 #if (PLATFORM_DEVID_MAX>2)
 #error "Max two keygen devices are supported"
 #endif
-static tDevice  gMyDevices[1] =
+static tDevice  gMyDevices[PLATFORM_DEVID_MAX] =
 {
   /* Device #0 */
   {

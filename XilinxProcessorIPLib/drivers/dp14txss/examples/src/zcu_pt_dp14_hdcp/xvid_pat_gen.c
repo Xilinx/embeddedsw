@@ -152,6 +152,7 @@ typedef struct {
 
 /************************** Function Prototypes ******************************/
 
+#ifdef XPAR_DP_TX_HIER_0_AV_PAT_GEN_0_BASEADDR
 static void VidgenSetConfig(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig,
 				u8 Stream, u8 VSplitMode, u8 first_time);
 static void VidgenWriteConfig(XDp *InstancePtr,
@@ -159,6 +160,7 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 //static void WaitTxVsyncs(XDp *InstancePtr, u32 LoopCount, u8 Stream);
 static void VidgenComputeMVid(XDp *InstancePtr,
 				Vpg_VidgenConfig *VidgenConfig);
+#endif
 
 extern void ComputeMandD(u32 VidFreq);
 

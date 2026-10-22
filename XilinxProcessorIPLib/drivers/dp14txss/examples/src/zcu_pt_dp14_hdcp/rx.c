@@ -273,6 +273,7 @@ u32 DpRxSs_SetupIntrSystem(void)
 ******************************************************************************/
 void DpRxSs_PowerChangeHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 
 }
 
@@ -290,6 +291,7 @@ void DpRxSs_PowerChangeHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_NoVideoHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	DpRxSsInst.VBlankCount = 0;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
@@ -328,6 +330,7 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	DpRxSsInst.VBlankCount++;
 	if (DpRxSsInst.VBlankCount > 200) {
 		//when Vblank is received, HDCP is put in enabled state and the
@@ -393,6 +396,7 @@ u32 naud_dup = 0;
 extern u8 rx_trained;
 void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 
 #if ENABLE_HDCP_IN_DESIGN
 #if ENABLE_HDCP1x_IN_RX
@@ -444,6 +448,7 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_VideoHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 }
 
 /*****************************************************************************/
@@ -461,6 +466,7 @@ void DpRxSs_VideoHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 
 	DpRxSsInst.link_up_trigger = 1;
 	DpRxSsInst.VBlankCount = 0;
@@ -500,6 +506,7 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 
 void DpRxSs_UnplugHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	/* Disable & Enable Audio */
 	rx_unplugged = 1;
 	appx_fs_dup = 0;
@@ -597,6 +604,7 @@ void DpRxSs_UnplugHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	u32 Status;
 	/*Program Video PHY to requested line rate*/
 	PLLRefClkSel (&VPhyInst, DpRxSsInst.UsrOpt.LinkRate);
@@ -605,7 +613,8 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 			 XVPHY_DIR_RX,(TRUE));
 
 	XVphy_PllInitialize(&VPhyInst, 0, XVPHY_CHANNEL_ID_CHA,
-				ONBOARD_REF_CLK, ONBOARD_REF_CLK,
+				(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
+				(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 				XVPHY_PLL_TYPE_QPLL1, XVPHY_PLL_TYPE_CPLL);
 	Status = XVphy_ClkInitialize(&VPhyInst, 0,
 									XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX);
@@ -632,6 +641,7 @@ void DpRxSs_LinkBandwidthHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_PllResetHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 
 	/* Issue resets to Video PHY - This API
 	 * called after line rate is programmed */
@@ -678,6 +688,7 @@ void DpRxSs_PllResetHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_BWChangeHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 //    MCDP6000_ResetDpPath(XPAR_IIC_0_BASEADDR, I2C_MCDP6000_ADDR);
 }
 
@@ -695,6 +706,7 @@ void DpRxSs_BWChangeHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_AccessLaneSetHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 }
 
 /*****************************************************************************/
@@ -711,6 +723,7 @@ void DpRxSs_AccessLaneSetHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_CRCTestEventHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	u16 ReadVal;
 	u32 TrainingAlgoValue;
 
@@ -764,6 +777,7 @@ void DpRxSs_CRCTestEventHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	u32 ReadVal;
 	u32 DrpVal;
 
@@ -831,6 +845,7 @@ void DpRxSs_AccessLinkQualHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_AccessErrorCounterHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	u16 DrpVal;
 	u16 DrpVal_lower_lane0;
 	u16 DrpVal_lower_lane1;
@@ -1046,8 +1061,9 @@ void LoadEDID(void)
 
 void DpRxSs_InfoPacketHandler(void *InstancePtr)
 {
-	u32 InfoFrame[9];
 	int i=0;
+
+	(void)InstancePtr;
 	for(i = 0 ; i < 8 ; i++) {
 		if (tx_pass) {
 			//Start putting into FIFO. These will be programmed into TX
@@ -1090,6 +1106,7 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 ******************************************************************************/
 void DpRxSs_ExtPacketHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	u32 ExtFrame[9];
 	int i=1;
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -67,6 +67,7 @@ static int TI_LMK03318_SetRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 		ByteCount = 2;
 	}
 #else
+	(void)Status;
 	ByteCount = XIic_Send(I2CBaseAddress, I2CSlaveAddress,
 			      (u8*)Buffer, 2, XIIC_STOP);
 #endif
@@ -151,6 +152,12 @@ static int TI_LMK03318_ModifyRegister(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 int TI_LMK03318_SetClock(u32 I2CBaseAddress, u8 I2CSlaveAddress,
 				int FIn, int FOut, u8 FreeRun)
 {
+	(void)I2CBaseAddress;
+	(void)I2CSlaveAddress;
+	(void)FIn;
+	(void)FOut;
+	(void)FreeRun;
+
 	return XST_FAILURE;
 }
 
@@ -353,7 +360,7 @@ void TI_LMK03318_RegisterDump(u32 I2CBaseAddress, u8 I2CSlaveAddress)
 {
 	u32 ByteCount = 0;
 	u8 Buffer[256];
-	int i;
+	u32 i;
 
 	print("\n\r");
 	print("-----------------------\n\r");

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -92,6 +92,9 @@ typedef enum
 int XHdcp22_SetUpstream(XHdcp22_Repeater *InstancePtr,
       XDpRxSs *UpstreamInstancePtr);
 void XHdcp22_Poll(XHdcp22_Repeater *InstancePtr);
+int XHdcp_Initialize(XHdcp22_Repeater *InstancePtr);
+int XHdcp_SetDownstream(XHdcp22_Repeater *InstancePtr,
+      XDpTxSs *DownstreamInstancePtr);
 
 int XHdcp22_LoadKeys_rx(uint8_t *Hdcp22Lc128, uint32_t Hdcp22Lc128Size,
 		uint8_t *Hdcp22RxPrivateKey, uint32_t Hdcp22RxPrivateKeySize);

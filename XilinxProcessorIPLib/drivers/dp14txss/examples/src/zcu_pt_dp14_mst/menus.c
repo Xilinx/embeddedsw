@@ -51,6 +51,7 @@ XVidC_VideoMode resolution_table[] =
 };
 
 static char inbyte_local(void);
+static u32 xil_gethex(u8 num_chars);
 
 static char XUartPs_RecvByte_NonBlocking(void);
 extern void Dprx_DetectResolution(void *InstancePtr, u16 offset);
@@ -304,8 +305,6 @@ void main_loop(){
 	u32 aux_reg_address, num_of_aux_registers;
 	u8 Data[8];
 	u8 audio_on=0;
-	u32 data;
-	int it = 0;
 	u8 stream;
 
 	unsigned char bpc_table[] = {6,8,10,12,16};
@@ -588,7 +587,7 @@ void main_loop(){
 							user_config.user_bpc = bpc_table[Command];
 							xil_printf("You have selected %c\r\n",
 															CommandKey);
-							if((Command>4) || (Command < 0))
+							if(Command>4)
 							{
 								bpc_help_menu(DPTXSS_BPC);
 								done = 0;
@@ -640,7 +639,7 @@ void main_loop(){
 							Command = CmdKey[0] -'a' + 10;
 						}
 
-						if((Command>=0)&&(Command<12))
+						if(Command<12)
 						{
 							user_tx_LaneCount =
 									lane_link_table[Command].lane_count;
@@ -857,7 +856,7 @@ void main_loop(){
 			}
 			xil_printf("\r\nGiven base address offset is 0x%x\r\n",
 										aux_reg_address);
-			for(i=0;i<num_of_aux_registers;i++)
+			for(i=0;i<(int)num_of_aux_registers;i++)
 			{
 					Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
 						(aux_reg_address+i), 1, &Data);
@@ -951,7 +950,6 @@ u8 strm_start = 1;
 u8 AudioStream;
 
 void pt_loop(){
-	int i;
 	u32 Status;
 	u8 exit = 0;
 	u32 user_lane_count;
@@ -1119,7 +1117,7 @@ void pt_loop(){
 					   default :
 					xil_printf("You have selected command '%c'\r\n",
 															CmdKey[0]);
-					if((Command>=0)&&(Command<9)) {
+					if(Command<9) {
 						user_lane_count =  lane_link_table[Command].lane_count;
 						user_link_rate =  lane_link_table[Command].link_rate;
 						if(lane_link_table[Command].lane_count > DpRxSsInst.DpPtr->Config.MaxLaneCount)
@@ -1403,7 +1401,6 @@ void start_tx_after_rx(u8 stream_id, u8 only_tx) {
 	u8 max_cap_org = 0;
 	u8 max_cap_lanes = 0;
 	u8 monitor_8K=0;
-	u8 AudioStream_a;
 	u8 num_stream = 0;
 	int aud_timeout = 0;
 	u8 stream1_is_invalid = 0;

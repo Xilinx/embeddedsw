@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -327,6 +328,7 @@ KEYMGMTLDR_Poll(
   uint32_t theUpTime
 )
 {
+  (void)theUpTime;
 
   /* Return */
   return;
@@ -356,6 +358,8 @@ KEYMGMTLDR_Debug(
 {
   /* Locals */
   int thereWasAProblem = FALSE;
+
+  (void)argv;
 
   /* Sanity Check */
   if (argc > 0)

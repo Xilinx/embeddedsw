@@ -184,41 +184,41 @@ typedef enum {
 const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
 					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
 {
-	{ XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
 		{1920, 48, 32, 80, 2080, 1,
 		1080, 3, 5, 23, 1111, 0, 0, 0, 0, 0}},
-	{ XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
+	{ (XVidC_VideoMode)XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
 		 {2560, 48, 32, 80, 2720, 1,
 		1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}},
-	{ XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_120_P_RB, "3840x2160@120Hz (RB)", XVIDC_FR_120HZ,
 		{3840, 8, 32, 40, 3920, 1,
 		2160, 113, 8, 6, 2287, 0, 0, 0, 0, 1} },
 
-	{ XVIDC_VM_7680x4320_DP_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_DP_24_P, "7680x4320@24Hz", XVIDC_FR_24HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_DP_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_DP_25_P, "7680x4320@25Hz", XVIDC_FR_25HZ,
 		{7680, 352, 176, 592, 8800, 1,
 		4320, 16, 20, 144, 4500, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_DP_30_P, "7680x4320@30Hz", XVIDC_FR_30HZ,
 		{7680, 8, 32, 40, 7760, 0,
 		4320, 47, 8, 6, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz (RB2)", XVIDC_FR_100HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_100_P_RB2, "3840x2160@100Hz(RB2)", XVIDC_FR_100HZ,
 		{3840, 8, 32, 40, 3920, 0,
 		2160, 91, 8, 6, 2265, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_30_DELL, "7680x4320_DELL@30Hz", XVIDC_FR_30HZ,
 		{7680, 48, 32, 80, 7840, 0,
 		4320, 3, 5, 53, 4381, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_P_RB2, "5120x2880@60Hz (RB2)", XVIDC_FR_60HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_5120x2880_60_P_RB2, "5120x2880@60Hz (RB2)", XVIDC_FR_60HZ,
 		{5120, 8, 32, 40, 5200, 0,
 		2880, 68, 8, 6, 2962, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_7680x4320_30_MSTR, "7680x4320_MSTR@30Hz", XVIDC_FR_30HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_7680x4320_30_MSTR, "7680x4320_MSTR@30Hz", XVIDC_FR_30HZ,
 		{7680, 25, 97, 239, 8041, 0,
 		4320, 48, 9, 5, 4382, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_5120x2880_60_MSTR, "5120x2880@60Hz_MSTR", XVIDC_FR_60HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_5120x2880_60_MSTR, "5120x2880@60Hz_MSTR", XVIDC_FR_60HZ,
 		{5120, 25, 97, 239, 5481, 0,
 		2880, 48, 9, 5, 2942, 0, 0, 0, 0, 1}},
-	{ XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
+	{ (XVidC_VideoMode)XVIDC_VM_3840x2160_120_MSTR, "3840x2160@120Hz_MSTR", XVIDC_FR_120HZ,
 		{3840, 48, 34, 79, 4001, 1,
 		2160, 4, 6, 53, 2223, 0, 0, 0, 0, 1}},
 };
@@ -243,17 +243,17 @@ XVidC_VideoMode resolution_table[] =
 	XVIDC_VM_1920x1440_60_P,
 	XVIDC_VM_USE_EDID_PREFERRED,
 
-	XVIDC_VM_1920x1080_60_P_RB,
+	(XVidC_VideoMode)XVIDC_VM_1920x1080_60_P_RB,
 	XVIDC_VM_3840x2160_60_P_RB,
-	XVIDC_VM_3840x2160_120_P_RB,
-	XVIDC_VM_7680x4320_DP_24_P,
-	XVIDC_VM_7680x4320_DP_30_P,
-	XVIDC_VM_3840x2160_100_P_RB2,
-	XVIDC_VM_7680x4320_30_DELL,
-	XVIDC_VM_5120x2880_60_P_RB2,
-	XVIDC_VM_7680x4320_30_MSTR,
-	XVIDC_VM_5120x2880_60_MSTR,
-	XVIDC_VM_3840x2160_120_MSTR
+	(XVidC_VideoMode)XVIDC_VM_3840x2160_120_P_RB,
+	(XVidC_VideoMode)XVIDC_VM_7680x4320_DP_24_P,
+	(XVidC_VideoMode)XVIDC_VM_7680x4320_DP_30_P,
+	(XVidC_VideoMode)XVIDC_VM_3840x2160_100_P_RB2,
+	(XVidC_VideoMode)XVIDC_VM_7680x4320_30_DELL,
+	(XVidC_VideoMode)XVIDC_VM_5120x2880_60_P_RB2,
+	(XVidC_VideoMode)XVIDC_VM_7680x4320_30_MSTR,
+	(XVidC_VideoMode)XVIDC_VM_5120x2880_60_MSTR,
+	(XVidC_VideoMode)XVIDC_VM_3840x2160_120_MSTR
 
 };
 
@@ -600,7 +600,6 @@ u32 DpSs_Main(void)
 	extern uint8_t Hdcp14KeyA_test[336];
 	extern uint8_t Hdcp14KeyA[];
 	extern uint32_t Hdcp14KeyA_Sz ;
-	uint64_t* ptr_64=Hdcp14KeyA_test;
 	extern uint32_t Hdcp14KeyB_test_Sz ;
 	extern uint8_t Hdcp14KeyB_test[336];
 	extern uint8_t Hdcp14KeyB[];
@@ -609,7 +608,6 @@ u32 DpSs_Main(void)
 
 	memcpy(Hdcp14KeyB_test,Hdcp14KeyB,Hdcp14KeyB_Sz);
 	extern uint8_t Hdcp14Key_test[672];
-	extern uint32_t Hdcp14Key_test_Sz;
 	memcpy(Hdcp14Key_test,Hdcp14KeyA_test,Hdcp14KeyA_test_Sz);
 	memcpy((Hdcp14Key_test + Hdcp14KeyA_test_Sz),Hdcp14KeyB_test,Hdcp14KeyB_test_Sz);
 #endif
@@ -898,10 +896,10 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 	switch (link_rate) {
 	case 0x6:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-					ONBOARD_REF_CLK,
+					(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 					XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-					ONBOARD_REF_CLK,
+					(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 					XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_162GBPS);
@@ -910,10 +908,10 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 		break;
 	case 0x14:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-					ONBOARD_REF_CLK,
+					(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 					XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-					ONBOARD_REF_CLK,
+					(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 					XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_540GBPS);
@@ -922,10 +920,10 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 		break;
 	case 0x1E:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-					ONBOARD_REF_CLK,
+					(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 					XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-					ONBOARD_REF_CLK,
+					(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 					XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_810GBPS);
@@ -934,12 +932,12 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 		break;
 	default:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-				    ONBOARD_REF_CLK,
+				    (XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 				    XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
 //				    DP159_FORWARDED_CLK,
 //				    XVPHY_DP_REF_CLK_FREQ_HZ_135);
-				    ONBOARD_REF_CLK,
+				    (XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 				    XVPHY_DP_REF_CLK_FREQ_HZ_270);
 		XVphy_CfgLineRate(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				  XVPHY_DP_LINK_RATE_HZ_270GBPS);
@@ -1597,8 +1595,8 @@ u32 DpSs_VideoPhyInit(UINTPTR BaseAddress)
 	PLLRefClkSel (&VPhyInst, 0x14);
 
 	XVphy_DpInitialize(&VPhyInst, ConfigPtr, 0,
-			ONBOARD_REF_CLK,
-			ONBOARD_REF_CLK,
+			(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
+			(XVphy_PllRefClkSelType)ONBOARD_REF_CLK,
 			XVPHY_PLL_TYPE_QPLL1,
 			XVPHY_PLL_TYPE_CPLL,
 			0x14);
@@ -1831,8 +1829,10 @@ void frameBuffer_start_wr(XVidC_VideoMode VmId,
 		XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K) {
 
 	XVidC_ColorFormat Cfmt;
-	XVidC_VideoTiming const *TimingPtr;
 	XVidC_VideoStream VidStream;
+
+	(void)VmId;
+	(void)downshift4K;
 
 	resetIp_wr(Msa);
 
@@ -1897,6 +1897,8 @@ void frameBuffer_start_rd(XVidC_VideoMode VmId,
 	XVidC_ColorFormat Cfmt;
 	XVidC_VideoTiming const *TimingPtr;
 	XVidC_VideoStream VidStream;
+
+	(void)VmId;
 
 	resetIp_rd(Msa);
 
@@ -2103,6 +2105,8 @@ void remap_start_rd(XDpTxSs_MainStreamAttributes Msa[4], u8 downshift4K)
 void bufferWr_callback(void *InstancePtr){
 	u32 Status;
 
+	(void)InstancePtr;
+
 	if(XVFRMBUFWR_BUFFER_BASEADDR >= (0 + (0x10000000) + (0x10000000 * 2))){
 
 		XVFRMBUFRD_BUFFER_BASEADDR = (0 + (0x10000000) + (0x10000000 * 1) +
@@ -2137,7 +2141,7 @@ void bufferWr_callback(void *InstancePtr){
 
 
 void bufferRd_callback(void *InstancePtr){
-
+	(void)InstancePtr;
 }
 
 
@@ -2265,6 +2269,7 @@ u8 tx_ppc_set = 0;
 int Dppt_DetectResolution(void *InstancePtr,
 							XDpTxSs_MainStreamAttributes Msa[4]){
 
+	(void)InstancePtr;
 	u32 DpHres = 0;
 	u32 DpVres = 0;
 	int i = 0;
@@ -2477,6 +2482,7 @@ int Dppt_DetectResolution(void *InstancePtr,
 #if defined(PT) || defined(LB)
 void DpPt_TxSetMsaValuesImmediate(void *InstancePtr){
 
+	(void)InstancePtr;
 	/* Set the main stream attributes to the associated DisplayPort TX core
 	 * registers. */
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr, XDP_TX_MAIN_STREAM_HTOTAL +

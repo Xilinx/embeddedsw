@@ -100,6 +100,10 @@ XGpio Gpio; /* The Instance of the GPIO Driver */
 u32 DpTxSs_Main(UINTPTR BaseAddress);
 u32 DpTxSs_PlatformInit(void);
 
+#if ENABLE_AUDIO
+int write_si570(u8 *UpdateBuffer);
+#endif
+
 /* Interrupt helper functions */
 void DpPt_HpdEventHandler(void *InstancePtr);
 void DpPt_HpdPulseHandler(void *InstancePtr);
@@ -344,15 +348,14 @@ u32 DpTxSs_Main(UINTPTR BaseAddress)
 	u8 LaneCount_init_tx = XDP_TX_LANE_COUNT_SET_4;
 	u8 Edid_org[128], Edid1_org[128];
 	u8 connected = 0;
-	char UserInput;
+#if PHY_COMP
 	char CommandKey_m;
 	char CmdKey_m[2];
 	unsigned int Command_m;
-//	u8 UserInput;
+#endif
+#if (VERSAL_FABRIC_8B10B == 1)
 	u32 ReadVal=0;
-	u16 DrpVal;
-	u32 dptx_sts = 0;
-	u32 retval = 0;
+#endif
 
 	user_config_struct user_config;
 	user_config.user_bpc = 8;
@@ -709,8 +712,8 @@ u32 DpTxSs_PhyInit(UINTPTR BaseAddress)
     PLLRefClkSel (&VPhyInst, PHY_User_Config_Table[5].LineRate);
 
 	XVphy_DpInitialize(&VPhyInst, ConfigPtr, 0,
-            PHY_User_Config_Table[5].CPLLRefClkSrc,
-            PHY_User_Config_Table[5].QPLLRefClkSrc,
+            (XVphy_PllRefClkSelType)PHY_User_Config_Table[5].CPLLRefClkSrc,
+            (XVphy_PllRefClkSelType)PHY_User_Config_Table[5].QPLLRefClkSrc,
             PHY_User_Config_Table[5].TxPLL,
             PHY_User_Config_Table[5].RxPLL,
             PHY_User_Config_Table[5].LineRate);
@@ -791,9 +794,9 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 	switch (link_rate) {
 	case XDP_TX_LINK_BW_SET_162GBPS:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-										ONBOARD_REF_CLK, 270000000);
+										(XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 270000000);
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-											DP159_FORWARDED_CLK, 81000000);
+											(XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 81000000);
 			XVphy_CfgLineRate(InstancePtr, 0,
 						XVPHY_CHANNEL_ID_CHA, XVPHY_DP_LINK_RATE_HZ_162GBPS);
 			XVphy_CfgLineRate(InstancePtr, 0,
@@ -801,9 +804,9 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 			break;
 	case XDP_TX_LINK_BW_SET_540GBPS:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-										ONBOARD_REF_CLK, 270000000);
+										(XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 270000000);
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-											DP159_FORWARDED_CLK, 270000000);
+											(XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 270000000);
 			XVphy_CfgLineRate(InstancePtr, 0,
 						XVPHY_CHANNEL_ID_CHA, XVPHY_DP_LINK_RATE_HZ_540GBPS);
 			XVphy_CfgLineRate(InstancePtr, 0,
@@ -811,9 +814,9 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 			break;
 	case XDP_TX_LINK_BW_SET_810GBPS:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-										ONBOARD_REF_CLK, 270000000);
+										(XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 270000000);
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-											DP159_FORWARDED_CLK, 270000000);
+											(XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 270000000);
 			XVphy_CfgLineRate(InstancePtr, 0,
 						XVPHY_CHANNEL_ID_CHA, XVPHY_DP_LINK_RATE_HZ_810GBPS);
 			XVphy_CfgLineRate(InstancePtr, 0,
@@ -821,9 +824,9 @@ void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate) {
 			break;
 	default:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-										ONBOARD_REF_CLK, 270000000);
+										(XVphy_PllRefClkSelType)ONBOARD_REF_CLK, 270000000);
 			XVphy_CfgQuadRefClkFreq(InstancePtr, 0,
-											DP159_FORWARDED_CLK, 135000000);
+											(XVphy_PllRefClkSelType)DP159_FORWARDED_CLK, 135000000);
 			XVphy_CfgLineRate(InstancePtr, 0,
 						XVPHY_CHANNEL_ID_CHA, XVPHY_DP_LINK_RATE_HZ_270GBPS);
 			XVphy_CfgLineRate(InstancePtr, 0,
@@ -928,9 +931,8 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 	// eg. reconfigure GT to new rate etc
 
 	u8 rate;
-	u8 lanes;
 	rate = get_LineRate();
-    lanes = XPAR_TX_SUBSYSTEM_V_DP_TXSS1_0_LANE_COUNT;//get_Lanecounts();
+	(void)InstancePtr;
 
 	// If the requested rate is same, do not re-program.
 	if (rate != prev_line_rate) {
@@ -940,9 +942,9 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 	prev_line_rate = rate;
 }
 
-void DpPt_pe_vs_adjustHandler(void *InstancePtr){
-	u32 vswing;
-	u32 postcursor, value;
+void DpPt_pe_vs_adjustHandler(void *InstancePtr)
+{
+	(void)InstancePtr;
 
 	if(PE_VS_ADJUST == 1){
 		u16 preemp = 0;
@@ -1051,26 +1053,30 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 	}
 }
 
-void DpPt_ExtPkt_Handler(void *InstancePtr) {
-/* Empty
- *
- */
+void DpPt_ExtPkt_Handler(void *InstancePtr)
+{
+	(void)InstancePtr;
+	/*
+	 * Empty
+	 */
 }
 
-void DpPt_Vblank_Handler(void *InstancePtr) {
-/*Empty
- *
- */
+void DpPt_Vblank_Handler(void *InstancePtr)
+{
+	(void)InstancePtr;
+	/*
+	 * Empty
+	 */
 }
 
 void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
-
 	u32 TimerVal = 0, TimerVal_pre;
 	u32 NumTicks = (MicroSeconds * (
 	XPAR_PROCESSOR_SYSTEM_AXI_TIMER_0_CLOCK_FREQUENCY / 1000000));
 	XTmrCtr_Reset(&TmrCtr, 0);
 	XTmrCtr_Start(&TmrCtr, 0);
+	(void)InstancePtr;
 
 	/* Wait specified number of useconds. */
 	do {
@@ -1095,6 +1101,7 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 ******************************************************************************/
 void DpPt_HpdEventHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) { // && tx_is_reconnected == 0) {
 		sink_power_down();
 		sink_power_up();
@@ -1131,6 +1138,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 ******************************************************************************/
 void DpPt_HpdPulseHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 
 // Some monitors give HPD pulse repeatedly which causes HPD pulse function to
 //		be executed huge number of time. Hence hpd_pulse interrupt is disabled
@@ -1258,13 +1266,16 @@ void hpd_pulse_con(XDpTxSs *InstancePtr)
 
 
 // introduced to address reduced blanking linereset issue from 16.4 release
-u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr, int with_msa){
+u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr, int with_msa)
+{
 	u32 Status;
-		Status = XDpTxSs_Start(&DpTxSsInst);
+	(void)InstancePtr;
+	(void)with_msa;
+
+	Status = XDpTxSs_Start(&DpTxSsInst);
 
 	return Status;
 }
-
 
 /*****************************************************************************/
 /**
@@ -1404,8 +1415,8 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 	u32 Status = XST_FAILURE;
 	u32 retries = 0;
 
-	QpllRefClkSel   		= PHY_User_Config_Table.QPLLRefClkSrc;
-	CpllRefClkSel   		= PHY_User_Config_Table.CPLLRefClkSrc;
+	QpllRefClkSel   		= (XVphy_PllRefClkSelType)PHY_User_Config_Table.QPLLRefClkSrc;
+	CpllRefClkSel   		= (XVphy_PllRefClkSelType)PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect             = PHY_User_Config_Table.TxPLL;
 	// Required for VPHY setting
 	RxPllSelect             = PHY_User_Config_Table.RxPLL;
@@ -1697,12 +1708,8 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	XVidC_VideoMode VmId_test_hpd;
 	XVidC_VideoMode VmId_ptm_hpd;
 	u8 bpc_hpd;
-	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
-												0x15, 0x16, 0x17}; //Duplicate
-
 	user_config_struct user_config;
-
-
+	(void)Edid1_org;
 
 	XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_STATUS);
 	//Enabling TX interrupts
@@ -2116,8 +2123,10 @@ u8 get_Lanecounts(void){
 ******************************************************************************/
 u32 config_phy(int LineRate_init_tx){
 	u32 Status=XST_SUCCESS;
+#ifdef versal
 	u8 linerate;
 	u32 dptx_sts = 0;
+#endif
 
 #if TX_BUFFER_BYPASS
 

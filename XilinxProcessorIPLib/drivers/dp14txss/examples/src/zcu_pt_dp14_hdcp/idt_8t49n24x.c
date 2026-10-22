@@ -1,5 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020-2021 Xilinx, Inc.  All rights reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -310,7 +311,7 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 		index = 1;
 	}
 
-	for (i = index; i < (sizeof(NS1_Options)/sizeof(int)); i++) {
+	for (i = index; i < (int)(sizeof(NS1_Options)/sizeof(int)); i++) {
 		if ((NS1_Options[i] == OutDivMin) ||
 		    (NS1_Options[i] == OutDivMax)) {
 			/* This is for the case where we want to bypass NS2 */
@@ -338,7 +339,7 @@ static int IDT_8T49N24x_GetIntDivTable(int FOut, int *DivTable, u8 Bypass)
 
 	while (NS2Temp <= NS2Max) {
 		for (i = index ;
-		     i < (sizeof(NS1_Options) / sizeof(int)) ;
+		     i < (int)(sizeof(NS1_Options) / sizeof(int)) ;
 		     i++) {
 			if (NS2Temp == 0) {
 				OutDivTemp = NS1_Options[i];

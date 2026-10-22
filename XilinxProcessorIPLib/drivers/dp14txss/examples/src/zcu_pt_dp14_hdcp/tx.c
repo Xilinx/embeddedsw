@@ -196,6 +196,7 @@ u32 DpTxSs_SetupIntrSystem(void)
 
 void DpTxSs_VsyncHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	tx_pass = 1;
 	u8 i = 0;
 	u32 fifosts = 0;
@@ -244,6 +245,7 @@ void DpTxSs_VsyncHandler(void *InstancePtr)
 ******************************************************************************/
 void DpTxSs_ExtPacketHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	/* This handler can be used to modify the extended pkt
 	 * The packet is written in the DP TX drivers
 	 */
@@ -265,6 +267,7 @@ void DpTxSs_ExtPacketHandler(void *InstancePtr)
 ******************************************************************************/
 void DpPt_LinkrateChgHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	// If TX is unable to train at what it has been asked then
 	// necessary down shift handling has to be done here
 	// eg. reconfigure GT to new rate etc
@@ -282,6 +285,7 @@ void DpPt_LinkrateChgHandler(void *InstancePtr)
 
 
 void DpPt_pe_vs_adjustHandler(void *InstancePtr){
+	(void)InstancePtr;
 //      u8 Buffer[2];
 //      u16 RegisterAddress;
 	if(PE_VS_ADJUST == 1){
@@ -392,6 +396,8 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 {
 
 	u32 TimerVal = 0, TimerVal_pre;
+
+	(void)InstancePtr;
 	u32 NumTicks = (MicroSeconds *
 		        (AXI_SYSTEM_CLOCK_FREQ_HZ / 1000000));
 
@@ -421,6 +427,7 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 ******************************************************************************/
 void DpPt_HpdEventHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
 //		sink_power_down();
 		sink_power_up();
@@ -511,6 +518,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 ******************************************************************************/
 void DpPt_HpdPulseHandler(void *InstancePtr)
 {
+	(void)InstancePtr;
 
 // Some monitors give HPD pulse repeatedly which causes HPD pulse function to
 //		be executed huge number of time. Hence hpd_pulse interrupt is disabled
@@ -536,6 +544,7 @@ extern u8 tx_done;
 void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 {
     u32 Status;
+    (void)Status;
 
 	//who populates this data ?
 	u8 lane0_sts = InstancePtr->UsrHpdPulseData.Lane0Sts;
@@ -799,6 +808,7 @@ void hpd_pulse_con(XDpTxSs *InstancePtr, XDpTxSs_MainStreamAttributes Msa[4])
 u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr,
 			XDpTxSs_MainStreamAttributes Msa[4]) {
 	u32 Status;
+	(void)InstancePtr;
 //	xil_printf ("MSA in TxSSStart is %d\r\n",Msa);
 	if (Msa == 0) {
 		Status = XDpTxSs_Start(&DpTxSsInst);
@@ -948,8 +958,8 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 	u32 Status = XST_FAILURE;
 	u32 retries = 0;
 
-	QpllRefClkSel = PHY_User_Config_Table.QPLLRefClkSrc;
-	CpllRefClkSel = PHY_User_Config_Table.CPLLRefClkSrc;
+	QpllRefClkSel = (XVphy_PllRefClkSelType)PHY_User_Config_Table.QPLLRefClkSrc;
+	CpllRefClkSel = (XVphy_PllRefClkSelType)PHY_User_Config_Table.CPLLRefClkSrc;
 	TxPllSelect   = PHY_User_Config_Table.TxPLL;
 	// Required for VPHY setting
 	RxPllSelect = PHY_User_Config_Table.RxPLL;
@@ -1032,10 +1042,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config,
 {
 	XVidC_VideoMode res_table = user_config.VideoMode_local;
 	u8 bpc = user_config.user_bpc;
-	u8 pat = user_config.user_pattern;
 	u8 format = user_config.user_format;
-	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
-												0x15, 0x16, 0x17}; //Duplicate
 
 
 	u32 Status;
@@ -1237,6 +1244,12 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
     u32 Status;
     u8 retval=0;
 
+    (void)InstancePtr;
+    (void)Edid_org;
+    (void)Edid1_org;
+    (void)res_update;
+    (void)Status;
+
 	/* This is a PassThrough System to display the Video received on RX
 	 * onto TX. There is nothing special done in the hpd_connect handler.
 	 * On a HPD the application simply tries to retrain the monitor
@@ -1342,7 +1355,7 @@ static u8 CalculateChecksum(u8 *Data, u8 Size)
 * @note		None.
 *
 ******************************************************************************/
-static XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
+static XVidC_VideoMode __attribute__((unused)) GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 {
 	u8 *Ptm;
 	u16 HBlank;
