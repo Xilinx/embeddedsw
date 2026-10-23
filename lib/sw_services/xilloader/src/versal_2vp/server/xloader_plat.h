@@ -33,6 +33,7 @@
 *       pre  10/22/2026 Dropped XPAR calib source, filename, and warm-boot tables.
 *                       DDR MC list macros are under PLM_ENABLE_DDR_CALIB_RESTORE
 *                       and are disabled by default
+*       pre  10/23/26 Define I2C device IDs when the handshake is enabled
 *
 * </pre>
 *
@@ -126,7 +127,7 @@ extern "C" {
 #define XLOADER_MEASURE_FINISH		(2U) /**< Data measure finish */
 #endif
 
-#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+#if defined(PLM_I2C_MB_HANDSHAKE)
 /* I2C Master Device IDs */
 #define XLOADER_DEV_ID_PMC      PM_DEV_I2C_PMC /**< I2C Master Device ID for PMC */
 #define XLOADER_DEV_ID_PS_I2C0  PM_DEV_I2C_0 /**< I2C Master Device ID for PS_I2C0 */

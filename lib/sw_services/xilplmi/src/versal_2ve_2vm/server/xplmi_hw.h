@@ -76,6 +76,7 @@
 *       pre  10/22/2026 Made DDRMC_PCSR_STATUS_INCAL_MASK, DDRMC_PCSR_STATUS_CALDONE_MASK
 *                       and DDRMC_PCSR_STATUS_CALERROR_MASK macros conditional on
 *                       PLM_ENABLE_DDR_CALIB_RESTORE
+*       pre  10/23/2026 Define the I2C instance present for each DDRMC5 I2C master
 *
 * </pre>
 *
@@ -981,63 +982,78 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 #define XPLMI_UART_1_BASEADDR	XPAR_XUARTPSV_1_BASEADDR
 #endif
 
-#if ((defined(XPAR_XIICPS_0_BASEADDR) &&\
-                 (XPAR_XIICPS_0_BASEADDR == 0xF1000000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                               (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF1940000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF1940000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF1940000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF1950000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF1950000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF1950000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF1960000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF1960000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF1960000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF1970000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF1970000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF1970000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF1980000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF1980000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF1980000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF1990000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF1990000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF1990000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF19A0000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF19A0000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF19A0000U)) ||\
-	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
-                (XPAR_XIICPS_0_BASEADDR == 0xF19B0000U)) ||\
-       (defined(XPAR_XIICPS_1_BASEADDR) &&\
-                (XPAR_XIICPS_1_BASEADDR == 0xF19B0000U)) ||\
-       (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                (XPAR_XIICPS_2_BASEADDR == 0xF19B0000U)))
-#define XLOADER_PMC_IIC
-
+/*
+ * DDRMC5_I2C_MASTER is compatible when one of XPAR_XIICPS_0/1/2 is the
+ * controller it names. Each controller has a value of 1 when present and
+ * 0 otherwise, so a missing controller is not an undefined identifier.
+ */
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1000000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PMC		1 /**< PMC I2C instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PMC		0 /**< PMC I2C instance is not present */
 #endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1940000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1940000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1940000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C0	1 /**< PS_I2C_I3C0 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C0	0 /**< PS_I2C_I3C0 instance is not present */
+#endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1950000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1950000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1950000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C1	1 /**< PS_I2C_I3C1 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C1	0 /**< PS_I2C_I3C1 instance is not present */
+#endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1960000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1960000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1960000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C2	1 /**< PS_I2C_I3C2 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C2	0 /**< PS_I2C_I3C2 instance is not present */
+#endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1970000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1970000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1970000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C3	1 /**< PS_I2C_I3C3 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C3	0 /**< PS_I2C_I3C3 instance is not present */
+#endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1980000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1980000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1980000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C4	1 /**< PS_I2C_I3C4 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C4	0 /**< PS_I2C_I3C4 instance is not present */
+#endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1990000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1990000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1990000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C5	1 /**< PS_I2C_I3C5 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C5	0 /**< PS_I2C_I3C5 instance is not present */
+#endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF19A0000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF19A0000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF19A0000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C6	1 /**< PS_I2C_I3C6 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C6	0 /**< PS_I2C_I3C6 instance is not present */
+#endif
+#if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF19B0000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF19B0000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF19B0000U)))
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C7	1 /**< PS_I2C_I3C7 instance is present */
+#else
+#define XLOADER_I2C_MASTER_PRESENT_PS_I2C_I3C7	0 /**< PS_I2C_I3C7 instance is not present */
+#endif
+#define XLOADER_I2C_MASTER_PRESENT_HELPER(x)	XLOADER_I2C_MASTER_PRESENT_##x
+						/**< Token-paste helper */
+#define XLOADER_I2C_MASTER_PRESENT(x)		XLOADER_I2C_MASTER_PRESENT_HELPER(x)
+				/**< 1 when the I2C master named by x is present, 0 otherwise */
 
 /*
  * Definitions required from crp.h

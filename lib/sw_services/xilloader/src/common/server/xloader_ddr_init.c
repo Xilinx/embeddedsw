@@ -33,7 +33,10 @@
  *       pre  09/17/2026 Reset I2C instance state after release on all platforms
  *       ng   10/14/2026 Updated I2C handshake error handling
  *       sd   10/08/2026 Added range bound check for NumBaseAddr
- * </pre>
+ *       pre  10/23/2026 Enable I2C handshake when the DDRMC5_I2C_MASTER
+ *                       instance is present, or PMC I2C when that master
+ *                       is not set
+* </pre>
  *
  *
  ******************************************************************************/
@@ -52,7 +55,25 @@
 #include "xplmi_debug.h"
 #include "xpm_rail.h"
 #include "xloader.h"
-#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+#if defined(PLM_I2C_MB_HANDSHAKE)
+/*
+ * PLM_I2C_MB_HANDSHAKE is set only for a DDR5 design. Enable the PMC and
+ * DDRMC I2C handshake when the I2C controller selected as DDRMC5_I2C_MASTER
+ * is present. If DDRMC5_I2C_MASTER is not set, use PMC I2C when that
+ * instance is present. Every other design skips the handshake and returns
+ * success.
+ */
+#if defined(DDRMC5_I2C_MASTER)
+#if (XLOADER_I2C_MASTER_PRESENT(DDRMC5_I2C_MASTER) == 1)
+#define XLOADER_I2C_HS_REQUIRED
+#endif
+#else
+#if (XLOADER_I2C_MASTER_PRESENT_PMC == 1)
+#define XLOADER_I2C_HS_REQUIRED
+#endif
+#endif
+
+#if defined(XLOADER_I2C_HS_REQUIRED)
 #include "xloader_plat.h"
 #include "xiicps.h"
 #include "xplmi.h"
@@ -208,7 +229,7 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 			/* Update handshake done bit (0x0) in control register */
 			XPlmi_UtilRMW(CtrlRegAddr, XPLMI_HANDSHAKE_BIT_CLEAR_MASK,
 				      XPLMI_HANDSHAKE_BIT_CLEAR);
-			XPlmi_Printf(DEBUG_GENERAL, "Handshake done!!\n\r");
+			XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS, "INFO: Handshake done!!\n\r");
 		}
 
 		if ((CtrlReg & XPLMI_REQ_BIT_MASK) == XPLMI_REQ_BIT_MASK) {
@@ -508,11 +529,17 @@ static u32 Xloader_CheckForTimeout(void)
 END:
 	return Status;
 }
-#else
+#endif /* XLOADER_I2C_HS_REQUIRED */
+#endif /* PLM_I2C_MB_HANDSHAKE */
+
+#ifndef XLOADER_I2C_HS_REQUIRED
 /*****************************************************************************/
 /**
- * This function is a stub to handle the DDR designs where i2c handshake is
- * not required for the DIMM'S
+ * This function is a stub for designs that do not enable the PMC and DDRMC
+ * I2C handshake. The handshake is compiled only when PLM_I2C_MB_HANDSHAKE
+ * is set and the selected I2C controller is present. DDRMC5_I2C_MASTER
+ * selects that controller. When it is not set, PMC I2C is used if that
+ * instance is present. Every other design returns success.
  *
  * @param	Cmd is pointer to the command structure.
  *
