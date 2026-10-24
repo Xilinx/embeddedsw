@@ -202,16 +202,16 @@ static XVidC_ColorFormat XDpDc_VideoFormatToColorFormat(XDc_VideoFormat Fmt)
 
 /******************************************************************************/
 /**
- * This function power cycles the sink by powering it down and then back up
- * with appropriate delays to allow the monitor to transition states.
+ * Power-cycle the sink: SET_POWER down, then up.
+ *
+ * On some panels the down/up transition re-asserts HPD and can re-enter the
+ * hot-plug handler. Wake delay is unchanged from SinkPowerUp alone
+ * (XMMIDP_SINK_POWERUP_DELAY after power-up); only the power-down phase is
+ * added relative to a bare SinkPowerUp path.
  *
  * @param	DpPsuPtr is a pointer to the XMmiDp instance.
  *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
+ ******************************************************************************/
 void XMmiDp_SinkPowerCycle(XMmiDp *DpPsuPtr)
 {
 	XMmiDp_SinkPowerDown(DpPsuPtr);
@@ -802,6 +802,43 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 	else if (RunCfgPtr->SdpEnable == 0U)
 		XDpDc_DisableDpAudioSdpStreams(DpPtr);
 
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ * Run the hot-plug connect sequence: sink power cycle, link policy, then
+ * stream policy.
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
+ *
+ * @return
+ *		- XST_SUCCESS if link and stream policy completed.
+ *		- XST_FAILURE if link or stream policy setup failed.
+ *
+ ******************************************************************************/
+u32 XDpDc_RunConnectSequence(RunConfig *RunCfgPtr)
+{
+	u32 Status;
+
+	XMmiDp_SinkPowerCycle(RunCfgPtr->DpPsuPtr);
+
+	Status = XDpDc_RunLinkPolicySetup(RunCfgPtr);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	/* DP video stream registers latch only after the DC leaves reset */
+	Status = XDpDc_ReleaseDcReset();
+	if (Status != XST_SUCCESS) {
+		xil_printf("[HPD] ERROR: Failed to release DC block reset\r\n");
+		return XST_FAILURE;
+	}
+
+	Status = XDpDc_RunStreamPolicySetup(RunCfgPtr);
+	if (Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	xil_printf("[HPD] Connect sequence complete\r\n");
 	return XST_SUCCESS;
 }
 

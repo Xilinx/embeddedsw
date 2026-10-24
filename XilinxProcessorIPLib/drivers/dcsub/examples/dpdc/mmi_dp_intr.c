@@ -14,12 +14,10 @@
 ******************************************************************************/
 
 #include <xil_printf.h>
-#include <sleep.h>
 
 #include "xmmidp.h"
 #include "mmi_dp_intr.h"
 #include "mmi_dp_init.h"
-#include "mmi_dpdc_platform.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -48,45 +46,23 @@ void XDpDc_DisableDpAudioSdpStreams(XMmiDp *DpPtr)
 /*****************************************************************************/
 /**
 *
-
-* This function is the HPD hot plug (connect) callback. It reads sink
-* capabilities, runs link training, releases the DC block reset, and sets up
-* the video stream.
+* This function is the HPD hot plug (connect) callback. It runs the connect
+* sequence.
 *
 * @param	CallbackRef is a pointer to the RunConfig structure.
-*
-* @return	None.
 *
 ******************************************************************************/
 void XDpDc_HpdHotplugHandler(void *CallbackRef)
 {
 	RunConfig *RunCfgPtr = (RunConfig *)CallbackRef;
-	XMmiDp *DpPtr = RunCfgPtr->DpPsuPtr;
-	u32 Status;
 
-	xil_printf("\r\n[HPD] Hot plug detected -- starting connect sequence\r\n");
-
-	XMmiDp_SinkPowerUp(DpPtr);
-	sleep(5);
-
-	Status = XDpDc_RunLinkPolicySetup(RunCfgPtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("[HPD] ERROR: Link training failed\r\n");
-		return;
-	}
-
-	/* DP video stream registers latch only after the DC leaves reset */
-	Status = XDpDc_ReleaseDcReset();
-	if (Status != XST_SUCCESS) {
-		xil_printf("[HPD] ERROR: Failed to release DC block reset\r\n");
-		return;
-	}
-
-	Status = XDpDc_RunStreamPolicySetup(RunCfgPtr);
-	if (Status != XST_SUCCESS)
-		return;
-
-	xil_printf("[HPD] Connect sequence complete\r\n");
+	xil_printf("\r\n[HPD] Hot plug detected\r\n");
+	/*
+	 * Discard status: failure paths already print inside the sequence.
+	 * Continue after failure so the HPD callback returns cleanly; the
+	 * next hot-plug / IRQ can retry.
+	 */
+	(void)XDpDc_RunConnectSequence(RunCfgPtr);
 }
 
 /*****************************************************************************/
@@ -182,8 +158,10 @@ void XDpDc_HpdIrqHandler(void *CallbackRef)
 		}
 
 		Status = XDpDc_RunStreamPolicySetup(RunCfgPtr);
-		if (Status != XST_SUCCESS)
+		if (Status != XST_SUCCESS) {
+			xil_printf("[HPD] ERROR: Stream restore failed\r\n");
 			return;
+		}
 
 		xil_printf("[HPD] Retrain complete, video restored\r\n");
 	} else {
