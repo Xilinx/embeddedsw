@@ -624,6 +624,7 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 			    XVidC_ColorFormat ColorFormat);
 u16 XMmiDp_GetLinkPbn(XMmiDp *InstancePtr);
 u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream);
+u32 XMmiDp_DistributeMstPayloadSlots(XMmiDp *InstancePtr, u8 NumStreams);
 /**
  * Program sink VC payload allocate (DPCD) for one MST stream.
  *

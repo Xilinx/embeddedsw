@@ -119,6 +119,10 @@ static const u16 XMmiDp_LinkPbnTable[XMMIDP_LINK_PBN_RATE_COUNT]
 static u8 XMmiDp_GetSinkVcPayloadStartSlot(XMmiDp *InstancePtr, u8 Stream);
 static void XMmiDp_WriteMstVcpTableRegs(XMmiDp *InstancePtr,
 					const u8 *VcpSlotStreamId);
+static void XMmiDp_SetTuInitThresholdFromTsInt(XMmiDp *InstancePtr, u8 Stream,
+					       u8 TsInt);
+static void XMmiDp_ApplyMstStreamAllocatedSlots(XMmiDp *InstancePtr, u8 Stream,
+						u8 AllocSlots);
 
 /******************************************************************************/
 /**
@@ -2585,6 +2589,167 @@ static u8 XMmiDp_GetSinkVcPayloadStartSlot(XMmiDp *InstancePtr, u8 Stream)
 		StartSlot += InstancePtr->MstStreamConfig[StreamId - 1].TimeSlots;
 
 	return StartSlot;
+}
+
+/******************************************************************************/
+/**
+ * Sets VIDEO_CONFIG5 InitThreshold fields from the target TU integer.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	TsInt is the integer part of the target/allocated TU size.
+ *
+ ******************************************************************************/
+static void XMmiDp_SetTuInitThresholdFromTsInt(XMmiDp *InstancePtr, u8 Stream,
+					       u8 TsInt)
+{
+	XMmiDp_VideoConfig *VideoConfig;
+	u32 Threshold;
+	XMmiDp_VidMap VidMap;
+
+	VideoConfig = &InstancePtr->VideoConfig[Stream - 1];
+
+	if (TsInt <= XMMIDP_TU_LOW_AVG_BOUNDARY) {
+		Threshold = XMMIDP_TU_THRESHOLD_LOW_AVG;
+	} else {
+		VidMap = InstancePtr->VSampleCtrl[Stream - 1].VideoMapping;
+		if ((VidMap >= XMMIDP_YCbCr420_8BPC) &&
+		    (VidMap <= XMMIDP_YCbCr420_16BPC) &&
+		    (VideoConfig->HBlank <= XMMIDP_TU_HBLANK_NARROW_420)) {
+			Threshold = XMMIDP_TU_THRESHOLD_NARROW_420;
+		} else if (VideoConfig->HBlank <= XMMIDP_TU_HBLANK_NARROW) {
+			Threshold = XMMIDP_TU_THRESHOLD_NARROW;
+		} else {
+			Threshold = XMMIDP_TU_THRESHOLD_DEFAULT;
+		}
+	}
+
+	VideoConfig->InitThreshold =
+		(u8)(Threshold & XMMIDP_INIT_THRESHOLD_LO_MASK);
+	VideoConfig->InitThresholdHi =
+		(u8)((Threshold >> XMMIDP_INIT_THRESHOLD_LO_BITS) &
+		     XMMIDP_INIT_THRESHOLD_HI_MASK);
+}
+
+/******************************************************************************/
+/**
+ * Stores throttled VC payload slot count and matching VIDEO_CONFIG5 TU fields.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	AllocSlots is the allocated MTP payload slot count.
+ *
+ ******************************************************************************/
+static void XMmiDp_ApplyMstStreamAllocatedSlots(XMmiDp *InstancePtr, u8 Stream,
+						u8 AllocSlots)
+{
+	XMmiDp_MstStream *MstStream;
+	XMmiDp_VideoConfig *VideoConfig;
+
+	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+	VideoConfig = &InstancePtr->VideoConfig[Stream - 1];
+
+	MstStream->TimeSlots = AllocSlots;
+	VideoConfig->AvgBytesPerTu = AllocSlots;
+	VideoConfig->AvgBytesPerTuFrac = 0U;
+	if (VideoConfig->AvgBytesPerTu > XMMIDP_AVG_BYTES_PER_TU_MAX)
+		VideoConfig->AvgBytesPerTu = XMMIDP_AVG_BYTES_PER_TU_MAX;
+
+	XMmiDp_SetTuInitThresholdFromTsInt(InstancePtr, Stream, AllocSlots);
+}
+
+/******************************************************************************/
+/**
+ * Throttles MST VC payload slots when the sum of per-stream requirements
+ * exceeds the MTP budget. Streams are served in order with their computed
+ * slot count while budget allows; any remainder is split equally across the
+ * streams that still need allocation.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	NumStreams is the number of active MST streams (1..4).
+ *
+ * @return
+ *		- XST_SUCCESS if slots fit or were redistributed.
+ *		- XST_FAILURE if any stream has TimeSlots == 0.
+ *
+ ******************************************************************************/
+u32 XMmiDp_DistributeMstPayloadSlots(XMmiDp *InstancePtr, u8 NumStreams)
+{
+	u8 Required[XMMIDP_STREAM_ID4];
+	u8 Allocated[XMMIDP_STREAM_ID4];
+	u32 TotalRequired = 0U;
+	u8 Remaining = XMMIDP_MTP_PAYLOAD_SLOTS_MAX;
+	u8 Idx;
+	u8 StreamId;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((NumStreams >= XMMIDP_STREAM_ID1) &&
+			  (NumStreams <= XMMIDP_STREAM_ID4));
+
+	for (Idx = 0U; Idx < NumStreams; Idx++) {
+		StreamId = Idx + XMMIDP_STREAM_ID1;
+		Required[Idx] =
+			InstancePtr->MstStreamConfig[StreamId - 1].TimeSlots;
+		if (Required[Idx] == 0U) {
+			xil_printf("ERROR: MST payload distribute: stream %u "
+				   "TimeSlots is 0\r\n", StreamId);
+			return XST_FAILURE;
+		}
+		TotalRequired += Required[Idx];
+	}
+
+	if (TotalRequired <= XMMIDP_MTP_PAYLOAD_SLOTS_MAX)
+		return XST_SUCCESS;
+
+	xil_printf("WARNING: MST payload throttle: %u slots required across "
+		   "%u streams (MTP max %u)\r\n",
+		   TotalRequired, NumStreams, XMMIDP_MTP_PAYLOAD_SLOTS_MAX);
+
+	for (Idx = 0U; Idx < NumStreams; Idx++) {
+		u8 StreamsLeft = NumStreams - Idx;
+		u8 Req = Required[Idx];
+
+		if (Remaining == 0U) {
+			xil_printf("ERROR: MST payload distribute: no slots "
+				   "remain for stream %u\r\n",
+				   Idx + XMMIDP_STREAM_ID1);
+			return XST_FAILURE;
+		}
+
+		if (StreamsLeft == 1U) {
+			Allocated[Idx] = Remaining;
+			Remaining = 0U;
+			break;
+		}
+
+		if (Remaining >= Req) {
+			Allocated[Idx] = Req;
+			Remaining -= Req;
+		} else {
+			u8 Base = Remaining / StreamsLeft;
+			u8 Extra = Remaining % StreamsLeft;
+			u8 J;
+
+			for (J = 0U; J < StreamsLeft; J++)
+				Allocated[Idx + J] = Base + ((J < Extra) ?
+							       1U : 0U);
+			Remaining = 0U;
+			break;
+		}
+	}
+
+	for (Idx = 0U; Idx < NumStreams; Idx++) {
+		StreamId = Idx + XMMIDP_STREAM_ID1;
+		if (Allocated[Idx] != Required[Idx]) {
+			xil_printf("  Stream %u: %u -> %u slots\r\n",
+				   StreamId, Required[Idx], Allocated[Idx]);
+			XMmiDp_ApplyMstStreamAllocatedSlots(InstancePtr,
+							    StreamId,
+							    Allocated[Idx]);
+		}
+	}
+
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/
