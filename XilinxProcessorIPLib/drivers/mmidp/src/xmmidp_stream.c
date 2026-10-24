@@ -1967,6 +1967,7 @@ u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr)
 
 	XMmiDp_WaitUs(InstancePtr, 1000);
 	do {
+		AuxReply = 0;
 		XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
 			       1, &AuxReply);
 
