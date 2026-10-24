@@ -62,6 +62,14 @@
 /** 0.6% PBN margin is 1006 / 1000 (denominator). */
 #define XMMIDP_PBN_MARGIN_DIVISOR		1000U
 
+/* MST target average stream symbol slots (dp14 XDp_TxCalculateTs). */
+/** Target symbol slots are computed in 1/8 slot steps. */
+#define XMMIDP_TS_FRAC_DENOMINATOR		8U
+/** Link MBps per lane for one LinkBW unit (0.27 Gbps). */
+#define XMMIDP_TS_LINK_BW_SCALE			27U
+/** Max slots = PBN * 54 / link MBps (one PBN is 54/64 MBps). */
+#define XMMIDP_TS_PBN_LINK_SCALE		54U
+
 /* DP 1.4 Table 2-138: link rate and lane count array dimensions. */
 /** Link rates in XMmiDp_LinkPbnTable: RBR, HBR, HBR2, HBR3. */
 #define XMMIDP_LINK_PBN_RATE_COUNT		4U
@@ -2713,10 +2721,14 @@ u32 XMmiDp_AllocatePayloadStream(XMmiDp *InstancePtr, u8 Stream)
  * InitThresholdHi for the VIDEO_CONFIG5 register using the stream's
  * pixel clock, color depth, link config, and blanking parameters.
  *
+ * For MST, AvgBytesPerTu / AvgBytesPerTuFrac (×64) and InitThreshold are
+ * derived from the dp14 target average stream symbol slots (not the raw
+ * PeakBw/LinkBw average). Reuses MstStreamConfig[].MstPbn from
+ * XMmiDp_ComputeTimeSlot(); call that first. SST keeps the raw average path.
+ *
  * @param	InstancePtr is a pointer to the XMmiDp instance.
  * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
  * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2/4:2:0).
- * @return	None.
  *
  ******************************************************************************/
 void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
@@ -2799,6 +2811,94 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 		return;
 	}
 
+	if (InstancePtr->CtrlConfig[Stream - 1].MstModeEn) {
+		XMmiDp_MstStream *MstStream;
+		u16 StreamPbn;
+		u32 LinkBwMb;
+		u32 Avg_x8;
+		u32 FloorAvg_x8;
+		u32 Max_x8;
+		u32 Target_x8;
+		u32 TsInt;
+
+		/*
+		 * MST VIDEO_CONFIG5 from target average stream symbol slots
+		 * (review 0019 / dp14 XDp_TxCalculateTs): Average -> MaximumTarget
+		 * -> Target in 1/8 steps; AvgBytesPerTuFrac uses x64.
+		 * StreamPbn from ComputeTimeSlot (MstPbn); do not recompute.
+		 */
+		MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+		StreamPbn = MstStream->MstPbn;
+
+		LinkBwMb = (u32)LinkConfig->NumLanes *
+			   (u32)LinkConfig->LinkBW *
+			   XMMIDP_TS_LINK_BW_SCALE;
+		if ((LinkBwMb == 0U) || (StreamPbn == 0U)) {
+			xil_printf("[VID] WARNING: Invalid MST TU inputs "
+				   "(LinkBwMb=%u PBN=%u)\r\n",
+				   LinkBwMb, StreamPbn);
+			Threshold = XMMIDP_TU_THRESHOLD_DEFAULT;
+			VideoConfig->AvgBytesPerTu = 0U;
+			VideoConfig->AvgBytesPerTuFrac = 0U;
+			VideoConfig->InitThreshold =
+				(u8)(Threshold & XMMIDP_INIT_THRESHOLD_LO_MASK);
+			VideoConfig->InitThresholdHi =
+				(u8)((Threshold >> XMMIDP_INIT_THRESHOLD_LO_BITS) &
+				     XMMIDP_INIT_THRESHOLD_HI_MASK);
+			return;
+		}
+
+		/* Average and max target in 1/8-slot fixed point. */
+		Avg_x8 = (u32)((PeakStreamBw * (u64)XMMIDP_TU_SIZE *
+				(u64)XMMIDP_TS_FRAC_DENOMINATOR) / LinkBw);
+		FloorAvg_x8 = (Avg_x8 / XMMIDP_TS_FRAC_DENOMINATOR) *
+			      XMMIDP_TS_FRAC_DENOMINATOR;
+		Max_x8 = (u32)(((u64)XMMIDP_TS_PBN_LINK_SCALE *
+				(u64)StreamPbn *
+				(u64)XMMIDP_TS_FRAC_DENOMINATOR) /
+			       LinkBwMb);
+		if (Max_x8 < FloorAvg_x8)
+			Max_x8 = FloorAvg_x8;
+
+		/*
+		 * Target = floor(Avg) + floor(8*(Max-floor(Avg)))/8. Both terms
+		 * are already in 1/8 slots, so in x8 units this is Max_x8.
+		 */
+		Target_x8 = Max_x8;
+
+		TsInt = Target_x8 / XMMIDP_TS_FRAC_DENOMINATOR;
+		/* (Target - TsInt) * 64 == (Target_x8 % 8) * 8 */
+		AvgFrac = (Target_x8 % XMMIDP_TS_FRAC_DENOMINATOR) *
+			  (XMMIDP_TU_FRAC_SCALE / XMMIDP_TS_FRAC_DENOMINATOR);
+		AvgInt = TsInt;
+
+		if (AvgInt > XMMIDP_AVG_BYTES_PER_TU_MAX)
+			AvgInt = XMMIDP_AVG_BYTES_PER_TU_MAX;
+		if (AvgFrac > XMMIDP_AVG_BYTES_PER_TU_FRAC_MAX)
+			AvgFrac = XMMIDP_AVG_BYTES_PER_TU_FRAC_MAX;
+
+		VideoConfig->AvgBytesPerTu = (u8)AvgInt;
+		VideoConfig->AvgBytesPerTuFrac = (u8)AvgFrac;
+
+		if (TsInt <= XMMIDP_TU_LOW_AVG_BOUNDARY) {
+			Threshold = XMMIDP_TU_THRESHOLD_LOW_AVG;
+		} else if (ColorFormat == XVIDC_CSF_YCRCB_420 &&
+			   VideoConfig->HBlank <= XMMIDP_TU_HBLANK_NARROW_420) {
+			Threshold = XMMIDP_TU_THRESHOLD_NARROW_420;
+		} else if (VideoConfig->HBlank <= XMMIDP_TU_HBLANK_NARROW) {
+			Threshold = XMMIDP_TU_THRESHOLD_NARROW;
+		} else {
+			Threshold = XMMIDP_TU_THRESHOLD_DEFAULT;
+		}
+
+		VideoConfig->InitThreshold =
+			(u8)(Threshold & XMMIDP_INIT_THRESHOLD_LO_MASK);
+		VideoConfig->InitThresholdHi =
+			(u8)((Threshold >> XMMIDP_INIT_THRESHOLD_LO_BITS) &
+			     XMMIDP_INIT_THRESHOLD_HI_MASK);
+		return;
+	}
+
 	/* Integer part of average bytes per TU. */
 	AvgInt = (u32)((PeakStreamBw * XMMIDP_TU_SIZE) / LinkBw);
 
@@ -2843,9 +2943,9 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
  * including HActive, VActive, sync widths, blanking intervals, pixel clock,
  * and dynamically computed MSA and transfer unit parameters.
  *
- * For MST, XMmiDp_ComputeTuParams() fills VIDEO_CONFIG5 TU fields first, then
- * XMmiDp_ComputeTimeSlot() computes PBN / VC payload slots. SST uses
- * ComputeTuParams only. ComputeTimeSlot derives bits-per-pixel from
+ * For MST, XMmiDp_ComputeTimeSlot() fills MstPbn / VC payload slots first,
+ * then XMmiDp_ComputeTuParams() reuses MstPbn for VIDEO_CONFIG5 TU fields.
+ * SST uses ComputeTuParams only. ComputeTimeSlot derives bits-per-pixel from
  * VSampleCtrl[].VideoMapping; ComputeTuParams uses ColorFormat — keep them
  * consistent for the same stream.
  *
@@ -2853,8 +2953,6 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
  * @param	VideoMode is the standard video mode to configure.
  * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
  * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2/4:2:0).
- *
- * @return	None.
  *
  ******************************************************************************/
 void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
@@ -2914,9 +3012,9 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 
 	XMmiDp_ComputeMisc0(InstancePtr, Stream, ColorFormat);
 	XMmiDp_ComputeHBlankInterval(InstancePtr, Stream, ColorFormat);
-	XMmiDp_ComputeTuParams(InstancePtr, Stream, ColorFormat);
 	if (InstancePtr->CtrlConfig[Stream - 1].MstModeEn)
 		XMmiDp_ComputeTimeSlot(InstancePtr, Stream);
+	XMmiDp_ComputeTuParams(InstancePtr, Stream, ColorFormat);
 }
 
 /** @} */
