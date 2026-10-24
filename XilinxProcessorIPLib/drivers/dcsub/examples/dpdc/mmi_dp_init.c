@@ -84,20 +84,78 @@ static u8 XDpDc_PpcToPixModeSel(u8 Ppc)
 
 /*****************************************************************************/
 /**
- * Select the video format that DP MSA should describe on the wire.
+ * Map the AVPG pixel format and bpc to the DC video format.
  *
- * Bypass routes AVPG stream 0 directly to DP, so use Stream1Format.
- * Functional modes use the DC output format configured from the menu.
+ * @param	Avpg is the AVPG configuration of the stream.
+ *
+ * @return	DC video format for the stream.
+ *
+ *****************************************************************************/
+static XDc_VideoFormat XDpDc_AvpgToVideoFormat(const AvpgRunConfig *Avpg)
+{
+	if (Avpg->pix_fmt == 0U) {
+		switch (Avpg->bpc) {
+		case 10:
+			return RGB_10BPC;
+		case 12:
+			return RGB_12BPC;
+		case 8:
+			return RGB_8BPC;
+		default:
+			xil_printf("[VID] WARNING: Unsupported AVPG bpc %u "
+				   "(pix_fmt=RGB), using 8\r\n", Avpg->bpc);
+			return RGB_8BPC;
+		}
+	}
+
+	if (Avpg->pix_fmt != 1U)
+		xil_printf("[VID] WARNING: Unsupported AVPG pix_fmt %u, "
+			   "treating as YCbCr422\r\n", Avpg->pix_fmt);
+
+	switch (Avpg->bpc) {
+	case 10:
+		return YCbCr422_10BPC;
+	case 12:
+		return YCbCr422_12BPC;
+	case 8:
+		return YCbCr422_8BPC;
+	default:
+		xil_printf("[VID] WARNING: Unsupported AVPG bpc %u "
+			   "(pix_fmt=YCbCr422), using 8\r\n", Avpg->bpc);
+		return YCbCr422_8BPC;
+	}
+}
+
+/*****************************************************************************/
+/**
+ * Select the video format that DP MSA should describe on the wire for a
+ * given DP stream.
+ *
+ * SST-only (DesignMstEn=0): stream 0 only — bypass keeps Stream1Format
+ * (set from avpg[0] by BypassSetStream0Format), else OutStreamFormat.
+ * MST (DesignMstEn=1): bypass uses avpg[StreamIdx], else OutStreamFormat.
  *
  * @param	RunCfgPtr is a pointer to the application configuration structure.
+ * @param	StreamId is the DP stream ID (XMMIDP_STREAM_ID1..ID4).
  *
  * @return	XDc_VideoFormat for DP stream setup.
  *
  *****************************************************************************/
-static XDc_VideoFormat XDpDc_GetDpVideoFormat(const RunConfig *RunCfgPtr)
+static XDc_VideoFormat XDpDc_GetDpVideoFormat(const RunConfig *RunCfgPtr,
+					      u8 StreamId)
 {
-	if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS)
-		return RunCfgPtr->Stream1Format;
+	if (!RunCfgPtr->DesignMstEn) {
+		if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS)
+			return RunCfgPtr->Stream1Format;
+
+		return RunCfgPtr->OutStreamFormat;
+	}
+
+	if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS) {
+		u8 StreamIdx = StreamId - XMMIDP_STREAM_ID1;
+
+		return XDpDc_AvpgToVideoFormat(&RunCfgPtr->avpg[StreamIdx]);
+	}
 
 	return RunCfgPtr->OutStreamFormat;
 }
@@ -516,65 +574,80 @@ u32 XDpDc_CheckMstSupport(RunConfig *RunCfgPtr)
 
 /******************************************************************************/
 /**
- * This function sets up the video stream by clearing the video controller,
- * configuring MSA bits per color, pixel mode, video mapping, and applying
- * the selected standard video mode timing from RunConfig.
+ * This function sets up one video stream: MSA bits per color, pixel mode,
+ * video mapping, and standard video mode timing from RunConfig.
  *
  * @param	RunCfgPtr is a pointer to the application configuration structure.
+ * @param	StreamId is the DP stream ID (XMMIDP_STREAM_ID1..ID4).
  *
  * @return	None.
  *
- * @note	None.
+ * @note	Caller must clear the video controller before the first stream.
  *
 *******************************************************************************/
-void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
+void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr, u8 StreamId)
 {
-	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
+	XMmiDp *InstancePtr;
 	XDc_VideoFormat DpFormat;
 	u8 Bpc;
 	XMmiDp_VidMap VidMap;
 	XVidC_ColorFormat ColorFormat;
+	u8 StreamIdx;
+	u8 Ppc;
 
-	DpFormat = XDpDc_GetDpVideoFormat(RunCfgPtr);
+	Xil_AssertVoid(RunCfgPtr != NULL);
+	Xil_AssertVoid((StreamId >= XMMIDP_STREAM_ID1) &&
+		       (StreamId <= XMMIDP_STREAM_ID4));
+
+	StreamIdx = StreamId - XMMIDP_STREAM_ID1;
+	InstancePtr = RunCfgPtr->DpPsuPtr;
+	Ppc = RunCfgPtr->PPC;
+
+	/* Per stream Bpc, Colorformat */
+	DpFormat = XDpDc_GetDpVideoFormat(RunCfgPtr, StreamId);
 	Bpc = XDpDc_VideoFormatToBpc(DpFormat);
 	VidMap = XDpDc_VideoFormatToVidMap(DpFormat);
 	ColorFormat = XDpDc_VideoFormatToColorFormat(DpFormat);
 
-	/* Disable video stream before reconfiguring */
-	XMmiDp_DisableVideoStream(InstancePtr, XMMIDP_STREAM_ID1);
+	/* Per Stream PPC */
+	if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS &&
+	    RunCfgPtr->byp_stream_pix_mode[StreamIdx])
+		Ppc = RunCfgPtr->byp_stream_pix_mode[StreamIdx];
 
-	XMmiDp_ClearVideoController(InstancePtr);
+	XMmiDp_DisableVideoStream(InstancePtr, StreamId);
 
 	xil_printf("[MSTM] SetControllerMstModeEn: stream=%u MstModeEn=%u "
-		   "(TU/PBN path)\r\n", XMMIDP_STREAM_ID1, RunCfgPtr->MstMode);
-	XMmiDp_SetControllerMstModeEn(InstancePtr, XMMIDP_STREAM_ID1,
-				      RunCfgPtr->MstMode);
+		   "(TU/PBN path)\r\n", StreamId, RunCfgPtr->MstMode);
 
-	XMmiDp_SetMsaBpc(InstancePtr, XMMIDP_STREAM_ID1, Bpc);
+	/* Setup VideoConfig Structures */
+	XMmiDp_SetControllerMstModeEn(InstancePtr, StreamId, RunCfgPtr->MstMode);
+
+	XMmiDp_SetMsaBpc(InstancePtr, StreamId, Bpc);
 
 	/*
 	 * The DC drives DP at 1 pixel/clock in every functional mode; PPC
 	 * there is the PL input width. Only bypass feeds the PL stream to DP.
 	 */
-	XMmiDp_SetPixModeSel(InstancePtr, XMMIDP_STREAM_ID1,
+	XMmiDp_SetPixModeSel(InstancePtr, StreamId,
 			     (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS) ?
-			     XDpDc_PpcToPixModeSel(RunCfgPtr->PPC) :
+			     XDpDc_PpcToPixModeSel(Ppc) :
 			     XMMIDP_SINGLE_PIX_MODE);
-	XMmiDp_SetVideoMapping(InstancePtr, XMMIDP_STREAM_ID1, VidMap);
+	XMmiDp_SetVideoMapping(InstancePtr, StreamId, VidMap);
 
 	XMmiDp_SetVidControllerUseStdVidMode(InstancePtr,
 					     RunCfgPtr->VideoMode,
-					     XMMIDP_STREAM_ID1,
+					     StreamId,
 					     ColorFormat);
 
-	XDpDc_PrintVideoStreamConfig(InstancePtr, XMMIDP_STREAM_ID1);
+	XDpDc_PrintVideoStreamConfig(InstancePtr, StreamId);
 
-	XMmiDp_ConfigureVideoController(InstancePtr, XMMIDP_STREAM_ID1);
+	/* Write to Video Config registers */
+	XMmiDp_ConfigureVideoController(InstancePtr, StreamId);
 
 	/* Enable video stream after all config registers are written */
-	XMmiDp_EnableVideoStream(InstancePtr, XMMIDP_STREAM_ID1);
+	XMmiDp_EnableVideoStream(InstancePtr, StreamId);
 
-	XDpDc_PrintVideoConfigRegs(InstancePtr, XMMIDP_STREAM_ID1);
+	XDpDc_PrintVideoConfigRegs(InstancePtr, StreamId);
 }
 
 /******************************************************************************/
@@ -775,6 +848,8 @@ u32 XDpDc_RunLinkPolicySetup(RunConfig *RunCfgPtr)
 u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 {
 	XMmiDp *DpPtr = RunCfgPtr->DpPsuPtr;
+	u8 StreamId;
+	u8 NumStreams;
 	u32 Status;
 
 	Status = XDpDc_CheckMstSupport(RunCfgPtr);
@@ -783,7 +858,23 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 		return XST_FAILURE;
 	}
 
-	xil_printf("[MSTM] RunStreamPolicySetup: MstMode=%u\r\n", RunCfgPtr->MstMode);
+	/*
+	 * Multi-stream setup is for MST bypass only. Functional mode and SST
+	 * always configure a single DP stream. Clamp to XMMIDP_STREAM_ID4.
+	 */
+	if (RunCfgPtr->MstMode &&
+	    RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS)
+		NumStreams = RunCfgPtr->byp_streams;
+	else
+		NumStreams = 1U;
+
+	if (NumStreams < 1U)
+		NumStreams = 1U;
+	if (NumStreams > XMMIDP_STREAM_ID4)
+		NumStreams = XMMIDP_STREAM_ID4;
+
+	xil_printf("[MSTM] RunStreamPolicySetup: MstMode=%u NumStreams=%u\r\n",
+		   RunCfgPtr->MstMode, NumStreams);
 
 	if (RunCfgPtr->MstMode) {
 		xil_printf("[MSTM] Enabling MST on sink (DPCD) and TX (CCTL0)...\r\n");
@@ -796,7 +887,13 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 		xil_printf("[MSTM] SST link: skipping sink/TX MST enable\r\n");
 	}
 
-	XMmiDp_SetupVideoStream(RunCfgPtr);
+	XMmiDp_ClearVideoController(DpPtr);
+
+	for (StreamId = XMMIDP_STREAM_ID1;
+	     StreamId < NumStreams + XMMIDP_STREAM_ID1;
+	     StreamId++)
+		XMmiDp_SetupVideoStream(RunCfgPtr, StreamId);
+
 	if (RunCfgPtr->AudioEnable)
 		XMmiDp_SetupAudioStream(RunCfgPtr);
 	else if (RunCfgPtr->SdpEnable == 0U)

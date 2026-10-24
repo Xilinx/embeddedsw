@@ -23,7 +23,7 @@ extern "C" {
 void XMmiDp_SinkPowerDown(XMmiDp *DpPsuPtr);
 void XMmiDp_SinkPowerUp(XMmiDp *DpPsuPtr);
 void XMmiDp_SinkPowerCycle(XMmiDp *DpPsuPtr);
-void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr);
+void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr, u8 StreamId);
 u32 XDpDc_GetDesignMstEn(void);
 u32 XDpDc_CheckMstSupport(RunConfig *RunCfgPtr);
 void XMmiDp_SetupAudioStream(RunConfig *RunCfgPtr);
