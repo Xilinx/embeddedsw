@@ -636,18 +636,19 @@ void XMmiDp_SetHBlankInterval(XMmiDp *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
- * This is helper api that programs the VideoController MSA, VideoConfig registers
- * for a specific stream
+ * Program VideoController MSA and VideoConfig registers for one stream.
  *
- * @param       InstancePtr is a pointer to the XDpPsu instance.
- * @param       Stream is the stream number for which to enable or disable
- *              video stream.
+ * For SST, this includes VIDEO_CONFIG5 (TU / InitThreshold) via
+ * XMmiDp_SetVideoConfig5(). For MST (CtrlConfig[].MstModeEn), this function
+ * does not program VIDEO_CONFIG5; the caller must write it later with
+ * XMmiDp_SetVideoConfig5() after TU fields are valid (from
+ * XMmiDp_ComputeTuParams()) and before VC payload allocate / ACT — typically
+ * batched for all active MST streams before payload allocate.
  *
- * @return      None.
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
  *
- * @note        None.
- *
-*******************************************************************************/
+ ******************************************************************************/
 void XMmiDp_ConfigureVideoController(XMmiDp *InstancePtr, u8 Stream)
 {
 
@@ -660,7 +661,8 @@ void XMmiDp_ConfigureVideoController(XMmiDp *InstancePtr, u8 Stream)
 	XMmiDp_SetVideoConfig2(InstancePtr, Stream);
 	XMmiDp_SetVideoConfig3(InstancePtr, Stream);
 	XMmiDp_SetVideoConfig4(InstancePtr, Stream);
-	XMmiDp_SetVideoConfig5(InstancePtr, Stream);
+	if (!InstancePtr->CtrlConfig[Stream - 1].MstModeEn)
+		XMmiDp_SetVideoConfig5(InstancePtr, Stream);
 
 	XMmiDp_SetVideoMsa1(InstancePtr, Stream);
 	XMmiDp_SetVideoMsa2(InstancePtr, Stream);
