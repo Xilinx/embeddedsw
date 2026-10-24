@@ -33,9 +33,27 @@
 
 /****************************** Type Definitions ******************************/
 
+/**
+ * Populated from SDT / BSP-generated xmmidp_g.c (field order matches mmidp.yaml).
+ */
 typedef struct {
-	u32 BaseAddr;
+	char *Name;		/**< compatible */
+	u32 BaseAddr;		/**< reg (DP core base) */
+	char *RegNames;		/**< reg-names */
+	u32 IntrId;		/**< interrupts */
+	char *IntrNames;	/**< interrupt-names */
+	u32 IntrParent;		/**< interrupt-parent */
+	u32 Ports;		/**< ports (placeholder) */
+	u32 Hdcp1x;		/**< xlnx,hdcp-1x */
+	u32 Hdcp2x;		/**< xlnx,hdcp-2x */
+	u32 MstModeEn;		/**< xlnx,mst-mode-en: 1=MST design, 0=SST-only */
+	u32 DptxStreams;	/**< xlnx,dptx-streams */
+	u32 DptxPixelMode;	/**< xlnx,dptx-pixel-mode */
+	u32 DpLanes;		/**< xlnx,dp-lanes */
+	u32 Phys;		/**< phys (placeholder) */
 } XMmiDp_Config;
+
+extern XMmiDp_Config XMmiDp_ConfigTable[];	/**< Configuration table */
 
 /**
  * This typedef describes PHY LANES
@@ -633,7 +651,8 @@ void XMmiDp_SetControllereDpEn(XMmiDp *InstancePtr, u8 Stream, u8 eDpEn);
 void XMmiDp_SetControllerInitiateMstActSeq(XMmiDp *InstancePtr, u8 Stream, u8 InitiateMstActSeq);
 void XMmiDp_SetCoreCtrl(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_MstActSeqEnable(XMmiDp *InstancePtr);
-void XMmiDp_MstModeEnable(XMmiDp *InstancePtr);
+void XMmiDp_MstModeEnable(XMmiDp *InstancePtr, u8 Enable);
+u32 XMmiDp_SinkMstModeEnable(XMmiDp *InstancePtr);
 u32 XMmiDp_WaitPayloadTableUpdateStatus(XMmiDp *InstancePtr);
 u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr);
 u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr);

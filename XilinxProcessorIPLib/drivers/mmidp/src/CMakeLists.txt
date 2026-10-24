@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.15)
 project(mmidp)
@@ -13,6 +13,7 @@ collect (PROJECT_LIB_SOURCES xmmidp_phy.c)
 collect (PROJECT_LIB_SOURCES xmmidp_intr.c)
 collect (PROJECT_LIB_SOURCES xmmidp_link.c)
 collect (PROJECT_LIB_SOURCES xmmidp_stream.c)
+collect (PROJECT_LIB_SOURCES xmmidp_g.c)
 collector_list (_sources PROJECT_LIB_SOURCES)
 collector_list (_headers PROJECT_LIB_HEADERS)
 file(COPY ${_headers} DESTINATION ${CMAKE_BINARY_DIR}/include)

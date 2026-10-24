@@ -24,6 +24,7 @@
 /******************************* Include Files ********************************/
 #include <stdlib.h>
 #include <xstatus.h>
+#include <xil_assert.h>
 #include <sleep.h>
 
 #include "xmmidp.h"
@@ -1472,9 +1473,7 @@ void XMmiDp_SetSdpRegBank(XMmiDp *InstancePtr, u8 Stream, u32 SdpReg)
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable or disable
- *
- * @return      None.
+ * @param       ScrambleDis is 1 to disable scrambling, 0 to enable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerScrambleDis(XMmiDp *InstancePtr, u8 Stream, u8 ScrambleDis)
@@ -1495,9 +1494,8 @@ void XMmiDp_SetControllerScrambleDis(XMmiDp *InstancePtr, u8 Stream, u8 Scramble
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable or disable
- *
- * @return      None.
+ * @param       EnhanceFramingEn is 1 to enable enhanced framing,
+ *              0 to disable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerEnhanceFramingEn(XMmiDp *InstancePtr, u8 Stream, u8 EnhanceFramingEn)
@@ -1518,9 +1516,8 @@ void XMmiDp_SetControllerEnhanceFramingEn(XMmiDp *InstancePtr, u8 Stream, u8 Enh
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable or disable
- *
- * @return      None.
+ * @param       EnhanceFramingWithFecEn is 1 to enable enhanced framing
+ *              with FEC, 0 to disable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerEnhanceFramingWithFecEn(XMmiDp *InstancePtr, u8 Stream,
@@ -1542,9 +1539,8 @@ void XMmiDp_SetControllerEnhanceFramingWithFecEn(XMmiDp *InstancePtr, u8 Stream,
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable or disable
- *
- * @return      None.
+ * @param       FastLinkTrainEn is 1 to enable fast link training,
+ *              0 to disable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerFastLinkTrainEn(XMmiDp *InstancePtr, u8 Stream, u8 FastLinkTrainEn)
@@ -1565,9 +1561,8 @@ void XMmiDp_SetControllerFastLinkTrainEn(XMmiDp *InstancePtr, u8 Stream, u8 Fast
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable or disable
- *
- * @return      None.
+ * @param       ScaleDownModeEn is 1 to enable scale-down mode,
+ *              0 to disable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerScaleDownModeEn(XMmiDp *InstancePtr, u8 Stream, u8 ScaleDownModeEn)
@@ -1588,9 +1583,8 @@ void XMmiDp_SetControllerScaleDownModeEn(XMmiDp *InstancePtr, u8 Stream, u8 Scal
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable or disable
- *
- * @return      None.
+ * @param       DisableInterleaving is 1 to disable interleaving,
+ *              0 to enable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerDisableInterleaving(XMmiDp *InstancePtr, u8 Stream, u8 DisableInterleaving)
@@ -1611,9 +1605,8 @@ void XMmiDp_SetControllerDisableInterleaving(XMmiDp *InstancePtr, u8 Stream, u8 
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       0x0 for 400us, 0x1 for 3.2ms
- *
- * @return      None.
+ * @param       SelAuxTimeout32Ms is 0 for a 400 us AUX reply timeout,
+ *              1 for 3.2 ms.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerSelAuxTimeout32Ms(XMmiDp *InstancePtr, u8 Stream, u8 SelAuxTimeout32Ms)
@@ -1634,9 +1627,7 @@ void XMmiDp_SetControllerSelAuxTimeout32Ms(XMmiDp *InstancePtr, u8 Stream, u8 Se
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable/disable
- *
- * @return      None.
+ * @param       MstModeEn is 1 to enable MST mode, 0 to disable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerMstModeEn(XMmiDp *InstancePtr, u8 Stream, u8 MstModeEn)
@@ -1657,9 +1648,7 @@ void XMmiDp_SetControllerMstModeEn(XMmiDp *InstancePtr, u8 Stream, u8 MstModeEn)
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable/disable
- *
- * @return      None.
+ * @param       FecEn is 1 to enable FEC, 0 to disable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerFecEn(XMmiDp *InstancePtr, u8 Stream, u8 FecEn)
@@ -1680,9 +1669,7 @@ void XMmiDp_SetControllerFecEn(XMmiDp *InstancePtr, u8 Stream, u8 FecEn)
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable/disable
- *
- * @return      None.
+ * @param       eDpEn is 1 to enable eDP mode, 0 to disable it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllereDpEn(XMmiDp *InstancePtr, u8 Stream, u8 eDpEn)
@@ -1703,9 +1690,8 @@ void XMmiDp_SetControllereDpEn(XMmiDp *InstancePtr, u8 Stream, u8 eDpEn)
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       Stream is the stream number for which to set the color depth.
- * @param       Controller enable/disable
- *
- * @return      None.
+ * @param       InitiateMstActSeq is 1 to initiate the MST ACT sequence,
+ *              0 to clear it.
  *
 *******************************************************************************/
 void XMmiDp_SetControllerInitiateMstActSeq(XMmiDp *InstancePtr, u8 Stream, u8 InitiateMstActSeq)
@@ -1727,8 +1713,6 @@ void XMmiDp_SetControllerInitiateMstActSeq(XMmiDp *InstancePtr, u8 Stream, u8 In
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @param       Stream is the stream number for which to enable or disable
  *              video stream.
- *
- * @return      None.
  *
  * @note        None.
  *
@@ -1773,23 +1757,67 @@ void XMmiDp_SetCoreCtrl(XMmiDp *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
- * This function enables mst mode in the core controller
+ * Set CCTL0 ENABLE_MST_MODE for the TX core.
  *
- * @param       InstancePtr is a pointer to the XDpPsu instance.
- * @return
- *              - none.
- *
- * @note        None.
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Enable 1 to enable MST mode on TX, 0 to disable.
  *
 *******************************************************************************/
-void XMmiDp_MstModeEnable(XMmiDp *InstancePtr)
+void XMmiDp_MstModeEnable(XMmiDp *InstancePtr, u8 Enable)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((Enable == 0U) || (Enable == 1U));
 
 	XMmiDp_RegReadModifyWrite(InstancePtr, XMMIDP_CCTL0,
 				  XMMIDP_CCTL0_ENABLE_MST_MODE_MASK,
 				  XMMIDP_CCTL0_ENABLE_MST_MODE_SHIFT,
-				  InstancePtr->RxConfig.MstCap);
+				  Enable);
+}
+
+/******************************************************************************/
+/**
+ * Enable MST source mode on the sink (DPCD MSTM_CTRL) and TX MST in CCTL0.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ *
+ * @return	XST_SUCCESS if MST was enabled or the sink is SST-only;
+ *		XST_FAILURE if the MSTM_CTRL AUX write failed.
+ *
+ * @note	Call after SST link training (MSTM_CTRL cleared during
+ *		XMmiDp_SetSinkDpcdLinkCfgField()).
+ *
+*******************************************************************************/
+u32 XMmiDp_SinkMstModeEnable(XMmiDp *InstancePtr)
+{
+	u32 Status;
+	u8 MstmCtrl;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	if (!InstancePtr->RxConfig.MstCap) {
+		xil_printf("[MSTM] Sink MST_CAP=0, SST mode unchanged\r\n");
+		return XST_SUCCESS;
+	}
+
+	/* MSTM_CTRL (0x111) exists only for DPCD rev >= 1.2 */
+	if (InstancePtr->RxConfig.DpcdRev < 0x12U) {
+		return XST_SUCCESS;
+	}
+
+	MstmCtrl = (u8)(XMMIDP_DPCD_UPSTREAM_IS_SRC_MASK |
+			XMMIDP_DPCD_UP_REQ_EN_MASK |
+			XMMIDP_DPCD_MST_EN_MASK);
+
+	Status = XMmiDp_AuxWrite(InstancePtr, XMMIDP_DPCD_MSTM_CTRL, 1, &MstmCtrl);
+	if (Status != XST_SUCCESS) {
+		xil_printf("[MSTM] ERROR: Failed to write DPCD MSTM_CTRL (0x111)\r\n");
+		return XST_FAILURE;
+	}
+
+	XMmiDp_MstModeEnable(InstancePtr, 1U);
+	xil_printf("[MSTM] MST enabled (MSTM_CTRL=0x%02X)\r\n", MstmCtrl);
+
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/

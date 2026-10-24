@@ -53,6 +53,9 @@ properties:
   xlnx,hdcp-2x:
     type: boolean
     description: boolean present when HDCP version is 2.3.
+  xlnx,mst-mode-en:
+    type: boolean
+    description: When true the design is MST-capable. When false the design is SST-only.
   xlnx,dptx-streams:
     description: number of input streams to DP Tx
     $ref: /schemas/types.yaml#/definitions/uint32
@@ -113,6 +116,7 @@ required:
   - ports
   - xlnx,hdcp-1x
   - xlnx,hdcp-2x
+  - xlnx,mst-mode-en
   - xlnx,dptx-streams
   - xlnx,dptx-pixel-mode
   - xlnx,dp-lanes
@@ -141,6 +145,11 @@ examples:
         power-domains = <&versal2_firmware 0>, <&versal2_firmware 1>;
         power-domain-names = "dp", "hdcp";
         xlnx,dp-lanes = "x2";
+        xlnx,mst-mode-en;
+        xlnx,hdcp-1x;
+        xlnx,hdcp-2x;
+        xlnx,dptx-streams = <2>;
+        xlnx,dptx-pixel-mode = <1>;
         ports {
             # address-cells = <1>;
             # size-cells = <0>;

@@ -1605,8 +1605,19 @@ u32 XMmiDp_IsConnected(XMmiDp *InstancePtr)
 *******************************************************************************/
 void XMmiDp_CfgInitialize(XMmiDp *InstancePtr, u32 BaseAddr)
 {
+	u32 Index;
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	InstancePtr->Config.BaseAddr = BaseAddr;
+	InstancePtr->Config.MstModeEn = 0U;
+
+	for (Index = 0U; XMmiDp_ConfigTable[Index].Name != NULL; Index++) {
+		if (XMmiDp_ConfigTable[Index].BaseAddr == BaseAddr) {
+			InstancePtr->Config.MstModeEn =
+				XMmiDp_ConfigTable[Index].MstModeEn;
+			break;
+		}
+	}
 }
 
 /******************************************************************************/
