@@ -1065,10 +1065,16 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 		XDPDC_MST_DBG("[MSTM] VC payload table cleared\r\n");
 
 		/*
-		 * ClearPayloadVcIdTable does not reset MstStreamConfig[]. Zero
-		 * unused stream cache so a lowered byp_streams count cannot
-		 * keep stale TimeSlots/StartSlot from a prior connect.
+		 * ClearPayloadVcIdTable does not reset MstStreamConfig[]. Drop
+		 * StartSlot on active streams so allocate/distribute cannot
+		 * reuse a prior connect's layout; fully zero unused stream
+		 * cache so a lowered byp_streams count cannot keep stale
+		 * TimeSlots/StartSlot/MstPbn.
 		 */
+		for (StreamId = XMMIDP_STREAM_ID1;
+		     StreamId < NumStreams + XMMIDP_STREAM_ID1; StreamId++)
+			DpPtr->MstStreamConfig[StreamId - 1].StartSlot = 0U;
+
 		for (StreamId = NumStreams + XMMIDP_STREAM_ID1;
 		     StreamId <= XMMIDP_STREAM_ID4; StreamId++) {
 			XMmiDp_MstStream *MstStream =
