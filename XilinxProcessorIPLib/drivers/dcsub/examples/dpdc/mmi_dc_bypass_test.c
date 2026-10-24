@@ -485,7 +485,7 @@ u32 InitBypassPlatform(RunConfig *RunCfgPtr)
 		return Status;
 	}
 
-	xil_printf("  Enabling DisplayPort output (SST, async HPD)...\r\n");
+	xil_printf("  Enabling DisplayPort output (async HPD)...\r\n");
 
 	Status = XDpDc_InitDpPsuSubsystem(RunCfgPtr);
 	if (Status != XST_SUCCESS) {
@@ -504,8 +504,6 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 	const XVidC_VideoTimingMode *Vtm;
 	XDc *DcPtr;
 	u8 stream_idx;
-
-	/* DP TX init (SST, single stream) */
 
 	if (RunCfgPtr->operatingmode != XDCSUB_OPMODE_BYPASS) {
 		xil_printf("%s: Invalid config\r\n", __func__);
