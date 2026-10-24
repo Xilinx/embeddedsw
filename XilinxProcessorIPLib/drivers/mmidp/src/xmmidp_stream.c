@@ -2703,55 +2703,61 @@ u32 XMmiDp_DistributeMstPayloadSlots(XMmiDp *InstancePtr, u8 NumStreams)
 		TotalRequired += Required[Idx];
 	}
 
-	if (TotalRequired <= XMMIDP_MTP_PAYLOAD_SLOTS_MAX)
-		return XST_SUCCESS;
+	if (TotalRequired > XMMIDP_MTP_PAYLOAD_SLOTS_MAX) {
+		xil_printf("WARNING: MST payload throttle: %u slots required across "
+			   "%u streams (MTP max %u)\r\n",
+			   TotalRequired, NumStreams, XMMIDP_MTP_PAYLOAD_SLOTS_MAX);
 
-	xil_printf("WARNING: MST payload throttle: %u slots required across "
-		   "%u streams (MTP max %u)\r\n",
-		   TotalRequired, NumStreams, XMMIDP_MTP_PAYLOAD_SLOTS_MAX);
+		for (Idx = 0U; Idx < NumStreams; Idx++) {
+			u8 StreamsLeft = NumStreams - Idx;
+			u8 Req = Required[Idx];
 
-	for (Idx = 0U; Idx < NumStreams; Idx++) {
-		u8 StreamsLeft = NumStreams - Idx;
-		u8 Req = Required[Idx];
+			if (Remaining == 0U) {
+				xil_printf("ERROR: MST payload distribute: no slots "
+					   "remain for stream %u\r\n",
+					   Idx + XMMIDP_STREAM_ID1);
+				return XST_FAILURE;
+			}
 
-		if (Remaining == 0U) {
-			xil_printf("ERROR: MST payload distribute: no slots "
-				   "remain for stream %u\r\n",
-				   Idx + XMMIDP_STREAM_ID1);
-			return XST_FAILURE;
+			if (StreamsLeft == 1U) {
+				Allocated[Idx] = Remaining;
+				Remaining = 0U;
+				break;
+			}
+
+			if (Remaining >= Req) {
+				Allocated[Idx] = Req;
+				Remaining -= Req;
+			} else {
+				u8 Base = Remaining / StreamsLeft;
+				u8 Extra = Remaining % StreamsLeft;
+				u8 J;
+
+				for (J = 0U; J < StreamsLeft; J++)
+					Allocated[Idx + J] = Base + ((J < Extra) ?
+								       1U : 0U);
+				Remaining = 0U;
+				break;
+			}
 		}
 
-		if (StreamsLeft == 1U) {
-			Allocated[Idx] = Remaining;
-			Remaining = 0U;
-			break;
-		}
-
-		if (Remaining >= Req) {
-			Allocated[Idx] = Req;
-			Remaining -= Req;
-		} else {
-			u8 Base = Remaining / StreamsLeft;
-			u8 Extra = Remaining % StreamsLeft;
-			u8 J;
-
-			for (J = 0U; J < StreamsLeft; J++)
-				Allocated[Idx + J] = Base + ((J < Extra) ?
-							       1U : 0U);
-			Remaining = 0U;
-			break;
+		for (Idx = 0U; Idx < NumStreams; Idx++) {
+			StreamId = Idx + XMMIDP_STREAM_ID1;
+			if (Allocated[Idx] != Required[Idx]) {
+				xil_printf("  Stream %u: %u -> %u slots\r\n",
+					   StreamId, Required[Idx], Allocated[Idx]);
+				XMmiDp_ApplyMstStreamAllocatedSlots(InstancePtr,
+								    StreamId,
+								    Allocated[Idx]);
+			}
 		}
 	}
 
+	/* Contiguous StartSlots from finalized TimeSlots (S1@1, S2@1+TS1, ...). */
 	for (Idx = 0U; Idx < NumStreams; Idx++) {
 		StreamId = Idx + XMMIDP_STREAM_ID1;
-		if (Allocated[Idx] != Required[Idx]) {
-			xil_printf("  Stream %u: %u -> %u slots\r\n",
-				   StreamId, Required[Idx], Allocated[Idx]);
-			XMmiDp_ApplyMstStreamAllocatedSlots(InstancePtr,
-							    StreamId,
-							    Allocated[Idx]);
-		}
+		InstancePtr->MstStreamConfig[StreamId - 1].StartSlot =
+			XMmiDp_GetSinkVcPayloadStartSlot(InstancePtr, StreamId);
 	}
 
 	return XST_SUCCESS;
