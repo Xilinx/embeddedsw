@@ -22,6 +22,7 @@
 #include "xmmidp.h"
 #include "mmi_dp_init.h"
 #include "mmi_dp_intr.h"
+#include "mmi_dc_bypass_test.h"
 
 /* AUX timer limits (counts at core clock rate) */
 #define XMMIDP_AUX_250US_LIMIT		0xF5
@@ -792,10 +793,9 @@ void XDpDc_PrepareVideoStream(RunConfig *RunCfgPtr, u8 StreamId)
 	VidMap = XDpDc_VideoFormatToVidMap(DpFormat);
 	ColorFormat = XDpDc_VideoFormatToColorFormat(DpFormat);
 
-	/* Per Stream PPC */
-	if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS &&
-	    RunCfgPtr->byp_stream_pix_mode[StreamIdx])
-		Ppc = RunCfgPtr->byp_stream_pix_mode[StreamIdx];
+	/* Per-stream PPC from XSA xparameters (not DC StreamConfig.pixel_mode) */
+	if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_BYPASS)
+		Ppc = XDpDc_BypassPpcFromXsa(StreamIdx);
 
 	XMmiDp_DisableVideoStream(InstancePtr, StreamId);
 

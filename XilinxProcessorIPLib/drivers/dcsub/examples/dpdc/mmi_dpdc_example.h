@@ -167,7 +167,6 @@ typedef struct {
         u8 byp_streams;			/**< Number of bypass streams */
         u8 DesignMstEn;			/**< SDT mst-mode-en: 1=MST design, 0=SST-only */
         u8 MstMode;			/**< 1=MST link, 0=SST (set from DesignMstEn+MST_CAP) */
-        u8 byp_stream_pix_mode[4];	/**< Bypass stream PPC: 1, 2, 4 */
         u8 byp_stream_sdp_en[4];	/**< Bypass stream SDP enable */
         u8 byp_stream_vid_mode[4];	/**< Bypass stream video mode */
 

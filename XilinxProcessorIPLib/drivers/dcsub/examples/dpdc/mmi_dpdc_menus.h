@@ -92,7 +92,6 @@ typedef struct {
     u8 byp_streams;			/**< Active bypass streams (user configured) */
     u8 byp_streams_max;			/**< Max bypass streams from XSA */
     u8 design_mst_en;			/**< SDT mst-mode-en: 1=MST design, 0=SST-only */
-    u8 byp_stream_pix_mode[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream PPC: 1, 2, 4 */
     u8 byp_stream_sdp_en[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream SDP enable */
     u8 byp_stream_vid_mode[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream video mode */
 } InitRunConfig;

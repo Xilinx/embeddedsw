@@ -103,9 +103,27 @@ extern "C" {
 /* DC Video Frame Switch register value for bypass */
 #define BYPASS_DC_FRAME_SWITCH_VAL	0x3F
 
-/* Per-stream PPC from xparameters.h (fixed by XSA) */
+/*
+ * Per-stream PPC from xparameters.h (fixed by XSA; not menu-editable).
+ * Fallback is single-PPC (1), not quad (4): designs without these XPARs
+ * must not silently run the whole bypass datapath at PPC4.
+ * Missing STREAMn macros default independently (not aliased to STREAM0).
+ */
 #ifndef XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE
-#define XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE	4
+/** XSA PPC for bypass stream 0. */
+#define XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE	1
+#endif
+#ifndef XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE
+/** XSA PPC for bypass stream 1. */
+#define XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE	1
+#endif
+#ifndef XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE
+/** XSA PPC for bypass stream 2. */
+#define XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE	1
+#endif
+#ifndef XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE
+/** XSA PPC for bypass stream 3. */
+#define XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE	1
 #endif
 
 #if defined(XPAR_PSDPDC_AV_PAT_GEN_0_BASEADDR)
@@ -122,8 +140,15 @@ extern "C" {
 #define BYPASS_VTC_0_BASEADDR		0U
 #endif
 
+/** Max bypass streams (matches XSA DC stream count / AVPG table size). */
+#define BYPASS_MAX_STREAMS		4
+
 /************************** Function Prototypes ******************************/
 
+/**
+ * Return XSA-fixed PPC (1, 2, or 4) for a bypass stream from xparameters.
+ */
+u8 XDpDc_BypassPpcFromXsa(u8 StreamIdx);
 u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr);
 u32 XDpDc_MmiDcBypassTest(RunConfig *RunCfgPtr);
 

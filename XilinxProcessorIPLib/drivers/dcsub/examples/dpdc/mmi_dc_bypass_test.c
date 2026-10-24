@@ -28,12 +28,37 @@
 
 
 
+#include <xil_assert.h>
 #include <xil_printf.h>
 #include <xvidc.h>
 #include <xparameters.h>
+#include "mmi_dc_bypass_test.h"
+
+/** Pixels per clock per bypass stream, from the XSA. */
+static const u8 BypassStreamPpc[BYPASS_MAX_STREAMS] = {
+	XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE,
+	XPAR_XDCSUB_0_DC_STREAM1_PIXEL_MODE,
+	XPAR_XDCSUB_0_DC_STREAM2_PIXEL_MODE,
+	XPAR_XDCSUB_0_DC_STREAM3_PIXEL_MODE,
+};
+
+/*****************************************************************************/
+/**
+ * Return per-stream PPC from xparameters.h (XSA-fixed; ignores menu).
+ *
+ * @param	StreamIdx is the 0-based bypass stream index.
+ *
+ * @return	PPC (1, 2, or 4) for that stream.
+ *
+ *****************************************************************************/
+u8 XDpDc_BypassPpcFromXsa(u8 StreamIdx)
+{
+	Xil_AssertNonvoid(StreamIdx < BYPASS_MAX_STREAMS);
+
+	return BypassStreamPpc[StreamIdx];
+}
 
 #if defined(XPAR_XVTC_NUM_INSTANCES)
-#include "mmi_dc_bypass_test.h"
 #include "mmi_dpdc_platform.h"
 #include "mmi_dp_init.h"
 #include "mmi_dp_intr.h"
@@ -59,10 +84,31 @@ static const UINTPTR BypassAvpgBase[] = {
 	BYPASS_AVPG_0_BASEADDR,
 };
 
-/** Pixels per clock per bypass stream, from the XSA. */
-static const u8 BypassStreamPpc[] = {
-	XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE,
-};
+/*****************************************************************************/
+/**
+ * Map XSA PPC to AVPG driver dual/quad flag (AvpgRunConfig.ppc).
+ *
+ *****************************************************************************/
+static u8 XDpDc_BypassAvpgPpcFlag(u8 PhysPpc)
+{
+	return (PhysPpc == 4U) ? 1U : 0U;
+}
+
+/*****************************************************************************/
+/**
+ * Program AVPG; for single-PPC (1) designs fix HRES and pattern PPC field.
+ *
+ *****************************************************************************/
+static void XDpDc_BypassProgramAvpg(UINTPTR AvpgBase, AvpgRunConfig *AvpgCfg,
+				    u32 Width, u32 Height, u8 PhysPpc)
+{
+	XAvpgSetConfig(AvpgBase, AvpgCfg, Width, Height);
+
+	if (PhysPpc == 1U) {
+		XAvpg_WriteReg(AvpgBase, XAV_PATGEN_HRES, Width);
+		XAvpg_WriteReg(AvpgBase, XAV_PATGEN_MODE_PATTERN, AvpgCfg->pattern);
+	}
+}
 
 /*****************************************************************************/
 /**
@@ -225,6 +271,7 @@ static u32 XDpDc_BypassInitVtc(RunConfig *RunCfgPtr, XVtc *VtcPtr,
 u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 {
 	u8 stream_idx = 0;
+	u8 PhysPpc;
 	UINTPTR AvpgBase;
 	u32 Status;
 
@@ -246,8 +293,12 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 	XDc_WriteReg(BYPASS_LIVE_IN_GPIO_BASEADDR,
 		     BYPASS_GPIO_DATA_OFFSET, BYPASS_GPIO_HOLD);
 
-	/* VTC: PPC from xparameters */
-	RunCfgPtr->PPC = BypassStreamPpc[stream_idx];
+	xil_printf("  Bypass stream %u source: AVPG=0x%08X VTC=0x%08X\r\n",
+		   stream_idx, (u32)AvpgBase, (u32)BYPASS_VTC_0_BASEADDR);
+
+	/* VTC / AVPG: PPC from xparameters (XSA) */
+	PhysPpc = XDpDc_BypassPpcFromXsa(stream_idx);
+	RunCfgPtr->PPC = PhysPpc;
 	Status = XDpDc_BypassInitVtc(RunCfgPtr, &BypassVtc0, BYPASS_VTC_0_BASEADDR);
 	if (Status != XST_SUCCESS)
 		return Status;
@@ -258,11 +309,12 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 		   stream_idx,
 		   RunCfgPtr->avpg[stream_idx].pix_fmt ? "YCbCr422" : "RGB",
 		   RunCfgPtr->avpg[stream_idx].bpc,
-		   BypassStreamPpc[stream_idx],
+		   PhysPpc,
 		   RunCfgPtr->avpg[stream_idx].pattern);
 
-	XAvpgSetConfig(AvpgBase, &RunCfgPtr->avpg[stream_idx],
-		       RunCfgPtr->Width, RunCfgPtr->Height);
+	RunCfgPtr->avpg[stream_idx].ppc = XDpDc_BypassAvpgPpcFlag(PhysPpc);
+	XDpDc_BypassProgramAvpg(AvpgBase, &RunCfgPtr->avpg[stream_idx],
+				RunCfgPtr->Width, RunCfgPtr->Height, PhysPpc);
 	XAvpg_WriteReg(AvpgBase, XAV_PATGEN_EN, 0x1);
 
 	/* Release data path â€” AVPG data flows to DP TX */
@@ -343,7 +395,7 @@ u32 InitBypassPlatform(RunConfig *RunCfgPtr)
 	}
 
 	/* Restore full pixel clock for DP MSA / downstream */
-	RunCfgPtr->PixelClkHz *= BypassStreamPpc[0];
+	RunCfgPtr->PixelClkHz *= XDpDc_BypassPpcFromXsa(0U);
 
 	/* DC subsystem init */
 	xil_printf("  Configuring DC subsystem (bypass)...\r\n");
@@ -381,6 +433,7 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 {
 	const XVidC_VideoTimingMode *Vtm;
 	XDc *DcPtr;
+	u8 stream_idx;
 
 	/* DP TX init (SST, single stream) */
 
@@ -394,8 +447,14 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 		RunCfgPtr->byp_streams = 1;
 
 	RunCfgPtr->livevidselect = XDCSUB_LIVVID_SEL_V01;
-	RunCfgPtr->PPC = BypassStreamPpc[0];
-	RunCfgPtr->avpg[0].ppc = (BypassStreamPpc[0] == 4) ? 1 : 0;
+	RunCfgPtr->PPC = XDpDc_BypassPpcFromXsa(0U);
+
+	for (stream_idx = 0U; stream_idx < BYPASS_MAX_STREAMS; stream_idx++) {
+		u8 ppc = XDpDc_BypassPpcFromXsa(stream_idx);
+
+		RunCfgPtr->avpg[stream_idx].ppc = XDpDc_BypassAvpgPpcFlag(ppc);
+	}
+
 	XDpDc_BypassSetStream0Format(RunCfgPtr); /* AVPG stream 0 -> Stream1Format */
 
 	xil_printf("\r\n========================================\r\n");
@@ -405,7 +464,10 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 	else
 		xil_printf("DisplayPort DC Bypass SST Video Test\r\n");
 	xil_printf("  Stream 0: LIVE (AVPG), %dx%d, %d PPC\r\n",
-		   RunCfgPtr->Width, RunCfgPtr->Height, BypassStreamPpc[0]);
+		   RunCfgPtr->Width, RunCfgPtr->Height,
+		   XDpDc_BypassPpcFromXsa(0U));
+	xil_printf("  Stream 0 source: AVPG=0x%08X VTC=0x%08X\r\n",
+		   (u32)BypassAvpgBase[0], (u32)BYPASS_VTC_0_BASEADDR);
 
 	if(RunCfgPtr->DesignMstEn)
 		xil_printf(" Active Streams: %d\r\n", RunCfgPtr->byp_streams);
@@ -451,7 +513,7 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 	 * The clk wiz output drives the PL video pipeline and
 	 * pl_mmi_dc_1x_clk directly, so it must run at pixel_clock / PPC.
 	 */
-	RunCfgPtr->PixelClkHz /= BypassStreamPpc[0];
+	RunCfgPtr->PixelClkHz /= XDpDc_BypassPpcFromXsa(0U);
 
 	return XST_SUCCESS;
 }

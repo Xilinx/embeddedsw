@@ -32,6 +32,7 @@
 #include "mmi_dp_init.h"
 #include <string.h>
 #include "xavpg.h"
+#include "mmi_dc_bypass_test.h"
 
 
 extern void outbyte(char c);
@@ -565,9 +566,12 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
         xil_printf("  Active Streams:       %d (XSA max: %d)\r\n",
                    config->byp_streams, config->byp_streams_max);
         for (idx = 0; idx < config->byp_streams; idx++) {
+            u8 ppc = XDpDc_BypassPpcFromXsa(idx);
+
             xil_printf("  Stream %d PPC:        %d (%s pixel)\r\n",
-                       idx, config->byp_stream_pix_mode[idx],
-                       config->byp_stream_pix_mode[idx] == 4 ? "Quad" : "Dual");
+                       idx, ppc,
+                       (ppc == 4U) ? "Quad" :
+                       (ppc == 2U) ? "Dual" : "Single");
             xil_printf("  Stream %d Format:     %s %d-bpc, pattern %d, %s\r\n",
                        idx,
                        config->avpg[idx].pix_fmt ? "YCbCr422" : "RGB",
@@ -1576,7 +1580,7 @@ static void XDpDc_SelectPresentationMode(InitRunConfig *config)
 void XDpDc_BypassConfigureStream(InitRunConfig *config, u8 stream_idx)
 {
     u32 val;
-    u8 ppc = config->byp_stream_pix_mode[stream_idx];
+    u8 ppc = XDpDc_BypassPpcFromXsa(stream_idx);
 
     xil_printf("\r\n  --- Configure Bypass Stream %d (PPC=%d, fixed by XSA) ---\r\n",
                stream_idx, ppc);
@@ -2153,13 +2157,17 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     if (config->byp_streams > 0) {
         u32 i;
 
+        /*
+         * Bypass PPC is not taken from StreamConfig[].pixel_mode (DC IP);
+         * that field is wrong/redundant for PL AVPG. Use XSA xparameters via
+         * XDpDc_BypassPpcFromXsa() at the sites that need PPC.
+         */
         for (i = 0; i < XDPDC_BYPASS_STREAM_MAX; i++) {
             if (!strncmp(DcSubCfgPtr->DcConfig.StreamConfig[i].mode, avmode, strlen(avmode)))
                 config->byp_stream_vid_mode[i] = XDCSUB_VIDMODE_AV;
             else
                 config->byp_stream_vid_mode[i] = XDCSUB_VIDMODE_VONLY;
 
-            config->byp_stream_pix_mode[i] = DcSubCfgPtr->DcConfig.StreamConfig[i].pixel_mode;
             config->byp_stream_sdp_en[i] = DcSubCfgPtr->DcConfig.StreamConfig[i].sdpen;
         }
     }
@@ -2260,25 +2268,31 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
         config->output_format = RGB_8BPC;
 
         for (idx = 0; idx < 4; idx++) {
+            u8 ppc = XDpDc_BypassPpcFromXsa((u8)idx);
+
             config->avpg[idx].bpc = 8;
             config->avpg[idx].pix_fmt = 0;
             config->avpg[idx].pattern = byp_default_patterns[idx];
             config->avpg[idx].colorimetry = 0;
-            config->avpg[idx].ppc =
-                (config->byp_stream_pix_mode[idx] == 4) ? 1 : 0;
+            config->avpg[idx].ppc = (ppc == 4U) ? 1U : 0U;
         }
 
-        xil_printf("InitRunConfig initialized for Bypass %s design\r\n",
-                   config->design_mst_en ? "MST" : "SST-only");
-        xil_printf("  SDT mst-mode-en:    %d\r\n", config->design_mst_en);
-        xil_printf("  XSA Max Streams:    %d\r\n", config->byp_streams_max);
-        xil_printf("  Active Streams:     %d\r\n", config->byp_streams);
-        xil_printf("  Stream 0 PPC:       %d (%s pixel)\r\n",
-                   config->byp_stream_pix_mode[0],
-                   config->byp_stream_pix_mode[0] == 4 ? "Quad" : "Dual");
-        xil_printf("  Default:            RGB 8-bpc, pattern %d, %dx%d@%d\r\n",
-                   config->avpg[0].pattern,
-                   config->width, config->height, config->frame_rate);
+        {
+            u8 ppc0 = XDpDc_BypassPpcFromXsa(0U);
+
+            xil_printf("InitRunConfig initialized for Bypass %s design\r\n",
+                       config->design_mst_en ? "MST" : "SST-only");
+            xil_printf("  SDT mst-mode-en:    %d\r\n", config->design_mst_en);
+            xil_printf("  XSA Max Streams:    %d\r\n", config->byp_streams_max);
+            xil_printf("  Active Streams:     %d\r\n", config->byp_streams);
+            xil_printf("  Stream 0 PPC:       %d (%s pixel)\r\n",
+                       ppc0,
+                       (ppc0 == 4U) ? "Quad" :
+                       (ppc0 == 2U) ? "Dual" : "Single");
+            xil_printf("  Default:            RGB 8-bpc, pattern %d, %dx%d@%d\r\n",
+                       config->avpg[0].pattern,
+                       config->width, config->height, config->frame_rate);
+        }
     }
 
     config->lane_count = 0;

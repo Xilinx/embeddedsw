@@ -30,10 +30,10 @@
 #include "mmi_dpdc_menus.h"
 #include "mmi_dc_nonlive_test.h"
 #include "mmi_dpdc_platform.h"
+#include "mmi_dc_bypass_test.h"
 #if defined (XPAR_XVTC_NUM_INSTANCES)
 #include "mmi_dc_live_test.h"
 #include "mmi_dc_mixed_test.h"
-#include "mmi_dc_bypass_test.h"
 #endif
 #include "mmi_dp_init.h"
 
@@ -298,6 +298,15 @@ static u32 XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfig
         runConfig->avpg[idx].pix_fmt = userConfig->avpg[idx].pix_fmt;
         runConfig->avpg[idx].pattern = userConfig->avpg[idx].pattern;
         runConfig->avpg[idx].colorimetry = userConfig->avpg[idx].colorimetry;
+    }
+
+    if (runConfig->operatingmode == XDCSUB_OPMODE_BYPASS) {
+        for (idx = 0; idx < 4; idx++) {
+            u8 ppc = XDpDc_BypassPpcFromXsa((u8)idx);
+
+            runConfig->avpg[idx].ppc = (ppc == 4U) ? 1U : 0U;
+        }
+        runConfig->PPC = XDpDc_BypassPpcFromXsa(0U);
     }
 
     /* Resolve standard video mode and pixel clock */
