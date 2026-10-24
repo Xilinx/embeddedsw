@@ -2542,6 +2542,7 @@ u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream)
 	if ((PbnDen == 0U) || (PbnNum == 0U)) {
 		MstStream->MstPbn = 0U;
 		MstStream->TimeSlots = 0U;
+		MstStream->StartSlot = 0U;
 		return 0U;
 	}
 
@@ -2551,6 +2552,7 @@ u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream)
 	LinkPbn = XMmiDp_GetLinkPbn(InstancePtr);
 	if ((LinkPbn == 0U) || (StreamPbn == 0U)) {
 		MstStream->TimeSlots = 0U;
+		MstStream->StartSlot = 0U;
 		return 0U;
 	}
 
@@ -2559,9 +2561,12 @@ u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream)
 
 	if (TimeSlots > XMMIDP_MTP_PAYLOAD_SLOTS_MAX) {
 		MstStream->TimeSlots = 0U;
+		MstStream->StartSlot = 0U;
 		return 0U;
 	}
 
+	/* Invalidate prior StartSlot; allocate recomputes from TimeSlots. */
+	MstStream->StartSlot = 0U;
 	MstStream->TimeSlots = (u8)TimeSlots;
 	return MstStream->TimeSlots;
 }
