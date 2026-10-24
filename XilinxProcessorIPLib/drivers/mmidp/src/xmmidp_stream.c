@@ -1884,24 +1884,28 @@ u32 XMmiDp_SinkMstModeEnable(XMmiDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function enables mst act seq in the core controller
+ * Assert MST mode and initiate the MST ACT sequence in CCTL0.
  *
- * @param       InstancePtr is a pointer to the XDpPsu instance.
- * @return
- *              - none.
+ * Uses CCTL0 read-modify-write so non-MST fields (e.g. enhanced framing) are
+ * preserved. Does not poll DPCD; the caller must wait for
+ * PAYLOAD_TABLE_UPDATE_STATUS (2C0h) ACT_HANDLED — typically via
+ * XMmiDp_InitiateActSeq() / XMmiDp_WaitActHandledStatus().
  *
- * @note        None.
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
  *
-*******************************************************************************/
+ ******************************************************************************/
 void XMmiDp_MstActSeqEnable(XMmiDp *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Act Init Seq */
-	XMmiDp_WriteReg(InstancePtr->Config.BaseAddr, XMMIDP_CCTL0,
-			(XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK |
-			 XMMIDP_CCTL0_ENABLE_MST_MODE_MASK));
-
+	/* SinkMstModeEnable / MstModeEnable already set MST mode; re-assert
+	 * defensively, then assert ACT trigger (mode before trigger). */
+	XMmiDp_RegReadModifyWrite(InstancePtr, XMMIDP_CCTL0,
+				  XMMIDP_CCTL0_ENABLE_MST_MODE_MASK,
+				  XMMIDP_CCTL0_ENABLE_MST_MODE_SHIFT, 1U);
+	XMmiDp_RegReadModifyWrite(InstancePtr, XMMIDP_CCTL0,
+				  XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK,
+				  XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_SHIFT, 1U);
 }
 
 /******************************************************************************/
@@ -1961,6 +1965,7 @@ u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr)
 	u8 AuxReply = 0;
 	u8 TimeoutCount = 0;
 
+	XMmiDp_WaitUs(InstancePtr, 1000);
 	do {
 		XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
 			       1, &AuxReply);
@@ -1984,21 +1989,24 @@ u32 XMmiDp_WaitActHandledStatus(XMmiDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function initiates CCTL ACT sequence between DpTx and DpRx
- * of the immediate branch device connected. Check DPCD Payload table update
- * status. This ensures successful handling of ACT trigger sequence.
+ * Initiates the MST ACT sequence on the immediate branch device.
  *
- * @param       InstancePtr is a pointer to the XDpPsu instance.
+ * Asserts CCTL0 INITIATE_MST_ACT_SEQ via XMmiDp_MstActSeqEnable(), then polls
+ * DPCD PAYLOAD_TABLE_UPDATE_STATUS (2C0h) until ACT_HANDLED is set.
+ * CCTL0 INITIATE_MST_ACT_SEQ is not polled; DP 1.4 completion is ACT_HANDLED.
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @return
- *              - none.
+ *              - XST_SUCCESS if ACT was handled by the branch sink.
+ *              - Error code on ACT timeout or AUX failure.
  *
- * @note        None.
+ * @note        Caller must have already updated the sink VC payload table and
+ *              confirmed VC_PAYLOAD_ID_UPDATED before calling this function.
  *
 *******************************************************************************/
 u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
 {
 	u32 Status;
-	u8 TimeoutCount = 0;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -2010,19 +2018,6 @@ u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
 		xil_printf("Failed to handle ACT trigger sequence\r\n");
 		return Status;
 	}
-
-	do {
-		Status = XMmiDp_ReadReg(InstancePtr->Config.BaseAddr, XMMIDP_CCTL0);
-		Status &= XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK;
-
-		if (TimeoutCount > XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT) {
-			xil_printf("CCTL0_INITIATE_MST_ACT_SEQ timeout error\r\n");
-
-			return XST_ERROR_COUNT_MAX;
-		}
-		TimeoutCount++;
-
-	} while (Status == XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK);
 
 	return XST_SUCCESS;
 }
@@ -2662,6 +2657,53 @@ u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream)
 		return Status;
 
 	return XMmiDp_WaitPayloadTableUpdateStatus(InstancePtr);
+}
+
+/******************************************************************************/
+/**
+ * Allocate VC payload for one MST stream on TX and the immediate branch sink.
+ *
+ * Programs the TX MST VC payload table, updates the branch sink VC payload ID
+ * table over DPCD (PAYLOAD_ALLOCATE_SET at 1C0h), waits for
+ * VC_PAYLOAD_ID_UPDATED in PAYLOAD_TABLE_UPDATE_STATUS (2C0h), triggers the
+ * ACT sequence via CCTL0, then waits for ACT_HANDLED in 2C0h.
+ *
+ * Call XMmiDp_ComputeTimeSlot() first. Direct-attach MST only: no sideband
+ * LINK_ADDRESS / topology messaging; VCPID is the stream number.
+ *
+ * On failure after the TX table is programmed (e.g. sink table or ACT), the
+ * caller must call XMmiDp_ClearPayloadVcIdTable() to recover; this function
+ * does not roll back the TX table.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return
+ *		- XST_SUCCESS if payload allocation and ACT completed.
+ *		- Error code on TX/sink table, AUX, or ACT failure.
+ *
+ ******************************************************************************/
+u32 XMmiDp_AllocatePayloadStream(XMmiDp *InstancePtr, u8 Stream)
+{
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream >= XMMIDP_STREAM_ID1) &&
+			  (Stream <= XMMIDP_STREAM_ID4));
+
+	Status = XMmiDp_SetTxVcPayloadTable(InstancePtr, Stream);
+	if (Status != XST_SUCCESS)
+		return Status;
+
+	Status = XMmiDp_SetSinkVcPayloadTable(InstancePtr, Stream);
+	if (Status != XST_SUCCESS)
+		return Status;
+
+	Status = XMmiDp_InitiateActSeq(InstancePtr);
+	if (Status != XST_SUCCESS)
+		return Status;
+
+	return XST_SUCCESS;
 }
 
 /******************************************************************************/

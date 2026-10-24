@@ -636,6 +636,7 @@ u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream);
  *		Clears VC_PAYLOAD_ID_UPDATED only at 0x2C0 (not ACT_HANDLED).
  */
 u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream);
+u32 XMmiDp_AllocatePayloadStream(XMmiDp *InstancePtr, u8 Stream);
 /**
  * Clear TX and immediate sink VC payload ID tables.
  *
