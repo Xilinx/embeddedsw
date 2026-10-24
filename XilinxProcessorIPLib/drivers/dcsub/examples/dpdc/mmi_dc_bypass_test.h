@@ -227,6 +227,12 @@ u8 XDpDc_BypassPpcFromXsa(u8 StreamIdx);
  */
 u8 XDpDc_BypassPlStreamMax(void);
 u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr);
+/**
+ * Stop the AVPG and VTC of bypass streams from FirstStream upward.
+ *
+ * @param	FirstStream is the first stream index to stop (0 based).
+ */
+void XDpDc_BypassDisableStreamsFrom(u8 FirstStream);
 u32 XDpDc_MmiDcBypassTest(RunConfig *RunCfgPtr);
 
 #ifdef __cplusplus

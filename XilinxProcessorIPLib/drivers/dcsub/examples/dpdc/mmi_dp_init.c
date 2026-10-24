@@ -1246,6 +1246,20 @@ static void XDpDc_SetupMstTopology(const RunConfig *RunCfgPtr, XMmiDp *DpPtr,
 			   "routed; driving %u\r\n", *NumStreams, Routed,
 			   Routed);
 		*NumStreams = Routed;
+
+		/*
+		 * The bypass AVPG and VTC generators were enabled for
+		 * byp_streams back in XDpDc_BypassConfigureLiveGenerator().
+		 * Stop the ones that no longer have a stream, otherwise they
+		 * keep driving the PL with no consumer.
+		 *
+		 * The generators only exist on a design that instantiates a
+		 * VTC, which is also the guard the rest of the bypass test
+		 * carries, so match it here.
+		 */
+#if defined(XPAR_XVTC_NUM_INSTANCES)
+		XDpDc_BypassDisableStreamsFrom(Routed);
+#endif
 	}
 }
 

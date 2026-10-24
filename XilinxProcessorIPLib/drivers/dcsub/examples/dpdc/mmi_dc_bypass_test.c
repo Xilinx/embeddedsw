@@ -406,6 +406,44 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 /*****************************************************************************/
 /**
  *
+ * XDpDc_BypassDisableStreamsFrom - Stop the AVPG and VTC of streams that no
+ * longer have a DP stream behind them.
+ *
+ * XDpDc_BypassConfigureLiveGenerator() enables a generator pair per requested
+ * bypass stream. When MST topology discovery later finds fewer sinks, or a
+ * path cannot carry a stream, the surplus generators keep driving the PL with
+ * no consumer. Call this with the number of streams that survived.
+ * Streams whose VTC was never initialised never ran and are skipped, since
+ * the XVtc calls assert on an instance that is not ready.
+ *
+ * @param	FirstStream is the first stream index to stop (0 based).
+ *
+ * @return	None.
+ *
+ *****************************************************************************/
+void XDpDc_BypassDisableStreamsFrom(u8 FirstStream)
+{
+	u8 StreamIdx;
+
+	for (StreamIdx = FirstStream; StreamIdx < BYPASS_MAX_STREAMS;
+	     StreamIdx++) {
+		if ((BypassAvpgBase[StreamIdx] == 0U) ||
+		    (BypassVtcBase[StreamIdx] == 0U) ||
+		    (BypassVtc[StreamIdx].IsReady != XIL_COMPONENT_IS_READY))
+			continue;
+
+		XAvpg_WriteReg(BypassAvpgBase[StreamIdx], XAV_PATGEN_EN, 0x0);
+		XVtc_DisableGenerator(&BypassVtc[StreamIdx]);
+		XVtc_Disable(&BypassVtc[StreamIdx]);
+
+		xil_printf("  Bypass stream %u generators stopped (no DP "
+			   "stream)\r\n", StreamIdx);
+	}
+}
+
+/*****************************************************************************/
+/**
+ *
  * Map bypass AVPG stream 0 bus format to RunConfig.Stream1Format.
  *
  * Naming note: bypass PL uses AVPG stream index 0, while DP TX and RunConfig
