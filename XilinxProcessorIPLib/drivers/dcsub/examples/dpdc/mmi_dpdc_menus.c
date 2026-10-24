@@ -29,6 +29,7 @@
 #include "xdcsub.h"
 #include "xdc.h"
 #include "xmmidp.h"
+#include "mmi_dp_init.h"
 #include <string.h>
 #include "xavpg.h"
 
@@ -439,41 +440,50 @@ void XDpDc_MainHelpMenu(InitRunConfig *config)
         if (config->presentationmode == XDCSUB_PPTMODE_MIXED)
             xil_printf("--            Mixed InitRunConfig Menu               --\r\n");
     }
-    if (config->operatingmode == XDCSUB_OPMODE_BYPASS)
-        xil_printf("--          Bypass SST InitRunConfig Menu            --\r\n");
+    if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
+        if (config->design_mst_en)
+            xil_printf("--         Bypass MST InitRunConfig Menu             --\r\n");
+        else
+            xil_printf("--         Bypass SST InitRunConfig Menu             --\r\n");
+    }
 
     xil_printf("====================================================\r\n");
     xil_printf("Available Commands:\r\n");
     xil_printf("  r - Configure Resolution\r\n");
+    if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
+        xil_printf("  c - Configure streams / per-stream format (bypass)\r\n");
+    }
     if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
         if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+            xil_printf("  c - Toggle Cursor Enable (functional non-live)\r\n");
             xil_printf("  f - Configure Stream1 Format\r\n");
             xil_printf("  g - Configure Stream2 Format\r\n");
-            xil_printf("  c - Toggle Cursor Enable (with Position & Size config)\r\n");
             xil_printf("  x - Configure Cursor Position & Size\r\n");
             xil_printf("  a - Toggle Audio Enable (select channels %d-%d and sample frequency)\r\n",
                        XDCSUB_AUDIO_CHANNELS_MIN, XDCSUB_AUDIO_CHANNELS_MAX);
             xil_printf("  n - Toggle SDP Enable\r\n");
+            xil_printf("  o - Configure Output Format\r\n");
         }
 
         if (config->presentationmode == XDCSUB_PPTMODE_LIVE) {
             /* TODO - Add SDP and audio */
             xil_printf("  f - config AVPG 1\r\n");
             xil_printf("  g - config AVPG 2\r\n");
+            xil_printf("  o - Configure Output Format\r\n");
         }
 
         if (config->presentationmode == XDCSUB_PPTMODE_MIXED) {
                 xil_printf("  f - config AVPG 1 (Live) \r\n");
                 xil_printf("  g - Configure Stream2 Format (Non live)\r\n");
+                xil_printf("  o - Configure Output Format\r\n");
         }
-
+    }
+    if (config->operatingmode == XDCSUB_OPMODE_BYPASS)
+        xil_printf("  o - Configure Output Format\r\n");
+    if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
         xil_printf("  p - Toggle Partial Plane Blend Enable\r\n");
         xil_printf("  b - Configure Partial Plane Blend Parameters\r\n");
-        xil_printf("  o - Configure Output Format\r\n");
         xil_printf("  t - Select Presentation Mode (Non live/Live/Mixed)\r\n");
-    }
-    if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
-        xil_printf("  0 - Configure Stream 0 bus format\r\n");
     }
 
     xil_printf("  l - Configure DP Link (Lane Count & Link Rate)\r\n");
@@ -547,16 +557,24 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
     }
 
     if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
-        xil_printf("Operating Mode:         Bypass SST\r\n");
-        xil_printf("  # Streams (XSA):     %d\r\n", config->byp_streams);
-        xil_printf("  Stream 0 PPC:        %d (%s pixel)\r\n",
-                   config->byp_stream_pix_mode[0],
-                   config->byp_stream_pix_mode[0] == 4 ? "Quad" : "Dual");
-        xil_printf("  Stream 0 Format:     %s %d-bpc, pattern %d, %s\r\n",
-                   config->avpg[0].pix_fmt ? "YCbCr422" : "RGB",
-                   config->avpg[0].bpc,
-                   config->avpg[0].pattern,
-                   config->avpg[0].colorimetry ? "BT.709" : "BT.601");
+        u8 idx;
+
+        xil_printf("Design (SDT mst-mode-en): %s\r\n",
+                   config->design_mst_en ? "MST" : "SST-only");
+        xil_printf("Operating Mode:         Bypass\r\n");
+        xil_printf("  Active Streams:       %d (XSA max: %d)\r\n",
+                   config->byp_streams, config->byp_streams_max);
+        for (idx = 0; idx < config->byp_streams; idx++) {
+            xil_printf("  Stream %d PPC:        %d (%s pixel)\r\n",
+                       idx, config->byp_stream_pix_mode[idx],
+                       config->byp_stream_pix_mode[idx] == 4 ? "Quad" : "Dual");
+            xil_printf("  Stream %d Format:     %s %d-bpc, pattern %d, %s\r\n",
+                       idx,
+                       config->avpg[idx].pix_fmt ? "YCbCr422" : "RGB",
+                       config->avpg[idx].bpc,
+                       config->avpg[idx].pattern,
+                       config->avpg[idx].colorimetry ? "BT.709" : "BT.601");
+        }
     }
 #endif
 
@@ -790,6 +808,7 @@ u32 XDpDc_ConfigureResolution(InitRunConfig *config)
     }
 
     xil_printf("Resolution set to: %dx%d @%dHz\r\n", config->width, config->height, config->frame_rate);
+
     return XST_SUCCESS;
 }
 
@@ -1606,6 +1625,84 @@ void XDpDc_BypassConfigureStream(InitRunConfig *config, u8 stream_idx)
 
 /*****************************************************************************/
 /**
+ * Show the bus format submenu for the active bypass streams.
+ *
+ * @param	config is a pointer to the InitRunConfig structure.
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+static void XDpDc_BypassStreamFormatSubmenu(InitRunConfig *config)
+{
+    char cmd;
+    u8 done = 0;
+
+    while (!done) {
+        u8 idx;
+
+        xil_printf("\r\n=== Stream Bus Format Submenu (%d active stream(s)) ===\r\n",
+                   config->byp_streams);
+        for (idx = 0; idx < config->byp_streams; idx++)
+            xil_printf("  %d - Configure Stream %d bus format\r\n", idx, idx);
+        xil_printf("  q - Return\r\n");
+        xil_printf("Enter choice: ");
+
+        cmd = read_char();
+        xil_printf("\r\n");
+
+        if (cmd == 'q' || cmd == 'Q') {
+            done = 1;
+        } else if (cmd >= '0' &&
+                   (u8)(cmd - '0') < XDPDC_BYPASS_STREAM_MAX) {
+            u8 stream_idx = (u8)(cmd - '0');
+
+            if (stream_idx < config->byp_streams)
+                XDpDc_BypassConfigureStream(config, stream_idx);
+            else
+                xil_printf("Stream %d not active (only %d stream(s) configured).\r\n",
+                           stream_idx, config->byp_streams);
+        } else {
+            xil_printf("Unknown choice.\r\n");
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
+ * Prompt for the number of active bypass streams, then configure each stream.
+ *
+ * @param	config is a pointer to the InitRunConfig structure.
+ *
+ ******************************************************************************/
+void XDpDc_ConfigureBypassStreams(InitRunConfig *config)
+{
+    u32 count;
+    u8 max = config->byp_streams_max;
+
+    if (max == 0U) {
+        xil_printf("No bypass streams available in XSA.\r\n");
+        return;
+    }
+
+    xil_printf("\r\n=== Bypass Stream Configuration ===\r\n");
+    xil_printf("XSA supports up to %d stream(s). Currently active: %d\r\n",
+               max, config->byp_streams);
+    xil_printf("Enter number of streams (1-%d): ", max);
+    count = read_uint();
+
+    if (count < 1U || count > max) {
+        xil_printf("Invalid count (%d). Keeping %d stream(s).\r\n",
+                   count, config->byp_streams);
+        return;
+    }
+
+    config->byp_streams = (u8)count;
+    xil_printf("Active streams set to %d.\r\n", config->byp_streams);
+    XDpDc_BypassStreamFormatSubmenu(config);
+}
+
+/*****************************************************************************/
+/**
 *
 * This function runs the interactive menu loop
 *
@@ -1669,24 +1766,32 @@ void XDpDc_MenuLoop(InitRunConfig *config)
 
             case 'c':
             case 'C':
-                config->cursor_enable = !config->cursor_enable;
-                xil_printf("Cursor Enable: %s\r\n", config->cursor_enable ? "Yes" : "No");
-                if (config->cursor_enable && config->sdp_enable)
-                    xil_printf("Cursor+SDP mode enabled (cursor transmits first, then SDP)\r\n");
+                if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
+                    /* Bypass: stream count / format (ungated for SST too). */
+                    XDpDc_ConfigureBypassStreams(config);
+                } else if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+                    config->cursor_enable = !config->cursor_enable;
+                    xil_printf("Cursor Enable: %s\r\n", config->cursor_enable ? "Yes" : "No");
+                    if (config->cursor_enable && config->sdp_enable)
+                        xil_printf("Cursor+SDP mode enabled (cursor transmits first, then SDP)\r\n");
 
-                /* If enabling cursor, prompt for position & size configuration */
-                if (config->cursor_enable) {
-                    char subchoice;
-                    xil_printf("\r\nConfigure cursor position & size? (y/n): ");
-                    subchoice = read_char();
-                    xil_printf("\r\n");
-                    if (subchoice == 'y' || subchoice == 'Y') {
-                        XDpDc_ConfigureCursor(config);
-                    } else {
-                        xil_printf("Using default cursor settings: Position(%d,%d) Size(%dx%d)\r\n",
-                                   config->cursor_coord_x, config->cursor_coord_y,
-                                   config->cursor_size_x, config->cursor_size_y);
+                    /* If enabling cursor, prompt for position & size configuration */
+                    if (config->cursor_enable) {
+                        char subchoice;
+                        xil_printf("\r\nConfigure cursor position & size? (y/n): ");
+                        subchoice = read_char();
+                        xil_printf("\r\n");
+                        if (subchoice == 'y' || subchoice == 'Y') {
+                            XDpDc_ConfigureCursor(config);
+                        } else {
+                            xil_printf("Using default cursor settings: Position(%d,%d) Size(%dx%d)\r\n",
+                                       config->cursor_coord_x, config->cursor_coord_y,
+                                       config->cursor_size_x, config->cursor_size_y);
+                        }
                     }
+                } else {
+                    xil_printf("'c' toggles cursor in functional non-live mode; "
+                               "in bypass it configures streams.\r\n");
                 }
                 break;
 
@@ -1828,14 +1933,6 @@ void XDpDc_MenuLoop(InitRunConfig *config)
             case 'Q':
                 xil_printf("\r\nQuitting...\r\n");
                 done = 1;
-                break;
-
-            case '0':
-                if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
-                    XDpDc_BypassConfigureStream(config, 0);
-                } else {
-                    xil_printf("Not in bypass mode.\r\n");
-                }
                 break;
 
             default:
@@ -2003,6 +2100,8 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
 
     DcSubCfgPtr = XDcSub_LookupConfig(DC_BASEADDR);
 
+    config->design_mst_en = (u8)XDpDc_GetDesignMstEn();
+
     if (!strncmp(DcSubCfgPtr->DcConfig.operatingmode, opmodefunc, strlen(opmodefunc)))
         config->operatingmode = XDCSUB_OPMODE_FUNCTIONAL;
 
@@ -2042,13 +2141,19 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     config->livevideosdpen = DcSubCfgPtr->DcConfig.livevideosdpen;
     config->livevideoalphaen = DcSubCfgPtr->DcConfig.livevideoalphaen;
 
-    config->byp_streams = DcSubCfgPtr->DcConfig.streams;
+    config->byp_streams_max = DcSubCfgPtr->DcConfig.streams;
+    if (config->byp_streams_max > XDPDC_BYPASS_STREAM_MAX)
+        config->byp_streams_max = XDPDC_BYPASS_STREAM_MAX;
+    config->byp_streams = config->byp_streams_max;
+
+    if (!config->design_mst_en)
+        config->byp_streams = 1U;
 
 #if defined (XPAR_XVTC_NUM_INSTANCES)
     if (config->byp_streams > 0) {
         u32 i;
 
-        for (i = 0; i < XAVPATGEN_INST_MAX_COUNT; i++) {
+        for (i = 0; i < XDPDC_BYPASS_STREAM_MAX; i++) {
             if (!strncmp(DcSubCfgPtr->DcConfig.StreamConfig[i].mode, avmode, strlen(avmode)))
                 config->byp_stream_vid_mode[i] = XDCSUB_VIDMODE_AV;
             else
@@ -2163,8 +2268,11 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
                 (config->byp_stream_pix_mode[idx] == 4) ? 1 : 0;
         }
 
-        xil_printf("InitRunConfig initialized for Bypass SST mode\r\n");
-        xil_printf("  # of Streams (XSA): %d\r\n", config->byp_streams);
+        xil_printf("InitRunConfig initialized for Bypass %s design\r\n",
+                   config->design_mst_en ? "MST" : "SST-only");
+        xil_printf("  SDT mst-mode-en:    %d\r\n", config->design_mst_en);
+        xil_printf("  XSA Max Streams:    %d\r\n", config->byp_streams_max);
+        xil_printf("  Active Streams:     %d\r\n", config->byp_streams);
         xil_printf("  Stream 0 PPC:       %d (%s pixel)\r\n",
                    config->byp_stream_pix_mode[0],
                    config->byp_stream_pix_mode[0] == 4 ? "Quad" : "Dual");

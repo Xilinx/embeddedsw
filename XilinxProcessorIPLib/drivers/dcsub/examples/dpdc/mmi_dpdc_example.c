@@ -286,7 +286,7 @@ static u32 XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfig
     runConfig->livevideoalphaen = userConfig->livevideoalphaen;
     runConfig->livevideosdpen = userConfig->livevideosdpen;
     runConfig->byp_streams = userConfig->byp_streams;
-    runConfig->DesignMstEn = (u8)XDpDc_GetDesignMstEn();
+    runConfig->DesignMstEn = userConfig->design_mst_en;
     runConfig->MstMode = 0U;
 
     if (!runConfig->DesignMstEn)

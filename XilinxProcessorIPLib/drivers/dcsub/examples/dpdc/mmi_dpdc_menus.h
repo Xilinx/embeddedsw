@@ -37,6 +37,12 @@
 /* Sample-frequency selector held while audio is disabled */
 #define XDPDC_AUD_FREQ_UNSET		0xFFU
 
+/**
+ * Max bypass streams; must match InitRunConfig.avpg[] and byp_stream_*[]
+ * array lengths below.
+ */
+#define XDPDC_BYPASS_STREAM_MAX		4U
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -46,7 +52,7 @@
 /* InitRunConfig structure */
 typedef struct {
 
-    AvpgRunConfig avpg[4];		/**< AV pattern generator configs */
+    AvpgRunConfig avpg[XDPDC_BYPASS_STREAM_MAX]; /**< AV pattern generator configs */
 
     u32 width;				/**< Horizontal resolution */
     u32 height;				/**< Vertical resolution */
@@ -83,10 +89,12 @@ typedef struct {
     u8 livevideo02mode;			/**< 1=Video only 2=None */
     u8 livevideoalphaen;		/**< 0=Disabled, 1=Enabled */
     u8 livevideosdpen;			/**< 0=Disabled, 1=Enabled */
-    u8 byp_streams;			/**< Number of bypass streams */
-    u8 byp_stream_pix_mode[4];		/**< Bypass stream PPC: 1, 2, 4 */
-    u8 byp_stream_sdp_en[4];		/**< Bypass stream SDP enable */
-    u8 byp_stream_vid_mode[4];		/**< Bypass stream video mode */
+    u8 byp_streams;			/**< Active bypass streams (user configured) */
+    u8 byp_streams_max;			/**< Max bypass streams from XSA */
+    u8 design_mst_en;			/**< SDT mst-mode-en: 1=MST design, 0=SST-only */
+    u8 byp_stream_pix_mode[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream PPC: 1, 2, 4 */
+    u8 byp_stream_sdp_en[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream SDP enable */
+    u8 byp_stream_vid_mode[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream video mode */
 } InitRunConfig;
 
 /************************** Function Prototypes ******************************/
@@ -106,6 +114,10 @@ u32 XDpDc_ConfigureOutputFormat(u32 *format, const char *format_name);
 u32 XDpDc_ConfigureCursor(InitRunConfig *config);
 u32 XDpDc_ConfigurePartialPlane(InitRunConfig *config);
 void XDpDc_BypassConfigureStream(InitRunConfig *config, u8 stream_idx);
+/**
+ * Prompt for active bypass stream count, then per-stream bus format.
+ */
+void XDpDc_ConfigureBypassStreams(InitRunConfig *config);
 void XDpDc_Apply8kFormatDefaults(InitRunConfig *config);
 void XDpDc_Warn8kRgbIfNeeded(const InitRunConfig *config);
 void XDpDc_MenuLoop(InitRunConfig *config);
