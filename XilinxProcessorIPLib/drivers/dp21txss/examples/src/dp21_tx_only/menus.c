@@ -627,6 +627,14 @@ void main_loop()
 					in_pwr_save = 0;
 					xil_printf (
 							"\r\n==========power up===========\r\n");
+					/*
+					 * Re-train the link after waking the sink so the
+					 * source re-writes LINK_BW_SET/LANE_COUNT_SET as
+					 * required on exit from power save.
+					 */
+					LineRate = get_LineRate();
+					LaneCount = get_Lanecounts();
+					DpTxSs_StartTx(LineRate, LaneCount, user_config);
 				}
 				break;
 
