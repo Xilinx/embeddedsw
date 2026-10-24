@@ -28,6 +28,9 @@
 #define XMMIDP_AUX_2000US_LIMIT		0x7A8
 #define XMMIDP_AUX_100000US_LIMIT	0x17ED0
 
+/** DP 1.4 MTP payload slots available for VC allocation (slot 0 = header). */
+#define XDPDC_MTP_PAYLOAD_SLOTS_MAX	63U
+
 /* Power Management configuration defaults */
 #define XMMIDP_PM_CONFIG1_DEFAULT	0x00400008
 #define XMMIDP_PM_CONFIG2_DEFAULT	0x00050000
@@ -877,6 +880,27 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 			xil_printf("[HPD] ERROR: Failed to enable MST mode\r\n");
 			return XST_FAILURE;
 		}
+
+		Status = XMmiDp_ClearPayloadVcIdTable(DpPtr);
+		if (Status != XST_SUCCESS) {
+			xil_printf("[HPD] ERROR: Failed to clear VC payload table\r\n");
+			return XST_FAILURE;
+		}
+
+		/*
+		 * ClearPayloadVcIdTable does not reset MstStreamConfig[]. Zero
+		 * unused stream cache so a lowered byp_streams count cannot
+		 * keep stale TimeSlots/StartSlot from a prior connect.
+		 */
+		for (StreamId = NumStreams + XMMIDP_STREAM_ID1;
+		     StreamId <= XMMIDP_STREAM_ID4; StreamId++) {
+			XMmiDp_MstStream *MstStream =
+				&DpPtr->MstStreamConfig[StreamId - 1];
+
+			MstStream->TimeSlots = 0U;
+			MstStream->StartSlot = 0U;
+			MstStream->MstPbn = 0U;
+		}
 	} else {
 		xil_printf("[MSTM] SST link: skipping sink/TX MST enable\r\n");
 	}
@@ -899,6 +923,55 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 	     StreamId++) {
 		XMmiDp_ConfigureVideoController(DpPtr, StreamId);
 		XDpDc_PrintVideoConfigRegs(DpPtr, StreamId);
+	}
+
+	if (RunCfgPtr->MstMode) {
+		u32 SlotsRequired = 0U;
+
+		/*
+		 * Admission: ComputeTimeSlot filled TimeSlots during prepare.
+		 * Reject before any allocate/ACT so a fit failure cannot leave
+		 * earlier streams half-programmed.
+		 */
+		for (StreamId = XMMIDP_STREAM_ID1;
+		     StreamId < NumStreams + XMMIDP_STREAM_ID1;
+		     StreamId++)
+			SlotsRequired +=
+				DpPtr->MstStreamConfig[StreamId - 1].TimeSlots;
+
+		if ((SlotsRequired == 0U) ||
+		    (SlotsRequired > XDPDC_MTP_PAYLOAD_SLOTS_MAX)) {
+			xil_printf("[HPD] ERROR: MST VC payload does not fit: "
+				   "need %u slots, available %u "
+				   "(link BW 0x%02X, lanes %u)\r\n",
+				   SlotsRequired, XDPDC_MTP_PAYLOAD_SLOTS_MAX,
+				   DpPtr->LinkConfig.LinkBW,
+				   DpPtr->LinkConfig.NumLanes);
+			return XST_FAILURE;
+		}
+
+		/*
+		 * Program all VIDEO_CONFIG5 first so TU fields settle before
+		 * the first ACT; interleaving CONFIG5 with allocate can
+		 * perturb later streams' TU / payload programming.
+		 */
+		for (StreamId = XMMIDP_STREAM_ID1;
+		     StreamId < NumStreams + XMMIDP_STREAM_ID1;
+		     StreamId++)
+			XMmiDp_SetVideoConfig5(DpPtr, StreamId);
+
+		for (StreamId = XMMIDP_STREAM_ID1;
+		     StreamId < NumStreams + XMMIDP_STREAM_ID1;
+		     StreamId++) {
+			Status = XMmiDp_AllocatePayloadStream(DpPtr, StreamId);
+			if (Status != XST_SUCCESS) {
+				xil_printf("[HPD] ERROR: Failed to allocate "
+					   "VC payload (stream %u)\r\n",
+					   StreamId);
+				(void)XMmiDp_ClearPayloadVcIdTable(DpPtr);
+				return XST_FAILURE;
+			}
+		}
 	}
 
 	for (StreamId = XMMIDP_STREAM_ID1;
