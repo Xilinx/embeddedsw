@@ -90,7 +90,7 @@ typedef struct {
     u8 livevideoalphaen;		/**< 0=Disabled, 1=Enabled */
     u8 livevideosdpen;			/**< 0=Disabled, 1=Enabled */
     u8 byp_streams;			/**< Active bypass streams (user configured) */
-    u8 byp_streams_max;			/**< Max bypass streams (DC ∩ PL AVPG/VTC) */
+    u8 byp_streams_max;			/**< Max bypass streams (DC and PL AVPG/VTC) */
     u8 design_mst_en;			/**< SDT mst-mode-en: 1=MST design, 0=SST-only */
     u8 byp_stream_sdp_en[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream SDP enable */
     u8 byp_stream_vid_mode[XDPDC_BYPASS_STREAM_MAX]; /**< Bypass stream video mode */

@@ -2160,8 +2160,20 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     }
     config->byp_streams = config->byp_streams_max;
 
+    /*
+     * MST default: 4 streams when XSA/PL supports >= 4 (byp_streams_max is
+     * already DC streams intersected with contiguous PL AVPG+VTC pairs).
+     *
+     * Four 1920x1080@60 RGB8 ≈ 1782 MB/s / PBN 532 each. Slot fit depends on
+     * link and XSA PPC: @PPC4 HBR2x4 needs 64 slots (>63) and fails admission;
+     * @PPC1/2 the same four ask 14 each (56) and fit. Lane/link default to
+     * auto (sink max). RunStreamPolicySetup admits total TimeSlots and clears
+     * VC tables if allocate fails mid-batch.
+     */
     if (!config->design_mst_en)
         config->byp_streams = 1U;
+    else if (config->byp_streams_max >= 4U)
+        config->byp_streams = 4U;
 
 #if defined (XPAR_XVTC_NUM_INSTANCES)
     if (config->byp_streams > 0) {
@@ -2265,11 +2277,16 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
 
     if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
         /*
-         * Bypass SST defaults from MST reference example.
-         * Per-stream distinct patterns for visual identification.
-         * PPC is fixed by XSA (read from xparameters via DcSubCfgPtr above).
+         * Bypass defaults: 1920x1080@60, RGB 8-bpc.
+         * MST: 4 active streams with distinct AVPG patterns per stream.
+         * PPC is fixed by XSA (BypassPpcFromXsa / xparameters).
          */
-        static const u8 byp_default_patterns[4] = { 3, 4, 1, 5 };
+        /* MST: 2=vert lines, 3=color squares, 4=flat red, 6=flat blue */
+        static const u8 byp_mst_default_patterns[4] = { 2, 3, 4, 6 };
+        /* SST: 3=color squares, 4=flat red, 1=color ramp, 5=flat green */
+        static const u8 byp_sst_default_patterns[4] = { 3, 4, 1, 5 };
+        const u8 *default_patterns = config->design_mst_en ?
+            byp_mst_default_patterns : byp_sst_default_patterns;
         u32 idx;
 
         config->width = APP_DEFAULT_WIDTH;
@@ -2282,19 +2299,32 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
 
             config->avpg[idx].bpc = 8;
             config->avpg[idx].pix_fmt = 0;
-            config->avpg[idx].pattern = byp_default_patterns[idx];
+            config->avpg[idx].pattern = default_patterns[idx];
             config->avpg[idx].colorimetry = 0;
             config->avpg[idx].ppc = (ppc == 4U) ? 1U : 0U;
         }
 
-        {
+        xil_printf("InitRunConfig initialized for Bypass %s design\r\n",
+                   config->design_mst_en ? "MST" : "SST-only");
+        xil_printf("  SDT mst-mode-en:    %d\r\n", config->design_mst_en);
+        xil_printf("  XSA Max Streams:    %d\r\n", config->byp_streams_max);
+        xil_printf("  Active Streams:     %d\r\n", config->byp_streams);
+        if (config->design_mst_en) {
+            xil_printf("  Default:            %dx%d@%d RGB 8-bpc, "
+                       "patterns 2/3/4/6 (link auto)\r\n",
+                       config->width, config->height, config->frame_rate);
+            for (idx = 0; idx < config->byp_streams; idx++) {
+                u8 ppc = XDpDc_BypassPpcFromXsa((u8)idx);
+
+                xil_printf("  Stream %u:           PPC %d (%s), pattern %d\r\n",
+                           idx, ppc,
+                           (ppc == 4U) ? "Quad" :
+                           (ppc == 2U) ? "Dual" : "Single",
+                           config->avpg[idx].pattern);
+            }
+        } else {
             u8 ppc0 = XDpDc_BypassPpcFromXsa(0U);
 
-            xil_printf("InitRunConfig initialized for Bypass %s design\r\n",
-                       config->design_mst_en ? "MST" : "SST-only");
-            xil_printf("  SDT mst-mode-en:    %d\r\n", config->design_mst_en);
-            xil_printf("  XSA Max Streams:    %d\r\n", config->byp_streams_max);
-            xil_printf("  Active Streams:     %d\r\n", config->byp_streams);
             xil_printf("  Stream 0 PPC:       %d (%s pixel)\r\n",
                        ppc0,
                        (ppc0 == 4U) ? "Quad" :
