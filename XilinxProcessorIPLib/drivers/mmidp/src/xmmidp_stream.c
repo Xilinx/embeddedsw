@@ -23,6 +23,7 @@
 *******************************************************************************/
 /******************************* Include Files ********************************/
 #include <stdlib.h>
+#include <string.h>
 #include <xstatus.h>
 #include <xil_assert.h>
 #include <sleep.h>
@@ -72,6 +73,16 @@
 #define XMMIDP_MST_VC_SLOT_COUNT		64U
 /** First payload slot after the MTP header. */
 #define XMMIDP_MST_VC_FIRST_SLOT		1U
+/** Number of MST_VCP_TABLE_REGn registers. */
+#define XMMIDP_MST_VCP_REG_COUNT		8U
+/** Stream IDs packed per VCP table register. */
+#define XMMIDP_MST_VCP_SLOTS_PER_REG		8U
+/** 4-bit stream ID field width within a packed VCP register. */
+#define XMMIDP_MST_VCP_STREAM_ID_MASK		0xFU
+/** Bits per stream ID in a packed VCP register (not register stride). */
+#define XMMIDP_MST_VCP_STREAM_ID_BITS		4U
+/** Byte stride between MST_VCP_TABLE_REG0 and REG7. */
+#define XMMIDP_MST_VCP_REG_STRIDE		4U
 
 /* TU threshold boundaries */
 #define XMMIDP_TU_LOW_AVG_BOUNDARY		16
@@ -96,6 +107,10 @@ static const u16 XMmiDp_LinkPbnTable[XMMIDP_LINK_PBN_RATE_COUNT]
 	{ 10, 20, 40 }, /* HBR2 */
 	{ 15, 30, 60 }, /* HBR3 */
 };
+
+static u8 XMmiDp_GetSinkVcPayloadStartSlot(XMmiDp *InstancePtr, u8 Stream);
+static void XMmiDp_WriteMstVcpTableRegs(XMmiDp *InstancePtr,
+					const u8 *VcpSlotStreamId);
 
 /******************************************************************************/
 /**
@@ -2010,12 +2025,10 @@ u32 XMmiDp_InitiateActSeq(XMmiDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function sets the virtual channel payload allocation table.
+ * This function sets MST_VCP_TABLE_REG0 (VC payload slots 0..7).
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
- * @param       u32 Payload slot for each stream
- *
- * @return      None.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
  *
 *******************************************************************************/
 void XMmiDp_SetMstVcpTable0(XMmiDp *InstancePtr, u32 Payload)
@@ -2027,6 +2040,14 @@ void XMmiDp_SetMstVcpTable0(XMmiDp *InstancePtr, u32 Payload)
 
 }
 
+/******************************************************************************/
+/**
+ * This function sets MST_VCP_TABLE_REG1 (VC payload slots 8..15).
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
+ *
+*******************************************************************************/
 void XMmiDp_SetMstVcpTable1(XMmiDp *InstancePtr, u32 Payload)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2036,6 +2057,14 @@ void XMmiDp_SetMstVcpTable1(XMmiDp *InstancePtr, u32 Payload)
 
 }
 
+/******************************************************************************/
+/**
+ * This function sets MST_VCP_TABLE_REG2 (VC payload slots 16..23).
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
+ *
+*******************************************************************************/
 void XMmiDp_SetMstVcpTable2(XMmiDp *InstancePtr, u32 Payload)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2045,6 +2074,14 @@ void XMmiDp_SetMstVcpTable2(XMmiDp *InstancePtr, u32 Payload)
 
 }
 
+/******************************************************************************/
+/**
+ * This function sets MST_VCP_TABLE_REG3 (VC payload slots 24..31).
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
+ *
+*******************************************************************************/
 void XMmiDp_SetMstVcpTable3(XMmiDp *InstancePtr, u32 Payload)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2054,6 +2091,14 @@ void XMmiDp_SetMstVcpTable3(XMmiDp *InstancePtr, u32 Payload)
 
 }
 
+/******************************************************************************/
+/**
+ * This function sets MST_VCP_TABLE_REG4 (VC payload slots 32..39).
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
+ *
+*******************************************************************************/
 void XMmiDp_SetMstVcpTable4(XMmiDp *InstancePtr, u32 Payload)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2063,6 +2108,14 @@ void XMmiDp_SetMstVcpTable4(XMmiDp *InstancePtr, u32 Payload)
 
 }
 
+/******************************************************************************/
+/**
+ * This function sets MST_VCP_TABLE_REG5 (VC payload slots 40..47).
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
+ *
+*******************************************************************************/
 void XMmiDp_SetMstVcpTable5(XMmiDp *InstancePtr, u32 Payload)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2072,6 +2125,14 @@ void XMmiDp_SetMstVcpTable5(XMmiDp *InstancePtr, u32 Payload)
 
 }
 
+/******************************************************************************/
+/**
+ * This function sets MST_VCP_TABLE_REG6 (VC payload slots 48..55).
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
+ *
+*******************************************************************************/
 void XMmiDp_SetMstVcpTable6(XMmiDp *InstancePtr, u32 Payload)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2081,6 +2142,14 @@ void XMmiDp_SetMstVcpTable6(XMmiDp *InstancePtr, u32 Payload)
 
 }
 
+/******************************************************************************/
+/**
+ * This function sets MST_VCP_TABLE_REG7 (VC payload slots 56..63).
+ *
+ * @param       InstancePtr is a pointer to the XMmiDp instance.
+ * @param       Payload is the packed 4-bit stream IDs of the slots.
+ *
+*******************************************************************************/
 void XMmiDp_SetMstVcpTable7(XMmiDp *InstancePtr, u32 Payload)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -2089,6 +2158,103 @@ void XMmiDp_SetMstVcpTable7(XMmiDp *InstancePtr, u32 Payload)
 			XMMIDP_MST_VCP_TABLE_REG7, Payload);
 
 }
+
+/******************************************************************************/
+/**
+ * Write packed stream IDs to MST_VCP_TABLE_REG0..REG7.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	VcpSlotStreamId is a 64-entry map (index = MTP slot).
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+static void XMmiDp_WriteMstVcpTableRegs(XMmiDp *InstancePtr,
+					const u8 *VcpSlotStreamId)
+{
+	u32 RegIdx;
+	u32 SlotIdx;
+	u32 RegVal;
+	u32 AbsSlot;
+
+	for (RegIdx = 0U; RegIdx < XMMIDP_MST_VCP_REG_COUNT; RegIdx++) {
+		RegVal = 0U;
+		for (SlotIdx = 0U; SlotIdx < XMMIDP_MST_VCP_SLOTS_PER_REG;
+		     SlotIdx++) {
+			AbsSlot = (RegIdx * XMMIDP_MST_VCP_SLOTS_PER_REG) +
+				  SlotIdx;
+			RegVal |= ((u32)(VcpSlotStreamId[AbsSlot] &
+					 XMMIDP_MST_VCP_STREAM_ID_MASK)) <<
+				  (SlotIdx * XMMIDP_MST_VCP_STREAM_ID_BITS);
+		}
+		XMmiDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XMMIDP_MST_VCP_TABLE_REG0 +
+				(RegIdx * XMMIDP_MST_VCP_REG_STRIDE),
+				RegVal);
+	}
+}
+
+/******************************************************************************/
+/**
+ * Programs the TX MST VC payload table for streams 1 through Stream.
+ * Builds a 64-slot map (4-bit stream ID per slot) from allocated time slots
+ * and writes MST_VCP_TABLE_REG0..REG7 via XMmiDp_WriteMstVcpTableRegs().
+ * Call XMmiDp_ComputeTimeSlot() first.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4) through which
+ *		to build the table cumulatively.
+ *
+ * @return
+ *		- XST_SUCCESS if the TX table was programmed.
+ *		- XST_FAILURE if slot allocation exceeds the 64-entry table.
+ *
+ * @note	Uses MstStream->StartSlot when already set (e.g. by
+ *		XMmiDp_SetSinkVcPayloadTable()); otherwise computes and stores
+ *		it once via XMmiDp_GetSinkVcPayloadStartSlot().
+ *
+ ******************************************************************************/
+u32 XMmiDp_SetTxVcPayloadTable(XMmiDp *InstancePtr, u8 Stream)
+{
+	u8 StreamId;
+	u8 VcpSlotStreamId[XMMIDP_MST_VC_SLOT_COUNT];
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream >= XMMIDP_STREAM_ID1) &&
+			  (Stream <= XMMIDP_STREAM_ID4));
+
+	memset(VcpSlotStreamId, 0, sizeof(VcpSlotStreamId));
+
+	for (StreamId = XMMIDP_STREAM_ID1; StreamId <= Stream; StreamId++) {
+		XMmiDp_MstStream *MstStream =
+			&InstancePtr->MstStreamConfig[StreamId - 1];
+		u8 TimeSlots = MstStream->TimeSlots;
+		u8 StartSlot;
+		u32 Idx;
+
+		if (TimeSlots == 0U)
+			continue;
+
+		if (MstStream->StartSlot != 0U)
+			StartSlot = MstStream->StartSlot;
+		else {
+			StartSlot = XMmiDp_GetSinkVcPayloadStartSlot(InstancePtr,
+								     StreamId);
+			MstStream->StartSlot = StartSlot;
+		}
+
+		if ((StartSlot + TimeSlots - 1U) >= XMMIDP_MST_VC_SLOT_COUNT)
+			return XST_FAILURE;
+
+		for (Idx = 0U; Idx < TimeSlots; Idx++)
+			VcpSlotStreamId[StartSlot + Idx] = StreamId;
+	}
+
+	XMmiDp_WriteMstVcpTableRegs(InstancePtr, VcpSlotStreamId);
+
+	return XST_SUCCESS;
+}
+
 /******************************************************************************/
 /**
  * Computes the MSA Misc0 field from the stream's BitsPerColor and the
@@ -2421,8 +2587,6 @@ u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream)
 			   XMMIDP_MST_VC_SLOT_COUNT);
 		return XST_FAILURE;
 	}
-
-	MstStream->StartSlot = StartSlot;
 
 	AuxData[0] = XMMIDP_DPCD_VC_PAYLOAD_ID_UPDATED_MASK;
 	Status = XMmiDp_AuxWrite(InstancePtr,

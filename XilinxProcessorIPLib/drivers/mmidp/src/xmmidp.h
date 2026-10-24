@@ -636,6 +636,18 @@ u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream);
  *		Clears VC_PAYLOAD_ID_UPDATED only at 0x2C0 (not ACT_HANDLED).
  */
 u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream);
+/**
+ * Program TX MST VC payload table (REG0..REG7) for streams 1 through Stream.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the highest stream ID to include cumulatively.
+ *
+ * @return	XST_SUCCESS if programmed; XST_FAILURE if slots exceed the table.
+ *
+ * @note	Call XMmiDp_ComputeTimeSlot() first. Reuses MstStream->StartSlot
+ *		when already set; otherwise computes it once.
+ */
+u32 XMmiDp_SetTxVcPayloadTable(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	XVidC_VideoMode VideoMode, u8 Stream,
 	XVidC_ColorFormat ColorFormat);
