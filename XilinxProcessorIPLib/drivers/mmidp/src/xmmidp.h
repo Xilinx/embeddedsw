@@ -30,6 +30,8 @@
 #define XMMIDP_HBR_LINK_RATE	270
 #define XMMIDP_HBR2_LINK_RATE	540
 #define XMMIDP_HBR3_LINK_RATE	810
+/** Number of MST_VCP_TABLE_REGn registers (REG0..REG7). */
+#define XMMIDP_MST_VCP_REG_COUNT	8U
 
 /****************************** Type Definitions ******************************/
 

@@ -31,6 +31,14 @@
 /** DP 1.4 MTP payload slots available for VC allocation (slot 0 = header). */
 #define XDPDC_MTP_PAYLOAD_SLOTS_MAX	63U
 
+#if XDPDC_MST_DEBUG
+/** Print an MST debug message. */
+#define XDPDC_MST_DBG(...)	xil_printf(__VA_ARGS__)
+#else
+/** MST debug messages are compiled out. */
+#define XDPDC_MST_DBG(...)	do { } while (0)
+#endif
+
 /* Power Management configuration defaults */
 #define XMMIDP_PM_CONFIG1_DEFAULT	0x00400008
 #define XMMIDP_PM_CONFIG2_DEFAULT	0x00050000
@@ -329,15 +337,132 @@ void XMmiDp_SinkPowerUp(XMmiDp *DpPsuPtr)
 			XMMIDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
 }
 
-static void XDpDc_PrintVideoConfigRegs(XMmiDp *InstancePtr, u8 Stream)
+#if XDPDC_MST_DEBUG
+/******************************************************************************/
+/**
+ * This function returns the link mode name for debug output.
+ *
+ * @param	MstMode is 1 for MST link mode, 0 for SST.
+ *
+ * @return	"MST" or "SST".
+ *
+*******************************************************************************/
+static const char *XDpDc_LinkModeStr(u8 MstMode)
+{
+	return MstMode ? "MST" : "SST";
+}
+
+/******************************************************************************/
+/**
+ * This function prints the banner of a debug register dump.
+ *
+ * @param	Title is the section title.
+ * @param	MstMode is 1 for MST link mode, 0 for SST.
+ * @param	Stream is the stream ID, or 0 to omit it.
+ * @param	Phase is the programming phase, or NULL to omit it.
+ *
+ * @return	None.
+ *
+*******************************************************************************/
+static void XDpDc_PrintSectionBanner(const char *Title, u8 MstMode, u8 Stream,
+				     const char *Phase)
+{
+	xil_printf("\r\n");
+	xil_printf("==================================================\r\n");
+	xil_printf("  %s\r\n", Title);
+	xil_printf("  Link Mode : %s\r\n", XDpDc_LinkModeStr(MstMode));
+	if (Stream != 0U)
+		xil_printf("  Stream    : %u\r\n", Stream);
+	if (Phase != NULL)
+		xil_printf("  Phase     : %s\r\n", Phase);
+	xil_printf("==================================================\r\n");
+}
+
+/******************************************************************************/
+/**
+ * This function prints the MST payload allocation of a stream.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return	None.
+ *
+*******************************************************************************/
+static void XDpDc_PrintMstStreamAlloc(XMmiDp *InstancePtr, u8 Stream)
+{
+	XMmiDp_MstStream *Mst = &InstancePtr->MstStreamConfig[Stream - 1];
+
+	xil_printf("\r\n  MST Payload Allocation (Stream %u):\r\n", Stream);
+	xil_printf("    VcId (stream)     : %u\r\n", Stream);
+	xil_printf("    PBN               : %u\r\n", Mst->MstPbn);
+	xil_printf("    TimeSlots         : %u\r\n", Mst->TimeSlots);
+	xil_printf("    StartSlot         : %u\r\n", Mst->StartSlot);
+	xil_printf("    Link PBN          : %u\r\n",
+		   XMmiDp_GetLinkPbn(InstancePtr));
+}
+
+/******************************************************************************/
+/**
+ * This function prints the MST mode bits of CCTL0 and the VCP
+ * table registers.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ *
+ * @return	None.
+ *
+*******************************************************************************/
+static void XDpDc_PrintMstGlobalRegs(XMmiDp *InstancePtr)
+{
+	UINTPTR Base = InstancePtr->Config.BaseAddr;
+	u32 Reg;
+	u32 RegIdx;
+
+	XDpDc_PrintSectionBanner("DP MST Global Registers", 1U, 0U,
+				 "post-payload-allocate");
+
+	Reg = XMmiDp_ReadReg(Base, XMMIDP_CCTL0);
+	xil_printf("  CCTL0               [0x%03X] = 0x%08X\r\n",
+		   XMMIDP_CCTL0, Reg);
+	xil_printf("    MST Mode En       : %u\r\n",
+		   (Reg & XMMIDP_CCTL0_ENABLE_MST_MODE_MASK) >>
+		   XMMIDP_CCTL0_ENABLE_MST_MODE_SHIFT);
+	xil_printf("    ACT Seq Pending   : %u\r\n",
+		   (Reg & XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_MASK) >>
+		   XMMIDP_CCTL0_INITIATE_MST_ACT_SEQ_SHIFT);
+
+	xil_printf("  MST_VCP_TABLE:\r\n");
+	for (RegIdx = 0U; RegIdx < XMMIDP_MST_VCP_REG_COUNT; RegIdx++) {
+		Reg = XMmiDp_ReadReg(Base,
+				     XMMIDP_MST_VCP_TABLE_REG0 + (RegIdx * 4U));
+		xil_printf("    REG%u  [0x%03X] = 0x%08X\r\n",
+			   RegIdx, XMMIDP_MST_VCP_TABLE_REG0 + (RegIdx * 4U),
+			   Reg);
+	}
+	xil_printf("==================================================\r\n\r\n");
+}
+
+/******************************************************************************/
+/**
+ * This function prints the video sampling, polarity, video
+ * config and MSA registers of a stream.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	MstMode is 1 for MST link mode, 0 for SST.
+ * @param	Phase is the programming phase shown in the banner.
+ *
+ * @return	None.
+ *
+*******************************************************************************/
+static void XDpDc_PrintVideoConfigRegs(XMmiDp *InstancePtr, u8 Stream,
+				       u8 MstMode, const char *Phase)
 {
 	UINTPTR Base = InstancePtr->Config.BaseAddr;
 	u32 Off = (Stream - 1) * 0x10000;
 	u32 Reg;
 
-	xil_printf("\r\n--------------------------------------------------\r\n");
-	xil_printf("  DP Video Config Registers  (Stream %d)\r\n", Stream);
-	xil_printf("--------------------------------------------------\r\n");
+	XDpDc_PrintSectionBanner("DP Video Config Registers", MstMode, Stream,
+				 Phase);
 
 	Reg = XMmiDp_ReadReg(Base, XMMIDP_VSAMPLE_CTRL + Off);
 	xil_printf("  VSAMPLE_CTRL      [0x%03X] = 0x%08X\r\n",
@@ -446,7 +571,7 @@ static void XDpDc_PrintVideoConfigRegs(XMmiDp *InstancePtr, u8 Stream)
 		   (Reg & XMMIDP_VIDEO_HBLANK_INTERVAL_MASK) >>
 		   XMMIDP_VIDEO_HBLANK_INTERVAL_SHIFT);
 
-	xil_printf("--------------------------------------------------\r\n\r\n");
+	xil_printf("==================================================\r\n\r\n");
 }
 
 /******************************************************************************/
@@ -457,17 +582,21 @@ static void XDpDc_PrintVideoConfigRegs(XMmiDp *InstancePtr, u8 Stream)
  *
  * @param	InstancePtr is a pointer to the XMmiDp instance.
  * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ * @param	MstMode is 1 for MST link mode, 0 for SST.
  *
  * @return	None.
  *
 *******************************************************************************/
-static void XDpDc_PrintVideoStreamConfig(XMmiDp *InstancePtr, u8 Stream)
+static void XDpDc_PrintVideoStreamConfig(XMmiDp *InstancePtr, u8 Stream,
+					 u8 MstMode)
 {
 	XMmiDp_VideoConfig *Vc = &InstancePtr->VideoConfig[Stream - 1];
 	XMmiDp_MainStreamAttributes *Msa = &InstancePtr->MsaConfig[Stream - 1];
 	XMmiDp_LinkConfig *Lc = &InstancePtr->LinkConfig;
+	XMmiDp_MstStream *Mst = &InstancePtr->MstStreamConfig[Stream - 1];
 
-	xil_printf("\r\n  Video Stream Config (Stream %d):\r\n", Stream);
+	XDpDc_PrintSectionBanner("DP Video Stream Config", MstMode, Stream,
+				 "post-timing-compute");
 	xil_printf("    Resolution        : %dx%d\r\n",
 		   Vc->HActive, Vc->VActive);
 	xil_printf("    Pixel Clock       : %llu Hz\r\n", Msa->PixelClockHz);
@@ -487,10 +616,59 @@ static void XDpDc_PrintVideoStreamConfig(XMmiDp *InstancePtr, u8 Stream)
 	xil_printf("    NVid              : 0x%04X\r\n", Msa->NVid);
 	xil_printf("    HBlankInterval    : %d\r\n", Msa->HBlankInterval);
 	xil_printf("    AvgBytesPerTu     : %d\r\n", Vc->AvgBytesPerTu);
-	xil_printf("    AvgBytesPerTuFrac : %d/64\r\n", Vc->AvgBytesPerTuFrac);
+	if (MstMode)
+		xil_printf("    AvgBytesPerTuFrac : %d/64\r\n",
+			   Vc->AvgBytesPerTuFrac);
+	else
+		xil_printf("    AvgBytesPerTuFrac : %d/10\r\n",
+			   Vc->AvgBytesPerTuFrac);
 	xil_printf("    InitThreshold     : lo=%d  hi=%d\r\n",
 		   Vc->InitThreshold, Vc->InitThresholdHi);
+
+	if (MstMode) {
+		xil_printf("    TU Frac Scale     : 1/64 (MST)\r\n");
+		xil_printf("    PBN               : %u\r\n", Mst->MstPbn);
+		xil_printf("    TimeSlots         : %u\r\n", Mst->TimeSlots);
+		xil_printf("    StartSlot         : %u (pre-allocate)\r\n",
+			   Mst->StartSlot);
+	} else {
+		xil_printf("    TU Frac Scale     : 1/10 (SST)\r\n");
+	}
+	xil_printf("==================================================\r\n\r\n");
 }
+#else /* !XDPDC_MST_DEBUG */
+/** MST payload allocation dump; no-op when XDPDC_MST_DEBUG is 0. */
+static void XDpDc_PrintMstStreamAlloc(XMmiDp *InstancePtr, u8 Stream)
+{
+	(void)InstancePtr;
+	(void)Stream;
+}
+
+/** MST CCTL0/VCP register dump; no-op when XDPDC_MST_DEBUG is 0. */
+static void XDpDc_PrintMstGlobalRegs(XMmiDp *InstancePtr)
+{
+	(void)InstancePtr;
+}
+
+/** Video config register dump; no-op when XDPDC_MST_DEBUG is 0. */
+static void XDpDc_PrintVideoConfigRegs(XMmiDp *InstancePtr, u8 Stream,
+				       u8 MstMode, const char *Phase)
+{
+	(void)InstancePtr;
+	(void)Stream;
+	(void)MstMode;
+	(void)Phase;
+}
+
+/** Video stream config dump; no-op when XDPDC_MST_DEBUG is 0. */
+static void XDpDc_PrintVideoStreamConfig(XMmiDp *InstancePtr, u8 Stream,
+					 u8 MstMode)
+{
+	(void)InstancePtr;
+	(void)Stream;
+	(void)MstMode;
+}
+#endif /* XDPDC_MST_DEBUG */
 
 
 /******************************************************************************/
@@ -506,21 +684,21 @@ u32 XDpDc_GetDesignMstEn(void)
 
 #if defined(XPAR_MMI_DPTX_MST_MODE_EN)
 	DesignMstEn = (u32)XPAR_MMI_DPTX_MST_MODE_EN;
-	xil_printf("[MSTM] DesignMstEn=%u (SDT via XPAR_MMI_DPTX_MST_MODE_EN)\r\n",
-		   DesignMstEn);
+	XDPDC_MST_DBG("[MSTM] DesignMstEn=%u (SDT via XPAR_MMI_DPTX_MST_MODE_EN)\r\n",
+		      DesignMstEn);
 #elif defined(XPAR_XMMIDP_0_MST_MODE_EN)
 	DesignMstEn = (u32)XPAR_XMMIDP_0_MST_MODE_EN;
-	xil_printf("[MSTM] DesignMstEn=%u (SDT via XPAR_XMMIDP_0_MST_MODE_EN)\r\n",
-		   DesignMstEn);
+	XDPDC_MST_DBG("[MSTM] DesignMstEn=%u (SDT via XPAR_XMMIDP_0_MST_MODE_EN)\r\n",
+		      DesignMstEn);
 #elif defined(XPAR_XMMIDP_NUM_INSTANCES) && (XPAR_XMMIDP_NUM_INSTANCES > 0)
 	extern XMmiDp_Config XMmiDp_ConfigTable[];
 
 	DesignMstEn = (u32)XMmiDp_ConfigTable[0].MstModeEn;
-	xil_printf("[MSTM] DesignMstEn=%u (SDT via XMmiDp_ConfigTable[0].MstModeEn)\r\n",
-		   DesignMstEn);
+	XDPDC_MST_DBG("[MSTM] DesignMstEn=%u (SDT via XMmiDp_ConfigTable[0].MstModeEn)\r\n",
+		      DesignMstEn);
 #else
 	DesignMstEn = 0U;
-	xil_printf("[MSTM] DesignMstEn=0 (default, no SDT MST define)\r\n");
+	XDPDC_MST_DBG("[MSTM] DesignMstEn=0 (default, no SDT MST define)\r\n");
 #endif
 
 	return DesignMstEn;
@@ -544,23 +722,23 @@ u32 XDpDc_CheckMstSupport(RunConfig *RunCfgPtr)
 
 	RunCfgPtr->MstMode = 0U;
 
-	xil_printf("[MSTM] CheckMstSupport: DesignMstEn=%u byp_streams=%u\r\n",
-		   RunCfgPtr->DesignMstEn, RunCfgPtr->byp_streams);
+	XDPDC_MST_DBG("[MSTM] CheckMstSupport: DesignMstEn=%u byp_streams=%u\r\n",
+		      RunCfgPtr->DesignMstEn, RunCfgPtr->byp_streams);
 
 	if (!RunCfgPtr->DesignMstEn) {
-		xil_printf("[MSTM] Policy: SST-only design -> MstMode=0 (SST link)\r\n");
+		XDPDC_MST_DBG("[MSTM] Policy: SST-only design -> MstMode=0 (SST link)\r\n");
 		return XST_SUCCESS;
 	}
 
-	xil_printf("[MSTM] Policy: MST design, reading sink MST_CAP (DPCD 0x21)...\r\n");
+	XDPDC_MST_DBG("[MSTM] Policy: MST design, reading sink MST_CAP (DPCD 0x21)...\r\n");
 	if (XMmiDp_GetRxMstModeCap(InstancePtr) != XST_SUCCESS) {
 		xil_printf("[MSTM] ERROR: Failed to read MST_CAP. "
 			   "Connect an MST sink.\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("[MSTM] Policy: sink MST_CAP=%u\r\n",
-		   InstancePtr->RxConfig.MstCap);
+	XDPDC_MST_DBG("[MSTM] Policy: sink MST_CAP=%u\r\n",
+		      InstancePtr->RxConfig.MstCap);
 
 	if (InstancePtr->RxConfig.MstCap == 0U) {
 		xil_printf("[MSTM] ERROR: MST design requires an MST-capable sink. "
@@ -569,8 +747,8 @@ u32 XDpDc_CheckMstSupport(RunConfig *RunCfgPtr)
 	}
 
 	RunCfgPtr->MstMode = 1U;
-	xil_printf("[MSTM] Policy: MST design + MST_CAP=1 -> MstMode=1 "
-		   "(MST link, byp_streams=%u)\r\n", RunCfgPtr->byp_streams);
+	XDPDC_MST_DBG("[MSTM] Policy: MST design + MST_CAP=1 -> MstMode=1 "
+		      "(MST link, byp_streams=%u)\r\n", RunCfgPtr->byp_streams);
 
 	return XST_SUCCESS;
 }
@@ -621,8 +799,8 @@ void XDpDc_PrepareVideoStream(RunConfig *RunCfgPtr, u8 StreamId)
 
 	XMmiDp_DisableVideoStream(InstancePtr, StreamId);
 
-	xil_printf("[MSTM] SetControllerMstModeEn: stream=%u MstModeEn=%u "
-		   "(TU/PBN path)\r\n", StreamId, RunCfgPtr->MstMode);
+	XDPDC_MST_DBG("[MSTM] SetControllerMstModeEn: stream=%u MstModeEn=%u "
+		      "(TU/PBN path)\r\n", StreamId, RunCfgPtr->MstMode);
 
 	/* Setup VideoConfig Structures */
 	XMmiDp_SetControllerMstModeEn(InstancePtr, StreamId, RunCfgPtr->MstMode);
@@ -644,7 +822,7 @@ void XDpDc_PrepareVideoStream(RunConfig *RunCfgPtr, u8 StreamId)
 					     StreamId,
 					     ColorFormat);
 
-	XDpDc_PrintVideoStreamConfig(InstancePtr, StreamId);
+	XDpDc_PrintVideoStreamConfig(InstancePtr, StreamId, RunCfgPtr->MstMode);
 }
 
 /******************************************************************************/
@@ -870,11 +1048,12 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 	if (NumStreams > XMMIDP_STREAM_ID4)
 		NumStreams = XMMIDP_STREAM_ID4;
 
-	xil_printf("[MSTM] RunStreamPolicySetup: MstMode=%u NumStreams=%u\r\n",
-		   RunCfgPtr->MstMode, NumStreams);
+	XDPDC_MST_DBG("[MSTM] RunStreamPolicySetup: MstMode=%u (%s) NumStreams=%u\r\n",
+		      RunCfgPtr->MstMode,
+		      RunCfgPtr->MstMode ? "MST" : "SST", NumStreams);
 
 	if (RunCfgPtr->MstMode) {
-		xil_printf("[MSTM] Enabling MST on sink (DPCD) and TX (CCTL0)...\r\n");
+		XDPDC_MST_DBG("[MSTM] Enabling MST on sink (DPCD) and TX (CCTL0)...\r\n");
 		Status = XMmiDp_SinkMstModeEnable(DpPtr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("[HPD] ERROR: Failed to enable MST mode\r\n");
@@ -886,6 +1065,7 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 			xil_printf("[HPD] ERROR: Failed to clear VC payload table\r\n");
 			return XST_FAILURE;
 		}
+		XDPDC_MST_DBG("[MSTM] VC payload table cleared\r\n");
 
 		/*
 		 * ClearPayloadVcIdTable does not reset MstStreamConfig[]. Zero
@@ -902,7 +1082,7 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 			MstStream->MstPbn = 0U;
 		}
 	} else {
-		xil_printf("[MSTM] SST link: skipping sink/TX MST enable\r\n");
+		XDPDC_MST_DBG("[MSTM] SST link: skipping sink/TX MST enable\r\n");
 	}
 
 	XMmiDp_ClearVideoController(DpPtr);
@@ -922,7 +1102,12 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 	     StreamId < NumStreams + XMMIDP_STREAM_ID1;
 	     StreamId++) {
 		XMmiDp_ConfigureVideoController(DpPtr, StreamId);
-		XDpDc_PrintVideoConfigRegs(DpPtr, StreamId);
+
+		/* SST: VIDEO_CONFIG5 written in ConfigureVideoController */
+		if (!RunCfgPtr->MstMode)
+			XDpDc_PrintVideoConfigRegs(DpPtr, StreamId,
+						   RunCfgPtr->MstMode,
+						   "post-ConfigureVideoController");
 	}
 
 	if (RunCfgPtr->MstMode) {
@@ -957,8 +1142,12 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 		 */
 		for (StreamId = XMMIDP_STREAM_ID1;
 		     StreamId < NumStreams + XMMIDP_STREAM_ID1;
-		     StreamId++)
+		     StreamId++) {
 			XMmiDp_SetVideoConfig5(DpPtr, StreamId);
+			XDpDc_PrintVideoConfigRegs(DpPtr, StreamId,
+						   RunCfgPtr->MstMode,
+						   "post-SetVideoConfig5");
+		}
 
 		for (StreamId = XMMIDP_STREAM_ID1;
 		     StreamId < NumStreams + XMMIDP_STREAM_ID1;
@@ -971,7 +1160,12 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 				(void)XMmiDp_ClearPayloadVcIdTable(DpPtr);
 				return XST_FAILURE;
 			}
+			/* After allocate: StartSlot / ACT state are final. */
+			XDpDc_PrintMstStreamAlloc(DpPtr, StreamId);
+			XDPDC_MST_DBG("[MSTM] Stream %u: VC payload allocated, "
+				     "ACT complete\r\n", StreamId);
 		}
+		XDpDc_PrintMstGlobalRegs(DpPtr);
 	}
 
 	for (StreamId = XMMIDP_STREAM_ID1;

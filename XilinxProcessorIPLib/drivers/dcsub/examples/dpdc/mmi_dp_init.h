@@ -20,6 +20,15 @@ extern "C" {
 
 #include "mmi_dc_nonlive_test.h"
 
+#ifndef XDPDC_MST_DEBUG
+/**
+ * Verbose MST bring-up UART (section dumps, [MSTM] policy spam).
+ * Set to 1 to trace hotplug/retrain; ERROR/WARNING prints stay enabled
+ * either way.
+ */
+#define XDPDC_MST_DEBUG	0
+#endif
+
 void XMmiDp_SinkPowerDown(XMmiDp *DpPsuPtr);
 void XMmiDp_SinkPowerUp(XMmiDp *DpPsuPtr);
 void XMmiDp_SinkPowerCycle(XMmiDp *DpPsuPtr);

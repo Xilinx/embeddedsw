@@ -81,8 +81,6 @@
 #define XMMIDP_MST_VC_SLOT_COUNT		64U
 /** First payload slot after the MTP header. */
 #define XMMIDP_MST_VC_FIRST_SLOT		1U
-/** Number of MST_VCP_TABLE_REGn registers. */
-#define XMMIDP_MST_VCP_REG_COUNT		8U
 /** Stream IDs packed per VCP table register. */
 #define XMMIDP_MST_VCP_SLOTS_PER_REG		8U
 /** 4-bit stream ID field width within a packed VCP register. */
