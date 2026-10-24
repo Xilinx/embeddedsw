@@ -32,13 +32,42 @@
 #define XMMIDP_VCP_TABLE_MAX_TIMEOUT_COUNT 	30
 #define XMMIDP_STREAM_OFFSET			0x10000
 
-/* Transfer Unit (TU) parameter constants */
+/** Transfer unit (TU) size, in link symbols per lane. */
 #define XMMIDP_TU_SIZE				64
-#define XMMIDP_TU_AVG_MAX			63
+/** Largest integer average bytes per TU (6-bit field). */
+#define XMMIDP_AVG_BYTES_PER_TU_MAX		63U
+/** Largest fractional average bytes per TU, in 1/64 (6-bit field). */
+#define XMMIDP_AVG_BYTES_PER_TU_FRAC_MAX	63U
 #define XMMIDP_TU_FRAC_SCALE			64
 #define XMMIDP_BITS_PER_BYTE			8
 #define XMMIDP_MHZ_TO_HZ			1000000ULL
 #define XMMIDP_YCBCR420_BW_DIVISOR		2
+
+/* MST payload bandwidth number (PBN) constants (DP 1.4 section 2.6.4.3). */
+/** Bits per pixel = BPC * 2 for YCbCr 4:2:2. */
+#define XMMIDP_PBN_CHROMA422_BPC_MULT		2U
+/** Bits per pixel = BPC * 3 for RGB and YCbCr 4:4:4. */
+#define XMMIDP_PBN_RGB444_BPC_MULT		3U
+/** Bits per pixel = BPC * 15 / 10 for YCbCr 4:2:0 (numerator). */
+#define XMMIDP_PBN_Y420_BPC_NUM			15U
+/** Bits per pixel = BPC * 15 / 10 for YCbCr 4:2:0 (denominator). */
+#define XMMIDP_PBN_Y420_BPC_DEN			10U
+/** PBN per MBps is 64 / 54 (numerator). */
+#define XMMIDP_PBN_SCALING_NUM			64U
+/** PBN per MBps is 64 / 54 (denominator). */
+#define XMMIDP_PBN_SCALING_DEN			54U
+/** 0.6% PBN margin is 1006 / 1000 (numerator). */
+#define XMMIDP_PBN_MARGIN_SCALE			1006U
+/** 0.6% PBN margin is 1006 / 1000 (denominator). */
+#define XMMIDP_PBN_MARGIN_DIVISOR		1000U
+
+/* DP 1.4 Table 2-138: link rate and lane count array dimensions. */
+/** Link rates in XMmiDp_LinkPbnTable: RBR, HBR, HBR2, HBR3. */
+#define XMMIDP_LINK_PBN_RATE_COUNT		4U
+/** Lane counts in XMmiDp_LinkPbnTable: 1, 2, 4. */
+#define XMMIDP_LINK_PBN_LANE_COUNT		3U
+/** MTP time slots usable for payload; slot 0 is the MTP header. */
+#define XMMIDP_MTP_PAYLOAD_SLOTS_MAX		63U
 
 /* TU threshold boundaries */
 #define XMMIDP_TU_LOW_AVG_BOUNDARY		16
@@ -53,6 +82,16 @@
 #define XMMIDP_INIT_THRESHOLD_LO_MASK		0x7F
 #define XMMIDP_INIT_THRESHOLD_LO_BITS		7
 #define XMMIDP_INIT_THRESHOLD_HI_MASK		0x3
+
+/** VC payload bandwidth (PBN) for one time slot per MTP. */
+static const u16 XMmiDp_LinkPbnTable[XMMIDP_LINK_PBN_RATE_COUNT]
+				    [XMMIDP_LINK_PBN_LANE_COUNT] = {
+	/* 1 lane, 2 lanes, 4 lanes */
+	{  3,  6, 12 }, /* RBR  */
+	{  5, 10, 20 }, /* HBR  */
+	{ 10, 20, 40 }, /* HBR2 */
+	{ 15, 30, 60 }, /* HBR3 */
+};
 
 /******************************************************************************/
 /**
@@ -2054,8 +2093,6 @@ void XMmiDp_SetMstVcpTable7(XMmiDp *InstancePtr, u32 Payload)
  * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
  * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2).
  *
- * @return	None.
- *
  ******************************************************************************/
 void XMmiDp_ComputeMisc0(XMmiDp *InstancePtr, u8 Stream,
 			 XVidC_ColorFormat ColorFormat)
@@ -2118,8 +2155,6 @@ void XMmiDp_ComputeMisc0(XMmiDp *InstancePtr, u8 Stream,
  * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
  * @param	ColorFormat is the color format (RGB, YCbCr 4:4:4/4:2:2/4:2:0).
  *
- * @return	None.
- *
  ******************************************************************************/
 void XMmiDp_ComputeHBlankInterval(XMmiDp *InstancePtr, u8 Stream,
 				  XVidC_ColorFormat ColorFormat)
@@ -2164,6 +2199,142 @@ void XMmiDp_ComputeHBlankInterval(XMmiDp *InstancePtr, u8 Stream,
 
 /******************************************************************************/
 /**
+ * Returns effective bits per pixel for MST PBN from stream MSA and mapping.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return	Effective bits per pixel for PBN calculation.
+ *
+ ******************************************************************************/
+static u32 XMmiDp_GetPbnBitsPerPixel(XMmiDp *InstancePtr, u8 Stream)
+{
+	XMmiDp_MainStreamAttributes *MsaConfig;
+	XMmiDp_VidMap VidMap;
+	u32 Bpc;
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+	VidMap = InstancePtr->VSampleCtrl[Stream - 1].VideoMapping;
+	Bpc = MsaConfig->BitsPerColor;
+
+	if ((VidMap >= XMMIDP_YCbCr422_8BPC) &&
+	    (VidMap <= XMMIDP_YCbCr422_16BPC))
+		return Bpc * XMMIDP_PBN_CHROMA422_BPC_MULT;
+	if ((VidMap >= XMMIDP_Y_8BPC) && (VidMap <= XMMIDP_Y_16BPC))
+		return Bpc;
+	if ((VidMap >= XMMIDP_YCbCr420_8BPC) &&
+	    (VidMap <= XMMIDP_YCbCr420_16BPC))
+		return (Bpc * XMMIDP_PBN_Y420_BPC_NUM) / XMMIDP_PBN_Y420_BPC_DEN;
+
+	return Bpc * XMMIDP_PBN_RGB444_BPC_MULT;
+}
+
+/******************************************************************************/
+/**
+ * Returns VC payload bandwidth (PBN) for one time slot per MTP for the
+ * current link configuration using DP 1.4 Table 2-138 lookup.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ *
+ * @return	PBN for one time slot on the configured link, or 0 on error.
+ *
+ ******************************************************************************/
+u16 XMmiDp_GetLinkPbn(XMmiDp *InstancePtr)
+{
+	XMmiDp_LinkConfig *LinkConfig;
+	u8 RateIdx;
+	u8 LaneIdx;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	LinkConfig = &InstancePtr->LinkConfig;
+	RateIdx = (u8)LinkConfig->LinkRate;
+	LaneIdx = LinkConfig->LaneCount;
+
+	if ((RateIdx >= XMMIDP_LINK_PBN_RATE_COUNT) ||
+	    (LaneIdx >= XMMIDP_LINK_PBN_LANE_COUNT))
+		return 0U;
+
+	return XMmiDp_LinkPbnTable[RateIdx][LaneIdx];
+}
+
+/******************************************************************************/
+/**
+ * Compute stream PBN and VC payload time slot count for one MST stream.
+ * Does not program VIDEO_CONFIG5; call XMmiDp_ComputeTuParams() for TU fields.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return	Number of time slots, or 0 if the request does not fit or on error.
+ *
+ ******************************************************************************/
+u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream)
+{
+	XMmiDp_MainStreamAttributes *MsaConfig;
+	XMmiDp_MstStream *MstStream;
+	u32 BitsPerPixel;
+	u16 StreamPbn;
+	u16 LinkPbn;
+	u32 TimeSlots;
+	u64 PbnNum;
+	u64 PbnDen;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream >= XMMIDP_STREAM_ID1) &&
+			  (Stream <= XMMIDP_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->MsaConfig[Stream - 1];
+	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+
+	BitsPerPixel = XMmiDp_GetPbnBitsPerPixel(InstancePtr, Stream);
+	/*
+	 * Integer PBN (no FPU): ceil(PeakMBps * 64/54 * 1.006).
+	 *
+	 * PeakMBps = PixelClockHz * BitsPerPixel / (MHZ_TO_HZ * BITS_PER_BYTE)
+	 *          = pixel rate (Hz) * bpp / (1e6 * 8) -> megabytes/s.
+	 *
+	 * PBN = PeakMBps * (SCALING_NUM/SCALING_DEN) * (MARGIN_SCALE/MARGIN_DIVISOR)
+	 *     = PeakMBps * (64/54) * (1006/1000)   per DP 1.4 section 2.6.4.3.
+	 *
+	 * Folded into one ceil division: StreamPbn = ceil(PbnNum / PbnDen).
+	 * PbnNum: PixelClockHz * bpp * 64 * 1006
+	 * PbnDen: 1e6 * 8 * 54 * 1000
+	 */
+	PbnNum = (u64)MsaConfig->PixelClockHz * (u64)BitsPerPixel *
+		 (u64)XMMIDP_PBN_SCALING_NUM * (u64)XMMIDP_PBN_MARGIN_SCALE;
+	PbnDen = (u64)XMMIDP_MHZ_TO_HZ * (u64)XMMIDP_BITS_PER_BYTE *
+		 (u64)XMMIDP_PBN_SCALING_DEN * (u64)XMMIDP_PBN_MARGIN_DIVISOR;
+	if ((PbnDen == 0U) || (PbnNum == 0U)) {
+		MstStream->MstPbn = 0U;
+		MstStream->TimeSlots = 0U;
+		return 0U;
+	}
+
+	StreamPbn = (u16)((PbnNum + PbnDen - 1ULL) / PbnDen);
+	MstStream->MstPbn = StreamPbn;
+
+	LinkPbn = XMmiDp_GetLinkPbn(InstancePtr);
+	if ((LinkPbn == 0U) || (StreamPbn == 0U)) {
+		MstStream->TimeSlots = 0U;
+		return 0U;
+	}
+
+	/* Ceiling divide stream PBN by PBN per MTP slot (Table 2-138). */
+	TimeSlots = ((u32)StreamPbn + (u32)LinkPbn - 1U) / (u32)LinkPbn;
+
+	if (TimeSlots > XMMIDP_MTP_PAYLOAD_SLOTS_MAX) {
+		MstStream->TimeSlots = 0U;
+		return 0U;
+	}
+
+	MstStream->TimeSlots = (u8)TimeSlots;
+	return MstStream->TimeSlots;
+}
+
+
+/******************************************************************************/
+/**
  * Computes AvgBytesPerTu, AvgBytesPerTuFrac, InitThreshold, and
  * InitThresholdHi for the VIDEO_CONFIG5 register using the stream's
  * pixel clock, color depth, link config, and blanking parameters.
@@ -2182,8 +2353,9 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 	XMmiDp_LinkConfig *LinkConfig;
 	u64 PeakStreamBw;
 	u64 LinkBw;
+	u64 Remainder;
 	u32 BitsPerPixel;
-	u32 AvgInt, AvgFrac;
+	u32 AvgInt, AvgFrac, Fraction;
 	u32 Threshold;
 	u16 LinkRateMHz;
 	u32 TuFracScale = InstancePtr->CtrlConfig[Stream - 1].MstModeEn ?
@@ -2253,14 +2425,22 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 		return;
 	}
 
+	/* Integer part of average bytes per TU. */
 	AvgInt = (u32)((PeakStreamBw * XMMIDP_TU_SIZE) / LinkBw);
-	AvgFrac = (u32)(((PeakStreamBw * XMMIDP_TU_SIZE) % LinkBw) *
-		  TuFracScale / LinkBw) << TuFracShift;
 
-	if (AvgInt > XMMIDP_TU_AVG_MAX)
-		AvgInt = XMMIDP_TU_AVG_MAX;
-	if (AvgFrac > XMMIDP_TU_AVG_MAX)
-		AvgFrac = XMMIDP_TU_AVG_MAX;
+	/* Fractional part in TuFracScale units, rounded to nearest. */
+	Remainder = (PeakStreamBw * XMMIDP_TU_SIZE) % LinkBw;
+	Fraction = (u32)((Remainder * TuFracScale + (LinkBw / 2U)) / LinkBw);
+
+	/* Combine: fold full-scale fraction units into AvgInt. */
+	AvgInt += Fraction / TuFracScale;
+	AvgFrac = Fraction % TuFracScale;
+	AvgFrac <<= TuFracShift;
+
+	if (AvgInt > XMMIDP_AVG_BYTES_PER_TU_MAX)
+		AvgInt = XMMIDP_AVG_BYTES_PER_TU_MAX;
+	if (AvgFrac > XMMIDP_AVG_BYTES_PER_TU_FRAC_MAX)
+		AvgFrac = XMMIDP_AVG_BYTES_PER_TU_FRAC_MAX;
 
 	VideoConfig->AvgBytesPerTu = (u8)AvgInt;
 	VideoConfig->AvgBytesPerTuFrac = (u8)AvgFrac;
@@ -2288,6 +2468,12 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
  * Configures the video controller with standard video mode timing parameters
  * including HActive, VActive, sync widths, blanking intervals, pixel clock,
  * and dynamically computed MSA and transfer unit parameters.
+ *
+ * For MST, XMmiDp_ComputeTuParams() fills VIDEO_CONFIG5 TU fields first, then
+ * XMmiDp_ComputeTimeSlot() computes PBN / VC payload slots. SST uses
+ * ComputeTuParams only. ComputeTimeSlot derives bits-per-pixel from
+ * VSampleCtrl[].VideoMapping; ComputeTuParams uses ColorFormat — keep them
+ * consistent for the same stream.
  *
  * @param	InstancePtr is a pointer to the XMmiDp instance.
  * @param	VideoMode is the standard video mode to configure.
@@ -2355,6 +2541,8 @@ void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	XMmiDp_ComputeMisc0(InstancePtr, Stream, ColorFormat);
 	XMmiDp_ComputeHBlankInterval(InstancePtr, Stream, ColorFormat);
 	XMmiDp_ComputeTuParams(InstancePtr, Stream, ColorFormat);
+	if (InstancePtr->CtrlConfig[Stream - 1].MstModeEn)
+		XMmiDp_ComputeTimeSlot(InstancePtr, Stream);
 }
 
 /** @} */

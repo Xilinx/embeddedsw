@@ -347,6 +347,15 @@ typedef struct {
 	u8 Reserved[2];
 } XMmiDp_VideoConfig;
 
+/**
+ * MST stream configuration (PBN and future topology fields).
+ */
+typedef struct {
+	u16 MstPbn;	/**< Payload bandwidth number for MST allocation. */
+	u8 TimeSlots;	/**< Allocated VC payload time slots for this stream. */
+	u8 StartSlot;	/**< Starting MTP time slot in sink VC payload table. */
+} XMmiDp_MstStream;
+
 typedef struct {
 	XMmiDp_PPC PixModeSel;
 	XMmiDp_VidMap VideoMapping;
@@ -379,13 +388,13 @@ typedef struct {
 } XMmiDp_AudioConfig;
 
 typedef struct {
-	u32 EnVerticalSdp;
-	u8 FixedPriorityArb;
-	u8 DisableExtSdp;
-	u8 En128Bytes;
-	u8 EnAudioStreamSdp;
-	u8 EnAudioTimeStampSdp;
-	u8 Reserved[3];
+	u32 EnVerticalSdp;	/**< SDP_VERTICAL_CTRL EN_VERTICAL_SDP bits */
+	u8 FixedPriorityArb;	/**< 1 = fixed priority SDP arbitration */
+	u8 DisableExtSdp;	/**< 1 = disable external SDP */
+	u8 En128Bytes;		/**< 1 = enable 128-byte SDPs */
+	u8 EnAudioStreamSdp;	/**< 1 = send audio stream SDP in vblank */
+	u8 EnAudioTimeStampSdp;	/**< 1 = send audio timestamp SDP in vblank */
+	u8 Reserved[3];		/**< Reserved */
 } XMmiDp_SdpVerticalCtrl;
 
 typedef struct {
@@ -440,6 +449,8 @@ typedef struct {
 	XMmiDp_SdpConfig SdpCfg3[XMMIDP_MAX_LANES];
 	u32 SdpRegBank[XMMIDP_MAX_LANES];
 	XMmiDp_Controller CtrlConfig[XMMIDP_MAX_LANES];
+	/** MST payload allocation per stream. */
+	XMmiDp_MstStream MstStreamConfig[XMMIDP_STREAM_ID4];
 	u32 AuxDelayUs;
 	XMmiDp_Config Config;
 	void *HpdHotPlugCallbackRef;
@@ -609,10 +620,11 @@ void XMmiDp_ComputeHBlankInterval(XMmiDp *InstancePtr, u8 Stream,
 				  XVidC_ColorFormat ColorFormat);
 void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 			    XVidC_ColorFormat ColorFormat);
+u16 XMmiDp_GetLinkPbn(XMmiDp *InstancePtr);
+u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	XVidC_VideoMode VideoMode, u8 Stream,
 	XVidC_ColorFormat ColorFormat);
-
 void XMmiDp_ConfigureAudioController(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_SetAudStreamInterfaceSel(XMmiDp *InstancePtr, u8 Stream, u8 InterfaceSel);
 void XMmiDp_SetAudDataInputEn(XMmiDp *InstancePtr, u8 Stream, u8 ActiveDataInput);
