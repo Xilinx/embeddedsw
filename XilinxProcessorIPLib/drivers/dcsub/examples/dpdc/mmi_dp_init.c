@@ -263,6 +263,35 @@ static XVidC_ColorFormat XDpDc_VideoFormatToColorFormat(XDc_VideoFormat Fmt)
 
 /*****************************************************************************/
 /**
+ * Returns the PBN a stream needs, using the math of XMmiDp_ComputeTimeSlot():
+ * ceil(PeakMBps * 64/54 * 1.006).
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
+ * @param	StreamId is the DP stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return	The payload bandwidth number for the stream.
+ *
+ *****************************************************************************/
+static u32 XDpDc_StreamPbn(const RunConfig *RunCfgPtr, u8 StreamId)
+{
+	XDc_VideoFormat Fmt;
+	u64 PbnNum;
+	u64 PbnDen;
+	u32 Bpp;
+
+	Fmt = XDpDc_GetDpVideoFormat(RunCfgPtr, StreamId);
+	Bpp = XDpDc_VideoFormatToBpc(Fmt) *
+	      ((XDpDc_VideoFormatToColorFormat(Fmt) ==
+		XVIDC_CSF_YCRCB_422) ? 2U : 3U);
+
+	PbnDen = 1000000ULL * 8U * 54U * 1000U;
+	PbnNum = RunCfgPtr->PixelClkHz * Bpp * 64U * 1006U;
+
+	return (u32)((PbnNum + PbnDen - 1U) / PbnDen);
+}
+
+/*****************************************************************************/
+/**
  * Checks that the MST streams fit the link time slots before any hardware
  * is programmed, using the PBN and slot math of XMmiDp_ComputeTimeSlot().
  * The link is the user cap, or HBR3 x4 when auto, so a mode that fails here
@@ -278,13 +307,9 @@ u32 XDpDc_CheckMstBandwidth(const RunConfig *RunCfgPtr, u8 NumStreams)
 {
 	u32 Slots[XMMIDP_STREAM_ID4];
 	u32 Pbn[XMMIDP_STREAM_ID4];
-	XDc_VideoFormat Fmt;
 	u32 TotalSlots = 0U;
 	u32 SlotPbn;
 	u32 RateX100;
-	u64 PbnNum;
-	u64 PbnDen;
-	u32 Bpp;
 	u8 Lanes;
 	u8 Rate;
 	u8 Idx;
@@ -302,15 +327,8 @@ u32 XDpDc_CheckMstBandwidth(const RunConfig *RunCfgPtr, u8 NumStreams)
 	if (SlotPbn == 0U)
 		return XST_FAILURE;
 
-	/* ceil(PeakMBps * 64/54 * 1.006), as in XMmiDp_ComputeTimeSlot() */
-	PbnDen = 1000000ULL * 8U * 54U * 1000U;
 	for (Idx = 0U; Idx < NumStreams; Idx++) {
-		Fmt = XDpDc_GetDpVideoFormat(RunCfgPtr, Idx + XMMIDP_STREAM_ID1);
-		Bpp = XDpDc_VideoFormatToBpc(Fmt) *
-		      ((XDpDc_VideoFormatToColorFormat(Fmt) ==
-			XVIDC_CSF_YCRCB_422) ? 2U : 3U);
-		PbnNum = RunCfgPtr->PixelClkHz * Bpp * 64U * 1006U;
-		Pbn[Idx] = (u32)((PbnNum + PbnDen - 1U) / PbnDen);
+		Pbn[Idx] = XDpDc_StreamPbn(RunCfgPtr, Idx + XMMIDP_STREAM_ID1);
 		Slots[Idx] = (Pbn[Idx] + SlotPbn - 1U) / SlotPbn;
 		TotalSlots += Slots[Idx];
 	}
@@ -1112,17 +1130,24 @@ static void XDpDc_ClearMstRoutes(XMmiDp *DpPtr)
  * and NumStreams is unchanged, so XMmiDp_AllocatePayloadStream() programs
  * only the directly attached branch.
  *
+ * A stream whose PBN exceeds the available PBN its path reports is not
+ * routed, and neither is any stream after it, since streams map to sinks by
+ * index.
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
  * @param	DpPtr is a pointer to the XMmiDp instance.
  * @param	NumStreams is the requested stream count; lowered in place to
- *		the number of sinks found.
+ *		the number of streams actually routed.
  *
  * @return	None.
  *
  ******************************************************************************/
-static void XDpDc_SetupMstTopology(XMmiDp *DpPtr, u8 *NumStreams)
+static void XDpDc_SetupMstTopology(const RunConfig *RunCfgPtr, XMmiDp *DpPtr,
+				   u8 *NumStreams)
 {
 	XMmiDp_MstTopology *Topology = &DpPtr->MstTopology;
 	XMmiDp_MstSink *Sink;
+	u32 StreamPbn;
 	u16 AvailPbn;
 	u16 FullPbn;
 	u8 Routed;
@@ -1163,18 +1188,49 @@ static void XDpDc_SetupMstTopology(XMmiDp *DpPtr, u8 *NumStreams)
 	     StreamId < Routed + XMMIDP_STREAM_ID1; StreamId++) {
 		Idx = StreamId - XMMIDP_STREAM_ID1;
 		Sink = &Topology->Sinks[Idx];
-		(void)XMmiDp_MstSetStreamSink(DpPtr, StreamId, Idx);
 
+		/*
+		 * Query the path budget before routing the stream. Streams map
+		 * to sinks by index, so a stream that does not fit ends the
+		 * routing rather than being skipped, which would misalign every
+		 * stream after it.
+		 */
 		Status = XMmiDp_SendSbMsgEnumPathResources(DpPtr,
 				Sink->LinkCountTotal, Sink->RelativeAddress,
 				&AvailPbn, &FullPbn);
-		if (Status != XST_SUCCESS)
+		if (Status != XST_SUCCESS) {
+			/*
+			 * No number to admit against. Route the stream and let
+			 * the branch reject the allocation, as before.
+			 */
 			xil_printf("[MSTM] WARNING: ENUM_PATH_RESOURCES failed "
-				   "for stream %u\r\n", StreamId);
-		else
-			xil_printf("[MSTM]   Stream %u -> sink %u: full PBN %u, "
-				   "available PBN %u\r\n", StreamId, Idx,
-				   FullPbn, AvailPbn);
+				   "for stream %u; routing without a path "
+				   "budget check\r\n", StreamId);
+			(void)XMmiDp_MstSetStreamSink(DpPtr, StreamId, Idx);
+			continue;
+		}
+
+		StreamPbn = XDpDc_StreamPbn(RunCfgPtr, StreamId);
+		if (StreamPbn > AvailPbn) {
+			xil_printf("[MSTM] ERROR: Stream %u needs PBN %u but "
+				   "sink %u path has %u available (full %u); "
+				   "driving %u stream(s)\r\n", StreamId,
+				   StreamPbn, Idx, AvailPbn, FullPbn, Idx);
+			Routed = Idx;
+			break;
+		}
+
+		(void)XMmiDp_MstSetStreamSink(DpPtr, StreamId, Idx);
+		xil_printf("[MSTM]   Stream %u -> sink %u: full PBN %u, "
+			   "available PBN %u, stream PBN %u\r\n", StreamId, Idx,
+			   FullPbn, AvailPbn, StreamPbn);
+	}
+
+	if (Routed == 0U) {
+		xil_printf("[MSTM] WARNING: No stream fits its path; streams "
+			   "stay on the directly attached branch\r\n");
+		XDpDc_ClearMstRoutes(DpPtr);
+		return;
 	}
 
 	Status = XMmiDp_SendSbMsgClearPayloadIdTable(DpPtr);
@@ -1186,8 +1242,9 @@ static void XDpDc_SetupMstTopology(XMmiDp *DpPtr, u8 *NumStreams)
 	}
 
 	if (*NumStreams > Routed) {
-		xil_printf("[MSTM] WARNING: %u streams requested but %u sink(s) "
-			   "found; driving %u\r\n", *NumStreams, Routed, Routed);
+		xil_printf("[MSTM] WARNING: %u streams requested but %u "
+			   "routed; driving %u\r\n", *NumStreams, Routed,
+			   Routed);
 		*NumStreams = Routed;
 	}
 }
@@ -1251,7 +1308,7 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 		}
 		XDPDC_MST_DBG("[MSTM] VC payload table cleared\r\n");
 
-		XDpDc_SetupMstTopology(DpPtr, &NumStreams);
+		XDpDc_SetupMstTopology(RunCfgPtr, DpPtr, &NumStreams);
 
 		/*
 		 * ClearPayloadVcIdTable does not reset MstStreamConfig[]. Drop
