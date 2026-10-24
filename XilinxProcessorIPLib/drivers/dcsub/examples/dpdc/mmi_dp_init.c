@@ -29,9 +29,6 @@
 #define XMMIDP_AUX_2000US_LIMIT		0x7A8
 #define XMMIDP_AUX_100000US_LIMIT	0x17ED0
 
-/** DP 1.4 MTP payload slots available for VC allocation (slot 0 = header). */
-#define XDPDC_MTP_PAYLOAD_SLOTS_MAX	63U
-
 #if XDPDC_MST_DEBUG
 /** Print an MST debug message. */
 #define XDPDC_MST_DBG(...)	xil_printf(__VA_ARGS__)
@@ -1111,27 +1108,16 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 	}
 
 	if (RunCfgPtr->MstMode) {
-		u32 SlotsRequired = 0U;
-
 		/*
-		 * Admission: ComputeTimeSlot filled TimeSlots during prepare.
-		 * Reject before any allocate/ACT so a fit failure cannot leave
-		 * earlier streams half-programmed.
+		 * Throttle TimeSlots into the 63-slot MTP budget before
+		 * SetVideoConfig5 / AllocatePayloadStream so CONFIG5 and
+		 * VC payload use the redistributed counts. Fails if any
+		 * stream still has TimeSlots == 0 after ComputeTimeSlot.
 		 */
-		for (StreamId = XMMIDP_STREAM_ID1;
-		     StreamId < NumStreams + XMMIDP_STREAM_ID1;
-		     StreamId++)
-			SlotsRequired +=
-				DpPtr->MstStreamConfig[StreamId - 1].TimeSlots;
-
-		if ((SlotsRequired == 0U) ||
-		    (SlotsRequired > XDPDC_MTP_PAYLOAD_SLOTS_MAX)) {
-			xil_printf("[HPD] ERROR: MST VC payload does not fit: "
-				   "need %u slots, available %u "
-				   "(link BW 0x%02X, lanes %u)\r\n",
-				   SlotsRequired, XDPDC_MTP_PAYLOAD_SLOTS_MAX,
-				   DpPtr->LinkConfig.LinkBW,
-				   DpPtr->LinkConfig.NumLanes);
+		Status = XMmiDp_DistributeMstPayloadSlots(DpPtr, NumStreams);
+		if (Status != XST_SUCCESS) {
+			xil_printf("[HPD] ERROR: MST payload slot distribute "
+				   "failed\r\n");
 			return XST_FAILURE;
 		}
 
