@@ -184,6 +184,55 @@ u32 XDpDc_ReleaseDcReset(void)
 /*****************************************************************************/
 /**
 *
+* This function returns the video clock rate the XSA programs at boot, which
+* is the rate the PL video pipeline is timed for. The rate is read on the
+* first call and cached, so the first call must come before
+* XDpDc_InitClkWiz() reprograms the clock.
+*
+* @return	Boot rate in Hz, or 0 if it cannot be read or the clock may
+*		already have been reprogrammed.
+*
+*****************************************************************************/
+u64 XDpDc_GetVidClkBootHz(void)
+{
+	static u64 BootHz;
+	static u8 BootHzRead;
+	XClk_Wiz ClkWiz;
+	XClk_Wiz_Config *CfgPtr;
+	u64 Rate;
+
+	if (BootHzRead)
+		return BootHz;
+	BootHzRead = 1U;
+
+	CfgPtr = XClk_Wiz_LookupConfig(CLK_WIZ_BASEADDR);
+	if ((CfgPtr == NULL) ||
+	    (XClk_Wiz_CfgInitialize(&ClkWiz, CfgPtr, CfgPtr->BaseAddr) !=
+	     XST_SUCCESS) ||
+	    (XClk_Wiz_GetRate(&ClkWiz, 0U, &Rate) != XST_SUCCESS))
+		return 0U;
+
+	/*
+	 * Reprogramming (XDpDc_InitClkWiz() and the driver) always clears
+	 * REG25, so only a non-zero REG25 proves the clock still has the PDI
+	 * setting. After an ELF-only reload it holds an earlier run's rate.
+	 */
+	if (XClk_Wiz_ReadReg(CfgPtr->BaseAddr, XCLK_WIZ_REG25_OFFSET) == 0U) {
+		xil_printf("  ClkWiz: PDI clock setting not confirmed, video "
+			   "clock check off\r\n");
+		return 0U;
+	}
+
+	BootHz = Rate;
+	xil_printf("  ClkWiz: PDI video clock %llu Hz (%llu.%03llu MHz)\r\n",
+		   BootHz, BootHz / 1000000U, (BootHz % 1000000U) / 1000U);
+
+	return BootHz;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function initializes the Clock Wizard IP for video and audio clocks
 *
 * @param	RunCfgPtr is a pointer to the application configuration structure

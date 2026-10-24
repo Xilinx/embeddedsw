@@ -64,6 +64,9 @@
 #define XMMIDP_DEFAULT_BPC		8
 #define XMMIDP_VID_STREAM_ENABLE	0x1
 
+/** MTP time slots for payload; slot 0 carries the MTP header. */
+#define XDPDC_MST_PAYLOAD_SLOTS		63U
+
 /*****************************************************************************/
 /**
  * Map pixels-per-clock (from xparameters.h) to DP PixModeSel register value.
@@ -256,6 +259,76 @@ static XVidC_ColorFormat XDpDc_VideoFormatToColorFormat(XDc_VideoFormat Fmt)
 	default:
 		return XVIDC_CSF_RGB;
 	}
+}
+
+/*****************************************************************************/
+/**
+ * Checks that the MST streams fit the link time slots before any hardware
+ * is programmed, using the PBN and slot math of XMmiDp_ComputeTimeSlot().
+ * The link is the user cap, or HBR3 x4 when auto, so a mode that fails here
+ * cannot fit after link training either.
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
+ * @param	NumStreams is the number of active streams (1..4).
+ *
+ * @return	XST_SUCCESS if the streams fit, XST_FAILURE otherwise.
+ *
+ *****************************************************************************/
+u32 XDpDc_CheckMstBandwidth(const RunConfig *RunCfgPtr, u8 NumStreams)
+{
+	u32 Slots[XMMIDP_STREAM_ID4];
+	u32 Pbn[XMMIDP_STREAM_ID4];
+	XDc_VideoFormat Fmt;
+	u32 TotalSlots = 0U;
+	u32 SlotPbn;
+	u32 RateX100;
+	u64 PbnNum;
+	u64 PbnDen;
+	u32 Bpp;
+	u8 Lanes;
+	u8 Rate;
+	u8 Idx;
+
+	Xil_AssertNonvoid(RunCfgPtr != NULL);
+	Xil_AssertNonvoid((NumStreams >= XMMIDP_STREAM_ID1) &&
+			  (NumStreams <= XMMIDP_STREAM_ID4));
+
+	Lanes = (RunCfgPtr->MaxLaneCount != 0U) ? RunCfgPtr->MaxLaneCount :
+		XMMIDP_MAX_LANES;
+	Rate = (RunCfgPtr->MaxLinkRate != 0U) ? RunCfgPtr->MaxLinkRate :
+	       XMMIDP_DPCD_LINK_BW_SET_810GBPS;
+	/* PBN per time slot (DP 1.4 Table 2-138) is lanes * LINK_BW_SET / 2. */
+	SlotPbn = ((u32)Lanes * Rate) / 2U;
+	if (SlotPbn == 0U)
+		return XST_FAILURE;
+
+	/* ceil(PeakMBps * 64/54 * 1.006), as in XMmiDp_ComputeTimeSlot() */
+	PbnDen = 1000000ULL * 8U * 54U * 1000U;
+	for (Idx = 0U; Idx < NumStreams; Idx++) {
+		Fmt = XDpDc_GetDpVideoFormat(RunCfgPtr, Idx + XMMIDP_STREAM_ID1);
+		Bpp = XDpDc_VideoFormatToBpc(Fmt) *
+		      ((XDpDc_VideoFormatToColorFormat(Fmt) ==
+			XVIDC_CSF_YCRCB_422) ? 2U : 3U);
+		PbnNum = RunCfgPtr->PixelClkHz * Bpp * 64U * 1006U;
+		Pbn[Idx] = (u32)((PbnNum + PbnDen - 1U) / PbnDen);
+		Slots[Idx] = (Pbn[Idx] + SlotPbn - 1U) / SlotPbn;
+		TotalSlots += Slots[Idx];
+	}
+
+	if (TotalSlots <= XDPDC_MST_PAYLOAD_SLOTS)
+		return XST_SUCCESS;
+
+	RateX100 = (u32)Rate * 27U;
+	xil_printf("  ERROR: %u MST streams need %u time slots; %u lane(s) at "
+		   "%u.%02u Gbps carry %u\r\n", NumStreams, TotalSlots, Lanes,
+		   RateX100 / 100U, RateX100 % 100U, XDPDC_MST_PAYLOAD_SLOTS);
+	for (Idx = 0U; Idx < NumStreams; Idx++)
+		xil_printf("    Stream %u: PBN %u, %u slots\r\n", Idx, Pbn[Idx],
+			   Slots[Idx]);
+	xil_printf("  Lower the resolution or refresh rate, use YCbCr422, or "
+		   "use fewer streams\r\n");
+
+	return XST_FAILURE;
 }
 
 /* Default audio stream parameters */

@@ -114,6 +114,7 @@ extern XDcDma_Descriptor *AudDesc0;
 u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr);
 u32 XDpDc_AssertDcReset(void);
 u32 XDpDc_ReleaseDcReset(void);
+u64 XDpDc_GetVidClkBootHz(void);
 u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr);
 u32 XDpDc_InitDcSubsystem(RunConfig *RunCfgPtr);
 void XDpDc_SetupInterrupts(RunConfig *RunCfgPtr);

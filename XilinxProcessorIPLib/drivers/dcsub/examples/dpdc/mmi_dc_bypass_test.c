@@ -95,6 +95,12 @@ u8 XDpDc_BypassPlStreamMax(void)
 #include "xavpg.h"
 #include "xvtc.h"
 
+/**
+ * XClk_Wiz_GetRate() drops the fractional feedback multiplier, so the boot
+ * video clock rate it reports can read a few percent low.
+ */
+#define BYPASS_VID_CLK_MARGIN_PCT	5U
+
 extern XDcSub DcSub;
 extern XDcDma DcDma;
 extern XDc Dc;
@@ -499,10 +505,53 @@ u32 InitBypassPlatform(RunConfig *RunCfgPtr)
 
 }
 
+/*****************************************************************************/
+/**
+ * Rejects a mode the bypass design cannot drive, before the clock wizard or
+ * any PL IP is programmed.
+ *
+ * The clock wizard output clocks the AVPG and VTC, register interfaces
+ * included, at pixel clock / PPC. Above the boot rate the XSA sets, which the
+ * design is timed for, a register access to them can hang the CPU. The clock
+ * is not checked when the boot rate cannot be confirmed. On MST designs all
+ * streams must also fit the link time slots.
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
+ *
+ * @return	XST_SUCCESS if the mode fits, XST_FAILURE otherwise.
+ *
+ *****************************************************************************/
+static u32 XDpDc_BypassCheckModeFits(RunConfig *RunCfgPtr)
+{
+	u8 Ppc = XDpDc_BypassPpcFromXsa(0U);
+	u64 VidClkHz = RunCfgPtr->PixelClkHz / Ppc;
+	u64 BootHz = XDpDc_GetVidClkBootHz();
+	u32 Status = XST_SUCCESS;
+
+	if ((BootHz != 0U) &&
+	    ((VidClkHz * 100U) >
+	     (BootHz * (100U + BYPASS_VID_CLK_MARGIN_PCT)))) {
+		xil_printf("  ERROR: %ux%u needs a %llu.%03llu MHz video clock at "
+			   "%u PPC; this design is built for %llu.%03llu MHz\r\n",
+			   RunCfgPtr->Width, RunCfgPtr->Height,
+			   VidClkHz / 1000000U, (VidClkHz % 1000000U) / 1000U,
+			   Ppc, BootHz / 1000000U, (BootHz % 1000000U) / 1000U);
+		Status = XST_FAILURE;
+	}
+
+	if (RunCfgPtr->DesignMstEn &&
+	    (XDpDc_CheckMstBandwidth(RunCfgPtr, RunCfgPtr->byp_streams) !=
+	     XST_SUCCESS))
+		Status = XST_FAILURE;
+
+	return Status;
+}
+
 u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 {
 	const XVidC_VideoTimingMode *Vtm;
 	XDc *DcPtr;
+	u32 Status;
 	u8 stream_idx;
 
 	if (RunCfgPtr->operatingmode != XDCSUB_OPMODE_BYPASS) {
@@ -533,6 +582,10 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 	}
 
 	XDpDc_BypassSetStream0Format(RunCfgPtr); /* AVPG stream 0 -> Stream1Format */
+
+	Status = XDpDc_BypassCheckModeFits(RunCfgPtr);
+	if (Status != XST_SUCCESS)
+		return Status;
 
 	xil_printf("\r\n========================================\r\n");
 
