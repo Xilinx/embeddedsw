@@ -1876,8 +1876,8 @@ u32 XMmiDp_SinkMstModeEnable(XMmiDp *InstancePtr)
 		return XST_SUCCESS;
 	}
 
+	/* UP_REQ_EN stays clear: the driver has no UP_REQ / UP_REP handling. */
 	MstmCtrl = (u8)(XMMIDP_DPCD_UPSTREAM_IS_SRC_MASK |
-			XMMIDP_DPCD_UP_REQ_EN_MASK |
 			XMMIDP_DPCD_MST_EN_MASK);
 
 	Status = XMmiDp_AuxWrite(InstancePtr, XMMIDP_DPCD_MSTM_CTRL, 1, &MstmCtrl);
@@ -2210,7 +2210,8 @@ static void XMmiDp_WriteMstVcpTableRegs(XMmiDp *InstancePtr,
  *
  * TX: zero MST_VCP_TABLE_REG0..REG7 via XMmiDp_WriteMstVcpTableRegs().
  * Sink: DP 1.4 VcId=0 DPCD allocate (start slot 0, slot count 0x3F).
- * Sideband CLEAR_PAYLOAD_ID_TABLE is not used in this series.
+ * Downstream branches are cleared separately by
+ * XMmiDp_SendSbMsgClearPayloadIdTable().
  *
  * Clears only VC_PAYLOAD_ID_UPDATED at PAYLOAD_TABLE_UPDATE_STATUS (0x2C0);
  * ACT_HANDLED is left unchanged so a later WaitActHandledStatus() can observe
@@ -2767,8 +2768,8 @@ u32 XMmiDp_DistributeMstPayloadSlots(XMmiDp *InstancePtr, u8 NumStreams)
 /**
  * Program the sink VC payload allocate registers (DPCD) for one stream.
  *
- * Call XMmiDp_ComputeTimeSlot() first. VCPID is set to the stream number
- * (direct-attach only; no sideband LINK_ADDRESS / topology messaging).
+ * Call XMmiDp_ComputeTimeSlot() first. VCPID is set to the stream number.
+ * Downstream branches are programmed by XMmiDp_AllocatePayloadStream().
  *
  * Clears only VC_PAYLOAD_ID_UPDATED at PAYLOAD_TABLE_UPDATE_STATUS (0x2C0);
  * ACT_HANDLED is left unchanged so XMmiDp_WaitActHandledStatus() can observe
@@ -2844,15 +2845,17 @@ u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream)
 
 /******************************************************************************/
 /**
- * Allocate VC payload for one MST stream on TX and the immediate branch sink.
+ * Allocate VC payload for one MST stream on TX, the immediate branch, and the
+ * branch that owns the stream's sink port.
  *
  * Programs the TX MST VC payload table, updates the branch sink VC payload ID
  * table over DPCD (PAYLOAD_ALLOCATE_SET at 1C0h), waits for
  * VC_PAYLOAD_ID_UPDATED in PAYLOAD_TABLE_UPDATE_STATUS (2C0h), triggers the
- * ACT sequence via CCTL0, then waits for ACT_HANDLED in 2C0h.
+ * ACT sequence via CCTL0, then waits for ACT_HANDLED in 2C0h. When the stream
+ * has a sink set by XMmiDp_MstSetStreamSink(), sends sideband
+ * ALLOCATE_PAYLOAD so the branch forwards the VC to that port.
  *
- * Call XMmiDp_ComputeTimeSlot() first. Direct-attach MST only: no sideband
- * LINK_ADDRESS / topology messaging; VCPID is the stream number.
+ * Call XMmiDp_ComputeTimeSlot() first. VCPID is the stream number.
  *
  * On failure after the TX table is programmed (e.g. sink table or ACT), the
  * caller must call XMmiDp_ClearPayloadVcIdTable() to recover; this function
@@ -2868,6 +2871,7 @@ u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream)
  ******************************************************************************/
 u32 XMmiDp_AllocatePayloadStream(XMmiDp *InstancePtr, u8 Stream)
 {
+	XMmiDp_MstStream *MstStream;
 	u32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2886,7 +2890,14 @@ u32 XMmiDp_AllocatePayloadStream(XMmiDp *InstancePtr, u8 Stream)
 	if (Status != XST_SUCCESS)
 		return Status;
 
-	return XST_SUCCESS;
+	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+	if (MstStream->LinkCountTotal < XMMIDP_MST_SINK_MIN_LCT)
+		return XST_SUCCESS;
+
+	return XMmiDp_SendSbMsgAllocatePayload(InstancePtr,
+					       MstStream->LinkCountTotal,
+					       MstStream->RelativeAddress,
+					       Stream, MstStream->MstPbn);
 }
 
 /******************************************************************************/
