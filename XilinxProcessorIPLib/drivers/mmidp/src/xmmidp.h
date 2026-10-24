@@ -622,6 +622,20 @@ void XMmiDp_ComputeTuParams(XMmiDp *InstancePtr, u8 Stream,
 			    XVidC_ColorFormat ColorFormat);
 u16 XMmiDp_GetLinkPbn(XMmiDp *InstancePtr);
 u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream);
+/**
+ * Program sink VC payload allocate (DPCD) for one MST stream.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return	XST_SUCCESS if programmed; XST_FAILURE on invalid slots or AUX
+ *		failure.
+ *
+ * @note	Call XMmiDp_ComputeTimeSlot() first. Direct-attach VCPID=stream;
+ *		ascending stream order; lower TimeSlots must stay fixed.
+ *		Clears VC_PAYLOAD_ID_UPDATED only at 0x2C0 (not ACT_HANDLED).
+ */
+u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream);
 void XMmiDp_SetVidControllerUseStdVidMode(XMmiDp *InstancePtr,
 	XVidC_VideoMode VideoMode, u8 Stream,
 	XVidC_ColorFormat ColorFormat);

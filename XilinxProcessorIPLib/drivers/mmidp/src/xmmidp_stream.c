@@ -68,6 +68,10 @@
 #define XMMIDP_LINK_PBN_LANE_COUNT		3U
 /** MTP time slots usable for payload; slot 0 is the MTP header. */
 #define XMMIDP_MTP_PAYLOAD_SLOTS_MAX		63U
+/** MTP slot count including header slot 0. */
+#define XMMIDP_MST_VC_SLOT_COUNT		64U
+/** First payload slot after the MTP header. */
+#define XMMIDP_MST_VC_FIRST_SLOT		1U
 
 /* TU threshold boundaries */
 #define XMMIDP_TU_LOW_AVG_BOUNDARY		16
@@ -1899,6 +1903,7 @@ u32 XMmiDp_WaitPayloadTableUpdateStatus(XMmiDp *InstancePtr)
 	u8 TimeoutCount = 0;
 
 	do {
+		AuxReply = 0;
 		XMmiDp_AuxRead(InstancePtr, XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
 			       1, &AuxReply);
 
@@ -2332,6 +2337,111 @@ u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream)
 	return MstStream->TimeSlots;
 }
 
+/******************************************************************************/
+/**
+ * Starting MTP time slot for Stream from lower streams' TimeSlots.
+ * Slot 0 is reserved for the MTP header.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return	Starting time slot for the stream.
+ *
+ * @note	Allocate streams in ascending ID order. Do not change a lower
+ *		stream's TimeSlots after a higher stream is allocated.
+ *
+ ******************************************************************************/
+static u8 XMmiDp_GetSinkVcPayloadStartSlot(XMmiDp *InstancePtr, u8 Stream)
+{
+	u8 StreamId;
+	u8 StartSlot = XMMIDP_MST_VC_FIRST_SLOT;
+
+	for (StreamId = XMMIDP_STREAM_ID1; StreamId < Stream; StreamId++)
+		StartSlot += InstancePtr->MstStreamConfig[StreamId - 1].TimeSlots;
+
+	return StartSlot;
+}
+
+/******************************************************************************/
+/**
+ * Program the sink VC payload allocate registers (DPCD) for one stream.
+ *
+ * Call XMmiDp_ComputeTimeSlot() first. VCPID is set to the stream number
+ * (direct-attach only; no sideband LINK_ADDRESS / topology messaging).
+ *
+ * Clears only VC_PAYLOAD_ID_UPDATED at PAYLOAD_TABLE_UPDATE_STATUS (0x2C0);
+ * ACT_HANDLED is left unchanged so XMmiDp_WaitActHandledStatus() can observe
+ * it after the ACT sequence on back-to-back per-stream allocations.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	Stream is the stream ID (XMMIDP_STREAM_ID1..ID4).
+ *
+ * @return
+ *		- XST_SUCCESS if the sink table was programmed.
+ *		- XST_FAILURE if slot allocation is invalid or AUX failed.
+ *
+ * @note	Allocate streams in ascending ID order. Do not change a lower
+ *		stream's TimeSlots after a higher stream is allocated.
+ *
+ ******************************************************************************/
+u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream)
+{
+	XMmiDp_MstStream *MstStream;
+	u8 AuxData[3];
+	u8 StartSlot;
+	u8 TimeSlots;
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid((Stream >= XMMIDP_STREAM_ID1) &&
+			  (Stream <= XMMIDP_STREAM_ID4));
+
+	MstStream = &InstancePtr->MstStreamConfig[Stream - 1];
+	TimeSlots = MstStream->TimeSlots;
+	if (TimeSlots == 0U) {
+		xil_printf("ERROR: Stream %u VC payload alloc: TimeSlots is 0 "
+			   "(run ComputeTimeSlot first or check link BW)\r\n",
+			   Stream);
+		return XST_FAILURE;
+	}
+
+	if (MstStream->StartSlot != 0U)
+		StartSlot = MstStream->StartSlot;
+	else {
+		StartSlot = XMmiDp_GetSinkVcPayloadStartSlot(InstancePtr, Stream);
+		MstStream->StartSlot = StartSlot;
+	}
+
+	if ((StartSlot + TimeSlots - 1U) >= XMMIDP_MST_VC_SLOT_COUNT) {
+		u8 AvailSlots = XMMIDP_MST_VC_SLOT_COUNT - StartSlot;
+
+		xil_printf("ERROR: Stream %u VC payload alloc: need %u slots "
+			   "at start %u but only %u remain (VC slot count %u)\r\n",
+			   Stream, TimeSlots, StartSlot, AvailSlots,
+			   XMMIDP_MST_VC_SLOT_COUNT);
+		return XST_FAILURE;
+	}
+
+	MstStream->StartSlot = StartSlot;
+
+	AuxData[0] = XMMIDP_DPCD_VC_PAYLOAD_ID_UPDATED_MASK;
+	Status = XMmiDp_AuxWrite(InstancePtr,
+				 XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
+				 1, AuxData);
+	if (Status != XST_SUCCESS)
+		return Status;
+
+	AuxData[0] = Stream;
+	AuxData[1] = StartSlot;
+	AuxData[2] = TimeSlots;
+	Status = XMmiDp_AuxWrite(InstancePtr,
+				 XMMIDP_DPCD_PAYLOAD_ALLOCATE_SET,
+				 3, AuxData);
+	if (Status != XST_SUCCESS)
+		return Status;
+
+	return XMmiDp_WaitPayloadTableUpdateStatus(InstancePtr);
+}
 
 /******************************************************************************/
 /**
