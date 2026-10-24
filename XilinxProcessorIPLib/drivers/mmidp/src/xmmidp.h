@@ -541,6 +541,19 @@ u32 XMmiDp_CheckChannelEqualization(XMmiDp *InstancePtr, u8 LaneCount);
 XMmiDp_TrainingState XMmiDp_TrainingStateChannelEqualization(XMmiDp *InstancePtr);
 u32 XMmiDp_CheckLinkStatus(XMmiDp *InstancePtr, u8 LaneCount);
 u32 XMmiDp_RunTraining(XMmiDp *InstancePtr);
+/**
+ * Read sink capabilities, apply optional lane/BW caps, and run full link
+ * training (CR + channel equalization).
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ * @param	UserMaxLanes Max lane count (0 = use sink maximum; else 1, 2, or 4).
+ * @param	UserMaxLinkBW Max link bandwidth in DPCD format (0 = auto;
+ *		0x06=RBR, 0x0A=HBR, 0x14=HBR2, 0x1E=HBR3).
+ *
+ * @return	XST_SUCCESS if link training succeeded, else XST_FAILURE.
+ */
+u32 XMmiDp_StartFullLinkTrainingCapped(XMmiDp *InstancePtr,
+				       u8 UserMaxLanes, u8 UserMaxLinkBW);
 
 void XMmiDp_WaitUs(XMmiDp *InstancePtr, u32 MicroSeconds);
 

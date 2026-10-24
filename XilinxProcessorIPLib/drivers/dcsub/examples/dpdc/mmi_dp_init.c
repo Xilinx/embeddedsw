@@ -564,28 +564,6 @@ static const char *XDpDc_LinkBwToStr(u8 LinkBW, u32 *RateMbps)
 	}
 }
 
-static void XDpDc_ApplyUserCaps(XMmiDp *InstancePtr,
-				 u8 UserMaxLanes, u8 UserMaxLinkBW)
-{
-	if (UserMaxLanes != 0 &&
-	    UserMaxLanes < InstancePtr->RxConfig.MaxNumLanes) {
-		xil_printf("  User cap: limiting lanes from %d to %d\r\n",
-			   InstancePtr->RxConfig.MaxNumLanes, UserMaxLanes);
-		InstancePtr->RxConfig.MaxNumLanes = UserMaxLanes;
-		InstancePtr->RxConfig.MaxLaneCount =
-			XMmiDp_GetLaneCount(InstancePtr, UserMaxLanes);
-	}
-
-	if (UserMaxLinkBW != 0 &&
-	    UserMaxLinkBW < InstancePtr->RxConfig.MaxLinkBW) {
-		xil_printf("  User cap: limiting link BW from 0x%02X to 0x%02X\r\n",
-			   InstancePtr->RxConfig.MaxLinkBW, UserMaxLinkBW);
-		InstancePtr->RxConfig.MaxLinkBW = UserMaxLinkBW;
-		InstancePtr->RxConfig.MaxLinkRate =
-			XMmiDp_GetLinkRate(InstancePtr, UserMaxLinkBW);
-	}
-}
-
 static void XDpDc_PrintSinkCapabilities(XMmiDp *InstancePtr)
 {
 	u32 RateMbps;
@@ -652,103 +630,44 @@ static void XDpDc_PrintLinkTrainingResult(XMmiDp *InstancePtr,
 		xil_printf("  --------------------------------------------------\r\n");
 }
 
-/******************************************************************************/
-/**
- * This function prepares for link training. It reads receiver capabilities,
- * applies user-configured lane/bandwidth caps, checks current link status,
- * configures link parameters, and runs the clock recovery and channel
- * equalization training sequence.
- *
- * @param       InstancePtr is a pointer to the XMmiDp instance.
 
- * @param       UserMaxLanes User-configured max lane count (0=auto,
- *              1, 2, or 4).
- * @param       UserMaxLinkBW User-configured max link BW in DPCD format
- *              (0=auto, 0x06=RBR, 0x0A=HBR, 0x14=HBR2, 0x1E=HBR3).
+/*****************************************************************************/
+/**
  *
- * @return
- *              - XST_SUCCESS if the training process succeeded.
- *              - XST_FAILURE otherwise.
+ * Link policy: capped full link training after sink is powered.
  *
- * @note        None.
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
  *
-*******************************************************************************/
-u32 XMmiDp_StartFullLinkTrainingCapped(XMmiDp *InstancePtr,
-				       u8 UserMaxLanes, u8 UserMaxLinkBW)
+ * @return	XST_SUCCESS on success, XST_FAILURE otherwise.
+ *
+ ******************************************************************************/
+u32 XDpDc_RunLinkPolicySetup(RunConfig *RunCfgPtr)
 {
+	XMmiDp *DpPtr = RunCfgPtr->DpPsuPtr;
 	u32 Status;
-	const char *RateStr;
-	u32 RateMbps;
 
 	xil_printf("\r\n==================================================\r\n");
 	xil_printf("  Link Training\r\n");
 	xil_printf("==================================================\r\n");
+	if (RunCfgPtr->MaxLaneCount != 0U) {
+		xil_printf("  User max lanes     : %u\r\n",
+			   RunCfgPtr->MaxLaneCount);
+	}
+	if (RunCfgPtr->MaxLinkRate != 0U) {
+		xil_printf("  User max link BW   : 0x%02X\r\n",
+			   RunCfgPtr->MaxLinkRate);
+	}
 
-	Status = XMmiDp_GetRxCapabilities(InstancePtr);
+	Status = XMmiDp_StartFullLinkTrainingCapped(DpPtr,
+						    RunCfgPtr->MaxLaneCount,
+						    RunCfgPtr->MaxLinkRate);
+	XDpDc_PrintSinkCapabilities(DpPtr);
+	XDpDc_PrintLinkTrainingResult(DpPtr, Status);
+
 	if (Status != XST_SUCCESS) {
-		xil_printf("  ERROR: Failed to read monitor capabilities\r\n");
+		xil_printf("[HPD] ERROR: Link training failed\r\n");
 		return XST_FAILURE;
 	}
-
-	XDpDc_ApplyUserCaps(InstancePtr, UserMaxLanes, UserMaxLinkBW);
-
-	RateStr = XDpDc_LinkBwToStr(InstancePtr->RxConfig.MaxLinkBW, &RateMbps);
-
-	XDpDc_PrintSinkCapabilities(InstancePtr);
-
-	InstancePtr->LinkConfig.LaneCount = InstancePtr->RxConfig.MaxLaneCount;
-	InstancePtr->LinkConfig.NumLanes = InstancePtr->RxConfig.MaxNumLanes;
-	InstancePtr->LinkConfig.LinkRate = InstancePtr->RxConfig.MaxLinkRate;
-	InstancePtr->LinkConfig.LinkBW = InstancePtr->RxConfig.MaxLinkBW;
-
-	xil_printf("  Training Parameters:\r\n");
-	xil_printf("    Lanes             : %d\r\n",
-		   InstancePtr->LinkConfig.NumLanes);
-	xil_printf("    Link BW           : 0x%02X  %s\r\n",
-		   InstancePtr->LinkConfig.LinkBW, RateStr);
-	xil_printf("    PHY Rate          : %d\r\n",
-		   InstancePtr->LinkConfig.LinkRate);
-
-	memset(InstancePtr->LinkConfig.VsLevel, 0, 4);
-	memset(InstancePtr->LinkConfig.PeLevel, 0, 4);
-
-	XMmiDp_FastLinkTrainDisable(InstancePtr);
-	xil_printf("    Fast Link Train   : Disabled\r\n");
-
-	Status = XMmiDp_SetSinkDpcdLinkCfgField(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("  ERROR: Failed to set sink DPCD link config: %d\r\n",
-			   Status);
-		return Status;
-	}
-	xil_printf("  Sink DPCD link config set\r\n");
-
-	if (InstancePtr->RxConfig.EnhancedFrameCap) {
-		XDpPSu14_EnableCctlEnhanceFraming(InstancePtr);
-		xil_printf("  Enhanced framing enabled on TX\r\n");
-	}
-
-	Status = XMmiDp_StartLinkXmit(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		xil_printf("  ERROR: Failed to start link transmission: %d\r\n",
-			   Status);
-		return Status;
-	}
-	sleep(1);
-	xil_printf("  Link transmission started -- running CR + EQ...\r\n");
-
-	Status = XMmiDp_RunTraining(InstancePtr);
-	if (Status != XST_SUCCESS) {
-		XDpDc_PrintLinkTrainingResult(InstancePtr, Status);
-		return Status;
-	}
-
-	XMmiDp_SetPhyTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
-	XMmiDp_SetDpcdTrainingPattern(InstancePtr, XMMIDP_PHY_NO_TRAIN);
-
-	XDpDc_PrintLinkTrainingResult(InstancePtr, XST_SUCCESS);
-
-	InstancePtr->LinkConfig.LinkTrained = 1;
 
 	return XST_SUCCESS;
 }

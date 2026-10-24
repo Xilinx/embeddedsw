@@ -69,9 +69,7 @@ void XDpDc_HpdHotplugHandler(void *CallbackRef)
 	XMmiDp_SinkPowerUp(DpPtr);
 	sleep(5);
 
-	Status = XMmiDp_StartFullLinkTrainingCapped(DpPtr,
-						    RunCfgPtr->MaxLaneCount,
-						    RunCfgPtr->MaxLinkRate);
+	Status = XDpDc_RunLinkPolicySetup(RunCfgPtr);
 	if (Status != XST_SUCCESS) {
 		xil_printf("[HPD] ERROR: Link training failed\r\n");
 		return;
@@ -179,9 +177,7 @@ void XDpDc_HpdIrqHandler(void *CallbackRef)
 		DpPtr->LinkConfig.LinkTrained = 0;
 		XMmiDp_DisableVideoStream(DpPtr, XMMIDP_STREAM_ID1);
 
-		Status = XMmiDp_StartFullLinkTrainingCapped(DpPtr,
-							    RunCfgPtr->MaxLaneCount,
-							    RunCfgPtr->MaxLinkRate);
+		Status = XDpDc_RunLinkPolicySetup(RunCfgPtr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("[HPD] ERROR: Retrain failed\r\n");
 			return;
