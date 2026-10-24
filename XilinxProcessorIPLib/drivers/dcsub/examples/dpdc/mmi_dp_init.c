@@ -397,6 +397,10 @@ static void XDpDc_PrintMstStreamAlloc(XMmiDp *InstancePtr, u8 Stream)
 	xil_printf("    StartSlot         : %u\r\n", Mst->StartSlot);
 	xil_printf("    Link PBN          : %u\r\n",
 		   XMmiDp_GetLinkPbn(InstancePtr));
+	if (Mst->LinkCountTotal >= XMMIDP_MST_SINK_MIN_LCT)
+		xil_printf("    Sink port         : %u (LCT %u)\r\n",
+			   Mst->RelativeAddress[Mst->LinkCountTotal - 2U],
+			   Mst->LinkCountTotal);
 }
 
 /******************************************************************************/
@@ -1005,6 +1009,116 @@ u32 XDpDc_RunLinkPolicySetup(RunConfig *RunCfgPtr)
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+ * This function clears the sideband route of all streams, so
+ * payload allocation programs only the directly attached
+ * branch.
+ *
+ * @param	DpPtr is a pointer to the XMmiDp instance.
+ *
+ * @return	None.
+ *
+*******************************************************************************/
+static void XDpDc_ClearMstRoutes(XMmiDp *DpPtr)
+{
+	u8 StreamId;
+
+	for (StreamId = XMMIDP_STREAM_ID1; StreamId <= XMMIDP_STREAM_ID4;
+	     StreamId++)
+		DpPtr->MstStreamConfig[StreamId - 1].LinkCountTotal = 0U;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Discovers the MST topology, routes stream N to the N-th sink found, and
+ * clears the payload ID tables of all downstream branches.
+ *
+ * If sideband messaging fails or finds no sink, all streams stay unrouted
+ * and NumStreams is unchanged, so XMmiDp_AllocatePayloadStream() programs
+ * only the directly attached branch.
+ *
+ * @param	DpPtr is a pointer to the XMmiDp instance.
+ * @param	NumStreams is the requested stream count; lowered in place to
+ *		the number of sinks found.
+ *
+ * @return	None.
+ *
+ ******************************************************************************/
+static void XDpDc_SetupMstTopology(XMmiDp *DpPtr, u8 *NumStreams)
+{
+	XMmiDp_MstTopology *Topology = &DpPtr->MstTopology;
+	XMmiDp_MstSink *Sink;
+	u16 AvailPbn;
+	u16 FullPbn;
+	u8 Routed;
+	u8 StreamId;
+	u8 Idx;
+	u32 Status;
+
+	XDpDc_ClearMstRoutes(DpPtr);
+
+	Status = XMmiDp_MstDiscoverTopology(DpPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("[MSTM] WARNING: Topology discovery failed; streams "
+			   "stay on the directly attached branch\r\n");
+		return;
+	}
+
+	xil_printf("[MSTM] Topology: %u branch(es), %u sink(s)\r\n",
+		   Topology->BranchTotal, Topology->SinkTotal);
+	for (Idx = 0U; Idx < Topology->SinkTotal; Idx++) {
+		Sink = &Topology->Sinks[Idx];
+		xil_printf("[MSTM]   Sink %u: port %u, LCT %u, peer type %u, "
+			   "DPCD rev 0x%02X\r\n", Idx,
+			   Sink->RelativeAddress[Sink->LinkCountTotal - 2U],
+			   Sink->LinkCountTotal, Sink->PeerDeviceType,
+			   Sink->DpcdRev);
+	}
+
+	if (Topology->SinkTotal == 0U) {
+		xil_printf("[MSTM] WARNING: No DP monitor found behind the MST "
+			   "branch; streams stay on the directly attached "
+			   "branch\r\n");
+		return;
+	}
+
+	Routed = (*NumStreams > Topology->SinkTotal) ? Topology->SinkTotal :
+		 *NumStreams;
+	for (StreamId = XMMIDP_STREAM_ID1;
+	     StreamId < Routed + XMMIDP_STREAM_ID1; StreamId++) {
+		Idx = StreamId - XMMIDP_STREAM_ID1;
+		Sink = &Topology->Sinks[Idx];
+		(void)XMmiDp_MstSetStreamSink(DpPtr, StreamId, Idx);
+
+		Status = XMmiDp_SendSbMsgEnumPathResources(DpPtr,
+				Sink->LinkCountTotal, Sink->RelativeAddress,
+				&AvailPbn, &FullPbn);
+		if (Status != XST_SUCCESS)
+			xil_printf("[MSTM] WARNING: ENUM_PATH_RESOURCES failed "
+				   "for stream %u\r\n", StreamId);
+		else
+			xil_printf("[MSTM]   Stream %u -> sink %u: full PBN %u, "
+				   "available PBN %u\r\n", StreamId, Idx,
+				   FullPbn, AvailPbn);
+	}
+
+	Status = XMmiDp_SendSbMsgClearPayloadIdTable(DpPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("[MSTM] WARNING: CLEAR_PAYLOAD_ID_TABLE failed; "
+			   "streams stay on the directly attached branch\r\n");
+		XDpDc_ClearMstRoutes(DpPtr);
+		return;
+	}
+
+	if (*NumStreams > Routed) {
+		xil_printf("[MSTM] WARNING: %u streams requested but %u sink(s) "
+			   "found; driving %u\r\n", *NumStreams, Routed, Routed);
+		*NumStreams = Routed;
+	}
+}
+
 /*****************************************************************************/
 /**
  *
@@ -1064,6 +1178,8 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 		}
 		XDPDC_MST_DBG("[MSTM] VC payload table cleared\r\n");
 
+		XDpDc_SetupMstTopology(DpPtr, &NumStreams);
+
 		/*
 		 * ClearPayloadVcIdTable does not reset MstStreamConfig[]. Drop
 		 * StartSlot on active streams so allocate/distribute cannot
@@ -1083,6 +1199,7 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 			MstStream->TimeSlots = 0U;
 			MstStream->StartSlot = 0U;
 			MstStream->MstPbn = 0U;
+			MstStream->LinkCountTotal = 0U;
 		}
 	} else {
 		XDPDC_MST_DBG("[MSTM] SST link: skipping sink/TX MST enable\r\n");
