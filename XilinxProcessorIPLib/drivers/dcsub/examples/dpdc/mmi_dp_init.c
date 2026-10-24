@@ -674,8 +674,33 @@ u32 XDpDc_RunLinkPolicySetup(RunConfig *RunCfgPtr)
 
 /*****************************************************************************/
 /**
-*
-* This function initializes the DP core by performing a PHY soft reset,
+ *
+ * Stream policy: configure video and audio streams after link training.
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
+ *
+ * @return	XST_SUCCESS if stream setup completed.
+ *
+ * @note	Requires a trained link (RunLinkPolicySetup must succeed first).
+ *
+ ******************************************************************************/
+u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
+{
+	XMmiDp *DpPtr = RunCfgPtr->DpPsuPtr;
+
+	XMmiDp_SetupVideoStream(RunCfgPtr);
+	if (RunCfgPtr->AudioEnable)
+		XMmiDp_SetupAudioStream(RunCfgPtr);
+	else if (RunCfgPtr->SdpEnable == 0U)
+		XDpDc_DisableDpAudioSdpStreams(DpPtr);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function initializes the DP core by performing a PHY soft reset,
 * powering on the PHY, configuring AUX timer limits, PM configuration,
 * disabling SSC, and enabling general/HPD interrupts.
 *

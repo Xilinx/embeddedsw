@@ -28,6 +28,7 @@ void XMmiDp_SetupAudioStream(RunConfig *RunCfgPtr);
 u32 XDpDc_InitDpPsuSubsystem(RunConfig *RunCfgPtr);
 u32 XMmiDp_InitDpCore(XMmiDp *DpPsuPtr);
 u32 XDpDc_RunLinkPolicySetup(RunConfig *RunCfgPtr);
+u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr);
 
 #ifdef __cplusplus
 }
