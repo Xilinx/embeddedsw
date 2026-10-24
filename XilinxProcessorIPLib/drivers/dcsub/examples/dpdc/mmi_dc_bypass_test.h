@@ -8,12 +8,12 @@
  *
  * @file mmi_dc_bypass_test.h
  *
- * This file declares the interface for the DC Bypass SST mode test.
+ * This file declares the interface for the DC Bypass mode test.
  * In bypass mode the DC block is bypassed and video from the PL (AVPG)
  * is routed directly to the DP TX block.
  *
- * Architecture is extensible to MST by iterating over available streams
- * from xparameters.h, but only SST (Stream 0) is enabled.
+ * Multi-stream bypass (MST) programs per-stream AVPG and VTC bases from
+ * xparameters.h for each active bypass stream (up to 4).
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -127,6 +127,7 @@ extern "C" {
 #endif
 
 #if defined(XPAR_PSDPDC_AV_PAT_GEN_0_BASEADDR)
+/** PL AVPG base for bypass stream 0 (0 if absent in XSA). */
 #define BYPASS_AVPG_0_BASEADDR		XPAR_PSDPDC_AV_PAT_GEN_0_BASEADDR
 #elif defined(XPAR_AVTPG_S0_AV_PAT_GEN_0_BASEADDR)
 #define BYPASS_AVPG_0_BASEADDR		XPAR_AVTPG_S0_AV_PAT_GEN_0_BASEADDR
@@ -134,10 +135,80 @@ extern "C" {
 #define BYPASS_AVPG_0_BASEADDR		0U
 #endif
 
+#if defined(XPAR_PSDPDC_AV_PAT_GEN_1_BASEADDR)
+/** PL AVPG base for bypass stream 1 (0 if absent in XSA). */
+#define BYPASS_AVPG_1_BASEADDR		XPAR_PSDPDC_AV_PAT_GEN_1_BASEADDR
+#elif defined(XPAR_AVTPG_S1_AV_PAT_GEN_0_BASEADDR)
+/** PL AVPG base for bypass stream 1 (AVTPG_S1 instance). */
+#define BYPASS_AVPG_1_BASEADDR		XPAR_AVTPG_S1_AV_PAT_GEN_0_BASEADDR
+#else
+/** No PL AVPG for bypass stream 1 in the XSA. */
+#define BYPASS_AVPG_1_BASEADDR		0U
+#endif
+
+#if defined(XPAR_PSDPDC_AV_PAT_GEN_2_BASEADDR)
+/** PL AVPG base for bypass stream 2 (0 if absent in XSA). */
+#define BYPASS_AVPG_2_BASEADDR		XPAR_PSDPDC_AV_PAT_GEN_2_BASEADDR
+#elif defined(XPAR_AVTPG_S2_AV_PAT_GEN_0_BASEADDR)
+/** PL AVPG base for bypass stream 2 (AVTPG_S2 instance). */
+#define BYPASS_AVPG_2_BASEADDR		XPAR_AVTPG_S2_AV_PAT_GEN_0_BASEADDR
+#else
+/** No PL AVPG for bypass stream 2 in the XSA. */
+#define BYPASS_AVPG_2_BASEADDR		0U
+#endif
+
+#if defined(XPAR_PSDPDC_AV_PAT_GEN_3_BASEADDR)
+/** PL AVPG base for bypass stream 3 (0 if absent in XSA). */
+#define BYPASS_AVPG_3_BASEADDR		XPAR_PSDPDC_AV_PAT_GEN_3_BASEADDR
+#elif defined(XPAR_AVTPG_S3_AV_PAT_GEN_0_BASEADDR)
+/** PL AVPG base for bypass stream 3 (AVTPG_S3 instance). */
+#define BYPASS_AVPG_3_BASEADDR		XPAR_AVTPG_S3_AV_PAT_GEN_0_BASEADDR
+#else
+/** No PL AVPG for bypass stream 3 in the XSA. */
+#define BYPASS_AVPG_3_BASEADDR		0U
+#endif
+
 #if defined(XPAR_XVTC_0_BASEADDR)
+/** PL VTC base for bypass stream 0 (0 if absent in XSA). */
 #define BYPASS_VTC_0_BASEADDR		XPAR_XVTC_0_BASEADDR
+#elif defined(XPAR_AVTPG_S0_V_TC_0_BASEADDR)
+/** PL VTC base for bypass stream 0 (AVTPG_S0 instance). */
+#define BYPASS_VTC_0_BASEADDR		XPAR_AVTPG_S0_V_TC_0_BASEADDR
 #else
 #define BYPASS_VTC_0_BASEADDR		0U
+#endif
+
+#if defined(XPAR_XVTC_1_BASEADDR)
+/** PL VTC base for bypass stream 1 (0 if absent in XSA). */
+#define BYPASS_VTC_1_BASEADDR		XPAR_XVTC_1_BASEADDR
+#elif defined(XPAR_AVTPG_S1_V_TC_0_BASEADDR)
+/** PL VTC base for bypass stream 1 (AVTPG_S1 instance). */
+#define BYPASS_VTC_1_BASEADDR		XPAR_AVTPG_S1_V_TC_0_BASEADDR
+#else
+/** No PL VTC for bypass stream 1 in the XSA. */
+#define BYPASS_VTC_1_BASEADDR		0U
+#endif
+
+#if defined(XPAR_XVTC_2_BASEADDR)
+/** PL VTC base for bypass stream 2 (0 if absent in XSA). */
+#define BYPASS_VTC_2_BASEADDR		XPAR_XVTC_2_BASEADDR
+#elif defined(XPAR_AVTPG_S2_V_TC_0_BASEADDR)
+/** PL VTC base for bypass stream 2 (AVTPG_S2 instance). */
+#define BYPASS_VTC_2_BASEADDR		XPAR_AVTPG_S2_V_TC_0_BASEADDR
+#else
+/** No PL VTC for bypass stream 2 in the XSA. */
+#define BYPASS_VTC_2_BASEADDR		0U
+#endif
+
+#if defined(XPAR_XVTC_3_BASEADDR)
+/** PL VTC base for bypass stream 3 (0 if absent in XSA). */
+#define BYPASS_VTC_3_BASEADDR		XPAR_XVTC_3_BASEADDR
+#elif defined(XPAR_AVTPG_S3_V_TC_0_BASEADDR)
+/** PL VTC base for bypass stream 3 (AVTPG_S3 instance). */
+#define BYPASS_VTC_3_BASEADDR		XPAR_AVTPG_S3_V_TC_0_BASEADDR
+#else
+/** No PL VTC for bypass stream 3 in the XSA. */
+#define BYPASS_VTC_3_BASEADDR		0U
 #endif
 
 /** Max bypass streams (matches XSA DC stream count / AVPG table size). */
@@ -149,6 +220,12 @@ extern "C" {
  * Return XSA-fixed PPC (1, 2, or 4) for a bypass stream from xparameters.
  */
 u8 XDpDc_BypassPpcFromXsa(u8 StreamIdx);
+/**
+ * Count contiguous PL AVPG+VTC pairs with non-zero bases (stream 0 upward).
+ *
+ * @return	Usable PL stream count (at least 1 if stream 0 is present, else 0).
+ */
+u8 XDpDc_BypassPlStreamMax(void);
 u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr);
 u32 XDpDc_MmiDcBypassTest(RunConfig *RunCfgPtr);
 

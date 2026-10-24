@@ -2145,9 +2145,19 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     config->livevideosdpen = DcSubCfgPtr->DcConfig.livevideosdpen;
     config->livevideoalphaen = DcSubCfgPtr->DcConfig.livevideoalphaen;
 
+    /*
+     * byp_streams_max is DC stream count intersected with contiguous PL
+     * AVPG+VTC pairs (DcConfig.streams alone is not a PL instance count).
+     */
     config->byp_streams_max = DcSubCfgPtr->DcConfig.streams;
     if (config->byp_streams_max > XDPDC_BYPASS_STREAM_MAX)
         config->byp_streams_max = XDPDC_BYPASS_STREAM_MAX;
+    {
+        u8 PlMax = XDpDc_BypassPlStreamMax();
+
+        if ((PlMax != 0U) && (config->byp_streams_max > PlMax))
+            config->byp_streams_max = PlMax;
+    }
     config->byp_streams = config->byp_streams_max;
 
     if (!config->design_mst_en)
