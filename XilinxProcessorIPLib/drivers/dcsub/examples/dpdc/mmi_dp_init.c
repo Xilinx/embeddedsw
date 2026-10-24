@@ -574,18 +574,20 @@ u32 XDpDc_CheckMstSupport(RunConfig *RunCfgPtr)
 
 /******************************************************************************/
 /**
- * This function sets up one video stream: MSA bits per color, pixel mode,
- * video mapping, and standard video mode timing from RunConfig.
+ * Prepare one DP video stream: MSA bits per color, pixel mode, video mapping,
+ * and standard video mode timing in software state.
+ *
+ * Does not call ConfigureVideoController or EnableVideoStream (those are
+ * batched in RunStreamPolicySetup). Still disables the stream via
+ * XMmiDp_DisableVideoStream() (VSAMPLE_CTRL) before programming.
  *
  * @param	RunCfgPtr is a pointer to the application configuration structure.
  * @param	StreamId is the DP stream ID (XMMIDP_STREAM_ID1..ID4).
  *
- * @return	None.
- *
  * @note	Caller must clear the video controller before the first stream.
  *
 *******************************************************************************/
-void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr, u8 StreamId)
+void XDpDc_PrepareVideoStream(RunConfig *RunCfgPtr, u8 StreamId)
 {
 	XMmiDp *InstancePtr;
 	XDc_VideoFormat DpFormat;
@@ -640,14 +642,6 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr, u8 StreamId)
 					     ColorFormat);
 
 	XDpDc_PrintVideoStreamConfig(InstancePtr, StreamId);
-
-	/* Write to Video Config registers */
-	XMmiDp_ConfigureVideoController(InstancePtr, StreamId);
-
-	/* Enable video stream after all config registers are written */
-	XMmiDp_EnableVideoStream(InstancePtr, StreamId);
-
-	XDpDc_PrintVideoConfigRegs(InstancePtr, StreamId);
 }
 
 /******************************************************************************/
@@ -889,10 +883,28 @@ u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 
 	XMmiDp_ClearVideoController(DpPtr);
 
+	/*
+	 * Batch prepare → configure → enable using one NumStreams bound so
+	 * stream 1 is not transmitting while later streams are still being
+	 * programmed into the shared MTP. For SST (NumStreams == 1) this is
+	 * the same order as a single prepare/configure/enable sequence.
+	 */
 	for (StreamId = XMMIDP_STREAM_ID1;
 	     StreamId < NumStreams + XMMIDP_STREAM_ID1;
 	     StreamId++)
-		XMmiDp_SetupVideoStream(RunCfgPtr, StreamId);
+		XDpDc_PrepareVideoStream(RunCfgPtr, StreamId);
+
+	for (StreamId = XMMIDP_STREAM_ID1;
+	     StreamId < NumStreams + XMMIDP_STREAM_ID1;
+	     StreamId++) {
+		XMmiDp_ConfigureVideoController(DpPtr, StreamId);
+		XDpDc_PrintVideoConfigRegs(DpPtr, StreamId);
+	}
+
+	for (StreamId = XMMIDP_STREAM_ID1;
+	     StreamId < NumStreams + XMMIDP_STREAM_ID1;
+	     StreamId++)
+		XMmiDp_EnableVideoStream(DpPtr, StreamId);
 
 	if (RunCfgPtr->AudioEnable)
 		XMmiDp_SetupAudioStream(RunCfgPtr);
