@@ -247,9 +247,8 @@ u32 XMmiDp_SetSinkDpcdLinkCfgField(XMmiDp *InstancePtr)
 {
 	u32 MaxLinkBW = InstancePtr->LinkConfig.LinkBW;
 	u32 ChannelCodingSet = InstancePtr->LinkConfig.ChannelCodingSet;
-	u8 MstmCtrl = (XMMIDP_DPCD_UPSTREAM_IS_SRC_MASK |
-		       XMMIDP_DPCD_UP_REQ_EN_MASK) |
-		      InstancePtr->RxConfig.MstCap;
+	/* Default SST source: UP_REQ_EN=0, MST_EN=0 */
+	u8 MstmCtrl = 0U;
 
 	/* Link BW Set */
 	XMmiDp_AuxWrite(InstancePtr, XMMIDP_DPCD_LINK_BW_SET,
@@ -283,8 +282,15 @@ u32 XMmiDp_SetSinkDpcdLinkCfgField(XMmiDp *InstancePtr)
 			XMMIDP_DPCD_MAIN_LINK_CHANNEL_CODING_SET,
 			0x1, &ChannelCodingSet);
 
-	/* MultiStream Mode support*/
-	XMmiDp_AuxWrite(InstancePtr, XMMIDP_DPCD_MSTM_CTRL, 0x1, &MstmCtrl);
+	/* MultiStream Mode: default SST; use XMmiDp_SinkMstModeEnable()
+	 * after link training to opt in to MST when sink MST_CAP=1. */
+	XMmiDp_RegReadModifyWrite(InstancePtr, XMMIDP_CCTL0,
+				  XMMIDP_CCTL0_ENABLE_MST_MODE_MASK,
+				  XMMIDP_CCTL0_ENABLE_MST_MODE_SHIFT, 0U);
+	/* MSTM_CTRL (0x111) exists only for DPCD rev >= 1.2 */
+	if (InstancePtr->RxConfig.DpcdRev >= 0x12U)
+		XMmiDp_AuxWrite(InstancePtr, XMMIDP_DPCD_MSTM_CTRL, 0x1,
+				&MstmCtrl);
 
 	return XST_SUCCESS;
 }
