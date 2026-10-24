@@ -10,7 +10,10 @@
  *
  * This file implements the DC Bypass SST mode test. In bypass mode the DC
  * block is bypassed and video from AVPG in PL is routed directly to DP TX.
- * Only SST (stream 0) is enabled in this implementation.
+ *
+ * Architecture is extensible to MST by iterating over additional streams
+ * (indexed by stream number, with per-stream AVPG/VTC/PPC from xparameters),
+ * but only SST (Stream 0) is enabled in this implementation.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -49,6 +52,16 @@ static XVtc BypassVtc0;
 static XDc_VideoTiming VidTiming_1920_1080 = {
 	.HTotal = 2200, .HSWidth = 44, .HRes = 1920, .HStart = 192,
 	.VTotal = 1125, .VSWidth = 5, .VRes = 1080, .VStart = 41
+};
+
+/** PL AVPG base address for bypass stream 0. */
+static const UINTPTR BypassAvpgBase[] = {
+	BYPASS_AVPG_0_BASEADDR,
+};
+
+/** Pixels per clock per bypass stream, from the XSA. */
+static const u8 BypassStreamPpc[] = {
+	XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE,
 };
 
 /*****************************************************************************/
@@ -200,8 +213,9 @@ static u32 XDpDc_BypassInitVtc(RunConfig *RunCfgPtr, XVtc *VtcPtr,
  *
  * XDpDc_BypassConfigureLiveGenerator - Configure AVPG + VTC for bypass SST
  *
- * Programs AVPG stream 0 and VTC for bypass SST. PPC is taken from
- * xparameters.h.
+ * Programs AVPG[0] and VTC for the active bypass stream. PPC is taken from
+ * xparameters.h. Architecture supports MST by extending to iterate over
+ * byp_streams — but only stream 0 is configured here.
  *
  * @param    RunCfgPtr - Run-time configuration. avpg[0] provides bus format.
  *
@@ -210,16 +224,17 @@ static u32 XDpDc_BypassInitVtc(RunConfig *RunCfgPtr, XVtc *VtcPtr,
  *****************************************************************************/
 u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 {
-	UINTPTR AvpgBase = BYPASS_AVPG_0_BASEADDR;
-	u8 StreamPpc = XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE;
+	u8 stream_idx = 0;
+	UINTPTR AvpgBase;
 	u32 Status;
 
+	AvpgBase = BypassAvpgBase[stream_idx];
 	if (AvpgBase == 0) {
-		xil_printf("  ERROR: No AVPG base for stream 0\r\n");
+		xil_printf("  ERROR: No AVPG base for stream %d\r\n", stream_idx);
 		return XST_FAILURE;
 	}
 	if (BYPASS_VTC_0_BASEADDR == 0) {
-		xil_printf("  ERROR: No VTC base for stream 0\r\n");
+		xil_printf("  ERROR: No VTC base for stream %d\r\n", stream_idx);
 		return XST_FAILURE;
 	}
 	if (BYPASS_LIVE_IN_GPIO_BASEADDR == 0) {
@@ -232,20 +247,21 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 		     BYPASS_GPIO_DATA_OFFSET, BYPASS_GPIO_HOLD);
 
 	/* VTC: PPC from xparameters */
-	RunCfgPtr->PPC = StreamPpc;
+	RunCfgPtr->PPC = BypassStreamPpc[stream_idx];
 	Status = XDpDc_BypassInitVtc(RunCfgPtr, &BypassVtc0, BYPASS_VTC_0_BASEADDR);
 	if (Status != XST_SUCCESS)
 		return Status;
 	XVtc_WriteReg(BYPASS_VTC_0_BASEADDR, 0x0, BYPASS_VTC_CTRL_ENABLE);
 
 	/* AVPG: configure and enable */
-	xil_printf("  Bypass AVPG[0]: %s %d-bpc, %d PPC, pattern %d\r\n",
-		   RunCfgPtr->avpg[0].pix_fmt ? "YCbCr422" : "RGB",
-		   RunCfgPtr->avpg[0].bpc,
-		   StreamPpc,
-		   RunCfgPtr->avpg[0].pattern);
+	xil_printf("  Bypass AVPG[%d]: %s %d-bpc, %d PPC, pattern %d\r\n",
+		   stream_idx,
+		   RunCfgPtr->avpg[stream_idx].pix_fmt ? "YCbCr422" : "RGB",
+		   RunCfgPtr->avpg[stream_idx].bpc,
+		   BypassStreamPpc[stream_idx],
+		   RunCfgPtr->avpg[stream_idx].pattern);
 
-	XAvpgSetConfig(AvpgBase, &RunCfgPtr->avpg[0],
+	XAvpgSetConfig(AvpgBase, &RunCfgPtr->avpg[stream_idx],
 		       RunCfgPtr->Width, RunCfgPtr->Height);
 	XAvpg_WriteReg(AvpgBase, XAV_PATGEN_EN, 0x1);
 
@@ -327,7 +343,7 @@ u32 InitBypassPlatform(RunConfig *RunCfgPtr)
 	}
 
 	/* Restore full pixel clock for DP MSA / downstream */
-	RunCfgPtr->PixelClkHz *= XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE;
+	RunCfgPtr->PixelClkHz *= BypassStreamPpc[0];
 
 	/* DC subsystem init */
 	xil_printf("  Configuring DC subsystem (bypass)...\r\n");
@@ -375,15 +391,14 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 
 	RunCfgPtr->byp_streams = 1;
 	RunCfgPtr->livevidselect = XDCSUB_LIVVID_SEL_V01;
-	RunCfgPtr->PPC = XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE;
-	RunCfgPtr->avpg[0].ppc = (XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE == 4) ? 1 : 0;
+	RunCfgPtr->PPC = BypassStreamPpc[0];
+	RunCfgPtr->avpg[0].ppc = (BypassStreamPpc[0] == 4) ? 1 : 0;
 	XDpDc_BypassSetStream0Format(RunCfgPtr); /* AVPG stream 0 -> Stream1Format */
 
 	xil_printf("\r\n========================================\r\n");
 	xil_printf("DisplayPort DC Bypass SST Video Test\r\n");
 	xil_printf("  Stream 0: LIVE (AVPG), %dx%d, %d PPC\r\n",
-		   RunCfgPtr->Width, RunCfgPtr->Height,
-		   XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE);
+		   RunCfgPtr->Width, RunCfgPtr->Height, BypassStreamPpc[0]);
 	xil_printf("========================================\r\n\r\n");
 
 	/* Instance setup */
@@ -425,7 +440,7 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 	 * The clk wiz output drives the PL video pipeline and
 	 * pl_mmi_dc_1x_clk directly, so it must run at pixel_clock / PPC.
 	 */
-	RunCfgPtr->PixelClkHz /= XPAR_XDCSUB_0_DC_STREAM0_PIXEL_MODE;
+	RunCfgPtr->PixelClkHz /= BypassStreamPpc[0];
 
 	return XST_SUCCESS;
 }
