@@ -389,16 +389,27 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 		return XST_INVALID_PARAM;
 	}
 
-	RunCfgPtr->byp_streams = 1;
+	/* Dp Tx init: honor menu stream count on MST designs;SST-only uses 1 */
+	if(!RunCfgPtr->DesignMstEn)
+		RunCfgPtr->byp_streams = 1;
+
 	RunCfgPtr->livevidselect = XDCSUB_LIVVID_SEL_V01;
 	RunCfgPtr->PPC = BypassStreamPpc[0];
 	RunCfgPtr->avpg[0].ppc = (BypassStreamPpc[0] == 4) ? 1 : 0;
 	XDpDc_BypassSetStream0Format(RunCfgPtr); /* AVPG stream 0 -> Stream1Format */
 
 	xil_printf("\r\n========================================\r\n");
-	xil_printf("DisplayPort DC Bypass SST Video Test\r\n");
+
+	if(RunCfgPtr->DesignMstEn)
+		xil_printf("DisplayPort DC Bypass MST Video Test\r\n");
+	else
+		xil_printf("DisplayPort DC Bypass SST Video Test\r\n");
 	xil_printf("  Stream 0: LIVE (AVPG), %dx%d, %d PPC\r\n",
 		   RunCfgPtr->Width, RunCfgPtr->Height, BypassStreamPpc[0]);
+
+	if(RunCfgPtr->DesignMstEn)
+		xil_printf(" Active Streams: %d\r\n", RunCfgPtr->byp_streams);
+
 	xil_printf("========================================\r\n\r\n");
 
 	/* Instance setup */
@@ -477,7 +488,8 @@ u32 XDpDc_MmiDcBypassTest(RunConfig *RunCfgPtr)
 		return Status;
 	}
 
-	xil_printf("\r\n  Bypass SST mode active.\r\n");
+	xil_printf("\r\n  Bypass %s mode active.\r\n", RunCfgPtr->DesignMstEn ? "MST" : "SST");
+
 	return XST_SUCCESS;
 }
 

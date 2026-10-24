@@ -431,6 +431,89 @@ static void XDpDc_PrintVideoStreamConfig(XMmiDp *InstancePtr, u8 Stream)
 		   Vc->InitThreshold, Vc->InitThresholdHi);
 }
 
+
+/******************************************************************************/
+/**
+ * Read SDT xlnx,mst-mode-en for the DP Tx instance (1=MST design, 0=SST-only).
+ *
+ * @return	1 if the design is MST-capable, 0 if SST-only.
+ *
+ ******************************************************************************/
+u32 XDpDc_GetDesignMstEn(void)
+{
+	u32 DesignMstEn;
+
+#if defined(XPAR_MMI_DPTX_MST_MODE_EN)
+	DesignMstEn = (u32)XPAR_MMI_DPTX_MST_MODE_EN;
+	xil_printf("[MSTM] DesignMstEn=%u (SDT via XPAR_MMI_DPTX_MST_MODE_EN)\r\n",
+		   DesignMstEn);
+#elif defined(XPAR_XMMIDP_0_MST_MODE_EN)
+	DesignMstEn = (u32)XPAR_XMMIDP_0_MST_MODE_EN;
+	xil_printf("[MSTM] DesignMstEn=%u (SDT via XPAR_XMMIDP_0_MST_MODE_EN)\r\n",
+		   DesignMstEn);
+#elif defined(XPAR_XMMIDP_NUM_INSTANCES) && (XPAR_XMMIDP_NUM_INSTANCES > 0)
+	extern XMmiDp_Config XMmiDp_ConfigTable[];
+
+	DesignMstEn = (u32)XMmiDp_ConfigTable[0].MstModeEn;
+	xil_printf("[MSTM] DesignMstEn=%u (SDT via XMmiDp_ConfigTable[0].MstModeEn)\r\n",
+		   DesignMstEn);
+#else
+	DesignMstEn = 0U;
+	xil_printf("[MSTM] DesignMstEn=0 (default, no SDT MST define)\r\n");
+#endif
+
+	return DesignMstEn;
+}
+
+/******************************************************************************/
+/**
+ * Set RunCfgPtr->MstMode from SDT mst-mode-en and sink MST_CAP.
+ *
+ * SST-only design (mst-mode-en=0): MstMode=0 always.
+ * MST design (mst-mode-en=1): MstMode=1 if MST_CAP=1, else connect fails.
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration structure.
+ *
+ * @return	XST_SUCCESS if policy is valid, XST_FAILURE otherwise.
+ *
+*******************************************************************************/
+u32 XDpDc_CheckMstSupport(RunConfig *RunCfgPtr)
+{
+	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
+
+	RunCfgPtr->MstMode = 0U;
+
+	xil_printf("[MSTM] CheckMstSupport: DesignMstEn=%u byp_streams=%u\r\n",
+		   RunCfgPtr->DesignMstEn, RunCfgPtr->byp_streams);
+
+	if (!RunCfgPtr->DesignMstEn) {
+		xil_printf("[MSTM] Policy: SST-only design -> MstMode=0 (SST link)\r\n");
+		return XST_SUCCESS;
+	}
+
+	xil_printf("[MSTM] Policy: MST design, reading sink MST_CAP (DPCD 0x21)...\r\n");
+	if (XMmiDp_GetRxMstModeCap(InstancePtr) != XST_SUCCESS) {
+		xil_printf("[MSTM] ERROR: Failed to read MST_CAP. "
+			   "Connect an MST sink.\r\n");
+		return XST_FAILURE;
+	}
+
+	xil_printf("[MSTM] Policy: sink MST_CAP=%u\r\n",
+		   InstancePtr->RxConfig.MstCap);
+
+	if (InstancePtr->RxConfig.MstCap == 0U) {
+		xil_printf("[MSTM] ERROR: MST design requires an MST-capable sink. "
+			   "Connect an MST sink.\r\n");
+		return XST_FAILURE;
+	}
+
+	RunCfgPtr->MstMode = 1U;
+	xil_printf("[MSTM] Policy: MST design + MST_CAP=1 -> MstMode=1 "
+		   "(MST link, byp_streams=%u)\r\n", RunCfgPtr->byp_streams);
+
+	return XST_SUCCESS;
+}
+
 /******************************************************************************/
 /**
  * This function sets up the video stream by clearing the video controller,
@@ -461,6 +544,11 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 	XMmiDp_DisableVideoStream(InstancePtr, XMMIDP_STREAM_ID1);
 
 	XMmiDp_ClearVideoController(InstancePtr);
+
+	xil_printf("[MSTM] SetControllerMstModeEn: stream=%u MstModeEn=%u "
+		   "(TU/PBN path)\r\n", XMMIDP_STREAM_ID1, RunCfgPtr->MstMode);
+	XMmiDp_SetControllerMstModeEn(InstancePtr, XMMIDP_STREAM_ID1,
+				      RunCfgPtr->MstMode);
 
 	XMmiDp_SetMsaBpc(InstancePtr, XMMIDP_STREAM_ID1, Bpc);
 
@@ -687,6 +775,26 @@ u32 XDpDc_RunLinkPolicySetup(RunConfig *RunCfgPtr)
 u32 XDpDc_RunStreamPolicySetup(RunConfig *RunCfgPtr)
 {
 	XMmiDp *DpPtr = RunCfgPtr->DpPsuPtr;
+	u32 Status;
+
+	Status = XDpDc_CheckMstSupport(RunCfgPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("[HPD] ERROR: Sink mode policy failed\r\n");
+		return XST_FAILURE;
+	}
+
+	xil_printf("[MSTM] RunStreamPolicySetup: MstMode=%u\r\n", RunCfgPtr->MstMode);
+
+	if (RunCfgPtr->MstMode) {
+		xil_printf("[MSTM] Enabling MST on sink (DPCD) and TX (CCTL0)...\r\n");
+		Status = XMmiDp_SinkMstModeEnable(DpPtr);
+		if (Status != XST_SUCCESS) {
+			xil_printf("[HPD] ERROR: Failed to enable MST mode\r\n");
+			return XST_FAILURE;
+		}
+	} else {
+		xil_printf("[MSTM] SST link: skipping sink/TX MST enable\r\n");
+	}
 
 	XMmiDp_SetupVideoStream(RunCfgPtr);
 	if (RunCfgPtr->AudioEnable)

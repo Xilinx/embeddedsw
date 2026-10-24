@@ -286,6 +286,11 @@ static u32 XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfig
     runConfig->livevideoalphaen = userConfig->livevideoalphaen;
     runConfig->livevideosdpen = userConfig->livevideosdpen;
     runConfig->byp_streams = userConfig->byp_streams;
+    runConfig->DesignMstEn = (u8)XDpDc_GetDesignMstEn();
+    runConfig->MstMode = 0U;
+
+    if (!runConfig->DesignMstEn)
+        runConfig->byp_streams = 1U;
 
     for (idx = 0; idx < 4; idx++) {
         runConfig->avpg[idx].bpc = userConfig->avpg[idx].bpc;
@@ -631,8 +636,12 @@ restart:
 #endif
     }
 #if defined (XPAR_XVTC_NUM_INSTANCES)
-    if (RunCfg.operatingmode == XDCSUB_OPMODE_BYPASS)
-        xil_printf("MMI_DC_BYPASS_SST_TEST\r\n");
+    if (RunCfg.operatingmode == XDCSUB_OPMODE_BYPASS) {
+        if (RunCfg.DesignMstEn)
+            xil_printf("MMI_DC_BYPASS_MST_TEST\r\n");
+        else
+            xil_printf("MMI_DC_BYPASS_SST_TEST\r\n");
+    }
 #endif
 
     xil_printf("\r\n");
