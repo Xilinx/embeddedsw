@@ -316,8 +316,8 @@ static u32 XDpDc_BypassInitVtc(RunConfig *RunCfgPtr, XVtc *VtcPtr,
  *****************************************************************************/
 u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 {
-	u8 stream_idx;
-	u8 num_streams = 1U;
+	u8 StreamIdx;
+	u8 NumStreams = 1U;
 	u8 SavedPpc;
 	u8 PlMax;
 	u32 Status = XST_SUCCESS;
@@ -327,13 +327,13 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 	 * sink discovery, when MstMode is still 0.
 	 */
 	if (RunCfgPtr->DesignMstEn)
-		num_streams = RunCfgPtr->byp_streams;
-	if ((num_streams == 0U) || (num_streams > BYPASS_MAX_STREAMS))
-		num_streams = 1U;
+		NumStreams = RunCfgPtr->byp_streams;
+	if ((NumStreams == 0U) || (NumStreams > BYPASS_MAX_STREAMS))
+		NumStreams = 1U;
 
 	PlMax = XDpDc_BypassPlStreamMax();
-	if ((PlMax != 0U) && (num_streams > PlMax))
-		num_streams = PlMax;
+	if ((PlMax != 0U) && (NumStreams > PlMax))
+		NumStreams = PlMax;
 
 	if (BYPASS_LIVE_IN_GPIO_BASEADDR == 0) {
 		xil_printf("  ERROR: No live input GPIO base in xparameters\r\n");
@@ -341,15 +341,15 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 	}
 
 	/* Validate all bases before programming any stream. */
-	for (stream_idx = 0U; stream_idx < num_streams; stream_idx++) {
-		if (BypassAvpgBase[stream_idx] == 0U) {
+	for (StreamIdx = 0U; StreamIdx < NumStreams; StreamIdx++) {
+		if (BypassAvpgBase[StreamIdx] == 0U) {
 			xil_printf("  ERROR: No AVPG base for stream %u\r\n",
-				   stream_idx);
+				   StreamIdx);
 			return XST_FAILURE;
 		}
-		if (BypassVtcBase[stream_idx] == 0U) {
+		if (BypassVtcBase[StreamIdx] == 0U) {
 			xil_printf("  ERROR: No VTC base for stream %u\r\n",
-				   stream_idx);
+				   StreamIdx);
 			return XST_FAILURE;
 		}
 	}
@@ -360,15 +360,15 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 
 	SavedPpc = RunCfgPtr->PPC;
 
-	for (stream_idx = 0U; stream_idx < num_streams; stream_idx++) {
-		UINTPTR AvpgBase = BypassAvpgBase[stream_idx];
-		UINTPTR VtcBase = BypassVtcBase[stream_idx];
-		u8 PhysPpc = XDpDc_BypassPpcFromXsa(stream_idx);
+	for (StreamIdx = 0U; StreamIdx < NumStreams; StreamIdx++) {
+		UINTPTR AvpgBase = BypassAvpgBase[StreamIdx];
+		UINTPTR VtcBase = BypassVtcBase[StreamIdx];
+		u8 PhysPpc = XDpDc_BypassPpcFromXsa(StreamIdx);
 
 		xil_printf("  Bypass stream %u source: AVPG=0x%08X VTC=0x%08X\r\n",
-			   stream_idx, (u32)AvpgBase, (u32)VtcBase);
+			   StreamIdx, (u32)AvpgBase, (u32)VtcBase);
 
-		Status = XDpDc_BypassInitVtc(RunCfgPtr, &BypassVtc[stream_idx],
+		Status = XDpDc_BypassInitVtc(RunCfgPtr, &BypassVtc[StreamIdx],
 					     VtcBase, PhysPpc);
 		if (Status != XST_SUCCESS) {
 			RunCfgPtr->PPC = SavedPpc;
@@ -377,15 +377,15 @@ u32 XDpDc_BypassConfigureLiveGenerator(RunConfig *RunCfgPtr)
 		XVtc_WriteReg(VtcBase, 0x0, BYPASS_VTC_CTRL_ENABLE);
 
 		xil_printf("  Bypass AVPG[%u]: %s %d-bpc, %d PPC, pattern %d\r\n",
-			   stream_idx,
-			   RunCfgPtr->avpg[stream_idx].pix_fmt ? "YCbCr422" :
+			   StreamIdx,
+			   RunCfgPtr->avpg[StreamIdx].pix_fmt ? "YCbCr422" :
 								 "RGB",
-			   RunCfgPtr->avpg[stream_idx].bpc,
+			   RunCfgPtr->avpg[StreamIdx].bpc,
 			   PhysPpc,
-			   RunCfgPtr->avpg[stream_idx].pattern);
+			   RunCfgPtr->avpg[StreamIdx].pattern);
 
-		RunCfgPtr->avpg[stream_idx].ppc = XDpDc_BypassAvpgPpcFlag(PhysPpc);
-		XDpDc_BypassProgramAvpg(AvpgBase, &RunCfgPtr->avpg[stream_idx],
+		RunCfgPtr->avpg[StreamIdx].ppc = XDpDc_BypassAvpgPpcFlag(PhysPpc);
+		XDpDc_BypassProgramAvpg(AvpgBase, &RunCfgPtr->avpg[StreamIdx],
 					RunCfgPtr->Width, RunCfgPtr->Height,
 					PhysPpc);
 		XAvpg_WriteReg(AvpgBase, XAV_PATGEN_EN, 0x1);
@@ -552,7 +552,7 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 	const XVidC_VideoTimingMode *Vtm;
 	XDc *DcPtr;
 	u32 Status;
-	u8 stream_idx;
+	u8 StreamIdx;
 
 	if (RunCfgPtr->operatingmode != XDCSUB_OPMODE_BYPASS) {
 		xil_printf("%s: Invalid config\r\n", __func__);
@@ -575,10 +575,10 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 	RunCfgPtr->livevidselect = XDCSUB_LIVVID_SEL_V01;
 	RunCfgPtr->PPC = XDpDc_BypassPpcFromXsa(0U);
 
-	for (stream_idx = 0U; stream_idx < BYPASS_MAX_STREAMS; stream_idx++) {
-		u8 ppc = XDpDc_BypassPpcFromXsa(stream_idx);
+	for (StreamIdx = 0U; StreamIdx < BYPASS_MAX_STREAMS; StreamIdx++) {
+		u8 Ppc = XDpDc_BypassPpcFromXsa(StreamIdx);
 
-		RunCfgPtr->avpg[stream_idx].ppc = XDpDc_BypassAvpgPpcFlag(ppc);
+		RunCfgPtr->avpg[StreamIdx].ppc = XDpDc_BypassAvpgPpcFlag(Ppc);
 	}
 
 	XDpDc_BypassSetStream0Format(RunCfgPtr); /* AVPG stream 0 -> Stream1Format */
@@ -593,13 +593,13 @@ u32 InitBypassRunConfig(RunConfig *RunCfgPtr)
 		xil_printf("DisplayPort DC Bypass MST Video Test\r\n");
 	else
 		xil_printf("DisplayPort DC Bypass SST Video Test\r\n");
-	for (stream_idx = 0U; stream_idx < RunCfgPtr->byp_streams; stream_idx++) {
+	for (StreamIdx = 0U; StreamIdx < RunCfgPtr->byp_streams; StreamIdx++) {
 		xil_printf("  Stream %u: LIVE (AVPG), %dx%d, %d PPC\r\n",
-			   stream_idx, RunCfgPtr->Width, RunCfgPtr->Height,
-			   XDpDc_BypassPpcFromXsa(stream_idx));
+			   StreamIdx, RunCfgPtr->Width, RunCfgPtr->Height,
+			   XDpDc_BypassPpcFromXsa(StreamIdx));
 		xil_printf("  Stream %u source: AVPG=0x%08X VTC=0x%08X\r\n",
-			   stream_idx, (u32)BypassAvpgBase[stream_idx],
-			   (u32)BypassVtcBase[stream_idx]);
+			   StreamIdx, (u32)BypassAvpgBase[StreamIdx],
+			   (u32)BypassVtcBase[StreamIdx]);
 	}
 
 	if (RunCfgPtr->DesignMstEn)
