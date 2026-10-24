@@ -83,6 +83,8 @@
 #define XMMIDP_MST_VCP_STREAM_ID_BITS		4U
 /** Byte stride between MST_VCP_TABLE_REG0 and REG7. */
 #define XMMIDP_MST_VCP_REG_STRIDE		4U
+/** 0x3F = all 63 payload slots; DP 1.4 full-table clear. */
+#define XMMIDP_DPCD_PAYLOAD_CLEAR_SLOT_COUNT	0x3FU
 
 /* TU threshold boundaries */
 #define XMMIDP_TU_LOW_AVG_BOUNDARY		16
@@ -2192,6 +2194,59 @@ static void XMmiDp_WriteMstVcpTableRegs(XMmiDp *InstancePtr,
 				(RegIdx * XMMIDP_MST_VCP_REG_STRIDE),
 				RegVal);
 	}
+}
+
+/******************************************************************************/
+/**
+ * Clears the TX and immediate sink VC payload ID tables.
+ *
+ * TX: zero MST_VCP_TABLE_REG0..REG7 via XMmiDp_WriteMstVcpTableRegs().
+ * Sink: DP 1.4 VcId=0 DPCD allocate (start slot 0, slot count 0x3F).
+ * Sideband CLEAR_PAYLOAD_ID_TABLE is not used in this series.
+ *
+ * Clears only VC_PAYLOAD_ID_UPDATED at PAYLOAD_TABLE_UPDATE_STATUS (0x2C0);
+ * ACT_HANDLED is left unchanged so a later WaitActHandledStatus() can observe
+ * it (this clear typically runs first on a new HPD MST path).
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ *
+ * @return	XST_SUCCESS if the tables were cleared; otherwise the AUX status
+ *		from the failing write or poll.
+ *
+ * @note	Call only when MST is in use (MST-capable design / sink). SST
+ *		payload DPCD registers are undefined.
+ * @note	Does not clear MstStreamConfig[] (TimeSlots, StartSlot, MstPbn);
+ *		the caller must refresh active-stream state after clear.
+ *
+ ******************************************************************************/
+u32 XMmiDp_ClearPayloadVcIdTable(XMmiDp *InstancePtr)
+{
+	u8 AuxData[3];
+	u8 VcpSlotStreamId[XMMIDP_MST_VC_SLOT_COUNT];
+	u32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	memset(VcpSlotStreamId, 0, sizeof(VcpSlotStreamId));
+	XMmiDp_WriteMstVcpTableRegs(InstancePtr, VcpSlotStreamId);
+
+	AuxData[0] = XMMIDP_DPCD_VC_PAYLOAD_ID_UPDATED_MASK;
+	Status = XMmiDp_AuxWrite(InstancePtr,
+				 XMMIDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS,
+				 1, AuxData);
+	if (Status != XST_SUCCESS)
+		return Status;
+
+	AuxData[0] = 0U;
+	AuxData[1] = 0U;
+	AuxData[2] = XMMIDP_DPCD_PAYLOAD_CLEAR_SLOT_COUNT;
+	Status = XMmiDp_AuxWrite(InstancePtr,
+				 XMMIDP_DPCD_PAYLOAD_ALLOCATE_SET,
+				 3, AuxData);
+	if (Status != XST_SUCCESS)
+		return Status;
+
+	return XMmiDp_WaitPayloadTableUpdateStatus(InstancePtr);
 }
 
 /******************************************************************************/

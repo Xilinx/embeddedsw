@@ -637,6 +637,18 @@ u8 XMmiDp_ComputeTimeSlot(XMmiDp *InstancePtr, u8 Stream);
  */
 u32 XMmiDp_SetSinkVcPayloadTable(XMmiDp *InstancePtr, u8 Stream);
 /**
+ * Clear TX and immediate sink VC payload ID tables.
+ *
+ * @param	InstancePtr is a pointer to the XMmiDp instance.
+ *
+ * @return	XST_SUCCESS, or AUX status from a failing write/poll.
+ *
+ * @note	MST only. Clears VC_PAYLOAD_ID_UPDATED at 0x2C0 only (not
+ *		ACT_HANDLED). Does not reset MstStreamConfig[]. No sideband
+ *		CLEAR_PAYLOAD_ID_TABLE.
+ */
+u32 XMmiDp_ClearPayloadVcIdTable(XMmiDp *InstancePtr);
+/**
  * Program TX MST VC payload table (REG0..REG7) for streams 1 through Stream.
  *
  * @param	InstancePtr is a pointer to the XMmiDp instance.
