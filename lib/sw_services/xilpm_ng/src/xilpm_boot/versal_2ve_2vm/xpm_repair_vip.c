@@ -2,7 +2,7 @@
  * Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
-/*  File name: xpm_repair_svip.c
+/*  File name: xpm_repair_vip.c
  *  THIS FILE IS DESIGNED BY GOQ FIRMWARE TEAM FOR PLM SPECIALLY
  *  It is used for VIP module repair   */
 
