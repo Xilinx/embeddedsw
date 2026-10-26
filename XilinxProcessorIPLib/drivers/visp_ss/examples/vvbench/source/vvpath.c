@@ -283,7 +283,7 @@ int VsiVvdeviceOutPutPathCreate
 		if (CAMDEV_BUFMODE_USERPTR == buffMode) {
 			for (int bufIdx = 0; bufIdx < bufferNumber; bufIdx++) {
 				LOGI("NOTE: APU is allocating the buffer for output buffer chains!!\n"
-				     "Check if Heap size can hold all buffers !!\n", allocateBufSize);
+				     "Check if Heap size can hold all buffers !!\n");
 
 				vvpath_aligned_malloc(allocateBufSize, pVvInstance->camDevInfo[instanceId].alignMask,
 						      &tmp_mp_alloc_arry[instanceId][bufIo][bufIdx]);
@@ -814,7 +814,7 @@ int VsiVvdeviceInputPathCreate
 
 
 				LOGI("NOTE: APU is allocating the buffer for input buffer chains!!\n"
-				     "Check if Heap size can hold all buffers !!\n", allocateBufSize);
+				     "Check if Heap size can hold all buffers !!\n");
 				vvpath_aligned_malloc(allocateBufSize, pVvInstance->camDevInfo[instanceId].alignMask,
 						      &tmp_mp_alloc_arry[instanceId][bufIo][bufIdx]);
 

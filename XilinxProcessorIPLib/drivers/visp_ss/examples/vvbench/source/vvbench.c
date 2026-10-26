@@ -141,7 +141,7 @@ int get_argc(int argc, int min, int max)
 	FIL pFile;
 	FRESULT Res;
 	char readBuf[256] = {0};
-	int32_t NumBytesRead = 0;
+	UINT NumBytesRead = 0;
 	bool user_input = false;
 	int new_argc = 0;
 

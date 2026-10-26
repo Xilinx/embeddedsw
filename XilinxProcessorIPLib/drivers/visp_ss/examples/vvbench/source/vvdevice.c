@@ -471,7 +471,7 @@ int VsiVvdeviceExecuteCaseline
 		camConfig.ispHwId = caseCtx->instanceCfgCtx[index].hpId;
 		camConfig.inputCfg.inputType = caseCtx->instanceCfgCtx[index].inputType;
 		MEMCPY(camConfig.inputCfg.inputDevName, caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorName,
-		       sizeof(CAMDEV_INPUT_DEV_NAME_LEN));
+		       sizeof(camConfig.inputCfg.inputDevName));
 #ifdef APU_CORE
 		if (selectDestinationCore(camConfig.ispHwId) != XST_SUCCESS) {
 			LOGE("selectDestinationCore failed for ISP %d", camConfig.ispHwId);
@@ -1151,7 +1151,7 @@ int VsiVvdeviceExecuteCaseline
 			TDatabaseRegister_t *pRegister = pRegisterDump->pRegisters + i;
 
 			unsigned int address = strtol(pRegister->address, NULL, 16);
-			unsigned int value = strtol(pRegister->value, NULL, 16);
+			uint32_t value = strtol(pRegister->value, NULL, 16);
 
 			if (pRegister->isReadAction) {
 				result = VsiCamDeviceReadRegister(pVvbenchInstance->hCamDevice[index], address, &value);
@@ -1159,7 +1159,7 @@ int VsiVvdeviceExecuteCaseline
 					LOGE("VsiCamDeviceReadRegister failed!");
 					return -1;
 				}
-				LOGI("VsiCamDeviceReadRegister: address:0x%x  value:0x%x !", address, value);
+				LOGI("VsiCamDeviceReadRegister: address:0x%x  value:0x%x !", address, (unsigned int)value);
 			}
 			else {
 				result = VsiCamDeviceWriteRegister(pVvbenchInstance->hCamDevice[index], address, value);
@@ -1167,7 +1167,7 @@ int VsiVvdeviceExecuteCaseline
 					LOGE("VsiCamDeviceWriteRegister failed!");
 					return -1;
 				}
-				LOGI("VsiCamDeviceWriteRegister: address:0x%x  value:0x%x !", address, value);
+				LOGI("VsiCamDeviceWriteRegister: address:0x%x  value:0x%x !", address, (unsigned int)value);
 			}
 		}
 
