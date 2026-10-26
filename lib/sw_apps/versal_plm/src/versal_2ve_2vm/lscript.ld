@@ -7,7 +7,6 @@
 
 INCLUDE "xpm_memory_pools.ld"
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
-_HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
 _USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x4000;
 _PLM_UPDATE_CODE_SIZE = DEFINED(_PLM_UPDATE_CODE_SIZE) ? _PLM_UPDATE_CODE_SIZE : 0x200;
 _PROCBUFFER_SIZE = DEFINED(_PROCBUFFER_SIZE) ? _PROCBUFFER_SIZE : 0x3400;
@@ -227,14 +226,6 @@ _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
 /* Generate Stack and Heap definitions */
-
-.heap (NOLOAD) : {
-   . = ALIGN(8);
-   _heap = .;
-   _heap_start = .;
-   . += _HEAP_SIZE;
-   _heap_end = .;
-} > tmr_ram_cntlr_Mem
 
 .stack (NOLOAD) : {
    _stack_end = .;
