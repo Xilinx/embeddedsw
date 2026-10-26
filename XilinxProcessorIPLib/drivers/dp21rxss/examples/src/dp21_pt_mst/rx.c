@@ -41,6 +41,9 @@ extern volatile u8 rx_trained;
 extern u8 tx_after_rx;
 extern u8 Video_valid;
 extern u8 tx_done;
+extern volatile u8 Vblank_stream[4];	/**< Per-stream VBlank counters */
+extern volatile u32 Rx_Vsc_Payload[4];	/**< Per-stream VSC SDP DB16..18 word */
+extern volatile u8  Rx_Vsc_Valid[4];	/**< Per-stream VSC SDP captured flag */
 extern void mask_intr (void);
 extern Video_CRC_Config VidFrameCRC_rx;		/**< Video Frame CRC instance */
 extern Video_CRC_Config VidFrameCRC_rx_1;	/**< Video Frame CRC instance */
@@ -97,7 +100,7 @@ u32 DpRxSs_Setup(void)
 	 */
 	ReadVal = Dp21RxSs_PtMst_Read(DpRxSsInst.DpPtr->Config.BaseAddr, 0xD0);
 
-	xil_printf("0XD0=%x\r\n", ReadVal);
+	//xil_printf("0XD0=%x\r\n", ReadVal);
 
 	Dp21RxSs_PtMst_Write(DpRxSsInst.DpPtr->Config.BaseAddr, 0xD0, ReadVal);
 
@@ -316,6 +319,18 @@ u32 DpRxSs_SetupIntrSystem(void)
 			    &DpRxSs_InfoPacketHandler, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,
 			    &DpRxSs_ExtPacketHandler, &DpRxSsInst);
+	/*
+	 * Per-stream EXT_PKT (SDP) callbacks for streams 2-4 so each stream's
+	 * VSC colorimetry (YUV420/BPC) is captured at packet-arrival time. Only
+	 * stream 1's EXT_PKT is exposed by the RXSS wrapper; streams 2-4 are
+	 * registered directly on the DP driver.
+	 */
+	XDp_RxSetCallback(DpRxSsInst.DpPtr, XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_2,
+			  &DpRxSs_ExtPacketHandlerStream2, &DpRxSsInst);
+	XDp_RxSetCallback(DpRxSsInst.DpPtr, XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_3,
+			  &DpRxSs_ExtPacketHandlerStream3, &DpRxSsInst);
+	XDp_RxSetCallback(DpRxSsInst.DpPtr, XDP_RX_HANDLER_AUD_EXTPKTRECV_STREAM_4,
+			  &DpRxSs_ExtPacketHandlerStream4, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REQ_EVENT,
 			    &Dprx_InterruptHandlerDownReq, &DpRxSsInst);
 	XDpRxSs_SetCallBack(&DpRxSsInst, XDPRXSS_HANDLER_DP_DWN_REP_EVENT,
@@ -460,6 +475,8 @@ void DpRxSs_NoVideoHandler(void *InstancePtr)
 #endif
 	Video_valid = 0;
 	DpRxSsInst.VBlankCount = 0;
+	/* Re-arm per-stream detection gating for the next video cycle. */
+	Vblank_stream[0] = Vblank_stream[1] = Vblank_stream[2] = Vblank_stream[3] = 0;
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr,
 			      XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 	XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
@@ -551,24 +568,32 @@ void DpRxSs_VerticalBlankHandler(void *InstancePtr)
 {
 	(void)InstancePtr;
 	DpRxSsInst.VBlankCount++;
+	if (Vblank_stream[0] < 0xFF)
+		Vblank_stream[0]++;
 }
 
 void DpRxSs_VerticalBlank1Handler(void *InstancePtr)
 {
 	(void)InstancePtr;
 	DpRxSsInst.VBlankCount++;
+	if (Vblank_stream[1] < 0xFF)
+		Vblank_stream[1]++;
 }
 
 void DpRxSs_VerticalBlank2Handler(void *InstancePtr)
 {
 	(void)InstancePtr;
 	DpRxSsInst.VBlankCount++;
+	if (Vblank_stream[2] < 0xFF)
+		Vblank_stream[2]++;
 }
 
 void DpRxSs_VerticalBlank3Handler(void *InstancePtr)
 {
 	(void)InstancePtr;
 	DpRxSsInst.VBlankCount++;
+	if (Vblank_stream[3] < 0xFF)
+		Vblank_stream[3]++;
 }
 
 /*****************************************************************************/
@@ -589,6 +614,10 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 {
 	(void)InstancePtr;
 	Video_valid = 0;
+
+	/* New link coming: drop any per-stream VSC colorimetry captured before. */
+	Rx_Vsc_Valid[0] = Rx_Vsc_Valid[1] =
+	Rx_Vsc_Valid[2] = Rx_Vsc_Valid[3] = 0;
 
 	/*
 	 * Reset CRC Test Counter in DP DPCD Space
@@ -661,6 +690,7 @@ void DpRxSs_TrainingLostHandler(void *InstancePtr)
 #endif
 	DpRxSsInst.link_up_trigger = 0;
 	DpRxSsInst.VBlankCount = 0;
+	Vblank_stream[0] = Vblank_stream[1] = Vblank_stream[2] = Vblank_stream[3] = 0;
 	Dp21RxSs_PtMst_Write(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x80);
 	Dp21RxSs_PtMst_Write(DpRxSsInst.DpPtr->Config.BaseAddr, 0x1C, 0x0);
 	tx_done = 0;
@@ -723,6 +753,8 @@ void DpRxSs_TrainingDoneHandler(void *InstancePtr)
 
 	DpRxSsInst.link_up_trigger = 1;
 	DpRxSsInst.VBlankCount = 0;
+	/* Fresh link: wait for all streams before declaring detection ready. */
+	Vblank_stream[0] = Vblank_stream[1] = Vblank_stream[2] = Vblank_stream[3] = 0;
 	rx_unplugged = 0;
 
 	XDp_RxInterruptEnable(DpRxSsInst.DpPtr, XDP_RX_INTERRUPT_MASK_VIDEO_MASK);
@@ -1288,11 +1320,76 @@ void DpRxSs_InfoPacketHandler(void *InstancePtr)
 			hdr_if_frame[i] = w[i];
 		}
 		if (!hdr_if_valid) {
-			xil_printf("0x87 (DRM/static-HDR) InfoFrame received\r\n");
+			//xil_printf("0x87 (DRM/static-HDR) InfoFrame received\r\n");
 		}
 		hdr_if_valid = 1;
 		rx_drm_if_count++;
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Capture one stream's VSC SDP colorimetry word (DB16..DB18) at packet-arrival
+* time. YUV420/BPC/colorimetry are carried only in the VSC SDP; reading the
+* per-stream colour-format register here (right when that stream's EXT_PKT
+* fires) avoids the one-shot latch race in GetMsa that made streams 3/4 miss
+* YUV420. The value is stored sticky and consumed by DetectResolution and the
+* TX forwarder. Each stream reads its own register, so there is no shared-FIFO
+* aliasing between streams.
+*
+* @param	Stream is the 1-based RX stream id (XDP_RX_STREAM_ID1..4).
+*
+* @return	None.
+*
+******************************************************************************/
+static void Dprx_CaptureStreamVsc(u8 Stream)
+{
+	u32 Val;
+
+	if (Stream < XDP_RX_STREAM_ID1 || Stream > XDP_RX_STREAM_ID4)
+		return;
+
+	if (Stream == XDP_RX_STREAM_ID1) {
+		Val = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				  XDP_RX_SDP_PAYLOAD_STREAM1);
+	} else {
+		Val = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+				  XDP_RX_VSC_COLOR_FORMAT_STREAM1 +
+				  4 * (Stream - XDP_RX_STREAM_ID1));
+		if (Val == 0)
+			Val = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr,
+					  XDP_RX_SDP_PAYLOAD_STREAM1);
+	}
+
+	Rx_Vsc_Payload[Stream - XDP_RX_STREAM_ID1] = Val;
+	Rx_Vsc_Valid[Stream - XDP_RX_STREAM_ID1] = 1;
+}
+
+/*****************************************************************************/
+/**
+*
+* Per-stream EXT_PKT (SDP) callbacks for streams 2, 3 and 4. The driver
+* dispatches the per-stream EXT_PKT interrupts (INTERRUPT_CAUSE_1) to these
+* slots, so each one knows exactly which stream's VSC SDP just arrived.
+*
+******************************************************************************/
+void DpRxSs_ExtPacketHandlerStream2(void *InstancePtr)
+{
+	(void)InstancePtr;
+	Dprx_CaptureStreamVsc(XDP_RX_STREAM_ID2);
+}
+
+void DpRxSs_ExtPacketHandlerStream3(void *InstancePtr)
+{
+	(void)InstancePtr;
+	Dprx_CaptureStreamVsc(XDP_RX_STREAM_ID3);
+}
+
+void DpRxSs_ExtPacketHandlerStream4(void *InstancePtr)
+{
+	(void)InstancePtr;
+	Dprx_CaptureStreamVsc(XDP_RX_STREAM_ID4);
 }
 
 /*****************************************************************************/
@@ -1350,6 +1447,10 @@ void DpRxSs_ExtPacketHandler(void *InstancePtr)
 			ExtFrame_tx_vsc.Payload[i] = ExtFrame[i+1];
 		}
 	}
+
+	/* Capture stream 1's VSC colorimetry per-stream (same as streams 2-4). */
+	if (SdpExtFrame.Header[1] == 0x7)
+		Dprx_CaptureStreamVsc(XDP_RX_STREAM_ID1);
 }
 
 /*****************************************************************************/

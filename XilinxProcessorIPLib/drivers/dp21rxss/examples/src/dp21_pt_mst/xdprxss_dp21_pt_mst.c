@@ -1564,7 +1564,7 @@ void Dp21RxSs_PtMst_WrFbStart(XDpTxSs_MainStreamAttributes Msa[4], u8 Stream)
 		}
 	} else if(Msa[Stream].BitsPerColor == 10) {
 		VidStream.ColorDepth = XVIDC_BPC_10;
-		if (Msa[0].ComponentFormat ==
+		if (Msa[Stream].ComponentFormat ==
 				XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
 			Cfmt = ColorFormats[9].MemFormat;
 			VidStream.ColorFormatId = ColorFormats[9].StreamFormat;
@@ -1873,26 +1873,116 @@ u32 naud_dup = 0;
  */
 u8 tx_ppc_set = 0;
 
-extern u8 use_vsc;	/**< 1 when the link carries colorimetry via VSC SDP */
+extern u8 use_vsc[4];	/**< Per-stream VSC SDP colorimetry flag (MISC1 bit6) */
+extern volatile u32 Rx_Vsc_Payload[4];	/**< Per-stream VSC SDP DB16..18 word */
+extern volatile u8  Rx_Vsc_Valid[4];	/**< Per-stream VSC SDP captured flag */
+
+/*
+ * Settling controls for the MSA (re)detection after a train/retrain. A healthy
+ * stream passes on the first couple of reads; the budget only matters while a
+ * stream is still settling after a link-rate or resolution change.
+ *
+ * Keep the retry count small: XDpRxss_GetMsa() already blocks internally (it
+ * polls HRES/VRES up to ~300 ms each per stream), so a large outer budget
+ * multiplies that wait and makes the app look hung when a stream is stuck in a
+ * partial/transition state. A few passes are enough; after the budget we
+ * proceed best-effort with whatever was last read.
+ */
+#define MSA_DETECT_RETRIES	3	/**< Max re-reads of the MSA. */
+#define MSA_DETECT_DELAY_US	5000	/**< Delay between re-reads (us). */
+
+/*****************************************************************************/
+/**
+* Re-read the MSA for ALL configured streams until every stream is settled, or
+* until the retry budget is exhausted / the link drops. This keeps the driver
+* (XDpRxss_GetMsa) unchanged while preventing the application from capturing
+* mid-transition garbage (wrong HRES/VRES/totals, impossible frame rates,
+* 6-BPC/RGB VSC reads) right after a (re)train.
+*
+* A stream is considered "settled" when it is either:
+*  - inactive  : HActive == 0 && VActive == 0 (no video on that stream), or
+*  - valid + stable:
+*      valid  : HActive/VActive/HTotal/VTotal non-zero, HActive<=HTotal,
+*               VActive<=VTotal, FrameRate>0, and BitsPerColor in {8,10,12,16}
+*               (6 BPC is not supported in this design and is treated as
+*               "not settled yet"), and
+*      stable : HActive/VActive/HTotal/VTotal identical across two consecutive
+*               reads.
+*
+* The number of active streams is taken from DpRxSsInst.Config.NumMstStreams
+* (max XDP_MAX_NUM_STREAMS = 4).
+*
+* @param	Stream is unused (kept for call-site compatibility); all
+*		configured streams are validated.
+*
+* @return	Pointer to the driver MSA array (same as XDpRxss_GetMsa()).
+*
+* @note	Must be called before XDp_RxDtgDis(), which zeroes the live MSA.
+*
+******************************************************************************/
+static XDp_MainStreamAttributes *Dp21RxSs_PtMst_GetStableMsa(u8 Stream)
+{
+	XDp_MainStreamAttributes *Msa;
+	u32 pHa[4] = {0}, pVa[4] = {0}, pHt[4] = {0}, pVt[4] = {0};
+	u8  num_streams = DpRxSsInst.Config.NumMstStreams;
+	u8  attempt;
+
+	(void)Stream;
+
+	if (num_streams == 0 || num_streams > 4)
+		num_streams = 4;
+
+	Msa = XDpRxss_GetMsa(&DpRxSsInst);
+
+	for (attempt = 0; attempt < MSA_DETECT_RETRIES &&
+			DpRxSsInst.link_up_trigger == 1; attempt++) {
+		u8 all_settled = 1;
+		u8 s;
+
+		for (s = 0; s < num_streams; s++) {
+			u32 ha  = Msa[s].Vtm.Timing.HActive;
+			u32 va  = Msa[s].Vtm.Timing.VActive;
+			u32 ht  = Msa[s].Vtm.Timing.HTotal;
+			u32 vt  = Msa[s].Vtm.Timing.F0PVTotal;
+			u32 fr  = Msa[s].Vtm.FrameRate;
+			u8  bpc = Msa[s].BitsPerColor;
+
+			u8 inactive = (ha == 0 && va == 0);
+			u8 valid    = (ha && va && ht && vt &&
+					ha <= ht && va <= vt && fr != 0 &&
+					(bpc == 8 || bpc == 10 ||
+					 bpc == 12 || bpc == 16));
+			u8 stable   = (ha == pHa[s] && va == pVa[s] &&
+					ht == pHt[s] && vt == pVt[s]);
+
+			if (!(inactive || (valid && stable)))
+				all_settled = 0;
+
+			pHa[s] = ha;
+			pVa[s] = va;
+			pHt[s] = ht;
+			pVt[s] = vt;
+		}
+
+		if (all_settled)
+			break;
+
+		usleep(MSA_DETECT_DELAY_US);
+		Msa = XDpRxss_GetMsa(&DpRxSsInst);
+	}
+
+	return Msa;
+}
 
 int Dp21RxSs_PtMst_DetectResolution(void *InstancePtr, u8 Stream)
 {
 	(void)InstancePtr;
 	char *color = "RGB";
 	u8 i;
-	u32 misc1;
 	i = 0;
 
-	Msa_test = XDpRxss_GetMsa(&DpRxSsInst);
+	Msa_test = Dp21RxSs_PtMst_GetStableMsa(Stream);
 
-	/*
-	 * MSA MISC1 bit-6 indicates that colorimetry is being carried over the
-	 * VSC SDP (as opposed to the legacy MISC0/MISC1 fields). Track it so the
-	 * 's' menu option can report whether the VSC SDP colorimetry path is in
-	 * use (required for extended colorimetry / static-HDR).
-	 */
-	misc1 = XDp_ReadReg(DpRxSsInst.DpPtr->Config.BaseAddr, XDP_RX_MSA_MISC1);
-	use_vsc = (misc1 >> 6) & 0x1;
 	Dp21RxSs_PtMst_WrFbStop();
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
 
@@ -1902,7 +1992,69 @@ int Dp21RxSs_PtMst_DetectResolution(void *InstancePtr, u8 Stream)
 	u8 num_streams = DpRxSsInst.Config.NumMstStreams;
 	xil_printf("\r\n========== MSA Information (Configured Streams: %d) ==========\r\n", num_streams);
 
+	/* Clear per-stream VSC state; inactive streams default to no VSC. */
+	for (i = 0; i < 4; i++)
+		use_vsc[i] = 0;
+
 	for (i = 0; i < num_streams; i++) {
+		/*
+		 * MSA MISC1 bit-6 indicates that colorimetry is being carried
+		 * over the VSC SDP (as opposed to the legacy MISC0/MISC1
+		 * fields). Use the per-stream MISC1 captured by XDpRxss_GetMsa()
+		 * above (read while the DTG was still enabled); reading the live
+		 * MISC1 register here would return 0 because XDp_RxDtgDis() has
+		 * already been called.
+		 */
+		use_vsc[i] = (Msa_test[i].Misc1 >> 6) & 0x1;
+
+		/*
+		 * YUV420/BPC/colorimetry are carried only in the VSC SDP. The
+		 * per-stream EXT_PKT handler (rx.c) captured each stream's VSC
+		 * colorimetry word at packet-arrival time (Rx_Vsc_Payload[]),
+		 * which is reliable even when the one-shot register read inside
+		 * GetMsa ran before the SDP was latched (the reason streams 3/4
+		 * could come up as RGB). When a VSC SDP was seen for this stream,
+		 * decode ComponentFormat/BPC from the captured word and override
+		 * the MSA struct used for detection, the frame buffer and the TX.
+		 */
+		if (Rx_Vsc_Valid[i]) {
+			u32 vw  = Rx_Vsc_Payload[i];
+			u8  cf  = (u8)((vw & 0xFF) >> 4);	/* DB16[7:4] comp fmt */
+			u8  bdc = (u8)((vw >> 8) & 0x7);	/* DB17[2:0] BDC	     */
+
+			use_vsc[i] = 1;
+
+			switch (cf) {
+			case 0:	/* RGB */
+				Msa_test[i].ComponentFormat =
+				  XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+				break;
+			case 1:	/* YCbCr 4:4:4 */
+				Msa_test[i].ComponentFormat =
+				  XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+				break;
+			case 2:	/* YCbCr 4:2:2 */
+				Msa_test[i].ComponentFormat =
+				  XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+				break;
+			case 3:	/* YCbCr 4:2:0 */
+				Msa_test[i].ComponentFormat =
+				  XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;
+				break;
+			default:
+				break;
+			}
+
+			/* 0 => 6 BPC / not-settled: keep the GetMsa value. */
+			switch (bdc) {
+			case 1: Msa_test[i].BitsPerColor = 8;  break;
+			case 2: Msa_test[i].BitsPerColor = 10; break;
+			case 3: Msa_test[i].BitsPerColor = 12; break;
+			case 4: Msa_test[i].BitsPerColor = 16; break;
+			default: break;
+			}
+		}
+
 		/*
 		 * Only print if stream has valid resolution data
 		 */
@@ -1931,7 +2083,7 @@ int Dp21RxSs_PtMst_DetectResolution(void *InstancePtr, u8 Stream)
 				   (int)Msa_test[i].Vtm.FrameRate,
 				   (int)Msa_test[i].BitsPerColor,
 				   color,
-				   use_vsc);
+				   use_vsc[i]);
 
 			/*
 			 * Print Audio information based on DP version

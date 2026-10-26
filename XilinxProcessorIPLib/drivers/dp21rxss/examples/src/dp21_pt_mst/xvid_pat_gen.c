@@ -466,9 +466,9 @@ static void VidgenWriteConfig(XDp *InstancePtr,
 	usleep(MicrosecToWait);
 	XPatGen_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC0,
-				InstancePtr->TxInstance.MsaConfig[0].Misc0);
+				InstancePtr->TxInstance.MsaConfig[Stream - 1].Misc0);
 	usleep(MicrosecToWait);
 	XPatGen_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS) +
 			StreamOffset[Stream - 1], MISC1,
-				InstancePtr->TxInstance.MsaConfig[0].Misc1);
+				InstancePtr->TxInstance.MsaConfig[Stream - 1].Misc1);
 }

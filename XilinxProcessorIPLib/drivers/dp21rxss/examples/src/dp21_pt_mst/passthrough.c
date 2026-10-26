@@ -68,7 +68,18 @@ volatile u8 tx_after_rx = 0;
  * packet handlers in rx.c and displayed via the 's' menu option.
  */
 XDp_TxVscExtPacket ExtFrame_tx_vsc;	/**< Last captured VSC extended packet */
-u8  use_vsc = 0;			/**< VSC SDP colorimetry seen in MISA MISC1 */
+u8  use_vsc[4] = {0, 0, 0, 0};		/**< Per-stream VSC SDP colorimetry seen in
+						     MSA MISC1 bit-6 */
+/*
+ * Per-stream VSC SDP colorimetry captured at packet-arrival time by the
+ * per-stream EXT_PKT handlers (rx.c). YUV420/BPC/colorimetry are only carried
+ * in the VSC SDP, and the one-shot register read inside GetMsa can run before
+ * the SDP is latched (which made streams 3/4 miss YUV420). These sticky copies
+ * are populated whenever a stream's VSC SDP arrives and consumed by
+ * DetectResolution / the TX forwarder. Cleared on TrainingLost / unplug.
+ */
+volatile u32 Rx_Vsc_Payload[4] = {0, 0, 0, 0};	/**< DB16..DB18 word per stream */
+volatile u8  Rx_Vsc_Valid[4]   = {0, 0, 0, 0};	/**< VSC SDP seen this train */
 u8  type_vsc = 0;			/**< Non-zero once a VSC packet is captured */
 volatile u8  rx_last_sdp_type = 0;	/**< HB1 of last received SDP */
 volatile u32 rx_vsc_ext_cta_count = 0;	/**< VSC/EXT colorimetry packet count */
@@ -78,6 +89,17 @@ u32          hdr_if_frame[8];		/**< Last captured 0x87 InfoFrame */
 volatile u8  hdr_if_valid = 0;		/**< Set once a 0x87 InfoFrame seen */
 volatile u32 rx_drm_if_count = 0;	/**< DRM/static-HDR InfoFrame count */
 volatile u8 Video_valid = 0;
+
+/*
+ * Per-stream VBlank counters. Each MST stream's VBlank handler bumps its own
+ * entry (capped at the ready threshold). RX detection is gated on ALL
+ * configured streams having produced video, instead of a single shared count
+ * that could be satisfied by one stream alone.
+ */
+volatile u8 Vblank_stream[4] = {0, 0, 0, 0};
+#define RX_STREAM_VBLANK_READY		2	/**< VBlanks/stream before "ready" */
+#define RX_VBLANK_READY_FALLBACK	60	/**< Total VBlanks before giving up
+						     waiting for a missing stream */
 
 u8 LineRate_init_tx;
 u8 LaneCount_init_tx;
@@ -217,6 +239,20 @@ void Dp21RxSs_PtMst_PtSetup(void)
 					XAxisScr_MiPortEnable (&axis_switch, 3, 2);
 					XAxisScr_MiPortEnable (&axis_switch, 4, 3);
 					XAxisScr_RegUpdateEnable (&axis_switch);
+					/*
+					 * Give the RX video pipe the same resync the
+					 * working re-detect path (RxTracking) performs
+					 * before reading MSA / restarting the frame
+					 * buffer. Without the line-reset + DTG cycle the
+					 * write frame-buffer does not latch a clean first
+					 * frame of the newly-routed stream, so the TX
+					 * keeps displaying the previous stream until the
+					 * same option is pressed a second time. Use the
+					 * selected RX stream's timing for the line reset.
+					 */
+					XDp_RxSetLineReset(DpRxSsInst.DpPtr, Stream + 1);
+					XDp_RxDtgDis(DpRxSsInst.DpPtr);
+					XDp_RxDtgEn(DpRxSsInst.DpPtr);
 					Dp21RxSs_PtMst_DetectResolution(DpRxSsInst.DpPtr, Stream);
 					tx_after_rx = 1;
 				break;
@@ -232,6 +268,20 @@ void Dp21RxSs_PtMst_PtSetup(void)
 					XAxisScr_MiPortEnable (&axis_switch, 3, 2);
 					XAxisScr_MiPortEnable (&axis_switch, 4, 3);
 					XAxisScr_RegUpdateEnable (&axis_switch);
+					/*
+					 * Give the RX video pipe the same resync the
+					 * working re-detect path (RxTracking) performs
+					 * before reading MSA / restarting the frame
+					 * buffer. Without the line-reset + DTG cycle the
+					 * write frame-buffer does not latch a clean first
+					 * frame of the newly-routed stream, so the TX
+					 * keeps displaying the previous stream until the
+					 * same option is pressed a second time. Use the
+					 * selected RX stream's timing for the line reset.
+					 */
+					XDp_RxSetLineReset(DpRxSsInst.DpPtr, Stream + 1);
+					XDp_RxDtgDis(DpRxSsInst.DpPtr);
+					XDp_RxDtgEn(DpRxSsInst.DpPtr);
 					Dp21RxSs_PtMst_DetectResolution(DpRxSsInst.DpPtr, Stream);
 					tx_after_rx = 1;
 				break;
@@ -247,6 +297,20 @@ void Dp21RxSs_PtMst_PtSetup(void)
 					XAxisScr_MiPortDisable(&axis_switch, 3);
 					XAxisScr_MiPortEnable (&axis_switch, 4, 3);
 					XAxisScr_RegUpdateEnable (&axis_switch);
+					/*
+					 * Give the RX video pipe the same resync the
+					 * working re-detect path (RxTracking) performs
+					 * before reading MSA / restarting the frame
+					 * buffer. Without the line-reset + DTG cycle the
+					 * write frame-buffer does not latch a clean first
+					 * frame of the newly-routed stream, so the TX
+					 * keeps displaying the previous stream until the
+					 * same option is pressed a second time. Use the
+					 * selected RX stream's timing for the line reset.
+					 */
+					XDp_RxSetLineReset(DpRxSsInst.DpPtr, Stream + 1);
+					XDp_RxDtgDis(DpRxSsInst.DpPtr);
+					XDp_RxDtgEn(DpRxSsInst.DpPtr);
 					Dp21RxSs_PtMst_DetectResolution(DpRxSsInst.DpPtr, Stream);
 					tx_after_rx = 1;
 				break;
@@ -262,6 +326,20 @@ void Dp21RxSs_PtMst_PtSetup(void)
 					XAxisScr_MiPortEnable (&axis_switch, 3, 2);
 					XAxisScr_MiPortDisable(&axis_switch, 4);
 					XAxisScr_RegUpdateEnable (&axis_switch);
+					/*
+					 * Give the RX video pipe the same resync the
+					 * working re-detect path (RxTracking) performs
+					 * before reading MSA / restarting the frame
+					 * buffer. Without the line-reset + DTG cycle the
+					 * write frame-buffer does not latch a clean first
+					 * frame of the newly-routed stream, so the TX
+					 * keeps displaying the previous stream until the
+					 * same option is pressed a second time. Use the
+					 * selected RX stream's timing for the line reset.
+					 */
+					XDp_RxSetLineReset(DpRxSsInst.DpPtr, Stream + 1);
+					XDp_RxDtgDis(DpRxSsInst.DpPtr);
+					XDp_RxDtgEn(DpRxSsInst.DpPtr);
 					Dp21RxSs_PtMst_DetectResolution(DpRxSsInst.DpPtr, Stream);
 					tx_after_rx = 1;
 				break;
@@ -449,10 +527,48 @@ void Dp21RxSs_PtMst_PtSetup(void)
 						   rx_last_sdp_type);
 					xil_printf("VSC/EXT colorimetry pkts : %d\r\n",
 						   rx_vsc_ext_cta_count);
-					xil_printf("VSC SDP colorimetry (MISC1 bit6) : %s\r\n",
-						   use_vsc ? "YES" : "NO");
+					for (int si = 0; si < 4; si++) {
+						xil_printf("VSC SDP colorimetry Stream%d "
+							   "(MISC1 bit6) : %s\r\n",
+							   si + 1,
+							   use_vsc[si] ? "YES" : "NO");
+					}
 
-					if (use_vsc) {
+					/*
+					 * Per-stream VSC SDP captured at packet-arrival
+					 * time by the per-stream EXT_PKT handlers. Unlike
+					 * the stream-1-only "Captured VSC Extended Packet"
+					 * dump below, this reflects whichever stream(s)
+					 * actually carried a VSC SDP (e.g. YUV420 on
+					 * stream 3/4) and is the value forwarded to TX.
+					 */
+					for (int si = 0; si < 4; si++) {
+						u32 vw = Rx_Vsc_Payload[si];
+						u8  cf  = (u8)((vw & 0xFF) >> 4);
+						u8  bdc = (u8)((vw >> 8) & 0x7);
+						const char *cfs =
+						    (cf == 0) ? "RGB" :
+						    (cf == 1) ? "YUV444" :
+						    (cf == 2) ? "YUV422" :
+						    (cf == 3) ? "YUV420" : "?";
+						u8 bpc =
+						    (bdc == 1) ? 8  :
+						    (bdc == 2) ? 10 :
+						    (bdc == 3) ? 12 :
+						    (bdc == 4) ? 16 : 0;
+
+						if (!Rx_Vsc_Valid[si]) {
+							xil_printf("Per-stream VSC Stream%d : "
+								   "(none)\r\n", si + 1);
+							continue;
+						}
+						xil_printf("Per-stream VSC Stream%d : "
+							   "word=0x%08x Color=%s BPC=%d\r\n",
+							   si + 1, vw, cfs, bpc);
+					}
+
+					if (use_vsc[0] || use_vsc[1] ||
+					    use_vsc[2] || use_vsc[3]) {
 						int vi;
 						xil_printf("Captured VSC Extended Packet:\r\n");
 						xil_printf("  Header  : 0x%08x\r\n",
@@ -763,6 +879,7 @@ void Dp21RxSs_PtMst_UnplugProc (void)
 	rx_unplugged = 0;
 
 	DpRxSsInst.VBlankCount = 0;
+	Vblank_stream[0] = Vblank_stream[1] = Vblank_stream[2] = Vblank_stream[3] = 0;
 	XDp_RxDtgDis(DpRxSsInst.DpPtr);
 	Dp21RxSs_PtMst_FbStop();
 
@@ -804,10 +921,32 @@ void Dp21RxSs_PtMst_UnplugProc (void)
 #ifdef Rx
 void Dp21RxSs_PtMst_RxTracking (void)
 {
+	/*
+	 * MST: gate detection on ALL configured streams having produced video
+	 * (RX_STREAM_VBLANK_READY VBlanks each), not on a single shared count
+	 * that one stream alone could satisfy. A total-VBlank fallback avoids
+	 * stalling if a stream never comes up.
+	 */
+	u8 num_streams = DpRxSsInst.Config.NumMstStreams;
+	u8 streams_ready = 1;
+	u8 s;
+
+	if (num_streams == 0 || num_streams > 4)
+		num_streams = 4;
+
+	for (s = 0; s < num_streams; s++) {
+		if (Vblank_stream[s] < RX_STREAM_VBLANK_READY) {
+			streams_ready = 0;
+			break;
+		}
+	}
+	if (DpRxSsInst.VBlankCount >= RX_VBLANK_READY_FALLBACK)
+		streams_ready = 1;
+
 	if (rx_unplugged == 1) {
 		xil_printf ("Training Lost !! Cable Unplugged !!!\r\n");
 		Dp21RxSs_PtMst_UnplugProc();
-	} else if (DpRxSsInst.VBlankCount >= 2 && DpRxSsInst.link_up_trigger ==1 && rx_trained == 0) {
+	} else if (streams_ready && DpRxSsInst.link_up_trigger ==1 && rx_trained == 0) {
 		if (!Tx_only) {
 			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr, 0x140);
 			Dp21RxSs_PtMst_Write(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -854,6 +993,21 @@ void Dp21RxSs_PtMst_RxTracking (void)
 	}
 
 	if ((Video_valid == 1) && (rx_trained == 1)) {
+		/*
+		 * Re-detect path (image reload / link-rate / resolution change
+		 * while RX stays trained). Wait until every configured stream has
+		 * delivered fresh video - the same per-stream VBlank gate used for
+		 * initial training - before reading MSA. Detecting the instant the
+		 * VIDEO interrupt asserts can latch stale MSA (the previous
+		 * resolution is still in the registers) or a half-settled frame.
+		 * That is exactly what shows up as "wrong MSA" after a link-rate
+		 * change and as "no video" on the forwarded stream after a reload.
+		 * streams_ready carries the VBlankCount fallback, so a stream that
+		 * never produces video will not stall detection.
+		 */
+		if (!streams_ready)
+			return;
+
 		Video_valid = 0;
 		XDp_RxInterruptDisable(DpRxSsInst.DpPtr,
 				       XDP_RX_INTERRUPT_MASK_VIDEO_MASK);
@@ -863,6 +1017,8 @@ void Dp21RxSs_PtMst_RxTracking (void)
 		 * VBLANK Management
 		 */
 		DpRxSsInst.VBlankCount = 0;
+		/* Re-arm per-stream gating for the next no-video -> video cycle. */
+		Vblank_stream[0] = Vblank_stream[1] = Vblank_stream[2] = Vblank_stream[3] = 0;
 		XDp_RxInterruptDisable(DpRxSsInst.DpPtr, XDP_RX_INTERRUPT_MASK_VBLANK_MASK);
 		XDp_RxInterruptDisable1(DpRxSsInst.DpPtr, 0x00010410);
 

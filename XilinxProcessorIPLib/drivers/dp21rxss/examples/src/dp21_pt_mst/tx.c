@@ -62,7 +62,10 @@ extern XAxis_Switch axis_switch;
 
 /* VSC SDP colorimetry / static-HDR pass-through (defined in passthrough.c) */
 extern XDp_TxVscExtPacket ExtFrame_tx_vsc;
-extern u8 use_vsc;
+extern u8 use_vsc[4];
+extern volatile u32 Rx_Vsc_Payload[4];	/**< Per-stream VSC SDP DB16..18 word
+					     captured at packet-arrival time */
+extern u8 Stream;	/**< Selected RX stream being forwarded to TX */
 
 u8 num_sinks = 0;
 extern volatile u8 Tx_only;
@@ -779,18 +782,92 @@ u32 Dp21RxSs_PtMst_StartTx(u8 line_rate, u8 lane_count, user_config_struct user_
 	/*
 	 * DP TX supports sending colorimetry info over the VSC extended SDP.
 	 * If VSC information is to be sent, the TX has to be configured for VSC
-	 * mode before training is started. The packet captured from the RX
-	 * during pass-through is replayed here so the colorimetry needed for
-	 * static-HDR content is preserved towards the sink. In MST all four
-	 * streams are configured with the captured colorimetry.
+	 * mode before training is started. The TX forwards the selected RX stream
+	 * (Msa_test[Stream]) on every TX stream, so all TX streams use that
+	 * stream's VSC colorimetry state (MISC1 bit6 -> use_vsc[Stream]).
+	 *
+	 * Build the VSC SDP payload for the *forwarded* stream.
+	 *
+	 * ExtFrame_tx_vsc is a single global that the RX updates from whichever
+	 * VSC SDP arrived last on ANY stream, so for MST it can hold another
+	 * stream's (or stale/empty) colorimetry. Replaying it verbatim makes the
+	 * TX decode the wrong ComponentFormat (typically RGB) for a forwarded
+	 * YUV420 stream; that mismatches the frame-buffer and the (halved) 4:2:0
+	 * video clock and wedges the TX bring-up. Stream 1 is RGB here, so it
+	 * never took this path - which is why only the other streams failed.
+	 *
+	 * Rebuild the colorimetry word (DB16/DB17) for the forwarded stream:
+	 *   - ComponentFormat and BPC are taken from the validated per-stream
+	 *     detection result Msa[0] (== Msa_test[Stream]); these drive the 4:2:0
+	 *     clock and are the fields that caused the hang.
+	 *   - Colorimetry / dynamic-range nibbles are preserved from the forwarded
+	 *     stream's own per-stream VSC register (authoritative; the MSA struct
+	 *     does not carry them for VSC streams).
+	 * This is derived entirely from per-stream state, so it is correct
+	 * regardless of stream index or VSC-SDP capture timing.
 	 */
+	XDp_TxVscExtPacket VscPkt = ExtFrame_tx_vsc;
+
+	if (use_vsc[Stream]) {
+		/*
+		 * Use the per-stream VSC colorimetry word captured at SDP-arrival
+		 * time (rx.c per-stream EXT_PKT handlers). This is the same source
+		 * DetectResolution used to decide the format, so TX stays in sync
+		 * with what was detected (and avoids re-reading a register that may
+		 * not be latched for this stream).
+		 */
+		u32 vsc_word = Rx_Vsc_Payload[Stream];
+		u8  db16, db17, cf_vsc, bdc;
+
+		/* Detected component format (MISC0 encoding) -> VSC SDP DB16 field. */
+		switch (Msa[0].ComponentFormat) {
+		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
+			cf_vsc = XVIDC_CSF_YCRCB_422;				/* 2 */
+			break;
+		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
+			cf_vsc = XVIDC_CSF_YCRCB_444;				/* 1 */
+			break;
+		case XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420:
+			cf_vsc = XDP_MAIN_VSC_SDP_COMPONENT_FORMAT_YCBCR420;	/* 3 */
+			break;
+		default:
+			cf_vsc = XVIDC_CSF_RGB;					/* 0 */
+			break;
+		}
+
+		/* Detected BPC -> VSC SDP DB17 BDC field. */
+		switch (Msa[0].BitsPerColor) {
+		case 10: bdc = XDP_TX_MAIN_STREAMX_MISC0_BDC_10BPC; break;
+		case 12: bdc = XDP_TX_MAIN_STREAMX_MISC0_BDC_12BPC; break;
+		case 16: bdc = XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC; break;
+		default: bdc = XDP_TX_MAIN_STREAMX_MISC0_BDC_8BPC;  break;
+		}
+
+		/* DB16: [7:4] component format, [3:0] colorimetry (kept). */
+		db16 = (u8)(vsc_word & XDP_TX_AUDIO_EXT_DATA_DB16);
+		db16 = (u8)((cf_vsc << XDP_TX_MAIN_VSC_SDP_COMPONENT_FORMAT_SHIFT) |
+			    (db16 & XDP_TX_MAIN_VSC_SDP_YCBCR_COLORIMETRY_MASK));
+
+		/* DB17: [2:0] BDC, [7] dynamic range (kept). */
+		db17 = (u8)((vsc_word & XDP_TX_AUDIO_EXT_DATA_DB17) >> 8);
+		db17 = (u8)((db17 & ~XDP_TX_MAIN_VSC_SDP_BDC_MASK) |
+			    (bdc & XDP_TX_MAIN_VSC_SDP_BDC_MASK));
+
+		vsc_word = (vsc_word &
+			    ~(u32)(XDP_TX_AUDIO_EXT_DATA_DB16 |
+				   XDP_TX_AUDIO_EXT_DATA_DB17)) |
+			   (u32)db16 | ((u32)db17 << 8);
+
+		VscPkt.Payload[XDP_TX_AUDIO_EXT_DATA_DB16_TO_DB18] = vsc_word;
+	}
+
 	for (i = XDP_TX_STREAM_ID1; i <= XDP_TX_STREAM_ID4; i++) {
-		XDpTxss_EnableVscColorimetry(&DpTxSsInst, i, use_vsc);
-		XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, i, ExtFrame_tx_vsc);
+		XDpTxss_EnableVscColorimetry(&DpTxSsInst, i, use_vsc[Stream]);
+		XDpTxSs_SetVscExtendedPacket(&DpTxSsInst, i, VscPkt);
 	}
 
 	xil_printf("\r\nTraining TX with: Link rate %x, Lane %d, BPC %d, (VSC %d)\r\n",
-		   line_rate,lane_count, bpc, use_vsc);
+		   line_rate, lane_count, bpc, use_vsc[Stream]);
 
 	Status = XDpTxSs_SetLinkRate(&DpTxSsInst, line_rate);
 	if(Status != XST_SUCCESS){
