@@ -3461,11 +3461,11 @@ void XDpTxSs_Hdcp22SetKey(XDpTxSs *InstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function configures stream encryption based on MST/SST mode and the
+* @brief This function configures stream encryption based on MST/SST mode and the
 * stream_map parameter provided by the application.
 *
-* @param	InstancePtr is a pointer to the XDpTxSs core instance.
-* @param	stream_map is the stream encryption selection from application:
+* @param[in]	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param[in]	stream_map is the stream encryption selection from application:
 *		- For 2 streams: 1 (Stream 1), 2 (Stream 2), 3 (All)
 *		- For 3 streams: 1 (Stream 1), 2 (Stream 2), 3 (Stream 3), 4 (All)
 *		- For 4 streams: 1 (Stream 1), 2 (Stream 2), 3 (Stream 3), 4 (Stream 4), 5 (All)
@@ -3483,7 +3483,7 @@ void XDpTxSs_ConfigureStreamEncryption(XDpTxSs *InstancePtr, u64 stream_map)
 	u8 ActiveStreams = 0;   // Current active/enumerated streams
 
 	/* Verify arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_Assertvoid(InstancePtr != NULL);
 
 	/* Fetch hardware capability - max streams supported */
 	MaxStreams = InstancePtr->Config.NumMstStreams;
