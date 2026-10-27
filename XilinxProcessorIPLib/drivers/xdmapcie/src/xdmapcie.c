@@ -7,9 +7,11 @@
 /******************************************************************************/
 /**
 * @file xdmapcie.c
+* @addtogroup xdmapcie Overview
+* @{
 *
-* Implements all of functions for XDmaPcie IP driver except interrupts and
-* initialization.
+* @brief Implements all of the XDmaPcie IP driver functions except the
+*        interrupt and initialization functions.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -28,35 +30,44 @@
 #include <stdlib.h>
 /*************************** Constant Definitions ***************************/
 
-/* Structure for to sort the Data */
+/** Holds a BAR size and index pair while the BAR list is being sorted */
 typedef struct {
-        u32 BarAdd;
-        u32 BarNo;
+        u32 BarAdd;	/**< Size of the memory requested by the BAR */
+        u32 BarNo;	/**< Index of the BAR within the configuration header */
 } XDmaPcie_BarAlloc;
 /***************************** Type Definitions *****************************/
 
 /****************** Macros (Inline Functions) Definitions *******************/
 #ifdef QDMA_PCIE_BRIDGE
-#define BDF_ENTRY_ADDR_LO              0x2420
-#define BDF_ENTRY_ADDR_HI              0x2424
-#define BDF_ENTRY_PASID                        0x2428
-#define BDF_ENTRY_FUNCTION             0x242C
-#define BDF_ENTRY_WINDOW               0x2430
-#define BDF_ENTRY_REG                  0x2434
+/**
+ * @name QDMA bridge BDF table registers
+ * @{
+ */
+#define BDF_ENTRY_ADDR_LO              0x2420	/**< BDF entry address, lower 32 bits */
+#define BDF_ENTRY_ADDR_HI              0x2424	/**< BDF entry address, upper 32 bits */
+#define BDF_ENTRY_PASID                        0x2428	/**< BDF entry PASID */
+#define BDF_ENTRY_FUNCTION             0x242C	/**< BDF entry function number */
+#define BDF_ENTRY_WINDOW               0x2430	/**< BDF entry window size and permissions */
+#define BDF_ENTRY_REG                  0x2434	/**< BDF entry control register */
 
-#define BDF_NUM_WINDOWS                        8
-#define BDF_ADDR_BOUNDARY              4096
-#define BDF_TABLE_ENTRY_OFF            0x20
-#define BDF_ACCESS_PERM                        0xC0000000
+#define BDF_NUM_WINDOWS                        8	/**< Number of BDF translation windows */
+#define BDF_ADDR_BOUNDARY              4096	/**< Address boundary of one window */
+#define BDF_TABLE_ENTRY_OFF            0x20	/**< Stride between BDF table entries */
+#define BDF_ACCESS_PERM                        0xC0000000	/**< Read and write access permission bits */
+/** @} */
 
 /*************************** Variable Definitions ***************************/
 
 /*************************** Function Prototypes ****************************/
 
-
+/****************************************************************************/
 /**
-* Additional programming for QDMA bridges for BAR access
-*/
+* @brief Performs the additional BAR access programming required by QDMA
+*        bridges.
+*
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+*
+*****************************************************************************/
 void XDmaPcie_QdmaAddPgm(XDmaPcie *InstancePtr)
 {
        u32 i, Size;
@@ -100,23 +111,18 @@ void XDmaPcie_QdmaAddPgm(XDmaPcie *InstancePtr)
 #endif
 /****************************************************************************/
 /**
-* Initialize the XDmaPcie instance provided by the caller based on the
-* given Config structure.
+* @brief Initializes the XDmaPcie instance from the given configuration.
 *
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
+*                The memory referenced by the pointer must be pre-allocated by
+*                the caller.
+* @param[in] CfgPtr Pointer to the device configuration structure that holds
+*            the required hardware build data.
+* @param[in] EffectiveAddress Physical address of the hardware in a virtual
+*            memory operating system environment. It is the base address in a
+*            stand alone environment.
 *
-* @param	InstancePtr is the XDmaPcie instance to operate on.The memory
-*		of the pointer references must be pre-allocated by the caller.
-* @param	CfgPtr is the device configuration structure containing
-* 		required HW build data.
-* @param	EffectiveAddress is the Physical address of the hardware in a
-* 		Virtual Memory operating system environment.It is the Base
-* 		Address in a stand alone environment.
-*
-* @return
-*
-* 		- XST_SUCCESS Initialization was successful.
-*
-* @note		None.
+* @return XST_SUCCESS if the initialization was successful.
 *
 ******************************************************************************/
 int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
@@ -173,6 +179,15 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 }
 
 #if defined(__aarch64__) || defined(__arch64__)
+/******************************************************************************/
+/**
+* @brief Checks whether the given address is a usable memory address.
+*
+* @param[in] Addr Address to validate.
+*
+* @return TRUE if the address is non zero, FALSE otherwise.
+*
+*******************************************************************************/
 static u8 XdmaPcie_IsValidAddr(u64 Addr)
 {
 	if (Addr == 0U) {
@@ -184,13 +199,14 @@ static u8 XdmaPcie_IsValidAddr(u64 Addr)
 
 /******************************************************************************/
 /**
-* This function reserves bar memory address.
+* @brief Reserves memory for a BAR from the prefetchable or non prefetchable
+*        window.
 *
-* @param   InstancePtr pointer to XDmaPcie Instance Pointer
-* @param   BarType differentiate 32 or 64 bit bar type
-* @param   Size of the Bar Request
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] BarType Differentiates a 32 bit BAR from a 64 bit BAR.
+* @param[in] Size Size of the BAR request.
 *
-* @return  bar address
+* @return Base address reserved for the BAR.
 *
 *******************************************************************************/
 static u64 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr,
@@ -216,6 +232,16 @@ static u64 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr,
 	return Ret;
 }
 #else
+/******************************************************************************/
+/**
+* @brief Reserves memory for a BAR from the non prefetchable window.
+*
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Size Size of the BAR request.
+*
+* @return Base address reserved for the BAR.
+*
+*******************************************************************************/
 static u32 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr, u32 Size)
 {
 	u32 Ret = 0;
@@ -230,6 +256,16 @@ static u32 XDmaPcie_ReserveBarMem(XDmaPcie *InstancePtr, u32 Size)
 }
 #endif
 
+/******************************************************************************/
+/**
+* @brief Finds the position of the rightmost set bit, ignoring the lowest four
+*        bits.
+*
+* @param[in] Size Value to scan.
+*
+* @return Zero based position of the rightmost set bit.
+*
+*******************************************************************************/
 static int XDmaPcie_PositionRightmostSetbit(u64 Size)
 {
 	int Position = 0;
@@ -247,10 +283,10 @@ static int XDmaPcie_PositionRightmostSetbit(u64 Size)
 }
 /******************************************************************************/
 /**
-* This function increments to next 1Mb page starting position of
-* non prefetchable memory
+* @brief Increments the non prefetchable memory base to the next 1 MB page
+*        boundary.
 *
-* @param   	InstancePtr pointer to XDmaPcie Instance Pointer
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
 *
 *******************************************************************************/
 static void XDmaPcie_IncreamentNpMem(XDmaPcie *InstancePtr)
@@ -261,15 +297,15 @@ static void XDmaPcie_IncreamentNpMem(XDmaPcie *InstancePtr)
 }
 /******************************************************************************/
 /**
-* This function Compare two different sizes
+* @brief Compares two BAR sizes so that the BAR list can be sorted in
+*        descending order.
 *
-* @param   FirstReqSize is First Variable to compare size
-* @param   SecondReqSize is Second Variable to compare size
-
-* @return  Difference of sizes, Zero for Equal
+* @param[in] FirstReqSize Pointer to the first XDmaPcie_BarAlloc entry.
+* @param[in] SecondReqSize Pointer to the second XDmaPcie_BarAlloc entry.
+*
+* @return Difference of the two sizes, zero when they are equal.
 *
 *******************************************************************************/
-
 int XDmaPcie_CompareSizes(const void* FirstReqSize, const void* SecondReqSize)
 {
 	u32 FirstSizeAddr = ((XDmaPcie_BarAlloc*)FirstReqSize) ->BarAdd;
@@ -280,16 +316,13 @@ int XDmaPcie_CompareSizes(const void* FirstReqSize, const void* SecondReqSize)
 
 /******************************************************************************/
 /**
-* This function Aligns BAR Resources
+* @brief Sorts the BAR resources in descending order of size.
 *
-* @param   Value Combination of Location and Offset value
-* @param   MaxBars Maximum Requested BARs
-* @param   Index is a Bar Numbers
-*
-* @return  void
+* @param[in,out] Value Array of BAR sizes to sort.
+* @param[in] MaxBars Maximum number of requested BARs.
+* @param[in,out] Index Array of BAR numbers that is sorted alongside Value.
 *
 *******************************************************************************/
-
 static void XDmaPcie_AlignBarResources(u64* Value,u8 MaxBars, u32* Index)
 {
 
@@ -311,24 +344,24 @@ static void XDmaPcie_AlignBarResources(u64* Value,u8 MaxBars, u32* Index)
 }
 /******************************************************************************/
 /**
-* This function calculates the size of the BAR requested by the endpoint and
-* allocates appropriate memory space from the available non-prefetchable memory
-* window. It supports both AArch64 and other architectures via conditional compilation.
+* @brief Allocates memory for a 32 bit BAR requested by an endpoint.
 *
-* If the requested BAR size exceeds the available non-prefetchable memory, the
-* function logs an error and returns without allocation.
+* Calculates the size of the BAR and takes the memory from the non
+* prefetchable window. Supports both AArch64 and other architectures through
+* conditional compilation. If the requested BAR size exceeds the available non
+* prefetchable memory, the function logs an error and returns without
+* allocating.
 *
-* @param   InstancePtr pointer to XDmaPcie Instance Pointer
-* @param   Location BAR configuration offset within the ECAM space.
-* @param   Bus is PCIe Bus number of the Endpoint
-* @param   Device is PCIe Device number of the Endpoint.
-* @param   Function is PCIe Function number of the Endpoint.
-* @param   Value is a Combination of Location and Offset value
-* @param   Size of the Bar Request
-* @param   BarAllocControl is to differentiate Unsorted and Sorted Bar Sizes
-* @param   BarNo is the BAR index (0 to 5).
-*
-* @return  Void
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Location BAR configuration offset within the ECAM space.
+* @param[in] Bus PCIe bus number of the endpoint.
+* @param[in] Device PCIe device number of the endpoint.
+* @param[in] Function PCIe function number of the endpoint.
+* @param[in,out] Value Array that holds the computed BAR sizes.
+* @param[in,out] Size Array that holds the raw BAR size probe results.
+* @param[in] BarAllocControl Differentiates the unsorted pass from the sorted
+*            pass.
+* @param[in] BarNo BAR index, 0 to 5.
 *
 *******************************************************************************/
 static void XDmaPcie_Assign32bBarMem(XDmaPcie *InstancePtr, u32 Location, u8 Bus, u8 Device,
@@ -378,19 +411,19 @@ static void XDmaPcie_Assign32bBarMem(XDmaPcie *InstancePtr, u32 Location, u8 Bus
 }
 /******************************************************************************/
 /**
-* This function Allocates Bar Memory
+* @brief Probes and allocates memory for all BARs of a PCIe function.
 *
-* @param   InstancePtr pointer to XDmaPcie Instance Pointer
-* @param   Bus
-* @param   Device
-* @param   Function
-* @param   Value is a Combination of Location and Offset value
-* @param   MaxBars Maximum Requested BARs,6 for EP and 2 for bridge
-* @param   Index is a BAR Number
-* @param   Size of the Bar Request
-* @param   BarAllocControl is to differentiate Unsorted and Sorted Bar Sizes
-*
-* @return  Void
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Bus PCIe bus number of the function.
+* @param[in] Device PCIe device number of the function.
+* @param[in] Function PCIe function number of the function.
+* @param[in,out] Value Array that holds the computed BAR sizes.
+* @param[in] MaxBars Maximum number of requested BARs, 6 for an endpoint and
+*            2 for a bridge.
+* @param[in,out] Index Array that holds the BAR numbers.
+* @param[in,out] Size Array that holds the raw BAR size probe results.
+* @param[in] BarAllocControl Differentiates the unsorted pass from the sorted
+*            pass.
 *
 *******************************************************************************/
 static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 Function,
@@ -521,16 +554,16 @@ static void XDmaPcie_BarMemoryAlloc(XDmaPcie *InstancePtr, u8 Bus,u8 Device,u8 F
 }
 /******************************************************************************/
 /**
-* This function Composes configuration space location
+* @brief Allocates and assigns the BAR address space of a PCIe function.
 *
-* @param   InstancePtr pointer to XDmaPcie Instance Pointer
-* @param   headerType u32 type0 or type1 header
-* @param   Bus
-* @param   Device
-* @param   Function
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Headertype Configuration header type, 0 for an endpoint and 1 for
+*            a bridge.
+* @param[in] Bus PCIe bus number of the function.
+* @param[in] Device PCIe device number of the function.
+* @param[in] Function PCIe function number of the function.
 *
-* @return  int XST_SUCCESS on success
-*          err on fail
+* @return XST_SUCCESS on success, or an error code on failure.
 *
 *******************************************************************************/
 static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
@@ -667,10 +700,10 @@ static int XDmaPcie_AllocBarSpace(XDmaPcie *InstancePtr, u32 Headertype, u8 Bus,
 #if defined(__aarch64__) || defined(__arch64__)
 /******************************************************************************/
 /**
-* This function increments to next 1Mb block starting position of
-* prefetchable memory
+* @brief Increments the prefetchable memory base to the next 1 MB block
+*        boundary.
 *
-* @param  	InstancePtr pointer to XDmaPcie Instance
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
 *
 *******************************************************************************/
 static void XDmaPcie_IncrementPMem(XDmaPcie *InstancePtr)
@@ -682,15 +715,14 @@ static void XDmaPcie_IncrementPMem(XDmaPcie *InstancePtr)
 #endif
 /******************************************************************************/
 /**
-* This function starts enumeration of PCIe Fabric on the system.
-* Assigns primary, secondary and subordinate bus numbers.
-* Assigns memory to prefetchable and non-prefetchable memory locations.
-* enables end-points and bridges.
+* @brief Scans a PCIe bus and enumerates the bridges and endpoints found on it.
 *
-* @param   	InstancePtr pointer to XDmaPcie Instance Pointer
-* @param   	bus_num	to scans for connected bridges/endpoints on it.
+* Assigns the primary, secondary and subordinate bus numbers, assigns memory
+* from the prefetchable and non prefetchable windows, and enables the
+* endpoints and bridges.
 *
-* @return  	none
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] BusNum Bus number to scan for connected bridges and endpoints.
 *
 *******************************************************************************/
 static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
@@ -975,11 +1007,9 @@ static void XDmaPcie_FetchDevicesInBus(XDmaPcie *InstancePtr, u32 BusNum)
 
 /******************************************************************************/
 /**
-* This function starts PCIe enumeration.
+* @brief Starts the PCIe fabric enumeration from bus zero.
 *
-* @param    InstancePtr pointer to XDmaPcie Instance Pointer
-*
-* @return 	none
+* @param[in,out] InstancePtr Pointer to the XDmaPcie instance to operate on.
 *
 *******************************************************************************/
 void XDmaPcie_EnumerateFabric(XDmaPcie *InstancePtr)
@@ -989,23 +1019,19 @@ void XDmaPcie_EnumerateFabric(XDmaPcie *InstancePtr)
 
 /****************************************************************************/
 /**
-* This API is used to read the VSEC Capability Register.
+* @brief Reads the VSEC Capability Register.
 *
-* @param	InstancePtr is the XDmaPcie instance to operate on.
-* @param	VsecNum is a VSEC register number as there are two registers.
-*		Possible values are.
-*			- XDMAPCIE_VSEC1 (0)
-*			- XDMAPCIE_VSEC2 (1)
-* @param	VsecIdPtr is a pointer to a variable where the driver will pass
-*		back the Vendor Specific Enhanced Capability ID.
-* @param	VersionPtr is a pointer to a variable where the driver will
-*.		pass back the Version of VSEC.
-* @param	NextCapPtr is a pointer to a variable where the driver will
-*		pass back the Next Capability offset.
-*
-* @return	None.
-*
-* @note 	None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] VsecNum VSEC register number, as there are two registers.
+*            Possible values are:
+*            - XDMAPCIE_VSEC1 (0)
+*            - XDMAPCIE_VSEC2 (1)
+* @param[out] VsecIdPtr Pointer to a variable that receives the Vendor
+*             Specific Enhanced Capability ID.
+* @param[out] VersionPtr Pointer to a variable that receives the version of
+*             the VSEC.
+* @param[out] NextCapPtr Pointer to a variable that receives the next
+*             capability offset.
 *
 *****************************************************************************/
 void XDmaPcie_GetVsecCapability(XDmaPcie *InstancePtr, u8 VsecNum,
@@ -1036,23 +1062,19 @@ void XDmaPcie_GetVsecCapability(XDmaPcie *InstancePtr, u8 VsecNum,
 
 /****************************************************************************/
 /**
-* This API is used to read the VSEC Header Register.
+* @brief Reads the VSEC Header Register.
 *
-* @param	InstancePtr is the XDmaPcie instance to operate on.
-* @param	VsecNum is a VSEC register number as there are two registers.
-*		Possible values are.
-*			- XDMAPCIE_VSEC1 (0)
-*			- XDMAPCIE_VSEC2 (1)
-* @param	VsecIdPtr is a pointer to a variable where the driver will pass
-*		back the VSEC header structure Id.
-* @param	RevisionPtr is a pointer to a variable where the driver will
-* 		pass back the Revision of VSEC capability Structure.
-* @param	LengthPtr is a pointer to a variable where the driver will pass
-*.		back the length of the VSEC capability structure.
-*
-* @return	None.
-*
-* @note 	None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] VsecNum VSEC register number, as there are two registers.
+*            Possible values are:
+*            - XDMAPCIE_VSEC1 (0)
+*            - XDMAPCIE_VSEC2 (1)
+* @param[out] VsecIdPtr Pointer to a variable that receives the VSEC header
+*             structure ID.
+* @param[out] RevisionPtr Pointer to a variable that receives the revision of
+*             the VSEC capability structure.
+* @param[out] LengthPtr Pointer to a variable that receives the length of the
+*             VSEC capability structure.
 *
 *****************************************************************************/
 void XDmaPcie_GetVsecHeader(XDmaPcie *InstancePtr, u8 VsecNum, u16 *VsecIdPtr,
@@ -1084,20 +1106,16 @@ void XDmaPcie_GetVsecHeader(XDmaPcie *InstancePtr, u8 VsecNum, u16 *VsecIdPtr,
 
 /****************************************************************************/
 /**
-* This API Reads the Bridge info register.
+* @brief Reads the Bridge Info register.
 *
-* @param	InstancePtr is the XDmaPcie instance to operate on.
-* @param	Gen2Ptr is a pointer to a variable indicating whether
-*		underlying PCIe block support PCIe Gen2 Speed.
-* @param	RootPortPtr is a pointer to a variable indication whether
-*		underlying PCIe block is root port.
-* @param	ECAMSizePtr is a pointer to a variable where it indicates ECAM
-*		size. Value is between 1 to 8. Total address bits dedicated to
-*		ECAM is 20 + ECAM size.
-*
-* @return	None.
-*
-* @note 	None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[out] Gen2Ptr Pointer to a variable that indicates whether the
+*             underlying PCIe block supports PCIe Gen2 speed.
+* @param[out] RootPortPtr Pointer to a variable that indicates whether the
+*             underlying PCIe block is a root port.
+* @param[out] ECAMSizePtr Pointer to a variable that receives the ECAM size.
+*             The value is between 1 and 8. The total number of address bits
+*             dedicated to the ECAM is 20 plus the ECAM size.
 *
 *****************************************************************************/
 void XDmaPcie_GetBridgeInfo(XDmaPcie *InstancePtr, u8 *Gen2Ptr,
@@ -1127,21 +1145,17 @@ void XDmaPcie_GetBridgeInfo(XDmaPcie *InstancePtr, u8 *Gen2Ptr,
 
 /****************************************************************************/
 /**
-* Read the Bus Location register.
+* @brief Reads the Bus Location register.
 *
-* @param	InstancePtr is the XDmaPcie instance to operate on.
-* @param	BusNumPtr is a pointer to a variable where the driver will pass
-* 		back the bus number of requester ID assigned to IP.
-* @param	DevNumPtr is a pointer to a variable where the driver will pass
-* 		back the device number of requester ID assigned to IP.
-* @param	FunNumPtr is a pointer to a variable where the driver will pass
-* 		back the function number of requester ID assigned to IP.
-* @param	PortNumPtr is a pointer to a variable where the driver will
-* 		pass back the Port number of requester ID assigned to IP.
-*
-* @return	None.
-*
-* @note 	None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[out] BusNumPtr Pointer to a variable that receives the bus number of
+*             the requester ID assigned to the IP.
+* @param[out] DevNumPtr Pointer to a variable that receives the device number
+*             of the requester ID assigned to the IP.
+* @param[out] FunNumPtr Pointer to a variable that receives the function
+*             number of the requester ID assigned to the IP.
+* @param[out] PortNumPtr Pointer to a variable that receives the port number
+*             of the requester ID assigned to the IP.
 *
 *****************************************************************************/
 void XDmaPcie_GetRequesterId(XDmaPcie *InstancePtr, u8 *BusNumPtr,
@@ -1175,15 +1189,11 @@ void XDmaPcie_GetRequesterId(XDmaPcie *InstancePtr, u8 *BusNumPtr,
 
 /****************************************************************************/
 /**
-* This API is used to read the Phy Status/Control Register.
+* @brief Reads the Phy Status and Control register.
 *
-* @param	InstancePtr is the XDmaPcie instance to operate on.
-* @param	PhyState is a pointer to a variable where the driver will
-* 		pass back Current physical status.
-*
-* @return	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[out] PhyState Pointer to a variable that receives the current
+*             physical status.
 *
 *****************************************************************************/
 void XDmaPcie_GetPhyStatusCtrl(XDmaPcie *InstancePtr, u32 *PhyState)
@@ -1202,16 +1212,14 @@ void XDmaPcie_GetPhyStatusCtrl(XDmaPcie *InstancePtr, u32 *PhyState)
 
 /****************************************************************************/
 /**
-* Read Root Port Status/Control Register.
+* @brief Reads the Root Port Status and Control register.
 *
-* @param	InstancePtr is the PCIe component to operate on.
-* @param	StatusPtr is a pointer to a variable where the driver will
-*		pass back the root port status.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[out] StatusPtr Pointer to a variable that receives the root port
+*             status.
 *
-* @return	None.
-*
-* @note		This function is valid only when IP is configured as a
-*		root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 void XDmaPcie_GetRootPortStatusCtrl(XDmaPcie *InstancePtr, u32 *StatusPtr)
@@ -1228,15 +1236,13 @@ void XDmaPcie_GetRootPortStatusCtrl(XDmaPcie *InstancePtr, u32 *StatusPtr)
 
 /****************************************************************************/
 /**
-* Write Value in Root Port Status/Control Register.
+* @brief Writes a value to the Root Port Status and Control register.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
-* @param 	StatusData is data to set.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] StatusData Data to set.
 *
-* @return 	None.
-*
-* @note		This function is valid only when IP is configured as a
-*		root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 void XDmaPcie_SetRootPortStatusCtrl(XDmaPcie *InstancePtr, u32 StatusData)
@@ -1254,16 +1260,18 @@ void XDmaPcie_SetRootPortStatusCtrl(XDmaPcie *InstancePtr, u32 StatusData)
 
 /****************************************************************************/
 /**
-* Write MSI Base Address to Root Port MSI Base Address Register.
+* @brief Writes the MSI base address to the Root Port MSI Base Address
+*        register.
 *
-* @param	InstancePtr is the PCIe component to operate on.
-* @param	MsiBase is 64 bit base address for MSI.This address should be
-*		4kB aligned always.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] MsiBase 64 bit base address for MSI. This address must always be
+*            4 kB aligned.
 *
-* @return 	XST_SUCCESS if success or XST_FAILURE if failure .
+* @return XST_SUCCESS on success, or XST_FAILURE if the address is not 4 kB
+*         aligned.
 *
-* @note		This function is valid only when IP is configured as a
-*		root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 int XDmaPcie_SetRootPortMSIBase(XDmaPcie *InstancePtr,
@@ -1296,20 +1304,18 @@ int XDmaPcie_SetRootPortMSIBase(XDmaPcie *InstancePtr,
 
 /****************************************************************************/
 /**
-* Read Root Port Error FIFO Message
+* @brief Reads a Root Port Error FIFO message.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
-* @param	ReqIdPtr is a variable where the driver will pass back the
-*		requester Id of error message.
-* @param	ErrType is a variable where the driver will pass back the
-*		type of error message
-* @param	ErrValid is a variable where the driver will pass back the
-*		status of read operation of error message.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[out] ReqIdPtr Pointer to a variable that receives the requester ID of
+*             the error message.
+* @param[out] ErrType Pointer to a variable that receives the type of the
+*             error message.
+* @param[out] ErrValid Pointer to a variable that receives the status of the
+*             error message read operation.
 *
-* @return	None.
-*
-* @note		This function is valid only when IP is configured as a
-*		root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 void XDmaPcie_GetRootPortErrFIFOMsg(XDmaPcie *InstancePtr, u16 *ReqIdPtr,
@@ -1339,14 +1345,12 @@ void XDmaPcie_GetRootPortErrFIFOMsg(XDmaPcie *InstancePtr, u16 *ReqIdPtr,
 
 /****************************************************************************/
 /**
-* Clear Root Port Error FIFO Message
+* @brief Clears the Root Port Error FIFO message.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
 *
-* @return 	None.
-*
-* @note		This function is valid only when IP is configured as a
-*		root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 void XDmaPcie_ClearRootPortErrFIFOMsg(XDmaPcie *InstancePtr)
@@ -1363,25 +1367,24 @@ void XDmaPcie_ClearRootPortErrFIFOMsg(XDmaPcie *InstancePtr)
 
 /****************************************************************************/
 /**
-* Read Root Port Interrupt FIFO message Register 1 & 2.
+* @brief Reads Root Port Interrupt FIFO message registers 1 and 2.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
-* @param	ReqIdPtr is a variable where the driver will pass back the
-*		requester Id of error message.
-* @param	MsiAddr is a variable where the driver will pass back the
-*		MSI address for which interrupt message received.
-* @param	MsiInt is a variable where the driver will pass back the
-*		type of interrupt message received (MSI/INTx).
-* @param	IntValid is a variable where the driver will pass back the
-*		status of read operation of interrupt message.
-* @param	MsiMsgData is a variable where the driver will pass back the
-*		MSI data received.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[out] ReqIdPtr Pointer to a variable that receives the requester ID of
+*             the error message.
+* @param[out] MsiAddr Pointer to a variable that receives the MSI address for
+*             which the interrupt message was received.
+* @param[out] MsiInt Pointer to a variable that receives the type of interrupt
+*             message received, MSI or INTx.
+* @param[out] IntValid Pointer to a variable that receives the status of the
+*             interrupt message read operation.
+* @param[out] MsiMsgData Pointer to a variable that receives the MSI data.
 *
-* @return 	MsiMsgData if MSI interrupt is observed or
-*		0 if there is no MSI interrupt.
+* @return MSI message data if an MSI interrupt is observed, or 0 if there is
+*         no MSI interrupt.
 *
-* @note 	This function is valid only when IP is configured as a
-*		root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 int XDmaPcie_GetRootPortIntFIFOReg(XDmaPcie *InstancePtr, u16 *ReqIdPtr,
@@ -1429,15 +1432,13 @@ int XDmaPcie_GetRootPortIntFIFOReg(XDmaPcie *InstancePtr, u16 *ReqIdPtr,
 
 /****************************************************************************/
 /**
-* Clear Root Port FIFO Interrupt message Register 1 & 2.
+* @brief Clears Root Port Interrupt FIFO message registers 1 and 2.
 *
-* @param 	InstancePtr is the PCIe component to operate on
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
 *
-* @return 	None.
-*
-* @note		This function is valid only when IP is configured as a
-*		root complex.Clearing any one Interrupt FIFO register clears
-*		both registers.
+* @note This function is valid only when the IP is configured as a root
+*       complex. Clearing either Interrupt FIFO register clears both
+*       registers.
 *
 *****************************************************************************/
 void XDmaPcie_ClearRootPortIntFIFOReg(XDmaPcie *InstancePtr)
@@ -1454,17 +1455,12 @@ void XDmaPcie_ClearRootPortIntFIFOReg(XDmaPcie *InstancePtr)
 
 /****************************************************************************/
 /**
-* Read PCIe address translation vector that corresponds to one of AXI local
-* bus bars passed by the caller.
+* @brief Reads the PCIe address translation vector of an AXI local bus BAR.
 *
-* @param 	InstancePtr is the XDmaPcie instance to operate on.
-* @param 	BarNumber is AXI bar number (0 - 5) passed by caller.
-* @param 	BarAddrPtr is a pointer to a variable where the driver will
-*.		pass back translation vector.
-*
-* @return 	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] BarNumber AXI BAR number, 0 to 5, passed by the caller.
+* @param[out] BarAddrPtr Pointer to a variable that receives the translation
+*             vector.
 *
 *****************************************************************************/
 void XDmaPcie_GetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
@@ -1491,17 +1487,11 @@ void XDmaPcie_GetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 
 /****************************************************************************/
 /**
-* Write PCIe address translation vector that corresponds to one of AXI local
-* bus bars passed by the caller.
+* @brief Writes the PCIe address translation vector of an AXI local bus BAR.
 *
-* @param 	InstancePtr is the XDmaPcie instance to operate on.
-* @param 	BarNumber is AXI bar number (0 - 5) passed by caller.
-* @param 	BarAddrPtr is a pointer to a variable where the driver will
-* 		pass back translation vector.
-*
-* @return 	None.
-*
-* @note		None.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] BarNumber AXI BAR number, 0 to 5, passed by the caller.
+* @param[in] BarAddrPtr Pointer to the translation vector to write.
 *
 *****************************************************************************/
 void XDmaPcie_SetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
@@ -1526,18 +1516,16 @@ void XDmaPcie_SetLocalBusBar2PcieBar(XDmaPcie *InstancePtr, u8 BarNumber,
 
 /****************************************************************************/
 /**
-* Read 32-bit value from one of this IP own configuration space.
-* Location is identified by its offset from the beginning of the
+* @brief Reads a 32 bit value from the configuration space of this IP.
+*
+* The location is identified by its offset from the beginning of the
 * configuration space.
 *
-* @param 	InstancePtr is the XDmaPcie instance to operate on.
-* @param 	Offset from beginning of IP own configuration space.
-* @param 	DataPtr is a pointer to a variable where the driver will pass
-* 		back the value read from the specified location.
-*
-* @return 	None
-*
-* @note 	None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Offset Offset from the beginning of the configuration space of
+*            this IP.
+* @param[out] DataPtr Pointer to a variable that receives the value read from
+*             the specified location.
 *
 *****************************************************************************/
 void XDmaPcie_ReadLocalConfigSpace(XDmaPcie *InstancePtr, u16 Offset,
@@ -1555,18 +1543,18 @@ void XDmaPcie_ReadLocalConfigSpace(XDmaPcie *InstancePtr, u16 Offset,
 
 /****************************************************************************/
 /**
-* Write 32-bit value to one of this IP own configuration space.
-* Location is identified by its offset from the beginning of the
+* @brief Writes a 32 bit value to the configuration space of this IP.
+*
+* The location is identified by its offset from the beginning of the
 * configuration space.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
-* @param 	Offset from beggininng of IP own configuration space.
-* @param 	Data to be written to the specified location.
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Offset Offset from the beginning of the configuration space of
+*            this IP.
+* @param[in] Data Value to be written to the specified location.
 *
-* @return 	None
-*
-* @note 	This function is valid only when IP is configured as a
-*		root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 void XDmaPcie_WriteLocalConfigSpace(XDmaPcie *InstancePtr, u16 Offset,
@@ -1583,18 +1571,19 @@ void XDmaPcie_WriteLocalConfigSpace(XDmaPcie *InstancePtr, u16 Offset,
 }
 
 /****************************************************************************/
-/*
-* Compose an address to be written to configuration address port
+/**
+* @brief Composes an address to be written to the configuration address port.
 *
-* @param 	Bus is the external PCIe function's Bus number.
-* @param 	Device is the external PCIe function's Device number.
-* @param 	Function is the external PCIe function's Function number.
-* @param 	Offset from beggininng of PCIe function's configuration space.
-
-* @return 	32 bit composed value (address).
+* @param[in] Bus Bus number of the external PCIe function.
+* @param[in] Device Device number of the external PCIe function.
+* @param[in] Function Function number of the external PCIe function.
+* @param[in] Offset Offset from the beginning of the configuration space of
+*            the PCIe function.
 *
-* @note 	This function is valid only when IP is configured as a
-*		root complex.
+* @return 32 bit composed address value.
+*
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 u32 XDmaPcie_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
@@ -1620,22 +1609,20 @@ u32 XDmaPcie_ComposeExternalConfigAddress(u8 Bus, u8 Device, u8 Function,
 }
 
 /****************************************************************************/
-/*
-* Enable IATU Programming for MMI PCI Node
+/**
+* @brief Enables iATU programming for an MMI PCI node.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
-* @param        Bus is the external PCIe function's Bus number.
-* @param        ATUConfigDataType is the TYPE to Modify Outgoing TLP's
-* @param        ATURegionCntrl is the Region EN for Address Translation
-* @param        ATUAddress is the IATU Base Address
-* @param        ATULimitAddress is the IATU Limit Address
-* @param        PCIeAddress is the Target address to be mapped
-* @param        RegionSize is the IATU Address Translation Size
-
-* @return       None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Bus Bus number of the external PCIe function.
+* @param[in] ATUConfigDataType TLP type used to modify outgoing TLPs.
+* @param[in] ATURegionCntrl Region enable value for address translation.
+* @param[in] ATUAddress Base address of the iATU.
+* @param[in] ATULimitAddress Limit address of the iATU.
+* @param[in] PCIeAddress Target address to be mapped.
+* @param[in] RegionSize Size of the iATU address translation region.
 *
-* @note         This function is valid only when IP is configured as a
-*               root complex.
+* @note This function is valid only when the IP is configured as a root
+*       complex.
 *
 *****************************************************************************/
 void XDmaPcie_ConfigureIATURegion(XDmaPcie *InstancePtr, u8 Bus, u8 ATUConfigDataType,
@@ -1671,24 +1658,25 @@ void XDmaPcie_ConfigureIATURegion(XDmaPcie *InstancePtr, u8 Bus, u8 ATUConfigDat
 
 /****************************************************************************/
 /**
-* Read 32-bit value from external PCIe Function's configuration space.
-* External PCIe function is identified by its Requester ID (Bus#, Device#,
-* Function#). Location is identified by its offset from the beginning of the
-* configuration space.
+* @brief Reads a 32 bit value from the configuration space of an external PCIe
+*        function.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
-* @param 	Bus is the external PCIe function's Bus number.
-* @param 	Device is the external PCIe function's Device number.
-* @param 	Function is the external PCIe function's Function number.
-* @param 	Offset from beggininng of PCIe function's configuration space.
-* @param 	DataPtr is a pointer to a variable where the driver will pass
-* 		back the value read from the specified location.
+* The external PCIe function is identified by its requester ID, that is its
+* bus, device and function numbers. The location is identified by its offset
+* from the beginning of the configuration space.
 *
-* @return 	None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Bus Bus number of the external PCIe function.
+* @param[in] Device Device number of the external PCIe function.
+* @param[in] Function Function number of the external PCIe function.
+* @param[in] Offset Offset from the beginning of the configuration space of
+*            the PCIe function.
+* @param[out] DataPtr Pointer to a variable that receives the value read from
+*             the specified location.
 *
-* @note 	This function is valid only when IP is configured as a
-*		root complex. The XDmaPcie_ReadLocalConfigSpace API should
-*		be used for reading the local config space.
+* @note This function is valid only when the IP is configured as a root
+*       complex. Use XDmaPcie_ReadLocalConfigSpace() to read the local
+*       configuration space.
 *
 *****************************************************************************/
 void XDmaPcie_ReadRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
@@ -1743,23 +1731,24 @@ void XDmaPcie_ReadRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 
 /****************************************************************************/
 /**
-* Write 32-bit value to external PCIe function's configuration space.
-* External PCIe function is identified by its Requester ID (Bus#, Device#,
-* Function#). Location is identified by its offset from the beginning of the
-* configuration space.
+* @brief Writes a 32 bit value to the configuration space of an external PCIe
+*        function.
 *
-* @param 	InstancePtr is the PCIe component to operate on.
-* @param 	Bus is the external PCIe function's Bus number.
-* @param 	Device is the external PCIe function's Device number.
-* @param 	Function is the external PCIe function's Function number.
-* @param 	Offset from beggininng of PCIe function's configuration space.
-* @param 	Data to be written to the specified location.
+* The external PCIe function is identified by its requester ID, that is its
+* bus, device and function numbers. The location is identified by its offset
+* from the beginning of the configuration space.
 *
-* @return 	None
+* @param[in] InstancePtr Pointer to the XDmaPcie instance to operate on.
+* @param[in] Bus Bus number of the external PCIe function.
+* @param[in] Device Device number of the external PCIe function.
+* @param[in] Function Function number of the external PCIe function.
+* @param[in] Offset Offset from the beginning of the configuration space of
+*            the PCIe function.
+* @param[in] Data Value to be written to the specified location.
 *
-* @note 	This function is valid only when IP is configured as a
-*		root complex. The XDmaPcie_WriteLocalConfigSpace should be
-*		used for writing to local config space.
+* @note This function is valid only when the IP is configured as a root
+*       complex. Use XDmaPcie_WriteLocalConfigSpace() to write to the local
+*       configuration space.
 *
 *****************************************************************************/
 void XDmaPcie_WriteRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
@@ -1804,3 +1793,4 @@ void XDmaPcie_WriteRemoteConfigSpace(XDmaPcie *InstancePtr, u8 Bus, u8 Device,
 		Count--;
 	}
 }
+/** @} */

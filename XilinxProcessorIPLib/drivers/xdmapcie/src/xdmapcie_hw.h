@@ -8,11 +8,11 @@
 /**
 *
 * @file xdmapcie_hw.h
+* @addtogroup xdmapcie Overview
+* @{
 *
-* This header file contains identifiers and basic driver functions for the
-* XDmaPcie device driver.
-*
-* @note		None.
+* @brief Defines the register identifiers and the basic register access
+*        functions of the XDmaPcie device driver.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -612,7 +612,7 @@ extern "C" {
 						    * Root Port Completion
 						    * Timeout Shift
 						    */
-
+/*@}*/
 
 /** @name Root Port MSI Base Register bitmaps and masks
  *
@@ -622,7 +622,7 @@ extern "C" {
 						    * Upper 32 bits of 64 bit
 						    * MSI Base Address
 						    */
-#define XDMAPCIE_RPMSIB_UPPER_SHIFT 	32	   /* Shift of Upper 32 bits */
+#define XDMAPCIE_RPMSIB_UPPER_SHIFT 	32	   /**< Shift of Upper 32 bits */
 #define XDMAPCIE_RPMSIB_LOWER_MASK 	0xFFFFF000 /**<
 						    * Lower 32 bits of 64 bit
 						    * MSI Base Address
@@ -715,26 +715,26 @@ extern "C" {
 #define XDMAPCIE_ECAM_BYT_SHIFT		0   /**< Byte Offset Shift Value */
 /*@}*/
 
-/* Offset used for getting the VSEC register contents */
+/** Offset used for getting the VSEC register contents */
 #define XDMAPCIE_VSEC2_OFFSET_WRT_VSEC1 	0xD8
 
 #if defined(versal) || defined(QDMA_PCIE_BRIDGE)
-/* Number of buses */
+/** Number of buses supported by the bridge */
 #define XDMAPCIE_NUM_BUSES	16
 #endif
 
 /****************** Macros (Inline Functions) Definitions ********************/
 /*****************************************************************************/
 /**
-* Macro to read register.
+* @brief Reads a PCIe register.
 *
-* @param	BaseAddress is the base address of the PCIe.
-* @param	RegOffset is the register offset.
+* @param[in] BaseAddress Base address of the PCIe.
+* @param[in] RegOffset Register offset.
 *
-* @return	Value of the register.
+* @return Value of the register.
 *
-* @note		C-style signature:
-*		u32 XDmaPcie_ReadReg(u32 BaseAddress, u32 RegOffset)
+* @note C-style signature:
+*       u32 XDmaPcie_ReadReg(u32 BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
 #define XDmaPcie_ReadReg(BaseAddress, RegOffset) \
@@ -743,17 +743,14 @@ extern "C" {
 
 /*****************************************************************************/
 /**
-* Macro to write register.
+* @brief Writes a PCIe register.
 *
-* @param 	BaseAddress is the base address of the PCIe.
-* @param 	RegOffset is the register offset.
-* @param 	Data is the data to write.
+* @param[in] BaseAddress Base address of the PCIe.
+* @param[in] RegOffset Register offset.
+* @param[in] Data Data to write.
 *
-* @return 	None
-*
-* @note		C-style signature:
-*		void XDmaPcie_WriteReg(u32 BaseAddress, u32 RegOffset,
-*								u32 Data)
+* @note C-style signature:
+*       void XDmaPcie_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
 #define XDmaPcie_WriteReg(BaseAddress, RegOffset, Data) \
@@ -768,4 +765,5 @@ extern "C" {
 }
 #endif
 
+/** @} */
 #endif /* XDMAPCIE_HW_H */

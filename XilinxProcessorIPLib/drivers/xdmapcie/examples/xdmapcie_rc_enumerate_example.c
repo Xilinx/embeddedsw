@@ -8,17 +8,14 @@
 /**
 * @file xdmapcie_rc_enumerate_example.c
 *
-* This file contains a design example for using XDMA PCIe IP and its driver.
-* This is an example to show the usage of driver APIs when XDMA PCIe IP is
-* configured as a Root Port.
+* @brief Demonstrates the use of the XDMA PCIe IP and its driver when the IP
+*        is configured as a Root Port.
 *
 * The example initializes the XDMA PCIe IP and shows how to enumerate the PCIe
 * system.
 *
-* @note
-*
-* This example should be used only when XDMA PCIe IP is configured as
-* root complex.
+* @note This example should be used only when the XDMA PCIe IP is configured
+*       as a root complex.
 *
 * This code will illustrate how the XDmaPcie IP and its standalone driver can
 * be used to:
@@ -55,51 +52,60 @@
 /************************** Constant Definitions ****************************/
 
 /* Parameters for the waiting for link up routine */
-#define XDMAPCIE_LINK_WAIT_MAX_RETRIES 		10
-#define XDMAPCIE_LINK_WAIT_USLEEP_MIN 		90000
+#define XDMAPCIE_LINK_WAIT_MAX_RETRIES 		10	/**< Maximum link up poll attempts */
+#define XDMAPCIE_LINK_WAIT_USLEEP_MIN 		90000	/**< Delay between link up polls, in microseconds */
 
 #ifndef SDT
-#define XDMAPCIE_DEVICE_ID 	XPAR_XDMAPCIE_0_DEVICE_ID
+#define XDMAPCIE_DEVICE_ID 	XPAR_XDMAPCIE_0_DEVICE_ID	/**< Device ID of the PCIe IP */
 #endif
-/*
- * Command register offsets
- */
-#define PCIE_CFG_CMD_IO_EN	0x00000001 /* I/O access enable */
-#define PCIE_CFG_CMD_MEM_EN	0x00000002 /* Memory access enable */
-#define PCIE_CFG_CMD_BUSM_EN	0x00000004 /* Bus master enable */
-#define PCIE_CFG_CMD_PARITY	0x00000040 /* parity errors response */
-#define PCIE_CFG_CMD_SERR_EN	0x00000100 /* SERR report enable */
 
-/*
- * PCIe Configuration registers offsets
+/**
+ * @name Command register bit definitions
+ * @{
  */
+#define PCIE_CFG_CMD_IO_EN	0x00000001 /**< I/O access enable */
+#define PCIE_CFG_CMD_MEM_EN	0x00000002 /**< Memory access enable */
+#define PCIE_CFG_CMD_BUSM_EN	0x00000004 /**< Bus master enable */
+#define PCIE_CFG_CMD_PARITY	0x00000040 /**< Parity error response */
+#define PCIE_CFG_CMD_SERR_EN	0x00000100 /**< SERR report enable */
+/** @} */
 
-#define PCIE_CFG_ID_REG			0x0000 /* Vendor ID/Device ID offset */
-#define PCIE_CFG_CMD_STATUS_REG		0x0001 /*
-						* Command/Status Register
+/**
+ * @name PCIe configuration space register offsets, in doublewords
+ * @{
+ */
+#define PCIE_CFG_ID_REG			0x0000 /**< Vendor ID and Device ID */
+#define PCIE_CFG_CMD_STATUS_REG		0x0001 /**<
+						* Command and Status Register
 						* Offset
 						*/
-#define PCIE_CFG_PRI_SEC_BUS_REG	0x0006 /*
-						* Primary/Sec.Bus Register
-						* Offset
+#define PCIE_CFG_PRI_SEC_BUS_REG	0x0006 /**<
+						* Primary and Secondary Bus
+						* Register Offset
 						*/
-#define PCIE_CFG_CAH_LAT_HD_REG		0x0003 /*
-						* Cache Line/Latency Timer/
-						* Header Type/
+#define PCIE_CFG_CAH_LAT_HD_REG		0x0003 /**<
+						* Cache Line, Latency Timer,
+						* Header Type and
 						* BIST Register Offset
 						*/
-#define PCIE_CFG_BAR_0_REG		0x0004 /* PCIe Base Addr 0 */
+#define PCIE_CFG_BAR_0_REG		0x0004 /**< Base Address Register 0 */
+/** @} */
 
-#define PCIE_CFG_FUN_NOT_IMP_MASK	0xFFFF
-#define PCIE_CFG_HEADER_TYPE_MASK	0x00EF0000
-#define PCIE_CFG_MUL_FUN_DEV_MASK	0x00800000
+/**
+ * @name Configuration header field masks and enumeration limits
+ * @{
+ */
+#define PCIE_CFG_FUN_NOT_IMP_MASK	0xFFFF		/**< Marks a function that is not implemented */
+#define PCIE_CFG_HEADER_TYPE_MASK	0x00EF0000	/**< Header type field */
+#define PCIE_CFG_MUL_FUN_DEV_MASK	0x00800000	/**< Multi function device */
 
-#define PCIE_CFG_MAX_NUM_OF_BUS		256
-#define PCIE_CFG_MAX_NUM_OF_DEV		1
-#define PCIE_CFG_MAX_NUM_OF_FUN		8
+#define PCIE_CFG_MAX_NUM_OF_BUS		256	/**< Maximum number of buses */
+#define PCIE_CFG_MAX_NUM_OF_DEV		1	/**< Maximum number of devices per bus */
+#define PCIE_CFG_MAX_NUM_OF_FUN		8	/**< Maximum number of functions per device */
 
-#define PCIE_CFG_PRIM_SEC_BUS		0x00070100
-#define PCIE_CFG_BAR_0_ADDR		0x00001111
+#define PCIE_CFG_PRIM_SEC_BUS		0x00070100	/**< Primary and secondary bus numbers */
+#define PCIE_CFG_BAR_0_ADDR		0x00001111	/**< Default address programmed into BAR 0 */
+/** @} */
 
 
 
@@ -120,19 +126,15 @@ int PcieInitRootComplex(XDmaPcie *XdmaPciePtr, UINTPTR BaseAddress);
 /************************** Variable Definitions ****************************/
 
 /* Allocate PCIe Root Complex IP Instance */
-XDmaPcie XdmaPcieInstance;
+XDmaPcie XdmaPcieInstance;	/**< Instance of the PCIe root complex IP */
 
 /****************************************************************************/
 /**
-* This function is the entry point for PCIe Root Complex Enumeration Example
-*
-* @param 	None
+* @brief Runs the PCIe root complex enumeration example.
 *
 * @return
 *		- XST_SUCCESS if successful
 *		- XST_FAILURE if unsuccessful.
-*
-* @note 	None.
 *
 *****************************************************************************/
 int main(void)
@@ -170,19 +172,18 @@ int main(void)
 
 /****************************************************************************/
 /**
-* This function initializes a XDMA PCIe IP built as a root complex
+* @brief Initializes an XDMA PCIe IP that is built as a root complex.
 *
+* When SDT is defined the second parameter is the base address of the IP
+* instead of its device ID.
 *
-* @param	XdmaPciePtr is a pointer to an instance of XDmaPcie data
-*		structure represents a root complex IP.
-* @param 	DeviceId is XDMA PCIe IP unique ID
+* @param[in,out] XdmaPciePtr Pointer to an instance of the XDmaPcie data
+*                structure that represents a root complex IP.
+* @param[in] DeviceId Unique ID of the XDMA PCIe IP.
 *
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
-*
-* @note 	None.
-*
 *
 ******************************************************************************/
 #ifndef SDT
