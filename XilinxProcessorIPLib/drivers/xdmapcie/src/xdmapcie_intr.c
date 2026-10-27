@@ -24,6 +24,9 @@
 
 /****************************** Include Files ********************************/
 #include "xdmapcie.h"
+#if defined(versal_2vp)
+#include "xdmapcie_common.h"
+#endif
 
 /*************************** Constant Definitions ****************************/
 
@@ -99,16 +102,32 @@ void XDmaPcie_DisableGlobalInterrupt(XDmaPcie *InstancePtr)
 ******************************************************************************/
 void XDmaPcie_EnableInterrupts(XDmaPcie *InstancePtr, u32 EnableMask)
 {
+#if defined(versal_2vp)
+	UINTPTR CoreBase;
+#else
 	u32 Data = 0;
+#endif
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined(versal_2vp)
+	(void)EnableMask;
+	CoreBase = XDmaPcie_Cpm6CoreBase(InstancePtr->Config.Name,
+					 InstancePtr->Config.BaseAddress);
+
+	/* Clear the legacy INTx and misc event masks to enable them. */
+	XDmaPcie_WriteReg(CoreBase, XDMAPCIE_CPM6_LEGACY_INTX_OFFSET,
+			  XDMAPCIE_CPM6_INTR_ENABLE_ALL_MASK);
+	XDmaPcie_WriteReg(CoreBase, XDMAPCIE_CPM6_MISC_EVENT_OFFSET,
+			  XDMAPCIE_CPM6_INTR_ENABLE_ALL_MASK);
+#else
 	Data = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
 						XDMAPCIE_IM_OFFSET);
 
 	XDmaPcie_WriteReg(InstancePtr->Config.BaseAddress,
 				XDMAPCIE_IM_OFFSET, (Data | EnableMask));
+#endif
 
 }
 
@@ -125,16 +144,34 @@ void XDmaPcie_EnableInterrupts(XDmaPcie *InstancePtr, u32 EnableMask)
 ******************************************************************************/
 void XDmaPcie_DisableInterrupts(XDmaPcie *InstancePtr, u32 DisableMask)
 {
+#if defined(versal_2vp)
+	UINTPTR CoreBase;
+#else
 	u32 Data = 0;
+#endif
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined(versal_2vp)
+	(void)DisableMask;
+	CoreBase = XDmaPcie_Cpm6CoreBase(InstancePtr->Config.Name,
+					 InstancePtr->Config.BaseAddress);
+
+	/* Mask the legacy INTA/B/C/D interrupts. */
+	XDmaPcie_WriteReg(CoreBase, XDMAPCIE_CPM6_LEGACY_INTX_OFFSET,
+			  XDMAPCIE_CPM6_LEGACY_INTX_DISABLE_MASK);
+
+	/* Mask the misc / INTx aggregate event. */
+	XDmaPcie_WriteReg(CoreBase, XDMAPCIE_CPM6_MISC_EVENT_OFFSET,
+			  XDMAPCIE_CPM6_MISC_EVENT_DISABLE_MASK);
+#else
 	Data = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
 							XDMAPCIE_IM_OFFSET);
 
 	XDmaPcie_WriteReg(InstancePtr->Config.BaseAddress,
 				XDMAPCIE_IM_OFFSET, (Data & (~DisableMask)));
+#endif
 
 }
 
@@ -153,9 +190,15 @@ void XDmaPcie_GetEnabledInterrupts(XDmaPcie *InstancePtr, u32 *EnabledMaskPtr)
 	Xil_AssertVoid(EnabledMaskPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-
+#if defined(versal_2vp)
+	*EnabledMaskPtr = XDmaPcie_ReadReg(
+		XDmaPcie_Cpm6CoreBase(InstancePtr->Config.Name,
+				      InstancePtr->Config.BaseAddress),
+		XDMAPCIE_CPM6_MISC_EVENT_OFFSET);
+#else
 	*EnabledMaskPtr = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
 							XDMAPCIE_IM_OFFSET);
+#endif
 
 }
 
@@ -174,9 +217,15 @@ void XDmaPcie_GetPendingInterrupts(XDmaPcie *InstancePtr, u32 *PendingMaskPtr)
 	Xil_AssertVoid(PendingMaskPtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-
+#if defined(versal_2vp)
+	*PendingMaskPtr = XDmaPcie_ReadReg(
+		XDmaPcie_Cpm6CoreBase(InstancePtr->Config.Name,
+				      InstancePtr->Config.BaseAddress),
+		XDMAPCIE_CPM6_LEGACY_INTX_OFFSET);
+#else
 	*PendingMaskPtr = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,
 							XDMAPCIE_ID_OFFSET);
+#endif
 
 }
 
@@ -190,12 +239,25 @@ void XDmaPcie_GetPendingInterrupts(XDmaPcie *InstancePtr, u32 *PendingMaskPtr)
 ******************************************************************************/
 void XDmaPcie_ClearPendingInterrupts(XDmaPcie *InstancePtr, u32 ClearMask)
 {
+#if defined(versal_2vp)
+	UINTPTR CoreBase;
+#endif
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined(versal_2vp)
+	CoreBase = XDmaPcie_Cpm6CoreBase(InstancePtr->Config.Name,
+					 InstancePtr->Config.BaseAddress);
+
+	XDmaPcie_WriteReg(CoreBase, XDMAPCIE_CPM6_LEGACY_INTX_OFFSET,
+			XDmaPcie_ReadReg(CoreBase,
+				XDMAPCIE_CPM6_LEGACY_INTX_OFFSET) & (ClearMask));
+#else
 
 	XDmaPcie_WriteReg((InstancePtr->Config.BaseAddress), XDMAPCIE_ID_OFFSET,
 			XDmaPcie_ReadReg((InstancePtr->Config.BaseAddress),
 				XDMAPCIE_ID_OFFSET) & (ClearMask));
+#endif
 }
 /** @} */

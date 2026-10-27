@@ -128,7 +128,7 @@ void XDmaPcie_QdmaAddPgm(XDmaPcie *InstancePtr)
 int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 							 UINTPTR EffectiveAddress)
 {
-#if !defined(versal) && !defined(QDMA_PCIE_BRIDGE)
+#if !defined(versal) && !defined(QDMA_PCIE_BRIDGE) && !defined(versal_2vp)
 	u32 Data;
 #endif
 
@@ -154,9 +154,13 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 		XDmaPcie_QdmaAddPgm(InstancePtr);
 #endif
 
-#if defined(SDT) && defined(versal) && !defined(QDMA_PCIE_BRIDGE) && !defined(XDMA_PCIE_BRIDGE) && !defined(versal_2ve_2vm)
-	InstancePtr->Config.BaseAddress= InstancePtr->Config.Ecam;
-	InstancePtr->Config.Ecam= EffectiveAddress;
+	/*
+	 * Versal and CPM6 (versal_2vp) report the ECAM region as the effective
+	 * address and the csr-slcr block as "Ecam", so the two are swapped.
+	 */
+#if defined(SDT) && (defined(versal) || defined(versal_2vp)) && !defined(QDMA_PCIE_BRIDGE) && !defined(XDMA_PCIE_BRIDGE) && !defined(versal_2ve_2vm)
+	InstancePtr->Config.BaseAddress = InstancePtr->Config.Ecam;
+	InstancePtr->Config.Ecam = EffectiveAddress;
 #endif
 
 	if (InstancePtr->Config.Ecam == InstancePtr->Config.NpMemBaseAddr)
@@ -166,7 +170,7 @@ int XDmaPcie_CfgInitialize(XDmaPcie *InstancePtr, XDmaPcie_Config *CfgPtr,
 	XDmaPcie_DisableInterrupts(InstancePtr, XDMAPCIE_IM_DISABLE_ALL_MASK);
 
 	/* Max number of buses */
-#if defined(versal) || defined(QDMA_PCIE_BRIDGE) || defined(versal_2ve_2vm)
+#if defined(versal) || defined(versal_2vp) || defined(QDMA_PCIE_BRIDGE) || defined(versal_2ve_2vm)
 	InstancePtr->MaxNumOfBuses = XDMAPCIE_NUM_BUSES;
 #else
 	Data = XDmaPcie_ReadReg(InstancePtr->Config.BaseAddress,

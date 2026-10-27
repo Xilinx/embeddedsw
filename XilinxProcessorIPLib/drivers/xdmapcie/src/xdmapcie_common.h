@@ -18,6 +18,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 1.0	tk	01/30/2019	First release
+* 3.3		10/24/2026	Added CPM6 (versal_2vp) controller helpers
 * </pre>
 *
 *******************************************************************************/
@@ -28,6 +29,11 @@
 extern "C" {
 #endif
 #include "xil_printf.h"
+#include "xil_types.h"
+#include "xdmapcie_hw.h"
+#if defined(versal_2vp)
+#include <string.h>
+#endif
 
 #define DEBUG_MODE				/**< Enables the XDmaPcie_Dbg() prints */
 /******************************** Include Files *******************************/
@@ -188,6 +194,86 @@ extern "C" {
 /** @} */
 
 /***************************** Function Prototypes ****************************/
+
+#if defined(versal_2vp)
+/*****************************************************************************/
+/**
+* @brief Returns the CPM6 controller index named by a compatible string.
+*
+* The string is normally XDmaPcie_Config.Name, taken from the device tree.
+*
+* @param[in] Compatible Device tree compatible string.
+*
+* @return
+*		- XDMAPCIE_CPM6_CONTROLLER_1 for the host1 compatible string.
+*		- XDMAPCIE_CPM6_CONTROLLER_0 otherwise.
+*
+******************************************************************************/
+static inline u32 XDmaPcie_Cpm6GetController(const char *Compatible)
+{
+	u32 Controller = XDMAPCIE_CPM6_CONTROLLER_0;
+
+	if ((Compatible != NULL) &&
+	    (strcmp(Compatible, XDMAPCIE_CPM6_HOST1_COMPATIBLE) == 0)) {
+		Controller = XDMAPCIE_CPM6_CONTROLLER_1;
+	}
+
+	return Controller;
+}
+
+/*****************************************************************************/
+/**
+* @brief Returns the CPM6 interrupt register block base of a controller.
+*
+* The controller is selected by the compatible string. The device tree only
+* supplies the CSR/SLCR (csr-slcr) base address, and the interrupt register
+* block sits at a fixed offset from it.
+*
+* @param[in] Compatible Device tree compatible string.
+* @param[in] CsrSlcrBase Base address of the csr-slcr block from the device
+*            tree.
+*
+* @return Base address of the interrupt register block of the controller.
+*
+******************************************************************************/
+static inline UINTPTR XDmaPcie_Cpm6CoreBase(const char *Compatible,
+					    UINTPTR CsrSlcrBase)
+{
+	UINTPTR Offset = XDMAPCIE_CPM6_CORE0_INTR_OFFSET;
+
+	if (XDmaPcie_Cpm6GetController(Compatible) ==
+	    XDMAPCIE_CPM6_CONTROLLER_1) {
+		Offset = XDMAPCIE_CPM6_CORE1_INTR_OFFSET;
+	}
+
+	return (CsrSlcrBase + Offset);
+}
+
+/*****************************************************************************/
+/**
+* @brief Selects the PERST# pin of the CPM6 controller named by the compatible
+*        string.
+*
+* @param[in] Compatible Device tree compatible string.
+* @param[in] Ctrl0Pin Pin wired to the controller 0 PERST#.
+* @param[in] Ctrl1Pin Pin wired to the controller 1 PERST#.
+*
+* @return Ctrl1Pin for the host1 compatible string, Ctrl0Pin otherwise.
+*
+******************************************************************************/
+static inline u32 XDmaPcie_Cpm6GetPerstPin(const char *Compatible,
+					   u32 Ctrl0Pin, u32 Ctrl1Pin)
+{
+	u32 Pin = Ctrl0Pin;
+
+	if (XDmaPcie_Cpm6GetController(Compatible) ==
+	    XDMAPCIE_CPM6_CONTROLLER_1) {
+		Pin = Ctrl1Pin;
+	}
+
+	return Pin;
+}
+#endif /* versal_2vp */
 
 #ifdef __cplusplus
 }

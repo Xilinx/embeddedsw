@@ -27,6 +27,13 @@
 * Please note that this example enumerates and initializes PCIe end points
 * only.
 *
+* On CPM6 (versal_2vp) the example also drives the PCIe PERST# fundamental
+* reset before enumerating. PERST# is active low and is routed to two pins per
+* controller: a PS MIO pin, driven through the PS_GPIO registers directly
+* because that device tree node is disabled, and a PMC GPIO pin driven through
+* the XGpioPs driver. The pins for the controller in use are selected from the
+* device tree compatible string.
+*
 * We tried to use as much of the driver's API calls as possible to show the
 * reader how each call could be used and that probably made the example not
 * the shortest way of doing the tasks shown as they could be done.
@@ -37,6 +44,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 1.0	tk	01/30/2019	Initial version of XDMA PCIe root complex example
+* 3.3		10/24/2026	Added the CPM6 (versal_2vp) GPIO PERST# sequence
 *</pre>
 *****************************************************************************/
 
@@ -47,6 +55,11 @@
 #include "stdio.h"
 #include "xil_printf.h"
 #include "sleep.h"
+
+#if defined(versal_2vp)
+#include "xdmapcie_common.h"	/* CPM6 helper inline functions */
+#include "xgpiops.h"		/* PMC GPIO used for the PCIe PERST# signal */
+#endif
 
 
 /************************** Constant Definitions ****************************/
@@ -69,6 +82,58 @@
 #define PCIE_CFG_CMD_PARITY	0x00000040 /**< Parity error response */
 #define PCIE_CFG_CMD_SERR_EN	0x00000100 /**< SERR report enable */
 /** @} */
+
+#if defined(versal_2vp)
+/**
+ * @name PCIe PERST# pin assignments
+ *
+ * Each CPM6 controller drives PERST# on two pins, one PS MIO and one PMC
+ * GPIO, and both have to be pulsed. Adjust these to match the board wiring.
+ * @{
+ */
+#define PERST_PS_MIO_CTRL0		18U /**< Controller 0 PERST#, PS MIO */
+#define PERST_PS_MIO_CTRL1		19U /**< Controller 1 PERST#, PS MIO */
+#define PERST_PMC_PIN_CTRL0		40U /**< Controller 0 PERST#, PMC GPIO */
+#define PERST_PMC_PIN_CTRL1		41U /**< Controller 1 PERST#, PMC GPIO */
+/** @} */
+
+/**
+ * @name PS_GPIO registers used to drive PERST#
+ *
+ * PS_GPIO bank 0 drives MIO[25:0]. The PS wizard tags the PS PERST pin as
+ * PCIe reset rather than GPIO, so the PS_GPIO device tree node is disabled
+ * and XGpioPs_LookupConfig() has no entry for it. The PDI still configures
+ * the pin as a GPIO output, so the controller registers are driven directly.
+ * @{
+ */
+#define PS_GPIO_BASEADDR		0xFF0B0000U /**< PS_GPIO register base */
+#define PS_GPIO_MASK_DATA_0_MSW		0x004U /**< Masked data, MIO[25:16] */
+#define PS_GPIO_DIRM_0			0x204U /**< Direction mode, bank 0 */
+#define PS_GPIO_OEN_0			0x208U /**< Output enable, bank 0 */
+
+#define PS_GPIO_MSW_FIRST_MIO		16U /**< First MIO in the MSW half bank */
+#define PS_GPIO_MSW_DATA_MASK		0x3FFU /**< Data field, MIO[25:16] */
+#define PS_GPIO_MSW_MASK_SHIFT		16U /**< Write mask field position */
+
+/**
+ * Builds a MASK_DATA_0_MSW value that drives only the target pin.
+ *
+ * Bits [9:0] are the output data for MIO[25:16] and bits [25:16] are the
+ * per pin write mask, where 0 is write-through and 1 is masked.
+ */
+#define PS_GPIO_MSW_VALUE(Bit, Level)					\
+	((((u32)~((u32)1U << (Bit)) & PS_GPIO_MSW_DATA_MASK) <<		\
+	  PS_GPIO_MSW_MASK_SHIFT) | ((u32)(Level) << (Bit)))
+
+#define PERST_DIR_OUTPUT		1U /**< Drive the pin as an output */
+#define PERST_OUTPUT_ENABLE		1U /**< Enable the pin output buffer */
+#define PERST_ASSERT_LEVEL		0U /**< PERST# is active low */
+#define PERST_DEASSERT_LEVEL		1U /**< Release PERST# */
+
+#define PERST_ASSERT_DELAY_US		100000U /**< PERST# low pulse width */
+#define PERST_DEASSERT_DELAY_US		100000U /**< Settle time after release */
+/** @} */
+#endif /* versal_2vp */
 
 /**
  * @name PCIe configuration space register offsets, in doublewords
@@ -123,10 +188,21 @@ int PcieInitRootComplex(XDmaPcie *XdmaPciePtr, u16 DeviceId);
 int PcieInitRootComplex(XDmaPcie *XdmaPciePtr, UINTPTR BaseAddress);
 #endif
 
+#if defined(versal_2vp)
+static void XDmaPcie_DoPsMioPERST(u32 Mio);
+static int XDmaPcie_DoPmcGpioPERST(u32 GpioPin);
+#endif
+
 /************************** Variable Definitions ****************************/
 
 /* Allocate PCIe Root Complex IP Instance */
 XDmaPcie XdmaPcieInstance;	/**< Instance of the PCIe root complex IP */
+
+#if defined(versal_2vp)
+/* PMC-side GPIO instance used for the PCIe PERST# signal. */
+static XGpioPs GpioInstance;
+#endif
+
 
 /****************************************************************************/
 /**
@@ -141,6 +217,10 @@ int main(void)
 {
 
 	int Status;
+#if defined(versal_2vp)
+	u32 PerstPsMio;
+	u32 PerstPmcPin;
+#endif
 
 #if defined(XPS_BOARD_VEK385) || defined(XPS_BOARD_VEK385_1)
 	/* Initialize I2C and perform GPIO reset sequence */
@@ -150,6 +230,30 @@ int main(void)
 		return XST_FAILURE;
 	}
 #endif
+
+#if defined(versal_2vp)
+	/*
+	 * Select the two PERST# pins of this CPM6 controller (0 or 1) from the
+	 * device tree compatible string, then pulse both of them: the PS MIO by
+	 * direct register access, because the PS_GPIO device tree node is
+	 * disabled, and the PMC GPIO through the XGpioPs driver.
+	 */
+	PerstPsMio  = XDmaPcie_Cpm6GetPerstPin(XPAR_XXDMAPCIE_0_COMPATIBLE,
+					PERST_PS_MIO_CTRL0,
+					PERST_PS_MIO_CTRL1);
+	PerstPmcPin = XDmaPcie_Cpm6GetPerstPin(XPAR_XXDMAPCIE_0_COMPATIBLE,
+					PERST_PMC_PIN_CTRL0,
+					PERST_PMC_PIN_CTRL1);
+
+	XDmaPcie_DoPsMioPERST(PerstPsMio);
+
+	Status = XDmaPcie_DoPmcGpioPERST(PerstPmcPin);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR: PMC GPIO PERST initialization failed\r\n");
+		return XST_FAILURE;
+	}
+#endif
+
 
 	/* Initialize Root Complex */
 #ifndef SDT
@@ -330,3 +434,88 @@ int PcieInitRootComplex(XDmaPcie *XdmaPciePtr, UINTPTR BaseAddress)
 
 	return XST_SUCCESS;
 }
+
+#if defined(versal_2vp)
+/****************************************************************************/
+/**
+* @brief Performs the PCIe PERST# sequence on a PS MIO pin.
+*
+* Drives the PS_GPIO bank 0 registers directly. The PS_GPIO device tree node
+* is disabled on this design, so the XGpioPs driver cannot be used for this
+* pin.
+*
+* @param[in] Mio PS MIO pin number, 16 to 25, wired to PERST#.
+*
+*****************************************************************************/
+static void XDmaPcie_DoPsMioPERST(u32 Mio)
+{
+	u32 Bit = Mio - PS_GPIO_MSW_FIRST_MIO;
+
+	/* Configure the pin as an output and enable the output buffer. */
+	XDmaPcie_WriteReg(PS_GPIO_BASEADDR, PS_GPIO_DIRM_0,
+		XDmaPcie_ReadReg(PS_GPIO_BASEADDR, PS_GPIO_DIRM_0) |
+			((u32)PERST_DIR_OUTPUT << Mio));
+	XDmaPcie_WriteReg(PS_GPIO_BASEADDR, PS_GPIO_OEN_0,
+		XDmaPcie_ReadReg(PS_GPIO_BASEADDR, PS_GPIO_OEN_0) |
+			((u32)PERST_OUTPUT_ENABLE << Mio));
+
+	/* Assert PERST# (drive low), hold, then deassert (drive high). */
+	XDmaPcie_WriteReg(PS_GPIO_BASEADDR, PS_GPIO_MASK_DATA_0_MSW,
+			PS_GPIO_MSW_VALUE(Bit, PERST_ASSERT_LEVEL));
+	usleep(PERST_ASSERT_DELAY_US);
+	XDmaPcie_WriteReg(PS_GPIO_BASEADDR, PS_GPIO_MASK_DATA_0_MSW,
+			PS_GPIO_MSW_VALUE(Bit, PERST_DEASSERT_LEVEL));
+	usleep(PERST_DEASSERT_DELAY_US);
+
+	xil_printf("PCIe PS_MIO%u PERST# sequence completed\r\n", Mio);
+}
+
+/****************************************************************************/
+/**
+* @brief Performs the PCIe PERST# sequence on a PMC GPIO pin using the XGpioPs
+*        driver.
+*
+* @param[in] GpioPin PMC GPIO pin number wired to PERST#.
+*
+* @return
+*		- XST_SUCCESS if the reset sequence was driven successfully.
+*		- XST_FAILURE if the GPIO lookup or initialization failed.
+*
+* @note The PMC GPIO is the only enabled gpiops node, so it is instance 0.
+*
+*****************************************************************************/
+static int XDmaPcie_DoPmcGpioPERST(u32 GpioPin)
+{
+	XGpioPs_Config *GpioConfig;
+	int Status;
+
+	GpioConfig = XGpioPs_LookupConfig(XPAR_XGPIOPS_0_BASEADDR);
+	if (GpioConfig == NULL) {
+		xil_printf("ERROR: PMC GPIO LookupConfig failed\r\n");
+		return XST_FAILURE;
+	}
+
+	/* Selects the PMC bank map, must be set before initializing. */
+	GpioInstance.PmcGpio = (u32)TRUE;
+
+	Status = XGpioPs_CfgInitialize(&GpioInstance, GpioConfig,
+					GpioConfig->BaseAddr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR: PMC GPIO CfgInitialize failed\r\n");
+		return XST_FAILURE;
+	}
+
+	XGpioPs_SetDirectionPin(&GpioInstance, GpioPin, PERST_DIR_OUTPUT);
+	XGpioPs_SetOutputEnablePin(&GpioInstance, GpioPin,
+					PERST_OUTPUT_ENABLE);
+
+	XGpioPs_WritePin(&GpioInstance, GpioPin, PERST_ASSERT_LEVEL);
+	usleep(PERST_ASSERT_DELAY_US);
+	XGpioPs_WritePin(&GpioInstance, GpioPin, PERST_DEASSERT_LEVEL);
+	usleep(PERST_DEASSERT_DELAY_US);
+
+	xil_printf("PCIe PMC_MIO%u PERST# sequence completed\r\n", GpioPin);
+
+	return XST_SUCCESS;
+}
+#endif /* versal_2vp */

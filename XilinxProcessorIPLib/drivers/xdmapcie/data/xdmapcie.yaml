@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -21,6 +21,8 @@ properties:
           - xlnx,versal-cpm5-host
           - xlnx,versal-cpm5-host1
           - amd,versal2-mdb-host
+          - amd,versal2-cpm6-host
+          - amd,versal2-cpm6-host1
   reg:
     description: Physical base address and size of the controller register map
 
