@@ -1710,7 +1710,6 @@ xil_printf ("+++++++ TX GT configuration encountered a failure +++++++\r\n");
 													XAXIVDMA_WRITE);
 								XAxiVdma_DmaStop(&dma_struct[0].AxiVdma,
 													XAXIVDMA_READ);
-								Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
 								XDpTxSs_Reset(&DpTxSsInst);
 
 							}
