@@ -281,7 +281,7 @@ extern XHdcp22_Repeater     Hdcp22Repeater;
 #define GT_POSTCUR_MASK             0x007C0000
 #define GT_RATE_MASK                0x0000000E
 #define SINGLE_LANE                 0x00000011
-#define ALL_LANE                    0x0000003F
+#define ALL_LANE                    0x0000000F
 #define VERSAL_200G                 6
 #define VERSAL_135G                 5
 #define VERSAL_100G                 4
