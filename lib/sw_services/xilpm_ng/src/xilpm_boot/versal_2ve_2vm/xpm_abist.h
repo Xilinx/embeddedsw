@@ -1,0 +1,98 @@
+/******************************************************************************
+ * Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
+ * SPDX-License-Identifier: MIT
+ ******************************************************************************/
+
+#ifndef XPM_ABIST_H_
+#define XPM_ABIST_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "xpm_regs.h"
+#include "xpm_common.h"
+
+/*
+ * LPD_AFIFS_GPV register definitions
+ */
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR			(0xEB568100U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS			(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000028U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_LATENTFAULT_MASK	(0x00000001U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_MISSIONFAULT_MASK	(0x00000002U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_INTEN			(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x0000002CU)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL			(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000034U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTSTART_MASK	(0x00000001U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTDONECLR_MASK	(0x00000002U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE			(LPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000038U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_BISTDONE_MASK	(0x00000001U)
+#define LPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_MISSIONMODE_MASK	(0x00000002U)
+
+/*
+ * FPD_AFIFS_GPV register definitions
+ */
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR			(0xEC868100U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS			(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000028U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_LATENTFAULT_MASK	(0x00000001U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_FAULTS_MISSIONFAULT_MASK	(0x00000002U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_INTEN			(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x0000002CU)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL			(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000034U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTSTART_MASK	(0x00000001U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTCTL_BISTDONECLR_MASK	(0x00000002U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE			(FPD_AFIFS_GPV_AFIFS_DTP_PL_BASEADDR + (u32)0x00000038U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_BISTDONE_MASK	(0x00000001U)
+#define FPD_AFIFS_GPV_AFIFS_DTP_PL_BISTDONE_MISSIONMODE_MASK	(0x00000002U)
+
+/*
+ * INTASU_GPV register definitions
+ */
+#define INTASU_GPV_INTASU_PL_BASEADDR				(0xEBF7F380U)
+#define INTASU_GPV_INTASU_PL_FAULTS				(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x00000028U)
+#define INTASU_GPV_INTASU_PL_FAULTS_LATENTFAULT_MASK		(0x00000001U)
+#define INTASU_GPV_INTASU_PL_FAULTS_MISSIONFAULT_MASK		(0x00000002U)
+#define INTASU_GPV_INTASU_PL_INTEN				(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x0000002CU)
+#define INTASU_GPV_INTASU_PL_BISTCTL				(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x00000034U)
+#define INTASU_GPV_INTASU_PL_BISTCTL_BISTSTART_MASK		(0x00000001U)
+#define INTASU_GPV_INTASU_PL_BISTCTL_BISTDONECLR_MASK		(0x00000002U)
+#define INTASU_GPV_INTASU_PL_BISTDONE				(INTASU_GPV_INTASU_PL_BASEADDR + (u32)0x00000038U)
+#define INTASU_GPV_INTASU_PL_BISTDONE_BISTDONE_MASK		(0x00000001U)
+#define INTASU_GPV_INTASU_PL_BISTDONE_MISSIONMODE_MASK		(0x00000002U)
+
+/*
+ * Read both samples before comparing.
+ * Skip only when both samples indicate the function is disabled.
+ */
+static inline u32 XPm_HousecleanCheck(u32 Address, u32 BlockMask,
+					u32 BlockShift, u32 FuncMask)
+{
+	u32 First = (XPm_In32(Address) & BlockMask) >> BlockShift;
+	u32 Second = (XPm_In32(Address) & BlockMask) >> BlockShift;
+
+	return (((First & FuncMask) != FuncMask) ||
+		((Second & FuncMask) != FuncMask)) ? 1U : 0U;
+}
+
+/**
+ * FALSE if house clean of given BLOCK and FUNC is skipped
+ * Note:  The condition is evaluated redundantly to avoid glitches from altering
+ * branching decision.
+ * The BLOCK we supported is only PLD
+ * FUNC contains only ABIST
+ */
+
+#define PM_HOUSECLEAN_CHECK(BLOCK, FUNC) \
+	(0U != XPm_HousecleanCheck( \
+		PM_HOUSECLEAN_DISABLE_ ##BLOCK## _BASEADDR, \
+		PM_HOUSECLEAN_DISABLE_ ##BLOCK## _MASK, \
+		PM_HOUSECLEAN_DISABLE_ ##BLOCK## _OFFSET, \
+		HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK))
+
+/************************** Function Prototypes ******************************/
+XStatus XPmPl_Abist(void);
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XPM_ABIST_H_ */

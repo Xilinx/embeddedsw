@@ -640,6 +640,15 @@ extern "C" {
 								CRP_CFU_REF_CTRL_DIVISOR0_WIDTH \
 								) \
 							)
+
+/**
+ * CRP RCLK_CTRL Registers
+ */
+#define CRP_RCLK_CTRL			(CRP_BASEADDR + (u32)0x4FCU)
+#define CRP_RCLK_CTRL_CLKACT0_MASK	0x00000100U
+#define CRP_RCLK_CTRL_CLKACT1_MASK	0x00000200U
+
+
 /**
  * USB registers
  */
@@ -1670,6 +1679,26 @@ enum {
  * @brief shift to reach the upper 16-bit GPIO configuration
  */
 #define GPIO_CFG_UPPER_SHIFT	(16U)
+
+
+/**
+ * PMC RAM Registers reserved for housecleaning disable
+ */
+
+#define PM_HOUSECLEAN_DISABLE_REG_1     (0xF2014170U)
+
+#define PM_HOUSECLEAN_DISABLE_PLD_BASEADDR      (PM_HOUSECLEAN_DISABLE_REG_1)
+#define PM_HOUSECLEAN_DISABLE_PLD_OFFSET        (20U)
+#define PM_HOUSECLEAN_DISABLE_PLD_WIDTH         (4U)
+#define PM_HOUSECLEAN_DISABLE_PLD_MASK          (BITNMASK( \
+                                                        PM_HOUSECLEAN_DISABLE_PLD_OFFSET, \
+                                                        PM_HOUSECLEAN_DISABLE_PLD_WIDTH \
+                                                        ) \
+                                                )
+
+
+#define HOUSECLEAN_FUNC_DISABLE_ABIST_MASK              (0x8U)
+
 
 #ifdef __cplusplus
 }

@@ -10,6 +10,7 @@
 #include "xpm_regs.h"
 #include "xpm_alloc.h"
 #include "xpm_update.h"
+#include "xpm_abist.h"
 
 static XPm_Iso* XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] XPM_INIT_DATA(XPmDomainIso_List) = { NULL };
 
@@ -312,6 +313,22 @@ XStatus XPmDomainIso_ProcessPending(void)
 				}
 			} else {
 				Status = XST_SUCCESS;
+			}
+		}
+	}
+
+	/*
+	 * Run ABIST only after LPD-PL isolation is marked OFF.
+	 * Check after the complete scan, including when this isolation
+	 * was already OFF on entry.
+	 */
+	IsoNode = XPmDomainIso_List[(u32)XPM_NODEIDX_ISO_LPD_PL];
+
+	if (NULL != IsoNode) {
+		if ((u8)PM_ISOLATION_OFF == IsoNode->Node.State) {
+			Status = XPmPl_Abist();
+			if (XST_SUCCESS != Status) {
+				goto done;
 			}
 		}
 	}
