@@ -30,6 +30,7 @@
 *                     fix conflicts with the non-static
 *                     XPlmi_GetSlrIndex definition in xplmi_plat.c
 *       ng  09/25/26 Added XPlmi_VerifyAddrRangeRedundant for address range validation
+*       sd  10/27/26 Added XPlmi_RunProc prototype to support RUN_PROC CDO command
 *
 * </pre>
 *
@@ -595,7 +596,6 @@ typedef enum {
 #define XPlmi_ScatterWrite		NULL /**< Scatter write */
 #define XPlmi_ScatterWrite2		NULL /**< Scatter write2 */
 #define XPlmi_SetFipsKatMask		NULL /**< Set Fip Kat mask */
-#define XPlmi_RunProc			NULL /**< Run Proc */
 #define XPlmi_ListSet			NULL /**< List Set */
 #define XPlmi_ListWrite			NULL /**< List Write */
 #define XPlmi_ListMaskWrite		NULL /**< List Mask Write */
@@ -985,6 +985,7 @@ u8 XPlmi_IsPlmUpdateDone(void);
 u8 XPlmi_IsPlmUpdateDoneTmp(void);
 u8 XPlmi_IsPlmUpdateInProgress(void);
 void XPlmi_SaveLpdEAMInfo(void);
+int XPlmi_RunProc(XPlmi_Cmd *Cmd);
 int XPlmi_RomISR(XPlmi_RomIntr RomServiceReq);
 
 /************************************ Variable Definitions ****************************************/
