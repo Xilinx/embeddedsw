@@ -23,6 +23,7 @@
 *       rama 09/16/26 Add no-op implementations to fix build errors
 *                     for libxilsem.a
 *       ng   09/25/26 Added XPlmi_VerifyAddrRangeRedundant
+*       sd   10/27/26 Added XPlmi_RunProc command handler
 *
 * </pre>
 *
@@ -49,6 +50,8 @@
 #include "xplmi_err_common.h"
 #include "xplmi_generic.h"
 #include "xplmi_ssit.h"
+#include "xplmi_tamper.h"
+#include "xplmi_modules.h"
 #ifdef PLM_ENABLE_ADDR_RANGE_VALIDATION
 #include "xil_sutil.h"	/* for XSECURE_REDUNDANT_CALL */
 #endif
@@ -1023,4 +1026,37 @@ int XPlmi_VerifyAddrRangeRedundant(u32 SubsystemId, u64 Addr, u64 Size)
 	return (int)XST_SUCCESS;
 }
 #endif
+
+/*****************************************************************************/
+/**
+ * @brief	This function will run the already stored proc if present
+ *
+ * @param	Cmd is pointer to the command structure
+ *
+ * @return
+ * 		- XST_SUCCESS if success and error code if failure
+ *
+ *****************************************************************************/
+int XPlmi_RunProc(XPlmi_Cmd *Cmd)
+{
+	int Status = XST_FAILURE;
+
+	XPLMI_EXPORT_CMD(XPLMI_RUN_PROC_CMD_ID, XPLMI_MODULE_GENERIC_ID,
+			XPLMI_CMD_ARG_CNT_ONE, XPLMI_CMD_ARG_CNT_ONE);
+
+	/* Execute Proc with the given Proc ID */
+	Status = XPlmi_ExecuteProc(Cmd->Payload[INDEX_ZERO]);
+	if ((Status == (int)XPLMI_ERR_PROCID_NOT_VALID) &&
+	    (XPlmi_SldState() == XPLMI_SLD_IN_PROGRESS)) {
+		/*
+		 * During Secure Lockdown a proc not configured on this device is an
+		 * expected condition; failing here would desynchronise ProcessedCdoLen
+		 * and trip the END length check of the enclosing BEGIN/END block.
+		 */
+		XPlmi_Printf(DEBUG_GENERAL, "ProcId 0x%x not configured\n\r", Cmd->Payload[INDEX_ZERO]);
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
+}
 /** @} end of xilplmi_server_apis */
