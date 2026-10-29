@@ -43,6 +43,10 @@ static const u32 PermissionResets[] = {
 	PM_RST_PCIE_1,
 	PM_RST_PCIE_2,
 	PM_RST_PCIE_3,
+	#if defined(CPM6_SUPPORTED)
+	PM_RST_XAPE0,
+	PM_RST_XAPE1,
+	#endif
 };
 
 static XPm_ResetNode *RstNodeList[(u32)XPM_NODEIDX_RST_MAX];
@@ -235,6 +239,29 @@ static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 	XStatus Status = XST_FAILURE;
 	u32 Mask = BITNMASK(Rst->Shift, Rst->Width);
 	u32 ControlReg = Rst->Node.BaseAddress;
+	/*TODO: remove this workaround once custom reset handler is added for pcie*/
+	#if defined(CPM6_SUPPORTED)
+	if(Action == (u32)PM_RESET_ACTION_RELEASE) {
+		if(Rst->Node.Id == PM_RST_XAPE0) {
+			Status = XPlmi_ExecuteProc(1);
+			if (XST_SUCCESS != Status) {
+				PmErr("PCIe Proc 1 failed\r\n");
+			}
+			goto done;
+		} else if(Rst->Node.Id == PM_RST_XAPE1) {
+			Status = XPlmi_ExecuteProc(2);
+			if (XST_SUCCESS != Status) {
+				PmErr("PCIe Proc 2 failed\r\n");
+			}
+			goto done;
+		}
+	} else if((Action == (u32)PM_RESET_ACTION_ASSERT) &&
+		((Rst->Node.Id == PM_RST_XAPE0) || (Rst->Node.Id == PM_RST_XAPE1))) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+	#endif
+
 
 	switch (Action) {
 	case (u32)PM_RESET_ACTION_RELEASE:
@@ -259,6 +286,9 @@ static XStatus Reset_AssertCommon(XPm_ResetNode *Rst, const u32 Action)
 		break;
 	};
 
+#if defined(CPM6_SUPPORTED)
+done:
+#endif
 	return Status;
 }
 
