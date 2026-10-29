@@ -35,12 +35,10 @@
 #include "mmi_dpdc_example.h"
 #include "mmi_dpdc_platform.h"
 
-#include "xclk_wiz.h"
 #include "xvtc.h"
 #include "xavpg.h"
 
 XVtc Vtc0;
-XClk_Wiz ClkWiz0;
 
 void LiveAvpgConfig(RunConfig *RunCfgPtr) {
 	UINTPTR AvpgBaseAddr[2] = {AVPG_0_BASEADDR, AVPG_1_BASEADDR};

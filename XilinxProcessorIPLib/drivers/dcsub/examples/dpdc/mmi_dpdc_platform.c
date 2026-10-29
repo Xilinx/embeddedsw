@@ -21,6 +21,10 @@
 #include <xil_cache.h>
 #include <xil_types.h>
 #include <sleep.h>
+#include <xparameters.h>
+#ifdef XPAR_XCLK_WIZ_NUM_INSTANCES
+#include <xclk_wiz.h>
+#endif
 
 #include "mmi_dpdc_platform.h"
 #include "mmi_dp_init.h"
@@ -70,6 +74,7 @@ static void XDpDc_DmaInterruptHandler(void *CallbackRef)
 	}
 }
 
+#ifdef XPAR_XCLK_WIZ_NUM_INSTANCES
 /*****************************************************************************/
 /**
 *
@@ -82,7 +87,7 @@ static void XDpDc_DmaInterruptHandler(void *CallbackRef)
 * @note		None.
 *
 *****************************************************************************/
-u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr)
+static u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr)
 {
 	u32 Count = 0;
 
@@ -95,6 +100,30 @@ u32 XClk_WaitForLock(XClk_Wiz_Config *CfgPtr)
 	}
 	return XST_SUCCESS;
 }
+
+/*****************************************************************************/
+/**
+*
+* This function looks up the configuration of a clock wizard instance.
+*
+* @param	BaseAddr is the base address of the clock wizard, or 0 if the
+*		clock wizard is not in the design.
+*
+* @return	Pointer to the configuration, or NULL if BaseAddr is 0 or no
+*		instance has that base address.
+*
+* @note		XClk_Wiz_LookupConfig(0) returns the first instance in the
+*		configuration table, so 0 is rejected here.
+*
+*****************************************************************************/
+static XClk_Wiz_Config *XDpDc_LookupClkWiz(UINTPTR BaseAddr)
+{
+	if (BaseAddr == 0U)
+		return NULL;
+
+	return XClk_Wiz_LookupConfig(BaseAddr);
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -189,12 +218,16 @@ u32 XDpDc_ReleaseDcReset(void)
 * first call and cached, so the first call must come before
 * XDpDc_InitClkWiz() reprograms the clock.
 *
-* @return	Boot rate in Hz, or 0 if it cannot be read or the clock may
-*		already have been reprogrammed.
+* @return	Boot rate in Hz, or 0 if it cannot be read, the clock may
+*		already have been reprogrammed or the design has no clock
+*		wizard.
 *
 *****************************************************************************/
 u64 XDpDc_GetVidClkBootHz(void)
 {
+#ifndef XPAR_XCLK_WIZ_NUM_INSTANCES
+	return 0U;
+#else
 	static u64 BootHz;
 	static u8 BootHzRead;
 	XClk_Wiz ClkWiz;
@@ -205,7 +238,7 @@ u64 XDpDc_GetVidClkBootHz(void)
 		return BootHz;
 	BootHzRead = 1U;
 
-	CfgPtr = XClk_Wiz_LookupConfig(CLK_WIZ_BASEADDR);
+	CfgPtr = XDpDc_LookupClkWiz(CLK_WIZ_BASEADDR);
 	if ((CfgPtr == NULL) ||
 	    (XClk_Wiz_CfgInitialize(&ClkWiz, CfgPtr, CfgPtr->BaseAddr) !=
 	     XST_SUCCESS) ||
@@ -228,6 +261,7 @@ u64 XDpDc_GetVidClkBootHz(void)
 		   BootHz, BootHz / 1000000U, (BootHz % 1000000U) / 1000U);
 
 	return BootHz;
+#endif
 }
 
 /*****************************************************************************/
@@ -239,18 +273,25 @@ u64 XDpDc_GetVidClkBootHz(void)
 *
 * @return	XST_SUCCESS if successful, else XST_FAILURE
 *
-* @note		None.
+* @note		Returns XST_FAILURE if the BSP has no clock wizard driver.
 *
 *****************************************************************************/
 u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 {
+#ifndef XPAR_XCLK_WIZ_NUM_INSTANCES
+	(void)RunCfgPtr;
+	xil_printf("  ERROR: No Clock Wizard in the design. This example needs "
+		   "a PL Clock Wizard for the DC video clock\r\n");
+
+	return XST_FAILURE;
+#else
 	XClk_Wiz InstancePtr, AudInstancePtr;
 	XClk_Wiz_Config *CfgPtr, *AudCfgPtr;
 	u32 Status = XST_SUCCESS;
 	u32 Reg;
 	u64 Rate;
 
-	CfgPtr = XClk_Wiz_LookupConfig(CLK_WIZ_BASEADDR);
+	CfgPtr = XDpDc_LookupClkWiz(CLK_WIZ_BASEADDR);
 	if (!CfgPtr) {
 		xil_printf("  ERROR: Failed to lookup Clock Wizard IP\r\n");
 		return XST_FAILURE;
@@ -309,7 +350,7 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 		u32 AudClkkHz;
 		u64 AudClkHz;
 
-		AudCfgPtr = XClk_Wiz_LookupConfig(CLK_WIZ_AUD_BASEADDR);
+		AudCfgPtr = XDpDc_LookupClkWiz(CLK_WIZ_AUD_BASEADDR);
 		if (!AudCfgPtr) {
 			xil_printf("  ERROR: Failed to lookup Audio Clock Wizard IP\r\n");
 			return XST_FAILURE;
@@ -368,6 +409,7 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 
 	}
 	return Status;
+#endif
 }
 
 /*****************************************************************************/

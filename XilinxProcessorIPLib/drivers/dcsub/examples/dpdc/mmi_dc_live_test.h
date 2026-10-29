@@ -20,7 +20,6 @@ extern "C" {
 
 /* Platform specific */
 #include "xinterrupt_wrap.h"
-#include "xclk_wiz.h"
 /* Driver specific */
 #include "xdcsub.h"
 #include "xmmidp.h"
