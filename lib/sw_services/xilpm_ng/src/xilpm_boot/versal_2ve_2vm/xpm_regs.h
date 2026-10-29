@@ -178,6 +178,7 @@ extern "C" {
 #define PMC_TAP_VERSION_PLATFORM_VERSION_MASK			(0xF0000000U)
 #define PMC_TAP_IDCODE_SI_REV_MASK				(0xF0000000U)
 #define PMC_TAP_IDCODE_SI_REV_SHIFT				(28U)
+#define PMC_TAP_IDCODE_DEV_MASK					(0x0003F000U) /**< IDCODE device field mask */
 
 /**
  * SLR TYPES
@@ -204,6 +205,10 @@ extern "C" {
 /**
  * Register: PS_FPD_CMN (ABF)
  */
+/* XC2VM3654 cache coherence root nodes */
+#define POR_HNF_NODE_INFO_U_HNF_NID4_BASEADDR			(0xF8004000U) /**< XC2VM3654 root node base address */
+#define POR_HNF_NODE_INFO_U_HNF_NID12_BASEADDR			(0xF8104000U) /**< XC2VM3654 root node base address */
+/* XC2VE3858 cache coherence root nodes */
 #define POR_HNF_NODE_INFO_U_HNF_NID8_BASEADDR			(0xF8100000U)
 #define POR_HNF_NODE_INFO_U_HNF_NID72_BASEADDR			(0xF8900000U)
 #define POR_HNF_NODE_INFO_U_HNF_NID136_BASEADDR			(0xF9100000U)

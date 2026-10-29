@@ -147,6 +147,11 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 #define PLATFORM_VERSION_QEMU			(0x3U)
 #define PLATFORM_VERSION_FCV			(0x4U)
 #define PLATFORM_VERSION_COSIM			(0x7U) /**< QEMU+COSIM platform */
+
+/* XC2VM3654 device codes: 0x18 (XC2VM3654) to 0x1F (XC2VM3454 and SVD slots) */
+#define PMC_TAP_IDCODE_DEV_SHIFT		(12U) /**< IDCODE device field shift */
+#define PMC_TAP_IDCODE_XC2VM3654_DEV_MIN	(0x18U) /**< Minimum XC2VM3654 device code */
+#define PMC_TAP_IDCODE_XC2VM3654_DEV_MAX	(0x1FU) /**< Maximum XC2VM3654 device code */
 /*
  * SSIT forwarding API supports CmdType. In case of certain APIs which do not
  * pass this argument this macro can be passed in place.
@@ -489,6 +494,8 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 void XPm_Out32(u32 RegAddress, u32 l_Val);
 
 u32 XPm_In32(u32 RegAddress);
+
+u32 XPm_GetIdCode(void);
 
 u32 XPm_GetPlatform(void);
 

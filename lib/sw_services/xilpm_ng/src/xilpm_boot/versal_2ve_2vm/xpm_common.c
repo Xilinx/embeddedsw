@@ -329,7 +329,7 @@ maybe_unused static u32 XPm_GetSlrType(void)
  * @note   The value is read once and cached for subsequent calls.
  *
  ****************************************************************************/
-maybe_unused static u32 XPm_GetIdCode(void)
+u32 XPm_GetIdCode(void)
 {
         static u32 DevIdCode = NOT_INITIALIZED;
 

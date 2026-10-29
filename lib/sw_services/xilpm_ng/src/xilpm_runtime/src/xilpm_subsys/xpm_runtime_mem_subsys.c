@@ -4,6 +4,7 @@
  *****************************************************************************/
 
 #include "xstatus.h"
+#include "xpm_common.h"
 #include "xpm_regs.h"
 #include "xpm_requirement.h"
 #include "xpm_runtime_mem.h"
@@ -22,24 +23,39 @@
 
 /****************************************************************************/
 /**
- * @brief  Callback to flush given memory region using ABF
+ * @brief  Flushes the given memory region using ABF.
  *
- * @param  AddrRegion	Handle to memory region to be flushed
+ * @param[in] AddrRegion Memory region to flush.
  *
- * @return XST_SUCCESS if successful, error code otherwise
+ * @return XST_SUCCESS on success, otherwise an error code.
  *
  ****************************************************************************/
 static XStatus AddrRegnCmnFlushCb(const XPm_AddrRegion *const AddrRegion)
 {
 	XStatus Status = XST_FAILURE;
-	const u32 MemAddr[] = {
+	const u32 Xc2vm3654MemAddr[] = {
+		POR_HNF_NODE_INFO_U_HNF_NID4_BASEADDR,
+		POR_HNF_NODE_INFO_U_HNF_NID12_BASEADDR,
+	};
+	const u32 Xc2ve3858MemAddr[] = {
 		POR_HNF_NODE_INFO_U_HNF_NID8_BASEADDR,
 		POR_HNF_NODE_INFO_U_HNF_NID72_BASEADDR,
 		POR_HNF_NODE_INFO_U_HNF_NID136_BASEADDR,
 		POR_HNF_NODE_INFO_U_HNF_NID200_BASEADDR,
 	};
+	const u32 *MemAddr = Xc2ve3858MemAddr;
+	u32 NumRootNodes = ARRAY_SIZE(Xc2ve3858MemAddr);
+	u32 DevCode = (XPm_GetIdCode() & PMC_TAP_IDCODE_DEV_MASK) >>
+		      PMC_TAP_IDCODE_DEV_SHIFT;
 
-	/* Validate the region before programming any HNF node */
+	/* XC2VM3654 uses its own cache coherence root nodes */
+	if ((DevCode >= PMC_TAP_IDCODE_XC2VM3654_DEV_MIN) &&
+	    (DevCode <= PMC_TAP_IDCODE_XC2VM3654_DEV_MAX)) {
+		MemAddr = Xc2vm3654MemAddr;
+		NumRootNodes = ARRAY_SIZE(Xc2vm3654MemAddr);
+	}
+
+	/* Validate the region before programming any root node */
 	if (NULL == AddrRegion) {
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -47,14 +63,14 @@ static XStatus AddrRegnCmnFlushCb(const XPm_AddrRegion *const AddrRegion)
 
 	/**
 	 * Flush DDR and OCM addresses using ABF (Address based flush) for
-	 * NID8, NID72, NID136 and NID200
+	 * every cache coherence root node on this device
 	 */
 	PmInfo("Region: Addr: 0x%x_%x, Size: 0x%x_%x\r\n",
 		(u32)(AddrRegion->Address >> 32U), (u32)(AddrRegion->Address),
 		(u32)(AddrRegion->Size >> 32U), (u32)(AddrRegion->Size));
 
-	/* Program and complete the address-based flush at each HNF node */
-	for (u32 Idx = 0U; Idx < ARRAY_SIZE(MemAddr); Idx++) {
+	/* Program and complete the address-based flush at each root node */
+	for (u32 Idx = 0U; Idx < NumRootNodes; Idx++) {
 		XPm_Out32(MemAddr[Idx] + ABF_LO_ADDR_U_HNF_NID_OFFSET_0,
 			  (u32)(AddrRegion->Address));
 		XPm_Out32(MemAddr[Idx] + ABF_LO_ADDR_U_HNF_NID_OFFSET_1,
@@ -67,7 +83,7 @@ static XStatus AddrRegnCmnFlushCb(const XPm_AddrRegion *const AddrRegion)
 		Status = XPm_PollForMask(MemAddr[Idx] + ABF_SR_U_HNF_NID_OFFSET, 0x1U,
 					 XPM_POLL_TIMEOUT);
 		if (XST_SUCCESS != Status) {
-			/* Stop before programming later HNF nodes after a timeout */
+			/* Stop before programming later root nodes after a timeout */
 			goto done;
 		}
 	}
@@ -352,7 +368,7 @@ XStatus XPmSubsystem_CmnFlush(u32 SubsystemId)
  *
  * @return XST_SUCCESS if successful else appropriate return code
  *
- * @note 	Function needs to be updates to accomodate RPU Cores
+ * @note 	Function needs to be updated to accommodate RPU cores.
  *
  ****************************************************************************/
 XStatus XPmSubsystem_CmnFlushForCore(u32 PowerDomainId) {
