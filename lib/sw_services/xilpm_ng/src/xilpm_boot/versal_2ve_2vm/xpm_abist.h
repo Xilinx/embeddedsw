@@ -58,7 +58,7 @@ extern "C" {
 #define INTASU_GPV_INTASU_PL_BISTDONE_BISTDONE_MASK		(0x00000001U)
 #define INTASU_GPV_INTASU_PL_BISTDONE_MISSIONMODE_MASK		(0x00000002U)
 
-/*
+/**
  * Read both samples before comparing.
  * Skip only when both samples indicate the function is disabled.
  */
@@ -73,7 +73,7 @@ static inline u32 XPm_HousecleanCheck(u32 Address, u32 BlockMask,
 }
 
 /**
- * FALSE if house clean of given BLOCK and FUNC is skipped
+ * FALSE if house clean of given BLOCK and FUNC is skipped.
  * Note:  The condition is evaluated redundantly to avoid glitches from altering
  * branching decision.
  * The BLOCK we supported is only PLD
@@ -88,7 +88,13 @@ static inline u32 XPm_HousecleanCheck(u32 Address, u32 BlockMask,
 		HOUSECLEAN_FUNC_DISABLE_ ##FUNC## _MASK))
 
 /************************** Function Prototypes ******************************/
-XStatus XPmPl_Abist(void);
+/* Software mask flags */
+#define XPM_ABIST_LPD_MASK	((u32)0x1U)
+#define XPM_ABIST_FPD_MASK	((u32)0x2U)
+#define XPM_ABIST_ASU_MASK	((u32)0x4U)
+#define XPM_ABIST_ALL_MASK	(XPM_ABIST_LPD_MASK | XPM_ABIST_FPD_MASK | XPM_ABIST_ASU_MASK)
+
+XStatus XPmPl_Abist(u32 DomainMask);
 
 
 #ifdef __cplusplus

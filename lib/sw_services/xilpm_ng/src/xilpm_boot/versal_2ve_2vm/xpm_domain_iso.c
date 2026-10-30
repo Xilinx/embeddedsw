@@ -318,15 +318,25 @@ XStatus XPmDomainIso_ProcessPending(void)
 	}
 
 	/*
-	 * Run ABIST only after LPD-PL isolation is marked OFF.
+	 * Run LPD and ASU ABIST only after LPD-PL isolation is marked OFF.
 	 * Check after the complete scan, including when this isolation
 	 * was already OFF on entry.
 	 */
 	IsoNode = XPmDomainIso_List[(u32)XPM_NODEIDX_ISO_LPD_PL];
-
 	if (NULL != IsoNode) {
 		if ((u8)PM_ISOLATION_OFF == IsoNode->Node.State) {
-			Status = XPmPl_Abist();
+			Status = XPmPl_Abist(XPM_ABIST_LPD_MASK | XPM_ABIST_ASU_MASK);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+		}
+	}
+
+	/* Run FPD ABIST only after FPD-PL isolation is marked OFF. */
+	IsoNode = XPmDomainIso_List[(u32)XPM_NODEIDX_ISO_FPD_PL];
+	if (NULL != IsoNode) {
+		if ((u8)PM_ISOLATION_OFF == IsoNode->Node.State) {
+			Status = XPmPl_Abist(XPM_ABIST_FPD_MASK);
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
