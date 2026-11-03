@@ -1,12 +1,11 @@
 /******************************************************************************
  *
  * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1800;
-_HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 0x100;
 _USER_CODE_SIZE = DEFINED(_USER_CODE_SIZE) ? _USER_CODE_SIZE : 0x0;
 /* Define Memories in the system */
 
@@ -189,16 +188,7 @@ _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
 _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
-/* Generate Stack and Heap definitions */
-
-.heap (NOLOAD) : {
-   . = ALIGN(8);
-   _heap = .;
-   _heap_start = .;
-   . += _HEAP_SIZE;
-   _heap_end = .;
-} > tmr_ram_cntlr_Mem
-
+/* Stack definition */
 .stack (NOLOAD) : {
    _stack_end = .;
    . += _STACK_SIZE;
